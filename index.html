@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prime Piece — One Of One Sculptural Stone</title>
+<meta name="description" content="Handcrafted one-of-one sculptural stone plinths, tables and boards. Carved in Auckland from Italian and Spanish stone. Free room render — see your piece in your space.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1EA;
+    --cream-soft: #EBE5DA;
+    --cream-deep: #E0D9CA;
+    --sage: #7BA5A8;
+    --sage-deep: #5D8588;
+    --sage-soft: #A8C3C5;
+    --ink: #2C2A26;
+    --ink-soft: #554F45;
+    --stone: #8A8275;
+    --line: rgba(44, 42, 38, 0.12);
+    --line-strong: rgba(44, 42, 38, 0.22);
+    --display: 'Cormorant Garamond', serif;
+    --script: 'Dancing Script', cursive;
+    --body: 'Inter Tight', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--body);
+    font-weight: 300;
+    line-height: 1.5;
+    overflow-x: hidden;
+    letter-spacing: 0.01em;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(245, 241, 234, 0.94);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 48px;
+  }
+  .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: var(--sage);
+  }
+  .logo-sub {
+    font-family: var(--script);
+    font-size: 14px;
+    color: var(--sage);
+    margin-top: 2px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--sage);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover { color: var(--sage); }
+  .nav-links a:hover::after { width: 100%; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .logo { font-size: 18px; }
+    .logo-sub { font-size: 12px; }
+  }
+
+  .hero {
+    min-height: 100vh;
+    padding: 140px 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 15% 25%, rgba(123, 165, 168, 0.08), transparent 55%),
+      radial-gradient(ellipse at 85% 75%, rgba(224, 217, 202, 0.5), transparent 50%);
+    pointer-events: none;
+  }
+  @media (max-width: 968px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 110px 20px 60px;
+      gap: 40px;
+    }
+  }
+
+  .hero-copy { position: relative; z-index: 2; }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--sage);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  h1 em {
+    font-family: var(--script);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--sage);
+    font-size: 0.85em;
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+  .btn-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--sage);
+    color: var(--sage);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--body);
+    font-weight: 500;
+    border-radius: 2px;
+  }
+  .btn:hover {
+    background: var(--sage);
+    color: var(--cream);
+  }
+  .btn-primary {
+    background: var(--sage);
+    color: var(--cream);
+  }
+  .btn-primary:hover {
+    background: var(--sage-deep);
+    border-color: var(--sage-deep);
+  }
+  .btn-arrow { transition: transform 0.3s ease; }
+  .btn:hover .btn-arrow { transform: translateX(4px); }
+
+  .preview-tool {
+    position: relative;
+    z-index: 2;
+    background: var(--cream-soft);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(44, 42, 38, 0.12);
+  }
+  .tool-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream);
+  }
+  .tool-title {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .tool-badge {
+    font-family: var(--script);
+    font-size: 16px;
+    color: var(--sage);
+    font-weight: 500;
+  }
+
+  .form-upload {
+    position: relative;
+    padding: 22px 22px 0;
+  }
+  .upload-zone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 36px 28px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--cream);
+  }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--sage);
+    background: rgba(123, 165, 168, 0.06);
+  }
+  .upload-zone svg {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+    color: var(--sage);
+    opacity: 0.7;
+  }
+  .upload-zone h3 {
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .upload-zone p {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    max-width: 280px;
+    line-height: 1.5;
+  }
+  .upload-zone .upload-btn-text {
+    display: inline-block;
+    padding: 10px 22px;
+    background: var(--sage);
+    color: var(--cream);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  #lounge-upload {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .upload-preview {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--sage);
+    border-radius: 2px;
+    margin-top: 10px;
+    background: var(--cream);
+  }
+  .upload-preview.active { display: flex; }
+  .upload-preview img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+  .upload-preview .file-meta {
+    flex: 1;
+    font-size: 12px;
+    color: var(--ink-soft);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .upload-preview .file-meta strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .form-fields {
+    padding: 16px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 520px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+  .form-fields input,
+  .form-fields select,
+  .form-fields textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--cream);
+    transition: border-color 0.2s ease;
+  }
+  .form-fields input::placeholder,
+  .form-fields textarea::placeholder { color: var(--stone); }
+  .form-fields input:focus,
+  .form-fields select:focus,
+  .form-fields textarea:focus {
+    outline: none;
+    border-color: var(--sage);
+  }
+  .form-fields textarea { resize: vertical; min-height: 60px; }
+  .form-fields select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1L6 6L11 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .form-action {
+    padding: 14px 22px 18px;
+    border-top: 1px solid var(--line);
+    background: var(--cream);
+  }
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--sage);
+    color: var(--cream);
+    border: none;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .submit-btn:hover { background: var(--sage-deep); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn .btn-arrow { transition: transform 0.3s ease; }
+  .submit-btn:hover .btn-arrow { transform: translateX(4px); }
+
+  .form-success {
+    padding: 70px 30px;
+    text-align: center;
+  }
+  .form-success h3 {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--sage);
+    margin-bottom: 12px;
+  }
+  .form-success p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  section {
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 768px) { section { padding: 72px 20px; } }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    margin-bottom: 72px;
+    align-items: end;
+  }
+  @media (max-width: 768px) {
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 44px;
+    }
+  }
+  .section-num {
+    font-family: var(--script);
+    font-size: 18px;
+    color: var(--sage);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  h2 {
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: clamp(38px, 5vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  h2 em {
+    font-family: var(--script);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--sage);
+    font-size: 0.85em;
+  }
+  .section-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 520px;
+  }
+
+  .process-section { background: var(--cream-soft); }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 768px) { .process-grid { grid-template-columns: 1fr; } }
+  .process-step {
+    padding: 48px 32px;
+    border-right: 1px solid var(--line);
+  }
+  .process-step:last-child { border-right: none; }
+  @media (max-width: 768px) {
+    .process-step { border-right: none; border-bottom: 1px solid var(--line); }
+    .process-step:last-child { border-bottom: none; }
+  }
+  .process-num {
+    font-family: var(--script);
+    font-size: 52px;
+    color: var(--sage);
+    margin-bottom: 20px;
+    line-height: 1;
+    font-weight: 500;
+  }
+  .process-step h3 {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .process-step p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 968px) { .story { grid-template-columns: 1fr; gap: 40px; } }
+
+  .story-img {
+    aspect-ratio: 4/5;
+    background: var(--cream-soft);
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+  }
+  .story-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .story p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    max-width: 480px;
+  }
+  .story .lead {
+    font-family: var(--display);
+    font-size: 24px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 28px;
+    margin-top: 28px;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 968px) { .testimonial-grid { grid-template-columns: 1fr; } }
+
+  .testimonial {
+    padding: 36px 30px;
+    border: 1px solid var(--line);
+    background: var(--cream-soft);
+    position: relative;
+    border-radius: 2px;
+  }
+  .testimonial::before {
+    content: '"';
+    position: absolute;
+    top: 8px;
+    left: 18px;
+    font-family: var(--display);
+    font-size: 72px;
+    color: var(--sage);
+    line-height: 1;
+    opacity: 0.3;
+  }
+  .stars {
+    color: var(--sage);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    position: relative;
+  }
+  .testimonial-title {
+    font-family: var(--display);
+    font-size: 24px;
+    font-style: italic;
+    margin-bottom: 14px;
+    color: var(--ink);
+    position: relative;
+  }
+  .testimonial-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .testimonial-author {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+
+  .cta-section {
+    padding: 140px 48px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at center, rgba(123, 165, 168, 0.12), transparent 70%),
+      var(--cream);
+  }
+  @media (max-width: 768px) { .cta-section { padding: 80px 20px; } }
+  .cta-section h2 {
+    max-width: 800px;
+    margin: 0 auto 28px;
+  }
+  .cta-section p {
+    max-width: 480px;
+    margin: 0 auto 36px;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  footer {
+    padding: 60px 48px 36px;
+    background: var(--cream-soft);
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 768px) { footer { padding: 40px 20px 24px; } }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 44px;
+  }
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  .footer-brand {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    margin-bottom: 4px;
+    color: var(--sage);
+  }
+  .footer-brand-sub {
+    font-family: var(--script);
+    color: var(--sage);
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+  .footer-brand-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 320px;
+  }
+  .footer-col h4 {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 10px;
+    transition: color 0.2s ease;
+  }
+  .footer-col a:hover { color: var(--sage); }
+  .footer-bottom {
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 768px) {
+    .footer-bottom { flex-direction: column; gap: 12px; }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-up.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo-wrap">
+    <div class="logo">PRIME PIECE</div>
+    <div class="logo-sub">one of one</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#preview">Free Render</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="preview">
+  <div class="hero-copy">
+    <div class="eyebrow">Handcrafted in Auckland</div>
+    <h1>See stone<br>live in your <em>space</em>.</h1>
+    <p class="hero-sub">Send us a photo of your lounge and pick a piece. We'll render it in your actual room and send it back within 24 hours — completely free.</p>
+    <div class="btn-row">
+      <a href="#preview-form" class="btn btn-primary">Get Your Free Render <span class="btn-arrow">→</span></a>
+      <a href="#story" class="btn">Our Story</a>
+    </div>
+  </div>
+
+  <div class="preview-tool" id="preview-form">
+    <div class="tool-header">
+      <span class="tool-title">Free Room Render</span>
+      <span class="tool-badge">24h turnaround</span>
+    </div>
+
+    <form id="render-form" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="access_key" value="5ffdf49a-678a-4841-bcec-dbbe9a66e930">
+      <input type="hidden" name="subject" value="New Prime Piece render request">
+      <input type="hidden" name="from_name" value="Prime Piece Website">
+
+      <div class="form-upload">
+        <label class="upload-zone" id="upload-zone" for="lounge-upload">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 17V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V17" stroke-linecap="round"/>
+          </svg>
+          <h3>Upload your lounge</h3>
+          <p>Drop a photo here or tap upload. We'll place your piece in seconds.</p>
+          <span class="upload-btn-text">Upload Photo</span>
+          <input type="file" id="lounge-upload" name="lounge_photo" accept="image/*" required>
+        </label>
+        <div class="upload-preview" id="upload-preview">
+          <img id="preview-thumb" alt="">
+          <div class="file-meta">
+            <strong id="preview-name"></strong>
+            <span id="preview-size"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-fields">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-row">
+          <select name="piece" id="piece-select" required>
+            <option value="">Which piece?</option>
+            <option value="Rosso Africano">Rosso Africano — Red Marble Plinth</option>
+            <option value="Carrara Marble">Carrara — Italian White Marble</option>
+            <option value="Verde Apli">Verde Apli — Green Marble Plinth</option>
+            <option value="Basalt Black">Basalt Black — Black Stone Table</option>
+            <option value="Custom">Custom / Made to order</option>
+          </select>
+          <select name="room" required>
+            <option value="">Where will it go?</option>
+            <option>Living room</option>
+            <option>Dining room</option>
+            <option>Office</option>
+            <option>Outdoor</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <input type="tel" name="phone" placeholder="Mobile number" required>
+        <textarea name="notes" placeholder="Anything else? (size, location, timeline)" rows="2"></textarea>
+      </div>
+
+      <div class="form-action">
+        <button type="submit" class="submit-btn">
+          Send My Photo <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="form-success" id="form-success" hidden>
+      <h3>Got it.</h3>
+      <p>Your render will land in your inbox within 24 hours. Keep an eye on your spam just in case.</p>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="process">
+  <div class="section-head">
+    <div>
+      <div class="section-num">01 — Process</div>
+      <h2>From quarry<br>to <em>lounge</em>.</h2>
+    </div>
+    <p class="section-desc">Every Prime Piece moves through three hands: the quarry in Spain or Italy, the stonemason's bench in Auckland, and your front door.</p>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="process-num">one</div>
+      <h3>Source</h3>
+      <p>Stone is hand-selected at quarries in Spain and Italy. Every slab is chosen for movement, colour and character — not for uniformity, but for presence.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">two</div>
+      <h3>Carve</h3>
+      <p>Shaped over days, sometimes weeks, by hand at our Auckland workshop. Seven years as a stonemason informs every cut. No production line. No duplicates.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">three</div>
+      <h3>Deliver</h3>
+      <p>Wrapped, crated, and delivered white-glove across New Zealand. Each piece arrives with its own certificate of origin and care instructions.</p>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="story">
+    <div class="story-img">
+      <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Ot4KmSwU8waBdjPcdQXm/media/69cdd3e0f036004cdebde4b3.jpeg" alt="Prime Piece workshop">
+    </div>
+    <div>
+      <div class="section-num">02 — Story</div>
+      <h2>Weight.<br>Texture.<br><em>Presence</em>.</h2>
+      <p class="lead">"I wanted to make furniture that felt ancient and modern at the same time — something you could inherit."</p>
+      <p>Prime Piece began with a simple idea. Transform natural stone into sculptural tables that celebrate the material's raw beauty.</p>
+      <p>Each piece starts with stone carefully selected from quarries in Spain and Italy, chosen for its movement, colour and character. Years working as a stonemason shaped the vision: pieces that bring permanence and weight into a modern space.</p>
+      <p>Every Prime Piece is one of one. Carved from natural stone. Ensuring no two pieces are ever the same.</p>
+      <a href="#contact" class="btn" style="margin-top:28px">Get In Touch <span class="btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <div>
+      <div class="section-num">03 — Reviews</div>
+      <h2>From <em>kiwi</em><br>homes.</h2>
+    </div>
+    <p class="section-desc">95 satisfied customers across New Zealand. Every piece installed, every story different.</p>
+  </div>
+
+  <div class="testimonial-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-title">Stoked.</div>
+      <p class="testimonial-body">Stoked with our one of a kind piece for the office. Been a real conversation starter with visitors and the boys, and we're stoked with the beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece.</p>
+      <div class="testimonial-author">Jamie McDowell</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-title">Stunning.</div>
+      <p class="testimonial-body">This is a stunning piece — quite heavy and solid, with a beautiful granite top. The craftsmanship is exceptional and the piece has completely transformed the room.</p>
+      <div class="testimonial-author">Kate de Lautour</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-title">Highly Recommend.</div>
+      <p class="testimonial-body">Absolutely love our side coffee tables. Would highly recommend it to anyone who's looking for some stunning furniture. Would've got more if we had more rooms.</p>
+      <div class="testimonial-author">Cindy Z</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="section-num">04 — Enquire</div>
+  <h2>Commission<br>a <em>Prime Piece</em>.</h2>
+  <p>Made-to-order tables, plinths and boards. Designed for your space, fabricated from stone you choose. Reach out to start the conversation.</p>
+  <div class="btn-row" style="justify-content:center">
+    <a href="mailto:james@primepiece.co.nz" class="btn btn-primary">Request A Quote <span class="btn-arrow">→</span></a>
+    <a href="tel:0211466990" class="btn">Call 021 146 6990</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">PRIME PIECE</div>
+      <div class="footer-brand-sub">one of one</div>
+      <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. One of one, carved in Auckland from Italian and Spanish stone.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Plinths</a>
+      <a href="#">Tables</a>
+      <a href="#">Boards</a>
+      <a href="#">Made To Order</a>
+    </div>
+    <div class="footer-col">
+      <h4>Brand</h4>
+      <a href="#">About</a>
+      <a href="#">Process</a>
+      <a href="#">Gallery</a>
+      <a href="#">Giveaway</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a>
+      <a href="tel:0211466990">021 146 6990</a>
+      <a href="#">Archers Road, Wairau Valley</a>
+      <a href="#">Auckland, NZ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Prime Piece Ltd. All Rights Reserved.</span>
+    <span>Crafted in Auckland</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Fade-in animations
+  document.querySelectorAll('section').forEach(s => s.classList.add('fade-up'));
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // File upload preview + drag/drop
+  const uploadInput = document.getElementById('lounge-upload');
+  const uploadZone = document.getElementById('upload-zone');
+  const uploadPreview = document.getElementById('upload-preview');
+  const previewThumb = document.getElementById('preview-thumb');
+  const previewName = document.getElementById('preview-name');
+  const previewSize = document.getElementById('preview-size');
+
+  function showPreview(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      previewThumb.src = e.target.result;
+      previewName.textContent = file.name;
+      previewSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+      uploadPreview.classList.add('active');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  uploadInput.addEventListener('change', (e) => {
+    if (e.target.files[0]) showPreview(e.target.files[0]);
+  });
+
+  uploadZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadZone.classList.add('drag-over');
+  });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+  uploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      uploadInput.files = dt.files;
+      showPreview(file);
+    }
+  });
+
+  // Form submit (AJAX to Web3Forms, then show success state inline)
+  const form = document.getElementById('render-form');
+  const successPanel = document.getElementById('form-success');
+  const submitBtn = form.querySelector('.submit-btn');
+  const submitBtnDefault = submitBtn.innerHTML;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Sending...';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success !== false) {
+        form.style.display = 'none';
+        successPanel.hidden = false;
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = submitBtnDefault;
+      alert('Could not send. Please try again or email james@primepiece.co.nz directly.');
+    }
+  });
+</script>
+
+</body>
+</html>
