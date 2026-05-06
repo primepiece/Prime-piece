@@ -116,7 +116,7 @@
     align-items: center;
     position: relative;
     border-bottom: 1px solid var(--line);
-    background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1920&q=80');
+    background-image: url('hero.jpg');
     background-size: cover;
     background-position: center;
   }
@@ -708,6 +708,45 @@
     .footer-bottom { flex-direction: column; gap: 12px; }
   }
 
+  .lifestyle-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (max-width: 768px) { .lifestyle-grid { grid-template-columns: 1fr; } }
+  .lifestyle-img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+  }
+  .lifestyle-img:first-child { aspect-ratio: 4/5; }
+  .lifestyle-img:last-child { aspect-ratio: 3/4; margin-top: 80px; }
+  @media (max-width: 768px) { .lifestyle-img:last-child { margin-top: 0; } }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) { .collection-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .collection-item img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .collection-label {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+  }
+
   .fade-up {
     opacity: 0;
     transform: translateY(20px);
@@ -815,6 +854,37 @@
   </div>
 </section>
 
+<section>
+  <div class="lifestyle-grid">
+    <img class="lifestyle-img" src="lifestyle-1.jpg" alt="Prime Piece in situ">
+    <img class="lifestyle-img" src="lifestyle-2.jpg" alt="Prime Piece lifestyle">
+  </div>
+</section>
+
+<section id="collection">
+  <div class="section-head">
+    <div>
+      <div class="section-num">The Collection</div>
+      <h2>Stone.<br><em>Sculpted</em>.</h2>
+    </div>
+    <p class="section-desc">Plinths, tables and boards. Each piece carved from natural stone — one of one, never repeated.</p>
+  </div>
+  <div class="collection-grid">
+    <div class="collection-item">
+      <img src="product-1.jpg" alt="Stone Plinths">
+      <div class="collection-label">Plinths</div>
+    </div>
+    <div class="collection-item">
+      <img src="product-2.jpg" alt="Stone Tables">
+      <div class="collection-label">Tables</div>
+    </div>
+    <div class="collection-item">
+      <img src="product-3.jpg" alt="Stone Boards">
+      <div class="collection-label">Boards</div>
+    </div>
+  </div>
+</section>
+
 <section class="process-section" id="process">
   <div class="section-head">
     <div>
@@ -826,19 +896,19 @@
 
   <div class="process-grid">
     <div class="process-step">
-      <img class="process-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="White Carrara marble slab at Italian quarry">
+      <img class="process-img" src="process-1.jpg" alt="Stone sourcing">
       <div class="process-num">one</div>
       <h3>Source</h3>
       <p>Stone is hand-selected at quarries in Spain and Italy. Every slab is chosen for movement, colour and character — not for uniformity, but for presence.</p>
     </div>
     <div class="process-step">
-      <img class="process-img" src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=800&q=80" alt="Craftsman shaping stone at Auckland workshop">
+      <img class="process-img" src="process-2.jpg" alt="Stone carving">
       <div class="process-num">two</div>
       <h3>Carve</h3>
       <p>Shaped over days, sometimes weeks, by hand at our Auckland workshop. Seven years as a stonemason informs every cut. No production line. No duplicates.</p>
     </div>
     <div class="process-step">
-      <img class="process-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Stone piece in a minimal New Zealand home">
+      <img class="process-img" src="process-3.jpg" alt="Stone delivery">
       <div class="process-num">three</div>
       <h3>Deliver</h3>
       <p>Wrapped, crated, and delivered white-glove across New Zealand. Each piece arrives with its own certificate of origin and care instructions.</p>
