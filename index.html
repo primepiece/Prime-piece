@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Prime Piece — One Of One Sculptural Stone</title>
-<meta name="description" content="Handcrafted one-of-one sculptural stone plinths, tables and boards. Carved in Auckland from Italian and Spanish stone. Free room render — see your piece in your space.">
+<meta name="description" content="Handcrafted one-of-one sculptural stone plinths, tables and boards. Carved in Auckland from Italian and Spanish stone.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
     --ink-soft: #554F45;
     --stone: #8A8275;
     --line: rgba(44, 42, 38, 0.12);
-    --line-inv: rgba(255, 255, 255, 0.1);
+    --line-inv: rgba(255, 255, 255, 0.08);
     --display: 'Cormorant Garamond', serif;
     --script: 'Dancing Script', cursive;
     --body: 'Inter Tight', -apple-system, sans-serif;
@@ -88,18 +88,9 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(18,15,12,0.35) 0%,
-      rgba(18,15,12,0.22) 40%,
-      rgba(18,15,12,0.80) 100%
-    );
+    background: linear-gradient(to bottom, rgba(18,15,12,0.35) 0%, rgba(18,15,12,0.22) 40%, rgba(18,15,12,0.80) 100%);
   }
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 720px;
-  }
+  .hero-content { position: relative; z-index: 2; max-width: 720px; }
   .eyebrow {
     font-size: 10px;
     letter-spacing: 0.35em;
@@ -154,6 +145,8 @@
   .btn-primary:hover { background: var(--sage-deep); border-color: var(--sage-deep); }
   .btn-ghost { border-color: rgba(255,255,255,0.55); color: #fff; background: transparent; }
   .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.85); color: #fff; }
+  .btn-dark { border-color: rgba(255,255,255,0.28); color: rgba(255,255,255,0.75); background: transparent; }
+  .btn-dark:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.55); color: #fff; }
   .btn-arrow { transition: transform 0.3s; }
   .btn:hover .btn-arrow { transform: translateX(4px); }
   .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -219,7 +212,6 @@
     font-size: 40px;
     font-weight: 300;
     color: #fff;
-    letter-spacing: 0.01em;
     line-height: 1;
   }
   .collection-card-arrow {
@@ -233,47 +225,117 @@
 
   /* ─── RENDER ──────────────────────────────────────── */
   .render-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    background: var(--cream-soft);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
+    padding: 96px 56px;
   }
-  .render-copy {
-    padding: 88px 56px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--cream);
-    border-right: 1px solid var(--line);
+  .render-intro {
+    max-width: 600px;
+    margin: 0 auto 64px;
+    text-align: center;
   }
-  .render-copy h2 { margin-bottom: 18px; }
-  .render-copy p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 380px; margin-bottom: 36px; }
-  .render-form-col {
-    padding: 56px 56px;
-    background: var(--cream-soft);
+  .render-intro h2 { margin-bottom: 16px; }
+  .render-intro p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
+
+  /* Before/After slider */
+  .ba-wrap { max-width: 960px; margin: 0 auto; }
+  .ba-slider {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    border-radius: 2px;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: pan-y;
+    box-shadow: 0 24px 64px rgba(44,42,38,0.14);
+    margin-bottom: 14px;
+  }
+  .ba-after, .ba-before { position: absolute; inset: 0; }
+  .ba-after img, .ba-before img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .ba-before { clip-path: inset(0 50% 0 0); }
+  .ba-before img { filter: saturate(0.12) brightness(0.65) contrast(0.9); }
+  .ba-divider {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(255,255,255,0.9);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .ba-handle {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #fff;
     display: flex;
     align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    pointer-events: none;
+    color: var(--ink);
   }
+  .ba-handle svg { width: 15px; height: 15px; }
+  .ba-label {
+    position: absolute;
+    bottom: 18px;
+    padding: 5px 12px;
+    background: rgba(18,15,12,0.55);
+    backdrop-filter: blur(6px);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.88);
+    font-weight: 500;
+    border-radius: 1px;
+    pointer-events: none;
+  }
+  .ba-label-before { left: 18px; }
+  .ba-label-after { right: 18px; }
+  .ba-note {
+    text-align: center;
+    font-size: 10px;
+    color: var(--stone);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 80px;
+  }
+
+  /* Render form */
+  .render-form-outer { max-width: 520px; margin: 0 auto; }
+  .render-form-head { text-align: center; margin-bottom: 28px; }
+  .render-form-head h3 {
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .render-form-head p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
   .render-card {
-    width: 100%;
     background: var(--cream);
     border: 1px solid var(--line);
     border-radius: 3px;
     overflow: hidden;
-    box-shadow: 0 20px 56px rgba(44,42,38,0.08);
+    box-shadow: 0 16px 48px rgba(44,42,38,0.08);
   }
   .render-card-header {
-    padding: 14px 20px;
+    padding: 13px 20px;
     border-bottom: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   .render-card-title { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
-  .render-card-badge { font-family: var(--script); font-size: 15px; color: var(--sage); }
+  .render-card-badge { font-family: var(--script); font-size: 14px; color: var(--sage); }
   .upload-zone {
     position: relative;
-    padding: 32px 24px;
+    padding: 28px 24px;
     border-bottom: 1px solid var(--line);
     display: flex;
     flex-direction: column;
@@ -283,16 +345,16 @@
     transition: background 0.3s;
   }
   .upload-zone:hover { background: rgba(123,165,168,0.05); }
-  .upload-zone svg { width: 26px; height: 26px; color: var(--sage); margin-bottom: 10px; opacity: 0.75; }
-  .upload-zone h3 { font-family: var(--display); font-size: 20px; font-weight: 400; margin-bottom: 5px; color: var(--ink); }
-  .upload-zone p { font-size: 12px; color: var(--stone); max-width: 200px; line-height: 1.5; }
+  .upload-zone svg { width: 24px; height: 24px; color: var(--sage); margin-bottom: 10px; opacity: 0.7; }
+  .upload-zone h4 { font-family: var(--display); font-size: 19px; font-weight: 400; margin-bottom: 4px; color: var(--ink); }
+  .upload-zone p { font-size: 12px; color: var(--stone); max-width: 190px; line-height: 1.5; }
   #lounge-upload { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .upload-preview { display: none; align-items: center; gap: 12px; padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--cream-soft); }
   .upload-preview.active { display: flex; }
-  .upload-preview img { width: 38px; height: 38px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+  .upload-preview img { width: 36px; height: 36px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
   .upload-preview .file-meta { font-size: 12px; color: var(--ink-soft); overflow: hidden; min-width: 0; }
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .rf { padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .rf { padding: 12px 20px; display: flex; flex-direction: column; gap: 8px; }
   .rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .rf input, .rf select {
     width: 100%; padding: 10px 12px;
@@ -312,24 +374,23 @@
   }
   .render-submit {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: calc(100% - 40px); margin: 4px 20px 18px;
+    width: calc(100% - 40px); margin: 4px 20px 16px;
     padding: 13px; background: var(--sage); color: var(--cream);
     border: none; border-radius: 1px;
     font-family: var(--body); font-size: 10px;
     letter-spacing: 0.25em; text-transform: uppercase;
-    font-weight: 500; cursor: pointer;
-    transition: background 0.2s;
+    font-weight: 500; cursor: pointer; transition: background 0.2s;
   }
   .render-submit:hover { background: var(--sage-deep); }
-  .form-success { padding: 52px 24px; text-align: center; }
-  .form-success h3 { font-family: var(--display); font-size: 28px; color: var(--sage); font-weight: 400; margin-bottom: 10px; }
+  .form-success { padding: 48px 24px; text-align: center; }
+  .form-success h3 { font-family: var(--display); font-size: 26px; color: var(--sage); font-weight: 400; margin-bottom: 8px; }
   .form-success p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
 
   /* ─── PROCESS ─────────────────────────────────────── */
   .process-section { background: var(--ink); }
   .process-header {
     padding: 96px 56px 72px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid var(--line-inv);
   }
   .process-header .section-label { color: var(--sage-soft); margin-bottom: 20px; }
   .process-header h2 { color: #fff; }
@@ -337,33 +398,132 @@
   .process-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid var(--line-inv);
   }
   .process-item {
-    padding: 80px 48px;
-    border-right: 1px solid rgba(255,255,255,0.07);
+    padding: 52px 48px 64px;
+    border-right: 1px solid var(--line-inv);
     display: flex;
     flex-direction: column;
   }
   .process-item:last-child { border-right: none; }
+  .process-img-wrap { width: 100%; overflow: hidden; margin-bottom: 40px; border-radius: 1px; }
+  .process-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.52) contrast(1.12) saturate(0.55);
+    transition: filter 0.7s ease;
+  }
+  .process-item:hover .process-img { filter: brightness(0.64) contrast(1.06) saturate(0.7); }
   .process-num {
     font-family: var(--script);
-    font-size: 88px;
+    font-size: 72px;
     color: var(--sage);
     line-height: 1;
-    margin-bottom: 48px;
+    margin-bottom: 28px;
     display: block;
-    opacity: 0.85;
+    opacity: 0.82;
   }
   .process-item h3 {
     font-family: var(--display);
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 300;
     color: #fff;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     letter-spacing: -0.01em;
   }
-  .process-item p { font-size: 15px; color: rgba(255,255,255,0.40); line-height: 1.75; max-width: 280px; }
+  .process-item p { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.8; max-width: 260px; }
+
+  /* ─── AVAILABLE NOW ───────────────────────────────── */
+  .available-section {
+    padding: 96px 56px;
+    background: var(--cream);
+    border-top: 1px solid var(--line);
+  }
+  .available-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+  }
+  .available-header-right {
+    font-size: 13px;
+    color: var(--ink-soft);
+    max-width: 300px;
+    line-height: 1.75;
+    text-align: right;
+  }
+  .available-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .avail-card { display: flex; flex-direction: column; }
+  .avail-card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+  .avail-card-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .avail-card:hover .avail-card-img { transform: scale(1.04); }
+  .avail-card-status {
+    position: absolute;
+    top: 14px; left: 14px;
+    padding: 4px 10px;
+    background: var(--sage);
+    color: var(--cream);
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 1px;
+  }
+  .avail-card-name { font-family: var(--display); font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+  .avail-card-stone { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 6px; }
+  .avail-card-dims { font-size: 12px; color: var(--ink-soft); margin-bottom: 20px; }
+  .avail-card-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
+  .avail-card-type { font-size: 11px; color: var(--stone); }
+
+  /* ─── MADE TO ORDER ───────────────────────────────── */
+  .mto-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
+    min-height: 580px;
+  }
+  .mto-copy {
+    padding: 96px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--ink);
+  }
+  .mto-copy .section-label { color: var(--sage-soft); margin-bottom: 20px; }
+  .mto-copy h2 { color: #fff; margin-bottom: 24px; }
+  .mto-copy h2 em { color: var(--sage-soft); }
+  .mto-copy > p { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.8; max-width: 400px; margin-bottom: 40px; }
+  .mto-options {
+    border-top: 1px solid var(--line-inv);
+    margin-bottom: 44px;
+  }
+  .mto-option {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--line-inv);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .mto-option-label { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; flex-shrink: 0; }
+  .mto-option-val { font-family: var(--display); font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.58); text-align: right; }
+  .mto-image { position: relative; overflow: hidden; }
+  .mto-image img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.72) saturate(0.88); }
 
   /* ─── LIFESTYLE ───────────────────────────────────── */
   .lifestyle-section { padding: 88px 56px; border-top: 1px solid var(--line); }
@@ -410,9 +570,8 @@
 
   /* ─── RESPONSIVE ──────────────────────────────────── */
   @media (max-width: 1024px) {
-    .render-section { grid-template-columns: 1fr; }
-    .render-copy { border-right: none; border-bottom: 1px solid var(--line); }
-    .render-form-col { padding: 48px 40px; }
+    .mto-section { grid-template-columns: 1fr; }
+    .mto-image { min-height: 420px; }
   }
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
@@ -422,13 +581,18 @@
     .collection-header { padding: 64px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .collection-grid { grid-template-columns: 1fr; }
     .collection-card { border-right: none; border-bottom: 1px solid var(--line); }
-    .render-copy { padding: 64px 24px; }
-    .render-form-col { padding: 40px 24px; }
+    .render-section { padding: 72px 24px; }
+    .ba-slider { aspect-ratio: 4/3; }
     .process-header { padding: 64px 24px 56px; }
     .process-grid { grid-template-columns: 1fr; }
-    .process-item { padding: 56px 24px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .process-item { padding: 48px 24px 56px; border-right: none; border-bottom: 1px solid var(--line-inv); }
     .process-item:last-child { border-bottom: none; }
-    .process-num { font-size: 64px; margin-bottom: 32px; }
+    .process-num { font-size: 60px; margin-bottom: 24px; }
+    .available-section { padding: 72px 24px; }
+    .available-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 48px; }
+    .available-header-right { text-align: left; max-width: 100%; }
+    .available-grid { grid-template-columns: 1fr; gap: 48px; }
+    .mto-copy { padding: 72px 24px; }
     .lifestyle-section { padding: 64px 24px; }
     .lifestyle-grid { grid-template-columns: 1fr; gap: 12px; }
     .lifestyle-img:last-child { margin-top: 0; }
@@ -438,6 +602,11 @@
     footer { padding: 56px 24px 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 8px; }
+  }
+  @media (max-width: 480px) {
+    .rf-row { grid-template-columns: 1fr; }
+    .mto-option { flex-direction: column; gap: 4px; }
+    .mto-option-val { text-align: left; }
   }
 </style>
 </head>
@@ -452,7 +621,6 @@
     <li><a href="#collection">Collection</a></li>
     <li><a href="#render">Free Render</a></li>
     <li><a href="#process">Process</a></li>
-    <li><a href="#story">Story</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -503,13 +671,37 @@
 
 <!-- ── RENDER ─────────────────────────────────────────── -->
 <section class="render-section" id="render">
-  <div class="render-copy reveal">
+  <div class="render-intro reveal">
     <span class="section-label">Free Room Render</span>
-    <h2>See it in your<br><em>space</em>.</h2>
-    <p>Upload a photo of your room and we'll render a Prime Piece into it within 24 hours. Free, no commitment.</p>
-    <a href="#render" class="btn btn-primary" style="align-self:flex-start">Get Your Free Render <span class="btn-arrow">→</span></a>
+    <h2>See it in your <em>space</em>.</h2>
+    <p>Upload a photo of your room — we'll place a Prime Piece in it within 24 hours. Free, no commitment.</p>
   </div>
-  <div class="render-form-col">
+
+  <div class="ba-wrap reveal">
+    <div class="ba-slider" id="ba-slider">
+      <div class="ba-after">
+        <img src="lifestyle-1.jpg" alt="After — with Prime Piece">
+      </div>
+      <div class="ba-before" id="ba-before">
+        <img src="lifestyle-1.jpg" alt="Before">
+      </div>
+      <div class="ba-divider" id="ba-divider"></div>
+      <div class="ba-handle" id="ba-handle">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 4L2 10L7 16M13 4L18 10L13 16"/>
+        </svg>
+      </div>
+      <span class="ba-label ba-label-before">Before</span>
+      <span class="ba-label ba-label-after">After — Prime Piece</span>
+    </div>
+  </div>
+  <p class="ba-note">Drag to compare</p>
+
+  <div class="render-form-outer reveal">
+    <div class="render-form-head">
+      <h3>Try it with your room</h3>
+      <p>Upload a photo and we'll show you how a Prime Piece transforms your space.</p>
+    </div>
     <div class="render-card">
       <div class="render-card-header">
         <span class="render-card-title">Upload your room</span>
@@ -525,7 +717,7 @@
             <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M3 17V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V17" stroke-linecap="round"/>
           </svg>
-          <h3>Upload your room</h3>
+          <h4>Upload your room</h4>
           <p>Drop a photo or tap to upload</p>
           <input type="file" id="lounge-upload" name="lounge_photo" accept="image/*" required>
         </label>
@@ -579,20 +771,112 @@
   </div>
   <div class="process-grid">
     <div class="process-item reveal">
+      <div class="process-img-wrap">
+        <img class="process-img" src="process-1.jpg" alt="Stone sourcing">
+      </div>
       <span class="process-num">One</span>
       <h3>Source</h3>
       <p>Stone sourced from Italy and Spain.</p>
     </div>
     <div class="process-item reveal">
+      <div class="process-img-wrap">
+        <img class="process-img" src="process-2.jpg" alt="Stone carving">
+      </div>
       <span class="process-num">Two</span>
       <h3>Craft</h3>
       <p>Cut, finished, and assembled in Auckland.</p>
     </div>
     <div class="process-item reveal">
+      <div class="process-img-wrap">
+        <img class="process-img" src="process-3.jpg" alt="Stone delivery">
+      </div>
       <span class="process-num">Three</span>
-      <h3>One of One</h3>
-      <p>Every piece is unique in movement, tone, and character.</p>
+      <h3>Deliver</h3>
+      <p>Local pickup or delivery arranged depending on the piece.</p>
     </div>
+  </div>
+</section>
+
+<!-- ── AVAILABLE NOW ──────────────────────────────────── -->
+<section class="available-section" id="available">
+  <div class="available-header reveal">
+    <div>
+      <span class="section-label">Available Now</span>
+      <h2>Ready to <em>collect</em>.</h2>
+    </div>
+    <p class="available-header-right">Each piece is one of one. Once it's gone, it's gone. Enquire to arrange collection or local delivery across Auckland.</p>
+  </div>
+  <div class="available-grid">
+    <div class="avail-card reveal">
+      <div class="avail-card-img-wrap">
+        <img class="avail-card-img" src="product-1.jpg" alt="Rosso Africano Plinth">
+        <span class="avail-card-status">Available</span>
+      </div>
+      <div class="avail-card-name">Rosso Africano</div>
+      <div class="avail-card-stone">Red Marble — Italy</div>
+      <div class="avail-card-dims">H: 720mm × Ø: 280mm</div>
+      <div class="avail-card-foot">
+        <span class="avail-card-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Plinth" class="btn">Enquire <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+    <div class="avail-card reveal">
+      <div class="avail-card-img-wrap">
+        <img class="avail-card-img" src="product-2.jpg" alt="Basalt Black Side Table">
+        <span class="avail-card-status">Available</span>
+      </div>
+      <div class="avail-card-name">Basalt Black</div>
+      <div class="avail-card-stone">Black Stone — Spain</div>
+      <div class="avail-card-dims">H: 450mm × W: 500mm × D: 500mm</div>
+      <div class="avail-card-foot">
+        <span class="avail-card-type">Side Table</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Basalt Black Side Table" class="btn">Enquire <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+    <div class="avail-card reveal">
+      <div class="avail-card-img-wrap">
+        <img class="avail-card-img" src="product-3.jpg" alt="Carrara Marble Board">
+        <span class="avail-card-status">Available</span>
+      </div>
+      <div class="avail-card-name">Carrara</div>
+      <div class="avail-card-stone">White Marble — Italy</div>
+      <div class="avail-card-dims">L: 580mm × W: 280mm × D: 28mm</div>
+      <div class="avail-card-foot">
+        <span class="avail-card-type">Serving Board</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Carrara Marble Board" class="btn">Enquire <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MADE TO ORDER ──────────────────────────────────── -->
+<section class="mto-section" id="made-to-order">
+  <div class="mto-copy reveal">
+    <span class="section-label">Made to Order</span>
+    <h2>Commission your<br><em>piece</em>.</h2>
+    <p>Every Prime Piece can be made to your exact specification. Choose your stone, sizing, and finish — fabricated from our Auckland workshop.</p>
+    <div class="mto-options">
+      <div class="mto-option">
+        <span class="mto-option-label">Stone</span>
+        <span class="mto-option-val">Italian & Spanish Marble, Basalt, Granite</span>
+      </div>
+      <div class="mto-option">
+        <span class="mto-option-label">Form</span>
+        <span class="mto-option-val">Plinths, Side Tables, Coffee Tables, Boards</span>
+      </div>
+      <div class="mto-option">
+        <span class="mto-option-label">Finish</span>
+        <span class="mto-option-val">Honed, Polished, Natural</span>
+      </div>
+      <div class="mto-option">
+        <span class="mto-option-label">Lead time</span>
+        <span class="mto-option-val">4–8 weeks from order</span>
+      </div>
+    </div>
+    <a href="mailto:james@primepiece.co.nz?subject=Made to Order Enquiry" class="btn btn-dark">Start a Conversation <span class="btn-arrow">→</span></a>
+  </div>
+  <div class="mto-image">
+    <img src="lifestyle-2.jpg" alt="Prime Piece — made to order">
   </div>
 </section>
 
@@ -655,7 +939,7 @@
       <a href="plinths.html">Plinths</a>
       <a href="tables.html">Tables</a>
       <a href="boards.html">Boards</a>
-      <a href="#contact">Made To Order</a>
+      <a href="#made-to-order">Made To Order</a>
     </div>
     <div class="footer-col">
       <h4>Brand</h4>
@@ -685,10 +969,35 @@
 
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
-    { threshold: 0.1 }
+    { threshold: 0.08 }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  // Before/After slider
+  const baSlider = document.getElementById('ba-slider');
+  const baBefore = document.getElementById('ba-before');
+  const baDivider = document.getElementById('ba-divider');
+  const baHandle = document.getElementById('ba-handle');
+  let baDragging = false;
+
+  function baSetPos(clientX) {
+    const rect = baSlider.getBoundingClientRect();
+    let pct = (clientX - rect.left) / rect.width;
+    pct = Math.max(0.04, Math.min(0.96, pct));
+    const p = (pct * 100).toFixed(1) + '%';
+    baBefore.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(1)}% 0 0)`;
+    baDivider.style.left = p;
+    baHandle.style.left = p;
+  }
+
+  baSlider.addEventListener('mousedown', e => { baDragging = true; baSetPos(e.clientX); });
+  window.addEventListener('mousemove', e => { if (baDragging) baSetPos(e.clientX); });
+  window.addEventListener('mouseup', () => { baDragging = false; });
+  baSlider.addEventListener('touchstart', e => { baDragging = true; baSetPos(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchmove', e => { if (baDragging) baSetPos(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchend', () => { baDragging = false; });
+
+  // File upload preview
   const uploadInput = document.getElementById('lounge-upload');
   const uploadPreview = document.getElementById('upload-preview');
   const previewThumb = document.getElementById('preview-thumb');
