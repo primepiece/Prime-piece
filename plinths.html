@@ -37,6 +37,7 @@
     letter-spacing: 0.01em;
   }
 
+  /* ─── NAV ─────────────────────────────────────────── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -60,6 +61,7 @@
   }
   .nav-links a:hover { color: var(--sage); }
 
+  /* ─── PAGE HERO ───────────────────────────────────── */
   .page-hero {
     padding-top: 80px;
     height: 62vh;
@@ -75,9 +77,8 @@
   }
   .page-hero::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(18,15,12,0.08) 0%, rgba(18,15,12,0.64) 100%);
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(18,15,12,0.08) 0%, rgba(18,15,12,0.68) 100%);
   }
   .page-hero-content { position: relative; z-index: 2; }
   .page-eyebrow { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage-soft); margin-bottom: 12px; font-weight: 500; }
@@ -87,6 +88,7 @@
     line-height: 0.95; letter-spacing: -0.02em; color: #fff;
   }
 
+  /* ─── COLLECTION INTRO ────────────────────────────── */
   .collection-intro {
     padding: 64px 56px;
     display: flex;
@@ -101,27 +103,52 @@
   }
   .intro-left h2 em { font-family: var(--script); font-style: normal; color: var(--sage); font-size: 0.9em; }
   .intro-sub { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
-  .intro-right { font-size: 14px; color: var(--ink-soft); max-width: 380px; line-height: 1.8; }
+  .intro-right { font-size: 14px; color: var(--ink-soft); max-width: 400px; line-height: 1.9; }
 
-  .product-grid {
-    padding: 72px 56px 112px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 56px 36px;
+  /* ─── EDITORIAL STATEMENT ─────────────────────────── */
+  .collection-statement {
+    padding: 48px 56px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .statement-line { width: 40px; height: 1px; background: var(--sage); flex-shrink: 0; }
+  .statement-text {
+    font-family: var(--display);
+    font-size: clamp(17px, 1.8vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    max-width: 760px;
   }
 
+  /* ─── PRODUCT GRID ────────────────────────────────── */
+  .product-grid {
+    padding: 80px 56px 120px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 72px 40px;
+  }
+
+  /* ─── PRODUCT CARD ────────────────────────────────── */
   .product-card { display: flex; flex-direction: column; }
+
   .product-card-img-wrap {
     position: relative;
     overflow: hidden;
     background: var(--cream-deep);
+    margin-bottom: 0;
   }
-  img[src=""] { display: none; }
   .product-card-img {
-    width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center; display: block;
-    transition: transform 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover; object-position: center;
+    display: block;
+    transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  .product-card:hover .product-card-img { transform: scale(1.03); }
+  .product-card:hover .product-card-img { transform: scale(1.04); }
 
   .product-card-status {
     position: absolute; top: 16px; left: 16px;
@@ -133,21 +160,48 @@
   .status-available { background: var(--sage); color: var(--cream); }
   .status-mto { background: rgba(18,15,12,0.52); color: rgba(255,255,255,0.88); backdrop-filter: blur(4px); }
 
-  .product-card-body { padding: 22px 0 0; }
+  .product-card-body { padding: 24px 0 0; display: flex; flex-direction: column; flex: 1; }
+
   .product-card-name {
-    font-family: var(--display); font-size: 26px; font-weight: 400;
-    color: var(--ink); letter-spacing: 0.01em; line-height: 1.1; margin-bottom: 18px;
+    font-family: var(--display);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+    transition: color 0.4s;
+  }
+  .product-card:hover .product-card-name { color: var(--sage-deep); }
+
+  .product-card-sub {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--stone);
+    font-weight: 500;
+    margin-bottom: 20px;
   }
 
-  .product-specs { border-top: 1px solid var(--line); margin-bottom: 20px; }
+  .product-specs { border-top: 1px solid var(--line); margin-bottom: 16px; }
   .spec-row {
     display: flex; justify-content: space-between; align-items: baseline;
-    gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line);
+    gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line);
   }
   .spec-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
   .spec-val { font-size: 12px; color: var(--ink-soft); text-align: right; line-height: 1.4; }
 
-  .product-card-foot { display: flex; justify-content: flex-end; padding-top: 4px; }
+  .product-card-desc {
+    font-size: 12px;
+    color: var(--stone);
+    line-height: 1.75;
+    font-style: italic;
+    font-family: var(--display);
+    margin-bottom: 20px;
+    flex: 1;
+  }
+
+  .product-card-foot { display: flex; justify-content: flex-end; margin-top: auto; }
   .btn-enquire {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 10px 20px; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
@@ -156,6 +210,7 @@
   }
   .btn-enquire:hover { background: var(--sage); color: var(--cream); }
 
+  /* ─── CTA STRIP ───────────────────────────────────── */
   .cta-strip {
     padding: 96px 56px; text-align: center;
     background: var(--cream-soft); border-top: 1px solid var(--line);
@@ -177,6 +232,7 @@
   .btn:hover .btn-arrow { transform: translateX(4px); }
   .btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+  /* ─── FOOTER ──────────────────────────────────────── */
   footer { padding: 64px 56px 32px; background: var(--cream-soft); border-top: 1px solid var(--line); }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-brand { font-family: var(--display); font-size: 24px; font-weight: 400; letter-spacing: 0.3em; color: var(--sage); margin-bottom: 4px; }
@@ -187,19 +243,26 @@
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
 
+  /* ─── REVEAL ──────────────────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.85s ease, transform 0.85s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ──────────────────────────────────── */
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
     .nav-links { display: none; }
     .page-hero { padding: 80px 24px 52px; }
     .collection-intro { padding: 48px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
-    .product-grid { padding: 52px 24px 80px; grid-template-columns: 1fr; gap: 56px; }
+    .collection-statement { padding: 40px 24px; }
+    .statement-line { display: none; }
+    .product-grid { padding: 52px 24px 88px; grid-template-columns: 1fr; gap: 64px; }
     .cta-strip { padding: 72px 24px; }
     footer { padding: 56px 24px 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 8px; }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
-    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 56px 32px; }
   }
 </style>
 </head>
@@ -228,109 +291,218 @@
 <div class="collection-intro">
   <div class="intro-left">
     <h2>Sculptural stone<br><em>plinths</em>.</h2>
-    <div class="intro-sub">One of one — each piece unique</div>
+    <div class="intro-sub">Six pieces — each one of one</div>
   </div>
-  <p class="intro-right">Sculptural stone plinths carved from natural stone sourced in Italy and Spain. Each piece is shaped by hand at our Auckland workshop — one of one, never repeated.</p>
+  <p class="intro-right">Each plinth is sourced from the quarries of Italy and Spain, then shaped entirely by hand at our Auckland workshop. No moulds. No repetition. Every piece carries the natural movement, tone, and character of the stone it was born from.</p>
+</div>
+
+<div class="collection-statement">
+  <div class="statement-line"></div>
+  <p class="statement-text">Stone is not manufactured — it is found. We select each block for its individual character, then let the material lead the form.</p>
 </div>
 
 <div class="product-grid">
 
-  <!-- ─────────────────────────────────────────────────
-       PRODUCT CARD — duplicate this block to add more
-       Status options:
-         class="product-card-status status-unique"    → "One of one"
-         class="product-card-status status-available" → "Available now"
-         class="product-card-status status-mto"       → "Made to order"
-  ────────────────────────────────────────────────── -->
-  <div class="product-card">
+  <!-- PLINTH 1 — Calacatta Marble -->
+  <div class="product-card reveal">
     <div class="product-card-img-wrap">
-      <img class="product-card-img" src="" alt="">
+      <img class="product-card-img" src="plinth-1.png" alt="Prime Piece Calacatta Marble Plinth">
       <span class="product-card-status status-unique">One of one</span>
     </div>
     <div class="product-card-body">
-      <div class="product-card-name"></div>
+      <div class="product-card-name">Calacatta Marble</div>
+      <div class="product-card-sub">Prime Piece — Plinth</div>
       <div class="product-specs">
         <div class="spec-row">
           <span class="spec-label">Stone</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">Calacatta Marble</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Origin</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">Italy</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Dimensions</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">52 × 35 × 35 cm</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Type</span>
           <span class="spec-val">Plinth</span>
         </div>
       </div>
+      <p class="product-card-desc">Beautiful green/white Calacatta marble, designed for modern interiors. Handcrafted in New Zealand.</p>
       <div class="product-card-foot">
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — " class="btn-enquire">Enquire <span>→</span></a>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Calacatta Marble Plinth" class="btn-enquire">Enquire <span>→</span></a>
       </div>
     </div>
   </div>
 
-  <div class="product-card">
+  <!-- PLINTH 2 — Rosso Africano I -->
+  <div class="product-card reveal">
     <div class="product-card-img-wrap">
-      <img class="product-card-img" src="" alt="">
+      <img class="product-card-img" src="plinth-2.png" alt="Prime Piece Rosso Africano Plinth">
       <span class="product-card-status status-unique">One of one</span>
     </div>
     <div class="product-card-body">
-      <div class="product-card-name"></div>
+      <div class="product-card-name">Rosso Africano</div>
+      <div class="product-card-sub">Prime Piece — Plinth</div>
       <div class="product-specs">
         <div class="spec-row">
           <span class="spec-label">Stone</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">Rosso Africano Marble</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Origin</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">Spain</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Dimensions</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">600 (H) × 300 (W) mm</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Type</span>
           <span class="spec-val">Plinth</span>
         </div>
       </div>
+      <p class="product-card-desc">A variation of Rosso Africano offering a slightly softer composition while still maintaining strong visual character.</p>
       <div class="product-card-foot">
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — " class="btn-enquire">Enquire <span>→</span></a>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Plinth (plinth-2)" class="btn-enquire">Enquire <span>→</span></a>
       </div>
     </div>
   </div>
 
-  <div class="product-card">
+  <!-- PLINTH 3 — Rosso Africano II -->
+  <div class="product-card reveal">
     <div class="product-card-img-wrap">
-      <img class="product-card-img" src="" alt="">
+      <img class="product-card-img" src="plinth-3.png" alt="Prime Piece Rosso Africano Plinth II">
       <span class="product-card-status status-unique">One of one</span>
     </div>
     <div class="product-card-body">
-      <div class="product-card-name"></div>
+      <div class="product-card-name">Rosso Africano</div>
+      <div class="product-card-sub">Prime Piece — Plinth</div>
       <div class="product-specs">
         <div class="spec-row">
           <span class="spec-label">Stone</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">Rosso Africano Marble</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Origin</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">Spain</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Dimensions</span>
-          <span class="spec-val"></span>
+          <span class="spec-val">60 × 30 × 30 cm</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Type</span>
           <span class="spec-val">Plinth</span>
         </div>
       </div>
+      <p class="product-card-desc">A bold high-contrast marble plinth showcasing deep red and black tones, highlighting the natural intensity of the stone.</p>
       <div class="product-card-foot">
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — " class="btn-enquire">Enquire <span>→</span></a>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Plinth (plinth-3)" class="btn-enquire">Enquire <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLINTH 4 — Florim -->
+  <div class="product-card reveal">
+    <div class="product-card-img-wrap">
+      <img class="product-card-img" src="plinth-4.png" alt="Prime Piece Florim Plinth">
+      <span class="product-card-status status-unique">One of one</span>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Florim</div>
+      <div class="product-card-sub">Prime Piece — Plinth</div>
+      <div class="product-specs">
+        <div class="spec-row">
+          <span class="spec-label">Stone</span>
+          <span class="spec-val">Florim</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Origin</span>
+          <span class="spec-val">Italy</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Dimensions</span>
+          <span class="spec-val">950 (L) × 760 (W) × 300 (H) mm</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-val">Plinth</span>
+        </div>
+      </div>
+      <p class="product-card-desc">A precision-crafted cream plinth combining durability with a refined modern aesthetic.</p>
+      <div class="product-card-foot">
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Florim Plinth" class="btn-enquire">Enquire <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLINTH 5 — Verde Alpi Marble -->
+  <div class="product-card reveal">
+    <div class="product-card-img-wrap">
+      <img class="product-card-img" src="plinth-5.png" alt="Prime Piece Verde Alpi Marble Plinth">
+      <span class="product-card-status status-unique">One of one</span>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Verde Alpi Marble</div>
+      <div class="product-card-sub">Prime Piece — Plinth</div>
+      <div class="product-specs">
+        <div class="spec-row">
+          <span class="spec-label">Stone</span>
+          <span class="spec-val">Verde Alpi Marble</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Origin</span>
+          <span class="spec-val">Italy</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Dimensions</span>
+          <span class="spec-val">55 × 30 × 30 cm</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-val">Plinth</span>
+        </div>
+      </div>
+      <p class="product-card-desc">A solid marble plinth featuring rich green tones and natural veining, designed as a statement piece within contemporary interiors.</p>
+      <div class="product-card-foot">
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Verde Alpi Marble Plinth" class="btn-enquire">Enquire <span>→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLINTH 6 — Dekton Sirius -->
+  <div class="product-card reveal">
+    <div class="product-card-img-wrap">
+      <img class="product-card-img" src="plinth-6.png" alt="Prime Piece Dekton Sirius Plinth">
+      <span class="product-card-status status-unique">One of one</span>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Sirius</div>
+      <div class="product-card-sub">Prime Piece — Plinth</div>
+      <div class="product-specs">
+        <div class="spec-row">
+          <span class="spec-label">Stone</span>
+          <span class="spec-val">Dekton Sirius</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Origin</span>
+          <span class="spec-val">Spain</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Dimensions</span>
+          <span class="spec-val">600 (H) × 300 (W) mm</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-val">Plinth</span>
+        </div>
+      </div>
+      <p class="product-card-desc">A clean minimal plinth with a refined contemporary finish suited to modern interiors and retail environments.</p>
+      <div class="product-card-foot">
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Plinth" class="btn-enquire">Enquire <span>→</span></a>
       </div>
     </div>
   </div>
@@ -339,10 +511,10 @@
 
 <div class="cta-strip">
   <span class="section-label">Commission</span>
-  <h2>Don't see what<br>you're looking for?</h2>
-  <p>All pieces are made to order. Get in touch and we'll design something specifically for your space.</p>
+  <h2>Something specific<br>in mind?</h2>
+  <p>All plinths are available as made-to-order commissions. Choose your stone, sizing and finish — we'll handle the rest from our Auckland workshop.</p>
   <div class="btn-group">
-    <a href="mailto:james@primepiece.co.nz" class="btn btn-primary">Request A Custom Piece <span class="btn-arrow">→</span></a>
+    <a href="mailto:james@primepiece.co.nz" class="btn btn-primary">Start a Conversation <span class="btn-arrow">→</span></a>
     <a href="/#render" class="btn">Get A Free Render</a>
   </div>
 </div>
@@ -380,6 +552,14 @@
     <span>Crafted in Auckland</span>
   </div>
 </footer>
+
+<script>
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.07 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
