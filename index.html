@@ -38,7 +38,6 @@
     letter-spacing: 0.01em;
   }
 
-  /* ─── NAV ─────────────────────────────────────────── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -74,7 +73,6 @@
   nav.scrolled .nav-links a { color: var(--ink-soft); }
   nav.scrolled .nav-links a:hover { color: var(--sage); }
 
-  /* ─── HERO ────────────────────────────────────────── */
   .hero {
     height: 100vh;
     min-height: 680px;
@@ -121,7 +119,6 @@
     font-weight: 300;
   }
 
-  /* ─── BUTTONS ─────────────────────────────────────── */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -151,7 +148,6 @@
   .btn:hover .btn-arrow { transform: translateX(4px); }
   .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
 
-  /* ─── SHARED ──────────────────────────────────────── */
   .section-label {
     font-size: 10px;
     letter-spacing: 0.32em;
@@ -171,7 +167,6 @@
   }
   h2 em { font-family: var(--script); font-style: normal; color: var(--sage); font-size: 0.88em; font-weight: 500; }
 
-  /* ─── COLLECTION ──────────────────────────────────── */
   .collection-section { background: var(--cream-soft); border-top: 1px solid var(--line); }
   .collection-header {
     padding: 88px 56px 52px;
@@ -223,7 +218,6 @@
   }
   .collection-card:hover .collection-card-arrow { transform: translate(4px,-4px); color: #fff; }
 
-  /* ─── RENDER ──────────────────────────────────────── */
   .render-section {
     background: var(--cream-soft);
     border-top: 1px solid var(--line);
@@ -238,7 +232,6 @@
   .render-intro h2 { margin-bottom: 16px; }
   .render-intro p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
 
-  /* Before/After slider */
   .ba-wrap { max-width: 960px; margin: 0 auto; }
   .ba-slider {
     position: relative;
@@ -305,7 +298,6 @@
     margin-bottom: 80px;
   }
 
-  /* Render form */
   .render-form-outer { max-width: 520px; margin: 0 auto; }
   .render-form-head { text-align: center; margin-bottom: 28px; }
   .render-form-head h3 {
@@ -356,22 +348,19 @@
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .rf { padding: 12px 20px; display: flex; flex-direction: column; gap: 8px; }
   .rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .rf input, .rf select {
+  .rf select {
     width: 100%; padding: 10px 12px;
     border: 1px solid var(--line); border-radius: 1px;
     font-family: var(--body); font-size: 12px; font-weight: 400;
     color: var(--ink); background: var(--cream);
     transition: border-color 0.2s;
-  }
-  .rf input::placeholder { color: var(--stone); }
-  .rf input:focus, .rf select:focus { outline: none; border-color: var(--sage); }
-  .rf select {
     appearance: none;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>");
     background-repeat: no-repeat;
     background-position: right 12px center;
     padding-right: 30px;
   }
+  .rf select:focus { outline: none; border-color: var(--sage); }
   .render-submit {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     width: calc(100% - 40px); margin: 4px 20px 16px;
@@ -381,210 +370,67 @@
     letter-spacing: 0.25em; text-transform: uppercase;
     font-weight: 500; cursor: pointer; transition: background 0.2s;
   }
-  .render-submit:hover { background: var(--sage-deep); }
-  .form-success { padding: 48px 24px; text-align: center; }
-  .form-success h3 { font-family: var(--display); font-size: 26px; color: var(--sage); font-weight: 400; margin-bottom: 8px; }
-  .form-success p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+  .render-submit:hover:not(:disabled) { background: var(--sage-deep); }
+  .render-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* ─── PROCESS ─────────────────────────────────────── */
   .process-section { background: var(--ink); }
-  .process-header {
-    padding: 96px 56px 72px;
-    border-bottom: 1px solid var(--line-inv);
-  }
+  .process-header { padding: 96px 56px 72px; border-bottom: 1px solid var(--line-inv); }
   .process-header .section-label { color: var(--sage-soft); margin-bottom: 20px; }
   .process-header h2 { color: #fff; }
   .process-header h2 em { color: var(--sage-soft); }
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid var(--line-inv);
-  }
-  .process-item {
-    padding: 52px 48px 64px;
-    border-right: 1px solid var(--line-inv);
-    display: flex;
-    flex-direction: column;
-  }
+  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line-inv); }
+  .process-item { padding: 52px 48px 64px; border-right: 1px solid var(--line-inv); display: flex; flex-direction: column; }
   .process-item:last-child { border-right: none; }
   .process-img-wrap { width: 100%; overflow: hidden; margin-bottom: 40px; border-radius: 1px; }
-  .process-img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    filter: brightness(0.52) contrast(1.12) saturate(0.55);
-    transition: filter 0.7s ease;
-  }
+  .process-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center; display: block; filter: brightness(0.52) contrast(1.12) saturate(0.55); transition: filter 0.7s ease; }
   .process-item:hover .process-img { filter: brightness(0.64) contrast(1.06) saturate(0.7); }
-  .process-num {
-    font-family: var(--script);
-    font-size: 72px;
-    color: var(--sage);
-    line-height: 1;
-    margin-bottom: 28px;
-    display: block;
-    opacity: 0.82;
-  }
-  .process-item h3 {
-    font-family: var(--display);
-    font-size: 30px;
-    font-weight: 300;
-    color: #fff;
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-  }
+  .process-num { font-family: var(--script); font-size: 72px; color: var(--sage); line-height: 1; margin-bottom: 28px; display: block; opacity: 0.82; }
+  .process-item h3 { font-family: var(--display); font-size: 30px; font-weight: 300; color: #fff; margin-bottom: 12px; letter-spacing: -0.01em; }
   .process-item p { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.8; max-width: 260px; }
 
-  /* ─── AVAILABLE NOW ───────────────────────────────── */
-  .available-section {
-    padding: 96px 56px;
-    background: var(--cream);
-    border-top: 1px solid var(--line);
-  }
-  .available-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 64px;
-  }
-  .available-header-right {
-    font-size: 13px;
-    color: var(--ink-soft);
-    max-width: 300px;
-    line-height: 1.75;
-    text-align: right;
-  }
+  .available-section { padding: 96px 56px; background: var(--cream); border-top: 1px solid var(--line); }
+  .available-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; }
+  .available-header-right { font-size: 13px; color: var(--ink-soft); max-width: 300px; line-height: 1.75; text-align: right; }
   .available-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
   .avail-card { display: flex; flex-direction: column; }
-  .avail-card-img-wrap {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 20px;
-    border-radius: 2px;
-  }
-  .avail-card-img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+  .avail-card-img-wrap { position: relative; overflow: hidden; margin-bottom: 20px; border-radius: 2px; }
+  .avail-card-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
   .avail-card:hover .avail-card-img { transform: scale(1.04); }
-  .avail-card-status {
-    position: absolute;
-    top: 14px; left: 14px;
-    padding: 4px 10px;
-    background: var(--sage);
-    color: var(--cream);
-    font-size: 9px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    font-weight: 500;
-    border-radius: 1px;
-  }
+  .avail-card-status { position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: var(--sage); color: var(--cream); font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
   .avail-card-name { font-family: var(--display); font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
   .avail-card-stone { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 6px; }
   .avail-card-dims { font-size: 12px; color: var(--ink-soft); margin-bottom: 20px; }
   .avail-card-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
   .avail-card-type { font-size: 11px; color: var(--stone); }
 
-  /* ─── MADE TO ORDER ───────────────────────────────── */
-  .mto-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--line);
-    min-height: 580px;
-  }
-  .mto-copy {
-    padding: 96px 64px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--ink);
-  }
+  .mto-section { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); min-height: 580px; }
+  .mto-copy { padding: 96px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--ink); }
   .mto-copy .section-label { color: var(--sage-soft); margin-bottom: 20px; }
   .mto-copy h2 { color: #fff; margin-bottom: 24px; }
   .mto-copy h2 em { color: var(--sage-soft); }
   .mto-copy > p { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.8; max-width: 400px; margin-bottom: 40px; }
-  .mto-options {
-    border-top: 1px solid var(--line-inv);
-    margin-bottom: 44px;
-  }
-  .mto-option {
-    padding: 15px 0;
-    border-bottom: 1px solid var(--line-inv);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-  }
+  .mto-options { border-top: 1px solid var(--line-inv); margin-bottom: 44px; }
+  .mto-option { padding: 15px 0; border-bottom: 1px solid var(--line-inv); display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
   .mto-option-label { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; flex-shrink: 0; }
   .mto-option-val { font-family: var(--display); font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.58); text-align: right; }
   .mto-image { position: relative; overflow: hidden; }
   .mto-image img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.72) saturate(0.88); }
 
-  /* ─── FOUNDER ─────────────────────────────────────── */
-  .founder-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 720px;
-    border-top: 1px solid var(--line);
-    background: var(--cream);
-  }
-  .founder-img-col {
-    position: relative;
-    overflow: hidden;
-    background: var(--cream-deep);
-  }
-  .founder-img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: center top;
-    display: block;
-  }
-  .founder-copy-col {
-    padding: 96px 80px;
-    display: flex; flex-direction: column; justify-content: center;
-    border-left: 1px solid var(--line);
-  }
-  .founder-eyebrow {
-    font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 28px;
-    display: flex; align-items: center; gap: 14px;
-  }
+  .founder-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 720px; border-top: 1px solid var(--line); background: var(--cream); }
+  .founder-img-col { position: relative; overflow: hidden; background: var(--cream-deep); }
+  .founder-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .founder-copy-col { padding: 96px 80px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
+  .founder-eyebrow { font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
   .founder-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--sage); flex-shrink: 0; }
-  .founder-name {
-    font-family: var(--display);
-    font-size: clamp(42px, 4.5vw, 68px);
-    font-weight: 300; letter-spacing: -0.025em; line-height: 0.9;
-    color: var(--ink); margin-bottom: 10px;
-  }
-  .founder-title {
-    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 40px;
-  }
+  .founder-name { font-family: var(--display); font-size: clamp(42px, 4.5vw, 68px); font-weight: 300; letter-spacing: -0.025em; line-height: 0.9; color: var(--ink); margin-bottom: 10px; }
+  .founder-title { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 40px; }
   .founder-divider { width: 32px; height: 1px; background: var(--sage); opacity: 0.4; margin-bottom: 36px; }
-  .founder-bio p {
-    font-size: 15px; color: var(--ink-soft); line-height: 1.9;
-    max-width: 400px; margin-bottom: 18px;
-  }
+  .founder-bio p { font-size: 15px; color: var(--ink-soft); line-height: 1.9; max-width: 400px; margin-bottom: 18px; }
   .founder-bio p:last-child { margin-bottom: 0; }
-  .founder-detail {
-    margin-top: 52px; padding-top: 32px;
-    border-top: 1px solid var(--line);
-    display: flex; gap: 44px; flex-wrap: wrap;
-  }
-  .founder-detail-label {
-    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 5px;
-  }
-  .founder-detail-val {
-    font-family: var(--display); font-size: 17px;
-    color: var(--ink); font-weight: 300; letter-spacing: -0.01em;
-  }
+  .founder-detail { margin-top: 52px; padding-top: 32px; border-top: 1px solid var(--line); display: flex; gap: 44px; flex-wrap: wrap; }
+  .founder-detail-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 5px; }
+  .founder-detail-val { font-family: var(--display); font-size: 17px; color: var(--ink); font-weight: 300; letter-spacing: -0.01em; }
 
-  /* ─── REVIEWS ─────────────────────────────────────── */
   .reviews-section { padding: 96px 56px; background: var(--cream-soft); border-top: 1px solid var(--line); }
   .reviews-header { margin-bottom: 56px; }
   .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -594,18 +440,11 @@
   .testimonial-body { font-size: 13px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 18px; }
   .testimonial-author { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; }
 
-  /* ─── CTA ─────────────────────────────────────────── */
-  .cta-section {
-    padding: 144px 56px;
-    text-align: center;
-    background: radial-gradient(ellipse at 50% 60%, rgba(123,165,168,0.09) 0%, transparent 65%), var(--cream);
-    border-top: 1px solid var(--line);
-  }
+  .cta-section { padding: 144px 56px; text-align: center; background: radial-gradient(ellipse at 50% 60%, rgba(123,165,168,0.09) 0%, transparent 65%), var(--cream); border-top: 1px solid var(--line); }
   .cta-section .section-label { margin-bottom: 18px; }
   .cta-section h2 { max-width: 600px; margin: 0 auto 22px; }
   .cta-section p { max-width: 400px; margin: 0 auto 40px; color: var(--ink-soft); font-size: 15px; line-height: 1.8; }
 
-  /* ─── FOOTER ──────────────────────────────────────── */
   footer { padding: 64px 56px 32px; background: var(--cream-soft); border-top: 1px solid var(--line); }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-brand { font-family: var(--display); font-size: 24px; font-weight: 400; letter-spacing: 0.3em; color: var(--sage); margin-bottom: 4px; }
@@ -616,11 +455,9 @@
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
 
-  /* ─── REVEAL ──────────────────────────────────────── */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  /* ─── RESPONSIVE ──────────────────────────────────── */
   @media (max-width: 1024px) {
     .mto-section { grid-template-columns: 1fr; }
     .mto-image { min-height: 420px; }
@@ -680,7 +517,6 @@
   </ul>
 </nav>
 
-<!-- ── HERO ───────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-content">
     <div class="eyebrow">Handcrafted in Auckland</div>
@@ -690,7 +526,6 @@
   </div>
 </section>
 
-<!-- ── COLLECTION ─────────────────────────────────────── -->
 <section class="collection-section" id="collection">
   <div class="collection-header reveal">
     <div>
@@ -724,12 +559,11 @@
   </div>
 </section>
 
-<!-- ── RENDER ─────────────────────────────────────────── -->
 <section class="render-section" id="render">
   <div class="render-intro reveal">
     <span class="section-label">Free Room Render</span>
     <h2>See it in your <em>space</em>.</h2>
-    <p>Upload a photo of your room — we'll place a Prime Piece in it within 24 hours. Free, no commitment.</p>
+    <p>Upload a photo of your room — AI places a Prime Piece into it instantly. Free, no commitment.</p>
   </div>
 
   <div class="ba-wrap reveal">
@@ -755,18 +589,16 @@
   <div class="render-form-outer reveal">
     <div class="render-form-head">
       <h3>Try it with your room</h3>
-      <p>Upload a photo and we'll show you how a Prime Piece transforms your space.</p>
+      <p>Upload a photo — AI places your Prime Piece into it instantly.</p>
     </div>
     <div class="render-card">
       <div class="render-card-header">
         <span class="render-card-title">Upload your room</span>
-        <span class="render-card-badge">24h turnaround</span>
+        <span class="render-card-badge">AI — instant</span>
       </div>
-      <form id="render-form" action="https://formsubmit.co/james@primepiece.co.nz" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="_subject" value="New Prime Piece render request">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://www.primepiece.co.nz/?submitted=1">
+
+      <!-- AI RENDER FORM -->
+      <div id="ai-render-form">
         <label class="upload-zone" id="upload-zone" for="lounge-upload">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
             <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -774,7 +606,7 @@
           </svg>
           <h4>Upload your room</h4>
           <p>Drop a photo or tap to upload</p>
-          <input type="file" id="lounge-upload" name="lounge_photo" accept="image/*" required>
+          <input type="file" id="lounge-upload" accept="image/*">
         </label>
         <div class="upload-preview" id="upload-preview">
           <img id="preview-thumb" alt="">
@@ -785,40 +617,50 @@
         </div>
         <div class="rf">
           <div class="rf-row">
-            <input type="text" name="name" placeholder="Your name" required>
-            <input type="email" name="email" placeholder="Email" required>
-          </div>
-          <div class="rf-row">
-            <select name="piece" required>
-              <option value="">Which piece?</option>
-              <option>Rosso Africano — Red Marble</option>
-              <option>Carrara — Italian White Marble</option>
-              <option>Verde Apli — Green Marble</option>
-              <option>Basalt Black — Stone Table</option>
-              <option>Custom / Made to order</option>
+            <select id="ai-stone">
+              <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy">Rosso Africano — Red Marble</option>
+              <option value="Carrara white marble with delicate soft grey veining from Italy">Carrara — White Marble</option>
+              <option value="Verde Apli deep green marble with bold white and gold veining">Verde Apli — Green Marble</option>
+              <option value="Basalt Black honed matte black volcanic stone from Spain">Basalt Black — Stone</option>
             </select>
-            <select name="room" required>
-              <option value="">Room type</option>
-              <option>Living room</option>
-              <option>Dining room</option>
-              <option>Office</option>
-              <option>Outdoor</option>
-              <option>Other</option>
+            <select id="ai-piece">
+              <option value="a tall cylindrical sculptural stone plinth column 720mm tall and 280mm in diameter standing vertically like a sculpture pedestal">Plinth</option>
+              <option value="a square stone side table 450mm tall and 500mm wide with a thick heavy stone slab top on a solid stone base">Side Table</option>
+              <option value="a flat rectangular stone serving board 580mm long lying flat on a surface">Serving Board</option>
+              <option value="a low wide stone coffee table with a thick heavy stone slab top approximately 1000mm long">Coffee Table</option>
             </select>
           </div>
-          <input type="tel" name="phone" placeholder="Mobile number" required>
         </div>
-        <button type="submit" class="render-submit">Send My Photo <span class="btn-arrow">→</span></button>
-      </form>
-      <div class="form-success" id="form-success" hidden>
-        <h3>Got it.</h3>
-        <p>Your render lands in your inbox within 24 hours.</p>
+        <div id="ai-error" style="display:none;padding:10px 20px 4px;font-size:12px;color:#7a3a2a;"></div>
+        <button type="button" class="render-submit" id="ai-generate-btn" disabled>Generate My Render <span class="btn-arrow">→</span></button>
       </div>
+
+      <!-- LOADING STATE -->
+      <div id="ai-loading" style="display:none;padding:32px 24px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink-soft);font-style:italic;margin-bottom:14px;" id="ai-loading-text">Reading your room...</div>
+        <div style="width:100%;height:1px;background:var(--line);border-radius:1px;overflow:hidden;margin-bottom:10px;">
+          <div id="ai-progress" style="height:100%;background:var(--sage);width:0%;transition:width 0.8s ease;"></div>
+        </div>
+        <div style="font-size:11px;color:var(--stone);letter-spacing:0.1em;">Usually 20–40 seconds</div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="ai-result" style="display:none;">
+        <img id="ai-result-img" style="width:100%;display:block;max-height:480px;object-fit:cover;" alt="Your room with Prime Piece">
+        <div style="padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ink);margin-bottom:6px;">Your space, transformed.</div>
+          <p style="font-size:12px;color:var(--stone);line-height:1.7;margin-bottom:1rem;">AI-generated visualisation — actual stone colour and texture will vary. Every piece is one of one.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+            <button type="button" class="btn" id="ai-try-again" style="justify-content:center;">Try another →</button>
+            <a href="mailto:james@primepiece.co.nz?subject=Room render enquiry" class="btn btn-primary" style="justify-content:center;">Enquire →</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ── PROCESS ────────────────────────────────────────── -->
 <section class="process-section" id="process">
   <div class="process-header reveal">
     <span class="section-label">Process</span>
@@ -826,25 +668,19 @@
   </div>
   <div class="process-grid">
     <div class="process-item reveal">
-      <div class="process-img-wrap">
-        <img class="process-img" src="process-1.jpg" alt="Stone sourcing">
-      </div>
+      <div class="process-img-wrap"><img class="process-img" src="process-1.jpg" alt="Stone sourcing"></div>
       <span class="process-num">One</span>
       <h3>Source</h3>
       <p>Stone sourced from Italy and Spain.</p>
     </div>
     <div class="process-item reveal">
-      <div class="process-img-wrap">
-        <img class="process-img" src="process-2.jpg" alt="Stone carving">
-      </div>
+      <div class="process-img-wrap"><img class="process-img" src="process-2.jpg" alt="Stone carving"></div>
       <span class="process-num">Two</span>
       <h3>Craft</h3>
       <p>Cut, finished, and assembled in Auckland.</p>
     </div>
     <div class="process-item reveal">
-      <div class="process-img-wrap">
-        <img class="process-img" src="process-3.jpg" alt="Stone delivery">
-      </div>
+      <div class="process-img-wrap"><img class="process-img" src="process-3.jpg" alt="Stone delivery"></div>
       <span class="process-num">Three</span>
       <h3>Deliver</h3>
       <p>Local pickup or delivery arranged depending on the piece.</p>
@@ -852,7 +688,6 @@
   </div>
 </section>
 
-<!-- ── AVAILABLE NOW ──────────────────────────────────── -->
 <section class="available-section" id="available">
   <div class="available-header reveal">
     <div>
@@ -904,7 +739,6 @@
   </div>
 </section>
 
-<!-- ── MADE TO ORDER ──────────────────────────────────── -->
 <section class="mto-section" id="made-to-order">
   <div class="mto-copy reveal">
     <span class="section-label">Made to Order</span>
@@ -935,7 +769,6 @@
   </div>
 </section>
 
-<!-- ── FOUNDER ─────────────────────────────────────────── -->
 <section class="founder-section" id="story">
   <div class="founder-img-col">
     <img class="founder-img" src="james-hopwood.jpg" alt="James Hopwood — Founder, Prime Piece">
@@ -951,23 +784,13 @@
       <p>Drawing from years of hands-on experience in stone fabrication, his work explores the intersection of sculpture, furniture and interior presence.</p>
     </div>
     <div class="founder-detail">
-      <div>
-        <div class="founder-detail-label">Based</div>
-        <div class="founder-detail-val">Auckland, NZ</div>
-      </div>
-      <div>
-        <div class="founder-detail-label">Stone</div>
-        <div class="founder-detail-val">Italian & Spanish</div>
-      </div>
-      <div>
-        <div class="founder-detail-label">Craft</div>
-        <div class="founder-detail-val">Stonemason</div>
-      </div>
+      <div><div class="founder-detail-label">Based</div><div class="founder-detail-val">Auckland, NZ</div></div>
+      <div><div class="founder-detail-label">Stone</div><div class="founder-detail-val">Italian & Spanish</div></div>
+      <div><div class="founder-detail-label">Craft</div><div class="founder-detail-val">Stonemason</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── REVIEWS ────────────────────────────────────────── -->
 <section class="reviews-section">
   <div class="reviews-header reveal">
     <span class="section-label">Reviews</span>
@@ -995,7 +818,6 @@
   </div>
 </section>
 
-<!-- ── CTA ────────────────────────────────────────────── -->
 <section class="cta-section" id="contact">
   <span class="section-label">Enquire</span>
   <h2>Commission a<br><em>Prime Piece</em>.</h2>
@@ -1041,11 +863,11 @@
 </footer>
 
 <script>
+  // Nav scroll
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
-  });
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
 
+  // Reveal on scroll
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
     { threshold: 0.08 }
@@ -1058,17 +880,14 @@
   const baDivider = document.getElementById('ba-divider');
   const baHandle = document.getElementById('ba-handle');
   let baDragging = false;
-
   function baSetPos(clientX) {
     const rect = baSlider.getBoundingClientRect();
-    let pct = (clientX - rect.left) / rect.width;
-    pct = Math.max(0.04, Math.min(0.96, pct));
+    let pct = Math.max(0.04, Math.min(0.96, (clientX - rect.left) / rect.width));
     const p = (pct * 100).toFixed(1) + '%';
     baBefore.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(1)}% 0 0)`;
     baDivider.style.left = p;
     baHandle.style.left = p;
   }
-
   baSlider.addEventListener('mousedown', e => { baDragging = true; baSetPos(e.clientX); });
   window.addEventListener('mousemove', e => { if (baDragging) baSetPos(e.clientX); });
   window.addEventListener('mouseup', () => { baDragging = false; });
@@ -1076,26 +895,43 @@
   window.addEventListener('touchmove', e => { if (baDragging) baSetPos(e.touches[0].clientX); }, { passive: true });
   window.addEventListener('touchend', () => { baDragging = false; });
 
-  // File upload preview
+  // AI Render
+  let aiImageBase64 = null;
+  let aiImageMime = 'image/jpeg';
+  let aiPollInterval = null;
+
   const uploadInput = document.getElementById('lounge-upload');
   const uploadPreview = document.getElementById('upload-preview');
   const previewThumb = document.getElementById('preview-thumb');
   const previewName = document.getElementById('preview-name');
   const previewSize = document.getElementById('preview-size');
   const uploadZone = document.getElementById('upload-zone');
+  const aiGenerateBtn = document.getElementById('ai-generate-btn');
+  const aiRenderForm = document.getElementById('ai-render-form');
+  const aiLoading = document.getElementById('ai-loading');
+  const aiLoadingText = document.getElementById('ai-loading-text');
+  const aiProgress = document.getElementById('ai-progress');
+  const aiResult = document.getElementById('ai-result');
+  const aiResultImg = document.getElementById('ai-result-img');
+  const aiError = document.getElementById('ai-error');
+  const aiTryAgain = document.getElementById('ai-try-again');
 
-  function showPreview(file) {
+  function loadFile(file) {
+    aiImageMime = file.type || 'image/jpeg';
     const reader = new FileReader();
-    reader.onload = e => {
-      previewThumb.src = e.target.result;
+    reader.onload = ev => {
+      aiImageBase64 = ev.target.result.split(',')[1];
+      previewThumb.src = ev.target.result;
       previewName.textContent = file.name;
       previewSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
       uploadPreview.classList.add('active');
+      aiGenerateBtn.disabled = false;
     };
     reader.readAsDataURL(file);
   }
 
-  uploadInput.addEventListener('change', e => { if (e.target.files[0]) showPreview(e.target.files[0]); });
+  uploadInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+
   uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.style.background = 'rgba(123,165,168,0.07)'; });
   uploadZone.addEventListener('dragleave', () => { uploadZone.style.background = ''; });
   uploadZone.addEventListener('drop', e => {
@@ -1103,25 +939,84 @@
     uploadZone.style.background = '';
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
-      const dt = new DataTransfer();
-      dt.items.add(file);
-      uploadInput.files = dt.files;
-      showPreview(file);
+      const dt = new DataTransfer(); dt.items.add(file); uploadInput.files = dt.files;
+      loadFile(file);
     }
   });
 
-  const form = document.getElementById('render-form');
-  const successPanel = document.getElementById('form-success');
-  const submitBtn = form.querySelector('.render-submit');
+  aiGenerateBtn.addEventListener('click', async () => {
+    if (!aiImageBase64) return;
+    const stone = document.getElementById('ai-stone').value;
+    const piece = document.getElementById('ai-piece').value;
 
-  if (new URLSearchParams(location.search).get('submitted') === '1') {
-    form.style.display = 'none';
-    successPanel.hidden = false;
-  }
+    aiGenerateBtn.disabled = true;
+    aiError.style.display = 'none';
+    aiRenderForm.style.display = 'none';
+    aiLoading.style.display = 'block';
+    aiResult.style.display = 'none';
+    aiProgress.style.width = '10%';
+    aiLoadingText.textContent = 'Reading your room...';
 
-  form.addEventListener('submit', () => {
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Sending...';
+    try {
+      const res = await fetch('/api/render', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageBase64: aiImageBase64, imageMime: aiImageMime, stone, piece })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.error || 'Something went wrong');
+
+      aiProgress.style.width = '30%';
+      aiLoadingText.textContent = 'Generating render...';
+
+      let attempts = 0;
+      aiPollInterval = setInterval(async () => {
+        attempts++;
+        if (attempts > 60) {
+          clearInterval(aiPollInterval);
+          aiLoading.style.display = 'none';
+          aiRenderForm.style.display = 'block';
+          aiError.textContent = 'Timed out — please try again.';
+          aiError.style.display = 'block';
+          aiGenerateBtn.disabled = false;
+          return;
+        }
+        aiProgress.style.width = Math.min(30 + (attempts / 60) * 60, 90) + '%';
+        try {
+          const pr = await fetch('/api/poll?id=' + data.predictionId);
+          const pd = await pr.json();
+          if (pd.status === 'succeeded' && pd.imageUrl) {
+            clearInterval(aiPollInterval);
+            aiProgress.style.width = '100%';
+            aiResultImg.src = pd.imageUrl;
+            aiResultImg.onload = () => {
+              aiLoading.style.display = 'none';
+              aiResult.style.display = 'block';
+            };
+          } else if (pd.status === 'failed') {
+            clearInterval(aiPollInterval);
+            aiLoading.style.display = 'none';
+            aiRenderForm.style.display = 'block';
+            aiError.textContent = 'Generation failed — please try again.';
+            aiError.style.display = 'block';
+            aiGenerateBtn.disabled = false;
+          }
+        } catch(e) {}
+      }, 2000);
+
+    } catch(err) {
+      aiLoading.style.display = 'none';
+      aiRenderForm.style.display = 'block';
+      aiError.textContent = err.message;
+      aiError.style.display = 'block';
+      aiGenerateBtn.disabled = false;
+    }
+  });
+
+  aiTryAgain.addEventListener('click', () => {
+    aiResult.style.display = 'none';
+    aiRenderForm.style.display = 'block';
+    aiGenerateBtn.disabled = false;
   });
 </script>
 
