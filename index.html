@@ -525,12 +525,64 @@
   .mto-image { position: relative; overflow: hidden; }
   .mto-image img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.72) saturate(0.88); }
 
-  /* ─── LIFESTYLE ───────────────────────────────────── */
-  .lifestyle-section { padding: 88px 56px; border-top: 1px solid var(--line); }
-  .lifestyle-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px; align-items: start; }
-  .lifestyle-img { width: 100%; object-fit: cover; display: block; }
-  .lifestyle-img:first-child { aspect-ratio: 4/5; }
-  .lifestyle-img:last-child { aspect-ratio: 3/4; margin-top: 96px; }
+  /* ─── FOUNDER ─────────────────────────────────────── */
+  .founder-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 720px;
+    border-top: 1px solid var(--line);
+    background: var(--cream);
+  }
+  .founder-img-col {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream-deep);
+  }
+  .founder-img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    display: block;
+  }
+  .founder-copy-col {
+    padding: 96px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-left: 1px solid var(--line);
+  }
+  .founder-eyebrow {
+    font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; margin-bottom: 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .founder-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--sage); flex-shrink: 0; }
+  .founder-name {
+    font-family: var(--display);
+    font-size: clamp(42px, 4.5vw, 68px);
+    font-weight: 300; letter-spacing: -0.025em; line-height: 0.9;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .founder-title {
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; margin-bottom: 40px;
+  }
+  .founder-divider { width: 32px; height: 1px; background: var(--sage); opacity: 0.4; margin-bottom: 36px; }
+  .founder-bio p {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.9;
+    max-width: 400px; margin-bottom: 18px;
+  }
+  .founder-bio p:last-child { margin-bottom: 0; }
+  .founder-detail {
+    margin-top: 52px; padding-top: 32px;
+    border-top: 1px solid var(--line);
+    display: flex; gap: 44px; flex-wrap: wrap;
+  }
+  .founder-detail-label {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; margin-bottom: 5px;
+  }
+  .founder-detail-val {
+    font-family: var(--display); font-size: 17px;
+    color: var(--ink); font-weight: 300; letter-spacing: -0.01em;
+  }
 
   /* ─── REVIEWS ─────────────────────────────────────── */
   .reviews-section { padding: 96px 56px; background: var(--cream-soft); border-top: 1px solid var(--line); }
@@ -572,6 +624,9 @@
   @media (max-width: 1024px) {
     .mto-section { grid-template-columns: 1fr; }
     .mto-image { min-height: 420px; }
+    .founder-section { grid-template-columns: 1fr; }
+    .founder-img-col { min-height: 520px; }
+    .founder-copy-col { border-left: none; border-top: 1px solid var(--line); }
   }
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
@@ -593,9 +648,9 @@
     .available-header-right { text-align: left; max-width: 100%; }
     .available-grid { grid-template-columns: 1fr; gap: 48px; }
     .mto-copy { padding: 72px 24px; }
-    .lifestyle-section { padding: 64px 24px; }
-    .lifestyle-grid { grid-template-columns: 1fr; gap: 12px; }
-    .lifestyle-img:last-child { margin-top: 0; }
+    .founder-img-col { min-height: 400px; }
+    .founder-copy-col { padding: 64px 24px; }
+    .founder-detail { gap: 28px; }
     .reviews-section { padding: 64px 24px; }
     .testimonial-grid { grid-template-columns: 1fr; gap: 16px; }
     .cta-section { padding: 96px 24px; }
@@ -880,11 +935,35 @@
   </div>
 </section>
 
-<!-- ── LIFESTYLE ──────────────────────────────────────── -->
-<section class="lifestyle-section" id="story">
-  <div class="lifestyle-grid">
-    <img class="lifestyle-img" src="lifestyle-1.jpg" alt="Prime Piece in situ">
-    <img class="lifestyle-img" src="lifestyle-2.jpg" alt="Prime Piece lifestyle">
+<!-- ── FOUNDER ─────────────────────────────────────────── -->
+<section class="founder-section" id="story">
+  <div class="founder-img-col">
+    <img class="founder-img" src="james-hopwood.jpg" alt="James Hopwood — Founder, Prime Piece">
+  </div>
+  <div class="founder-copy-col reveal">
+    <div class="founder-eyebrow">The Maker</div>
+    <div class="founder-name">James<br>Hopwood</div>
+    <div class="founder-title">Founder / Prime Piece</div>
+    <div class="founder-divider"></div>
+    <div class="founder-bio">
+      <p>James Hopwood is an Auckland-based stonemason and founder of Prime Piece, a sculptural stone furniture brand creating one-of-one plinths and tables handcrafted in New Zealand.</p>
+      <p>Working with carefully selected natural stones sourced from Italy and Spain, each piece is designed to celebrate the movement, texture and permanence of the material.</p>
+      <p>Drawing from years of hands-on experience in stone fabrication, his work explores the intersection of sculpture, furniture and interior presence.</p>
+    </div>
+    <div class="founder-detail">
+      <div>
+        <div class="founder-detail-label">Based</div>
+        <div class="founder-detail-val">Auckland, NZ</div>
+      </div>
+      <div>
+        <div class="founder-detail-label">Stone</div>
+        <div class="founder-detail-val">Italian & Spanish</div>
+      </div>
+      <div>
+        <div class="founder-detail-label">Craft</div>
+        <div class="founder-detail-val">Stonemason</div>
+      </div>
+    </div>
   </div>
 </section>
 
