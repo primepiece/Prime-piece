@@ -15,6 +15,10 @@
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true }
   ],
+  "functions": {
+    "api/render.js": { "maxDuration": 10 },
+    "api/poll.js": { "maxDuration": 10 }
+  },
   "cleanUrls": true,
   "trailingSlash": false
 }
