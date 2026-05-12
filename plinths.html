@@ -58,53 +58,54 @@
 
   /* ─── PAGE HEADER ─────────────────────────────────── */
   .page-header {
-    position: relative;
-    height: 78vh;
-    min-height: 520px;
-    display: flex; align-items: flex-end;
+    margin-top: 61px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 61px);
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-header-img {
+    background: var(--cream-soft);
     overflow: hidden;
-    background: var(--ink);
+    position: relative;
   }
-  .page-header-bg {
-    position: absolute; inset: 0;
-    background-image: url('plinth-5.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center 60%;
-    opacity: 0.22;
-    transform: scale(1.04);
-  }
-  .page-header-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(26,24,20,0.92) 0%, rgba(26,24,20,0.3) 55%, rgba(26,24,20,0.15) 100%);
+  .page-header-img img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 48px;
+    display: block;
   }
   .page-header-inner {
-    position: relative; z-index: 2;
-    padding: 0 64px 72px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 72px;
+    border-left: 1px solid var(--line);
   }
   .page-eyebrow {
     font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
-    color: rgba(123,165,168,0.9); font-weight: 500; margin-bottom: 16px;
+    color: var(--sage); font-weight: 500; margin-bottom: 20px;
   }
   .page-header h1 {
     font-family: var(--display); font-weight: 300;
-    font-size: clamp(64px, 8.5vw, 120px);
-    line-height: 0.88; letter-spacing: -0.025em; color: #fff;
-    margin-bottom: 24px;
+    font-size: clamp(52px, 5.5vw, 88px);
+    line-height: 0.9; letter-spacing: -0.025em; color: var(--ink);
+    margin-bottom: 28px;
   }
   .page-header-desc {
-    font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.85;
-    max-width: 420px; margin-bottom: 28px;
+    font-size: 14px; color: var(--ink-soft); line-height: 1.9;
+    max-width: 360px; margin-bottom: 40px;
+  }
+  .page-header-cta {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
   }
   .page-header-meta {
-    display: inline-flex; align-items: center; gap: 16px;
+    display: flex; align-items: center; gap: 16px;
     font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: rgba(255,255,255,0.38); font-weight: 500;
+    color: var(--stone); font-weight: 500; margin-top: 48px;
+    padding-top: 28px; border-top: 1px solid var(--line);
   }
-  .page-header-meta .dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+  .page-header-meta .dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--stone); }
 
   /* ─── PRODUCT GRID ────────────────────────────────── */
   .product-grid {
@@ -242,8 +243,9 @@
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    .page-header { height: 60vh; min-height: 400px; }
-    .page-header-inner { padding: 0 24px 48px; }
+    .page-header { grid-template-columns: 1fr; min-height: auto; }
+    .page-header-img { aspect-ratio: 4/3; }
+    .page-header-inner { padding: 48px 24px; border-left: none; border-top: 1px solid var(--line); }
     .product-grid { padding: 48px 20px 88px; grid-template-columns: 1fr; gap: 56px; }
     .product-card-img { padding: 20px; }
     .cta-strip { padding: 72px 24px; }
@@ -272,18 +274,23 @@
 </nav>
 
 <div class="page-header">
-  <div class="page-header-bg"></div>
-  <div class="page-header-overlay"></div>
+  <div class="page-header-img">
+    <img src="plinth-5.png" alt="Verde Alpi Marble Plinth">
+  </div>
   <div class="page-header-inner">
     <div class="page-eyebrow">The Collection</div>
     <h1>Plinths</h1>
     <p class="page-header-desc">Sourced from Italian and Spanish quarries. Shaped entirely by hand in Auckland. Each piece is one of one — never repeated, never moulded.</p>
+    <div class="page-header-cta">
+      <a href="mailto:james@primepiece.co.nz?subject=Plinth Enquiry" class="btn-enquire">Enquire Now <span class="btn-arrow">→</span></a>
+      <a href="/#render" style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);text-decoration:none;font-weight:500;">Get a Free Render</a>
+    </div>
     <div class="page-header-meta">
-      <span>Six pieces</span>
-      <span class="dot"></span>
       <span>One of one</span>
       <span class="dot"></span>
       <span>Handcrafted in NZ</span>
+      <span class="dot"></span>
+      <span>Italian &amp; Spanish Stone</span>
     </div>
   </div>
 </div>
