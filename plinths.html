@@ -10,15 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --white: #FAFAF8;
-    --cream: #F5F1EA;
-    --cream-soft: #EFEBE2;
+    --white: #F7F3EE;
+    --cream: #EDE8DF;
+    --cream-soft: #E6DFD3;
     --sage: #7BA5A8;
     --sage-deep: #5D8588;
-    --ink: #1E1C19;
-    --ink-soft: #4A4540;
-    --stone: #8A8275;
-    --line: rgba(30, 28, 25, 0.1);
+    --ink: #1A1814;
+    --ink-soft: #3D3830;
+    --stone: #7E7567;
+    --line: rgba(26, 24, 20, 0.12);
     --display: 'Cormorant Garamond', serif;
     --script: 'Dancing Script', cursive;
     --body: 'Inter Tight', -apple-system, sans-serif;
@@ -41,7 +41,7 @@
     padding: 20px 56px;
     display: flex; justify-content: space-between; align-items: center;
     z-index: 100;
-    background: rgba(250, 250, 248, 0.97);
+    background: rgba(247, 243, 238, 0.97);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
   }
@@ -58,37 +58,53 @@
 
   /* ─── PAGE HEADER ─────────────────────────────────── */
   .page-header {
-    padding-top: 100px;
-    text-align: center;
-    padding-bottom: 0;
-    background: var(--white);
-    border-bottom: 1px solid var(--line);
+    position: relative;
+    height: 78vh;
+    min-height: 520px;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .page-header-bg {
+    position: absolute; inset: 0;
+    background-image: url('plinth-5.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center 60%;
+    opacity: 0.22;
+    transform: scale(1.04);
+  }
+  .page-header-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,24,20,0.92) 0%, rgba(26,24,20,0.3) 55%, rgba(26,24,20,0.15) 100%);
   }
   .page-header-inner {
-    padding: 72px 56px 64px;
-    max-width: 680px;
+    position: relative; z-index: 2;
+    padding: 0 64px 72px;
+    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
   }
   .page-eyebrow {
     font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 18px;
+    color: rgba(123,165,168,0.9); font-weight: 500; margin-bottom: 16px;
   }
   .page-header h1 {
     font-family: var(--display); font-weight: 300;
-    font-size: clamp(56px, 7vw, 96px);
-    line-height: 0.92; letter-spacing: -0.02em; color: var(--ink);
+    font-size: clamp(64px, 8.5vw, 120px);
+    line-height: 0.88; letter-spacing: -0.025em; color: #fff;
     margin-bottom: 24px;
   }
   .page-header-desc {
-    font-size: 15px; color: var(--ink-soft); line-height: 1.85;
-    max-width: 520px; margin: 0 auto 28px;
+    font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.85;
+    max-width: 420px; margin-bottom: 28px;
   }
   .page-header-meta {
-    display: inline-flex; align-items: center; gap: 20px;
+    display: inline-flex; align-items: center; gap: 16px;
     font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: var(--stone); font-weight: 500;
+    color: rgba(255,255,255,0.38); font-weight: 500;
   }
-  .page-header-meta span { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--stone); }
+  .page-header-meta .dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
 
   /* ─── PRODUCT GRID ────────────────────────────────── */
   .product-grid {
@@ -226,7 +242,8 @@
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    .page-header-inner { padding: 52px 24px 48px; }
+    .page-header { height: 60vh; min-height: 400px; }
+    .page-header-inner { padding: 0 24px 48px; }
     .product-grid { padding: 48px 20px 88px; grid-template-columns: 1fr; gap: 56px; }
     .product-card-img { padding: 20px; }
     .cta-strip { padding: 72px 24px; }
@@ -255,15 +272,17 @@
 </nav>
 
 <div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
   <div class="page-header-inner">
     <div class="page-eyebrow">The Collection</div>
     <h1>Plinths</h1>
     <p class="page-header-desc">Sourced from Italian and Spanish quarries. Shaped entirely by hand in Auckland. Each piece is one of one — never repeated, never moulded.</p>
     <div class="page-header-meta">
       <span>Six pieces</span>
-      <span></span>
+      <span class="dot"></span>
       <span>One of one</span>
-      <span></span>
+      <span class="dot"></span>
       <span>Handcrafted in NZ</span>
     </div>
   </div>
