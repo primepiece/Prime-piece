@@ -19,6 +19,6 @@
     "api/render.js": { "maxDuration": 10 },
     "api/poll.js": { "maxDuration": 10 }
   },
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false
 }
