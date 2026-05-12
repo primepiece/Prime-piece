@@ -17,6 +17,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Step 1: Claude analyses the room and writes a focused prompt
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'claude-opus-4-5',
-        max_tokens: 600,
+        max_tokens: 400,
         messages: [{
           role: 'user',
           content: [
@@ -36,7 +37,11 @@ export default async function handler(req, res) {
             },
             {
               type: 'text',
-              text: `You are an expert interior design photographer writing prompts for an AI image generator. Analyse this room photo carefully. Write a single detailed image generation prompt that produces a photorealistic version of this exact room with ${piece} made from ${stone} naturally placed in it. Describe the room's exact colours, materials, lighting, and layout. Place the stone piece in the most natural position. Describe the stone texture, veining, colour and how light catches it. End with: "photorealistic interior photography, natural lighting, sharp focus, 4K, no text, no watermarks". Output ONLY the prompt, nothing else.`
+              text: `Look at this room photo. I need to add ${piece} made from ${stone} into this room.
+
+Write a short prompt (max 80 words) describing ONLY the stone piece being added — its exact position in the room, the stone colour/texture/veining, how light hits it, and how it sits on the floor. Do NOT describe the room itself. Start with "Add" — e.g. "Add a tall cylindrical red marble plinth with dramatic crimson veining in the left corner near the window, catching warm afternoon light across its polished curved surface."
+
+Output ONLY the prompt.`
             }
           ]
         }]
@@ -46,10 +51,13 @@ export default async function handler(req, res) {
     const claudeData = await claudeRes.json();
     if (claudeData.error) throw new Error(`Claude: ${claudeData.error.message}`);
 
-    const imagePrompt = claudeData.content
+    const addPrompt = claudeData.content
       .filter(b => b.type === 'text')
       .map(b => b.text)
       .join('').trim();
+
+    // Step 2: Use Flux-dev image-to-image — starts from the actual photo
+    const imageUrl = `data:${imageMime || 'image/jpeg'};base64,${imageBase64}`;
 
     const replicateRes = await fetch('https://api.replicate.com/v1/models/black-forest-labs/flux-dev/predictions', {
       method: 'POST',
@@ -59,9 +67,9 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         input: {
-          prompt: imagePrompt,
-          width: 1024,
-          height: 1024,
+          prompt: addPrompt,
+          image: imageUrl,
+          strength: 0.45,
           num_outputs: 1,
           guidance_scale: 3.5,
           num_inference_steps: 28,
@@ -77,7 +85,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       predictionId: replicateData.id,
-      prompt: imagePrompt
+      prompt: addPrompt
     });
 
   } catch (err) {
