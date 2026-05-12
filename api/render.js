@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-opus-4-5',
         max_tokens: 600,
         messages: [{
           role: 'user',
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
             },
             {
               type: 'text',
-              text: `You are an expert interior design photographer writing prompts for an AI image generator. Analyse this room photo carefully. Write a single detailed image generation prompt that produces a photorealistic version of this exact room with ${piece} made from ${stone} naturally placed in it. The prompt must describe the room's exact colours, materials, lighting, and layout as seen, place the stone piece in the most natural fitting position, describe the stone's texture, veining, colour and how light catches it, and end with: "photorealistic interior photography, natural lighting, sharp focus, 4K, no text, no watermarks, professional real estate photography style". Output ONLY the prompt. No preamble, no explanation.`
+              text: `You are an expert interior design photographer writing prompts for an AI image generator. Analyse this room photo carefully. Write a single detailed image generation prompt that produces a photorealistic version of this exact room with ${piece} made from ${stone} naturally placed in it. Describe the room's exact colours, materials, lighting, and layout. Place the stone piece in the most natural position. Describe the stone texture, veining, colour and how light catches it. End with: "photorealistic interior photography, natural lighting, sharp focus, 4K, no text, no watermarks". Output ONLY the prompt, nothing else.`
             }
           ]
         }]
