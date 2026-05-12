@@ -244,8 +244,8 @@
   .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
 
   /* ─── REVEAL ──────────────────────────────────────── */
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.85s ease, transform 0.85s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
+  .js-ready .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.85s ease, transform 0.85s ease; }
+  .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
 
   /* ─── RESPONSIVE ──────────────────────────────────── */
   @media (max-width: 768px) {
@@ -554,6 +554,7 @@
 </footer>
 
 <script>
+  document.documentElement.classList.add('js-ready');
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
     { threshold: 0.07 }
