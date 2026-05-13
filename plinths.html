@@ -3,258 +3,297 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Plinths — Prime Piece</title>
-<meta name="description" content="Handcrafted one-of-one sculptural stone plinths. Carved in Auckland from Italian and Spanish stone.">
+<title>Stone Plinths — Prime Piece</title>
+<meta name="description" content="Handcrafted one-of-one stone plinths and side tables. Each carved from natural marble and stone in Auckland, New Zealand.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter+Tight:wght@300;400;500&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --white: #F7F3EE;
-    --cream: #EDE8DF;
-    --cream-soft: #E6DFD3;
+    --cream: #F5F1EA;
+    --cream-soft: #EBE5DA;
+    --cream-deep: #E0D9CA;
     --sage: #7BA5A8;
     --sage-deep: #5D8588;
-    --ink: #1A1814;
-    --ink-soft: #3D3830;
-    --stone: #7E7567;
-    --line: rgba(26, 24, 20, 0.12);
-    --display: 'Cormorant Garamond', serif;
-    --script: 'Dancing Script', cursive;
-    --body: 'Inter Tight', -apple-system, sans-serif;
+    --sage-soft: #A8C3C5;
+    --ink: #2C2A26;
+    --ink-soft: #554F45;
+    --stone: #8A8275;
+    --line: rgba(44,42,38,0.12);
+    --line-inv: rgba(255,255,255,0.08);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--white);
+    background: var(--cream);
     color: var(--ink);
-    font-family: var(--body);
+    font-family: 'Inter Tight', sans-serif;
     font-weight: 300;
     line-height: 1.5;
     overflow-x: hidden;
   }
 
-  /* ─── NAV ─────────────────────────────────────────── */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
-    padding: 20px 56px;
+    padding: 22px 56px;
     display: flex; justify-content: space-between; align-items: center;
     z-index: 100;
-    background: rgba(247, 243, 238, 0.97);
-    backdrop-filter: blur(16px);
+    background: rgba(245,241,234,0.96);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--line);
   }
   .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
-  .logo { font-family: var(--display); font-size: 18px; font-weight: 500; letter-spacing: 0.32em; color: var(--ink); }
-  .logo-sub { font-family: var(--script); font-size: 11px; color: var(--sage); margin-top: 2px; }
-  .nav-links { display: flex; gap: 40px; list-style: none; }
-  .nav-links a {
-    color: var(--ink-soft); text-decoration: none;
-    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500;
-    transition: color 0.25s;
-  }
-  .nav-links a:hover { color: var(--ink); }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
+  .logo-sub { font-family: 'Dancing Script', cursive; font-size: 11px; color: var(--sage); margin-top: 2px; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
 
-  /* ─── PAGE HEADER ─────────────────────────────────── */
-  .page-header {
-    margin-top: 61px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: calc(100vh - 61px);
-    background: var(--white);
+  .page-hero {
+    padding: 140px 56px 80px;
     border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;
   }
-  .page-header-img {
-    background: var(--cream-soft);
-    overflow: hidden;
-    position: relative;
+  .hero-left { max-width: 560px; }
+  .eyebrow {
+    font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
   }
-  .page-header-img img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-    object-position: center;
-    padding: 48px;
-    display: block;
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sage); }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-size: clamp(42px, 5vw, 72px);
+    line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 20px;
   }
-  .page-header-inner {
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 80px 72px;
-    border-left: 1px solid var(--line);
-  }
-  .page-eyebrow {
-    font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 20px;
-  }
-  .page-header h1 {
-    font-family: var(--display); font-weight: 300;
-    font-size: clamp(52px, 5.5vw, 88px);
-    line-height: 0.9; letter-spacing: -0.025em; color: var(--ink);
-    margin-bottom: 28px;
-  }
-  .page-header-desc {
-    font-size: 14px; color: var(--ink-soft); line-height: 1.9;
-    max-width: 360px; margin-bottom: 40px;
-  }
-  .page-header-cta {
-    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
-  }
-  .page-header-meta {
-    display: flex; align-items: center; gap: 16px;
-    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: var(--stone); font-weight: 500; margin-top: 48px;
-    padding-top: 28px; border-top: 1px solid var(--line);
-  }
-  .page-header-meta .dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--stone); }
+  h1 em { font-style: italic; color: var(--sage); }
+  .hero-desc { font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 420px; }
+  .hero-right { text-align: right; flex-shrink: 0; }
+  .hero-stat { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--sage); line-height: 1; }
+  .hero-stat-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-top: 4px; }
 
-  /* ─── PRODUCT GRID ────────────────────────────────── */
-  .product-grid {
-    padding: 72px 48px 120px;
+  .filter-bar {
+    padding: 20px 56px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 8px;
+    background: var(--cream-soft); flex-wrap: wrap;
+  }
+  .filter-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-right: 8px; }
+  .filter-btn {
+    padding: 6px 16px; border: 1px solid var(--line); border-radius: 20px;
+    font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.1em;
+    color: var(--ink-soft); background: transparent; cursor: pointer; transition: all 0.2s; font-weight: 400;
+  }
+  .filter-btn:hover { border-color: var(--sage); color: var(--sage); }
+  .filter-btn.active { background: var(--sage); border-color: var(--sage); color: white; }
+
+  .plinths-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 64px 48px;
-    max-width: 1400px;
-    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  /* ─── PRODUCT CARD ────────────────────────────────── */
-  .product-card { display: flex; flex-direction: column; }
+  .plinth-card {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    cursor: pointer;
+  }
+  .plinth-card:nth-child(3n) { border-right: none; }
 
-  .product-card-img-wrap {
+  .plinth-img-wrap {
     position: relative;
     overflow: hidden;
     background: var(--cream-soft);
     aspect-ratio: 4/5;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
   }
-  .product-card-img {
+
+  .plinth-img {
     width: 100%; height: 100%;
-    object-fit: contain; object-position: center;
-    padding: 32px;
-    display: block;
-    transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    object-fit: cover; display: block;
+    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
   }
-  .product-card:hover .product-card-img { transform: scale(1.04); }
+  .plinth-card:hover .plinth-img { transform: scale(1.04); }
 
-  .product-card-badge {
+  .plinth-badge {
     position: absolute; top: 16px; left: 16px;
-    padding: 4px 10px;
-    font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
-    font-weight: 600; border-radius: 2px;
-    background: var(--white); color: var(--ink);
-    border: 1px solid var(--line);
+    padding: 4px 10px; background: var(--sage); color: white;
+    font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
+    font-weight: 500; border-radius: 1px;
   }
 
-  .product-card-name {
-    font-family: var(--display);
-    font-size: clamp(22px, 2.2vw, 30px);
-    font-weight: 400; color: var(--ink);
-    letter-spacing: -0.01em; line-height: 1.1;
-    margin-bottom: 4px;
+  .view-btn {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 14px;
+    background: rgba(44,42,38,0.82);
+    backdrop-filter: blur(6px);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: white; text-align: center; font-weight: 500;
+    opacity: 0; transform: translateY(100%);
+    transition: opacity 0.3s, transform 0.3s;
   }
-  .product-card-type {
-    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: var(--stone); font-weight: 500; margin-bottom: 20px;
-  }
+  .plinth-card:hover .view-btn { opacity: 1; transform: translateY(0); }
 
-  .product-specs { border-top: 1px solid var(--line); margin-bottom: 18px; }
-  .spec-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line);
-  }
-  .spec-label { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
-  .spec-val { font-size: 13px; color: var(--ink-soft); text-align: right; font-weight: 300; }
-
-  .product-card-foot {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 4px;
-  }
-  .product-card-avail {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--stone); font-weight: 500;
-  }
-  .btn-enquire {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 24px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    text-decoration: none; background: var(--ink); color: #fff;
-    cursor: pointer; transition: background 0.25s; font-family: var(--body); font-weight: 500;
-    border-radius: 2px; border: none;
-  }
-  .btn-enquire:hover { background: var(--ink-soft); }
-  .btn-enquire span { transition: transform 0.25s; }
-  .btn-enquire:hover span { transform: translateX(3px); }
-
-  /* ─── CTA STRIP ───────────────────────────────────── */
-  .cta-strip {
-    padding: 100px 56px;
-    text-align: center;
-    background: var(--cream-soft);
+  .plinth-info {
+    padding: 24px 28px 28px;
     border-top: 1px solid var(--line);
+    flex: 1; display: flex; flex-direction: column;
   }
-  .section-label {
-    font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 14px; display: block;
+  .plinth-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; color: var(--ink);
+    margin-bottom: 4px; letter-spacing: -0.01em;
   }
-  .cta-strip h2 {
-    font-family: var(--display); font-weight: 300;
-    font-size: clamp(34px, 4vw, 56px);
-    line-height: 1.0; letter-spacing: -0.02em;
-    color: var(--ink); max-width: 480px; margin: 0 auto 16px;
+  .plinth-stone {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--stone); font-weight: 500; margin-bottom: 10px;
   }
-  .cta-strip h2 em { font-family: var(--script); font-style: normal; color: var(--sage); font-size: 0.9em; }
-  .cta-strip p { font-size: 15px; color: var(--ink-soft); line-height: 1.85; max-width: 380px; margin: 0 auto 36px; }
-  .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .btn-dark {
+  .plinth-dims { font-size: 12px; color: var(--ink-soft); margin-bottom: 20px; line-height: 1.6; }
+  .plinth-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .plinth-type { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); }
+  .enquire-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid var(--sage); color: var(--sage);
+    background: transparent; cursor: pointer; transition: all 0.3s;
+    font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px;
+  }
+  .enquire-btn:hover { background: var(--sage); color: white; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(44,42,38,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 200; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--cream);
+    max-width: 900px; width: 100%;
+    border-radius: 2px; overflow: hidden;
+    position: relative; max-height: 92vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+
+  .modal-img-col {
+    background: var(--cream-soft);
+    position: relative; overflow: hidden;
+    min-height: 500px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .modal-img-col img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+
+  .modal-stone-tag {
+    position: absolute; top: 20px; left: 20px;
+    padding: 5px 12px; background: var(--sage); color: white;
+    font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
+    font-weight: 500; border-radius: 1px;
+  }
+
+  .modal-info-col {
+    padding: 40px 36px;
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    border-left: 1px solid var(--line);
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border: 1px solid var(--line); border-radius: 50%;
+    background: rgba(245,241,234,0.9);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10;
+  }
+  .modal-close:hover { background: white; color: var(--ink); }
+
+  .modal-eyebrow { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
+  .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .modal-stone { font-size: 12px; color: var(--ink-soft); margin-bottom: 32px; }
+  .modal-divider { height: 1px; background: var(--line); margin-bottom: 24px; }
+
+  .detail-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 12px 0; border-bottom: 1px solid var(--line); gap: 16px;
+  }
+  .detail-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
+  .detail-val { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--ink-soft); text-align: right; }
+
+  .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 24px 0; font-style: italic; }
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 24px; }
+
+  .modal-btn-primary {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px; background: var(--sage); color: white;
+    border: none; border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none;
+  }
+  .modal-btn-primary:hover { background: var(--sage-deep); }
+
+  .modal-btn-ghost {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px; background: transparent; color: var(--sage);
+    border: 1px solid var(--sage); border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none;
+  }
+  .modal-btn-ghost:hover { background: var(--sage); color: white; }
+
+  .cta-strip {
+    background: var(--ink); padding: 72px 56px;
+    display: flex; justify-content: space-between; align-items: center; gap: 40px;
+  }
+  .cta-strip h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(28px, 3vw, 44px); color: white; line-height: 1.1; }
+  .cta-strip h2 em { font-style: italic; color: var(--sage-soft); }
+  .cta-strip p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 360px; margin-top: 12px; }
+  .cta-btn {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 28px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    text-decoration: none; background: var(--ink); color: #fff;
-    cursor: pointer; transition: background 0.25s; font-family: var(--body); font-weight: 500;
-    border-radius: 2px;
+    padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage);
+    background: transparent; text-decoration: none;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    font-weight: 500; transition: all 0.3s; border-radius: 1px; flex-shrink: 0;
   }
-  .btn-dark:hover { background: var(--ink-soft); }
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 28px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    text-decoration: none; background: transparent; color: var(--ink);
-    border: 1px solid var(--line); cursor: pointer; transition: all 0.25s;
-    font-family: var(--body); font-weight: 500; border-radius: 2px;
+  .cta-btn:hover { background: var(--sage); color: white; }
+
+  footer { padding: 48px 56px 28px; background: var(--cream-soft); border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; letter-spacing: 0.3em; color: var(--sage); margin-bottom: 4px; }
+  .footer-brand-sub { font-family: 'Dancing Script', cursive; font-size: 13px; color: var(--sage); margin-bottom: 12px; }
+  .footer-brand-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); margin-bottom: 14px; font-weight: 600; }
+  .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 9px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--sage); }
+  .footer-bottom { padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .modal { grid-template-columns: 1fr; }
+    .modal-img-col { min-height: 320px; }
   }
-  .btn-outline:hover { border-color: var(--ink); }
-  .btn-arrow { transition: transform 0.25s; }
-  .btn-dark:hover .btn-arrow, .btn-outline:hover .btn-arrow { transform: translateX(4px); }
-
-  /* ─── FOOTER ──────────────────────────────────────── */
-  footer { padding: 64px 56px 32px; background: var(--white); border-top: 1px solid var(--line); }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-  .footer-brand { font-family: var(--display); font-size: 20px; font-weight: 500; letter-spacing: 0.28em; color: var(--ink); margin-bottom: 4px; }
-  .footer-brand-sub { font-family: var(--script); font-size: 13px; color: var(--sage); margin-bottom: 12px; }
-  .footer-brand-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.75; max-width: 260px; }
-  .footer-col h4 { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink); margin-bottom: 16px; font-weight: 600; }
-  .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color 0.2s; }
-  .footer-col a:hover { color: var(--ink); }
-  .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.08em; }
-
-  /* ─── REVEAL ──────────────────────────────────────── */
-  .js-ready .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.85s ease, transform 0.85s ease; }
-  .js-ready .reveal.in { opacity: 1; transform: translateY(0); }
-
-  /* ─── RESPONSIVE ──────────────────────────────────── */
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    .page-header { grid-template-columns: 1fr; min-height: auto; }
-    .page-header-img { aspect-ratio: 4/3; }
-    .page-header-inner { padding: 48px 24px; border-left: none; border-top: 1px solid var(--line); }
-    .product-grid { padding: 48px 20px 88px; grid-template-columns: 1fr; gap: 56px; }
-    .product-card-img { padding: 20px; }
-    .cta-strip { padding: 72px 24px; }
-    footer { padding: 56px 24px 28px; }
+    .page-hero { padding: 110px 24px 60px; flex-direction: column; align-items: flex-start; }
+    .filter-bar { padding: 16px 24px; }
+    .plinths-grid { grid-template-columns: 1fr 1fr; }
+    .plinth-card:nth-child(3n) { border-right: 1px solid var(--line); }
+    .plinth-card:nth-child(2n) { border-right: none; }
+    .view-btn { opacity: 1; transform: translateY(0); }
+    .cta-strip { padding: 56px 24px; flex-direction: column; align-items: flex-start; }
+    footer { padding: 48px 24px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-    .footer-bottom { flex-direction: column; gap: 8px; }
-  }
-  @media (min-width: 769px) and (max-width: 1100px) {
-    .product-grid { padding: 56px 32px 100px; gap: 48px 32px; }
+    .footer-bottom { flex-direction: column; gap: 6px; }
   }
 </style>
 </head>
@@ -267,214 +306,265 @@
   </a>
   <ul class="nav-links">
     <li><a href="/#collection">Collection</a></li>
-    <li><a href="/#render">Free Render</a></li>
-    <li><a href="/#process">Process</a></li>
+    <li><a href="plinths.html" class="nav-active">Plinths</a></li>
+    <li><a href="tables.html">Tables</a></li>
+    <li><a href="boards.html">Boards</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
 </nav>
 
-<div class="page-header">
-  <div class="page-header-img">
-    <img src="plinth-5.png" alt="Verde Alpi Marble Plinth">
+<section class="page-hero">
+  <div class="hero-left reveal">
+    <div class="eyebrow">Stone Plinths</div>
+    <h1>Sculptural stone.<br><em>One of one</em>.</h1>
+    <p class="hero-desc">Each plinth is carved from a single block of natural stone — handcrafted in Auckland. No two pieces are the same. Once sold, gone forever.</p>
   </div>
-  <div class="page-header-inner">
-    <div class="page-eyebrow">The Collection</div>
-    <h1>Plinths</h1>
-    <p class="page-header-desc">Sourced from Italian and Spanish quarries. Shaped entirely by hand in Auckland. Each piece is one of one — never repeated, never moulded.</p>
-    <div class="page-header-cta">
-      <a href="mailto:james@primepiece.co.nz?subject=Plinth Enquiry" class="btn-enquire">Enquire Now <span class="btn-arrow">→</span></a>
-      <a href="/#render" style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);text-decoration:none;font-weight:500;">Get a Free Render</a>
-    </div>
-    <div class="page-header-meta">
-      <span>One of one</span>
-      <span class="dot"></span>
-      <span>Handcrafted in NZ</span>
-      <span class="dot"></span>
-      <span>Italian &amp; Spanish Stone</span>
-    </div>
+  <div class="hero-right reveal">
+    <div class="hero-stat">13</div>
+    <div class="hero-stat-label">Pieces available</div>
   </div>
+</section>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" onclick="filter('all', this)">All</button>
+  <button class="filter-btn" onclick="filter('travertine', this)">Travertine</button>
+  <button class="filter-btn" onclick="filter('marble', this)">Marble</button>
+  <button class="filter-btn" onclick="filter('dark', this)">Dark Stone</button>
+  <button class="filter-btn" onclick="filter('green', this)">Green</button>
 </div>
 
-<div class="product-grid">
+<div class="plinths-grid" id="plinths-grid">
 
-  <!-- PLINTH 1 — Calacatta Marble -->
-  <div class="product-card reveal">
-    <div class="product-card-img-wrap">
-      <img class="product-card-img" src="plinth-1.png" alt="Calacatta Marble Plinth">
-      <span class="product-card-badge">One of one</span>
+  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Natural Travertine Plinth','Natural Travertine','plinth-1.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-1.jpg" alt="Natural Travertine Plinth">
+      <div class="view-btn">View Piece →</div>
     </div>
-    <div class="product-card-name">Calacatta Marble</div>
-    <div class="product-card-type">Plinth</div>
-    <div class="product-specs">
-      <div class="spec-row">
-        <span class="spec-label">Stone</span>
-        <span class="spec-val">Calacatta Marble</span>
+    <div class="plinth-info">
+      <div class="plinth-name">Natural Travertine</div>
+      <div class="plinth-stone">Travertine — Warm Beige</div>
+      <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Natural Travertine Plinth 800H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
       </div>
-      <div class="spec-row">
-        <span class="spec-label">Origin</span>
-        <span class="spec-val">Italy</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Dimensions</span>
-        <span class="spec-val">52 × 35 × 35 cm</span>
-      </div>
-    </div>
-    <div class="product-card-foot">
-      <span class="product-card-avail">Enquire for price</span>
-      <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Calacatta Marble Plinth" class="btn-enquire">Enquire <span class="btn-arrow">→</span></a>
     </div>
   </div>
 
-  <!-- PLINTH 2 — Rosso Africano I -->
-  <div class="product-card reveal">
-    <div class="product-card-img-wrap">
-      <img class="product-card-img" src="plinth-2.png" alt="Rosso Africano Plinth">
-      <span class="product-card-badge">One of one</span>
+  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Travertine Side Plinth','Natural Travertine','plinth-2.jpg','H: 450mm × W: 300mm × D: 300mm','Side Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-2.jpg" alt="Travertine Side Plinth">
+      <div class="view-btn">View Piece →</div>
     </div>
-    <div class="product-card-name">Rosso Africano</div>
-    <div class="product-card-type">Plinth</div>
-    <div class="product-specs">
-      <div class="spec-row">
-        <span class="spec-label">Stone</span>
-        <span class="spec-val">Rosso Africano Marble</span>
+    <div class="plinth-info">
+      <div class="plinth-name">Travertine</div>
+      <div class="plinth-stone">Travertine — Warm Beige</div>
+      <div class="plinth-dims">H: 450mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Side Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Travertine Plinth 450H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
       </div>
-      <div class="spec-row">
-        <span class="spec-label">Origin</span>
-        <span class="spec-val">Spain</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Dimensions</span>
-        <span class="spec-val">600 (H) × 300 (W) mm</span>
-      </div>
-    </div>
-    <div class="product-card-foot">
-      <span class="product-card-avail">Enquire for price</span>
-      <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Plinth (plinth-2)" class="btn-enquire">Enquire <span class="btn-arrow">→</span></a>
     </div>
   </div>
 
-  <!-- PLINTH 3 — Rosso Africano II -->
-  <div class="product-card reveal">
-    <div class="product-card-img-wrap">
-      <img class="product-card-img" src="plinth-3.png" alt="Rosso Africano Plinth II">
-      <span class="product-card-badge">One of one</span>
+  <div class="plinth-card reveal" data-tags="grey" onclick="openModal('Grey Porcelain Plinth I','Grey Porcelain','plinth-3.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-3.jpg" alt="Grey Porcelain Plinth">
+      <div class="view-btn">View Piece →</div>
     </div>
-    <div class="product-card-name">Rosso Africano</div>
-    <div class="product-card-type">Plinth</div>
-    <div class="product-specs">
-      <div class="spec-row">
-        <span class="spec-label">Stone</span>
-        <span class="spec-val">Rosso Africano Marble</span>
+    <div class="plinth-info">
+      <div class="plinth-name">Grey Porcelain I</div>
+      <div class="plinth-stone">Grey Porcelain</div>
+      <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Grey Porcelain Plinth 800H I" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
       </div>
-      <div class="spec-row">
-        <span class="spec-label">Origin</span>
-        <span class="spec-val">Spain</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Dimensions</span>
-        <span class="spec-val">60 × 30 × 30 cm</span>
-      </div>
-    </div>
-    <div class="product-card-foot">
-      <span class="product-card-avail">Enquire for price</span>
-      <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Plinth (plinth-3)" class="btn-enquire">Enquire <span class="btn-arrow">→</span></a>
     </div>
   </div>
 
-  <!-- PLINTH 4 — Florim -->
-  <div class="product-card reveal">
-    <div class="product-card-img-wrap">
-      <img class="product-card-img" src="plinth-4.png" alt="Florim Plinth">
-      <span class="product-card-badge">One of one</span>
+  <div class="plinth-card reveal" data-tags="grey" onclick="openModal('Grey Porcelain Plinth II','Grey Porcelain','plinth-4.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-4.jpg" alt="Grey Porcelain Plinth II">
+      <div class="view-btn">View Piece →</div>
     </div>
-    <div class="product-card-name">Florim</div>
-    <div class="product-card-type">Plinth</div>
-    <div class="product-specs">
-      <div class="spec-row">
-        <span class="spec-label">Stone</span>
-        <span class="spec-val">Florim</span>
+    <div class="plinth-info">
+      <div class="plinth-name">Grey Porcelain II</div>
+      <div class="plinth-stone">Grey Porcelain</div>
+      <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Grey Porcelain Plinth 800H II" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
       </div>
-      <div class="spec-row">
-        <span class="spec-label">Origin</span>
-        <span class="spec-val">Italy</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Dimensions</span>
-        <span class="spec-val">950 (L) × 760 (W) × 300 (H) mm</span>
-      </div>
-    </div>
-    <div class="product-card-foot">
-      <span class="product-card-avail">Enquire for price</span>
-      <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Florim Plinth" class="btn-enquire">Enquire <span class="btn-arrow">→</span></a>
     </div>
   </div>
 
-  <!-- PLINTH 5 — Verde Alpi Marble -->
-  <div class="product-card reveal">
-    <div class="product-card-img-wrap">
-      <img class="product-card-img" src="plinth-5.png" alt="Verde Alpi Marble Plinth">
-      <span class="product-card-badge">One of one</span>
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Plinth I','Rosso Levanto Marble','plinth-5.jpg','H: 600mm × W: 300mm × D: 300mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-5.jpg" alt="Rosso Levanto Plinth">
+      <div class="view-btn">View Piece →</div>
     </div>
-    <div class="product-card-name">Verde Alpi Marble</div>
-    <div class="product-card-type">Plinth</div>
-    <div class="product-specs">
-      <div class="spec-row">
-        <span class="spec-label">Stone</span>
-        <span class="spec-val">Verde Alpi Marble</span>
+    <div class="plinth-info">
+      <div class="plinth-name">Rosso Levanto I</div>
+      <div class="plinth-stone">Rosso Levanto Marble — Dark Red</div>
+      <div class="plinth-dims">H: 600mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Levanto Plinth 600H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
       </div>
-      <div class="spec-row">
-        <span class="spec-label">Origin</span>
-        <span class="spec-val">Italy</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Dimensions</span>
-        <span class="spec-val">55 × 30 × 30 cm</span>
-      </div>
-    </div>
-    <div class="product-card-foot">
-      <span class="product-card-avail">Enquire for price</span>
-      <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Verde Alpi Marble Plinth" class="btn-enquire">Enquire <span class="btn-arrow">→</span></a>
     </div>
   </div>
 
-  <!-- PLINTH 6 — Dekton Sirius -->
-  <div class="product-card reveal">
-    <div class="product-card-img-wrap">
-      <img class="product-card-img" src="plinth-6.png" alt="Dekton Sirius Plinth">
-      <span class="product-card-badge">One of one</span>
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Plinth II','Rosso Levanto Marble','plinth-6.jpg','H: 400mm × W: 300mm × D: 300mm','Side Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-6.jpg" alt="Rosso Levanto Plinth II">
+      <div class="view-btn">View Piece →</div>
     </div>
-    <div class="product-card-name">Sirius</div>
-    <div class="product-card-type">Plinth — Dekton</div>
-    <div class="product-specs">
-      <div class="spec-row">
-        <span class="spec-label">Stone</span>
-        <span class="spec-val">Dekton Sirius</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Origin</span>
-        <span class="spec-val">Spain</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-label">Dimensions</span>
-        <span class="spec-val">600 (H) × 300 (W) mm</span>
+    <div class="plinth-info">
+      <div class="plinth-name">Rosso Levanto II</div>
+      <div class="plinth-stone">Rosso Levanto Marble — Dark Red</div>
+      <div class="plinth-dims">H: 400mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Side Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Levanto Plinth 400H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
       </div>
     </div>
-    <div class="product-card-foot">
-      <span class="product-card-avail">Enquire for price</span>
-      <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Plinth" class="btn-enquire">Enquire <span class="btn-arrow">→</span></a>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Travertine Coffee Table','Natural Travertine','plinth-7.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-7.jpg" alt="Travertine Coffee Table">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Travertine Table</div>
+      <div class="plinth-stone">Natural Travertine</div>
+      <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Coffee Table Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Travertine Coffee Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Table','Dekton Sirius','plinth-8.jpg','L: 950mm × W: 760mm × H: 280mm','Coffee Table Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-8.jpg" alt="Dekton Sirius Table">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Dekton Sirius Table</div>
+      <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
+      <div class="plinth-dims">L: 950mm × W: 760mm × H: 280mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Coffee Table Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Coffee Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Africano Table','Rosso Africano Marble','plinth-9.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-9.jpg" alt="Rosso Africano Table">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Rosso Africano Table</div>
+      <div class="plinth-stone">Rosso Africano Marble — Red & Black</div>
+      <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Coffee Table Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Coffee Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Green Calacatta Plinth','Green Calacatta Marble','plinth-10.jpg','H: 520mm × W: 350mm × D: 350mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-10.jpg" alt="Green Calacatta Plinth">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Green Calacatta</div>
+      <div class="plinth-stone">Green Calacatta Marble</div>
+      <div class="plinth-dims">H: 520mm × W: 350mm × D: 350mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Green Calacatta Plinth" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Verde Apli Plinth','Verde Apli Marble','plinth-11.jpg','H: 550mm × W: 300mm × D: 300mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-11.jpg" alt="Verde Apli Plinth">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Verde Apli</div>
+      <div class="plinth-stone">Verde Apli Marble — Deep Green</div>
+      <div class="plinth-dims">H: 550mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Verde Apli Plinth" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Plinth I','Dekton Sirius','plinth-12.jpg','H: 600mm × W: 300mm × D: 300mm','Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-12.jpg" alt="Dekton Sirius Plinth">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Dekton Sirius I</div>
+      <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
+      <div class="plinth-dims">H: 600mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Plinth 600H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Plinth II','Dekton Sirius','plinth-13.jpg','H: 450mm × W: 300mm × D: 300mm','Side Plinth')">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge">Available</span>
+      <img class="plinth-img" src="plinth-13.jpg" alt="Dekton Sirius Plinth II">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Dekton Sirius II</div>
+      <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
+      <div class="plinth-dims">H: 450mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Side Plinth</span>
+        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Plinth 450H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+      </div>
     </div>
   </div>
 
 </div>
 
 <div class="cta-strip">
-  <span class="section-label">Made to Order</span>
-  <h2>Commission your<br><em>piece</em>.</h2>
-  <p>Every plinth can be made to your exact size and stone. Enquire to start a conversation from our Auckland workshop.</p>
-  <div class="btn-group">
-    <a href="mailto:james@primepiece.co.nz" class="btn-dark">Start a Conversation <span class="btn-arrow">→</span></a>
-    <a href="/#render" class="btn-outline">Get a Free Render <span class="btn-arrow">→</span></a>
+  <div>
+    <h2>Commission your<br>own <em>piece</em>.</h2>
+    <p>Every plinth can be made to order in any stone, any size. Choose your material and finish — fabricated from our Auckland workshop.</p>
   </div>
+  <a href="mailto:james@primepiece.co.nz?subject=Custom Plinth Enquiry" class="cta-btn">Start a Conversation →</a>
 </div>
 
 <footer>
@@ -482,14 +572,14 @@
     <div>
       <div class="footer-brand">PRIME PIECE</div>
       <div class="footer-brand-sub">one of one</div>
-      <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. Carved in Auckland from Italian and Spanish stone.</p>
+      <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. One of one, carved in Auckland from Italian and Spanish stone.</p>
     </div>
     <div class="footer-col">
       <h4>Shop</h4>
       <a href="plinths.html">Plinths</a>
       <a href="tables.html">Tables</a>
       <a href="boards.html">Boards</a>
-      <a href="/#contact">Made To Order</a>
+      <a href="/#made-to-order">Made To Order</a>
     </div>
     <div class="footer-col">
       <h4>Brand</h4>
@@ -511,14 +601,85 @@
   </div>
 </footer>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img-col">
+      <span class="modal-stone-tag" id="modal-stone-tag"></span>
+      <img id="modal-img" src="" alt="">
+    </div>
+    <div class="modal-info-col">
+      <div class="modal-eyebrow">Prime Piece — Stone Plinth</div>
+      <div class="modal-name" id="modal-name"></div>
+      <div class="modal-stone" id="modal-stone-desc"></div>
+      <div class="modal-divider"></div>
+      <div class="detail-row">
+        <span class="detail-label">Dimensions</span>
+        <span class="detail-val" id="modal-dims"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Type</span>
+        <span class="detail-val" id="modal-type"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Finish</span>
+        <span class="detail-val">Honed, natural stone</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Origin</span>
+        <span class="detail-val">Handcrafted Auckland, NZ</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Edition</span>
+        <span class="detail-val">One of one — never repeated</span>
+      </div>
+      <p class="modal-note">Natural stone colour and veining varies — every piece is completely unique.</p>
+      <div class="modal-actions">
+        <a class="modal-btn-primary" id="modal-enquire" href="#">Enquire About This Piece →</a>
+        <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-  document.documentElement.classList.add('js-ready');
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
-    { threshold: 0.07 }
+    { threshold: 0.06 }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 
+  function filter(tag, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.plinth-card').forEach(card => {
+      card.style.display = (tag === 'all' || card.dataset.tags.includes(tag)) ? 'flex' : 'none';
+    });
+  }
+
+  function openModal(name, stone, img, dims, type) {
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-stone-tag').textContent = stone;
+    document.getElementById('modal-stone-desc').textContent = stone;
+    document.getElementById('modal-img').src = img;
+    document.getElementById('modal-dims').textContent = dims;
+    document.getElementById('modal-type').textContent = type;
+    document.getElementById('modal-enquire').href = `mailto:james@primepiece.co.nz?subject=Enquiry — ${name}`;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
 </body>
 </html>
