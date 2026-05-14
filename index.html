@@ -557,7 +557,7 @@
     </div>
     <div class="testimonial reveal">
       <div class="stars">★★★★★</div>
-      class="testimonial-title">Highly Recommend.</div>
+      <div class="testimonial-title">Highly Recommend.</div>
       <p class="testimonial-body">Absolutely love our side coffee tables. Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms.</p>
       <div class="testimonial-author">Cindy Z</div>
     </div>
@@ -646,8 +646,6 @@
   })();
 
   // ── PRODUCTS ──
-  // imgSrc must match the exact filename in your site folder.
-  // Update the 'name' field to match your actual product names once you know them.
   const PRODUCTS = [
     { id: 'p1',  imgSrc: 'table-1.jpg',    name: 'Table I',       prompt: 'a sculptural stone coffee table with a thick dramatic stone slab top on a geometric metal base' },
     { id: 'p2',  imgSrc: 'table-2.jpg',    name: 'Table II',      prompt: 'a sculptural stone side table with a thick polished stone slab top on a solid stone base' },
@@ -667,6 +665,32 @@
     { id: 'p16', imgSrc: 'side-1.jpg',     name: 'Side Table I',  prompt: 'a sculptural stone side table with a thick stone top on a solid stone pedestal base' },
     { id: 'p17', imgSrc: 'side-2 (1).jpg', name: 'Side Table II', prompt: 'a sculptural stone side table with a round stone top on a slim metal base' },
   ];
+
+  // ── Pre-load ALL product images as base64 at page load using canvas ──
+  // This sidesteps CORS — images are same-origin so canvas can read them.
+  // By click time everything is already in memory.
+  const productImageCache = {};
+
+  function preloadProductImages() {
+    PRODUCTS.forEach(product => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width  = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          canvas.getContext('2d').drawImage(img, 0, 0);
+          const dataURL = canvas.toDataURL('image/jpeg', 0.92);
+          productImageCache[product.id] = { base64: dataURL.split(',')[1], mime: 'image/jpeg' };
+        } catch(e) {
+          console.warn('Canvas encode failed for:', product.imgSrc, e);
+        }
+      };
+      img.onerror = () => console.warn('Image load failed:', product.imgSrc);
+      img.src = product.imgSrc;
+    });
+  }
+  preloadProductImages();
 
   // ── Build product picker ──
   let selectedProductId = PRODUCTS[0]?.id || null;
@@ -746,17 +770,6 @@
     }
   });
 
-  async function getProductImageBase64(imgSrc) {
-    const res  = await fetch(imgSrc);
-    const blob = await res.blob();
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve({ base64: reader.result.split(',')[1], mime: blob.type || 'image/jpeg' });
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  }
-
   function showFormError(msg) {
     aiLoading.style.display    = 'none';
     aiRenderForm.style.display = 'block';
@@ -771,6 +784,13 @@
     const stone   = document.getElementById('ai-stone').value;
     const product = PRODUCTS.find(p => p.id === selectedProductId) || PRODUCTS[0];
 
+    // Pull from cache — loaded at page start via canvas
+    const cached           = productImageCache[product.id];
+    const productImageBase64 = cached ? cached.base64 : null;
+    const productImageMime   = cached ? cached.mime   : 'image/jpeg';
+
+    if (!cached) console.warn('No cached image for:', product.name, '— text prompt only');
+
     aiGenerateBtn.disabled     = true;
     aiError.style.display      = 'none';
     aiRenderForm.style.display = 'none';
@@ -780,16 +800,6 @@
     aiLoadingText.textContent  = 'Reading your room...';
 
     try {
-      let productImageBase64 = null;
-      let productImageMime   = 'image/jpeg';
-      try {
-        const pd = await getProductImageBase64(product.imgSrc);
-        productImageBase64 = pd.base64;
-        productImageMime   = pd.mime;
-      } catch(e) {
-        console.warn('Could not load product image — falling back to text prompt only');
-      }
-
       const res = await fetch('/api/render', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
