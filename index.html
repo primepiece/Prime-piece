@@ -60,84 +60,21 @@
   nav.scrolled .logo { color: var(--sage); }
   nav.scrolled .logo-sub { color: var(--sage); }
   .nav-links { display: flex; gap: 44px; list-style: none; }
-  .nav-links a {
-    color: rgba(255,255,255,0.72);
-    text-decoration: none;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
+  .nav-links a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; transition: color 0.3s; }
   .nav-links a:hover { color: #fff; }
   nav.scrolled .nav-links a { color: var(--ink-soft); }
   nav.scrolled .nav-links a:hover { color: var(--sage); }
 
   /* HERO */
-  .hero {
-    height: 100vh;
-    min-height: 680px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 0 56px 88px;
-    background: url('hero.png') center/cover no-repeat;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(18,15,12,0.35) 0%, rgba(18,15,12,0.22) 40%, rgba(18,15,12,0.80) 100%);
-  }
+  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.png') center/cover no-repeat; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(18,15,12,0.35) 0%, rgba(18,15,12,0.22) 40%, rgba(18,15,12,0.80) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: 720px; }
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--sage-soft);
-    margin-bottom: 22px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage-soft); margin-bottom: 22px; font-weight: 500; display: flex; align-items: center; gap: 14px; }
   .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--sage-soft); flex-shrink: 0; }
-  h1 {
-    font-family: var(--display);
-    font-weight: 300;
-    font-size: clamp(48px, 6.5vw, 100px);
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    color: #fff;
-    margin-bottom: 22px;
-  }
-  .hero-sub {
-    font-size: 15px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.65);
-    max-width: 460px;
-    margin-bottom: 40px;
-    font-weight: 300;
-  }
+  h1 { font-family: var(--display); font-weight: 300; font-size: clamp(48px, 6.5vw, 100px); line-height: 1.0; letter-spacing: -0.02em; color: #fff; margin-bottom: 22px; }
+  .hero-sub { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.65); max-width: 460px; margin-bottom: 40px; font-weight: 300; }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 28px;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--sage);
-    color: var(--sage);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: var(--body);
-    font-weight: 500;
-    border-radius: 1px;
-  }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--sage); color: var(--sage); background: transparent; cursor: pointer; transition: all 0.3s ease; font-family: var(--body); font-weight: 500; border-radius: 1px; }
   .btn:hover { background: var(--sage); color: var(--cream); }
   .btn-primary { background: var(--sage); color: var(--cream); }
   .btn-primary:hover { background: var(--sage-deep); border-color: var(--sage-deep); }
@@ -149,42 +86,15 @@
   .btn:hover .btn-arrow { transform: translateX(4px); }
   .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
 
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--sage);
-    font-weight: 500;
-    margin-bottom: 14px;
-    display: block;
-  }
-  h2 {
-    font-family: var(--display);
-    font-weight: 300;
-    font-size: clamp(36px, 4.5vw, 62px);
-    line-height: 1.0;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-  }
+  .section-label { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; display: block; }
+  h2 { font-family: var(--display); font-weight: 300; font-size: clamp(36px, 4.5vw, 62px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink); }
   h2 em { font-family: var(--script); font-style: normal; color: var(--sage); font-size: 0.88em; font-weight: 500; }
 
   /* FOUNDER */
-  .founder-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 680px;
-    border-top: 48px solid var(--cream-deep);
-    background: var(--cream);
-  }
+  .founder-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; border-top: 48px solid var(--cream-deep); background: var(--cream); }
   .founder-img-col { position: relative; overflow: hidden; background: var(--cream-deep); }
   .founder-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-  .founder-copy-col {
-    padding: 96px 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-left: 1px solid var(--line);
-  }
+  .founder-copy-col { padding: 96px 80px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
   .founder-eyebrow { font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
   .founder-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--sage); flex-shrink: 0; }
   .founder-name { font-family: var(--display); font-size: clamp(42px, 4.5vw, 68px); font-weight: 300; letter-spacing: -0.025em; line-height: 0.9; color: var(--ink); margin-bottom: 10px; }
@@ -198,152 +108,39 @@
 
   /* COLLECTION */
   .collection-section { background: var(--cream-soft); border-top: 1px solid var(--line); }
-  .collection-header {
-    padding: 88px 56px 52px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 1px solid var(--line);
-  }
+  .collection-header { padding: 88px 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); }
   .collection-desc { font-size: 14px; color: var(--ink-soft); max-width: 360px; line-height: 1.75; }
   .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .collection-card {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    text-decoration: none;
-    border-right: 1px solid var(--line);
-  }
+  .collection-card { position: relative; display: block; overflow: hidden; text-decoration: none; border-right: 1px solid var(--line); }
   .collection-card:last-child { border-right: none; }
-  .collection-card-img {
-    width: 100%;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    display: block;
-    transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
+  .collection-card-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
   .collection-card:hover .collection-card-img { transform: scale(1.05); }
-  .collection-card-label {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 96px 32px 32px;
-    background: linear-gradient(to top, rgba(18,15,12,0.80) 0%, transparent 100%);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
+  .collection-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 96px 32px 32px; background: linear-gradient(to top, rgba(18,15,12,0.80) 0%, transparent 100%); display: flex; justify-content: space-between; align-items: flex-end; }
   .collection-card-name { font-family: var(--display); font-size: 40px; font-weight: 300; color: #fff; line-height: 1; }
   .collection-card-arrow { font-size: 18px; color: rgba(255,255,255,0.5); transition: transform 0.4s, color 0.4s; line-height: 1; margin-bottom: 4px; }
   .collection-card:hover .collection-card-arrow { transform: translate(4px,-4px); color: #fff; }
 
   /* RENDER */
-  .render-section {
-    background: var(--cream-soft);
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 96px 56px;
-  }
+  .render-section { background: var(--cream-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 96px 56px; }
   .render-intro { max-width: 600px; margin: 0 auto 64px; text-align: center; }
   .render-intro h2 { margin-bottom: 16px; }
   .render-intro p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
 
-  /* NEW Joobies-style Before/After Slider */
-  .ba2-wrap {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto 16px;
-  }
-  .ba2-slider {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4/3;
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: col-resize;
-    user-select: none;
-    touch-action: pan-y;
-    box-shadow: 0 32px 80px rgba(44,42,38,0.18);
-  }
-  @media (min-width: 768px) {
-    .ba2-slider { aspect-ratio: 16/9; }
-  }
-  .ba2-layer {
-    position: absolute;
-    inset: 0;
-  }
-  .ba2-layer img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    pointer-events: none;
-  }
+  /* Before/After Slider */
+  .ba2-wrap { width: 100%; max-width: 1100px; margin: 0 auto 16px; }
+  .ba2-slider { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 16px; overflow: hidden; cursor: col-resize; user-select: none; touch-action: pan-y; box-shadow: 0 32px 80px rgba(44,42,38,0.18); }
+  @media (min-width: 768px) { .ba2-slider { aspect-ratio: 16/9; } }
+  .ba2-layer { position: absolute; inset: 0; }
+  .ba2-layer img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
   .ba2-after { z-index: 1; }
-  .ba2-before {
-    z-index: 2;
-    clip-path: inset(0 50% 0 0);
-  }
-  .ba2-divider {
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 50%;
-    width: 2px;
-    background: rgba(255,255,255,0.9);
-    transform: translateX(-50%);
-    z-index: 4;
-    pointer-events: none;
-  }
-  .ba2-handle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.22);
-    z-index: 5;
-    pointer-events: none;
-    color: var(--ink);
-  }
+  .ba2-before { z-index: 2; clip-path: inset(0 50% 0 0); }
+  .ba2-divider { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: rgba(255,255,255,0.9); transform: translateX(-50%); z-index: 4; pointer-events: none; }
+  .ba2-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.22); z-index: 5; pointer-events: none; color: var(--ink); }
   .ba2-handle svg { width: 16px; height: 16px; }
-  .ba2-pill {
-    position: absolute;
-    top: 18px;
-    z-index: 6;
-    padding: 7px 16px;
-    border-radius: 99px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-family: var(--body);
-    pointer-events: none;
-    backdrop-filter: blur(8px);
-  }
-  .ba2-pill-before {
-    left: 18px;
-    background: rgba(30,28,24,0.72);
-    color: rgba(255,255,255,0.9);
-  }
-  .ba2-pill-after {
-    right: 18px;
-    background: var(--sage);
-    color: var(--cream);
-  }
-  .ba2-note {
-    text-align: center;
-    font-size: 10px;
-    color: var(--stone);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 80px;
-  }
+  .ba2-pill { position: absolute; top: 18px; z-index: 6; padding: 7px 16px; border-radius: 99px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; font-family: var(--body); pointer-events: none; backdrop-filter: blur(8px); }
+  .ba2-pill-before { left: 18px; background: rgba(30,28,24,0.72); color: rgba(255,255,255,0.9); }
+  .ba2-pill-after  { right: 18px; background: var(--sage); color: var(--cream); }
+  .ba2-note { text-align: center; font-size: 10px; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; margin-bottom: 80px; }
 
   /* Render form */
   .render-form-outer { max-width: 520px; margin: 0 auto; }
@@ -367,159 +164,40 @@
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   /* Product picker */
-  .product-section-label {
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--sage);
-    font-weight: 500;
-    padding: 14px 20px 8px;
-    display: block;
-  }
-  .product-picker {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 0 20px 16px;
-  }
-  .product-card {
-    border: 1.5px solid var(--line);
-    border-radius: 3px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    background: var(--cream-soft);
-    position: relative;
-  }
-  .product-card.selected {
-    border-color: var(--sage);
-    box-shadow: 0 0 0 2px var(--sage-soft);
-  }
-  .product-card-img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    display: block;
-  }
-  .product-card-name {
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    font-weight: 500;
-    padding: 6px 6px 7px;
-    text-align: center;
-    font-family: var(--body);
-    line-height: 1.3;
-  }
-  .product-card-tick {
-    position: absolute;
-    top: 5px; right: 5px;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--sage);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
+  .product-section-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; padding: 14px 20px 8px; display: block; }
+  .product-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 20px 16px; }
+  .product-card { border: 1.5px solid var(--line); border-radius: 3px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; background: var(--cream-soft); position: relative; }
+  .product-card.selected { border-color: var(--sage); box-shadow: 0 0 0 2px var(--sage-soft); }
+  .product-card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+  .product-card-name { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; padding: 6px 6px 7px; text-align: center; font-family: var(--body); line-height: 1.3; }
+  .product-card-tick { position: absolute; top: 5px; right: 5px; width: 18px; height: 18px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
   .product-card.selected .product-card-tick { opacity: 1; }
   .product-card-tick svg { width: 9px; height: 9px; stroke: #fff; stroke-width: 2.5; }
 
   /* Stone selector */
   .rf-stone-row { padding: 0 20px 4px; }
-  .rf-stone-row select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--line);
-    border-radius: 1px;
-    font-family: var(--body);
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--ink);
-    background: var(--cream);
-    transition: border-color 0.2s;
-    appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 30px;
-  }
+  .rf-stone-row select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 1px; font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--ink); background: var(--cream); transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
   .rf-stone-row select:focus { outline: none; border-color: var(--sage); }
-
   .render-submit { display: flex; align-items: center; justify-content: center; gap: 8px; width: calc(100% - 40px); margin: 12px 20px 16px; padding: 13px; background: var(--sage); color: var(--cream); border: none; border-radius: 1px; font-family: var(--body); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; }
   .render-submit:hover:not(:disabled) { background: var(--sage-deep); }
   .render-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 
   /* PROCESS */
-  .process-section {
-    background: var(--cream-soft);
-    border-top: 1px solid var(--line);
-  }
-  .process-header {
-    padding: 96px 56px 72px;
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 40px;
-  }
+  .process-section { background: var(--cream-soft); border-top: 1px solid var(--line); }
+  .process-header { padding: 96px 56px 72px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
   .process-header .section-label { color: var(--sage); margin-bottom: 20px; }
   .process-header h2 { color: var(--ink); }
   .process-header-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.8; max-width: 360px; text-align: right; }
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid var(--line);
-  }
-  .process-item {
-    padding: 52px 48px 64px;
-    border-right: 1px solid var(--line);
-    display: flex;
-    flex-direction: column;
-  }
+  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+  .process-item { padding: 52px 48px 64px; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
   .process-item:last-child { border-right: none; }
-  .process-img-wrap {
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 36px;
-    border-radius: 2px;
-  }
-  .process-img-landscape {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform 0.7s ease;
-  }
-  .process-img-portrait {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform 0.7s ease;
-  }
-  .process-img-rotate-wrap {
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    position: relative;
-    border-radius: 2px;
-    margin-bottom: 36px;
-  }
-  .process-img-rotate-wrap img {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 133%;
-    height: 133%;
-    object-fit: cover;
-    transform: translate(-50%, -50%) rotate(90deg);
-    transition: transform 0.7s ease;
-  }
+  .process-img-wrap { width: 100%; overflow: hidden; margin-bottom: 36px; border-radius: 2px; }
+  .process-img-landscape { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center; display: block; transition: transform 0.7s ease; }
+  .process-img-portrait { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center; display: block; transition: transform 0.7s ease; }
+  .process-img-rotate-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; position: relative; border-radius: 2px; margin-bottom: 36px; }
+  .process-img-rotate-wrap img { position: absolute; top: 50%; left: 50%; width: 133%; height: 133%; object-fit: cover; transform: translate(-50%, -50%) rotate(90deg); transition: transform 0.7s ease; }
   .process-item:hover .process-img-rotate-wrap img { transform: translate(-50%, -50%) rotate(90deg) scale(1.05); }
-  .process-item:hover .process-img-portrait,
-  .process-item:hover .process-img-landscape { transform: scale(1.03); }
+  .process-item:hover .process-img-portrait, .process-item:hover .process-img-landscape { transform: scale(1.03); }
   .process-num { font-family: var(--script); font-size: 64px; color: var(--sage); line-height: 1; margin-bottom: 20px; display: block; opacity: 0.7; }
   .process-item h3 { font-family: var(--display); font-size: 28px; font-weight: 300; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
   .process-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.8; max-width: 260px; }
@@ -697,7 +375,7 @@
     <p>Upload a photo of your room — AI places a Prime Piece into it instantly. Free, no commitment.</p>
   </div>
 
-  <!-- Joobies-style Before/After Slider -->
+  <!-- Before/After Slider -->
   <div class="ba2-wrap reveal">
     <div class="ba2-slider" id="ba2-slider">
       <div class="ba2-layer ba2-after">
@@ -712,7 +390,7 @@
           <path d="M7 4L2 10L7 16M13 4L18 10L13 16"/>
         </svg>
       </div>
-      <span class="ba2-pill ba2-pill-before">Your Photo</span>
+      <span class="ba2-pill ba2-pill-before">Before Prime Piece</span>
       <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
     </div>
   </div>
@@ -749,11 +427,9 @@
           </div>
         </div>
 
-        <!-- Product picker cards — populated by JS -->
         <span class="product-section-label">Choose your piece</span>
         <div class="product-picker" id="product-picker"></div>
 
-        <!-- Stone finish -->
         <div class="rf-stone-row" style="padding-top:4px;">
           <select id="ai-stone">
             <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy">Rosso Africano — Red Marble</option>
@@ -881,7 +557,7 @@
     </div>
     <div class="testimonial reveal">
       <div class="stars">★★★★★</div>
-      <div class="testimonial-title">Highly Recommend.</div>
+      class="testimonial-title">Highly Recommend.</div>
       <p class="testimonial-body">Absolutely love our side coffee tables. Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms.</p>
       <div class="testimonial-author">Cindy Z</div>
     </div>
@@ -953,7 +629,6 @@
     const handle  = document.getElementById('ba2-handle');
     if (!slider) return;
     let dragging = false;
-
     function setPos(clientX) {
       const rect = slider.getBoundingClientRect();
       let pct = Math.max(0.03, Math.min(0.97, (clientX - rect.left) / rect.width));
@@ -962,7 +637,6 @@
       divider.style.left = p;
       handle.style.left  = p;
     }
-
     slider.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); });
     window.addEventListener('mousemove',  e => { if (dragging) setPos(e.clientX); });
     window.addEventListener('mouseup',    () => { dragging = false; });
@@ -971,36 +645,27 @@
     window.addEventListener('touchend',   () => { dragging = false; });
   })();
 
-  // ── PRODUCTS — add/edit entries here to update the picker ──
-  // imgSrc: filename in your site folder
-  // name:   label shown under the card
-  // prompt: description sent to AI as fallback if image fails to load
+  // ── PRODUCTS ──
+  // imgSrc must match the exact filename in your site folder.
+  // Update the 'name' field to match your actual product names once you know them.
   const PRODUCTS = [
-    {
-      id: 'p1',
-      imgSrc: 'product-1.jpg',
-      name: 'Plinth',
-      prompt: 'a tall cylindrical sculptural stone plinth column 720mm tall and 280mm in diameter standing vertically like a sculpture pedestal',
-    },
-    {
-      id: 'p2',
-      imgSrc: 'product-2.jpg',
-      name: 'Side Table',
-      prompt: 'a square stone side table 450mm tall and 500mm wide with a thick heavy stone slab top on a solid stone base',
-    },
-    {
-      id: 'p3',
-      imgSrc: 'product-3.jpg',
-      name: 'Serving Board',
-      prompt: 'a flat rectangular stone serving board 580mm long lying flat on a surface',
-    },
-    // Add more products below — just copy and edit a block:
-    // {
-    //   id: 'p4',
-    //   imgSrc: 'product-4.jpg',
-    //   name: 'Coffee Table',
-    //   prompt: 'a low wide stone coffee table with a thick heavy stone slab top approximately 1000mm long',
-    // },
+    { id: 'p1',  imgSrc: 'table-1.jpg',    name: 'Table I',       prompt: 'a sculptural stone coffee table with a thick dramatic stone slab top on a geometric metal base' },
+    { id: 'p2',  imgSrc: 'table-2.jpg',    name: 'Table II',      prompt: 'a sculptural stone side table with a thick polished stone slab top on a solid stone base' },
+    { id: 'p3',  imgSrc: 'table-3.jpg',    name: 'Table III',     prompt: 'a sculptural stone coffee table with a wide polished stone slab top' },
+    { id: 'p4',  imgSrc: 'table-4.jpg',    name: 'Table IV',      prompt: 'a low sculptural stone coffee table with a dramatic veined stone slab top on a minimal base' },
+    { id: 'p5',  imgSrc: 'table-5.jpg',    name: 'Table V',       prompt: 'a sculptural stone side table with a thick stone top and solid stone pedestal base' },
+    { id: 'p6',  imgSrc: 'table-6.jpg',    name: 'Table VI',      prompt: 'a sculptural stone coffee table with a thick stone slab top on a slim metal frame base' },
+    { id: 'p7',  imgSrc: 'table-7.jpg',    name: 'Table VII',     prompt: 'a sculptural stone side table with a round stone top on a thin metal hairpin base' },
+    { id: 'p8',  imgSrc: 'table-8.jpg',    name: 'Table VIII',    prompt: 'a sculptural stone coffee table with a large rectangular stone slab top' },
+    { id: 'p9',  imgSrc: 'table-9.jpg',    name: 'Table IX',      prompt: 'a sculptural stone side table with a thick square stone top on a solid base' },
+    { id: 'p10', imgSrc: 'table-10.jpg',   name: 'Table X',       prompt: 'a sculptural stone coffee table with a wide stone slab top on a geometric base' },
+    { id: 'p11', imgSrc: 'table-11.jpg',   name: 'Table XI',      prompt: 'a sculptural stone table with a dramatic veined stone slab top on a metal base' },
+    { id: 'p12', imgSrc: 'table-12.jpg',   name: 'Table XII',     prompt: 'a sculptural stone coffee table with a polished stone top on a slim minimal base' },
+    { id: 'p13', imgSrc: 'table-13.jpg',   name: 'Table XIII',    prompt: 'a sculptural stone side table with a thick stone slab top and chunky solid base' },
+    { id: 'p14', imgSrc: 'table-14.jpg',   name: 'Table XIV',     prompt: 'a sculptural stone coffee table with a large dramatic stone slab top' },
+    { id: 'p15', imgSrc: 'table-16.jpg',   name: 'Table XVI',     prompt: 'a sculptural stone table with a thick polished stone slab top on a geometric steel base' },
+    { id: 'p16', imgSrc: 'side-1.jpg',     name: 'Side Table I',  prompt: 'a sculptural stone side table with a thick stone top on a solid stone pedestal base' },
+    { id: 'p17', imgSrc: 'side-2 (1).jpg', name: 'Side Table II', prompt: 'a sculptural stone side table with a round stone top on a slim metal base' },
   ];
 
   // ── Build product picker ──
@@ -1081,7 +746,6 @@
     }
   });
 
-  // Fetch product image as base64 to send to backend
   async function getProductImageBase64(imgSrc) {
     const res  = await fetch(imgSrc);
     const blob = await res.blob();
@@ -1116,7 +780,6 @@
     aiLoadingText.textContent  = 'Reading your room...';
 
     try {
-      // Fetch the selected product image to send alongside the room photo
       let productImageBase64 = null;
       let productImageMime   = 'image/jpeg';
       try {
@@ -1131,7 +794,7 @@
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          imageBase64,
+          imageBase64:        aiImageBase64,
           imageMime:          aiImageMime,
           stone,
           piece:              product.prompt,
