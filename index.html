@@ -340,9 +340,11 @@
     object-position: center;
     display: block;
     transition: transform 0.7s ease;
+    transform: rotate(90deg) scale(1.35);
+    transform-origin: center center;
   }
-  .process-item:hover .process-img-landscape,
-  .process-item:hover .process-img-portrait { transform: scale(1.03); }
+  .process-item:hover .process-img-portrait { transform: rotate(90deg) scale(1.4); }
+  .process-item:hover .process-img-landscape { transform: scale(1.03); }
   .process-num { font-family: var(--script); font-size: 64px; color: var(--sage); line-height: 1; margin-bottom: 20px; display: block; opacity: 0.7; }
   .process-item h3 { font-family: var(--display); font-size: 28px; font-weight: 300; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
   .process-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.8; max-width: 260px; }
@@ -455,29 +457,6 @@
   </div>
 </section>
 
-<!-- FOUNDER — moved up, right after hero -->
-<section class="founder-section" id="story">
-  <div class="founder-img-col">
-    <img class="founder-img" src="james-hopwood.jpg" alt="James Hopwood — Founder, Prime Piece">
-  </div>
-  <div class="founder-copy-col reveal">
-    <div class="founder-eyebrow">The Maker</div>
-    <div class="founder-name">James<br>Hopwood</div>
-    <div class="founder-title">Founder / Prime Piece</div>
-    <div class="founder-divider"></div>
-    <div class="founder-bio">
-      <p>James Hopwood is an Auckland-based stonemason and founder of Prime Piece, a sculptural stone furniture brand creating one-of-one plinths and tables handcrafted in New Zealand.</p>
-      <p>Working with carefully selected natural stones sourced from Italy, Spain and beyond, each piece is designed to celebrate the movement, texture and permanence of the material.</p>
-      <p>Drawing from years of hands-on experience in stone fabrication, his work explores the intersection of sculpture, furniture and interior presence.</p>
-    </div>
-    <div class="founder-detail">
-      <div><div class="founder-detail-label">Based</div><div class="founder-detail-val">Auckland, NZ</div></div>
-      <div><div class="founder-detail-label">Stone</div><div class="founder-detail-val">Italian & Spanish</div></div>
-      <div><div class="founder-detail-label">Craft</div><div class="founder-detail-val">Stonemason</div></div>
-    </div>
-  </div>
-</section>
-
 <!-- COLLECTION -->
 <section class="collection-section" id="collection">
   <div class="collection-header reveal">
@@ -509,6 +488,29 @@
         <span class="collection-card-arrow">↗</span>
       </div>
     </a>
+  </div>
+</section>
+
+<!-- THE MAKER -->
+<section class="founder-section" id="story">
+  <div class="founder-img-col">
+    <img class="founder-img" src="james-hopwood.jpg" alt="James Hopwood — Founder, Prime Piece">
+  </div>
+  <div class="founder-copy-col reveal">
+    <div class="founder-eyebrow">The Maker</div>
+    <div class="founder-name">James<br>Hopwood</div>
+    <div class="founder-title">Founder / Prime Piece</div>
+    <div class="founder-divider"></div>
+    <div class="founder-bio">
+      <p>James Hopwood is an Auckland-based stonemason and founder of Prime Piece, a sculptural stone furniture brand creating one-of-one plinths and tables handcrafted in New Zealand.</p>
+      <p>Working with carefully selected natural stones sourced from Italy, Spain and beyond, each piece is designed to celebrate the movement, texture and permanence of the material.</p>
+      <p>Drawing from years of hands-on experience in stone fabrication, his work explores the intersection of sculpture, furniture and interior presence.</p>
+    </div>
+    <div class="founder-detail">
+      <div><div class="founder-detail-label">Based</div><div class="founder-detail-val">Auckland, NZ</div></div>
+      <div><div class="founder-detail-label">Stone</div><div class="founder-detail-val">Italian & Spanish</div></div>
+      <div><div class="founder-detail-label">Craft</div><div class="founder-detail-val">Stonemason</div></div>
+    </div>
   </div>
 </section>
 
