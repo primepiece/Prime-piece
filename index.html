@@ -337,11 +337,29 @@
     width: 100%;
     aspect-ratio: 4/3;
     object-fit: cover;
-    object-position: center top;
+    object-position: center;
     display: block;
     transition: transform 0.7s ease;
   }
-  .process-item:hover .process-img-portrait { transform: scale(1.03); }
+  .process-img-rotate-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+    margin-bottom: 36px;
+  }
+  .process-img-rotate-wrap img {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 133%;
+    height: 133%;
+    object-fit: cover;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: transform 0.7s ease;
+  }
+  .process-item:hover .process-img-rotate-wrap img { transform: translate(-50%, -50%) rotate(90deg) scale(1.05); }
+  .process-item:hover .process-img-portrait,
   .process-item:hover .process-img-landscape { transform: scale(1.03); }
   .process-num { font-family: var(--script); font-size: 64px; color: var(--sage); line-height: 1; margin-bottom: 20px; display: block; opacity: 0.7; }
   .process-item h3 { font-family: var(--display); font-size: 28px; font-weight: 300; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
@@ -635,8 +653,8 @@
       <p>Cut, finished and assembled by hand in Auckland. Every edge, every surface, considered.</p>
     </div>
     <div class="process-item reveal">
-      <div class="process-img-wrap">
-        <img class="process-img-portrait" src="process-3.jpg" alt="Stone delivery" style="object-position: center center;">
+      <div class="process-img-rotate-wrap">
+        <img src="process-3.jpg" alt="Stone delivery">
       </div>
       <span class="process-num">Three</span>
       <h3>Deliver</h3>
