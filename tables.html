@@ -73,7 +73,6 @@
   .hero-stat { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--sage); line-height: 1; }
   .hero-stat-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-top: 4px; }
 
-  /* CATEGORY TABS */
   .category-tabs {
     border-bottom: 1px solid var(--line);
     background: var(--cream-soft);
@@ -82,111 +81,70 @@
     scrollbar-width: none;
   }
   .category-tabs::-webkit-scrollbar { display: none; }
-
   .cat-tab {
     padding: 20px 40px;
     font-family: 'Inter Tight', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: var(--stone);
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+    color: var(--stone); background: transparent; border: none;
+    border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s;
+    white-space: nowrap; flex-shrink: 0;
   }
   .cat-tab:hover { color: var(--sage); }
   .cat-tab.active { color: var(--sage); border-bottom-color: var(--sage); background: var(--cream); }
 
-  /* CATEGORY SECTIONS */
   .category-section { display: none; }
   .category-section.active { display: block; }
 
   .section-header {
-    padding: 56px 56px 40px;
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 40px;
+    padding: 56px 56px 40px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;
   }
   .section-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 3vw, 44px);
-    font-weight: 300;
-    color: var(--ink);
-    line-height: 1;
+    font-size: clamp(28px, 3vw, 44px); font-weight: 300; color: var(--ink); line-height: 1;
   }
   .section-title em { font-style: italic; color: var(--sage); }
   .section-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.75; max-width: 360px; text-align: right; }
   .section-count { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-top: 8px; }
 
-  /* GRID */
-  .tables-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .tables-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 
   .table-card {
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    display: flex; flex-direction: column;
-    cursor: pointer;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    display: flex; flex-direction: column; cursor: pointer;
   }
   .table-card:nth-child(3n) { border-right: none; }
 
   .table-img-wrap {
-    position: relative;
-    overflow: hidden;
-    background: var(--cream-soft);
-    aspect-ratio: 1/1;
+    position: relative; overflow: hidden;
+    background: var(--cream-soft); aspect-ratio: 1/1;
   }
-
   .table-img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
+    width: 100%; height: 100%; object-fit: cover; display: block;
     transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
   }
   .table-card:hover .table-img { transform: scale(1.04); }
-
   .table-badge {
     position: absolute; top: 16px; left: 16px;
     padding: 4px 10px; background: var(--sage); color: white;
     font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
     font-weight: 500; border-radius: 1px;
   }
-
   .view-btn {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 14px;
-    background: rgba(44,42,38,0.82);
-    backdrop-filter: blur(6px);
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: white; text-align: center; font-weight: 500;
-    opacity: 0; transform: translateY(100%);
-    transition: opacity 0.3s, transform 0.3s;
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 14px;
+    background: rgba(44,42,38,0.82); backdrop-filter: blur(6px);
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: white; text-align: center; font-weight: 500;
+    opacity: 0; transform: translateY(100%); transition: opacity 0.3s, transform 0.3s;
   }
   .table-card:hover .view-btn { opacity: 1; transform: translateY(0); }
 
   .table-info {
-    padding: 24px 28px 28px;
-    border-top: 1px solid var(--line);
+    padding: 24px 28px 28px; border-top: 1px solid var(--line);
     flex: 1; display: flex; flex-direction: column;
   }
-  .table-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px; font-weight: 300; color: var(--ink);
-    margin-bottom: 4px; letter-spacing: -0.01em;
-  }
-  .table-stone {
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--stone); font-weight: 500; margin-bottom: 8px;
-  }
+  .table-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.01em; }
+  .table-stone { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 8px; }
   .table-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 16px; }
   .table-dims { font-size: 11px; color: var(--stone); margin-bottom: 20px; }
   .table-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
@@ -200,119 +158,70 @@
   }
   .enquire-btn:hover { background: var(--sage); color: white; }
 
-  /* COMING SOON SECTION */
-  .coming-soon {
-    padding: 96px 56px;
-    text-align: center;
-    background: var(--cream-soft);
-  }
-  .coming-soon-icon {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
-    color: var(--sage);
-    opacity: 0.3;
-    margin-bottom: 24px;
-    display: block;
-  }
-  .coming-soon h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--ink);
-    margin-bottom: 12px;
-  }
+  .coming-soon { padding: 96px 56px; text-align: center; background: var(--cream-soft); }
+  .coming-soon-icon { font-family: 'Cormorant Garamond', serif; font-size: 64px; color: var(--sage); opacity: 0.3; margin-bottom: 24px; display: block; }
+  .coming-soon h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink); margin-bottom: 12px; }
   .coming-soon p { font-size: 14px; color: var(--ink-soft); max-width: 360px; margin: 0 auto 32px; line-height: 1.75; }
   .notify-btn {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage);
     background: transparent; text-decoration: none;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    font-weight: 500; transition: all 0.3s; border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500; transition: all 0.3s; border-radius: 1px;
   }
   .notify-btn:hover { background: var(--sage); color: white; }
 
-  /* MODAL */
   .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(44,42,38,0.85);
-    backdrop-filter: blur(12px);
-    z-index: 200; display: none;
+    position: fixed; inset: 0; background: rgba(44,42,38,0.85);
+    backdrop-filter: blur(12px); z-index: 200; display: none;
     align-items: center; justify-content: center; padding: 20px;
   }
   .modal-overlay.open { display: flex; }
-
   .modal {
-    background: var(--cream);
-    max-width: 900px; width: 100%;
-    border-radius: 2px; overflow: hidden;
-    position: relative; max-height: 92vh;
+    background: var(--cream); max-width: 900px; width: 100%;
+    border-radius: 2px; overflow: hidden; position: relative; max-height: 92vh;
     display: grid; grid-template-columns: 1fr 1fr;
   }
-
-  .modal-img-col {
-    background: var(--cream-soft);
-    position: relative; overflow: hidden;
-    min-height: 500px;
-  }
+  .modal-img-col { background: var(--cream-soft); position: relative; overflow: hidden; min-height: 500px; }
   .modal-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .modal-stone-tag {
-    position: absolute; top: 20px; left: 20px;
-    padding: 5px 12px; background: var(--sage); color: white;
-    font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
-    font-weight: 500; border-radius: 1px;
+    position: absolute; top: 20px; left: 20px; padding: 5px 12px;
+    background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500; border-radius: 1px;
   }
-
-  .modal-info-col {
-    padding: 40px 36px;
-    display: flex; flex-direction: column;
-    overflow-y: auto;
-    border-left: 1px solid var(--line);
-  }
-
+  .modal-info-col { padding: 40px 36px; display: flex; flex-direction: column; overflow-y: auto; border-left: 1px solid var(--line); }
   .modal-close {
-    position: absolute; top: 16px; right: 16px;
-    width: 36px; height: 36px;
-    border: 1px solid var(--line); border-radius: 50%;
-    background: rgba(245,241,234,0.9);
+    position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
+    border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9);
     cursor: pointer; display: flex; align-items: center; justify-content: center;
     font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10;
   }
   .modal-close:hover { background: white; color: var(--ink); }
-
   .modal-eyebrow { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
   .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
   .modal-stone { font-size: 12px; color: var(--ink-soft); margin-bottom: 16px; }
   .modal-desc-text { font-size: 13px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
   .modal-divider { height: 1px; background: var(--line); margin-bottom: 24px; }
-
-  .detail-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 12px 0; border-bottom: 1px solid var(--line); gap: 16px;
-  }
+  .detail-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); gap: 16px; }
   .detail-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
   .detail-val { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--ink-soft); text-align: right; }
-
   .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 20px 0; font-style: italic; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 20px; }
-
   .modal-btn-primary {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 14px; background: var(--sage); color: white;
-    border: none; border-radius: 1px;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none;
+    padding: 14px; background: var(--sage); color: white; border: none; border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none;
   }
   .modal-btn-primary:hover { background: var(--sage-deep); }
   .modal-btn-ghost {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 14px; background: transparent; color: var(--sage);
-    border: 1px solid var(--sage); border-radius: 1px;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none;
+    padding: 14px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none;
   }
   .modal-btn-ghost:hover { background: var(--sage); color: white; }
 
-  /* CTA */
   .cta-strip {
     background: var(--ink); padding: 72px 56px;
     display: flex; justify-content: space-between; align-items: center; gap: 40px;
@@ -324,8 +233,8 @@
     display: inline-flex; align-items: center; gap: 10px;
     padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage);
     background: transparent; text-decoration: none;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
-    font-weight: 500; transition: all 0.3s; border-radius: 1px; flex-shrink: 0;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
+    text-transform: uppercase; font-weight: 500; transition: all 0.3s; border-radius: 1px; flex-shrink: 0;
   }
   .cta-btn:hover { background: var(--sage); color: white; }
 
@@ -387,12 +296,11 @@
     <p class="hero-desc">The original Prime Piece. Round stone-top tables on hand-welded black steel frames — handcrafted in Auckland from some of the world's most unique natural stones.</p>
   </div>
   <div class="hero-right reveal">
-    <div class="hero-stat">15</div>
+    <div class="hero-stat">21</div>
     <div class="hero-stat-label">Pieces available</div>
   </div>
 </section>
 
-<!-- CATEGORY TABS -->
 <div class="category-tabs">
   <button class="cat-tab active" onclick="showCategory('coffee', this)">Coffee Tables</button>
   <button class="cat-tab" onclick="showCategory('side', this)">Side Tables</button>
@@ -400,7 +308,7 @@
   <button class="cat-tab" onclick="showCategory('console', this)">Console Tables</button>
 </div>
 
-<!-- COFFEE TABLES -->
+<!-- ===================== COFFEE TABLES ===================== -->
 <div class="category-section active" id="cat-coffee">
   <div class="section-header reveal">
     <div>
@@ -409,305 +317,82 @@
     </div>
     <p class="section-desc">Round stone tops on black steel frames. Each piece is 500mm tall × 450mm diameter. One of one — never repeated.</p>
   </div>
+  <div class="tables-grid">
+    <div class="table-card reveal" onclick="openModal('Fire Flow','Azul Marble','table-10.jpg','A swirling storm of amber, copper and black — like lava frozen mid-flow. The Azul marble brings raw geological drama to any space.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-10.jpg" alt="Fire Flow"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Fire Flow</div><div class="table-stone">Azul Marble</div><div class="table-desc">A swirling storm of amber, copper and black — like lava frozen mid-flow.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Fire Flow Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Pink Storm','Monica Marble','table-1.jpg','Soft crimson waves with silver and white breaking through — like a storm rolling in off the ocean at dusk. Monica marble at its most dramatic.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-1.jpg" alt="Pink Storm"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Pink Storm</div><div class="table-stone">Monica Marble</div><div class="table-desc">Soft crimson waves with silver and white breaking through — dramatic Monica marble.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Pink Storm Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Jade Jewel','Green Marble Onyx','table-3.jpg','Translucent jade green with glowing crystal formations — the rarest piece in the collection. Green onyx catches light like no other stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-3.jpg" alt="Jade Jewel"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Jade Jewel</div><div class="table-stone">Green Marble Onyx</div><div class="table-desc">Translucent jade green with glowing crystal formations — the rarest in the collection.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Jade Jewel Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Amazon Vein','Rainforest Marble','table-2.jpg','Deep forest greens and copper veins running through dark stone — inspired by the canopy above the Amazon river at golden hour.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-2.jpg" alt="Amazon Vein"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Amazon Vein</div><div class="table-stone">Rainforest Marble</div><div class="table-desc">Deep forest greens and copper veins — inspired by the Amazon canopy at golden hour.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Amazon Vein Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Midnight Wave','Verde Apli Marble','table-4.jpg','Dark forest green with bold white veining — elegant and commanding. Verde Apli from Spain, one of the most sought-after stones in the collection.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-4.jpg" alt="Midnight Wave"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Midnight Wave</div><div class="table-stone">Verde Apli Marble</div><div class="table-desc">Dark forest green with bold white veining — elegant and commanding.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Midnight Wave Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Sunset Stone','Macael Marble','table-5.jpg','Warm amber and gold tones fractured with dark veining — like the last light hitting the horizon. Macael marble from the mountains of Spain.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-5.jpg" alt="Sunset Stone"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Sunset Stone</div><div class="table-stone">Macael Marble</div><div class="table-desc">Warm amber and gold tones fractured with dark veining — like last light on the horizon.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Sunset Stone Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Solar Eclipse','Titanium Black Granite','table-6.jpg','Black granite with swirling gold and copper mineral deposits — like looking at the surface of another planet. Titanium black is rare and extraordinary.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-6.jpg" alt="Solar Eclipse"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Solar Eclipse</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Black granite with swirling gold and copper mineral deposits — rare and extraordinary.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Solar Eclipse Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Lava Vein','Sahara Noir Marble','table-7.jpg','Deep black with warm copper veining running through like rivers of fire. Sahara Noir brings a bold, moody presence to any interior.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-7.jpg" alt="Lava Vein"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Lava Vein</div><div class="table-stone">Sahara Noir Marble</div><div class="table-desc">Deep black with warm copper veining running through like rivers of fire.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Lava Vein Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Cloud Vein','Grey Marble','table-8.jpg','Cool grey stone with dramatic white and charcoal fracture patterns — effortlessly versatile. Sits beautifully in both minimalist and layered interiors.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-8.jpg" alt="Cloud Vein"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Cloud Vein</div><div class="table-stone">Grey Marble</div><div class="table-desc">Cool grey with dramatic white and charcoal fracture patterns — effortlessly versatile.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Cloud Vein Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Lunar Eclipse','Diesel Marble','table-9.jpg','Warm cream tones with sweeping dark veins arching across the surface — quiet and refined. The kind of piece that anchors a room without demanding attention.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-9.jpg" alt="Lunar Eclipse"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Lunar Eclipse</div><div class="table-stone">Diesel Marble</div><div class="table-desc">Warm cream with sweeping dark veins — quiet and refined. Anchors a room effortlessly.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Lunar Eclipse Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Teal Tide','Mystique Green','table-11.jpg','Soft teal and sage tones with golden veining flowing across the surface — a rare and calming stone that brings the outside in.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-11.jpg" alt="Teal Tide"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Teal Tide</div><div class="table-stone">Mystique Green</div><div class="table-desc">Soft teal and sage tones with golden veining — a rare, calming stone that brings the outside in.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Teal Tide Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Desert Drift','Kangaroo Quartzite','table-12.jpg','Rich terracotta, burnt orange and slate tones swirling together — the ancient colours of the Australian outback captured in stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-12.jpg" alt="Desert Drift"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Desert Drift</div><div class="table-stone">Kangaroo Quartzite</div><div class="table-desc">Rich terracotta, burnt orange and slate — the ancient colours of the outback in stone.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Desert Drift Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Mountain Breeze','Super White Marble','table-16.jpg','Pure white with the finest, most delicate grey veining — clean, airy and serene. Super White marble is the choice for those who want understated luxury.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-16.jpg" alt="Mountain Breeze"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Mountain Breeze</div><div class="table-stone">Super White Marble</div><div class="table-desc">Pure white with the finest grey veining — clean, airy and serene. Understated luxury.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Mountain Breeze Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('Ocean Ember','Blue Porcelain','table-13.jpg','Deep ocean blue with copper mineral veining cutting through — like watching a sunset reflected on dark water. Rare blue porcelain from Spain.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-13.jpg" alt="Ocean Ember"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Ocean Ember</div><div class="table-stone">Blue Porcelain</div><div class="table-desc">Deep ocean blue with copper mineral veining — like a sunset reflected on dark water.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Ocean Ember Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+    <div class="table-card reveal" onclick="openModal('White Haven','Carrara Marble','table-14.jpg','Classic Carrara white with elegant grey veining — timeless, versatile and endlessly beautiful. The benchmark of natural stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-14.jpg" alt="White Haven"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">White Haven</div><div class="table-stone">Carrara Marble</div><div class="table-desc">Classic Carrara white with elegant grey veining — timeless and endlessly beautiful.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-foot"><span class="table-type">Coffee Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — White Haven Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div></div>
+  </div>
+</div>
 
+<!-- ===================== SIDE TABLES ===================== -->
+<div class="category-section" id="cat-side">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-title">Side <em>Tables</em></div>
+      <div class="section-count">1 piece available</div>
+    </div>
+    <p class="section-desc">Sculptural stone side tables — the perfect accent piece for a bedroom, lounge or hallway. Handcrafted in Auckland from natural stone sourced across Europe and beyond.</p>
+  </div>
+  <div class="tables-grid">
+    <div class="table-card reveal" onclick="openModal('Twin Jade','Mystique Green Marble','side-1.jpg','Two sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. Cool teal tones with golden veining that shifts with the light. A rare pairing, never repeated.','450mm (H) × 600mm × 600mm · Black X-frame','Side Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="side-1.jpg" alt="Twin Jade"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-foot"><span class="table-type">Side Table — Set of 2</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Twin Jade Side Tables" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== LOUNGE TABLES ===================== -->
+<div class="category-section" id="cat-lounge">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-title">Lounge <em>Tables</em></div>
+      <div class="section-count">5 pieces available</div>
+    </div>
+    <p class="section-desc">Large-format stone slabs on hand-welded steel frames — built to command a room. Each piece is handcrafted in New Zealand and designed for both indoor and outdoor settings. Stone this scale is rare. These pieces are one of one.</p>
+  </div>
   <div class="tables-grid">
 
-    <div class="table-card reveal" onclick="openModal('Fire Flow','Azul Marble','table-10.jpg','A swirling storm of amber, copper and black — like lava frozen mid-flow. The Azul marble brings raw geological drama to any space.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-10.jpg" alt="Fire Flow">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Fire Flow</div>
-        <div class="table-stone">Azul Marble</div>
-        <div class="table-desc">A swirling storm of amber, copper and black — like lava frozen mid-flow.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Fire Flow Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
+    <div class="table-card reveal" onclick="openModal('Jade Horizon','Mitered Mystique Green Marble','lounge-1.jpg','A sweeping slab of mitered Mystique Green — the stone\'s cool jade tones and golden fault lines catch every shift of light. Bevelled edges give this piece a refined, gallery-quality finish. Built for outdoor terraces and open-plan living.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-1.jpg" alt="Jade Horizon"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Jade Horizon</div><div class="table-stone">Mitered Mystique Green Marble</div><div class="table-desc">A sweeping mitered slab — cool jade tones and golden fault lines with a refined bevelled edge finish.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Jade Horizon Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Pink Storm','Monica Marble','table-1.jpg','Soft crimson waves with silver and white breaking through — like a storm rolling in off the ocean at dusk. Monica marble at its most dramatic.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-1.jpg" alt="Pink Storm">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Pink Storm</div>
-        <div class="table-stone">Monica Marble</div>
-        <div class="table-desc">Soft crimson waves with silver and white breaking through — dramatic Monica marble.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Pink Storm Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
+    <div class="table-card reveal" onclick="openModal('Obsidian Storm','Titanium Black Granite','lounge-2.jpg','Pure geological drama. Titanium Black granite with explosive silver and white mineral formations across a deep black field — like a storm frozen in stone. A statement piece for those who want to own a room.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-2.jpg" alt="Obsidian Storm"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Obsidian Storm</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Explosive silver and white mineral formations across a deep black field — like a storm frozen in stone.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Obsidian Storm Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Jade Jewel','Green Marble Onyx','table-3.jpg','Translucent jade green with glowing crystal formations — the rarest piece in the collection. Green onyx catches light like no other stone.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-3.jpg" alt="Jade Jewel">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Jade Jewel</div>
-        <div class="table-stone">Green Marble Onyx</div>
-        <div class="table-desc">Translucent jade green with glowing crystal formations — the rarest in the collection.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Jade Jewel Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
+    <div class="table-card reveal" onclick="openModal('Sage Plateau','Mystique Green Marble','lounge-3.jpg','The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges that let the stone speak for itself. Copper fault lines run across a sage and teal field. Designed for indoor living rooms and outdoor entertaining.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-3.jpg" alt="Sage Plateau"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Sage Plateau</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Clean straight edges on rare Mystique Green — copper fault lines across a sage and teal field.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Sage Plateau Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Amazon Vein','Rainforest Marble','table-2.jpg','Deep forest greens and copper veins running through dark stone — inspired by the canopy above the Amazon river at golden hour.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-2.jpg" alt="Amazon Vein">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Amazon Vein</div>
-        <div class="table-stone">Rainforest Marble</div>
-        <div class="table-desc">Deep forest greens and copper veins — inspired by the Amazon canopy at golden hour.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Amazon Vein Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
+    <div class="table-card reveal" onclick="openModal('Desert Crown','Taj Mahal Quartzite','lounge-4.jpg','Taj Mahal quartzite — warm cream and soft gold tones with the finest veining, sourced from Brazil. This stone has graced the world\'s most exclusive interiors. At this scale, it is something else entirely.','400mm (H) × 1200mm × 650mm','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-4.jpg" alt="Desert Crown"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Desert Crown</div><div class="table-stone">Taj Mahal Quartzite</div><div class="table-desc">Warm cream and soft gold tones with the finest veining — Taj Mahal quartzite at its most commanding.</div><div class="table-dims">H: 400mm × 1200mm × 650mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Desert Crown Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Midnight Wave','Verde Apli Marble','table-4.jpg','Dark forest green with bold white veining — elegant and commanding. Verde Apli from Spain, one of the most sought-after stones in the collection.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-4.jpg" alt="Midnight Wave">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Midnight Wave</div>
-        <div class="table-stone">Verde Apli Marble</div>
-        <div class="table-desc">Dark forest green with bold white veining — elegant and commanding.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Midnight Wave Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Sunset Stone','Macael Marble','table-5.jpg','Warm amber and gold tones fractured with dark veining — like the last light hitting the horizon. Macael marble from the mountains of Spain.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-5.jpg" alt="Sunset Stone">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Sunset Stone</div>
-        <div class="table-stone">Macael Marble</div>
-        <div class="table-desc">Warm amber and gold tones fractured with dark veining — like last light on the horizon.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Sunset Stone Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Solar Eclipse','Titanium Black Granite','table-6.jpg','Black granite with swirling gold and copper mineral deposits — like looking at the surface of another planet. Titanium black is rare and extraordinary.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-6.jpg" alt="Solar Eclipse">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Solar Eclipse</div>
-        <div class="table-stone">Titanium Black Granite</div>
-        <div class="table-desc">Black granite with swirling gold and copper mineral deposits — rare and extraordinary.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Solar Eclipse Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Lava Vein','Sahara Noir Marble','table-7.jpg','Deep black with warm copper veining running through like rivers of fire. Sahara Noir brings a bold, moody presence to any interior.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-7.jpg" alt="Lava Vein">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Lava Vein</div>
-        <div class="table-stone">Sahara Noir Marble</div>
-        <div class="table-desc">Deep black with warm copper veining running through like rivers of fire.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Lava Vein Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Cloud Vein','Grey Marble','table-8.jpg','Cool grey stone with dramatic white and charcoal fracture patterns — effortlessly versatile. Sits beautifully in both minimalist and layered interiors.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-8.jpg" alt="Cloud Vein">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Cloud Vein</div>
-        <div class="table-stone">Grey Marble</div>
-        <div class="table-desc">Cool grey with dramatic white and charcoal fracture patterns — effortlessly versatile.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Cloud Vein Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Lunar Eclipse','Diesel Marble','table-9.jpg','Warm cream tones with sweeping dark veins arching across the surface — quiet and refined. The kind of piece that anchors a room without demanding attention.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-9.jpg" alt="Lunar Eclipse">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Lunar Eclipse</div>
-        <div class="table-stone">Diesel Marble</div>
-        <div class="table-desc">Warm cream with sweeping dark veins — quiet and refined. Anchors a room effortlessly.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Lunar Eclipse Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Teal Tide','Mystique Green','table-11.jpg','Soft teal and sage tones with golden veining flowing across the surface — a rare and calming stone that brings the outside in.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-11.jpg" alt="Teal Tide">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Teal Tide</div>
-        <div class="table-stone">Mystique Green</div>
-        <div class="table-desc">Soft teal and sage tones with golden veining — a rare, calming stone that brings the outside in.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Teal Tide Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Desert Drift','Kangaroo Quartzite','table-12.jpg','Rich terracotta, burnt orange and slate tones swirling together — the ancient colours of the Australian outback captured in stone.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-12.jpg" alt="Desert Drift">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Desert Drift</div>
-        <div class="table-stone">Kangaroo Quartzite</div>
-        <div class="table-desc">Rich terracotta, burnt orange and slate — the ancient colours of the outback in stone.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Desert Drift Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 5 — reordered: Mountain Breeze (new photo) | Ocean Ember (table-13.jpg) | White Haven (table-14.jpg) -->
-
-    <div class="table-card reveal" onclick="openModal('Mountain Breeze','Super White Marble','table-16.jpg','Pure white with the finest, most delicate grey veining — clean, airy and serene. Super White marble is the choice for those who want understated luxury.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-16.jpg" alt="Mountain Breeze">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Mountain Breeze</div>
-        <div class="table-stone">Super White Marble</div>
-        <div class="table-desc">Pure white with the finest grey veining — clean, airy and serene. Understated luxury.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Mountain Breeze Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('Ocean Ember','Blue Porcelain','table-13.jpg','Deep ocean blue with copper mineral veining cutting through — like watching a sunset reflected on dark water. Rare blue porcelain from Spain.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-13.jpg" alt="Ocean Ember">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">Ocean Ember</div>
-        <div class="table-stone">Blue Porcelain</div>
-        <div class="table-desc">Deep ocean blue with copper mineral veining — like a sunset reflected on dark water.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Ocean Ember Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card reveal" onclick="openModal('White Haven','Carrara Marble','table-14.jpg','Classic Carrara white with elegant grey veining — timeless, versatile and endlessly beautiful. The benchmark of natural stone.','500mm (H) × 450mm (Dia)','Coffee Table')">
-      <div class="table-img-wrap">
-        <span class="table-badge">Available</span>
-        <img class="table-img" src="table-14.jpg" alt="White Haven">
-        <div class="view-btn">View Piece →</div>
-      </div>
-      <div class="table-info">
-        <div class="table-name">White Haven</div>
-        <div class="table-stone">Carrara Marble</div>
-        <div class="table-desc">Classic Carrara white with elegant grey veining — timeless and endlessly beautiful.</div>
-        <div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div>
-        <div class="table-foot">
-          <span class="table-type">Coffee Table</span>
-          <a href="mailto:james@primepiece.co.nz?subject=Enquiry — White Haven Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
-        </div>
-      </div>
+    <div class="table-card reveal" onclick="openModal('Black Gold','Gold & Black Titanium Granite','lounge-5.jpg','The most dramatic piece in the lounge collection. Black titanium granite laced with sweeping veins of gold and warm copper — a stone that shifts from moody to luminous depending on the light.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-5.jpg" alt="Black Gold"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Black Gold</div><div class="table-stone">Gold & Black Titanium Granite</div><div class="table-desc">Black titanium granite laced with sweeping veins of gold and copper — shifts from moody to luminous.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Black Gold Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
   </div>
 </div>
 
-<!-- SIDE TABLES -->
-<div class="category-section" id="cat-side">
-  <div class="coming-soon">
-    <span class="coming-soon-icon">◯</span>
-    <h3>Side Tables</h3>
-    <p>New side table collection coming soon. Same stones, smaller form — perfect as a bedside or accent piece.</p>
-    <a href="mailto:james@primepiece.co.nz?subject=Side Table Enquiry" class="notify-btn">Enquire About Side Tables →</a>
-  </div>
-</div>
-
-<!-- LOUNGE TABLES -->
-<div class="category-section" id="cat-lounge">
-  <div class="coming-soon">
-    <span class="coming-soon-icon">◯</span>
-    <h3>Lounge Tables</h3>
-    <p>Large format lounge tables in natural stone. Coming soon — enquire to commission yours now.</p>
-    <a href="mailto:james@primepiece.co.nz?subject=Lounge Table Enquiry" class="notify-btn">Enquire About Lounge Tables →</a>
-  </div>
-</div>
-
-<!-- CONSOLE TABLES -->
+<!-- ===================== CONSOLE TABLES ===================== -->
 <div class="category-section" id="cat-console">
   <div class="coming-soon">
     <span class="coming-soon-icon">◯</span>
@@ -732,26 +417,9 @@
       <div class="footer-brand-sub">one of one</div>
       <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. One of one, carved in Auckland from natural stone.</p>
     </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <a href="plinths.html">Plinths</a>
-      <a href="tables.html">Tables</a>
-      <a href="boards.html">Boards</a>
-      <a href="/#made-to-order">Made To Order</a>
-    </div>
-    <div class="footer-col">
-      <h4>Brand</h4>
-      <a href="/#story">About</a>
-      <a href="/#process">Process</a>
-      <a href="/#collection">Collection</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a>
-      <a href="tel:0211466990">021 146 6990</a>
-      <a href="#">Archers Road, Wairau Valley</a>
-      <a href="#">Auckland, NZ</a>
-    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="/#made-to-order">Made To Order</a></div>
+    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="/#process">Process</a><a href="/#collection">Collection</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="#">Archers Road, Wairau Valley</a><a href="#">Auckland, NZ</a></div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Prime Piece Ltd. All Rights Reserved.</span>
@@ -773,26 +441,12 @@
       <div class="modal-stone" id="modal-stone-text"></div>
       <div class="modal-desc-text" id="modal-desc-text"></div>
       <div class="modal-divider"></div>
-      <div class="detail-row">
-        <span class="detail-label">Dimensions</span>
-        <span class="detail-val" id="modal-dims"></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Frame</span>
-        <span class="detail-val">Hand-welded black steel</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Origin</span>
-        <span class="detail-val">Handcrafted Auckland, NZ</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Type</span>
-        <span class="detail-val" id="modal-type"></span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Edition</span>
-        <span class="detail-val">One of one — never repeated</span>
-      </div>
+      <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-val" id="modal-dims"></span></div>
+      <div class="detail-row"><span class="detail-label">Frame</span><span class="detail-val">Hand-welded black steel</span></div>
+      <div class="detail-row"><span class="detail-label">Origin</span><span class="detail-val">Handcrafted Auckland, NZ</span></div>
+      <div class="detail-row"><span class="detail-label">Setting</span><span class="detail-val">Indoor &amp; Outdoor</span></div>
+      <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val" id="modal-type"></span></div>
+      <div class="detail-row"><span class="detail-label">Edition</span><span class="detail-val">One of one — never repeated</span></div>
       <p class="modal-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
       <div class="modal-actions">
         <a class="modal-btn-primary" id="modal-enquire" href="#">Enquire About This Table →</a>
