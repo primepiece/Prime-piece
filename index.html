@@ -246,23 +246,106 @@
   .render-intro { max-width: 600px; margin: 0 auto 64px; text-align: center; }
   .render-intro h2 { margin-bottom: 16px; }
   .render-intro p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
-  .ba-wrap { max-width: 960px; margin: 0 auto; }
-  .ba-slider {
-    position: relative; overflow: hidden; aspect-ratio: 16/9;
-    border-radius: 2px; cursor: col-resize; user-select: none;
-    touch-action: pan-y; box-shadow: 0 24px 64px rgba(44,42,38,0.14); margin-bottom: 14px;
+
+  /* NEW Joobies-style Before/After Slider */
+  .ba2-wrap {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto 16px;
   }
-  .ba-after, .ba-before { position: absolute; inset: 0; }
-  .ba-after img, .ba-before img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-  .ba-before { clip-path: inset(0 50% 0 0); }
-  .ba-before img { filter: saturate(0.12) brightness(0.65) contrast(0.9); }
-  .ba-divider { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(255,255,255,0.9); transform: translateX(-50%); pointer-events: none; }
-  .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.2); pointer-events: none; color: var(--ink); }
-  .ba-handle svg { width: 15px; height: 15px; }
-  .ba-label { position: absolute; bottom: 18px; padding: 5px 12px; background: rgba(18,15,12,0.55); backdrop-filter: blur(6px); font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.88); font-weight: 500; border-radius: 1px; pointer-events: none; }
-  .ba-label-before { left: 18px; }
-  .ba-label-after { right: 18px; }
-  .ba-note { text-align: center; font-size: 10px; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; margin-bottom: 80px; }
+  .ba2-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: pan-y;
+    box-shadow: 0 32px 80px rgba(44,42,38,0.18);
+  }
+  @media (min-width: 768px) {
+    .ba2-slider { aspect-ratio: 16/9; }
+  }
+  .ba2-layer {
+    position: absolute;
+    inset: 0;
+  }
+  .ba2-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+  .ba2-after { z-index: 1; }
+  .ba2-before {
+    z-index: 2;
+    clip-path: inset(0 50% 0 0);
+  }
+  .ba2-divider {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(255,255,255,0.9);
+    transform: translateX(-50%);
+    z-index: 4;
+    pointer-events: none;
+  }
+  .ba2-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+    z-index: 5;
+    pointer-events: none;
+    color: var(--ink);
+  }
+  .ba2-handle svg { width: 16px; height: 16px; }
+  .ba2-pill {
+    position: absolute;
+    top: 18px;
+    z-index: 6;
+    padding: 7px 16px;
+    border-radius: 99px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: var(--body);
+    pointer-events: none;
+    backdrop-filter: blur(8px);
+  }
+  .ba2-pill-before {
+    left: 18px;
+    background: rgba(30,28,24,0.72);
+    color: rgba(255,255,255,0.9);
+  }
+  .ba2-pill-after {
+    right: 18px;
+    background: var(--sage);
+    color: var(--cream);
+  }
+  .ba2-note {
+    text-align: center;
+    font-size: 10px;
+    color: var(--stone);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 80px;
+  }
+
+  /* Render form */
   .render-form-outer { max-width: 520px; margin: 0 auto; }
   .render-form-head { text-align: center; margin-bottom: 28px; }
   .render-form-head h3 { font-family: var(--display); font-size: 30px; font-weight: 300; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
@@ -282,15 +365,92 @@
   .upload-preview img { width: 36px; height: 36px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
   .upload-preview .file-meta { font-size: 12px; color: var(--ink-soft); overflow: hidden; min-width: 0; }
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .rf { padding: 12px 20px; display: flex; flex-direction: column; gap: 8px; }
-  .rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .rf select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 1px; font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--ink); background: var(--cream); transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
-  .rf select:focus { outline: none; border-color: var(--sage); }
-  .render-submit { display: flex; align-items: center; justify-content: center; gap: 8px; width: calc(100% - 40px); margin: 4px 20px 16px; padding: 13px; background: var(--sage); color: var(--cream); border: none; border-radius: 1px; font-family: var(--body); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+
+  /* Product picker */
+  .product-section-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 500;
+    padding: 14px 20px 8px;
+    display: block;
+  }
+  .product-picker {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0 20px 16px;
+  }
+  .product-card {
+    border: 1.5px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--cream-soft);
+    position: relative;
+  }
+  .product-card.selected {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 2px var(--sage-soft);
+  }
+  .product-card-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+  }
+  .product-card-name {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+    padding: 6px 6px 7px;
+    text-align: center;
+    font-family: var(--body);
+    line-height: 1.3;
+  }
+  .product-card-tick {
+    position: absolute;
+    top: 5px; right: 5px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--sage);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .product-card.selected .product-card-tick { opacity: 1; }
+  .product-card-tick svg { width: 9px; height: 9px; stroke: #fff; stroke-width: 2.5; }
+
+  /* Stone selector */
+  .rf-stone-row { padding: 0 20px 4px; }
+  .rf-stone-row select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 1px;
+    font-family: var(--body);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 30px;
+  }
+  .rf-stone-row select:focus { outline: none; border-color: var(--sage); }
+
+  .render-submit { display: flex; align-items: center; justify-content: center; gap: 8px; width: calc(100% - 40px); margin: 12px 20px 16px; padding: 13px; background: var(--sage); color: var(--cream); border: none; border-radius: 1px; font-family: var(--body); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; }
   .render-submit:hover:not(:disabled) { background: var(--sage-deep); }
   .render-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* PROCESS — lighter, better flow */
+  /* PROCESS */
   .process-section {
     background: var(--cream-soft);
     border-top: 1px solid var(--line);
@@ -324,7 +484,6 @@
     margin-bottom: 36px;
     border-radius: 2px;
   }
-  /* First two images landscape, third portrait */
   .process-img-landscape {
     width: 100%;
     aspect-ratio: 4/3;
@@ -427,7 +586,6 @@
     .collection-grid { grid-template-columns: 1fr; }
     .collection-card { border-right: none; border-bottom: 1px solid var(--line); }
     .render-section { padding: 72px 24px; }
-    .ba-slider { aspect-ratio: 4/3; }
     .process-header { padding: 64px 24px 56px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .process-header-desc { text-align: left; max-width: 100%; }
     .process-grid { grid-template-columns: 1fr; }
@@ -440,11 +598,12 @@
     footer { padding: 56px 24px 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 8px; }
+    .product-picker { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 480px) {
-    .rf-row { grid-template-columns: 1fr; }
     .mto-option { flex-direction: column; gap: 4px; }
     .mto-option-val { text-align: left; }
+    .product-picker { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -538,36 +697,39 @@
     <p>Upload a photo of your room — AI places a Prime Piece into it instantly. Free, no commitment.</p>
   </div>
 
-  <div class="ba-wrap reveal">
-    <div class="ba-slider" id="ba-slider">
-      <div class="ba-after">
-        <img src="lifestyle-1.jpg" alt="After — with Prime Piece">
+  <!-- Joobies-style Before/After Slider -->
+  <div class="ba2-wrap reveal">
+    <div class="ba2-slider" id="ba2-slider">
+      <div class="ba2-layer ba2-after">
+        <img src="after.png" alt="After — with Prime Piece">
       </div>
-      <div class="ba-before" id="ba-before">
-        <img src="lifestyle-1.jpg" alt="Before">
+      <div class="ba2-layer ba2-before" id="ba2-before">
+        <img src="before.png" alt="Before">
       </div>
-      <div class="ba-divider" id="ba-divider"></div>
-      <div class="ba-handle" id="ba-handle">
+      <div class="ba2-divider" id="ba2-divider"></div>
+      <div class="ba2-handle" id="ba2-handle">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M7 4L2 10L7 16M13 4L18 10L13 16"/>
         </svg>
       </div>
-      <span class="ba-label ba-label-before">Before</span>
-      <span class="ba-label ba-label-after">After — Prime Piece</span>
+      <span class="ba2-pill ba2-pill-before">Your Photo</span>
+      <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
     </div>
   </div>
-  <p class="ba-note">Drag to compare</p>
+  <p class="ba2-note">Drag to compare</p>
 
+  <!-- Upload Form -->
   <div class="render-form-outer reveal">
     <div class="render-form-head">
       <h3>Try it with your room</h3>
-      <p>Upload a photo — AI places your Prime Piece into it instantly.</p>
+      <p>Upload a photo, pick your piece — AI renders it instantly.</p>
     </div>
     <div class="render-card">
       <div class="render-card-header">
         <span class="render-card-title">Upload your room</span>
         <span class="render-card-badge">AI — instant</span>
       </div>
+
       <div id="ai-render-form">
         <label class="upload-zone" id="upload-zone" for="lounge-upload">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
@@ -578,6 +740,7 @@
           <p>Drop a photo or tap to upload</p>
           <input type="file" id="lounge-upload" accept="image/*">
         </label>
+
         <div class="upload-preview" id="upload-preview">
           <img id="preview-thumb" alt="">
           <div class="file-meta">
@@ -585,25 +748,27 @@
             <span id="preview-size"></span>
           </div>
         </div>
-        <div class="rf">
-          <div class="rf-row">
-            <select id="ai-stone">
-              <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy">Rosso Africano — Red Marble</option>
-              <option value="Carrara white marble with delicate soft grey veining from Italy">Carrara — White Marble</option>
-              <option value="Verde Apli deep green marble with bold white and gold veining">Verde Apli — Green Marble</option>
-              <option value="Basalt Black honed matte black volcanic stone from Spain">Basalt Black — Stone</option>
-            </select>
-            <select id="ai-piece">
-              <option value="a tall cylindrical sculptural stone plinth column 720mm tall and 280mm in diameter standing vertically like a sculpture pedestal">Plinth</option>
-              <option value="a square stone side table 450mm tall and 500mm wide with a thick heavy stone slab top on a solid stone base">Side Table</option>
-              <option value="a flat rectangular stone serving board 580mm long lying flat on a surface">Serving Board</option>
-              <option value="a low wide stone coffee table with a thick heavy stone slab top approximately 1000mm long">Coffee Table</option>
-            </select>
-          </div>
+
+        <!-- Product picker cards — populated by JS -->
+        <span class="product-section-label">Choose your piece</span>
+        <div class="product-picker" id="product-picker"></div>
+
+        <!-- Stone finish -->
+        <div class="rf-stone-row" style="padding-top:4px;">
+          <select id="ai-stone">
+            <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy">Rosso Africano — Red Marble</option>
+            <option value="Carrara white marble with delicate soft grey veining from Italy">Carrara — White Marble</option>
+            <option value="Verde Apli deep green marble with bold white and gold veining">Verde Apli — Green Marble</option>
+            <option value="Basalt Black honed matte black volcanic stone from Spain">Basalt Black — Stone</option>
+          </select>
         </div>
+
         <div id="ai-error" style="display:none;padding:10px 20px 4px;font-size:12px;color:#7a3a2a;"></div>
-        <button type="button" class="render-submit" id="ai-generate-btn" disabled>Generate My Render <span class="btn-arrow">→</span></button>
+        <button type="button" class="render-submit" id="ai-generate-btn" disabled>
+          Generate My Render <span class="btn-arrow">→</span>
+        </button>
       </div>
+
       <div id="ai-loading" style="display:none;padding:32px 24px;text-align:center;">
         <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink-soft);font-style:italic;margin-bottom:14px;" id="ai-loading-text">Reading your room...</div>
         <div style="width:100%;height:1px;background:var(--line);border-radius:1px;overflow:hidden;margin-bottom:10px;">
@@ -611,6 +776,7 @@
         </div>
         <div style="font-size:11px;color:var(--stone);letter-spacing:0.1em;">Usually 20–40 seconds</div>
       </div>
+
       <div id="ai-result" style="display:none;">
         <img id="ai-result-img" style="width:100%;display:block;max-height:480px;object-fit:cover;" alt="Your room with Prime Piece">
         <div style="padding:1.25rem 1.25rem 1rem;">
@@ -626,7 +792,7 @@
   </div>
 </section>
 
-<!-- PROCESS — lighter background, better flow -->
+<!-- PROCESS -->
 <section class="process-section" id="process">
   <div class="process-header reveal">
     <div>
@@ -768,56 +934,125 @@
 </footer>
 
 <script>
+  // ── Nav scroll ──
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
 
+  // ── Reveal on scroll ──
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
     { threshold: 0.08 }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Before/After slider
-  const baSlider = document.getElementById('ba-slider');
-  const baBefore = document.getElementById('ba-before');
-  const baDivider = document.getElementById('ba-divider');
-  const baHandle = document.getElementById('ba-handle');
-  let baDragging = false;
-  function baSetPos(clientX) {
-    const rect = baSlider.getBoundingClientRect();
-    let pct = Math.max(0.04, Math.min(0.96, (clientX - rect.left) / rect.width));
-    const p = (pct * 100).toFixed(1) + '%';
-    baBefore.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(1)}% 0 0)`;
-    baDivider.style.left = p;
-    baHandle.style.left = p;
-  }
-  baSlider.addEventListener('mousedown', e => { baDragging = true; baSetPos(e.clientX); });
-  window.addEventListener('mousemove', e => { if (baDragging) baSetPos(e.clientX); });
-  window.addEventListener('mouseup', () => { baDragging = false; });
-  baSlider.addEventListener('touchstart', e => { baDragging = true; baSetPos(e.touches[0].clientX); }, { passive: true });
-  window.addEventListener('touchmove', e => { if (baDragging) baSetPos(e.touches[0].clientX); }, { passive: true });
-  window.addEventListener('touchend', () => { baDragging = false; });
+  // ── Before/After slider ──
+  (function() {
+    const slider  = document.getElementById('ba2-slider');
+    const before  = document.getElementById('ba2-before');
+    const divider = document.getElementById('ba2-divider');
+    const handle  = document.getElementById('ba2-handle');
+    if (!slider) return;
+    let dragging = false;
 
-  // AI Render
-  let aiImageBase64 = null;
-  let aiImageMime = 'image/jpeg';
+    function setPos(clientX) {
+      const rect = slider.getBoundingClientRect();
+      let pct = Math.max(0.03, Math.min(0.97, (clientX - rect.left) / rect.width));
+      const p = (pct * 100).toFixed(2) + '%';
+      before.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+      divider.style.left = p;
+      handle.style.left  = p;
+    }
+
+    slider.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); });
+    window.addEventListener('mousemove',  e => { if (dragging) setPos(e.clientX); });
+    window.addEventListener('mouseup',    () => { dragging = false; });
+    slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchmove',  e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('touchend',   () => { dragging = false; });
+  })();
+
+  // ── PRODUCTS — add/edit entries here to update the picker ──
+  // imgSrc: filename in your site folder
+  // name:   label shown under the card
+  // prompt: description sent to AI as fallback if image fails to load
+  const PRODUCTS = [
+    {
+      id: 'p1',
+      imgSrc: 'product-1.jpg',
+      name: 'Plinth',
+      prompt: 'a tall cylindrical sculptural stone plinth column 720mm tall and 280mm in diameter standing vertically like a sculpture pedestal',
+    },
+    {
+      id: 'p2',
+      imgSrc: 'product-2.jpg',
+      name: 'Side Table',
+      prompt: 'a square stone side table 450mm tall and 500mm wide with a thick heavy stone slab top on a solid stone base',
+    },
+    {
+      id: 'p3',
+      imgSrc: 'product-3.jpg',
+      name: 'Serving Board',
+      prompt: 'a flat rectangular stone serving board 580mm long lying flat on a surface',
+    },
+    // Add more products below — just copy and edit a block:
+    // {
+    //   id: 'p4',
+    //   imgSrc: 'product-4.jpg',
+    //   name: 'Coffee Table',
+    //   prompt: 'a low wide stone coffee table with a thick heavy stone slab top approximately 1000mm long',
+    // },
+  ];
+
+  // ── Build product picker ──
+  let selectedProductId = PRODUCTS[0]?.id || null;
+
+  function buildProductPicker() {
+    const picker = document.getElementById('product-picker');
+    if (!picker) return;
+    picker.innerHTML = '';
+    PRODUCTS.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card' + (product.id === selectedProductId ? ' selected' : '');
+      card.dataset.id = product.id;
+      card.innerHTML = `
+        <img class="product-card-img" src="${product.imgSrc}" alt="${product.name}" loading="lazy">
+        <div class="product-card-name">${product.name}</div>
+        <div class="product-card-tick">
+          <svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 5l3.5 3.5L11 1"/>
+          </svg>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        selectedProductId = product.id;
+        picker.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+      });
+      picker.appendChild(card);
+    });
+  }
+  buildProductPicker();
+
+  // ── AI Render ──
+  let aiImageBase64  = null;
+  let aiImageMime    = 'image/jpeg';
   let aiPollInterval = null;
 
-  const uploadInput = document.getElementById('lounge-upload');
+  const uploadInput   = document.getElementById('lounge-upload');
   const uploadPreview = document.getElementById('upload-preview');
-  const previewThumb = document.getElementById('preview-thumb');
-  const previewName = document.getElementById('preview-name');
-  const previewSize = document.getElementById('preview-size');
-  const uploadZone = document.getElementById('upload-zone');
+  const previewThumb  = document.getElementById('preview-thumb');
+  const previewName   = document.getElementById('preview-name');
+  const previewSize   = document.getElementById('preview-size');
+  const uploadZone    = document.getElementById('upload-zone');
   const aiGenerateBtn = document.getElementById('ai-generate-btn');
-  const aiRenderForm = document.getElementById('ai-render-form');
-  const aiLoading = document.getElementById('ai-loading');
+  const aiRenderForm  = document.getElementById('ai-render-form');
+  const aiLoading     = document.getElementById('ai-loading');
   const aiLoadingText = document.getElementById('ai-loading-text');
-  const aiProgress = document.getElementById('ai-progress');
-  const aiResult = document.getElementById('ai-result');
-  const aiResultImg = document.getElementById('ai-result-img');
-  const aiError = document.getElementById('ai-error');
-  const aiTryAgain = document.getElementById('ai-try-again');
+  const aiProgress    = document.getElementById('ai-progress');
+  const aiResult      = document.getElementById('ai-result');
+  const aiResultImg   = document.getElementById('ai-result-img');
+  const aiError       = document.getElementById('ai-error');
+  const aiTryAgain    = document.getElementById('ai-try-again');
 
   function loadFile(file) {
     aiImageMime = file.type || 'image/jpeg';
@@ -834,7 +1069,7 @@
   }
 
   uploadInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
-  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.style.background = 'rgba(123,165,168,0.07)'; });
+  uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.style.background = 'rgba(123,165,168,0.07)'; });
   uploadZone.addEventListener('dragleave', () => { uploadZone.style.background = ''; });
   uploadZone.addEventListener('drop', e => {
     e.preventDefault();
@@ -846,40 +1081,81 @@
     }
   });
 
+  // Fetch product image as base64 to send to backend
+  async function getProductImageBase64(imgSrc) {
+    const res  = await fetch(imgSrc);
+    const blob = await res.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve({ base64: reader.result.split(',')[1], mime: blob.type || 'image/jpeg' });
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  function showFormError(msg) {
+    aiLoading.style.display    = 'none';
+    aiRenderForm.style.display = 'block';
+    aiError.textContent        = msg;
+    aiError.style.display      = 'block';
+    aiGenerateBtn.disabled     = false;
+  }
+
   aiGenerateBtn.addEventListener('click', async () => {
     if (!aiImageBase64) return;
-    const stone = document.getElementById('ai-stone').value;
-    const piece = document.getElementById('ai-piece').value;
-    aiGenerateBtn.disabled = true;
-    aiError.style.display = 'none';
+
+    const stone   = document.getElementById('ai-stone').value;
+    const product = PRODUCTS.find(p => p.id === selectedProductId) || PRODUCTS[0];
+
+    aiGenerateBtn.disabled     = true;
+    aiError.style.display      = 'none';
     aiRenderForm.style.display = 'none';
-    aiLoading.style.display = 'block';
-    aiResult.style.display = 'none';
-    aiProgress.style.width = '10%';
-    aiLoadingText.textContent = 'Reading your room...';
+    aiLoading.style.display    = 'block';
+    aiResult.style.display     = 'none';
+    aiProgress.style.width     = '6%';
+    aiLoadingText.textContent  = 'Reading your room...';
+
     try {
+      // Fetch the selected product image to send alongside the room photo
+      let productImageBase64 = null;
+      let productImageMime   = 'image/jpeg';
+      try {
+        const pd = await getProductImageBase64(product.imgSrc);
+        productImageBase64 = pd.base64;
+        productImageMime   = pd.mime;
+      } catch(e) {
+        console.warn('Could not load product image — falling back to text prompt only');
+      }
+
       const res = await fetch('/api/render', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageBase64: aiImageBase64, imageMime: aiImageMime, stone, piece })
+        body: JSON.stringify({
+          imageBase64,
+          imageMime:          aiImageMime,
+          stone,
+          piece:              product.prompt,
+          productImageBase64,
+          productImageMime,
+          productName:        product.name,
+        }),
       });
+
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || 'Something went wrong');
-      aiProgress.style.width = '30%';
+
+      aiProgress.style.width    = '28%';
       aiLoadingText.textContent = 'Generating render...';
+
       let attempts = 0;
       aiPollInterval = setInterval(async () => {
         attempts++;
         if (attempts > 60) {
           clearInterval(aiPollInterval);
-          aiLoading.style.display = 'none';
-          aiRenderForm.style.display = 'block';
-          aiError.textContent = 'Timed out — please try again.';
-          aiError.style.display = 'block';
-          aiGenerateBtn.disabled = false;
+          showFormError('Timed out — please try again.');
           return;
         }
-        aiProgress.style.width = Math.min(30 + (attempts / 60) * 60, 90) + '%';
+        aiProgress.style.width = Math.min(28 + (attempts / 60) * 62, 90) + '%';
         try {
           const pr = await fetch('/api/poll?id=' + data.predictionId);
           const pd = await pr.json();
@@ -887,30 +1163,26 @@
             clearInterval(aiPollInterval);
             aiProgress.style.width = '100%';
             aiResultImg.src = pd.imageUrl;
-            aiResultImg.onload = () => { aiLoading.style.display = 'none'; aiResult.style.display = 'block'; };
+            aiResultImg.onload = () => {
+              aiLoading.style.display = 'none';
+              aiResult.style.display  = 'block';
+            };
           } else if (pd.status === 'failed') {
             clearInterval(aiPollInterval);
-            aiLoading.style.display = 'none';
-            aiRenderForm.style.display = 'block';
-            aiError.textContent = 'Generation failed — please try again.';
-            aiError.style.display = 'block';
-            aiGenerateBtn.disabled = false;
+            showFormError('Generation failed — please try again.');
           }
-        } catch(e) {}
+        } catch(e) { /* poll error, keep trying */ }
       }, 2000);
+
     } catch(err) {
-      aiLoading.style.display = 'none';
-      aiRenderForm.style.display = 'block';
-      aiError.textContent = err.message;
-      aiError.style.display = 'block';
-      aiGenerateBtn.disabled = false;
+      showFormError(err.message);
     }
   });
 
   aiTryAgain.addEventListener('click', () => {
-    aiResult.style.display = 'none';
+    aiResult.style.display     = 'none';
     aiRenderForm.style.display = 'block';
-    aiGenerateBtn.disabled = false;
+    aiGenerateBtn.disabled     = false;
   });
 </script>
 
