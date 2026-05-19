@@ -1,1 +1,634 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>10 Prime Pieces — Across Auckland</title>
+<meta name="description" content="10 sculptural stone pieces appearing across Auckland over 5 weeks. The final piece is hidden on the North Shore. First to find it wins.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1EA;
+    --cream-soft: #EBE5DA;
+    --cream-deep: #E0D9CA;
+    --sage: #7BA5A8;
+    --sage-deep: #5D8588;
+    --sage-soft: #A8C3C5;
+    --ink: #2C2A26;
+    --ink-soft: #554F45;
+    --stone: #8A8275;
+    --line: rgba(44, 42, 38, 0.12);
+    --line-inv: rgba(255, 255, 255, 0.10);
+    --gold: #C9A96E;
+    --display: 'Cormorant Garamond', serif;
+    --script: 'Dancing Script', cursive;
+    --body: 'Inter Tight', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0E0D0B;
+    color: #fff;
+    font-family: var(--body);
+    font-weight: 300;
+    line-height: 1.5;
+    overflow-x: hidden;
+    letter-spacing: 0.01em;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 28px 56px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+    transition: all 0.5s ease;
+  }
+  nav.scrolled {
+    background: rgba(14,13,11,0.94);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line-inv);
+    padding: 16px 56px;
+  }
+  .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo { font-family: var(--display); font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: #fff; }
+  .logo-sub { font-family: var(--script); font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+  .nav-back { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; font-weight: 500; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--sage-soft); }
+  .nav-back::before { content: '←'; font-size: 13px; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: #0E0D0B;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 85%, rgba(201,169,110,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 50%, rgba(123,165,168,0.05) 0%, transparent 50%),
+                linear-gradient(to bottom, #0E0D0B 0%, #161310 40%, #0E0D0B 100%);
+  }
+  /* Animated grain overlay */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .orb-1 { width: 500px; height: 500px; background: rgba(201,169,110,0.06); top: -100px; right: -100px; animation-delay: 0s; }
+  .orb-2 { width: 400px; height: 400px; background: rgba(123,165,168,0.05); bottom: 0; left: -80px; animation-delay: -5s; }
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 120px 24px 80px;
+    max-width: 900px;
+  }
+  .hero-kicker {
+    font-size: 10px; letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--sage-soft); font-weight: 500;
+    margin-bottom: 32px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+  .hero-kicker::before, .hero-kicker::after { content: ''; width: 32px; height: 1px; background: var(--sage-soft); opacity: 0.5; }
+  .hero-num {
+    font-family: var(--display);
+    font-size: clamp(100px, 18vw, 220px);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.12);
+    position: relative;
+    display: block;
+    margin-bottom: -20px;
+    opacity: 0; animation: fadeUp 0.9s 0.35s ease forwards;
+  }
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(44px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 10px;
+    opacity: 0; animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+  .hero-subtitle {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: -0.01em;
+    margin-bottom: 40px;
+    opacity: 0; animation: fadeUp 0.9s 0.65s ease forwards;
+  }
+  .hero-divider {
+    width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+    margin: 0 auto 40px;
+    opacity: 0; animation: fadeUp 0.8s 0.8s ease forwards;
+  }
+  .launch-badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 22px;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 1px;
+    background: rgba(201,169,110,0.05);
+    backdrop-filter: blur(8px);
+    margin-bottom: 20px;
+    opacity: 0; animation: fadeUp 0.8s 0.95s ease forwards;
+  }
+  .launch-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+  .launch-badge-text { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeIn 1s 1.5s ease forwards;
+  }
+  .scroll-hint span { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); font-weight: 500; }
+  .scroll-arrow { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent); animation: scrollDrop 2s ease-in-out infinite; }
+  @keyframes scrollDrop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+
+  /* CONCEPT SECTION */
+  .concept {
+    padding: 120px 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    border-top: 1px solid var(--line-inv);
+  }
+  .concept-left .section-tag {
+    font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+    color: var(--sage-soft); font-weight: 500; margin-bottom: 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .concept-left .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--sage-soft); opacity: 0.6; }
+  .concept-left h2 {
+    font-family: var(--display);
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  .concept-left h2 em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .concept-left p { font-size: 16px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 420px; }
+  .concept-right {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line-inv);
+    border: 1px solid var(--line-inv);
+  }
+  .stat-block {
+    background: #0E0D0B;
+    padding: 44px 36px;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: background 0.3s;
+  }
+  .stat-block:hover { background: rgba(255,255,255,0.03); }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 52px; font-weight: 300;
+    color: #fff; line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 500; }
+  .stat-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; margin-top: 6px; }
+
+  /* TIMELINE */
+  .timeline-section {
+    padding: 0 56px 120px;
+    border-top: 1px solid var(--line-inv);
+  }
+  .timeline-head {
+    padding: 80px 0 64px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1px solid var(--line-inv);
+    margin-bottom: 64px;
+  }
+  .timeline-head h2 {
+    font-family: var(--display);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300; letter-spacing: -0.02em; color: #fff;
+  }
+  .timeline-head h2 em { font-style: italic; color: var(--sage-soft); }
+  .timeline-head p { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 300px; text-align: right; line-height: 1.75; }
+  .timeline-track {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; position: relative;
+  }
+  .timeline-track::before {
+    content: '';
+    position: absolute; top: 28px; left: 28px; right: 28px; height: 1px;
+    background: linear-gradient(to right, var(--sage-soft), var(--gold));
+    opacity: 0.2;
+  }
+  .week-item {
+    padding: 0 20px 0 0;
+    position: relative;
+    cursor: default;
+  }
+  .week-dot {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #0E0D0B;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 28px;
+    position: relative; z-index: 1;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .week-item:hover .week-dot { border-color: var(--sage-soft); background: rgba(123,165,168,0.08); }
+  .week-item.final .week-dot { border-color: var(--gold); background: rgba(201,169,110,0.08); }
+  .week-item.final:hover .week-dot { background: rgba(201,169,110,0.15); }
+  .week-dot-num {
+    font-family: var(--display); font-size: 20px; font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.3s;
+  }
+  .week-item:hover .week-dot-num { color: var(--sage-soft); }
+  .week-item.final .week-dot-num { color: var(--gold); }
+  .week-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); font-weight: 500; margin-bottom: 8px; }
+  .week-title { font-family: var(--display); font-size: 22px; font-weight: 300; color: #fff; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .week-desc { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.7; }
+  .week-item.final .week-title { color: var(--gold); }
+
+  /* HIDDEN PIECE */
+  .hidden-section {
+    margin: 0 56px;
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(201,169,110,0.04) 0%, transparent 60%);
+    position: relative;
+    margin-bottom: 120px;
+  }
+  .hidden-inner {
+    padding: 80px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .hidden-section::before {
+    content: '';
+    position: absolute; top: 0; right: 0; width: 1px; height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.3), transparent);
+  }
+  .hidden-tag {
+    font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hidden-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold); opacity: 0.6; }
+  .hidden-section h2 {
+    font-family: var(--display);
+    font-size: clamp(38px, 4vw, 60px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .hidden-section h2 em { font-style: italic; color: var(--gold); }
+  .hidden-section p { font-size: 15px; line-height: 1.9; color: rgba(255,255,255,0.45); margin-bottom: 14px; }
+  .prize-block {
+    margin-top: 36px;
+    padding: 28px 32px;
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 1px;
+    background: rgba(201,169,110,0.04);
+    display: flex; align-items: center; gap: 24px;
+  }
+  .prize-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold);
+    font-family: var(--display); font-size: 20px;
+  }
+  .prize-value {
+    font-family: var(--display);
+    font-size: 38px; font-weight: 300; color: var(--gold);
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .prize-label { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 500; margin-top: 3px; }
+  .hidden-rules { display: flex; flex-direction: column; gap: 0; }
+  .rule {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line-inv);
+    display: flex; align-items: flex-start; gap: 20px;
+  }
+  .rule:first-child { border-top: 1px solid var(--line-inv); }
+  .rule-num {
+    font-family: var(--display); font-size: 13px; color: var(--gold);
+    opacity: 0.6; font-weight: 300; flex-shrink: 0; margin-top: 1px;
+    letter-spacing: 0.05em;
+  }
+  .rule-text { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .rule-text strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+  /* FOLLOW CTA */
+  .follow-section {
+    padding: 120px 56px;
+    text-align: center;
+    border-top: 1px solid var(--line-inv);
+    position: relative;
+    overflow: hidden;
+  }
+  .follow-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(123,165,168,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .follow-section .section-tag {
+    font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+    color: var(--sage-soft); font-weight: 500; margin-bottom: 24px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .follow-section .section-tag::before, .follow-section .section-tag::after { content: ''; width: 28px; height: 1px; background: var(--sage-soft); opacity: 0.5; }
+  .follow-section h2 {
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 14px;
+    line-height: 1.05;
+  }
+  .follow-section h2 em { font-style: italic; color: var(--sage-soft); }
+  .follow-section p { font-size: 15px; color: rgba(255,255,255,0.4); max-width: 420px; margin: 0 auto 44px; line-height: 1.8; }
+  .btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    text-decoration: none; font-family: var(--body); font-weight: 500;
+    border-radius: 1px; cursor: pointer; transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.7);
+    background: transparent;
+  }
+  .btn:hover { border-color: rgba(255,255,255,0.45); color: #fff; background: rgba(255,255,255,0.04); }
+  .btn-gold {
+    background: var(--gold); color: #0E0D0B;
+    border-color: var(--gold);
+  }
+  .btn-gold:hover { background: #d4b47a; border-color: #d4b47a; color: #0E0D0B; }
+  .btn-sage {
+    background: var(--sage); color: var(--cream);
+    border-color: var(--sage);
+  }
+  .btn-sage:hover { background: var(--sage-deep); border-color: var(--sage-deep); color: #fff; }
+  .btn-arrow { transition: transform 0.3s; }
+  .btn:hover .btn-arrow { transform: translateX(4px); }
+
+  /* FOOTER NAV */
+  .footer-nav {
+    padding: 40px 56px;
+    border-top: 1px solid var(--line-inv);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-nav a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 12px; letter-spacing: 0.08em; transition: color 0.3s; }
+  .footer-nav a:hover { color: var(--sage-soft); }
+  .footer-nav-brand { font-family: var(--display); font-size: 16px; font-weight: 400; letter-spacing: 0.28em; color: rgba(255,255,255,0.2); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .concept { grid-template-columns: 1fr; gap: 48px; }
+    .hidden-inner { grid-template-columns: 1fr; gap: 48px; padding: 56px 40px; }
+    .timeline-track { grid-template-columns: repeat(3, 1fr); }
+    .week-item:nth-child(4), .week-item:nth-child(5) { margin-top: 40px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 18px 20px; }
+    nav.scrolled { padding: 14px 20px; }
+    .concept { padding: 80px 24px; }
+    .concept-right { grid-template-columns: 1fr 1fr; }
+    .timeline-section { padding: 0 24px 80px; }
+    .timeline-head { padding: 64px 0 48px; flex-direction: column; align-items: flex-start; gap: 20px; }
+    .timeline-head p { text-align: left; }
+    .timeline-track { grid-template-columns: 1fr 1fr; }
+    .week-item:last-child { grid-column: 1 / -1; }
+    .hidden-section { margin: 0 24px; }
+    .hidden-inner { padding: 48px 28px; gap: 40px; }
+    .follow-section { padding: 80px 24px; }
+    .footer-nav { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .concept-right { grid-template-columns: 1fr; }
+    .timeline-track { grid-template-columns: 1fr; }
+    .week-item:last-child { grid-column: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="/" class="logo-wrap">
+    <div class="logo">PRIME PIECE</div>
+    <div class="logo-sub">one of one</div>
+  </a>
+  <a href="/" class="nav-back">Back to site</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-kicker">Prime Piece — Campaign</div>
+    <span class="hero-num">10</span>
+    <h1 class="hero-title">Prime Pieces.</h1>
+    <div class="hero-subtitle">Across Auckland.</div>
+    <div class="hero-divider"></div>
+    <div class="launch-badge">
+      <div class="launch-badge-dot"></div>
+      <span class="launch-badge-text">Launched 21 / 05 / 2026</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section class="concept" id="concept">
+  <div class="concept-left reveal">
+    <div class="section-tag">The Campaign</div>
+    <h2>5 weeks.<br>10 pieces.<br><em>One city.</em></h2>
+    <p>Over five weeks, Prime Piece sculptures, plinths and tables appear across Auckland. Each piece one of one — carved from natural stone, placed in the city, never repeated.</p>
+  </div>
+  <div class="concept-right reveal reveal-delay-2">
+    <div class="stat-block">
+      <div class="stat-num">10<span>.</span></div>
+      <div class="stat-label">Pieces total</div>
+      <div class="stat-desc">Sculptural stone. Every one unique.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num">5<span>wks</span></div>
+      <div class="stat-label">Duration</div>
+      <div class="stat-desc">New pieces appearing weekly across the city.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num">1<span>.</span></div>
+      <div class="stat-label">Hidden piece</div>
+      <div class="stat-desc">North Shore. Location to be revealed.</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" style="color:var(--gold);">$1k</div>
+      <div class="stat-label">Prize value</div>
+      <div class="stat-desc">First to find the final piece wins.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section" id="timeline">
+  <div class="timeline-head reveal">
+    <div>
+      <span style="font-size:10px;letter-spacing:0.36em;text-transform:uppercase;color:var(--sage-soft);font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:20px;"><span style="width:28px;height:1px;background:var(--sage-soft);opacity:0.6;display:inline-block;"></span>The Drop</span>
+      <h2>How it<br><em>unfolds</em>.</h2>
+    </div>
+    <p>Pieces drop weekly. Each location revealed on Instagram. Follow closely — the final one is hidden.</p>
+  </div>
+  <div class="timeline-track">
+    <div class="week-item reveal">
+      <div class="week-dot"><span class="week-dot-num">1</span></div>
+      <div class="week-label">Week One</div>
+      <div class="week-title">First Drop</div>
+      <div class="week-desc">The campaign launches. First piece revealed — location announced on Instagram.</div>
+    </div>
+    <div class="week-item reveal reveal-delay-1">
+      <div class="week-dot"><span class="week-dot-num">2</span></div>
+      <div class="week-label">Week Two</div>
+      <div class="week-title">Second Drop</div>
+      <div class="week-desc">Another piece placed across Auckland. More collaborations revealed.</div>
+    </div>
+    <div class="week-item reveal reveal-delay-2">
+      <div class="week-dot"><span class="week-dot-num">3</span></div>
+      <div class="week-label">Week Three</div>
+      <div class="week-title">Third Drop</div>
+      <div class="week-desc">Series continues. Rewards and partners announced throughout.</div>
+    </div>
+    <div class="week-item reveal reveal-delay-3">
+      <div class="week-dot"><span class="week-dot-num">4</span></div>
+      <div class="week-label">Week Four</div>
+      <div class="week-title">Fourth Drop</div>
+      <div class="week-desc">Penultimate piece. The city is watching. The final drop approaches.</div>
+    </div>
+    <div class="week-item final reveal reveal-delay-4">
+      <div class="week-dot"><span class="week-dot-num">5</span></div>
+      <div class="week-label">Week Five — Final</div>
+      <div class="week-title">The Hidden Piece</div>
+      <div class="week-desc">Somewhere on the North Shore. Location drops. First to find it wins.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HIDDEN PIECE -->
+<section class="hidden-section" id="hidden">
+  <div class="hidden-inner">
+    <div class="reveal">
+      <div class="hidden-tag">The Final Piece</div>
+      <h2>Hidden on<br>the <em>North Shore</em>.</h2>
+      <p>The final Prime Piece won't be placed — it'll be hidden. Somewhere on Auckland's North Shore, one sculptural stone piece waits to be found.</p>
+      <p>When the time comes, the location will be revealed. The first person to find it takes it home.</p>
+      <div class="prize-block">
+        <div class="prize-icon">$</div>
+        <div>
+          <div class="prize-value">$1,000</div>
+          <div class="prize-label">Worth up to — one of one</div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden-rules reveal reveal-delay-2">
+      <div class="rule">
+        <div class="rule-num">01</div>
+        <div class="rule-text"><strong>Follow @prime.piece on Instagram.</strong> The location will only be revealed there — nowhere else.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02</div>
+        <div class="rule-text"><strong>The location will be revealed in Week Five.</strong> Additional collaborations and rewards announced throughout the series.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03</div>
+        <div class="rule-text"><strong>First person to physically find the piece wins.</strong> The piece is yours — worth up to $1,000 NZD.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04</div>
+        <div class="rule-text"><strong>Follow closely.</strong> More rewards and collaborations are being revealed throughout the 5 weeks.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOLLOW CTA -->
+<section class="follow-section">
+  <div class="section-tag reveal">Follow the campaign</div>
+  <h2 class="reveal">Don't miss a<br><em>drop</em>.</h2>
+  <p class="reveal">Every piece revealed on Instagram first. Follow @prime.piece to track the campaign, see each location, and be ready when the final piece is hidden.</p>
+  <div class="btn-group reveal">
+    <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="btn btn-gold">Follow @prime.piece <span class="btn-arrow">→</span></a>
+    <a href="mailto:james@primepiece.co.nz?subject=10 Prime Pieces Enquiry" class="btn btn-sage">Enquire <span class="btn-arrow">→</span></a>
+    <a href="/" class="btn">View Collection <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<div class="footer-nav">
+  <a href="/">← Back to Prime Piece</a>
+  <span class="footer-nav-brand">PRIME PIECE</span>
+  <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a>
+</div>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.07 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
