@@ -21,6 +21,7 @@
     --stone: #8A8275;
     --line: rgba(44, 42, 38, 0.12);
     --line-inv: rgba(255, 255, 255, 0.08);
+    --gold: #C9A96E;
     --display: 'Cormorant Garamond', serif;
     --script: 'Dancing Script', cursive;
     --body: 'Inter Tight', -apple-system, sans-serif;
@@ -38,9 +39,52 @@
     letter-spacing: 0.01em;
   }
 
-  nav {
+  /* ── CAMPAIGN BANNER ── */
+  .campaign-banner {
     position: fixed;
     top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: #0E0D0B;
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .campaign-banner:hover { background: #161310; }
+  .campaign-banner-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    animation: bannerPulse 2s ease-in-out infinite;
+  }
+  @keyframes bannerPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+  .campaign-banner-text {
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7); font-weight: 500; font-family: var(--body);
+  }
+  .campaign-banner-text strong { color: var(--gold); font-weight: 600; }
+  .campaign-banner-arrow {
+    font-size: 11px; color: var(--gold);
+    transition: transform 0.3s;
+  }
+  .campaign-banner:hover .campaign-banner-arrow { transform: translateX(4px); }
+  .campaign-banner-close {
+    position: absolute; right: 16px;
+    font-size: 14px; color: rgba(255,255,255,0.25);
+    cursor: pointer; padding: 4px 8px;
+    transition: color 0.2s;
+    background: none; border: none; font-family: var(--body);
+  }
+  .campaign-banner-close:hover { color: rgba(255,255,255,0.6); }
+
+  nav {
+    position: fixed;
+    top: 37px; left: 0; right: 0;
     padding: 32px 56px;
     display: flex;
     justify-content: space-between;
@@ -54,6 +98,7 @@
     border-bottom: 1px solid var(--line);
     padding: 18px 56px;
   }
+  nav.banner-hidden { top: 0; }
   .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
   .logo { font-family: var(--display); font-size: 20px; font-weight: 400; letter-spacing: 0.35em; color: #fff; transition: color 0.5s; }
   .logo-sub { font-family: var(--script); font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 3px; transition: color 0.5s; }
@@ -277,6 +322,7 @@
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 8px; }
     .product-picker { grid-template-columns: repeat(3, 1fr); }
+    .campaign-banner-text { font-size: 9px; letter-spacing: 0.18em; }
   }
   @media (max-width: 480px) {
     .mto-option { flex-direction: column; gap: 4px; }
@@ -287,6 +333,14 @@
 </head>
 <body>
 
+<!-- CAMPAIGN BANNER -->
+<a href="ten.html" class="campaign-banner" id="campaign-banner">
+  <div class="campaign-banner-dot"></div>
+  <span class="campaign-banner-text"><strong>10 Prime Pieces — Across Auckland.</strong> &nbsp;Live now — find the hidden piece, win up to $1,000</span>
+  <span class="campaign-banner-arrow">→</span>
+  <button class="campaign-banner-close" id="banner-close" aria-label="Close banner">✕</button>
+</a>
+
 <nav id="nav">
   <a href="/" class="logo-wrap">
     <div class="logo">PRIME PIECE</div>
@@ -296,6 +350,7 @@
     <li><a href="#collection">Collection</a></li>
     <li><a href="#render">Free Render</a></li>
     <li><a href="#process">Process</a></li>
+    <li><a href="ten.html">10 Pieces</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -594,6 +649,7 @@
       <a href="#story">About</a>
       <a href="#process">Process</a>
       <a href="#collection">Collection</a>
+      <a href="ten.html">10 Pieces Campaign</a>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
@@ -610,9 +666,25 @@
 </footer>
 
 <script>
+  // ── Campaign banner close ──
+  const bannerEl = document.getElementById('campaign-banner');
+  const bannerClose = document.getElementById('banner-close');
+  const navEl = document.getElementById('nav');
+
+  function hideBanner() {
+    bannerEl.style.display = 'none';
+    navEl.style.top = '0';
+    navEl.classList.add('banner-hidden');
+  }
+
+  bannerClose.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    hideBanner();
+  });
+
   // ── Nav scroll ──
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
+  window.addEventListener('scroll', () => { navEl.classList.toggle('scrolled', window.scrollY > 80); });
 
   // ── Reveal on scroll ──
   const observer = new IntersectionObserver(
@@ -666,9 +738,6 @@
     { id: 'p17', imgSrc: 'side-2 (1).jpg', name: 'Side Table II', prompt: 'a sculptural stone side table with a round stone top on a slim metal base' },
   ];
 
-  // ── Pre-load ALL product images as base64 at page load using canvas ──
-  // This sidesteps CORS — images are same-origin so canvas can read them.
-  // By click time everything is already in memory.
   const productImageCache = {};
 
   function preloadProductImages() {
@@ -692,7 +761,6 @@
   }
   preloadProductImages();
 
-  // ── Build product picker ──
   let selectedProductId = PRODUCTS[0]?.id || null;
 
   function buildProductPicker() {
@@ -722,7 +790,6 @@
   }
   buildProductPicker();
 
-  // ── AI Render ──
   let aiImageBase64  = null;
   let aiImageMime    = 'image/jpeg';
   let aiPollInterval = null;
@@ -784,7 +851,6 @@
     const stone   = document.getElementById('ai-stone').value;
     const product = PRODUCTS.find(p => p.id === selectedProductId) || PRODUCTS[0];
 
-    // Pull from cache — loaded at page start via canvas
     const cached           = productImageCache[product.id];
     const productImageBase64 = cached ? cached.base64 : null;
     const productImageMime   = cached ? cached.mime   : 'image/jpeg';
