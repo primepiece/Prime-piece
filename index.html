@@ -290,7 +290,41 @@
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  /* INSTAGRAM NAV ICON */
+  /* FLOATING ENQUIRE BUTTON */
+  .float-enquire {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 150;
+    display: flex; align-items: center; gap: 0;
+    background: var(--sage);
+    border-radius: 99px;
+    box-shadow: 0 8px 32px rgba(44,42,38,0.22);
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    max-width: 52px;
+  }
+  .float-enquire:hover {
+    max-width: 200px;
+    background: var(--sage-deep);
+  }
+  .float-enquire-icon {
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: #fff;
+  }
+  .float-enquire-icon svg { width: 18px; height: 18px; }
+  .float-enquire-label {
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: #fff; font-weight: 500; font-family: var(--body);
+    white-space: nowrap; padding-right: 20px;
+    opacity: 0; transition: opacity 0.2s 0.1s;
+  }
+  .float-enquire:hover .float-enquire-label { opacity: 1; }
+  .float-enquire.hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
+  @media (max-width: 768px) {
+    .float-enquire { bottom: 20px; right: 20px; }
+  }
   .nav-ig {
     display: flex; align-items: center; justify-content: center;
     width: 34px; height: 34px; border-radius: 50%;
@@ -863,6 +897,19 @@
     hideBanner();
   });
 
+  // ── Floating enquire button — hide near contact section ──
+  const floatBtn = document.getElementById('float-enquire');
+  const contactSection = document.getElementById('contact');
+  if (floatBtn && contactSection) {
+    const floatObserver = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        floatBtn.classList.toggle('hidden', e.isIntersecting);
+      }),
+      { threshold: 0.2 }
+    );
+    floatObserver.observe(contactSection);
+  }
+
   // ── Nav scroll ──
   window.addEventListener('scroll', () => { navEl.classList.toggle('scrolled', window.scrollY > 80); });
 
@@ -1105,5 +1152,16 @@
   });
 </script>
 
-</body>
+<!-- FLOATING ENQUIRE BUTTON -->
+<a href="mailto:james@primepiece.co.nz?subject=Enquiry — Prime Piece" class="float-enquire" id="float-enquire" aria-label="Enquire">
+  <div class="float-enquire-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </svg>
+  </div>
+  <span class="float-enquire-label">Enquire Now</span>
+</a>
+
+
 </html>
