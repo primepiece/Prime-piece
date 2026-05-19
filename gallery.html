@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gallery — Prime Piece</title>
+<meta name="description" content="Prime Piece sculptural stone furniture — plinths, tables and boards photographed in Auckland homes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1EA;
+    --cream-soft: #EBE5DA;
+    --sage: #7BA5A8;
+    --sage-deep: #5D8588;
+    --ink: #2C2A26;
+    --ink-soft: #554F45;
+    --line: rgba(44, 42, 38, 0.12);
+    --display: 'Cormorant Garamond', serif;
+    --script: 'Dancing Script', cursive;
+    --body: 'Inter Tight', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--body); font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 28px 56px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100; transition: all 0.5s ease;
+    background: rgba(245,241,234,0.96);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo { font-family: var(--display); font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
+  .logo-sub { font-family: var(--script); font-size: 12px; color: var(--sage); margin-top: 3px; }
+  .nav-back { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; font-weight: 500; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--sage); }
+  .nav-back::before { content: '←'; font-size: 13px; }
+
+  /* HEADER */
+  .gallery-hero {
+    padding: 140px 56px 64px;
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .gallery-hero h1 {
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 300; letter-spacing: -0.03em; line-height: 0.9;
+    color: var(--ink);
+  }
+  .gallery-hero h1 em {
+    font-family: var(--script); font-style: normal;
+    color: var(--sage); font-size: 0.85em;
+  }
+  .gallery-hero-right {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 14px;
+    padding-bottom: 8px;
+  }
+  .gallery-count {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500;
+  }
+  .ig-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border: 1px solid var(--sage); border-radius: 1px;
+    color: var(--sage); text-decoration: none;
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
+    font-family: var(--body); transition: all 0.3s;
+  }
+  .ig-btn:hover { background: var(--sage); color: var(--cream); }
+  .ig-btn svg { width: 13px; height: 13px; }
+
+  /* MASONRY GRID */
+  .gallery-grid {
+    columns: 4;
+    column-gap: 3px;
+    padding: 3px;
+    background: var(--cream-soft);
+  }
+  .gallery-item {
+    position: relative; display: block; overflow: hidden;
+    break-inside: avoid; margin-bottom: 3px;
+    cursor: pointer; text-decoration: none;
+  }
+  .gallery-item img {
+    width: 100%; height: auto; display: block;
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(14,13,11,0);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.4s;
+  }
+  .gallery-item:hover .gallery-overlay { background: rgba(14,13,11,0.38); }
+  .gallery-overlay-icon {
+    opacity: 0; transform: scale(0.7);
+    transition: opacity 0.35s, transform 0.35s; color: #fff;
+  }
+  .gallery-item:hover .gallery-overlay-icon { opacity: 1; transform: scale(1); }
+  .gallery-overlay-icon svg { width: 28px; height: 28px; }
+
+  /* FOOTER */
+  .gallery-footer {
+    padding: 48px 56px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--line);
+    background: var(--cream);
+  }
+  .gallery-footer-brand { font-family: var(--display); font-size: 18px; letter-spacing: 0.3em; color: var(--sage); font-weight: 400; }
+  .gallery-footer a { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.3s; }
+  .gallery-footer a:hover { color: var(--sage); }
+
+  @media (max-width: 1024px) { .gallery-grid { columns: 3; } }
+  @media (max-width: 768px) {
+    nav { padding: 18px 20px; }
+    .gallery-hero { padding: 100px 24px 48px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .gallery-hero-right { align-items: flex-start; }
+    .gallery-grid { columns: 2; }
+    .gallery-footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+  }
+  @media (max-width: 480px) { .gallery-grid { columns: 2; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo-wrap">
+    <div class="logo">PRIME PIECE</div>
+    <div class="logo-sub">one of one</div>
+  </a>
+  <a href="/" class="nav-back">Back to site</a>
+</nav>
+
+<div class="gallery-hero">
+  <h1>The<br><em>Work</em>.</h1>
+  <div class="gallery-hero-right">
+    <span class="gallery-count">Every piece — one of one</span>
+    <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="ig-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/>
+      </svg>
+      Follow @prime.piece
+    </a>
+  </div>
+</div>
+
+<div class="gallery-grid">
+
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-1.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-1.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-1.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-2.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-2.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-2.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-3.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-3.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-3.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-4.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-4.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-4.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-5.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-5.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-5.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-6.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-6.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-6.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-7.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-7.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-8.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-8.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-8.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-9.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-9.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-9.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-10.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-10.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-10.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lounge-11.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-11.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-11.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-12.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-12.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-13.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="plinth-13.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-14.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lifestyle-1.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="lifestyle-2.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="side-1.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-emerald-vein.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-golden-dune.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-lava-vein.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-pink-storm.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-teal-tide.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-volcanic-ash.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="board-white-haven.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
+    <img src="table-16.jpg" alt="Prime Piece" loading="lazy">
+    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
+  </a>
+
+</div>
+
+<div class="gallery-footer">
+  <span class="gallery-footer-brand">PRIME PIECE</span>
+  <a href="mailto:james@primepiece.co.nz">Enquire about a piece →</a>
+  <a href="/">← Back to site</a>
+</div>
+
+</body>
+</html>
