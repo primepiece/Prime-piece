@@ -151,7 +151,35 @@
   .founder-detail-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 5px; }
   .founder-detail-val { font-family: var(--display); font-size: 17px; color: var(--ink); font-weight: 300; letter-spacing: -0.01em; }
 
-  /* COLLECTION */
+  /* SHOWROOM */
+  .showroom-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 620px; border-top: 1px solid var(--line); }
+  .showroom-img-col { position: relative; overflow: hidden; background: var(--cream-deep); }
+  .showroom-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
+  .showroom-img-col:hover .showroom-img { transform: scale(1.03); }
+  .showroom-copy-col { padding: 96px 80px; display: flex; flex-direction: column; justify-content: center; background: var(--ink); }
+  .showroom-eyebrow { font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
+  .showroom-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--sage-soft); opacity: 0.6; flex-shrink: 0; }
+  .showroom-copy-col h2 { color: #fff; margin-bottom: 20px; }
+  .showroom-copy-col h2 em { color: var(--sage-soft); font-family: var(--script); font-style: normal; font-size: 0.88em; }
+  .showroom-copy-col > p { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.9; max-width: 400px; margin-bottom: 44px; }
+  .showroom-details { border-top: 1px solid var(--line-inv); margin-bottom: 44px; }
+  .showroom-detail { padding: 14px 0; border-bottom: 1px solid var(--line-inv); display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .showroom-detail-label { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; flex-shrink: 0; }
+  .showroom-detail-val { font-family: var(--display); font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.6); text-align: right; }
+  .showroom-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border: 1px solid rgba(123,165,168,0.3); border-radius: 99px; margin-bottom: 36px; }
+  .showroom-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); animation: bannerPulse 2s ease-in-out infinite; flex-shrink: 0; }
+  .showroom-badge-text { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; }
+
+  @media (max-width: 1024px) {
+    .showroom-section { grid-template-columns: 1fr; }
+    .showroom-img-col { min-height: 460px; }
+    .showroom-copy-col { border-top: none; }
+  }
+  @media (max-width: 768px) {
+    .showroom-copy-col { padding: 64px 24px; }
+    .showroom-detail { flex-direction: column; gap: 4px; }
+    .showroom-detail-val { text-align: left; }
+  }
   .collection-section { background: var(--cream-soft); border-top: 1px solid var(--line); }
   .collection-header { padding: 88px 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); }
   .collection-desc { font-size: 14px; color: var(--ink-soft); max-width: 360px; line-height: 1.75; }
@@ -449,6 +477,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#collection">Collection</a></li>
+    <li><a href="#showroom">Showroom</a></li>
     <li><a href="#render">Free Render</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="ten.html">10 Pieces</a></li>
@@ -472,6 +501,41 @@
     <h1>Sculptural stone<br>pieces for elevated<br>spaces.</h1>
     <p class="hero-sub">Handcrafted one-of-one stone furniture made in Auckland from premium natural stone.</p>
     <a href="#collection" class="btn btn-ghost">Explore Pieces <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- SHOWROOM -->
+<section class="showroom-section" id="showroom">
+  <div class="showroom-img-col">
+    <img class="showroom-img" src="showroom.jpg" alt="Prime Piece Showroom — Wairau Valley Auckland">
+  </div>
+  <div class="showroom-copy-col reveal">
+    <div class="showroom-eyebrow">Visit Us</div>
+    <h2>See the stone<br>in <em>person</em>.</h2>
+    <p>Walk-ins welcome — or get in touch to arrange a time. Come and see the full stone range, feel the weight and texture of each piece, and find what's right for your space.</p>
+    <div class="showroom-badge">
+      <div class="showroom-badge-dot"></div>
+      <span class="showroom-badge-text">Walk-ins & appointments welcome</span>
+    </div>
+    <div class="showroom-details">
+      <div class="showroom-detail">
+        <span class="showroom-detail-label">Address</span>
+        <span class="showroom-detail-val"><a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">209B Archers Road, Wairau Valley</a></span>
+      </div>
+      <div class="showroom-detail">
+        <span class="showroom-detail-label">Hours</span>
+        <span class="showroom-detail-val">Mon – Fri, 8am – 5pm</span>
+      </div>
+      <div class="showroom-detail">
+        <span class="showroom-detail-label">Phone</span>
+        <span class="showroom-detail-val"><a href="tel:0211466990" style="color:inherit;text-decoration:none;">021 146 6990</a></span>
+      </div>
+      <div class="showroom-detail">
+        <span class="showroom-detail-label">Parking</span>
+        <span class="showroom-detail-val">On-site, free</span>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener" class="btn btn-dark">Get Directions <span class="btn-arrow">→</span></a>
   </div>
 </section>
 
@@ -1033,6 +1097,7 @@
     <div class="footer-col">
       <h4>Brand</h4>
       <a href="#story">About</a>
+      <a href="#showroom">Showroom</a>
       <a href="#process">Process</a>
       <a href="#collection">Collection</a>
       <a href="ten.html">10 Pieces Campaign</a>
@@ -1041,8 +1106,8 @@
       <h4>Contact</h4>
       <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a>
       <a href="tel:0211466990">021 146 6990</a>
-      <a href="#">Archers Road, Wairau Valley</a>
-      <a href="#">Auckland, NZ</a>
+      <a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">209B Archers Road, Wairau Valley</a>
+      <a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Auckland, NZ</a>
     </div>
   </div>
   <div class="footer-bottom">
