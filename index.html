@@ -262,13 +262,28 @@
   .mto-image img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.72) saturate(0.88); }
 
   /* REVIEWS */
-  .reviews-section { padding: 96px 56px; background: var(--cream); border-top: 1px solid var(--line); }
-  .reviews-header { margin-bottom: 56px; }
-  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .testimonial { padding: 36px 30px; background: var(--cream-soft); border: 1px solid var(--line); border-radius: 2px; }
+  .reviews-section { padding: 96px 0 96px; background: var(--cream); border-top: 1px solid var(--line); overflow: hidden; }
+  .reviews-header { padding: 0 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .reviews-header-right { display: flex; align-items: center; gap: 12px; }
+  .reviews-score { font-family: var(--display); font-size: 48px; font-weight: 300; color: var(--ink); letter-spacing: -0.03em; line-height: 1; }
+  .reviews-score-sub { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
+  .reviews-stars-all { color: var(--sage); font-size: 13px; letter-spacing: 2px; margin-bottom: 4px; }
+  .reviews-source { font-size: 11px; color: var(--stone); letter-spacing: 0.16em; }
+
+  /* Marquee */
+  .reviews-marquee-wrap { position: relative; }
+  .reviews-marquee-wrap::before, .reviews-marquee-wrap::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+  }
+  .reviews-marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+  .reviews-marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
+  .reviews-marquee { display: flex; gap: 20px; width: max-content; animation: marquee 40s linear infinite; }
+  .reviews-marquee:hover { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .testimonial { flex-shrink: 0; width: 320px; padding: 32px 28px; background: var(--cream-soft); border: 1px solid var(--line); border-radius: 2px; }
   .stars { color: var(--sage); font-size: 11px; letter-spacing: 3px; margin-bottom: 14px; }
-  .testimonial-title { font-family: var(--display); font-size: 22px; font-style: italic; margin-bottom: 12px; color: var(--ink); }
-  .testimonial-body { font-size: 13px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 18px; }
+  .testimonial-title { font-family: var(--display); font-size: 20px; font-style: italic; margin-bottom: 10px; color: var(--ink); }
+  .testimonial-body { font-size: 13px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 16px; }
   .testimonial-author { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; }
 
   /* CTA */
@@ -397,8 +412,8 @@
     .process-item { padding: 48px 24px 56px; border-right: none; border-bottom: 1px solid var(--line); }
     .process-item:last-child { border-bottom: none; }
     .mto-copy { padding: 72px 24px; }
-    .reviews-section { padding: 64px 24px; }
-    .testimonial-grid { grid-template-columns: 1fr; gap: 16px; }
+    .reviews-section { padding: 64px 0; }
+    .reviews-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .cta-section { padding: 96px 24px; }
     footer { padding: 56px 24px 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -808,30 +823,187 @@
 <!-- REVIEWS -->
 <section class="reviews-section">
   <div class="reviews-header reveal">
-    <span class="section-label">Reviews</span>
-    <h2>From <em>kiwi</em> homes.</h2>
+    <div>
+      <span class="section-label">Google Reviews</span>
+      <h2>13 five-star<br><em>reviews</em>.</h2>
+    </div>
+    <div class="reviews-header-right">
+      <div style="text-align:right;">
+        <div class="reviews-stars-all">★★★★★</div>
+        <div class="reviews-score">5.0</div>
+        <div class="reviews-score-sub">Google Rating</div>
+        <div class="reviews-source" style="margin-top:6px;">13 reviews · Google Maps</div>
+      </div>
+    </div>
   </div>
-  <div class="testimonial-grid">
-    <div class="testimonial reveal">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-title">Stoked.</div>
-      <p class="testimonial-body">Stoked with our one of a kind piece for the office. Been a real conversation starter with visitors and the boys. Won't be our last purchase from Prime Piece.</p>
-      <div class="testimonial-author">Jamie McDowell</div>
-    </div>
-    <div class="testimonial reveal">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-title">Stunning.</div>
-      <p class="testimonial-body">This is a stunning piece — quite heavy and solid, with a beautiful granite top. The craftsmanship is exceptional and the piece has completely transformed the room.</p>
-      <div class="testimonial-author">Kate de Lautour</div>
-    </div>
-    <div class="testimonial reveal">
-      <div class="stars">★★★★★</div>
-      <div class="testimonial-title">Highly Recommend.</div>
-      <p class="testimonial-body">Absolutely love our side coffee tables. Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms.</p>
-      <div class="testimonial-author">Cindy Z</div>
+
+  <div class="reviews-marquee-wrap">
+    <div class="reviews-marquee">
+
+      <!-- Set 1 -->
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Far exceeded expectations.</div>
+        <p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p>
+        <div class="testimonial-author">Creed Bell</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Mint.</div>
+        <p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p>
+        <div class="testimonial-author">Finn Lyness · Local Guide</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Beautiful marble board.</div>
+        <p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p>
+        <div class="testimonial-author">Christoph Schumacher</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Exceeded expectations.</div>
+        <p class="testimonial-body">From inception through to completion, James exceeded expectations. Communication was clear, design was exactly to order. James maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.</p>
+        <div class="testimonial-author">Clare Geor</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Incredible craftsmanship.</div>
+        <p class="testimonial-body">Absolutely love my new marble side table from Prime Piece! The craftsmanship is incredible — the stone has such a unique natural pattern. Solid, beautifully finished, and even better in person than in the photos.</p>
+        <div class="testimonial-author">Cameron Brinkley</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">The only way to go.</div>
+        <p class="testimonial-body">Words cannot express how talented and professional James and the team are. If you are looking for something custom to round out your home or commercial space, Prime Piece is the only way to go!</p>
+        <div class="testimonial-author">Josh Burgisser</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Stoked.</div>
+        <p class="testimonial-body">Stoked with our one of a kind piece for the office! Been a real conversation starter with visitors and the boys. Beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece!</p>
+        <div class="testimonial-author">Jamie McDowell</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Great service.</div>
+        <p class="testimonial-body">Just got a coffee table from Prime Piece. Looks beautiful in our home. James was a great fella to deal with, top-notch service. Cheers mate!</p>
+        <div class="testimonial-author">Daniel Thomas</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Love it.</div>
+        <p class="testimonial-body">Absolutely love our side coffee tables! Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms 😂</p>
+        <div class="testimonial-author">Cindy Z · Local Guide</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Authentic NZ made.</div>
+        <p class="testimonial-body">Authentic and NZ made small business! Great service and really nice owner.</p>
+        <div class="testimonial-author">Sofia</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">James is the man.</div>
+        <p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p>
+        <div class="testimonial-author">Rafi Headifen</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Highly recommend.</div>
+        <p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p>
+        <div class="testimonial-author">Dan Dunphy · Local Guide</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Stunning piece.</div>
+        <p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p>
+        <div class="testimonial-author">Kate de Lautour</div>
+      </div>
+
+      <!-- Duplicate set for seamless loop -->
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Far exceeded expectations.</div>
+        <p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p>
+        <div class="testimonial-author">Creed Bell</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Mint.</div>
+        <p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p>
+        <div class="testimonial-author">Finn Lyness · Local Guide</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Beautiful marble board.</div>
+        <p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p>
+        <div class="testimonial-author">Christoph Schumacher</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Exceeded expectations.</div>
+        <p class="testimonial-body">From inception through to completion, James exceeded expectations. Communication was clear, design was exactly to order. James maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.</p>
+        <div class="testimonial-author">Clare Geor</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Incredible craftsmanship.</div>
+        <p class="testimonial-body">Absolutely love my new marble side table from Prime Piece! The craftsmanship is incredible — the stone has such a unique natural pattern. Solid, beautifully finished, and even better in person than in the photos.</p>
+        <div class="testimonial-author">Cameron Brinkley</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">The only way to go.</div>
+        <p class="testimonial-body">Words cannot express how talented and professional James and the team are. If you are looking for something custom to round out your home or commercial space, Prime Piece is the only way to go!</p>
+        <div class="testimonial-author">Josh Burgisser</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Stoked.</div>
+        <p class="testimonial-body">Stoked with our one of a kind piece for the office! Been a real conversation starter with visitors and the boys. Beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece!</p>
+        <div class="testimonial-author">Jamie McDowell</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Great service.</div>
+        <p class="testimonial-body">Just got a coffee table from Prime Piece. Looks beautiful in our home. James was a great fella to deal with, top-notch service. Cheers mate!</p>
+        <div class="testimonial-author">Daniel Thomas</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Love it.</div>
+        <p class="testimonial-body">Absolutely love our side coffee tables! Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms 😂</p>
+        <div class="testimonial-author">Cindy Z · Local Guide</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Authentic NZ made.</div>
+        <p class="testimonial-body">Authentic and NZ made small business! Great service and really nice owner.</p>
+        <div class="testimonial-author">Sofia</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">James is the man.</div>
+        <p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p>
+        <div class="testimonial-author">Rafi Headifen</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Highly recommend.</div>
+        <p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p>
+        <div class="testimonial-author">Dan Dunphy · Local Guide</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-title">Stunning piece.</div>
+        <p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p>
+        <div class="testimonial-author">Kate de Lautour</div>
+      </div>
+
     </div>
   </div>
 </section>
+
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
