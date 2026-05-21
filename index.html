@@ -8,8 +8,6 @@
 <meta name="keywords" content="stone furniture Auckland, marble table NZ, stone plinth Auckland, marble furniture New Zealand, sculptural stone table, natural stone furniture NZ, stone coffee table Auckland, marble side table Auckland, custom stone furniture NZ">
 <meta name="google-site-verification" content="75472d3ea8c23131">
 <link rel="canonical" href="https://www.primepiece.co.nz/">
-
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.primepiece.co.nz/">
 <meta property="og:title" content="Stone Furniture Auckland NZ | Marble Tables, Plinths & Stone Boards — Prime Piece">
@@ -17,14 +15,10 @@
 <meta property="og:image" content="https://www.primepiece.co.nz/hero.png">
 <meta property="og:site_name" content="Prime Piece">
 <meta property="og:locale" content="en_NZ">
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Stone Furniture Auckland NZ | Marble Tables, Plinths & Stone Boards — Prime Piece">
 <meta name="twitter:description" content="Handcrafted one-of-one marble tables, stone plinths and boards made in Auckland, NZ. Custom sizing available.">
 <meta name="twitter:image" content="https://www.primepiece.co.nz/hero.png">
-
-<!-- Local Business + Review Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -140,7 +134,6 @@
     letter-spacing: 0.01em;
   }
 
-  /* ── CAMPAIGN BANNER ── */
   .campaign-banner {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -169,10 +162,7 @@
     color: rgba(255,255,255,0.7); font-weight: 500; font-family: var(--body);
   }
   .campaign-banner-text strong { color: var(--gold); font-weight: 600; }
-  .campaign-banner-arrow {
-    font-size: 11px; color: var(--gold);
-    transition: transform 0.3s;
-  }
+  .campaign-banner-arrow { font-size: 11px; color: var(--gold); transition: transform 0.3s; }
   .campaign-banner:hover .campaign-banner-arrow { transform: translateX(4px); }
   .campaign-banner-close {
     position: absolute; right: 16px;
@@ -205,13 +195,39 @@
   .logo-sub { font-family: var(--script); font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 3px; transition: color 0.5s; }
   nav.scrolled .logo { color: var(--sage); }
   nav.scrolled .logo-sub { color: var(--sage); }
-  .nav-links { display: flex; gap: 44px; list-style: none; }
+  .nav-links { display: flex; gap: 44px; list-style: none; align-items: center; }
   .nav-links a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; transition: color 0.3s; }
   .nav-links a:hover { color: #fff; }
   nav.scrolled .nav-links a { color: var(--ink-soft); }
   nav.scrolled .nav-links a:hover { color: var(--sage); }
 
-  /* HERO */
+  /* Shop nav link — highlighted */
+  .nav-shop-link {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px !important;
+    border: 1px solid rgba(255,255,255,0.45) !important;
+    border-radius: 1px;
+    color: #fff !important;
+    transition: all 0.3s !important;
+    letter-spacing: 0.28em;
+  }
+  .nav-shop-link:hover {
+    background: rgba(255,255,255,0.1) !important;
+    border-color: rgba(255,255,255,0.85) !important;
+    color: #fff !important;
+  }
+  nav.scrolled .nav-shop-link {
+    border-color: var(--sage) !important;
+    color: var(--sage) !important;
+    background: transparent !important;
+  }
+  nav.scrolled .nav-shop-link:hover {
+    background: var(--sage) !important;
+    color: var(--cream) !important;
+  }
+
   .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.png') center/cover no-repeat; }
   .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(18,15,12,0.35) 0%, rgba(18,15,12,0.22) 40%, rgba(18,15,12,0.80) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: 720px; }
@@ -236,7 +252,6 @@
   h2 { font-family: var(--display); font-weight: 300; font-size: clamp(36px, 4.5vw, 62px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink); }
   h2 em { font-family: var(--script); font-style: normal; color: var(--sage); font-size: 0.88em; font-weight: 500; }
 
-  /* FOUNDER */
   .founder-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; border-top: 48px solid var(--cream-deep); background: var(--cream); }
   .founder-img-col { position: relative; overflow: hidden; background: var(--cream-deep); }
   .founder-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
@@ -252,7 +267,6 @@
   .founder-detail-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 5px; }
   .founder-detail-val { font-family: var(--display); font-size: 17px; color: var(--ink); font-weight: 300; letter-spacing: -0.01em; }
 
-  /* SHOWROOM */
   .showroom-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 620px; border-top: 1px solid var(--line); }
   .showroom-img-col { position: relative; overflow: hidden; background: var(--cream-deep); }
   .showroom-map { width: 100%; height: 100%; min-height: 620px; border: none; display: block; filter: grayscale(20%) contrast(0.95); }
@@ -270,16 +284,6 @@
   .showroom-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); animation: bannerPulse 2s ease-in-out infinite; flex-shrink: 0; }
   .showroom-badge-text { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; }
 
-  @media (max-width: 1024px) {
-    .showroom-section { grid-template-columns: 1fr; }
-    .showroom-img-col { min-height: 460px; }
-    .showroom-copy-col { border-top: none; }
-  }
-  @media (max-width: 768px) {
-    .showroom-copy-col { padding: 64px 24px; }
-    .showroom-detail { flex-direction: column; gap: 4px; }
-    .showroom-detail-val { text-align: left; }
-  }
   .collection-section { background: var(--cream-soft); border-top: 1px solid var(--line); }
   .collection-header { padding: 88px 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); }
   .collection-desc { font-size: 14px; color: var(--ink-soft); max-width: 360px; line-height: 1.75; }
@@ -293,13 +297,11 @@
   .collection-card-arrow { font-size: 18px; color: rgba(255,255,255,0.5); transition: transform 0.4s, color 0.4s; line-height: 1; margin-bottom: 4px; }
   .collection-card:hover .collection-card-arrow { transform: translate(4px,-4px); color: #fff; }
 
-  /* RENDER */
   .render-section { background: var(--cream-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 96px 56px; }
   .render-intro { max-width: 600px; margin: 0 auto 64px; text-align: center; }
   .render-intro h2 { margin-bottom: 16px; }
   .render-intro p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
 
-  /* Before/After Slider */
   .ba2-wrap { width: 100%; max-width: 1100px; margin: 0 auto 16px; }
   .ba2-slider { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 16px; overflow: hidden; cursor: col-resize; user-select: none; touch-action: pan-y; box-shadow: 0 32px 80px rgba(44,42,38,0.18); }
   @media (min-width: 768px) { .ba2-slider { aspect-ratio: 16/9; } }
@@ -315,7 +317,6 @@
   .ba2-pill-after  { right: 18px; background: var(--sage); color: var(--cream); }
   .ba2-note { text-align: center; font-size: 10px; color: var(--stone); letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; margin-bottom: 80px; }
 
-  /* Render form */
   .render-form-outer { max-width: 520px; margin: 0 auto; }
   .render-form-head { text-align: center; margin-bottom: 28px; }
   .render-form-head h3 { font-family: var(--display); font-size: 30px; font-weight: 300; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
@@ -336,7 +337,6 @@
   .upload-preview .file-meta { font-size: 12px; color: var(--ink-soft); overflow: hidden; min-width: 0; }
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  /* Product picker */
   .product-section-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; padding: 14px 20px 8px; display: block; }
   .product-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 20px 16px; }
   .product-card { border: 1.5px solid var(--line); border-radius: 3px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; background: var(--cream-soft); position: relative; }
@@ -347,7 +347,6 @@
   .product-card.selected .product-card-tick { opacity: 1; }
   .product-card-tick svg { width: 9px; height: 9px; stroke: #fff; stroke-width: 2.5; }
 
-  /* Stone selector */
   .rf-stone-row { padding: 0 20px 4px; }
   .rf-stone-row select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 1px; font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--ink); background: var(--cream); transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
   .rf-stone-row select:focus { outline: none; border-color: var(--sage); }
@@ -355,7 +354,6 @@
   .render-submit:hover:not(:disabled) { background: var(--sage-deep); }
   .render-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* PROCESS */
   .process-section { background: var(--cream-soft); border-top: 1px solid var(--line); }
   .process-header { padding: 96px 56px 72px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
   .process-header .section-label { color: var(--sage); margin-bottom: 20px; }
@@ -375,7 +373,6 @@
   .process-item h3 { font-family: var(--display); font-size: 28px; font-weight: 300; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.01em; }
   .process-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.8; max-width: 260px; }
 
-  /* MTO */
   .mto-section { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); min-height: 580px; }
   .mto-copy { padding: 96px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--ink); }
   .mto-copy .section-label { color: var(--sage-soft); margin-bottom: 20px; }
@@ -389,7 +386,6 @@
   .mto-image { position: relative; overflow: hidden; }
   .mto-image img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.72) saturate(0.88); }
 
-  /* REVIEWS */
   .reviews-section { padding: 96px 0 96px; background: var(--cream); border-top: 1px solid var(--line); overflow: hidden; }
   .reviews-header { padding: 0 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; }
   .reviews-header-right { display: flex; align-items: center; gap: 12px; }
@@ -398,7 +394,6 @@
   .reviews-stars-all { color: var(--sage); font-size: 13px; letter-spacing: 2px; margin-bottom: 4px; }
   .reviews-source { font-size: 11px; color: var(--stone); letter-spacing: 0.16em; }
 
-  /* Marquee */
   .reviews-marquee-wrap { position: relative; }
   .reviews-marquee-wrap::before, .reviews-marquee-wrap::after {
     content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
@@ -414,7 +409,6 @@
   .testimonial-body { font-size: 13px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 16px; }
   .testimonial-author { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; }
 
-  /* CTA */
   .cta-section { padding: 144px 56px; text-align: center; background: radial-gradient(ellipse at 50% 60%, rgba(123,165,168,0.09) 0%, transparent 65%), var(--cream); border-top: 1px solid var(--line); }
   .cta-section .section-label { margin-bottom: 18px; }
   .cta-section h2 { max-width: 600px; margin: 0 auto 22px; }
@@ -433,7 +427,6 @@
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  /* FLOATING ENQUIRE BUTTON */
   .float-enquire {
     position: fixed;
     bottom: 28px; right: 28px;
@@ -447,69 +440,31 @@
     transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
     max-width: 52px;
   }
-  .float-enquire:hover {
-    max-width: 200px;
-    background: var(--sage-deep);
-  }
-  .float-enquire-icon {
-    width: 52px; height: 52px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; color: #fff;
-  }
+  .float-enquire:hover { max-width: 200px; background: var(--sage-deep); }
+  .float-enquire-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
   .float-enquire-icon svg { width: 18px; height: 18px; }
-  .float-enquire-label {
-    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: #fff; font-weight: 500; font-family: var(--body);
-    white-space: nowrap; padding-right: 20px;
-    opacity: 0; transition: opacity 0.2s 0.1s;
-  }
+  .float-enquire-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; font-weight: 500; font-family: var(--body); white-space: nowrap; padding-right: 20px; opacity: 0; transition: opacity 0.2s 0.1s; }
   .float-enquire:hover .float-enquire-label { opacity: 1; }
   .float-enquire.hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
-  @media (max-width: 768px) {
-    .float-enquire { bottom: 20px; right: 20px; }
-  }
-  .nav-ig {
-    display: flex; align-items: center; justify-content: center;
-    width: 34px; height: 34px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.25);
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    transition: all 0.3s;
-    flex-shrink: 0;
-  }
+
+  .nav-ig { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; flex-shrink: 0; }
   .nav-ig:hover { border-color: rgba(255,255,255,0.7); color: #fff; background: rgba(255,255,255,0.07); }
   nav.scrolled .nav-ig { border-color: var(--line); color: var(--ink-soft); }
   nav.scrolled .nav-ig:hover { border-color: var(--sage); color: var(--sage); background: rgba(123,165,168,0.06); }
   .nav-ig svg { width: 15px; height: 15px; }
 
-  /* GALLERY */
   .gallery-section { background: var(--cream); border-top: 1px solid var(--line); }
   .gallery-header { padding: 88px 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); }
   .gallery-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
   .gallery-header-desc { font-size: 14px; color: var(--ink-soft); max-width: 320px; line-height: 1.75; text-align: right; }
-  .ig-follow-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 20px; border: 1px solid var(--sage); border-radius: 1px;
-    color: var(--sage); text-decoration: none;
-    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
-    font-family: var(--body); transition: all 0.3s; white-space: nowrap;
-  }
+  .ig-follow-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border: 1px solid var(--sage); border-radius: 1px; color: var(--sage); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; font-family: var(--body); transition: all 0.3s; white-space: nowrap; }
   .ig-follow-btn:hover { background: var(--sage); color: var(--cream); }
   .ig-follow-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
   .gallery-grid { columns: 4; column-gap: 0; line-height: 0; }
-  .gallery-item {
-    position: relative; display: block; overflow: hidden;
-    break-inside: avoid; border: 2px solid var(--cream);
-    cursor: pointer; text-decoration: none;
-  }
+  .gallery-item { position: relative; display: block; overflow: hidden; break-inside: avoid; border: 2px solid var(--cream); cursor: pointer; text-decoration: none; }
   .gallery-item img { width: 100%; height: auto; display: block; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
   .gallery-item:hover img { transform: scale(1.06); }
-  .gallery-overlay {
-    position: absolute; inset: 0;
-    background: rgba(14,13,11,0);
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.4s;
-  }
+  .gallery-overlay { position: absolute; inset: 0; background: rgba(14,13,11,0); display: flex; align-items: center; justify-content: center; transition: background 0.4s; }
   .gallery-item:hover .gallery-overlay { background: rgba(14,13,11,0.42); }
   .gallery-overlay-icon { opacity: 0; transform: scale(0.7); transition: opacity 0.35s, transform 0.35s; color: #fff; }
   .gallery-item:hover .gallery-overlay-icon { opacity: 1; transform: scale(1); }
@@ -521,6 +476,8 @@
     .founder-section { grid-template-columns: 1fr; }
     .founder-img-col { min-height: 520px; }
     .founder-copy-col { border-left: none; border-top: 1px solid var(--line); }
+    .showroom-section { grid-template-columns: 1fr; }
+    .showroom-img-col { min-height: 460px; }
   }
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
@@ -552,6 +509,10 @@
     .gallery-header-desc { text-align: left; }
     .nav-ig { display: none; }
     .campaign-banner-text { font-size: 9px; letter-spacing: 0.18em; }
+    .showroom-copy-col { padding: 64px 24px; }
+    .showroom-detail { flex-direction: column; gap: 4px; }
+    .showroom-detail-val { text-align: left; }
+    .float-enquire { bottom: 20px; right: 20px; }
   }
   @media (max-width: 480px) {
     .mto-option { flex-direction: column; gap: 4px; }
@@ -581,6 +542,7 @@
     <li><a href="#render">Free Render</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="https://prime-piece-3.myshopify.com" target="_blank" rel="noopener" class="nav-shop-link">Shop Now →</a></li>
     <li>
       <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -599,7 +561,10 @@
     <div class="eyebrow">Handcrafted in Auckland</div>
     <h1>Sculptural stone<br>furniture for elevated<br>Auckland spaces.</h1>
     <p class="hero-sub">Handcrafted one-of-one stone furniture made in Auckland from premium natural stone.</p>
-    <a href="#collection" class="btn btn-ghost">Explore Pieces <span class="btn-arrow">→</span></a>
+    <div class="btn-group">
+      <a href="https://prime-piece-3.myshopify.com" target="_blank" rel="noopener" class="btn btn-primary">Shop Now <span class="btn-arrow">→</span></a>
+      <a href="#collection" class="btn btn-ghost">Explore Pieces <span class="btn-arrow">→</span></a>
+    </div>
   </div>
 </section>
 
@@ -667,8 +632,6 @@
     <h2>See it in your <em>space</em>.</h2>
     <p>Upload a photo of your room — AI places a Prime Piece into it instantly. Free, no commitment.</p>
   </div>
-
-  <!-- Before/After Slider -->
   <div class="ba2-wrap reveal">
     <div class="ba2-slider" id="ba2-slider">
       <div class="ba2-layer ba2-after">
@@ -688,8 +651,6 @@
     </div>
   </div>
   <p class="ba2-note">Drag to compare</p>
-
-  <!-- Upload Form -->
   <div class="render-form-outer reveal">
     <div class="render-form-head">
       <h3>Try it with your room</h3>
@@ -700,7 +661,6 @@
         <span class="render-card-title">Upload your room</span>
         <span class="render-card-badge">AI — instant</span>
       </div>
-
       <div id="ai-render-form">
         <label class="upload-zone" id="upload-zone" for="lounge-upload">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
@@ -711,7 +671,6 @@
           <p>Drop a photo or tap to upload</p>
           <input type="file" id="lounge-upload" accept="image/*">
         </label>
-
         <div class="upload-preview" id="upload-preview">
           <img id="preview-thumb" alt="">
           <div class="file-meta">
@@ -719,10 +678,8 @@
             <span id="preview-size"></span>
           </div>
         </div>
-
         <span class="product-section-label">Choose your piece</span>
         <div class="product-picker" id="product-picker"></div>
-
         <div class="rf-stone-row" style="padding-top:4px;">
           <select id="ai-stone">
             <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy">Rosso Africano — Red Marble</option>
@@ -731,13 +688,11 @@
             <option value="Basalt Black honed matte black volcanic stone from Spain">Basalt Black — Stone</option>
           </select>
         </div>
-
         <div id="ai-error" style="display:none;padding:10px 20px 4px;font-size:12px;color:#7a3a2a;"></div>
         <button type="button" class="render-submit" id="ai-generate-btn" disabled>
           Generate My Render <span class="btn-arrow">→</span>
         </button>
       </div>
-
       <div id="ai-loading" style="display:none;padding:32px 24px;text-align:center;">
         <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink-soft);font-style:italic;margin-bottom:14px;" id="ai-loading-text">Reading your room...</div>
         <div style="width:100%;height:1px;background:var(--line);border-radius:1px;overflow:hidden;margin-bottom:10px;">
@@ -745,7 +700,6 @@
         </div>
         <div style="font-size:11px;color:var(--stone);letter-spacing:0.1em;">Usually 20–40 seconds</div>
       </div>
-
       <div id="ai-result" style="display:none;">
         <img id="ai-result-img" style="width:100%;display:block;max-height:480px;object-fit:cover;" alt="Your room with Prime Piece">
         <div style="padding:1.25rem 1.25rem 1rem;">
@@ -753,7 +707,7 @@
           <p style="font-size:12px;color:var(--stone);line-height:1.7;margin-bottom:1rem;">AI-generated visualisation — actual stone colour and texture will vary. Every piece is one of one.</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
             <button type="button" class="btn" id="ai-try-again" style="justify-content:center;">Try another →</button>
-            <a href="mailto:james@primepiece.co.nz?subject=Room render enquiry" class="btn btn-primary" style="justify-content:center;">Enquire →</a>
+            <a href="https://prime-piece-3.myshopify.com" target="_blank" rel="noopener" class="btn btn-primary" style="justify-content:center;">Shop Now →</a>
           </div>
         </div>
       </div>
@@ -829,7 +783,6 @@
   </div>
 </section>
 
-
 <!-- REVIEWS -->
 <section class="reviews-section">
   <div class="reviews-header reveal">
@@ -846,174 +799,38 @@
       </div>
     </div>
   </div>
-
   <div class="reviews-marquee-wrap">
     <div class="reviews-marquee">
-
-      <!-- Set 1 -->
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Far exceeded expectations.</div>
-        <p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p>
-        <div class="testimonial-author">Creed Bell</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Mint.</div>
-        <p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p>
-        <div class="testimonial-author">Finn Lyness · Local Guide</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Beautiful marble board.</div>
-        <p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p>
-        <div class="testimonial-author">Christoph Schumacher</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Exceeded expectations.</div>
-        <p class="testimonial-body">From inception through to completion, James exceeded expectations. Communication was clear, design was exactly to order. James maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.</p>
-        <div class="testimonial-author">Clare Geor</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Incredible craftsmanship.</div>
-        <p class="testimonial-body">Absolutely love my new marble side table from Prime Piece! The craftsmanship is incredible — the stone has such a unique natural pattern. Solid, beautifully finished, and even better in person than in the photos.</p>
-        <div class="testimonial-author">Cameron Brinkley</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">The only way to go.</div>
-        <p class="testimonial-body">Words cannot express how talented and professional James and the team are. If you are looking for something custom to round out your home or commercial space, Prime Piece is the only way to go!</p>
-        <div class="testimonial-author">Josh Burgisser</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Stoked.</div>
-        <p class="testimonial-body">Stoked with our one of a kind piece for the office! Been a real conversation starter with visitors and the boys. Beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece!</p>
-        <div class="testimonial-author">Jamie McDowell</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Great service.</div>
-        <p class="testimonial-body">Just got a coffee table from Prime Piece. Looks beautiful in our home. James was a great fella to deal with, top-notch service. Cheers mate!</p>
-        <div class="testimonial-author">Daniel Thomas</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Love it.</div>
-        <p class="testimonial-body">Absolutely love our side coffee tables! Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms 😂</p>
-        <div class="testimonial-author">Cindy Z · Local Guide</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Authentic NZ made.</div>
-        <p class="testimonial-body">Authentic and NZ made small business! Great service and really nice owner.</p>
-        <div class="testimonial-author">Sofia</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">James is the man.</div>
-        <p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p>
-        <div class="testimonial-author">Rafi Headifen</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Highly recommend.</div>
-        <p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p>
-        <div class="testimonial-author">Dan Dunphy · Local Guide</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Stunning piece.</div>
-        <p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p>
-        <div class="testimonial-author">Kate de Lautour</div>
-      </div>
-
-      <!-- Duplicate set for seamless loop -->
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Far exceeded expectations.</div>
-        <p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p>
-        <div class="testimonial-author">Creed Bell</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Mint.</div>
-        <p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p>
-        <div class="testimonial-author">Finn Lyness · Local Guide</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Beautiful marble board.</div>
-        <p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p>
-        <div class="testimonial-author">Christoph Schumacher</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Exceeded expectations.</div>
-        <p class="testimonial-body">From inception through to completion, James exceeded expectations. Communication was clear, design was exactly to order. James maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.</p>
-        <div class="testimonial-author">Clare Geor</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Incredible craftsmanship.</div>
-        <p class="testimonial-body">Absolutely love my new marble side table from Prime Piece! The craftsmanship is incredible — the stone has such a unique natural pattern. Solid, beautifully finished, and even better in person than in the photos.</p>
-        <div class="testimonial-author">Cameron Brinkley</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">The only way to go.</div>
-        <p class="testimonial-body">Words cannot express how talented and professional James and the team are. If you are looking for something custom to round out your home or commercial space, Prime Piece is the only way to go!</p>
-        <div class="testimonial-author">Josh Burgisser</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Stoked.</div>
-        <p class="testimonial-body">Stoked with our one of a kind piece for the office! Been a real conversation starter with visitors and the boys. Beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece!</p>
-        <div class="testimonial-author">Jamie McDowell</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Great service.</div>
-        <p class="testimonial-body">Just got a coffee table from Prime Piece. Looks beautiful in our home. James was a great fella to deal with, top-notch service. Cheers mate!</p>
-        <div class="testimonial-author">Daniel Thomas</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Love it.</div>
-        <p class="testimonial-body">Absolutely love our side coffee tables! Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms 😂</p>
-        <div class="testimonial-author">Cindy Z · Local Guide</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Authentic NZ made.</div>
-        <p class="testimonial-body">Authentic and NZ made small business! Great service and really nice owner.</p>
-        <div class="testimonial-author">Sofia</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">James is the man.</div>
-        <p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p>
-        <div class="testimonial-author">Rafi Headifen</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Highly recommend.</div>
-        <p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p>
-        <div class="testimonial-author">Dan Dunphy · Local Guide</div>
-      </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <div class="testimonial-title">Stunning piece.</div>
-        <p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p>
-        <div class="testimonial-author">Kate de Lautour</div>
-      </div>
-
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Far exceeded expectations.</div><p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p><div class="testimonial-author">Creed Bell</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Mint.</div><p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p><div class="testimonial-author">Finn Lyness · Local Guide</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Beautiful marble board.</div><p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p><div class="testimonial-author">Christoph Schumacher</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Exceeded expectations.</div><p class="testimonial-body">From inception through to completion, James exceeded expectations. Communication was clear, design was exactly to order. James maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.</p><div class="testimonial-author">Clare Geor</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Incredible craftsmanship.</div><p class="testimonial-body">Absolutely love my new marble side table from Prime Piece! The craftsmanship is incredible — the stone has such a unique natural pattern. Solid, beautifully finished, and even better in person than in the photos.</p><div class="testimonial-author">Cameron Brinkley</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">The only way to go.</div><p class="testimonial-body">Words cannot express how talented and professional James and the team are. If you are looking for something custom to round out your home or commercial space, Prime Piece is the only way to go!</p><div class="testimonial-author">Josh Burgisser</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Stoked.</div><p class="testimonial-body">Stoked with our one of a kind piece for the office! Been a real conversation starter with visitors and the boys. Beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece!</p><div class="testimonial-author">Jamie McDowell</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Great service.</div><p class="testimonial-body">Just got a coffee table from Prime Piece. Looks beautiful in our home. James was a great fella to deal with, top-notch service. Cheers mate!</p><div class="testimonial-author">Daniel Thomas</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Love it.</div><p class="testimonial-body">Absolutely love our side coffee tables! Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms 😂</p><div class="testimonial-author">Cindy Z · Local Guide</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Authentic NZ made.</div><p class="testimonial-body">Authentic and NZ made small business! Great service and really nice owner.</p><div class="testimonial-author">Sofia</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">James is the man.</div><p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p><div class="testimonial-author">Rafi Headifen</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Highly recommend.</div><p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p><div class="testimonial-author">Dan Dunphy · Local Guide</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Stunning piece.</div><p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p><div class="testimonial-author">Kate de Lautour</div></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Far exceeded expectations.</div><p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p><div class="testimonial-author">Creed Bell</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Mint.</div><p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p><div class="testimonial-author">Finn Lyness · Local Guide</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Beautiful marble board.</div><p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p><div class="testimonial-author">Christoph Schumacher</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Exceeded expectations.</div><p class="testimonial-body">From inception through to completion, James exceeded expectations. Communication was clear, design was exactly to order. James maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.</p><div class="testimonial-author">Clare Geor</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Incredible craftsmanship.</div><p class="testimonial-body">Absolutely love my new marble side table from Prime Piece! The craftsmanship is incredible — the stone has such a unique natural pattern. Solid, beautifully finished, and even better in person than in the photos.</p><div class="testimonial-author">Cameron Brinkley</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">The only way to go.</div><p class="testimonial-body">Words cannot express how talented and professional James and the team are. If you are looking for something custom to round out your home or commercial space, Prime Piece is the only way to go!</p><div class="testimonial-author">Josh Burgisser</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Stoked.</div><p class="testimonial-body">Stoked with our one of a kind piece for the office! Been a real conversation starter with visitors and the boys. Beautiful craftsmanship meeting industrial vibes. Won't be our last purchase from Prime Piece!</p><div class="testimonial-author">Jamie McDowell</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Great service.</div><p class="testimonial-body">Just got a coffee table from Prime Piece. Looks beautiful in our home. James was a great fella to deal with, top-notch service. Cheers mate!</p><div class="testimonial-author">Daniel Thomas</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Love it.</div><p class="testimonial-body">Absolutely love our side coffee tables! Would highly recommend to anyone looking for stunning furniture. Would've got more if we had more rooms 😂</p><div class="testimonial-author">Cindy Z · Local Guide</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Authentic NZ made.</div><p class="testimonial-body">Authentic and NZ made small business! Great service and really nice owner.</p><div class="testimonial-author">Sofia</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">James is the man.</div><p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p><div class="testimonial-author">Rafi Headifen</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Highly recommend.</div><p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p><div class="testimonial-author">Dan Dunphy · Local Guide</div></div>
+      <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Stunning piece.</div><p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p><div class="testimonial-author">Kate de Lautour</div></div>
     </div>
   </div>
 </section>
-
 
 <!-- SHOWROOM -->
 <section class="showroom-section" id="showroom">
@@ -1056,7 +873,8 @@
   <h2>Commission a<br><em>Prime Piece</em>.</h2>
   <p>Made-to-order tables, plinths and boards. Designed for your space, fabricated from stone you choose.</p>
   <div class="btn-group" style="justify-content:center">
-    <a href="mailto:james@primepiece.co.nz" class="btn btn-primary">Request A Quote <span class="btn-arrow">→</span></a>
+    <a href="https://prime-piece-3.myshopify.com" target="_blank" rel="noopener" class="btn btn-primary">Shop Now <span class="btn-arrow">→</span></a>
+    <a href="mailto:james@primepiece.co.nz" class="btn">Request A Quote <span class="btn-arrow">→</span></a>
     <a href="tel:0211466990" class="btn">Call 021 146 6990</a>
   </div>
 </section>
@@ -1070,6 +888,7 @@
     </div>
     <div class="footer-col">
       <h4>Shop</h4>
+      <a href="https://prime-piece-3.myshopify.com" target="_blank" rel="noopener">Shop All Pieces</a>
       <a href="plinths.html">Plinths</a>
       <a href="tables.html">Tables</a>
       <a href="boards.html">Boards</a>
@@ -1099,8 +918,18 @@
   </div>
 </footer>
 
+<!-- FLOATING ENQUIRE BUTTON -->
+<a href="mailto:james@primepiece.co.nz?subject=Enquiry — Prime Piece" class="float-enquire" id="float-enquire" aria-label="Enquire">
+  <div class="float-enquire-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </svg>
+  </div>
+  <span class="float-enquire-label">Enquire Now</span>
+</a>
+
 <script>
-  // ── Campaign banner close ──
   const bannerEl = document.getElementById('campaign-banner');
   const bannerClose = document.getElementById('banner-close');
   const navEl = document.getElementById('nav');
@@ -1117,30 +946,24 @@
     hideBanner();
   });
 
-  // ── Floating enquire button — hide near contact section ──
   const floatBtn = document.getElementById('float-enquire');
   const contactSection = document.getElementById('contact');
   if (floatBtn && contactSection) {
     const floatObserver = new IntersectionObserver(
-      entries => entries.forEach(e => {
-        floatBtn.classList.toggle('hidden', e.isIntersecting);
-      }),
+      entries => entries.forEach(e => { floatBtn.classList.toggle('hidden', e.isIntersecting); }),
       { threshold: 0.2 }
     );
     floatObserver.observe(contactSection);
   }
 
-  // ── Nav scroll ──
   window.addEventListener('scroll', () => { navEl.classList.toggle('scrolled', window.scrollY > 80); });
 
-  // ── Reveal on scroll ──
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
     { threshold: 0.08 }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ── Before/After slider ──
   (function() {
     const slider  = document.getElementById('ba2-slider');
     const before  = document.getElementById('ba2-before');
@@ -1164,7 +987,6 @@
     window.addEventListener('touchend',   () => { dragging = false; });
   })();
 
-  // ── PRODUCTS ──
   const PRODUCTS = [
     { id: 'p1',  imgSrc: 'table-1.jpg',    name: 'Table I',       prompt: 'a sculptural stone coffee table with a thick dramatic stone slab top on a geometric metal base' },
     { id: 'p2',  imgSrc: 'table-2.jpg',    name: 'Table II',      prompt: 'a sculptural stone side table with a thick polished stone slab top on a solid stone base' },
@@ -1186,7 +1008,6 @@
   ];
 
   const productImageCache = {};
-
   function preloadProductImages() {
     PRODUCTS.forEach(product => {
       const img = new Image();
@@ -1198,9 +1019,7 @@
           canvas.getContext('2d').drawImage(img, 0, 0);
           const dataURL = canvas.toDataURL('image/jpeg', 0.92);
           productImageCache[product.id] = { base64: dataURL.split(',')[1], mime: 'image/jpeg' };
-        } catch(e) {
-          console.warn('Canvas encode failed for:', product.imgSrc, e);
-        }
+        } catch(e) { console.warn('Canvas encode failed for:', product.imgSrc, e); }
       };
       img.onerror = () => console.warn('Image load failed:', product.imgSrc);
       img.src = product.imgSrc;
@@ -1209,7 +1028,6 @@
   preloadProductImages();
 
   let selectedProductId = PRODUCTS[0]?.id || null;
-
   function buildProductPicker() {
     const picker = document.getElementById('product-picker');
     if (!picker) return;
@@ -1237,10 +1055,7 @@
   }
   buildProductPicker();
 
-  let aiImageBase64  = null;
-  let aiImageMime    = 'image/jpeg';
-  let aiPollInterval = null;
-
+  let aiImageBase64 = null, aiImageMime = 'image/jpeg', aiPollInterval = null;
   const uploadInput   = document.getElementById('lounge-upload');
   const uploadPreview = document.getElementById('upload-preview');
   const previewThumb  = document.getElementById('preview-thumb');
@@ -1294,16 +1109,11 @@
 
   aiGenerateBtn.addEventListener('click', async () => {
     if (!aiImageBase64) return;
-
     const stone   = document.getElementById('ai-stone').value;
     const product = PRODUCTS.find(p => p.id === selectedProductId) || PRODUCTS[0];
-
-    const cached           = productImageCache[product.id];
+    const cached  = productImageCache[product.id];
     const productImageBase64 = cached ? cached.base64 : null;
     const productImageMime   = cached ? cached.mime   : 'image/jpeg';
-
-    if (!cached) console.warn('No cached image for:', product.name, '— text prompt only');
-
     aiGenerateBtn.disabled     = true;
     aiError.style.display      = 'none';
     aiRenderForm.style.display = 'none';
@@ -1311,36 +1121,19 @@
     aiResult.style.display     = 'none';
     aiProgress.style.width     = '6%';
     aiLoadingText.textContent  = 'Reading your room...';
-
     try {
       const res = await fetch('/api/render', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          imageBase64:        aiImageBase64,
-          imageMime:          aiImageMime,
-          stone,
-          piece:              product.prompt,
-          productImageBase64,
-          productImageMime,
-          productName:        product.name,
-        }),
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageBase64: aiImageBase64, imageMime: aiImageMime, stone, piece: product.prompt, productImageBase64, productImageMime, productName: product.name }),
       });
-
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || 'Something went wrong');
-
       aiProgress.style.width    = '28%';
       aiLoadingText.textContent = 'Generating render...';
-
       let attempts = 0;
       aiPollInterval = setInterval(async () => {
         attempts++;
-        if (attempts > 60) {
-          clearInterval(aiPollInterval);
-          showFormError('Timed out — please try again.');
-          return;
-        }
+        if (attempts > 60) { clearInterval(aiPollInterval); showFormError('Timed out — please try again.'); return; }
         aiProgress.style.width = Math.min(28 + (attempts / 60) * 62, 90) + '%';
         try {
           const pr = await fetch('/api/poll?id=' + data.predictionId);
@@ -1349,20 +1142,11 @@
             clearInterval(aiPollInterval);
             aiProgress.style.width = '100%';
             aiResultImg.src = pd.imageUrl;
-            aiResultImg.onload = () => {
-              aiLoading.style.display = 'none';
-              aiResult.style.display  = 'block';
-            };
-          } else if (pd.status === 'failed') {
-            clearInterval(aiPollInterval);
-            showFormError('Generation failed — please try again.');
-          }
-        } catch(e) { /* poll error, keep trying */ }
+            aiResultImg.onload = () => { aiLoading.style.display = 'none'; aiResult.style.display = 'block'; };
+          } else if (pd.status === 'failed') { clearInterval(aiPollInterval); showFormError('Generation failed — please try again.'); }
+        } catch(e) {}
       }, 2000);
-
-    } catch(err) {
-      showFormError(err.message);
-    }
+    } catch(err) { showFormError(err.message); }
   });
 
   aiTryAgain.addEventListener('click', () => {
@@ -1371,18 +1155,6 @@
     aiGenerateBtn.disabled     = false;
   });
 </script>
-
-<!-- FLOATING ENQUIRE BUTTON -->
-<a href="mailto:james@primepiece.co.nz?subject=Enquiry — Prime Piece" class="float-enquire" id="float-enquire" aria-label="Enquire">
-  <div class="float-enquire-icon">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
-    </svg>
-  </div>
-  <span class="float-enquire-label">Enquire Now</span>
-</a>
-
 
 </body>
 </html>
