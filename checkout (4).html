@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — Prime Piece</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root {
+    --cream: #F5F1EA;
+    --cream-soft: #EBE5DA;
+    --cream-deep: #E0D9CA;
+    --sage: #7BA5A8;
+    --sage-deep: #5D8588;
+    --ink: #2C2A26;
+    --ink-soft: #554F45;
+    --stone: #8A8275;
+    --line: rgba(44, 42, 38, 0.12);
+    --gold: #C9A96E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font-family: 'Inter Tight', sans-serif; font-weight: 300;
+    line-height: 1.5; min-height: 100vh;
+  }
+
+  /* ── Nav ── */
+  nav {
+    padding: 22px 56px; display: flex; justify-content: space-between;
+    align-items: center; border-bottom: 1px solid var(--line);
+    background: var(--cream); position: sticky; top: 0; z-index: 10;
+  }
+  .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
+  .logo-sub { font-family: 'Dancing Script', cursive; font-size: 11px; color: var(--sage); margin-top: 2px; }
+  .nav-back {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    font-weight: 500; color: var(--ink-soft); transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--sage); }
+
+  /* ── Layout ── */
+  .checkout-wrap {
+    max-width: 1080px; margin: 0 auto; padding: 60px 56px;
+    display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: start;
+  }
+
+  /* ── Left: Form ── */
+  .form-section { }
+  .form-eyebrow {
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .form-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--sage); }
+  .form-title {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300; letter-spacing: -0.02em; color: var(--ink);
+    line-height: 1; margin-bottom: 40px;
+  }
+  .form-title em { font-style: italic; color: var(--sage); }
+
+  .field-group { margin-bottom: 28px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  label {
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    font-weight: 500; color: var(--stone);
+  }
+  input, textarea, select {
+    padding: 13px 14px; border: 1px solid var(--line); border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 300;
+    color: var(--ink); background: white; transition: border-color 0.2s;
+    appearance: none; -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--sage);
+  }
+  input::placeholder, textarea::placeholder { color: rgba(138,130,117,0.6); }
+  textarea { resize: vertical; min-height: 80px; }
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .section-divider {
+    height: 1px; background: var(--line); margin: 32px 0;
+  }
+  .section-label-sm {
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; margin-bottom: 18px; display: block;
+  }
+
+  /* Delivery options */
+  .delivery-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .delivery-opt {
+    border: 1.5px solid var(--line); border-radius: 2px; padding: 16px;
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .delivery-opt:hover { border-color: var(--sage); }
+  .delivery-opt.selected { border-color: var(--sage); background: rgba(123,165,168,0.04); }
+  .delivery-opt input[type="radio"] { display: none; }
+  .delivery-opt-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--cream-soft); display: flex; align-items: center;
+    justify-content: center; color: var(--sage); flex-shrink: 0;
+  }
+  .delivery-opt-icon svg { width: 16px; height: 16px; }
+  .delivery-opt-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300;
+    color: var(--ink); margin-bottom: 2px;
+  }
+  .delivery-opt-desc { font-size: 11px; color: var(--stone); line-height: 1.5; }
+
+  /* Stripe element */
+  #payment-element {
+    padding: 14px; border: 1px solid var(--line); border-radius: 1px; background: white;
+  }
+
+  /* Submit button */
+  .pay-btn {
+    width: 100%; padding: 17px; margin-top: 24px;
+    background: var(--sage); color: white; border: none; border-radius: 1px;
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; font-weight: 500; cursor: pointer;
+    transition: background 0.2s; display: flex; align-items: center;
+    justify-content: center; gap: 10px;
+  }
+  .pay-btn:hover:not(:disabled) { background: var(--sage-deep); }
+  .pay-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  #pay-error {
+    margin-top: 12px; padding: 12px 14px; border-radius: 1px;
+    background: rgba(180,60,40,0.06); border: 1px solid rgba(180,60,40,0.2);
+    font-size: 13px; color: #7a3020; display: none; line-height: 1.5;
+  }
+
+  .trust-strip {
+    margin-top: 20px; display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--stone); font-weight: 500;
+  }
+  .trust-item svg { width: 13px; height: 13px; color: var(--sage); flex-shrink: 0; }
+
+  /* ── Right: Order Summary ── */
+  .order-summary {
+    background: var(--cream-soft); border: 1px solid var(--line);
+    border-radius: 2px; overflow: hidden; position: sticky; top: 100px;
+  }
+  .summary-header {
+    padding: 20px 24px; border-bottom: 1px solid var(--line);
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500; display: flex;
+    justify-content: space-between; align-items: center;
+  }
+  .summary-items { padding: 0 24px; }
+  .summary-item {
+    display: flex; gap: 14px; padding: 18px 0;
+    border-bottom: 1px solid var(--line); align-items: flex-start;
+  }
+  .summary-item-img {
+    width: 60px; height: 60px; object-fit: cover; border-radius: 2px;
+    flex-shrink: 0; background: var(--cream-deep);
+  }
+  .summary-item-body { flex: 1; min-width: 0; }
+  .summary-item-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 18px;
+    font-weight: 300; color: var(--ink); margin-bottom: 2px;
+  }
+  .summary-item-meta {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--stone); font-weight: 500; margin-bottom: 4px;
+    font-family: 'Inter Tight', sans-serif;
+  }
+  .summary-item-price {
+    font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--sage);
+  }
+
+  .summary-totals { padding: 20px 24px; }
+  .summary-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 6px 0; font-size: 13px;
+  }
+  .summary-row-label { color: var(--stone); }
+  .summary-row-val { color: var(--ink-soft); font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+  .summary-total-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 14px 0 0; border-top: 1px solid var(--line); margin-top: 8px;
+  }
+  .summary-total-label {
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink); font-weight: 500;
+  }
+  .summary-total-val {
+    font-family: 'Cormorant Garamond', serif; font-size: 28px;
+    font-weight: 300; color: var(--ink); letter-spacing: -0.02em;
+  }
+
+  .summary-empty {
+    padding: 48px 24px; text-align: center;
+  }
+  .summary-empty p {
+    font-size: 14px; color: var(--stone); line-height: 1.7;
+  }
+  .summary-empty a {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 20px; padding: 11px 22px;
+    border: 1px solid var(--sage); color: var(--sage); text-decoration: none;
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    font-weight: 500; transition: all 0.2s; border-radius: 1px;
+  }
+  .summary-empty a:hover { background: var(--sage); color: white; }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .checkout-wrap {
+      grid-template-columns: 1fr; gap: 40px; padding: 40px 24px;
+    }
+    .order-summary { position: static; order: -1; }
+    nav { padding: 18px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .delivery-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo-wrap">
+    <div class="logo">PRIME PIECE</div>
+    <div class="logo-sub">one of one</div>
+  </a>
+  <a href="javascript:history.back()" class="nav-back">← Back to Shopping</a>
+</nav>
+
+<div class="checkout-wrap">
+
+  <!-- LEFT: Form -->
+  <div class="form-section">
+    <div class="form-eyebrow">Secure Checkout</div>
+    <h1 class="form-title">Complete your<br><em>order</em>.</h1>
+
+    <span class="section-label-sm">Contact Details</span>
+    <div class="field-row">
+      <div class="field">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" placeholder="James" autocomplete="given-name" required>
+      </div>
+      <div class="field">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" placeholder="Hopwood" autocomplete="family-name" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="021 000 0000" autocomplete="tel">
+    </div>
+
+    <div class="section-divider"></div>
+    <span class="section-label-sm">Delivery Preference</span>
+
+    <div class="delivery-options">
+      <label class="delivery-opt selected" id="opt-pickup" onclick="selectDelivery('pickup', this)">
+        <input type="radio" name="delivery" value="pickup" checked>
+        <div>
+          <div class="delivery-opt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div>
+            <div class="delivery-opt-title">Showroom Pickup</div>
+            <div class="delivery-opt-desc">209B Archers Rd, Wairau Valley. Free.</div>
+          </div>
+        </div>
+      </label>
+      <label class="delivery-opt" id="opt-delivery" onclick="selectDelivery('delivery', this)">
+        <input type="radio" name="delivery" value="delivery">
+        <div>
+          <div class="delivery-opt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="1"/>
+              <path d="M16 8h4l3 5v3h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/>
+              <circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="delivery-opt-title">Auckland Delivery</div>
+            <div class="delivery-opt-desc">We'll arrange with you personally after purchase.</div>
+          </div>
+        </div>
+      </label>
+    </div>
+
+    <div class="field" id="address-field" style="display:none">
+      <label for="address">Delivery Address</label>
+      <input type="text" id="address" placeholder="123 Example St, Auckland" autocomplete="street-address">
+    </div>
+
+    <div class="field">
+      <label for="notes">Order Notes (optional)</label>
+      <textarea id="notes" placeholder="Any special notes, access instructions, or requests..."></textarea>
+    </div>
+
+    <div class="section-divider"></div>
+    <span class="section-label-sm">Payment</span>
+
+    <div id="payment-element"></div>
+    <div id="pay-error"></div>
+
+    <button class="pay-btn" id="pay-btn" disabled>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0110 0v4"/>
+      </svg>
+      <span id="pay-btn-text">Pay Securely Now →</span>
+    </button>
+
+    <div class="trust-strip">
+      <span class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        256-bit encryption
+      </span>
+      <span class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Powered by Stripe
+      </span>
+      <span class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        One of one, guaranteed
+      </span>
+    </div>
+  </div>
+
+  <!-- RIGHT: Order Summary -->
+  <div class="order-summary">
+    <div class="summary-header">
+      <span>Order Summary</span>
+      <span id="summary-count">0 pieces</span>
+    </div>
+    <div class="summary-items" id="summary-items">
+      <div class="summary-empty">
+        <p>Your cart is empty.</p>
+        <a href="plinths.html">Browse the Collection →</a>
+      </div>
+    </div>
+    <div class="summary-totals" id="summary-totals" style="display:none">
+      <div class="summary-row">
+        <span class="summary-row-label">Subtotal</span>
+        <span class="summary-row-val" id="summary-subtotal">$0</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-row-label">GST (15%)</span>
+        <span class="summary-row-val" id="summary-gst">$0</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-row-label">Delivery</span>
+        <span class="summary-row-val" id="summary-delivery">Free (Pickup)</span>
+      </div>
+      <div class="summary-total-row">
+        <span class="summary-total-label">Total (NZD)</span>
+        <span class="summary-total-val" id="summary-total">$0</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── Cart from localStorage ──────────────────────────────
+  const KEY = 'pp_cart_v2';
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; }
+    catch { return []; }
+  }
+
+  const cart = getCart();
+  const total = cart.reduce((s, i) => s + i.price, 0);
+
+  // ── Render order summary ────────────────────────────────
+  const summaryItems = document.getElementById('summary-items');
+  const summaryTotals = document.getElementById('summary-totals');
+  const summaryCount = document.getElementById('summary-count');
+
+  function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
+
+  function renderSummary() {
+    summaryCount.textContent = cart.length + (cart.length === 1 ? ' piece' : ' pieces');
+    if (cart.length === 0) return;
+
+    summaryItems.innerHTML = cart.map(item => `
+      <div class="summary-item">
+        <img class="summary-item-img" src="${item.image}" alt="${item.name}">
+        <div class="summary-item-body">
+          <div class="summary-item-name">${item.name}</div>
+          <div class="summary-item-meta">${item.type}</div>
+          <div class="summary-item-price">NZD ${fmt(item.price)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    const gst = Math.round(total * 0.15 * 100) / 100;
+    const ex = total - gst;
+    document.getElementById('summary-subtotal').textContent = fmt(Math.round(ex));
+    document.getElementById('summary-gst').textContent = fmt(Math.round(gst));
+    document.getElementById('summary-total').textContent = fmt(total);
+    summaryTotals.style.display = 'block';
+    updateDeliveryLabel();
+  }
+
+  // ── Delivery toggle ─────────────────────────────────────
+  let deliveryMode = 'pickup';
+
+  renderSummary();
+
+  function selectDelivery(mode, el) {
+    deliveryMode = mode;
+    document.querySelectorAll('.delivery-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('address-field').style.display = mode === 'delivery' ? 'flex' : 'none';
+    document.getElementById('address-field').style.flexDirection = 'column';
+    updateDeliveryLabel();
+  }
+
+  function updateDeliveryLabel() {
+    const el = document.getElementById('summary-delivery');
+    if (el) el.textContent = deliveryMode === 'pickup' ? 'Free (Showroom pickup)' : 'TBC (We\'ll be in touch)';
+  }
+
+  // ── Stripe setup ────────────────────────────────────────
+  // Replace this with your Stripe publishable key from the Stripe dashboard
+  const STRIPE_PK = 'pk_live_51TdgtkPHY4KtKdlo106yHJpEE1mPzAxoKBTowTTjWQ0QKhLWxmBT1piPZvWlxCYm7z6W3EZ4gyRSGzrt2L5gtrZU00HZJIW0sx';
+  const stripe = Stripe(STRIPE_PK);
+  let elements, paymentElement;
+  let clientSecret = null;
+
+  async function initStripe() {
+    if (cart.length === 0) return;
+
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!firstName || !lastName || !email || !email.includes('@')) return;
+
+    document.getElementById('pay-btn-text').textContent = 'Setting up payment…';
+    document.getElementById('pay-btn').disabled = true;
+
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: cart,
+          customer: {
+            name: firstName + ' ' + lastName,
+            email,
+            phone: document.getElementById('phone').value.trim(),
+            delivery: deliveryMode,
+            notes: document.getElementById('notes').value.trim(),
+          }
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      clientSecret = data.clientSecret;
+
+      elements = stripe.elements({ clientSecret, appearance: {
+        theme: 'flat',
+        variables: {
+          colorPrimary: '#7BA5A8',
+          colorBackground: '#ffffff',
+          colorText: '#2C2A26',
+          colorDanger: '#7a3020',
+          fontFamily: "'Inter Tight', sans-serif",
+          borderRadius: '1px',
+          fontSizeBase: '14px',
+        }
+      }});
+      paymentElement = elements.create('payment');
+      paymentElement.mount('#payment-element');
+      paymentElement.on('ready', () => {
+        document.getElementById('pay-btn').disabled = false;
+        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+      });
+
+    } catch (err) {
+      showError(err.message);
+      document.getElementById('pay-btn-text').textContent = 'Pay Securely Now →';
+    }
+  }
+
+  // Init Stripe when email is filled in and blurred
+  document.getElementById('email').addEventListener('blur', () => {
+    if (!elements) initStripe();
+  });
+
+  // ── Form submit ─────────────────────────────────────────
+  document.getElementById('pay-btn').addEventListener('click', async () => {
+    clearError();
+    if (!elements) { await initStripe(); return; }
+
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!firstName || !lastName) { showError('Please enter your full name.'); return; }
+    if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return; }
+
+    document.getElementById('pay-btn').disabled = true;
+    document.getElementById('pay-btn-text').textContent = 'Processing…';
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.origin + '/success.html',
+        payment_method_data: {
+          billing_details: {
+            name: firstName + ' ' + lastName,
+            email,
+            phone: document.getElementById('phone').value.trim(),
+          }
+        }
+      }
+    });
+
+    if (error) {
+      showError(error.message);
+      document.getElementById('pay-btn').disabled = false;
+      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+    }
+  });
+
+  function showError(msg) {
+    const el = document.getElementById('pay-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+  function clearError() {
+    document.getElementById('pay-error').style.display = 'none';
+  }
+
+  function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
+</script>
+</body>
+</html>
