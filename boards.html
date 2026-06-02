@@ -571,7 +571,7 @@
       </div>
       <p class="modal-note" id="modal-note"></p>
       <div class="modal-actions">
-        <a class="modal-btn-primary" id="modal-enquire" href="#">Enquire About This Board →</a>
+        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
       </div>
     </div>
@@ -593,6 +593,18 @@
     });
   }
 
+  const BOARD_PRICES = {
+    'board-lava-vein.jpg':    { price: 380, id: 'board-lava-vein' },
+    'board-golden-dune.jpg':  { price: 380, id: 'board-golden-dune' },
+    'board-teal-tide.jpg':    { price: 380, id: 'board-teal-tide' },
+    'board-emerald-vein.jpg': { price: 380, id: 'board-emerald-vein' },
+    'board-pink-storm.jpg':   { price: 380, id: 'board-pink-storm' },
+    'board-white-haven.jpg':  { price: 380, id: 'board-white-haven' },
+    'board-volcanic-ash.jpg': { price: 380, id: 'board-volcanic-ash' },
+  };
+
+  let _modalItem = null;
+
   function openModal(name, stone, img, dims, note) {
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
@@ -600,9 +612,24 @@
     document.getElementById('modal-img').src = img;
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-note').textContent = 'Natural stone colour and veining varies — the piece you receive will be one of one.';
-    document.getElementById('modal-enquire').href = `mailto:james@primepiece.co.nz?subject=Enquiry — ${name} Board`;
+
+    const info = BOARD_PRICES[img];
+    const btn = document.getElementById('modal-add-cart');
+    if (info) {
+      _modalItem = { id: info.id, name, type: 'Serving Board', image: img, price: info.price };
+      const inCart = Cart.getItems().find(i => i.id === info.id);
+      btn.textContent = inCart ? 'In Cart ✓' : `Add to Cart — NZD $${info.price.toLocaleString('en-NZ')} →`;
+      btn.onclick = addModalToCart;
+    }
+
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function addModalToCart() {
+    if (!_modalItem) return;
+    Cart.add(_modalItem);
+    document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
   }
 
   function closeModal() {
@@ -616,5 +643,6 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
+<script src="cart.js"></script>
 </body>
 </html>
