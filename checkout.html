@@ -29,6 +29,7 @@
     line-height: 1.5; min-height: 100vh;
   }
 
+  /* ── Nav ── */
   nav {
     padding: 22px 56px; display: flex; justify-content: space-between;
     align-items: center; border-bottom: 1px solid var(--line);
@@ -44,11 +45,14 @@
   }
   .nav-back:hover { color: var(--sage); }
 
+  /* ── Layout ── */
   .checkout-wrap {
     max-width: 1080px; margin: 0 auto; padding: 60px 56px;
     display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: start;
   }
 
+  /* ── Left: Form ── */
+  .form-section { }
   .form-eyebrow {
     font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
     color: var(--sage); font-weight: 500; margin-bottom: 12px;
@@ -75,20 +79,26 @@
     color: var(--ink); background: white; transition: border-color 0.2s;
     appearance: none; -webkit-appearance: none;
   }
-  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--sage); }
+  input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--sage);
+  }
   input::placeholder, textarea::placeholder { color: rgba(138,130,117,0.6); }
   textarea { resize: vertical; min-height: 80px; }
   select {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>");
-    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 36px;
   }
 
-  .section-divider { height: 1px; background: var(--line); margin: 32px 0; }
+  .section-divider {
+    height: 1px; background: var(--line); margin: 32px 0;
+  }
   .section-label-sm {
     font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
     color: var(--sage); font-weight: 500; margin-bottom: 18px; display: block;
   }
 
+  /* Delivery options */
   .delivery-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
   .delivery-opt {
     border: 1.5px solid var(--line); border-radius: 2px; padding: 16px;
@@ -110,10 +120,12 @@
   }
   .delivery-opt-desc { font-size: 11px; color: var(--stone); line-height: 1.5; }
 
+  /* Stripe element */
   #payment-element {
     padding: 14px; border: 1px solid var(--line); border-radius: 1px; background: white;
   }
 
+  /* Submit button */
   .pay-btn {
     width: 100%; padding: 17px; margin-top: 24px;
     background: var(--sage); color: white; border: none; border-radius: 1px;
@@ -142,6 +154,7 @@
   }
   .trust-item svg { width: 13px; height: 13px; color: var(--sage); flex-shrink: 0; }
 
+  /* ── Right: Order Summary ── */
   .order-summary {
     background: var(--cream-soft); border: 1px solid var(--line);
     border-radius: 2px; overflow: hidden; position: sticky; top: 100px;
@@ -195,8 +208,12 @@
     font-weight: 300; color: var(--ink); letter-spacing: -0.02em;
   }
 
-  .summary-empty { padding: 48px 24px; text-align: center; }
-  .summary-empty p { font-size: 14px; color: var(--stone); line-height: 1.7; }
+  .summary-empty {
+    padding: 48px 24px; text-align: center;
+  }
+  .summary-empty p {
+    font-size: 14px; color: var(--stone); line-height: 1.7;
+  }
   .summary-empty a {
     display: inline-flex; align-items: center; gap: 6px;
     margin-top: 20px; padding: 11px 22px;
@@ -206,8 +223,11 @@
   }
   .summary-empty a:hover { background: var(--sage); color: white; }
 
+  /* Mobile */
   @media (max-width: 900px) {
-    .checkout-wrap { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+    .checkout-wrap {
+      grid-template-columns: 1fr; gap: 40px; padding: 40px 24px;
+    }
     .order-summary { position: static; order: -1; }
     nav { padding: 18px 24px; }
     .field-row { grid-template-columns: 1fr; }
@@ -227,6 +247,7 @@
 
 <div class="checkout-wrap">
 
+  <!-- LEFT: Form -->
   <div class="form-section">
     <div class="form-eyebrow">Secure Checkout</div>
     <h1 class="form-title">Complete your<br><em>order</em>.</h1>
@@ -329,6 +350,7 @@
     </div>
   </div>
 
+  <!-- RIGHT: Order Summary -->
   <div class="order-summary">
     <div class="summary-header">
       <span>Order Summary</span>
@@ -363,6 +385,7 @@
 </div>
 
 <script>
+  // ── Cart from localStorage ──────────────────────────────
   const KEY = 'pp_cart_v2';
   function getCart() {
     try { return JSON.parse(localStorage.getItem(KEY)) || []; }
@@ -372,6 +395,7 @@
   const cart = getCart();
   const total = cart.reduce((s, i) => s + i.price, 0);
 
+  // ── Render order summary ────────────────────────────────
   const summaryItems = document.getElementById('summary-items');
   const summaryTotals = document.getElementById('summary-totals');
   const summaryCount = document.getElementById('summary-count');
@@ -404,6 +428,7 @@
 
   renderSummary();
 
+  // ── Delivery toggle ─────────────────────────────────────
   let deliveryMode = 'pickup';
 
   function selectDelivery(mode, el) {
@@ -420,7 +445,9 @@
     if (el) el.textContent = deliveryMode === 'pickup' ? 'Free (Showroom pickup)' : 'TBC (We\'ll be in touch)';
   }
 
-  const STRIPE_PK = 'pk_test_51TdgtwAn8gPSuPdUOTVqA2oR2un2Kfs3mBdJz3vcTNbDMF6nFCopqWVqkDsNx3kzcQFzsWsyu42oH2qFYWKDcVFR00Ytmzq2YD';
+  // ── Stripe setup ────────────────────────────────────────
+  // Replace this with your Stripe publishable key from the Stripe dashboard
+  const STRIPE_PK = 'pk_live_51TdgtkPHY4KtKdlo106yHJpEE1mPzAxoKBTowTTjWQ0QKhLWxmBT1piPZvWlxCYm7z6W3EZ4gyRSGzrt2L5gtrZU00HZJIW0sx';
   const stripe = Stripe(STRIPE_PK);
   let elements, paymentElement;
   let clientSecret = null;
@@ -481,10 +508,12 @@
     }
   }
 
+  // Init Stripe when email is filled in and blurred
   document.getElementById('email').addEventListener('blur', () => {
     if (!elements) initStripe();
   });
 
+  // ── Form submit ─────────────────────────────────────────
   document.getElementById('pay-btn').addEventListener('click', async () => {
     clearError();
     if (!elements) { await initStripe(); return; }
@@ -528,6 +557,8 @@
   function clearError() {
     document.getElementById('pay-error').style.display = 'none';
   }
+
+  function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
 </script>
 </body>
 </html>
