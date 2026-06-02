@@ -49,6 +49,15 @@
   .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
+  .plinth-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; color: var(--sage);
+    margin-bottom: 4px; letter-spacing: -0.01em;
+  }
+  .plinth-price-label {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--stone); font-weight: 500; margin-bottom: 14px; display: block;
+  }
 
   .page-hero {
     padding: 140px 56px 80px;
@@ -336,7 +345,7 @@
 
 <div class="plinths-grid" id="plinths-grid">
 
-  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Natural Travertine Plinth','Natural Travertine','plinth-1.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Natural Travertine Plinth','Natural Travertine','plinth-1.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth',1800,'plinth-natural-travertine-800')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-1.jpg" alt="Natural Travertine Plinth">
@@ -346,14 +355,15 @@
       <div class="plinth-name">Natural Travertine</div>
       <div class="plinth-stone">Travertine — Warm Beige</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $1,800</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Natural Travertine Plinth 800H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-natural-travertine-800" onclick="event.stopPropagation(); Cart.add({id:'plinth-natural-travertine-800',name:'Natural Travertine',type:'Plinth',image:'plinth-1.jpg',price:1800})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Travertine Side Plinth','Natural Travertine','plinth-2.jpg','H: 450mm × W: 300mm × D: 300mm','Side Plinth')">
+  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Travertine Side Plinth','Natural Travertine','plinth-2.jpg','H: 450mm × W: 300mm × D: 300mm','Side Plinth',1400,'plinth-travertine-450')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-2.jpg" alt="Travertine Side Plinth">
@@ -363,14 +373,15 @@
       <div class="plinth-name">Travertine</div>
       <div class="plinth-stone">Travertine — Warm Beige</div>
       <div class="plinth-dims">H: 450mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $1,400</div>
       <div class="plinth-foot">
         <span class="plinth-type">Side Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Travertine Plinth 450H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-travertine-450" onclick="event.stopPropagation(); Cart.add({id:'plinth-travertine-450',name:'Travertine Side Plinth',type:'Side Plinth',image:'plinth-2.jpg',price:1400})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="grey" onclick="openModal('Grey Porcelain Plinth I','Grey Porcelain','plinth-3.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="grey" onclick="openModal('Grey Porcelain Plinth I','Grey Porcelain','plinth-3.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth',2200,'plinth-grey-porcelain-i')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-3.jpg" alt="Grey Porcelain Plinth">
@@ -380,14 +391,15 @@
       <div class="plinth-name">Grey Porcelain I</div>
       <div class="plinth-stone">Grey Porcelain</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $2,200</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Grey Porcelain Plinth 800H I" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-grey-porcelain-i" onclick="event.stopPropagation(); Cart.add({id:'plinth-grey-porcelain-i',name:'Grey Porcelain I',type:'Plinth',image:'plinth-3.jpg',price:2200})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="grey" onclick="openModal('Grey Porcelain Plinth II','Grey Porcelain','plinth-4.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="grey" onclick="openModal('Grey Porcelain Plinth II','Grey Porcelain','plinth-4.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth',2200,'plinth-grey-porcelain-ii')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-4.jpg" alt="Grey Porcelain Plinth II">
@@ -397,14 +409,15 @@
       <div class="plinth-name">Grey Porcelain II</div>
       <div class="plinth-stone">Grey Porcelain</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $2,200</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Grey Porcelain Plinth 800H II" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-grey-porcelain-ii" onclick="event.stopPropagation(); Cart.add({id:'plinth-grey-porcelain-ii',name:'Grey Porcelain II',type:'Plinth',image:'plinth-4.jpg',price:2200})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Plinth I','Rosso Levanto Marble','plinth-5.jpg','H: 600mm × W: 300mm × D: 300mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Plinth I','Rosso Levanto Marble','plinth-5.jpg','H: 600mm × W: 300mm × D: 300mm','Plinth',1900,'plinth-rosso-levanto-i')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-5.jpg" alt="Rosso Levanto Plinth">
@@ -414,14 +427,15 @@
       <div class="plinth-name">Rosso Levanto I</div>
       <div class="plinth-stone">Rosso Levanto Marble — Dark Red</div>
       <div class="plinth-dims">H: 600mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $1,900</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Levanto Plinth 600H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-levanto-i" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-levanto-i',name:'Rosso Levanto I',type:'Plinth',image:'plinth-5.jpg',price:1900})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Plinth II','Rosso Levanto Marble','plinth-6.jpg','H: 400mm × W: 300mm × D: 300mm','Side Plinth')">
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Plinth II','Rosso Levanto Marble','plinth-6.jpg','H: 400mm × W: 300mm × D: 300mm','Side Plinth',1500,'plinth-rosso-levanto-ii')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-6.jpg" alt="Rosso Levanto Plinth II">
@@ -431,14 +445,15 @@
       <div class="plinth-name">Rosso Levanto II</div>
       <div class="plinth-stone">Rosso Levanto Marble — Dark Red</div>
       <div class="plinth-dims">H: 400mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $1,500</div>
       <div class="plinth-foot">
         <span class="plinth-type">Side Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Levanto Plinth 400H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-levanto-ii" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-levanto-ii',name:'Rosso Levanto II',type:'Side Plinth',image:'plinth-6.jpg',price:1500})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Travertine Coffee Table','Natural Travertine','plinth-7.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth')">
+  <div class="plinth-card reveal" data-tags="travertine" onclick="openModal('Travertine Coffee Table','Natural Travertine','plinth-7.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',2800,'plinth-travertine-table')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-7.jpg" alt="Travertine Coffee Table">
@@ -448,14 +463,15 @@
       <div class="plinth-name">Travertine Table</div>
       <div class="plinth-stone">Natural Travertine</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
+      <div class="plinth-price">NZD $2,800</div>
       <div class="plinth-foot">
         <span class="plinth-type">Coffee Table Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Travertine Coffee Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-travertine-table" onclick="event.stopPropagation(); Cart.add({id:'plinth-travertine-table',name:'Travertine Table',type:'Coffee Table Plinth',image:'plinth-7.jpg',price:2800})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Table','Dekton Sirius','plinth-8.jpg','L: 950mm × W: 760mm × H: 280mm','Coffee Table Plinth')">
+  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Table','Dekton Sirius','plinth-8.jpg','L: 950mm × W: 760mm × H: 280mm','Coffee Table Plinth',2600,'plinth-dekton-table')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-8.jpg" alt="Dekton Sirius Table">
@@ -465,14 +481,15 @@
       <div class="plinth-name">Dekton Sirius Table</div>
       <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 280mm</div>
+      <div class="plinth-price">NZD $2,600</div>
       <div class="plinth-foot">
         <span class="plinth-type">Coffee Table Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Coffee Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-dekton-table" onclick="event.stopPropagation(); Cart.add({id:'plinth-dekton-table',name:'Dekton Sirius Table',type:'Coffee Table Plinth',image:'plinth-8.jpg',price:2600})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Africano Table','Rosso Africano Marble','plinth-9.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth')">
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Africano Table','Rosso Africano Marble','plinth-9.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',3200,'plinth-rosso-africano-table')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-9.jpg" alt="Rosso Africano Table">
@@ -480,16 +497,17 @@
     </div>
     <div class="plinth-info">
       <div class="plinth-name">Rosso Africano Table</div>
-      <div class="plinth-stone">Rosso Africano Marble — Red & Black</div>
+      <div class="plinth-stone">Rosso Africano Marble — Red &amp; Black</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
+      <div class="plinth-price">NZD $3,200</div>
       <div class="plinth-foot">
         <span class="plinth-type">Coffee Table Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Rosso Africano Coffee Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-table" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-table',name:'Rosso Africano Table',type:'Coffee Table Plinth',image:'plinth-9.jpg',price:3200})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Green Calacatta Plinth','Green Calacatta Marble','plinth-10.jpg','H: 520mm × W: 350mm × D: 350mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Green Calacatta Plinth','Green Calacatta Marble','plinth-10.jpg','H: 520mm × W: 350mm × D: 350mm','Plinth',2400,'plinth-green-calacatta')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-10.jpg" alt="Green Calacatta Plinth">
@@ -499,14 +517,15 @@
       <div class="plinth-name">Green Calacatta</div>
       <div class="plinth-stone">Green Calacatta Marble</div>
       <div class="plinth-dims">H: 520mm × W: 350mm × D: 350mm</div>
+      <div class="plinth-price">NZD $2,400</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Green Calacatta Plinth" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-green-calacatta" onclick="event.stopPropagation(); Cart.add({id:'plinth-green-calacatta',name:'Green Calacatta',type:'Plinth',image:'plinth-10.jpg',price:2400})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Verde Apli Plinth','Verde Apli Marble','plinth-11.jpg','H: 550mm × W: 300mm × D: 300mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Verde Apli Plinth','Verde Apli Marble','plinth-11.jpg','H: 550mm × W: 300mm × D: 300mm','Plinth',2100,'plinth-verde-apli')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-11.jpg" alt="Verde Apli Plinth">
@@ -516,14 +535,15 @@
       <div class="plinth-name">Verde Apli</div>
       <div class="plinth-stone">Verde Apli Marble — Deep Green</div>
       <div class="plinth-dims">H: 550mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $2,100</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Verde Apli Plinth" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-verde-apli" onclick="event.stopPropagation(); Cart.add({id:'plinth-verde-apli',name:'Verde Apli',type:'Plinth',image:'plinth-11.jpg',price:2100})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Plinth I','Dekton Sirius','plinth-12.jpg','H: 600mm × W: 300mm × D: 300mm','Plinth')">
+  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Plinth I','Dekton Sirius','plinth-12.jpg','H: 600mm × W: 300mm × D: 300mm','Plinth',2000,'plinth-dekton-i')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-12.jpg" alt="Dekton Sirius Plinth">
@@ -533,14 +553,15 @@
       <div class="plinth-name">Dekton Sirius I</div>
       <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
       <div class="plinth-dims">H: 600mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $2,000</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Plinth 600H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-dekton-i" onclick="event.stopPropagation(); Cart.add({id:'plinth-dekton-i',name:'Dekton Sirius I',type:'Plinth',image:'plinth-12.jpg',price:2000})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Plinth II','Dekton Sirius','plinth-13.jpg','H: 450mm × W: 300mm × D: 300mm','Side Plinth')">
+  <div class="plinth-card reveal" data-tags="dark" onclick="openModal('Dekton Sirius Plinth II','Dekton Sirius','plinth-13.jpg','H: 450mm × W: 300mm × D: 300mm','Side Plinth',1600,'plinth-dekton-ii')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-13.jpg" alt="Dekton Sirius Plinth II">
@@ -550,9 +571,10 @@
       <div class="plinth-name">Dekton Sirius II</div>
       <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
       <div class="plinth-dims">H: 450mm × W: 300mm × D: 300mm</div>
+      <div class="plinth-price">NZD $1,600</div>
       <div class="plinth-foot">
         <span class="plinth-type">Side Plinth</span>
-        <a href="mailto:james@primepiece.co.nz?subject=Enquiry — Dekton Sirius Plinth 450H" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-dekton-ii" onclick="event.stopPropagation(); Cart.add({id:'plinth-dekton-ii',name:'Dekton Sirius II',type:'Side Plinth',image:'plinth-13.jpg',price:1600})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -636,7 +658,7 @@
       </div>
       <p class="modal-note">Natural stone colour and veining varies — every piece is completely unique.</p>
       <div class="modal-actions">
-        <a class="modal-btn-primary" id="modal-enquire" href="#">Enquire About This Piece →</a>
+        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
       </div>
     </div>
@@ -658,16 +680,27 @@
     });
   }
 
-  function openModal(name, stone, img, dims, type) {
+  let _modalItem = null;
+
+  function openModal(name, stone, img, dims, type, price, id) {
+    _modalItem = { id, name, type, image: img, price };
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
     document.getElementById('modal-stone-desc').textContent = stone;
     document.getElementById('modal-img').src = img;
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-type').textContent = type;
-    document.getElementById('modal-enquire').href = `mailto:james@primepiece.co.nz?subject=Enquiry — ${name}`;
+    const btn = document.getElementById('modal-add-cart');
+    const inCart = Cart.getItems().find(i => i.id === id);
+    btn.textContent = inCart ? 'In Cart ✓' : `Add to Cart — NZD $${price.toLocaleString('en-NZ')} →`;
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function addModalToCart() {
+    if (!_modalItem) return;
+    Cart.add(_modalItem);
+    document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
   }
 
   function closeModal() {
@@ -681,5 +714,6 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
+<script src="cart.js"></script>
 </body>
 </html>
