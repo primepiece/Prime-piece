@@ -485,7 +485,7 @@
       <div class="detail-row"><span class="detail-label">Edition</span><span class="detail-val">One of one — never repeated</span></div>
       <p class="modal-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
       <div class="modal-actions">
-        <a class="modal-btn-primary" id="modal-enquire" href="#">Enquire About This Table →</a>
+        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
       </div>
     </div>
@@ -506,6 +506,38 @@
     document.getElementById('cat-' + cat).classList.add('active');
   }
 
+  // Price map — keyed by image filename
+  const TABLE_PRICES = {
+    'table-10.jpg': { price: 1850, id: 'table-fire-flow' },
+    'table-1.jpg':  { price: 1850, id: 'table-pink-storm' },
+    'table-3.jpg':  { price: 1850, id: 'table-jade-jewel' },
+    'table-2.jpg':  { price: 1850, id: 'table-amazon-vein' },
+    'table-4.jpg':  { price: 1850, id: 'table-midnight-wave' },
+    'table-5.jpg':  { price: 1850, id: 'table-sunset-stone' },
+    'table-6.jpg':  { price: 1850, id: 'table-solar-eclipse' },
+    'table-7.jpg':  { price: 1850, id: 'table-lava-vein' },
+    'table-8.jpg':  { price: 1850, id: 'table-cloud-vein' },
+    'table-9.jpg':  { price: 1850, id: 'table-lunar-eclipse' },
+    'table-11.jpg': { price: 1850, id: 'table-teal-tide' },
+    'table-12.jpg': { price: 1850, id: 'table-desert-drift' },
+    'table-16.jpg': { price: 1850, id: 'table-mountain-breeze' },
+    'table-13.jpg': { price: 1850, id: 'table-ocean-ember' },
+    'table-14.jpg': { price: 1850, id: 'table-white-haven' },
+    'side-1.jpg':   { price: 2800, id: 'table-twin-jade' },
+    'side-2.jpg':   { price: 2600, id: 'table-jade-bedside' },
+    'lounge-1.jpg': { price: 3800, id: 'table-jade-horizon' },
+    'lounge-2.jpg': { price: 4200, id: 'table-obsidian-storm' },
+    'lounge-3.jpg': { price: 3800, id: 'table-sage-plateau' },
+    'lounge-4.jpg': { price: 4500, id: 'table-desert-crown' },
+    'lounge-5.jpg': { price: 4800, id: 'table-black-gold' },
+    'lounge-8.jpg': { price: 3500, id: 'table-white-haven-lounge' },
+  };
+
+  // Sold / commissioned items cannot be purchased
+  const NOT_PURCHASABLE = ['lounge-6.jpg','lounge-7.jpg','lounge-9.jpg','lounge-10.jpg','lounge-11.jpg'];
+
+  let _modalItem = null;
+
   function openModal(name, stone, img, desc, dims, type) {
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
@@ -514,9 +546,33 @@
     document.getElementById('modal-img').src = img;
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-type').textContent = type;
-    document.getElementById('modal-enquire').href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table';
+
+    const btn = document.getElementById('modal-add-cart');
+    const info = TABLE_PRICES[img];
+
+    if (NOT_PURCHASABLE.includes(img)) {
+      _modalItem = null;
+      btn.textContent = 'Enquire About This Piece →';
+      btn.onclick = () => { window.location.href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table'; };
+    } else if (info) {
+      _modalItem = { id: info.id, name, type, image: img, price: info.price };
+      const inCart = Cart.getItems().find(i => i.id === info.id);
+      btn.textContent = inCart ? 'In Cart ✓' : `Add to Cart — NZD $${info.price.toLocaleString('en-NZ')} →`;
+      btn.onclick = addModalToCart;
+    } else {
+      _modalItem = null;
+      btn.textContent = 'Enquire →';
+      btn.onclick = () => { window.location.href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table'; };
+    }
+
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function addModalToCart() {
+    if (!_modalItem) return;
+    Cart.add(_modalItem);
+    document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
   }
 
   function closeModal() {
@@ -530,5 +586,6 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
+<script src="cart.js"></script>
 </body>
 </html>
