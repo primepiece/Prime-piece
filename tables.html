@@ -352,11 +352,11 @@
   <div class="tables-grid">
     <div class="table-card reveal" onclick="openModal('Twin Jade','Mystique Green Marble','side-1.jpg','Two sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. Cool teal tones with golden veining that shifts with the light. A rare pairing, never repeated.','450mm (H) × 600mm × 600mm · Black X-frame','Side Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="side-1.jpg" alt="Twin Jade"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-foot"><span class="table-type">Side Table — Set of 2</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Twin Jade Side Tables" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
+      <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-price">NZD $2,800 <span style="font-size:12px;color:var(--stone)">— Set of 2</span></div><div class="table-foot"><span class="table-type">Side Table — Set of 2</span><button class="enquire-btn pp-add-btn" data-id="table-twin-jade" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade',name:'Twin Jade',type:'Side Table',image:'side-1.jpg',price:2800})">Add to Cart →</button></div></div>
     </div>
     <div class="table-card reveal" onclick="openModal('Jade Bedside','Green Marble Onyx','side-2.jpg','Luminous jade green onyx with amber fault lines running across a translucent surface — this bedside table glows in natural light. On a bold black C-frame, it sits flush beside any bed with quiet confidence.','600mm (H) × 450mm (W) · Black steel C-frame','Side Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="side-2.jpg" alt="Jade Bedside"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Jade Bedside</div><div class="table-stone">Green Marble Onyx</div><div class="table-desc">Luminous jade green onyx with amber fault lines — glows in natural light. A bedside piece unlike anything else.</div><div class="table-dims">H: 600mm × W: 450mm · Black steel C-frame</div><div class="table-foot"><span class="table-type">Bedside Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Jade Bedside Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
+      <div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="side-2.jpg" alt="Jade Bedside"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Jade Bedside</div><div class="table-stone">Green Marble Onyx</div><div class="table-desc">Luminous jade green onyx with amber fault lines — glows in natural light. A bedside piece unlike anything else.</div><div class="table-dims">H: 600mm × W: 450mm · Black steel C-frame</div><div class="table-price" style="color:var(--stone)">NZD $2,995 — Sold</div><div class="table-foot"><span class="table-type">Bedside Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div>
     </div>
   </div>
 </div>
@@ -510,23 +510,23 @@
 
   // Price map — keyed by image filename
   const TABLE_PRICES = {
-    'table-10.jpg': { price: 349, was: 499, sold: true, id: 'table-fire-flow' },
-    'table-1.jpg':  { price: 349, was: 499, id: 'table-pink-storm' },
-    'table-3.jpg':  { price: 349, was: 499, id: 'table-jade-jewel' },
-    'table-2.jpg':  { price: 349, was: 499, id: 'table-amazon-vein' },
-    'table-4.jpg':  { price: 349, was: 499, id: 'table-midnight-wave' },
-    'table-5.jpg':  { price: 349, was: 499, id: 'table-sunset-stone' },
-    'table-6.jpg':  { price: 349, was: 499, id: 'table-solar-eclipse' },
-    'table-7.jpg':  { price: 349, was: 499, id: 'table-lava-vein' },
-    'table-8.jpg':  { price: 349, was: 499, id: 'table-cloud-vein' },
-    'table-9.jpg':  { price: 349, was: 499, id: 'table-lunar-eclipse' },
-    'table-11.jpg': { price: 349, was: 499, sold: true, id: 'table-teal-tide' },
-    'table-12.jpg': { price: 279, was: 379, id: 'table-desert-drift' },
-    'table-16.jpg': { price: 259, was: 349, id: 'table-mountain-breeze' },
-    'table-13.jpg': { price: 349, was: 499, sold: true, id: 'table-ocean-ember' },
-    'table-14.jpg': { price: 319, was: 429, id: 'table-white-haven' },
-    'side-1.jpg':   { price: 2800, id: 'table-twin-jade' },
-    'side-2.jpg':   { price: 2600, id: 'table-jade-bedside' },
+    'table-10.jpg': { price: 349, was: 499, sold: true,  id: 'table-fire-flow' },
+    'table-1.jpg':  { price: 379, was: 499,              id: 'table-pink-storm' },
+    'table-3.jpg':  { price: 399, was: 499,              id: 'table-jade-jewel' },
+    'table-2.jpg':  { price: 349, was: 499,              id: 'table-amazon-vein' },
+    'table-4.jpg':  { price: 389, was: 499,              id: 'table-midnight-wave' },
+    'table-5.jpg':  { price: 299, was: 399,              id: 'table-sunset-stone' },
+    'table-6.jpg':  { price: 369, was: 499,              id: 'table-solar-eclipse' },
+    'table-7.jpg':  { price: 349, was: 499, sold: true,  id: 'table-lava-vein' },
+    'table-8.jpg':  { price: 349, was: 499, sold: true,  id: 'table-cloud-vein' },
+    'table-9.jpg':  { price: 349, was: 499, sold: true,  id: 'table-lunar-eclipse' },
+    'table-11.jpg': { price: 349, was: 499, sold: true,  id: 'table-teal-tide' },
+    'table-12.jpg': { price: 279, was: 379,              id: 'table-desert-drift' },
+    'table-16.jpg': { price: 259, was: 349,              id: 'table-mountain-breeze' },
+    'table-13.jpg': { price: 349, was: 499, sold: true,  id: 'table-ocean-ember' },
+    'table-14.jpg': { price: 319, was: 429,              id: 'table-white-haven' },
+    'side-1.jpg':   { price: 2800,                       id: 'table-twin-jade' },
+    'side-2.jpg':   { price: 2995,          sold: true,  id: 'table-jade-bedside' },
     'lounge-1.jpg': { price: 3800, id: 'table-jade-horizon' },
     'lounge-2.jpg': { price: 4200, id: 'table-obsidian-storm' },
     'lounge-3.jpg': { price: 3800, id: 'table-sage-plateau' },
