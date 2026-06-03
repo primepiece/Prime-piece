@@ -337,15 +337,7 @@
   .upload-preview .file-meta { font-size: 12px; color: var(--ink-soft); overflow: hidden; min-width: 0; }
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .product-section-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; padding: 14px 20px 8px; display: block; }
-  .product-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 20px 16px; }
-  .product-card { border: 1.5px solid var(--line); border-radius: 3px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; background: var(--cream-soft); position: relative; }
-  .product-card.selected { border-color: var(--sage); box-shadow: 0 0 0 2px var(--sage-soft); }
-  .product-card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
-  .product-card-name { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; padding: 6px 6px 7px; text-align: center; font-family: var(--body); line-height: 1.3; }
-  .product-card-tick { position: absolute; top: 5px; right: 5px; width: 18px; height: 18px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
-  .product-card.selected .product-card-tick { opacity: 1; }
-  .product-card-tick svg { width: 9px; height: 9px; stroke: #fff; stroke-width: 2.5; }
+  .rf-stone-row label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; display: block; margin-bottom: 8px; }
 
   .rf-stone-row { padding: 0 20px 4px; }
   .rf-stone-row select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 1px; font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--ink); background: var(--cream); transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
@@ -678,14 +670,28 @@
             <span id="preview-size"></span>
           </div>
         </div>
-        <span class="product-section-label">Choose your piece</span>
-        <div class="product-picker" id="product-picker"></div>
-        <div class="rf-stone-row" style="padding-top:4px;">
+        <div class="rf-stone-row" style="padding-top:14px;">
+          <label style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:8px;">Piece type</label>
+          <select id="ai-piece">
+            <option value="a sculptural stone coffee table with a thick dramatic veined stone slab top on a geometric base">Coffee Table</option>
+            <option value="a sculptural stone side table with a thick polished stone top on a solid pedestal base">Side Table</option>
+            <option value="a tall cylindrical stone plinth pedestal column for display">Stone Plinth</option>
+            <option value="a long narrow stone console table with a thick slab top on a slim minimal base">Console Table</option>
+          </select>
+        </div>
+        <div class="rf-stone-row" style="padding-top:10px;padding-bottom:4px;">
+          <label style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:8px;">Stone material</label>
           <select id="ai-stone">
-            <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy">Rosso Africano — Red Marble</option>
-            <option value="Carrara white marble with delicate soft grey veining from Italy">Carrara — White Marble</option>
-            <option value="Verde Apli deep green marble with bold white and gold veining">Verde Apli — Green Marble</option>
-            <option value="Basalt Black honed matte black volcanic stone from Spain">Basalt Black — Stone</option>
+            <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy, polished finish">Rosso Africano — Red Marble</option>
+            <option value="Green Calacatta marble with deep forest green background and bold white and gold veining, polished">Green Calacatta — Green Marble</option>
+            <option value="Verde Apli deep jewel-green marble with bold white and gold veining from Spain">Verde Apli — Green Marble</option>
+            <option value="Carrara white marble with delicate soft grey veining from Italy, honed matte finish">Carrara — White Marble</option>
+            <option value="Rosso Levanto deep burgundy-red marble with fine white veining from Italy">Rosso Levanto — Red Marble</option>
+            <option value="Navarro warm beige limestone with soft natural fossil texture from Spain">Navarro — Beige Limestone</option>
+            <option value="Dekton Sirius ultra-compact stone with dramatic dark charcoal and silver veining, matte finish">Dekton Sirius — Dark Stone</option>
+            <option value="Natural Travertine warm ivory stone with organic pitted texture and soft tan tones">Travertine — Ivory Stone</option>
+            <option value="Florim grey large-format porcelain with subtle concrete texture and cool grey tones">Florim — Grey Porcelain</option>
+            <option value="Basalt Black honed matte black volcanic stone, deeply dark with fine crystalline texture">Basalt Black — Black Stone</option>
           </select>
         </div>
         <div id="ai-error" style="display:none;padding:10px 20px 4px;font-size:12px;color:#7a3a2a;"></div>
@@ -987,74 +993,6 @@
     window.addEventListener('touchend',   () => { dragging = false; });
   })();
 
-  const PRODUCTS = [
-    { id: 'p1',  imgSrc: 'table-1.jpg',    name: 'Table I',       prompt: 'a sculptural stone coffee table with a thick dramatic stone slab top on a geometric metal base' },
-    { id: 'p2',  imgSrc: 'table-2.jpg',    name: 'Table II',      prompt: 'a sculptural stone side table with a thick polished stone slab top on a solid stone base' },
-    { id: 'p3',  imgSrc: 'table-3.jpg',    name: 'Table III',     prompt: 'a sculptural stone coffee table with a wide polished stone slab top' },
-    { id: 'p4',  imgSrc: 'table-4.jpg',    name: 'Table IV',      prompt: 'a low sculptural stone coffee table with a dramatic veined stone slab top on a minimal base' },
-    { id: 'p5',  imgSrc: 'table-5.jpg',    name: 'Table V',       prompt: 'a sculptural stone side table with a thick stone top and solid stone pedestal base' },
-    { id: 'p6',  imgSrc: 'table-6.jpg',    name: 'Table VI',      prompt: 'a sculptural stone coffee table with a thick stone slab top on a slim metal frame base' },
-    { id: 'p7',  imgSrc: 'table-7.jpg',    name: 'Table VII',     prompt: 'a sculptural stone side table with a round stone top on a thin metal hairpin base' },
-    { id: 'p8',  imgSrc: 'table-8.jpg',    name: 'Table VIII',    prompt: 'a sculptural stone coffee table with a large rectangular stone slab top' },
-    { id: 'p9',  imgSrc: 'table-9.jpg',    name: 'Table IX',      prompt: 'a sculptural stone side table with a thick square stone top on a solid base' },
-    { id: 'p10', imgSrc: 'table-10.jpg',   name: 'Table X',       prompt: 'a sculptural stone coffee table with a wide stone slab top on a geometric base' },
-    { id: 'p11', imgSrc: 'table-11.jpg',   name: 'Table XI',      prompt: 'a sculptural stone table with a dramatic veined stone slab top on a metal base' },
-    { id: 'p12', imgSrc: 'table-12.jpg',   name: 'Table XII',     prompt: 'a sculptural stone coffee table with a polished stone top on a slim minimal base' },
-    { id: 'p13', imgSrc: 'table-13.jpg',   name: 'Table XIII',    prompt: 'a sculptural stone side table with a thick stone slab top and chunky solid base' },
-    { id: 'p14', imgSrc: 'table-14.jpg',   name: 'Table XIV',     prompt: 'a sculptural stone coffee table with a large dramatic stone slab top' },
-    { id: 'p15', imgSrc: 'table-16.jpg',   name: 'Table XVI',     prompt: 'a sculptural stone table with a thick polished stone slab top on a geometric steel base' },
-    { id: 'p16', imgSrc: 'side-1.jpg',     name: 'Side Table I',  prompt: 'a sculptural stone side table with a thick stone top on a solid stone pedestal base' },
-    { id: 'p17', imgSrc: 'side-2 (1).jpg', name: 'Side Table II', prompt: 'a sculptural stone side table with a round stone top on a slim metal base' },
-  ];
-
-  const productImageCache = {};
-  function preloadProductImages() {
-    PRODUCTS.forEach(product => {
-      const img = new Image();
-      img.onload = () => {
-        try {
-          const canvas = document.createElement('canvas');
-          canvas.width  = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          canvas.getContext('2d').drawImage(img, 0, 0);
-          const dataURL = canvas.toDataURL('image/jpeg', 0.92);
-          productImageCache[product.id] = { base64: dataURL.split(',')[1], mime: 'image/jpeg' };
-        } catch(e) { console.warn('Canvas encode failed for:', product.imgSrc, e); }
-      };
-      img.onerror = () => console.warn('Image load failed:', product.imgSrc);
-      img.src = product.imgSrc;
-    });
-  }
-  preloadProductImages();
-
-  let selectedProductId = PRODUCTS[0]?.id || null;
-  function buildProductPicker() {
-    const picker = document.getElementById('product-picker');
-    if (!picker) return;
-    picker.innerHTML = '';
-    PRODUCTS.forEach(product => {
-      const card = document.createElement('div');
-      card.className = 'product-card' + (product.id === selectedProductId ? ' selected' : '');
-      card.dataset.id = product.id;
-      card.innerHTML = `
-        <img class="product-card-img" src="${product.imgSrc}" alt="${product.name}" loading="lazy">
-        <div class="product-card-name">${product.name}</div>
-        <div class="product-card-tick">
-          <svg viewBox="0 0 12 10" fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 5l3.5 3.5L11 1"/>
-          </svg>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        selectedProductId = product.id;
-        picker.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-      });
-      picker.appendChild(card);
-    });
-  }
-  buildProductPicker();
-
   let aiImageBase64 = null, aiImageMime = 'image/jpeg', aiPollInterval = null;
   const uploadInput   = document.getElementById('lounge-upload');
   const uploadPreview = document.getElementById('upload-preview');
@@ -1109,11 +1047,8 @@
 
   aiGenerateBtn.addEventListener('click', async () => {
     if (!aiImageBase64) return;
-    const stone   = document.getElementById('ai-stone').value;
-    const product = PRODUCTS.find(p => p.id === selectedProductId) || PRODUCTS[0];
-    const cached  = productImageCache[product.id];
-    const productImageBase64 = cached ? cached.base64 : null;
-    const productImageMime   = cached ? cached.mime   : 'image/jpeg';
+    const stone = document.getElementById('ai-stone').value;
+    const piece = document.getElementById('ai-piece').value;
     aiGenerateBtn.disabled     = true;
     aiError.style.display      = 'none';
     aiRenderForm.style.display = 'none';
@@ -1124,7 +1059,7 @@
     try {
       const res = await fetch('/api/render', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageBase64: aiImageBase64, imageMime: aiImageMime, stone, piece: product.prompt, productImageBase64, productImageMime, productName: product.name }),
+        body: JSON.stringify({ imageBase64: aiImageBase64, imageMime: aiImageMime, stone, piece }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || 'Something went wrong');
