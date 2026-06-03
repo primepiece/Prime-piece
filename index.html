@@ -337,7 +337,13 @@
   .upload-preview .file-meta { font-size: 12px; color: var(--ink-soft); overflow: hidden; min-width: 0; }
   .upload-preview .file-meta strong { display: block; color: var(--ink); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .rf-stone-row label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; display: block; margin-bottom: 8px; }
+  .rf-field-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; display: block; margin-bottom: 8px; }
+  .rf-input { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 1px; font-family: var(--body); font-size: 12px; color: var(--ink); background: var(--cream); transition: border-color 0.2s; appearance: none; box-sizing: border-box; }
+  .rf-input:focus { outline: none; border-color: var(--sage); }
+  select.rf-input { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; background-color: var(--cream); }
+  @media (max-width: 520px) {
+    .rf-input-grid { grid-template-columns: 1fr !important; }
+  }
 
   .rf-stone-row { padding: 0 20px 4px; }
   .rf-stone-row select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 1px; font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--ink); background: var(--cream); transition: border-color 0.2s; appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'><path d='M1 1L5 5L9 1' stroke='%237BA5A8' stroke-width='1.5' stroke-linecap='round' fill='none'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
@@ -622,101 +628,179 @@
   <div class="render-intro reveal">
     <span class="section-label">Free Room Render</span>
     <h2>See it in your <em>space</em>.</h2>
-    <p>Upload a photo of your room — AI places a Prime Piece into it instantly. Free, no commitment.</p>
+    <p>Send us a photo of your room. We personally render your Prime Piece into it and send it back — free, no commitment.</p>
   </div>
+
+  <!-- Slider 1 -->
   <div class="ba2-wrap reveal">
-    <div class="ba2-slider" id="ba2-slider">
+    <div class="ba2-slider ba2-instance" id="ba2-slider-1">
       <div class="ba2-layer ba2-after">
         <img src="after.png" alt="After — with Prime Piece">
       </div>
-      <div class="ba2-layer ba2-before" id="ba2-before">
+      <div class="ba2-layer ba2-before">
         <img src="before.png" alt="Before">
       </div>
-      <div class="ba2-divider" id="ba2-divider"></div>
-      <div class="ba2-handle" id="ba2-handle">
+      <div class="ba2-divider"></div>
+      <div class="ba2-handle">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M7 4L2 10L7 16M13 4L18 10L13 16"/>
         </svg>
       </div>
-      <span class="ba2-pill ba2-pill-before">Before Prime Piece</span>
+      <span class="ba2-pill ba2-pill-before">Before</span>
       <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
     </div>
   </div>
   <p class="ba2-note">Drag to compare</p>
+
+  <!-- Slider 2 -->
+  <div class="ba2-wrap reveal" style="margin-top:32px;">
+    <div class="ba2-slider ba2-instance" id="ba2-slider-2">
+      <div class="ba2-layer ba2-after">
+        <img src="after2.png" alt="After — with Prime Piece">
+      </div>
+      <div class="ba2-layer ba2-before">
+        <img src="before2.png" alt="Before">
+      </div>
+      <div class="ba2-divider"></div>
+      <div class="ba2-handle">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 4L2 10L7 16M13 4L18 10L13 16"/>
+        </svg>
+      </div>
+      <span class="ba2-pill ba2-pill-before">Before</span>
+      <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
+    </div>
+  </div>
+  <p class="ba2-note">Drag to compare</p>
+
+  <!-- Slider 3 -->
+  <div class="ba2-wrap reveal" style="margin-top:32px;">
+    <div class="ba2-slider ba2-instance" id="ba2-slider-3">
+      <div class="ba2-layer ba2-after">
+        <img src="after3.png" alt="After — with Prime Piece">
+      </div>
+      <div class="ba2-layer ba2-before">
+        <img src="before3.png" alt="Before">
+      </div>
+      <div class="ba2-divider"></div>
+      <div class="ba2-handle">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 4L2 10L7 16M13 4L18 10L13 16"/>
+        </svg>
+      </div>
+      <span class="ba2-pill ba2-pill-before">Before</span>
+      <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
+    </div>
+  </div>
+  <p class="ba2-note" style="margin-bottom:80px;">Drag to compare</p>
+
+  <!-- Lead Capture Form -->
   <div class="render-form-outer reveal">
     <div class="render-form-head">
-      <h3>Try it with your room</h3>
-      <p>Upload a photo, pick your piece — AI renders it instantly.</p>
+      <h3>Get yours done — free.</h3>
+      <p>Upload your room, tell us what you're after. We'll render it personally and send it back within 24 hours.</p>
     </div>
     <div class="render-card">
       <div class="render-card-header">
-        <span class="render-card-title">Upload your room</span>
-        <span class="render-card-badge">AI — instant</span>
+        <span class="render-card-title">Free render request</span>
+        <span class="render-card-badge">Personal — 24hrs</span>
       </div>
-      <div id="ai-render-form">
-        <label class="upload-zone" id="upload-zone" for="lounge-upload">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-            <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M3 17V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V17" stroke-linecap="round"/>
-          </svg>
-          <h4>Upload your room</h4>
-          <p>Drop a photo or tap to upload</p>
-          <input type="file" id="lounge-upload" accept="image/*">
-        </label>
-        <div class="upload-preview" id="upload-preview">
-          <img id="preview-thumb" alt="">
-          <div class="file-meta">
-            <strong id="preview-name"></strong>
-            <span id="preview-size"></span>
+
+      <div id="render-form-wrap">
+        <!-- Name + Email -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:20px 20px 0;">
+          <div>
+            <label class="rf-field-label">Your name</label>
+            <input class="rf-input" id="rf-name" type="text" placeholder="James">
+          </div>
+          <div>
+            <label class="rf-field-label">Email address</label>
+            <input class="rf-input" id="rf-email" type="email" placeholder="you@email.com">
           </div>
         </div>
-        <div class="rf-stone-row" style="padding-top:14px;">
-          <label style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:8px;">Piece type</label>
-          <select id="ai-piece">
-            <option value="a sculptural stone coffee table with a thick dramatic veined stone slab top on a geometric base">Coffee Table</option>
-            <option value="a sculptural stone side table with a thick polished stone top on a solid pedestal base">Side Table</option>
-            <option value="a tall cylindrical stone plinth pedestal column for display">Stone Plinth</option>
-            <option value="a long narrow stone console table with a thick slab top on a slim minimal base">Console Table</option>
-          </select>
+
+        <!-- Piece + Stone -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px 0;">
+          <div>
+            <label class="rf-field-label">Piece type</label>
+            <select class="rf-input" id="rf-piece">
+              <option value="Coffee Table">Coffee Table</option>
+              <option value="Side Table">Side Table</option>
+              <option value="Stone Plinth">Stone Plinth</option>
+              <option value="Console Table">Console Table</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </div>
+          <div>
+            <label class="rf-field-label">Stone interest</label>
+            <select class="rf-input" id="rf-stone">
+              <option value="Rosso Africano">Rosso Africano</option>
+              <option value="Green Calacatta">Green Calacatta</option>
+              <option value="Verde Apli">Verde Apli</option>
+              <option value="Carrara White">Carrara White</option>
+              <option value="Rosso Levanto">Rosso Levanto</option>
+              <option value="Navarro">Navarro</option>
+              <option value="Dekton Sirius">Dekton Sirius</option>
+              <option value="Travertine">Travertine</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </div>
         </div>
-        <div class="rf-stone-row" style="padding-top:10px;padding-bottom:4px;">
-          <label style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:8px;">Stone material</label>
-          <select id="ai-stone">
-            <option value="Rosso Africano red marble with dramatic crimson and burgundy veining from Italy, polished finish">Rosso Africano — Red Marble</option>
-            <option value="Green Calacatta marble with deep forest green background and bold white and gold veining, polished">Green Calacatta — Green Marble</option>
-            <option value="Verde Apli deep jewel-green marble with bold white and gold veining from Spain">Verde Apli — Green Marble</option>
-            <option value="Carrara white marble with delicate soft grey veining from Italy, honed matte finish">Carrara — White Marble</option>
-            <option value="Rosso Levanto deep burgundy-red marble with fine white veining from Italy">Rosso Levanto — Red Marble</option>
-            <option value="Navarro warm beige limestone with soft natural fossil texture from Spain">Navarro — Beige Limestone</option>
-            <option value="Dekton Sirius ultra-compact stone with dramatic dark charcoal and silver veining, matte finish">Dekton Sirius — Dark Stone</option>
-            <option value="Natural Travertine warm ivory stone with organic pitted texture and soft tan tones">Travertine — Ivory Stone</option>
-            <option value="Florim grey large-format porcelain with subtle concrete texture and cool grey tones">Florim — Grey Porcelain</option>
-            <option value="Basalt Black honed matte black volcanic stone, deeply dark with fine crystalline texture">Basalt Black — Black Stone</option>
-          </select>
+
+        <!-- Room photo upload -->
+        <div style="padding:12px 20px 0;">
+          <label class="rf-field-label">Your room photo</label>
+          <label class="upload-zone" id="rf-upload-zone" for="rf-photo-input" style="margin-top:0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M12 15V3M12 3L7 8M12 3L17 8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 17V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V17" stroke-linecap="round"/>
+            </svg>
+            <h4 style="font-size:16px;">Drop your photo here</h4>
+            <p>or tap to browse</p>
+            <input type="file" id="rf-photo-input" accept="image/*">
+          </label>
+          <div class="upload-preview" id="rf-preview">
+            <img id="rf-preview-thumb" alt="">
+            <div class="file-meta">
+              <strong id="rf-preview-name"></strong>
+              <span id="rf-preview-size"></span>
+            </div>
+          </div>
         </div>
-        <div id="ai-error" style="display:none;padding:10px 20px 4px;font-size:12px;color:#7a3a2a;"></div>
-        <button type="button" class="render-submit" id="ai-generate-btn" disabled>
-          Generate My Render <span class="btn-arrow">→</span>
+
+        <!-- Notes -->
+        <div style="padding:12px 20px 0;">
+          <label class="rf-field-label">Anything else? <span style="color:var(--stone);font-weight:400;">(optional)</span></label>
+          <textarea class="rf-input" id="rf-notes" rows="2" placeholder="e.g. I have a dark sofa, want something that pops..." style="resize:none;"></textarea>
+        </div>
+
+        <div id="rf-error" style="display:none;padding:8px 20px 0;font-size:12px;color:#7a3a2a;"></div>
+
+        <button type="button" class="render-submit" id="rf-submit-btn">
+          Send My Room → We'll render it free
         </button>
       </div>
-      <div id="ai-loading" style="display:none;padding:32px 24px;text-align:center;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink-soft);font-style:italic;margin-bottom:14px;" id="ai-loading-text">Reading your room...</div>
-        <div style="width:100%;height:1px;background:var(--line);border-radius:1px;overflow:hidden;margin-bottom:10px;">
-          <div id="ai-progress" style="height:100%;background:var(--sage);width:0%;transition:width 0.8s ease;"></div>
-        </div>
-        <div style="font-size:11px;color:var(--stone);letter-spacing:0.1em;">Usually 20–40 seconds</div>
-      </div>
-      <div id="ai-result" style="display:none;">
-        <img id="ai-result-img" style="width:100%;display:block;max-height:480px;object-fit:cover;" alt="Your room with Prime Piece">
-        <div style="padding:1.25rem 1.25rem 1rem;">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ink);margin-bottom:6px;">Your space, transformed.</div>
-          <p style="font-size:12px;color:var(--stone);line-height:1.7;margin-bottom:1rem;">AI-generated visualisation — actual stone colour and texture will vary. Every piece is one of one.</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
-            <button type="button" class="btn" id="ai-try-again" style="justify-content:center;">Try another →</button>
-            <a href="plinths.html" class="btn btn-primary" style="justify-content:center;">Shop Now →</a>
-          </div>
+
+      <!-- Sending state -->
+      <div id="rf-sending" style="display:none;padding:40px 24px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink-soft);font-style:italic;margin-bottom:14px;">Sending your room...</div>
+        <div style="width:100%;height:1px;background:var(--line);border-radius:1px;overflow:hidden;">
+          <div style="height:100%;background:var(--sage);width:60%;transition:width 1s ease;"></div>
         </div>
       </div>
+
+      <!-- Success state -->
+      <div id="rf-success" style="display:none;padding:48px 28px;text-align:center;">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg viewBox="0 0 20 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:16px;">
+            <path d="M1 8l5.5 6L19 1"/>
+          </svg>
+        </div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;color:var(--ink);margin-bottom:10px;">You're in — check your inbox.</div>
+        <p style="font-size:13px;color:var(--ink-soft);line-height:1.75;max-width:300px;margin:0 auto 24px;">We'll have your personalised render ready within 24 hours. Every render is done by hand, not a bot.</p>
+        <a href="plinths.html" class="btn btn-primary" style="display:inline-flex;justify-content:center;">Browse the collection →</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -970,20 +1054,17 @@
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  (function() {
-    const slider  = document.getElementById('ba2-slider');
-    const before  = document.getElementById('ba2-before');
-    const divider = document.getElementById('ba2-divider');
-    const handle  = document.getElementById('ba2-handle');
-    if (!slider) return;
+  // Before/after sliders — works for all instances
+  document.querySelectorAll('.ba2-instance').forEach(slider => {
     let dragging = false;
+    const before  = slider.querySelector('.ba2-before');
+    const divider = slider.querySelector('.ba2-divider');
+    const handle  = slider.querySelector('.ba2-handle');
     function setPos(clientX) {
       const rect = slider.getBoundingClientRect();
       let pct = Math.max(0.03, Math.min(0.97, (clientX - rect.left) / rect.width));
-      const p = (pct * 100).toFixed(2) + '%';
       before.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
-      divider.style.left = p;
-      handle.style.left  = p;
+      divider.style.left = handle.style.left = (pct * 100).toFixed(2) + '%';
     }
     slider.addEventListener('mousedown',  e => { dragging = true; setPos(e.clientX); });
     window.addEventListener('mousemove',  e => { if (dragging) setPos(e.clientX); });
@@ -991,103 +1072,80 @@
     slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchmove',  e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('touchend',   () => { dragging = false; });
-  })();
+  });
 
-  let aiImageBase64 = null, aiImageMime = 'image/jpeg', aiPollInterval = null;
-  const uploadInput   = document.getElementById('lounge-upload');
-  const uploadPreview = document.getElementById('upload-preview');
-  const previewThumb  = document.getElementById('preview-thumb');
-  const previewName   = document.getElementById('preview-name');
-  const previewSize   = document.getElementById('preview-size');
-  const uploadZone    = document.getElementById('upload-zone');
-  const aiGenerateBtn = document.getElementById('ai-generate-btn');
-  const aiRenderForm  = document.getElementById('ai-render-form');
-  const aiLoading     = document.getElementById('ai-loading');
-  const aiLoadingText = document.getElementById('ai-loading-text');
-  const aiProgress    = document.getElementById('ai-progress');
-  const aiResult      = document.getElementById('ai-result');
-  const aiResultImg   = document.getElementById('ai-result-img');
-  const aiError       = document.getElementById('ai-error');
-  const aiTryAgain    = document.getElementById('ai-try-again');
+  // Render request form
+  let rfImageBase64 = null, rfImageMime = 'image/jpeg';
 
-  function loadFile(file) {
-    aiImageMime = file.type || 'image/jpeg';
+  const rfUploadZone  = document.getElementById('rf-upload-zone');
+  const rfPhotoInput  = document.getElementById('rf-photo-input');
+  const rfPreview     = document.getElementById('rf-preview');
+  const rfPreviewThumb = document.getElementById('rf-preview-thumb');
+  const rfPreviewName  = document.getElementById('rf-preview-name');
+  const rfPreviewSize  = document.getElementById('rf-preview-size');
+
+  function rfLoadFile(file) {
+    rfImageMime = file.type || 'image/jpeg';
     const reader = new FileReader();
     reader.onload = ev => {
-      aiImageBase64 = ev.target.result.split(',')[1];
-      previewThumb.src = ev.target.result;
-      previewName.textContent = file.name;
-      previewSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-      uploadPreview.classList.add('active');
-      aiGenerateBtn.disabled = false;
+      rfImageBase64 = ev.target.result.split(',')[1];
+      rfPreviewThumb.src = ev.target.result;
+      rfPreviewName.textContent = file.name;
+      rfPreviewSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+      rfPreview.classList.add('active');
     };
     reader.readAsDataURL(file);
   }
 
-  uploadInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
-  uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.style.background = 'rgba(123,165,168,0.07)'; });
-  uploadZone.addEventListener('dragleave', () => { uploadZone.style.background = ''; });
-  uploadZone.addEventListener('drop', e => {
+  rfPhotoInput.addEventListener('change', e => { if (e.target.files[0]) rfLoadFile(e.target.files[0]); });
+  rfUploadZone.addEventListener('dragover',  e => { e.preventDefault(); rfUploadZone.style.background = 'rgba(123,165,168,0.07)'; });
+  rfUploadZone.addEventListener('dragleave', () => { rfUploadZone.style.background = ''; });
+  rfUploadZone.addEventListener('drop', e => {
     e.preventDefault();
-    uploadZone.style.background = '';
+    rfUploadZone.style.background = '';
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
-      const dt = new DataTransfer(); dt.items.add(file); uploadInput.files = dt.files;
-      loadFile(file);
+      const dt = new DataTransfer(); dt.items.add(file); rfPhotoInput.files = dt.files;
+      rfLoadFile(file);
     }
   });
 
-  function showFormError(msg) {
-    aiLoading.style.display    = 'none';
-    aiRenderForm.style.display = 'block';
-    aiError.textContent        = msg;
-    aiError.style.display      = 'block';
-    aiGenerateBtn.disabled     = false;
-  }
+  document.getElementById('rf-submit-btn').addEventListener('click', async () => {
+    const name  = document.getElementById('rf-name').value.trim();
+    const email = document.getElementById('rf-email').value.trim();
+    const piece = document.getElementById('rf-piece').value;
+    const stone = document.getElementById('rf-stone').value;
+    const notes = document.getElementById('rf-notes').value.trim();
+    const rfError = document.getElementById('rf-error');
 
-  aiGenerateBtn.addEventListener('click', async () => {
-    if (!aiImageBase64) return;
-    const stone = document.getElementById('ai-stone').value;
-    const piece = document.getElementById('ai-piece').value;
-    aiGenerateBtn.disabled     = true;
-    aiError.style.display      = 'none';
-    aiRenderForm.style.display = 'none';
-    aiLoading.style.display    = 'block';
-    aiResult.style.display     = 'none';
-    aiProgress.style.width     = '6%';
-    aiLoadingText.textContent  = 'Reading your room...';
+    if (!name || !email) { rfError.textContent = 'Please enter your name and email.'; rfError.style.display = 'block'; return; }
+    if (!email.includes('@')) { rfError.textContent = 'Please enter a valid email address.'; rfError.style.display = 'block'; return; }
+    rfError.style.display = 'none';
+
+    document.getElementById('render-form-wrap').style.display = 'none';
+    document.getElementById('rf-sending').style.display = 'block';
+
     try {
-      const res = await fetch('/api/render', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageBase64: aiImageBase64, imageMime: aiImageMime, stone, piece }),
+      const res = await fetch('/api/enquire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, piece, stone, notes, imageBase64: rfImageBase64, imageMime: rfImageMime })
       });
       const data = await res.json();
-      if (!res.ok || !data.success) throw new Error(data.error || 'Something went wrong');
-      aiProgress.style.width    = '28%';
-      aiLoadingText.textContent = 'Generating render...';
-      let attempts = 0;
-      aiPollInterval = setInterval(async () => {
-        attempts++;
-        if (attempts > 60) { clearInterval(aiPollInterval); showFormError('Timed out — please try again.'); return; }
-        aiProgress.style.width = Math.min(28 + (attempts / 60) * 62, 90) + '%';
-        try {
-          const pr = await fetch('/api/poll?id=' + data.predictionId);
-          const pd = await pr.json();
-          if (pd.status === 'succeeded' && pd.imageUrl) {
-            clearInterval(aiPollInterval);
-            aiProgress.style.width = '100%';
-            aiResultImg.src = pd.imageUrl;
-            aiResultImg.onload = () => { aiLoading.style.display = 'none'; aiResult.style.display = 'block'; };
-          } else if (pd.status === 'failed') { clearInterval(aiPollInterval); showFormError('Generation failed — please try again.'); }
-        } catch(e) {}
-      }, 2000);
-    } catch(err) { showFormError(err.message); }
-  });
-
-  aiTryAgain.addEventListener('click', () => {
-    aiResult.style.display     = 'none';
-    aiRenderForm.style.display = 'block';
-    aiGenerateBtn.disabled     = false;
+      document.getElementById('rf-sending').style.display = 'none';
+      if (res.ok && data.success) {
+        document.getElementById('rf-success').style.display = 'block';
+      } else {
+        document.getElementById('render-form-wrap').style.display = 'block';
+        rfError.textContent = data.error || 'Something went wrong — please try again.';
+        rfError.style.display = 'block';
+      }
+    } catch(err) {
+      document.getElementById('rf-sending').style.display = 'none';
+      document.getElementById('render-form-wrap').style.display = 'block';
+      rfError.textContent = 'Network error — please try again.';
+      rfError.style.display = 'block';
+    }
   });
 </script>
 
