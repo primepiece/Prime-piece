@@ -401,7 +401,26 @@
 
 <div class="plinths-grid" id="plinths-grid">
 
-  <!-- 1. Rosso Africano Table $4,900 -->
+  <!-- 1. Green Calacatta Marble Table — Hero piece -->
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Green Calacatta Marble Table','Green Calacatta Marble','plinth-8.jpg','L: 950mm × W: 760mm × H: 280mm','Coffee Table Plinth',4000,'plinth-green-calacatta-table',true)">
+    <div class="plinth-img-wrap">
+      <span class="plinth-badge plinth-badge--sold">Sold</span>
+      <img class="plinth-img" src="plinth-8.jpg" alt="Green Calacatta marble coffee table plinth Auckland New Zealand" loading="lazy">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="plinth-info">
+      <div class="plinth-name">Green Calacatta Marble</div>
+      <div class="plinth-stone">Green Calacatta Marble</div>
+      <div class="plinth-dims">L: 950mm × W: 760mm × H: 280mm</div>
+      <div class="plinth-price">NZD $4,000 <span style="font-size:11px;color:var(--stone);margin-left:6px;">— Sold</span></div>
+      <div class="plinth-foot">
+        <span class="plinth-type">Coffee Table Plinth</span>
+        <button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Rosso Africano Table $4,900 -->
   <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Africano Marble Table','Rosso Africano Marble','plinth-7.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',4900,'plinth-rosso-africano-table-2')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
@@ -412,10 +431,13 @@
       <div class="plinth-name">Rosso Africano Marble</div>
       <div class="plinth-stone">Rosso Africano Marble</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
-      <div class="plinth-price">NZD $4,900 <span style="font-size:11px;color:var(--stone);margin-left:6px;">or table + plinth for $7,900</span></div>
-      <div class="plinth-foot">
-        <span class="plinth-type">Coffee Table Plinth</span>
-        <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-table-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-table-2',name:'Rosso Africano Marble Table',type:'Coffee Table Plinth',image:'plinth-7.jpg',price:4900})">Add to Cart →</button>
+      <div class="plinth-price">NZD $4,900</div>
+      <div class="plinth-foot" style="flex-direction:column;gap:8px;align-items:stretch;">
+        <div style="display:flex;gap:8px;">
+          <span class="plinth-type">Coffee Table Plinth</span>
+          <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-table-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-table-2',name:'Rosso Africano Marble Table',type:'Coffee Table Plinth',image:'plinth-7.jpg',price:4900})">Add to Cart →</button>
+        </div>
+        <button class="enquire-btn" style="background:var(--gold);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;" onclick="event.stopPropagation(); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-7.jpg',price:7000})">Buy Both for NZD $7,000 →</button>
       </div>
     </div>
   </div>
@@ -431,10 +453,13 @@
       <div class="plinth-name">Rosso Africano Marble</div>
       <div class="plinth-stone">Rosso Africano Marble</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
-      <div class="plinth-price">NZD $3,800 <span style="font-size:11px;color:var(--stone);margin-left:6px;">or table + plinth for $7,900</span></div>
-      <div class="plinth-foot">
-        <span class="plinth-type">Plinth</span>
-        <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-plinth" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-plinth',name:'Rosso Africano Marble',type:'Plinth',image:'plinth-3.jpg',price:3800})">Add to Cart →</button>
+      <div class="plinth-price">NZD $3,800</div>
+      <div class="plinth-foot" style="flex-direction:column;gap:8px;align-items:stretch;">
+        <div style="display:flex;gap:8px;">
+          <span class="plinth-type">Plinth</span>
+          <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-plinth" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-plinth',name:'Rosso Africano Marble',type:'Plinth',image:'plinth-3.jpg',price:3800})">Add to Cart →</button>
+        </div>
+        <button class="enquire-btn" style="background:var(--gold);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;" onclick="event.stopPropagation(); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-3.jpg',price:7000})">Buy Both for NZD $7,000 →</button>
       </div>
     </div>
   </div>
@@ -587,25 +612,6 @@
       <div class="plinth-foot">
         <span class="plinth-type">Side Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-grey-porcelain-450" onclick="event.stopPropagation(); Cart.add({id:'plinth-grey-porcelain-450',name:'Grey Porcelain Side Plinth',type:'Side Plinth',image:'plinth-2.jpg',price:700})">Add to Cart →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 11. Green Calacatta Table — Sold -->
-  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Green Calacatta Marble Table','Green Calacatta Marble','plinth-8.jpg','L: 950mm × W: 760mm × H: 280mm','Coffee Table Plinth',4000,'plinth-green-calacatta-table',true)">
-    <div class="plinth-img-wrap">
-      <span class="plinth-badge plinth-badge--sold">Sold</span>
-      <img class="plinth-img" src="plinth-8.jpg" alt="Green Calacatta marble coffee table plinth Auckland New Zealand" loading="lazy">
-      <div class="view-btn">View Piece →</div>
-    </div>
-    <div class="plinth-info">
-      <div class="plinth-name">Green Calacatta Marble</div>
-      <div class="plinth-stone">Green Calacatta Marble</div>
-      <div class="plinth-dims">L: 950mm × W: 760mm × H: 280mm</div>
-      <div class="plinth-price">NZD $4,000 <span style="font-size:11px;color:var(--stone);margin-left:6px;">— Sold</span></div>
-      <div class="plinth-foot">
-        <span class="plinth-type">Coffee Table Plinth</span>
-        <button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button>
       </div>
     </div>
   </div>
