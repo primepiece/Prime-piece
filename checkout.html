@@ -321,6 +321,16 @@
     </div>
 
     <div class="section-divider"></div>
+    <span class="section-label-sm">Promo Code</span>
+    <div class="field" style="flex-direction:row;gap:8px;align-items:flex-end;">
+      <div style="flex:1;">
+        <input type="text" id="promo-code" placeholder="Enter code" style="text-transform:uppercase;">
+      </div>
+      <button type="button" id="promo-btn" onclick="applyPromo()" style="padding:13px 20px;background:var(--sage);color:white;border:none;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;font-weight:500;cursor:pointer;border-radius:1px;white-space:nowrap;">Apply</button>
+    </div>
+    <div id="promo-msg" style="font-size:12px;margin-top:-8px;margin-bottom:12px;display:none;"></div>
+
+    <div class="section-divider"></div>
     <span class="section-label-sm">Payment</span>
 
     <div id="payment-element"></div>
@@ -374,6 +384,10 @@
       <div class="summary-row">
         <span class="summary-row-label">Delivery</span>
         <span class="summary-row-val" id="summary-delivery">Free (Pickup)</span>
+      </div>
+      <div class="summary-row" id="discount-row" style="display:none;">
+        <span class="summary-row-label" style="color:#5a8a5a;">Discount (10%)</span>
+        <span class="summary-row-val" id="summary-discount" style="color:#5a8a5a;">-$0</span>
       </div>
       <div class="summary-total-row">
         <span class="summary-total-label">Total (NZD)</span>
@@ -469,7 +483,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: cart,
+          items: discountRate > 0 ? [{name: 'Order (promo applied)', price: discountedTotal}] : cart,
           customer: {
             name: firstName + ' ' + lastName,
             email,
@@ -559,6 +573,30 @@
   }
 
   function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
+
+  const PROMO_CODES = { 'PRIME10': 0.10 };
+  let discountRate = 0;
+  let discountedTotal = total;
+
+  function applyPromo() {
+    const code = document.getElementById('promo-code').value.trim().toUpperCase();
+    const msg = document.getElementById('promo-msg');
+    msg.style.display = 'block';
+    if (PROMO_CODES[code]) {
+      discountRate = PROMO_CODES[code];
+      const discount = Math.round(total * discountRate);
+      discountedTotal = total - discount;
+      document.getElementById('discount-row').style.display = 'flex';
+      document.getElementById('summary-discount').textContent = '-' + fmt(discount);
+      document.getElementById('summary-total').textContent = fmt(discountedTotal);
+      msg.style.color = '#5a8a5a';
+      msg.textContent = '✓ Code applied — 10% off';
+      elements = null;
+    } else {
+      msg.style.color = '#7a3020';
+      msg.textContent = 'Invalid promo code.';
+    }
+  }
 </script>
 </body>
 </html>
