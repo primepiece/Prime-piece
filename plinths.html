@@ -437,7 +437,7 @@
           <span class="plinth-type">Coffee Table Plinth</span>
           <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-table-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-table-2',name:'Rosso Africano Marble Table',type:'Coffee Table Plinth',image:'plinth-7.jpg',price:4900})">Add to Cart →</button>
         </div>
-        <button class="enquire-btn" style="background:var(--gold);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;" onclick="event.stopPropagation(); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-7.jpg',price:7000})">Buy Both for NZD $7,000 →</button>
+        <button class="enquire-btn" style="background:var(--gold);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;" onclick="event.stopPropagation(); Cart.remove('plinth-rosso-africano-table-2'); Cart.remove('plinth-rosso-africano-plinth'); Cart.remove('rosso-bundle'); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-7.jpg',price:7000})">Buy Both for NZD $7,000 →</button>
       </div>
     </div>
   </div>
