@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (!resendKey) return res.status(500).json({ error: 'Email not configured' });
 
   const attachments = [];
-  if (imageBase64) {
+  if (imageBase64 && imageBase64.length < 3000000) {
     attachments.push({
       filename: 'room.jpg',
       content: imageBase64,
@@ -51,9 +51,9 @@ export default async function handler(req, res) {
     });
 
     const emailData = await emailRes.json();
-    if (emailData.statusCode >= 400 || emailData.error) {
-      console.error('Resend error:', emailData);
-      return res.status(500).json({ error: 'Failed to send email' });
+    if (!emailRes.ok || emailData.error) {
+      console.error('Resend error:', JSON.stringify(emailData));
+      return res.status(500).json({ error: emailData.message || emailData.error || 'Failed to send email' });
     }
 
     return res.status(200).json({ success: true });
