@@ -1,1 +1,119 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Order Confirmed — Prime Piece</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F1EA;
+    --cream-soft: #EBE5DA;
+    --sage: #7BA5A8;
+    --sage-deep: #5D8588;
+    --ink: #2C2A26;
+    --ink-soft: #554F45;
+    --stone: #8A8275;
+    --line: rgba(44,42,38,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Inter Tight', sans-serif; font-weight: 300; min-height: 100vh; display: flex; flex-direction: column; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; border-bottom: 1px solid var(--line); background: var(--cream); }
+  .nav-logo { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 500; color: var(--ink); text-decoration: none; }
+
+  .success-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 24px; }
+  .success-card { max-width: 540px; width: 100%; text-align: center; }
+
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; }
+  .success-icon svg { width: 30px; height: 24px; }
+
+  .success-label { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 16px; display: block; }
+  .success-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 20px; }
+  .success-h1 em { font-style: italic; color: var(--sage); }
+  .success-script { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--sage); margin-bottom: 24px; display: block; }
+  .success-p { font-size: 14px; color: var(--ink-soft); line-height: 1.85; max-width: 420px; margin: 0 auto 40px; }
+
+  .success-details { background: var(--cream-soft); border: 1px solid var(--line); border-radius: 3px; padding: 24px; margin-bottom: 40px; text-align: left; }
+  .success-details-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .success-details-row:last-child { border-bottom: none; }
+  .success-details-label { color: var(--stone); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .success-details-val { color: var(--ink); font-weight: 400; }
+
+  .success-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 40px; }
+  .btn { display: flex; align-items: center; justify-content: center; padding: 14px 20px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; text-decoration: none; border-radius: 1px; transition: background 0.2s, color 0.2s; border: none; cursor: pointer; }
+  .btn-primary { background: var(--sage); color: var(--cream); }
+  .btn-primary:hover { background: var(--sage-deep); }
+  .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-outline:hover { border-color: var(--sage); color: var(--sage); }
+
+  .success-note { font-size: 11px; color: var(--stone); line-height: 1.7; }
+  .success-note a { color: var(--sage); text-decoration: none; }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 40px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--stone); }
+  footer a { color: var(--stone); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .success-btns { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Prime Piece</a>
+  <a href="plinths.html" style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);text-decoration:none;font-weight:500;">Continue Shopping →</a>
+</nav>
+
+<div class="success-wrap">
+  <div class="success-card">
+
+    <div class="success-icon">
+      <svg viewBox="0 0 30 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 12l8 8L28 2"/>
+      </svg>
+    </div>
+
+    <span class="success-label">Order Confirmed</span>
+    <h1 class="success-h1">Thank you for your<br><em>Prime Piece</em>.</h1>
+    <span class="success-script">one of one.</span>
+
+    <p class="success-p">Your order has been received and payment confirmed. James will be in touch within 24 hours to arrange delivery and answer any questions. Every piece leaves our Auckland workshop wrapped and protected.</p>
+
+    <div class="success-details">
+      <div class="success-details-row">
+        <span class="success-details-label">What happens next</span>
+        <span class="success-details-val">James contacts you within 24hrs</span>
+      </div>
+      <div class="success-details-row">
+        <span class="success-details-label">Delivery</span>
+        <span class="success-details-val">Auckland & NZ wide</span>
+      </div>
+      <div class="success-details-row">
+        <span class="success-details-label">Questions</span>
+        <span class="success-details-val">james@primepiece.co.nz</span>
+      </div>
+    </div>
+
+    <div class="success-btns">
+      <a href="plinths.html" class="btn btn-primary">Shop More Pieces →</a>
+      <a href="index.html" class="btn btn-outline">Back to Home</a>
+    </div>
+
+    <p class="success-note">A receipt has been sent to your email. Questions? Call <a href="tel:021146990">021 146 6990</a> or email <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a></p>
+
+  </div>
+</div>
+
+<footer>
+  <span>© 2025 Prime Piece — Auckland, New Zealand</span>
+  <a href="index.html">primepiece.co.nz</a>
+</footer>
+
+</body>
+</html>
