@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>10 Prime Pieces — Across Auckland</title>
 <meta name="description" content="10 sculptural stone pieces appearing across Auckland over 5 weeks. The final piece is hidden on the North Shore. First to find it wins.">
+<!-- Meta Pixel -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=722124784327437&ev=PageView&noscript=1"/></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
@@ -220,7 +223,7 @@
   .stat-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 500; }
   .stat-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; margin-top: 6px; }
 
-  /* TIMELINE */
+  /* TIMELINE / PIECE TRACKER */
   .timeline-section {
     padding: 0 56px 120px;
     border-top: 1px solid var(--line-inv);
@@ -238,44 +241,52 @@
   }
   .timeline-head h2 em { font-style: italic; color: var(--sage-soft); }
   .timeline-head p { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 300px; text-align: right; line-height: 1.75; }
-  .timeline-track {
+
+  .pieces-grid {
     display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 0; position: relative;
+    gap: 1px; background: var(--line-inv);
+    border: 1px solid var(--line-inv);
   }
-  .timeline-track::before {
-    content: '';
-    position: absolute; top: 28px; left: 28px; right: 28px; height: 1px;
-    background: linear-gradient(to right, var(--sage-soft), var(--gold));
-    opacity: 0.2;
-  }
-  .week-item {
-    padding: 0 20px 0 0;
-    position: relative;
-    cursor: default;
-  }
-  .week-dot {
-    width: 56px; height: 56px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.1);
+  .piece-card {
     background: #0E0D0B;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 28px;
-    position: relative; z-index: 1;
-    transition: border-color 0.3s, background 0.3s;
+    padding: 32px 24px;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative;
+    transition: background 0.3s;
   }
-  .week-item:hover .week-dot { border-color: var(--sage-soft); background: rgba(123,165,168,0.08); }
-  .week-item.final .week-dot { border-color: var(--gold); background: rgba(201,169,110,0.08); }
-  .week-item.final:hover .week-dot { background: rgba(201,169,110,0.15); }
-  .week-dot-num {
-    font-family: var(--display); font-size: 20px; font-weight: 300;
-    color: rgba(255,255,255,0.3);
-    transition: color 0.3s;
+  .piece-card:hover { background: rgba(255,255,255,0.03); }
+  .piece-card.status-live { background: rgba(123,165,168,0.05); }
+  .piece-card.status-live:hover { background: rgba(123,165,168,0.08); }
+  .piece-card.status-final { background: rgba(201,169,110,0.05); }
+  .piece-card.status-final:hover { background: rgba(201,169,110,0.09); }
+
+  .piece-num {
+    font-family: var(--display); font-size: 13px; font-weight: 300;
+    color: rgba(255,255,255,0.2); letter-spacing: 0.1em;
   }
-  .week-item:hover .week-dot-num { color: var(--sage-soft); }
-  .week-item.final .week-dot-num { color: var(--gold); }
-  .week-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.25); font-weight: 500; margin-bottom: 8px; }
-  .week-title { font-family: var(--display); font-size: 22px; font-weight: 300; color: #fff; margin-bottom: 8px; letter-spacing: -0.01em; }
-  .week-desc { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.7; }
-  .week-item.final .week-title { color: var(--gold); }
+  .piece-card.status-live .piece-num { color: var(--sage-soft); }
+  .piece-card.status-final .piece-num { color: var(--gold); }
+
+  .piece-status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500;
+    width: fit-content;
+  }
+  .pill-live { background: rgba(123,165,168,0.15); color: var(--sage-soft); border: 1px solid rgba(123,165,168,0.3); }
+  .pill-live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--sage-soft); animation: pulse 2s infinite; }
+  .pill-editing { background: rgba(201,169,110,0.1); color: var(--gold); border: 1px solid rgba(201,169,110,0.25); }
+  .pill-soon { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.1); }
+  .pill-hidden { background: rgba(201,169,110,0.12); color: var(--gold); border: 1px solid rgba(201,169,110,0.35); }
+  .pill-hidden::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+
+  .piece-views {
+    font-family: var(--display); font-size: 28px; font-weight: 300;
+    color: #fff; letter-spacing: -0.02em; line-height: 1;
+  }
+  .piece-card.status-live .piece-views { color: #fff; }
+  .piece-card:not(.status-live):not(.status-final) .piece-views { color: rgba(255,255,255,0.2); }
+  .piece-views-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); font-weight: 500; }
 
   /* HIDDEN PIECE */
   .hidden-section {
@@ -430,8 +441,7 @@
   @media (max-width: 1024px) {
     .concept { grid-template-columns: 1fr; gap: 48px; }
     .hidden-inner { grid-template-columns: 1fr; gap: 48px; padding: 56px 40px; }
-    .timeline-track { grid-template-columns: repeat(3, 1fr); }
-    .week-item:nth-child(4), .week-item:nth-child(5) { margin-top: 40px; }
+    .pieces-grid { grid-template-columns: repeat(5, 1fr); }
   }
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
@@ -441,8 +451,7 @@
     .timeline-section { padding: 0 24px 80px; }
     .timeline-head { padding: 64px 0 48px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .timeline-head p { text-align: left; }
-    .timeline-track { grid-template-columns: 1fr 1fr; }
-    .week-item:last-child { grid-column: 1 / -1; }
+    .pieces-grid { grid-template-columns: repeat(2, 1fr); }
     .hidden-section { margin: 0 24px; }
     .hidden-inner { padding: 48px 28px; gap: 40px; }
     .follow-section { padding: 80px 24px; }
@@ -450,8 +459,7 @@
   }
   @media (max-width: 480px) {
     .concept-right { grid-template-columns: 1fr; }
-    .timeline-track { grid-template-columns: 1fr; }
-    .week-item:last-child { grid-column: auto; }
+    .pieces-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -492,72 +500,103 @@
 <section class="concept" id="concept">
   <div class="concept-left reveal">
     <div class="section-tag">The Campaign</div>
-    <h2>5 weeks.<br>10 pieces.<br><em>One city.</em></h2>
-    <p>Over five weeks, Prime Piece sculptures, plinths and tables appear across Auckland. Each piece one of one — carved from natural stone, placed in the city, never repeated.</p>
+    <h2>10 pieces.<br>Auckland.<br><em>One of one.</em></h2>
+    <p>Ten handcrafted stone pieces taken to iconic Auckland locations. Each filmed, each unique, each never repeated. Sculptural furniture treated as art — placed in the city for the world to see.</p>
+    <p style="margin-top:16px;">The campaign ends with a hidden piece. Be the first to find it.</p>
   </div>
   <div class="concept-right reveal reveal-delay-2">
     <div class="stat-block">
-      <div class="stat-num">10<span>.</span></div>
-      <div class="stat-label">Pieces total</div>
-      <div class="stat-desc">Sculptural stone. Every one unique.</div>
+      <div class="stat-num">8.2<span>k</span></div>
+      <div class="stat-label">Views — Piece 001</div>
+      <div class="stat-desc">Organic reach. No paid promotion.</div>
     </div>
     <div class="stat-block">
-      <div class="stat-num">5<span>wks</span></div>
-      <div class="stat-label">Duration</div>
-      <div class="stat-desc">New pieces appearing weekly across the city.</div>
+      <div class="stat-num">4.7<span>k</span></div>
+      <div class="stat-label">Views in 12hrs — 005</div>
+      <div class="stat-desc">100+ likes. 20+ comments. Shared & reposted.</div>
     </div>
     <div class="stat-block">
-      <div class="stat-num">1<span>.</span></div>
-      <div class="stat-label">Hidden piece</div>
-      <div class="stat-desc">North Shore. Location to be revealed.</div>
+      <div class="stat-num">600<span>+</span></div>
+      <div class="stat-label">Followers gained</div>
+      <div class="stat-desc">Grew from 400 to 600+ through the campaign.</div>
     </div>
     <div class="stat-block">
       <div class="stat-num" style="color:var(--gold);">$1k</div>
-      <div class="stat-label">Prize value</div>
-      <div class="stat-desc">First to find the final piece wins.</div>
+      <div class="stat-label">Prize — final piece</div>
+      <div class="stat-desc">First to find Prime Piece 010 wins.</div>
     </div>
   </div>
 </section>
 
-<!-- TIMELINE -->
+<!-- PIECE TRACKER -->
 <section class="timeline-section" id="timeline">
   <div class="timeline-head reveal">
     <div>
-      <span style="font-size:10px;letter-spacing:0.36em;text-transform:uppercase;color:var(--sage-soft);font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:20px;"><span style="width:28px;height:1px;background:var(--sage-soft);opacity:0.6;display:inline-block;"></span>The Drop</span>
-      <h2>How it<br><em>unfolds</em>.</h2>
+      <span style="font-size:10px;letter-spacing:0.36em;text-transform:uppercase;color:var(--sage-soft);font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:20px;"><span style="width:28px;height:1px;background:var(--sage-soft);opacity:0.6;display:inline-block;"></span>The Pieces</span>
+      <h2>The drop<br><em>so far</em>.</h2>
     </div>
-    <p>Pieces drop weekly. Each location revealed on Instagram. Follow closely — the final one is hidden.</p>
+    <p>Each piece revealed on Instagram. Follow @prime.piece — you won't see it anywhere else first.</p>
   </div>
-  <div class="timeline-track">
-    <div class="week-item reveal">
-      <div class="week-dot"><span class="week-dot-num">1</span></div>
-      <div class="week-label">Week One</div>
-      <div class="week-title">First Drop</div>
-      <div class="week-desc">The campaign launches. First piece revealed — location announced on Instagram.</div>
+  <div class="pieces-grid reveal">
+    <div class="piece-card status-live">
+      <div class="piece-num">001</div>
+      <div class="piece-status-pill pill-live">Live</div>
+      <div class="piece-views">8,200<span style="font-size:16px;color:var(--sage-soft);">+</span></div>
+      <div class="piece-views-label">Views</div>
     </div>
-    <div class="week-item reveal reveal-delay-1">
-      <div class="week-dot"><span class="week-dot-num">2</span></div>
-      <div class="week-label">Week Two</div>
-      <div class="week-title">Second Drop</div>
-      <div class="week-desc">Another piece placed across Auckland. More collaborations revealed.</div>
+    <div class="piece-card status-live">
+      <div class="piece-num">002</div>
+      <div class="piece-status-pill pill-live">Live</div>
+      <div class="piece-views" style="color:rgba(255,255,255,0.5);">—</div>
+      <div class="piece-views-label">Auckland</div>
     </div>
-    <div class="week-item reveal reveal-delay-2">
-      <div class="week-dot"><span class="week-dot-num">3</span></div>
-      <div class="week-label">Week Three</div>
-      <div class="week-title">Third Drop</div>
-      <div class="week-desc">Series continues. Rewards and partners announced throughout.</div>
+    <div class="piece-card status-live">
+      <div class="piece-num">003</div>
+      <div class="piece-status-pill pill-live">Live</div>
+      <div class="piece-views" style="color:rgba(255,255,255,0.5);">—</div>
+      <div class="piece-views-label">Auckland</div>
     </div>
-    <div class="week-item reveal reveal-delay-3">
-      <div class="week-dot"><span class="week-dot-num">4</span></div>
-      <div class="week-label">Week Four</div>
-      <div class="week-title">Fourth Drop</div>
-      <div class="week-desc">Penultimate piece. The city is watching. The final drop approaches.</div>
+    <div class="piece-card status-live">
+      <div class="piece-num">004</div>
+      <div class="piece-status-pill pill-live">Live</div>
+      <div class="piece-views" style="color:rgba(255,255,255,0.5);">—</div>
+      <div class="piece-views-label">Auckland</div>
     </div>
-    <div class="week-item final reveal reveal-delay-4">
-      <div class="week-dot"><span class="week-dot-num">5</span></div>
-      <div class="week-label">Week Five — Final</div>
-      <div class="week-title">The Hidden Piece</div>
-      <div class="week-desc">Somewhere on the North Shore. Location drops. First to find it wins.</div>
+    <div class="piece-card status-live">
+      <div class="piece-num">005</div>
+      <div class="piece-status-pill pill-live">Live</div>
+      <div class="piece-views">4,700<span style="font-size:16px;color:var(--sage-soft);">+</span></div>
+      <div class="piece-views-label">Views in 12hrs</div>
+    </div>
+    <div class="piece-card">
+      <div class="piece-num">006</div>
+      <div class="piece-status-pill pill-editing">In edit</div>
+      <div class="piece-views">—</div>
+      <div class="piece-views-label">Coming soon</div>
+    </div>
+    <div class="piece-card">
+      <div class="piece-num">007</div>
+      <div class="piece-status-pill pill-editing">In edit</div>
+      <div class="piece-views">—</div>
+      <div class="piece-views-label">Coming soon</div>
+    </div>
+    <div class="piece-card">
+      <div class="piece-num">008</div>
+      <div class="piece-status-pill pill-editing">In edit</div>
+      <div class="piece-views">—</div>
+      <div class="piece-views-label">Coming soon</div>
+    </div>
+    <div class="piece-card">
+      <div class="piece-num">009</div>
+      <div class="piece-status-pill pill-soon">Filming</div>
+      <div class="piece-views">—</div>
+      <div class="piece-views-label">Coming soon</div>
+    </div>
+    <div class="piece-card status-final">
+      <div class="piece-num">010</div>
+      <div class="piece-status-pill pill-hidden">Hidden</div>
+      <div class="piece-views" style="color:var(--gold);">?</div>
+      <div class="piece-views-label">Find it. Win it.</div>
     </div>
   </div>
 </section>
