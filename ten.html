@@ -223,70 +223,109 @@
   .stat-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 500; }
   .stat-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.6; margin-top: 6px; }
 
-  /* TIMELINE / PIECE TRACKER */
-  .timeline-section {
-    padding: 0 56px 120px;
+  /* PIECE TRACKER */
+  .tracker-section {
+    padding: 0 56px 100px;
     border-top: 1px solid var(--line-inv);
   }
-  .timeline-head {
+  .tracker-head {
     padding: 80px 0 64px;
     display: flex; justify-content: space-between; align-items: flex-end;
     border-bottom: 1px solid var(--line-inv);
-    margin-bottom: 64px;
+    margin-bottom: 72px;
   }
-  .timeline-head h2 {
+  .tracker-head h2 {
     font-family: var(--display);
     font-size: clamp(36px, 4vw, 56px);
     font-weight: 300; letter-spacing: -0.02em; color: #fff;
   }
-  .timeline-head h2 em { font-style: italic; color: var(--sage-soft); }
-  .timeline-head p { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 300px; text-align: right; line-height: 1.75; }
+  .tracker-head h2 em { font-style: italic; color: var(--sage-soft); }
+  .tracker-head p { font-size: 14px; color: rgba(255,255,255,0.35); max-width: 280px; text-align: right; line-height: 1.75; }
 
-  .pieces-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 1px; background: var(--line-inv);
-    border: 1px solid var(--line-inv);
+  .progress-dots {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 72px;
   }
-  .piece-card {
-    background: #0E0D0B;
-    padding: 32px 24px;
-    display: flex; flex-direction: column; gap: 10px;
+  .progress-dot {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;
     position: relative;
-    transition: background 0.3s;
   }
-  .piece-card:hover { background: rgba(255,255,255,0.03); }
-  .piece-card.status-live { background: rgba(123,165,168,0.05); }
-  .piece-card.status-live:hover { background: rgba(123,165,168,0.08); }
-  .piece-card.status-final { background: rgba(201,169,110,0.05); }
-  .piece-card.status-final:hover { background: rgba(201,169,110,0.09); }
-
-  .piece-num {
+  .progress-dot::after {
+    content: '';
+    position: absolute; top: 18px; left: 50%; width: 100%; height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .progress-dot:last-child::after { display: none; }
+  .dot-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
     font-family: var(--display); font-size: 13px; font-weight: 300;
-    color: rgba(255,255,255,0.2); letter-spacing: 0.1em;
+    transition: all 0.3s;
   }
-  .piece-card.status-live .piece-num { color: var(--sage-soft); }
-  .piece-card.status-final .piece-num { color: var(--gold); }
+  .dot-circle.released {
+    background: var(--sage); color: var(--cream);
+    border: 1px solid var(--sage);
+  }
+  .dot-circle.coming {
+    background: #0E0D0B; color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .dot-circle.final-dot {
+    background: rgba(201,169,110,0.1); color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.4);
+    animation: goldPulse 3s ease-in-out infinite;
+  }
+  @keyframes goldPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,0); }
+    50% { box-shadow: 0 0 0 6px rgba(201,169,110,0.1); }
+  }
+  .dot-label {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.2); font-weight: 500;
+  }
+  .dot-circle.released + .dot-label { color: var(--sage-soft); }
+  .dot-circle.final-dot + .dot-label { color: var(--gold); }
 
-  .piece-status-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 3px 10px; border-radius: 20px;
-    font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500;
-    width: fit-content;
+  .progress-summary {
+    text-align: center; margin-bottom: 72px;
   }
-  .pill-live { background: rgba(123,165,168,0.15); color: var(--sage-soft); border: 1px solid rgba(123,165,168,0.3); }
-  .pill-live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--sage-soft); animation: pulse 2s infinite; }
-  .pill-editing { background: rgba(201,169,110,0.1); color: var(--gold); border: 1px solid rgba(201,169,110,0.25); }
-  .pill-soon { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.1); }
-  .pill-hidden { background: rgba(201,169,110,0.12); color: var(--gold); border: 1px solid rgba(201,169,110,0.35); }
-  .pill-hidden::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
+  .progress-summary span {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); font-weight: 500;
+  }
+  .progress-summary strong { color: var(--sage-soft); font-weight: 500; }
 
-  .piece-views {
-    font-family: var(--display); font-size: 28px; font-weight: 300;
-    color: #fff; letter-spacing: -0.02em; line-height: 1;
+  /* INSTAGRAM EMBEDS */
+  .insta-section {
+    padding: 0 56px 120px;
+    border-top: 1px solid var(--line-inv);
   }
-  .piece-card.status-live .piece-views { color: #fff; }
-  .piece-card:not(.status-live):not(.status-final) .piece-views { color: rgba(255,255,255,0.2); }
-  .piece-views-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); font-weight: 500; }
+  .insta-head {
+    padding: 80px 0 56px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .insta-head h2 {
+    font-family: var(--display);
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 300; letter-spacing: -0.02em; color: #fff;
+  }
+  .insta-head h2 em { font-style: italic; color: var(--gold); }
+  .insta-head a {
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); text-decoration: none; font-weight: 500;
+    transition: color 0.3s; white-space: nowrap;
+  }
+  .insta-head a:hover { color: var(--sage-soft); }
+  .insta-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 16px; align-items: start;
+  }
+  .insta-grid .instagram-media {
+    min-width: unset !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
 
   /* HIDDEN PIECE */
   .hidden-section {
@@ -441,17 +480,19 @@
   @media (max-width: 1024px) {
     .concept { grid-template-columns: 1fr; gap: 48px; }
     .hidden-inner { grid-template-columns: 1fr; gap: 48px; padding: 56px 40px; }
-    .pieces-grid { grid-template-columns: repeat(5, 1fr); }
+    .insta-grid { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
     nav.scrolled { padding: 14px 20px; }
     .concept { padding: 80px 24px; }
     .concept-right { grid-template-columns: 1fr 1fr; }
-    .timeline-section { padding: 0 24px 80px; }
-    .timeline-head { padding: 64px 0 48px; flex-direction: column; align-items: flex-start; gap: 20px; }
-    .timeline-head p { text-align: left; }
-    .pieces-grid { grid-template-columns: repeat(2, 1fr); }
+    .tracker-section { padding: 0 24px 80px; }
+    .tracker-head { padding: 64px 0 48px; flex-direction: column; align-items: flex-start; gap: 20px; }
+    .tracker-head p { text-align: left; }
+    .insta-section { padding: 0 24px 80px; }
+    .insta-head { padding: 56px 0 40px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .insta-grid { grid-template-columns: repeat(2, 1fr); }
     .hidden-section { margin: 0 24px; }
     .hidden-inner { padding: 48px 28px; gap: 40px; }
     .follow-section { padding: 80px 24px; }
@@ -459,7 +500,9 @@
   }
   @media (max-width: 480px) {
     .concept-right { grid-template-columns: 1fr; }
-    .pieces-grid { grid-template-columns: 1fr 1fr; }
+    .insta-grid { grid-template-columns: 1fr; }
+    .progress-dots { gap: 0; }
+    .dot-label { display: none; }
   }
 </style>
 </head>
@@ -506,99 +549,68 @@
   </div>
   <div class="concept-right reveal reveal-delay-2">
     <div class="stat-block">
-      <div class="stat-num">8.2<span>k</span></div>
-      <div class="stat-label">Views — Piece 001</div>
-      <div class="stat-desc">Organic reach. No paid promotion.</div>
+      <div class="stat-num">10<span>.</span></div>
+      <div class="stat-label">Pieces total</div>
+      <div class="stat-desc">Every one unique. Natural stone. Never repeated.</div>
     </div>
     <div class="stat-block">
-      <div class="stat-num">4.7<span>k</span></div>
-      <div class="stat-label">Views in 12hrs — 005</div>
-      <div class="stat-desc">100+ likes. 20+ comments. Shared & reposted.</div>
+      <div class="stat-num">5<span>wks</span></div>
+      <div class="stat-label">Duration</div>
+      <div class="stat-desc">New pieces dropping across Auckland.</div>
     </div>
     <div class="stat-block">
-      <div class="stat-num">600<span>+</span></div>
-      <div class="stat-label">Followers gained</div>
-      <div class="stat-desc">Grew from 400 to 600+ through the campaign.</div>
+      <div class="stat-num">1<span>.</span></div>
+      <div class="stat-label">Hidden piece</div>
+      <div class="stat-desc">North Shore. Location to be revealed.</div>
     </div>
     <div class="stat-block">
       <div class="stat-num" style="color:var(--gold);">$1k</div>
-      <div class="stat-label">Prize — final piece</div>
+      <div class="stat-label">Prize value</div>
       <div class="stat-desc">First to find Prime Piece 010 wins.</div>
     </div>
   </div>
 </section>
 
 <!-- PIECE TRACKER -->
-<section class="timeline-section" id="timeline">
-  <div class="timeline-head reveal">
+<section class="tracker-section" id="timeline">
+  <div class="tracker-head reveal">
     <div>
-      <span style="font-size:10px;letter-spacing:0.36em;text-transform:uppercase;color:var(--sage-soft);font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:20px;"><span style="width:28px;height:1px;background:var(--sage-soft);opacity:0.6;display:inline-block;"></span>The Pieces</span>
-      <h2>The drop<br><em>so far</em>.</h2>
+      <span style="font-size:10px;letter-spacing:0.36em;text-transform:uppercase;color:var(--sage-soft);font-weight:500;display:flex;align-items:center;gap:14px;margin-bottom:20px;"><span style="width:28px;height:1px;background:var(--sage-soft);opacity:0.6;display:inline-block;"></span>The Progress</span>
+      <h2>5 released.<br><em>5 to go.</em></h2>
     </div>
-    <p>Each piece revealed on Instagram. Follow @prime.piece — you won't see it anywhere else first.</p>
+    <p>Each piece revealed on Instagram first. The final one won't be posted — it'll be hidden.</p>
   </div>
-  <div class="pieces-grid reveal">
-    <div class="piece-card status-live">
-      <div class="piece-num">001</div>
-      <div class="piece-status-pill pill-live">Live</div>
-      <div class="piece-views">8,200<span style="font-size:16px;color:var(--sage-soft);">+</span></div>
-      <div class="piece-views-label">Views</div>
-    </div>
-    <div class="piece-card status-live">
-      <div class="piece-num">002</div>
-      <div class="piece-status-pill pill-live">Live</div>
-      <div class="piece-views" style="color:rgba(255,255,255,0.5);">—</div>
-      <div class="piece-views-label">Auckland</div>
-    </div>
-    <div class="piece-card status-live">
-      <div class="piece-num">003</div>
-      <div class="piece-status-pill pill-live">Live</div>
-      <div class="piece-views" style="color:rgba(255,255,255,0.5);">—</div>
-      <div class="piece-views-label">Auckland</div>
-    </div>
-    <div class="piece-card status-live">
-      <div class="piece-num">004</div>
-      <div class="piece-status-pill pill-live">Live</div>
-      <div class="piece-views" style="color:rgba(255,255,255,0.5);">—</div>
-      <div class="piece-views-label">Auckland</div>
-    </div>
-    <div class="piece-card status-live">
-      <div class="piece-num">005</div>
-      <div class="piece-status-pill pill-live">Live</div>
-      <div class="piece-views">4,700<span style="font-size:16px;color:var(--sage-soft);">+</span></div>
-      <div class="piece-views-label">Views in 12hrs</div>
-    </div>
-    <div class="piece-card">
-      <div class="piece-num">006</div>
-      <div class="piece-status-pill pill-editing">In edit</div>
-      <div class="piece-views">—</div>
-      <div class="piece-views-label">Coming soon</div>
-    </div>
-    <div class="piece-card">
-      <div class="piece-num">007</div>
-      <div class="piece-status-pill pill-editing">In edit</div>
-      <div class="piece-views">—</div>
-      <div class="piece-views-label">Coming soon</div>
-    </div>
-    <div class="piece-card">
-      <div class="piece-num">008</div>
-      <div class="piece-status-pill pill-editing">In edit</div>
-      <div class="piece-views">—</div>
-      <div class="piece-views-label">Coming soon</div>
-    </div>
-    <div class="piece-card">
-      <div class="piece-num">009</div>
-      <div class="piece-status-pill pill-soon">Filming</div>
-      <div class="piece-views">—</div>
-      <div class="piece-views-label">Coming soon</div>
-    </div>
-    <div class="piece-card status-final">
-      <div class="piece-num">010</div>
-      <div class="piece-status-pill pill-hidden">Hidden</div>
-      <div class="piece-views" style="color:var(--gold);">?</div>
-      <div class="piece-views-label">Find it. Win it.</div>
-    </div>
+  <div class="progress-dots reveal">
+    <div class="progress-dot"><div class="dot-circle released">001</div><div class="dot-label">Released</div></div>
+    <div class="progress-dot"><div class="dot-circle released">002</div><div class="dot-label">Released</div></div>
+    <div class="progress-dot"><div class="dot-circle released">003</div><div class="dot-label">Released</div></div>
+    <div class="progress-dot"><div class="dot-circle released">004</div><div class="dot-label">Released</div></div>
+    <div class="progress-dot"><div class="dot-circle released">005</div><div class="dot-label">Released</div></div>
+    <div class="progress-dot"><div class="dot-circle coming">006</div><div class="dot-label">Coming</div></div>
+    <div class="progress-dot"><div class="dot-circle coming">007</div><div class="dot-label">Coming</div></div>
+    <div class="progress-dot"><div class="dot-circle coming">008</div><div class="dot-label">Coming</div></div>
+    <div class="progress-dot"><div class="dot-circle coming">009</div><div class="dot-label">Coming</div></div>
+    <div class="progress-dot"><div class="dot-circle final-dot">010</div><div class="dot-label">Hidden</div></div>
   </div>
+  <div class="progress-summary reveal">
+    <span><strong>5 of 10</strong> pieces released — follow <strong style="color:var(--sage-soft);">@prime.piece</strong> to catch every drop</span>
+  </div>
+</section>
+
+<!-- INSTAGRAM POSTS -->
+<section class="insta-section" id="posts">
+  <div class="insta-head reveal">
+    <h2>The campaign<br><em>so far</em>.</h2>
+    <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Follow @prime.piece →</a>
+  </div>
+  <div class="insta-grid reveal">
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DYl2tEITwed/" data-instgrm-version="14" style="background:#0E0D0B;border:1px solid rgba(255,255,255,0.08);border-radius:2px;margin:0;max-width:100%;min-width:0;width:100%;"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DYthwcGzLLE/" data-instgrm-version="14" style="background:#0E0D0B;border:1px solid rgba(255,255,255,0.08);border-radius:2px;margin:0;max-width:100%;min-width:0;width:100%;"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DY33qqhySUD/" data-instgrm-version="14" style="background:#0E0D0B;border:1px solid rgba(255,255,255,0.08);border-radius:2px;margin:0;max-width:100%;min-width:0;width:100%;"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DY_qOU5THY6/" data-instgrm-version="14" style="background:#0E0D0B;border:1px solid rgba(255,255,255,0.08);border-radius:2px;margin:0;max-width:100%;min-width:0;width:100%;"></blockquote>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DZJ9d1KT-1A/" data-instgrm-version="14" style="background:#0E0D0B;border:1px solid rgba(255,255,255,0.08);border-radius:2px;margin:0;max-width:100%;min-width:0;width:100%;"></blockquote>
+  </div>
+  <script async src="//www.instagram.com/embed.js"></script>
 </section>
 
 <!-- HIDDEN PIECE -->
