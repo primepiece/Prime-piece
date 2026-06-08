@@ -1222,25 +1222,10 @@
     btn.disabled = true;
 
     try {
-      await fetch('https://api.resend.com/emails', {
+      await fetch('/api/discount', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer re_YuteQS3e_Eh3JThKFGcuD1rxxFkNvxDcZ' },
-        body: JSON.stringify({
-          from: 'Prime Piece <james@primepiece.co.nz>',
-          to: [email],
-          bcc: ['james@primepiece.co.nz'],
-          subject: 'Your 10% off — Prime Piece',
-          html: '<div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2C2A26;background:#F5F1EA;padding:2.5rem 2rem;">'
-              + '<p style="font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:#7BA5A8;margin:0 0 1rem;">Prime Piece</p>'
-              + '<h1 style="font-size:1.8rem;font-weight:400;margin:0 0 0.75rem;">Hi ' + name.split(' ')[0] + ', here\'s your code</h1>'
-              + '<p style="font-size:0.9rem;color:#554F45;margin:0 0 1.5rem;line-height:1.7;">Thank you for visiting. Use the code below for <strong>10% off</strong> your order — valid on any piece in the collection.</p>'
-              + '<div style="background:#E0D9CA;border:1.5px dashed #7BA5A8;padding:1rem 1.5rem;text-align:center;margin-bottom:1.5rem;display:inline-block;">'
-              + '<span style="font-size:1.6rem;letter-spacing:0.2em;font-weight:500;">PRIME10</span></div>'
-              + '<p style="font-size:0.85rem;color:#554F45;margin:0 0 2rem;line-height:1.7;">Each piece is handcrafted, one of one. Once it\'s gone, it\'s gone.</p>'
-              + '<a href="https://www.primepiece.co.nz" style="background:#2C2A26;color:#F5F1EA;padding:0.85rem 2rem;text-decoration:none;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;">Shop the Collection</a>'
-              + '<p style="font-size:0.7rem;color:#8A8275;margin-top:2.5rem;">Prime Piece · Auckland, New Zealand · primepiece.co.nz</p>'
-              + '</div>'
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
       });
     } catch(e) { /* silent — still show the code */ }
 
