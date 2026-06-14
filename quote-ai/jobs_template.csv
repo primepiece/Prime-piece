@@ -1,0 +1,4 @@
+pdf_path,actual_m2,actual_edge_m,actual_cutouts,job_name
+/path/to/job1.pdf,8.4,12.3,2,smith_kitchen_2024
+/path/to/job2.pdf,5.1,8.7,1,jones_bathroom_2024
+/path/to/job3.pdf,12.2,18.5,3,brown_new_build_2024
