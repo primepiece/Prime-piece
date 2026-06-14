@@ -22,110 +22,241 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SYSTEM_PROMPT = """You are an expert stone fabrication estimator with 20+ years experience reading architectural plans for granite/stone benchtop quotes.
+SYSTEM_PROMPT = """You are an expert stone fabrication estimator with 20+ years experience reading architectural plans for granite and stone benchtop quotes.
 
-Your job: extract EVERY piece of information needed to quote stone work from this plan.
+Your ONLY job is to extract quantities and information needed before pricing. Do NOT price anything. Do NOT assume anything. If it is not on the plan, flag it as missing.
 
-You must be precise and never guess. If a dimension is unclear, flag it.
+You must be completely precise. If a dimension is unclear, flag it. If something is ambiguous, flag it. Never guess.
 
-Extract:
-1. All benchtop/countertop areas (location, length mm, depth mm, shape)
-2. Waterfall ends (location, height mm)
-3. Splashbacks (location, width mm, height mm)
-4. Edge lengths per edge type (standard, waterfall, exposed)
-5. Cutouts: sinks (single/double/undermount), cooktops (size), taps
-6. Stone thickness (20mm, 30mm, 40mm or noted)
-7. Any pricing notes (mitre joins, special edges, radius corners, etc.)
-8. Which page/area of the plan each item was found
+---
 
-RULES:
-- If a dimension is explicitly written on the plan → confidence: high
-- If you calculated from scale bar → confidence: medium, flag it
-- If you estimated or inferred → confidence: low, MUST flag with reason
-- If totally unclear → list it as unresolved, do not guess
-- Report all dimensions in millimetres
-- Calculate m² for each area (length × depth / 1,000,000)
+WHAT TO EXTRACT:
 
-Output ONLY valid JSON matching this exact schema:
+1. STONE AREAS — identify and separate each area by type:
+   - Kitchen benchtop (perimeter/run benches)
+   - Kitchen island / breakfast bar
+   - Vanity (bathroom — note which bathroom if multiple)
+   - Laundry benchtop
+   - Scullery benchtop
+   - Shelf / floating shelf
+   - Hearth / fireplace surround
+   - Outdoor / BBQ / alfresco benchtop
+   - Window sill
+   - Any other stone area — describe it
+
+   For each area capture:
+   - Length (mm), depth (mm), area (m²)
+   - Shape: rectangle, L-shape, U-shape, custom — describe if complex
+   - Overhang: note if shown or dimensioned (e.g. "40mm overhang to island front")
+   - Thickness: exactly as noted (20mm, 30mm, 40mm, etc.) — flag if not specified
+   - Built-up edge / mitred thickness buildup: yes/no/unclear
+   - Material: exactly as noted on plan — DO NOT assume. Flag if not specified.
+   - Page number and drawing reference (e.g. "page 3, drawing SK-04, kitchen plan")
+
+2. EDGE DETAIL — for each stone area:
+   - Total perimeter (mm/m)
+   - Polished/exposed edges only (list which edges: front, left end, right end, back, etc.)
+   - Polished edge total length (m) — this is what gets priced, not total perimeter
+   - Edge profile: exactly as noted (pencil round, bevelled, bullnose, ogee, etc.) — flag if not specified
+   - Any special edge treatment noted (mitred, waterfall mitre, etc.)
+
+3. WATERFALLS / MITRED ENDS:
+   - Location (which bench, which end: left/right)
+   - Height (mm) — flag if unclear or not dimensioned
+   - Depth (mm) — flag if unclear
+   - Area (m²)
+   - Whether it is a full waterfall to floor or partial panel
+   - Mitre joint: top-to-side — flag if unclear
+
+4. SPLASHBACKS:
+   - Location (which wall/area)
+   - Width (mm), height (mm), area (m²)
+   - Height: flag if not specified — do not assume standard height
+   - Any penetrations (power points, rangehood, etc.) noted on splashback
+
+5. CUTOUTS — capture every one:
+   Sinks:
+   - Type: undermount single / undermount double / topmount single / topmount double / butler / farmhouse
+   - Dimensions if noted
+   - Flag if sink model/type not specified
+
+   Cooktops / hobs:
+   - Type if noted (induction, gas, etc.)
+   - Cutout dimensions if noted
+   - Flag if not specified
+
+   Other cutouts:
+   - Tap holes (number)
+   - Pop-up power points
+   - Radiused corners (note radius if given)
+   - Any other penetration noted
+
+6. PLAN QUALITY FLAGS:
+   - Multiple revision clouds or revision notes visible → flag
+   - Conflicting dimensions (two different numbers for same element) → flag both and note discrepancy
+   - Scale bar present: yes/no
+   - Scale noted in title block: yes/no — if yes, note the scale (e.g. 1:50)
+   - Plan scale unclear → flag
+   - Dimensions inferred from scale bar rather than noted → flag each one
+   - Hand annotations or markups visible → flag
+
+7. SITE MEASURE FLAGS:
+   - Flag anything that cannot be confirmed from the plan alone and needs site measure
+   - Examples: depth to wall not dimensioned, return length unclear, existing conditions referenced
+
+---
+
+CONFIDENCE RULES (apply to every single measurement):
+- "high" — dimension is explicitly written on the plan as a number
+- "medium" — calculated from a scale bar, or inferred from other noted dimensions
+- "low" — estimated, partially visible, or ambiguous — MUST include reason in flags
+- Never output a measurement without a confidence level and source reference
+
+---
+
+MISSING INFORMATION SECTION:
+Always output this section. List every item that is absent from the plan and would be needed before quoting:
+- material_not_specified: true/false — list which areas
+- thickness_not_specified: true/false — list which areas
+- splashback_height_not_specified: true/false — list which splashbacks
+- sink_type_unclear: true/false — describe
+- waterfall_dimensions_unclear: true/false — describe
+- edge_profile_not_specified: true/false — list which areas
+- plan_scale_unclear: true/false
+- other: list any other missing info
+
+---
+
+Output ONLY valid JSON matching this exact schema (no other text, no markdown):
 {
   "job_summary": {
+    "plan_pages_analysed": 0,
+    "drawing_references": [],
+    "revision_flags": [],
     "total_stone_m2": 0.0,
-    "total_edge_length_m": 0.0,
+    "total_polished_edge_m": 0.0,
     "waterfall_count": 0,
     "splashback_count": 0,
     "cutout_count": 0,
-    "plan_pages_analysed": 0,
-    "unresolved_items": 0
+    "unresolved_count": 0,
+    "missing_info_count": 0
   },
-  "benchtops": [
+  "stone_areas": [
     {
       "id": "B1",
+      "type": "kitchen_island",
       "location": "kitchen island",
       "shape": "rectangle",
       "length_mm": 3200,
       "depth_mm": 900,
       "area_m2": 2.88,
+      "overhang_mm": 40,
+      "overhang_note": "40mm overhang to front edge, noted on plan",
       "thickness_mm": 20,
-      "edge_type": "standard",
-      "exposed_edges": ["front", "left end"],
-      "edge_length_m": 4.1,
+      "thickness_buildup": false,
+      "material": null,
+      "polished_edges": ["front", "left end"],
+      "polished_edge_length_m": 4.1,
+      "total_perimeter_m": 8.2,
+      "edge_profile": null,
       "notes": "",
       "confidence": "high",
-      "source": "page 2, kitchen plan, dimension noted as 3200 x 900",
-      "flags": []
+      "source": "page 2, drawing SK-02, kitchen plan",
+      "flags": ["material not specified", "edge profile not specified"]
     }
   ],
   "waterfalls": [
     {
       "id": "W1",
-      "location": "island left end",
+      "location": "kitchen island, left end",
+      "full_height_to_floor": true,
       "height_mm": 900,
-      "depth_mm": 700,
-      "area_m2": 0.63,
+      "depth_mm": 900,
+      "area_m2": 0.81,
+      "mitre_joint": "top to side",
       "notes": "",
-      "confidence": "high",
-      "source": "page 2, elevation drawing",
-      "flags": []
+      "confidence": "medium",
+      "source": "page 3, elevation drawing EL-01",
+      "flags": ["height calculated from scale bar, not dimensioned"]
     }
   ],
   "splashbacks": [
     {
       "id": "S1",
-      "location": "behind cooktop",
+      "location": "behind cooktop, main kitchen",
       "width_mm": 900,
-      "height_mm": 600,
-      "area_m2": 0.54,
+      "height_mm": null,
+      "area_m2": null,
+      "penetrations": [],
       "notes": "",
-      "confidence": "high",
-      "source": "page 3, kitchen elevation",
-      "flags": []
+      "confidence": "low",
+      "source": "page 2, drawing SK-02",
+      "flags": ["height not specified on plan - confirm with client before quoting"]
     }
   ],
   "cutouts": [
     {
       "id": "C1",
-      "type": "sink_undermount_single",
-      "location": "main kitchen bench",
-      "width_mm": 450,
-      "length_mm": 380,
-      "notes": "undermount, verify exact model with client",
+      "type": "sink",
+      "subtype": "undermount_single",
+      "location": "kitchen perimeter bench",
+      "width_mm": null,
+      "length_mm": null,
+      "notes": "undermount symbol shown, model not specified",
       "confidence": "medium",
-      "source": "page 2, symbol noted",
-      "flags": ["sink model not specified - confirm undermount dimensions"]
-    }
-  ],
-  "unresolved": [
+      "source": "page 2, drawing SK-02",
+      "flags": ["sink model not specified - confirm exact undermount dimensions before templating"]
+    },
     {
-      "item": "window sill",
-      "reason": "dimension not noted on plan, scale bar measurement inconsistent",
-      "page": "page 4",
-      "action_needed": "measure on site or confirm with builder"
+      "id": "C2",
+      "type": "cooktop",
+      "subtype": "induction",
+      "location": "kitchen island",
+      "width_mm": 600,
+      "length_mm": 600,
+      "notes": "",
+      "confidence": "high",
+      "source": "page 2, drawing SK-02",
+      "flags": []
+    },
+    {
+      "id": "C3",
+      "type": "tap_hole",
+      "subtype": null,
+      "location": "kitchen island",
+      "width_mm": null,
+      "length_mm": null,
+      "notes": "1x tap hole shown",
+      "confidence": "high",
+      "source": "page 2, drawing SK-02",
+      "flags": []
     }
   ],
-  "pricing_notes": [
-    "mitre join required at corner B1/B2",
-    "radius corner noted on island bench - confirm radius with client"
-  ]
+  "site_measure_required": [
+    {
+      "item": "laundry bench depth",
+      "reason": "depth to wall not dimensioned on plan",
+      "location": "laundry",
+      "source": "page 4, drawing SK-04"
+    }
+  ],
+  "plan_flags": [
+    {
+      "type": "conflicting_dimension",
+      "description": "island length shown as 3200mm on floor plan but 3150mm on elevation — use floor plan dimension, confirm on site",
+      "source": "pages 2 and 3"
+    }
+  ],
+  "missing_information": {
+    "material_not_specified": ["kitchen island", "vanity"],
+    "thickness_not_specified": [],
+    "splashback_height_not_specified": ["main kitchen splashback S1"],
+    "sink_type_unclear": ["kitchen sink C1 - undermount confirmed but model unknown"],
+    "waterfall_dimensions_unclear": [],
+    "edge_profile_not_specified": ["all areas"],
+    "plan_scale_unclear": false,
+    "other": []
+  }
 }"""
 
 
@@ -222,7 +353,7 @@ def analyse_plan(pdf_path: str, api_key: str) -> dict:
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=4096,
+        max_tokens=8192,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": content}]
     )
@@ -258,8 +389,6 @@ def analyse_plan(pdf_path: str, api_key: str) -> dict:
 
 
 def print_summary(result: dict):
-    """Print a human-readable summary to terminal."""
-
     if "error" in result:
         print(f"\nERROR: {result['error']}")
         return
@@ -270,54 +399,112 @@ def print_summary(result: dict):
 
     summary = result.get("job_summary", {})
     print(f"\nJOB SUMMARY:")
-    print(f"  Total stone area:    {summary.get('total_stone_m2', 0):.2f} m²")
-    print(f"  Total edge length:   {summary.get('total_edge_length_m', 0):.1f} m")
-    print(f"  Waterfalls:          {summary.get('waterfall_count', 0)}")
-    print(f"  Splashbacks:         {summary.get('splashback_count', 0)}")
-    print(f"  Cutouts:             {summary.get('cutout_count', 0)}")
-    print(f"  Unresolved items:    {summary.get('unresolved_items', 0)}")
+    print(f"  Total stone area:      {summary.get('total_stone_m2', 0):.2f} m2")
+    print(f"  Total polished edge:   {summary.get('total_polished_edge_m', 0):.1f} m")
+    print(f"  Waterfalls:            {summary.get('waterfall_count', 0)}")
+    print(f"  Splashbacks:           {summary.get('splashback_count', 0)}")
+    print(f"  Cutouts:               {summary.get('cutout_count', 0)}")
+    print(f"  Items needing clarify: {summary.get('unresolved_count', 0)}")
+    print(f"  Missing info items:    {summary.get('missing_info_count', 0)}")
+    if summary.get("drawing_references"):
+        print(f"  Drawings found:        {', '.join(summary['drawing_references'])}")
+    if summary.get("revision_flags"):
+        print(f"  !! REVISION FLAGS:    {', '.join(summary['revision_flags'])}")
 
-    benchtops = result.get("benchtops", [])
-    if benchtops:
-        print(f"\nBENCHTOPS ({len(benchtops)} found):")
-        for b in benchtops:
-            flag_str = " ⚠ FLAGS: " + ", ".join(b.get("flags", [])) if b.get("flags") else ""
-            conf_icon = "✓" if b.get("confidence") == "high" else ("~" if b.get("confidence") == "medium" else "!")
-            print(f"  [{conf_icon}] {b['id']}: {b.get('location','?')}")
-            print(f"       {b.get('length_mm','?')} x {b.get('depth_mm','?')} mm = {b.get('area_m2','?'):.2f} m²  |  edge: {b.get('edge_length_m','?')} m")
-            print(f"       Source: {b.get('source','?')}{flag_str}")
+    areas = result.get("stone_areas", [])
+    if areas:
+        print(f"\nSTONE AREAS ({len(areas)} found):")
+        for a in areas:
+            conf_icon = "+" if a.get("confidence") == "high" else ("~" if a.get("confidence") == "medium" else "!")
+            area_m2 = a.get("area_m2") or 0
+            print(f"  [{conf_icon}] {a['id']} [{a.get('type','?')}]: {a.get('location','?')}")
+            print(f"       {a.get('length_mm','?')} x {a.get('depth_mm','?')} mm = {area_m2:.2f} m2")
+            if a.get("thickness_mm"):
+                buildup = " (built-up)" if a.get("thickness_buildup") else ""
+                print(f"       Thickness: {a['thickness_mm']}mm{buildup}")
+            if a.get("material"):
+                print(f"       Material: {a['material']}")
+            if a.get("polished_edges"):
+                print(f"       Polished edges: {', '.join(a['polished_edges'])} = {a.get('polished_edge_length_m','?')} m")
+            if a.get("edge_profile"):
+                print(f"       Edge profile: {a['edge_profile']}")
+            if a.get("overhang_mm"):
+                print(f"       Overhang: {a['overhang_mm']}mm")
+            print(f"       Source: {a.get('source','?')}")
+            for flag in a.get("flags", []):
+                print(f"       !! {flag}")
 
     waterfalls = result.get("waterfalls", [])
     if waterfalls:
         print(f"\nWATERFALLS ({len(waterfalls)} found):")
         for w in waterfalls:
-            print(f"  {w['id']}: {w.get('location','?')} - {w.get('height_mm','?')} x {w.get('depth_mm','?')} mm = {w.get('area_m2','?'):.2f} m²")
+            conf_icon = "+" if w.get("confidence") == "high" else ("~" if w.get("confidence") == "medium" else "!")
+            area_m2 = w.get("area_m2") or 0
+            print(f"  [{conf_icon}] {w['id']}: {w.get('location','?')}")
+            print(f"       {w.get('height_mm','?')} x {w.get('depth_mm','?')} mm = {area_m2:.2f} m2")
+            print(f"       Source: {w.get('source','?')}")
+            for flag in w.get("flags", []):
+                print(f"       !! {flag}")
 
     splashbacks = result.get("splashbacks", [])
     if splashbacks:
         print(f"\nSPLASHBACKS ({len(splashbacks)} found):")
         for s in splashbacks:
-            print(f"  {s['id']}: {s.get('location','?')} - {s.get('width_mm','?')} x {s.get('height_mm','?')} mm = {s.get('area_m2','?'):.2f} m²")
+            conf_icon = "+" if s.get("confidence") == "high" else ("~" if s.get("confidence") == "medium" else "!")
+            area_m2 = s.get("area_m2") or 0
+            h = s.get("height_mm", "?")
+            print(f"  [{conf_icon}] {s['id']}: {s.get('location','?')} -- {s.get('width_mm','?')} x {h} mm = {area_m2:.2f} m2")
+            print(f"       Source: {s.get('source','?')}")
+            for flag in s.get("flags", []):
+                print(f"       !! {flag}")
 
     cutouts = result.get("cutouts", [])
     if cutouts:
         print(f"\nCUTOUTS ({len(cutouts)} found):")
         for c in cutouts:
-            flags = " ⚠ " + ", ".join(c.get("flags", [])) if c.get("flags") else ""
-            print(f"  {c['id']}: {c.get('type','?')} @ {c.get('location','?')}{flags}")
+            subtype = f" ({c['subtype']})" if c.get("subtype") else ""
+            print(f"  {c['id']}: {c.get('type','?')}{subtype} @ {c.get('location','?')}")
+            if c.get("width_mm"):
+                print(f"       Dimensions: {c['width_mm']} x {c.get('length_mm','?')} mm")
+            print(f"       Source: {c.get('source','?')}")
+            for flag in c.get("flags", []):
+                print(f"       !! {flag}")
 
-    unresolved = result.get("unresolved", [])
-    if unresolved:
-        print(f"\nUNRESOLVED - NEEDS MANUAL CHECK ({len(unresolved)} items):")
-        for u in unresolved:
-            print(f"  ⚠  {u.get('item','?')}: {u.get('reason','?')}")
-            print(f"     Action: {u.get('action_needed','?')}")
+    site_measure = result.get("site_measure_required", [])
+    if site_measure:
+        print(f"\nSITE MEASURE REQUIRED ({len(site_measure)} items):")
+        for s in site_measure:
+            print(f"  !! {s.get('item','?')}: {s.get('reason','?')}")
 
-    notes = result.get("pricing_notes", [])
-    if notes:
-        print(f"\nPRICING NOTES:")
-        for n in notes:
-            print(f"  • {n}")
+    plan_flags = result.get("plan_flags", [])
+    if plan_flags:
+        print(f"\nPLAN FLAGS ({len(plan_flags)}):")
+        for f in plan_flags:
+            print(f"  !! [{f.get('type','?')}] {f.get('description','?')}")
+            print(f"     Source: {f.get('source','?')}")
+
+    missing = result.get("missing_information", {})
+    missing_items = []
+    if missing.get("material_not_specified"):
+        missing_items.append(f"Material not specified: {missing['material_not_specified']}")
+    if missing.get("thickness_not_specified"):
+        missing_items.append(f"Thickness not specified: {missing['thickness_not_specified']}")
+    if missing.get("splashback_height_not_specified"):
+        missing_items.append(f"Splashback height not specified: {missing['splashback_height_not_specified']}")
+    if missing.get("sink_type_unclear"):
+        missing_items.append(f"Sink type unclear: {missing['sink_type_unclear']}")
+    if missing.get("waterfall_dimensions_unclear"):
+        missing_items.append(f"Waterfall dims unclear: {missing['waterfall_dimensions_unclear']}")
+    if missing.get("edge_profile_not_specified"):
+        missing_items.append(f"Edge profile not specified: {missing['edge_profile_not_specified']}")
+    if missing.get("plan_scale_unclear"):
+        missing_items.append("Plan scale unclear")
+    for other in missing.get("other", []):
+        missing_items.append(f"Other: {other}")
+    if missing_items:
+        print(f"\nMISSING INFORMATION -- confirm before quoting:")
+        for m in missing_items:
+            print(f"  ? {m}")
 
     meta = result.get("_meta", {})
     print(f"\n{'='*60}")

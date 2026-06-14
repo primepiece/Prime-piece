@@ -17,7 +17,7 @@ def score_job(ai_json_path: str, actual_m2: float, actual_edge_m: float, actual_
 
     summary = result.get("job_summary", {})
     ai_m2 = summary.get("total_stone_m2", 0)
-    ai_edge = summary.get("total_edge_length_m", 0)
+    ai_edge = summary.get("total_polished_edge_m", summary.get("total_edge_length_m", 0))
     ai_cutouts = summary.get("cutout_count", 0)
 
     m2_error = abs(ai_m2 - actual_m2) / actual_m2 * 100 if actual_m2 else 0
