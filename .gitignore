@@ -1,0 +1,13 @@
+# Environment files - never commit API keys
+.env
+quote-ai/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Test output
+quote-ai/batch_results_*/
+quote-ai/debug_response.txt
+quote-ai/quote_*.json
