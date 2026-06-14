@@ -399,8 +399,8 @@ def print_summary(result: dict):
 
     summary = result.get("job_summary", {})
     print(f"\nJOB SUMMARY:")
-    print(f"  Total stone area:      {summary.get('total_stone_m2', 0):.2f} m2")
-    print(f"  Total polished edge:   {summary.get('total_polished_edge_m', 0):.1f} m")
+    print(f"  Total stone area:      {summary.get('total_stone_m2') or 0:.2f} m2")
+    print(f"  Total polished edge:   {summary.get('total_polished_edge_m') or 0:.1f} m")
     print(f"  Waterfalls:            {summary.get('waterfall_count', 0)}")
     print(f"  Splashbacks:           {summary.get('splashback_count', 0)}")
     print(f"  Cutouts:               {summary.get('cutout_count', 0)}")
