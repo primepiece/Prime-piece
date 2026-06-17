@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Google Analytics -->
+<link rel="icon" type="image/png" href="logo.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S14SLX5T16"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S14SLX5T16');</script>
 <title>Marble Coffee Tables NZ | Natural Stone Furniture Auckland — Prime Piece</title>
@@ -16,7 +16,6 @@
 <meta property="og:description" content="Handcrafted marble coffee tables and stone furniture in New Zealand. One-of-one pieces made in Auckland from Italian and Spanish marble. From NZD $259.">
 <meta property="og:image" content="https://www.primepiece.co.nz/table-1.jpg">
 <meta property="og:site_name" content="Prime Piece">
-<!-- Meta Pixel -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=722124784327437&ev=PageView&noscript=1"/></noscript>
 <meta property="og:locale" content="en_NZ">
@@ -44,18 +43,6 @@
       "description": "Handcrafted one-of-one marble coffee tables and stone furniture made in Auckland, New Zealand.",
       "isPartOf": {"@id": "https://www.primepiece.co.nz/#website"},
       "breadcrumb": {"@id": "https://www.primepiece.co.nz/tables.html#breadcrumb"}
-    },
-    {
-      "@type": "ItemList",
-      "name": "Marble Coffee Tables — Prime Piece NZ",
-      "description": "Handcrafted natural stone coffee tables made in Auckland New Zealand. One-of-one, never repeated.",
-      "url": "https://www.primepiece.co.nz/tables.html",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Pink Storm Marble Coffee Table", "description": "Monica Marble coffee table handcrafted in Auckland NZ. 500mm H × 450mm diameter. One of one.", "brand": {"@type": "Brand", "name": "Prime Piece"}, "offers": {"@type": "Offer", "price": "379", "priceCurrency": "NZD", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Prime Piece"}}}},
-        {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Jade Jewel Green Onyx Coffee Table", "description": "Green Marble Onyx coffee table handcrafted in Auckland NZ. 500mm H × 450mm diameter. One of one.", "brand": {"@type": "Brand", "name": "Prime Piece"}, "offers": {"@type": "Offer", "price": "399", "priceCurrency": "NZD", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Prime Piece"}}}},
-        {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Amazon Vein Rainforest Marble Coffee Table", "description": "Rainforest Marble coffee table handcrafted in Auckland NZ. 500mm H × 450mm diameter. One of one.", "brand": {"@type": "Brand", "name": "Prime Piece"}, "offers": {"@type": "Offer", "price": "349", "priceCurrency": "NZD", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Prime Piece"}}}},
-        {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "Twin Jade Mystique Green Marble Side Tables", "description": "Set of 2 Mystique Green Marble side tables handcrafted in Auckland NZ. H 450mm × 600mm × 600mm. One of one.", "brand": {"@type": "Brand", "name": "Prime Piece"}, "offers": {"@type": "Offer", "price": "2800", "priceCurrency": "NZD", "availability": "https://schema.org/InStock", "seller": {"@type": "Organization", "name": "Prime Piece"}}}}
-      ]
     }
   ]
 }
@@ -74,30 +61,33 @@
     --ink: #2C2A26;
     --ink-soft: #554F45;
     --stone: #8A8275;
+    --gold: #C9A96E;
     --line: rgba(44,42,38,0.12);
     --line-inv: rgba(255,255,255,0.08);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Inter Tight', sans-serif;
-    font-weight: 300;
-    line-height: 1.5;
-    overflow-x: hidden;
-  }
+  body { background: var(--cream); color: var(--ink); font-family: 'Inter Tight', sans-serif; font-weight: 300; line-height: 1.5; overflow-x: hidden; }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    padding: 22px 56px;
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 100;
-    background: rgba(245,241,234,0.96);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--line);
+  /* SALE BANNER */
+  .sale-banner {
+    background: #1a0a00;
+    border-bottom: 2px solid var(--gold);
+    padding: 12px 20px;
+    text-align: center;
+    position: relative;
   }
+  .sale-banner-label { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; margin-bottom: 3px; }
+  .sale-banner-main { font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; color: var(--gold); margin-bottom: 3px; }
+  .sale-banner-sub { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 400; }
+  .sale-banner-sub span { color: var(--gold); font-weight: 600; }
+  .sale-countdown { display: inline-flex; gap: 12px; margin-top: 8px; }
+  .countdown-unit { text-align: center; }
+  .countdown-num { display: block; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: #fff; line-height: 1; }
+  .countdown-label { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .countdown-sep { font-size: 22px; color: var(--gold); opacity: 0.5; align-self: flex-start; padding-top: 4px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 22px 56px; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(245,241,234,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); }
   .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
   .logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
   .logo-sub { font-family: 'Dancing Script', cursive; font-size: 11px; color: var(--sage); margin-top: 2px; }
@@ -105,156 +95,113 @@
   .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
 
-  .page-hero {
-    padding: 140px 56px 80px;
-    border-bottom: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;
+  /* SALE HERO STRIP */
+  .sale-hero {
+    background: linear-gradient(135deg, #1a0a00 0%, #2d1200 50%, #1a0800 100%);
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+    padding: 48px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin-top: 65px;
   }
+  .sale-hero-left {}
+  .sale-hero-eyebrow { font-size: 9px; letter-spacing: 0.36em; text-transform: uppercase; color: rgba(255,255,255,0.45); font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+  .sale-hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); opacity: 0.6; }
+  .sale-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 56px); font-weight: 300; color: #fff; line-height: 1; margin-bottom: 10px; }
+  .sale-hero h2 strong { color: var(--gold); font-weight: 400; }
+  .sale-hero-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 380px; margin-bottom: 20px; }
+  .sale-hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sale-badge { padding: 6px 14px; border: 1px solid rgba(201,169,110,0.35); border-radius: 99px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+  .sale-hero-right { text-align: center; flex-shrink: 0; }
+  .sale-pct { font-family: 'Cormorant Garamond', serif; font-size: 96px; font-weight: 300; color: var(--gold); line-height: 1; letter-spacing: -0.04em; }
+  .sale-pct-label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 4px; }
+  .sale-countdown-hero { display: flex; gap: 6px; align-items: flex-start; margin-top: 16px; justify-content: center; }
+  .schu { text-align: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.2); border-radius: 4px; padding: 8px 12px; min-width: 52px; }
+  .schu-num { display: block; font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: #fff; line-height: 1; }
+  .schu-label { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 3px; display: block; }
+  .schu-sep { font-size: 20px; color: var(--gold); opacity: 0.4; padding-top: 8px; }
+  .sale-ends-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+
+  .page-hero { padding: 72px 56px 60px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
   .hero-left { max-width: 560px; }
-  .eyebrow {
-    font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--sage); font-weight: 500; margin-bottom: 18px;
-    display: flex; align-items: center; gap: 12px;
-  }
+  .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
   .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sage); }
-  h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300; font-size: clamp(42px, 5vw, 72px);
-    line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 20px;
-  }
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(42px, 5vw, 72px); line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 20px; }
   h1 em { font-style: italic; color: var(--sage); }
   .hero-desc { font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 420px; }
   .hero-right { text-align: right; flex-shrink: 0; }
   .hero-stat { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--sage); line-height: 1; }
   .hero-stat-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-top: 4px; }
 
-  .category-tabs {
-    border-bottom: 1px solid var(--line);
-    background: var(--cream-soft);
-    display: flex;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
+  .category-tabs { border-bottom: 1px solid var(--line); background: var(--cream-soft); display: flex; overflow-x: auto; scrollbar-width: none; }
   .category-tabs::-webkit-scrollbar { display: none; }
-  .cat-tab {
-    padding: 20px 40px;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
-    color: var(--stone); background: transparent; border: none;
-    border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s;
-    white-space: nowrap; flex-shrink: 0;
-  }
+  .cat-tab { padding: 20px 40px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; color: var(--stone); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
   .cat-tab:hover { color: var(--sage); }
   .cat-tab.active { color: var(--sage); border-bottom-color: var(--sage); background: var(--cream); }
 
   .category-section { display: none; }
   .category-section.active { display: block; }
 
-  .section-header {
-    padding: 56px 56px 40px; border-bottom: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 3vw, 44px); font-weight: 300; color: var(--ink); line-height: 1;
-  }
+  .section-header { padding: 56px 56px 40px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3vw, 44px); font-weight: 300; color: var(--ink); line-height: 1; }
   .section-title em { font-style: italic; color: var(--sage); }
   .section-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.75; max-width: 360px; text-align: right; }
   .section-count { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-top: 8px; }
 
+  /* INLINE SALE STRIP between tabs and grid */
+  .section-sale-strip {
+    background: #fff8ee;
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+    padding: 14px 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .ssl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.7);} }
+  .ssl-text { font-size: 12px; color: var(--ink-soft); letter-spacing: 0.08em; }
+  .ssl-text strong { color: #b8800a; font-weight: 600; }
+  .ssl-savings { margin-left: auto; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #b8800a; font-weight: 600; }
+
   .tables-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-
-  .table-card {
-    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
-    display: flex; flex-direction: column; cursor: pointer;
-  }
+  .table-card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; cursor: pointer; }
   .table-card:nth-child(3n) { border-right: none; }
-
-  .table-img-wrap {
-    position: relative; overflow: hidden;
-    background: var(--cream-soft); aspect-ratio: 1/1;
-  }
-  .table-img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+  .table-img-wrap { position: relative; overflow: hidden; background: var(--cream-soft); aspect-ratio: 1/1; }
+  .table-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
   .table-card:hover .table-img { transform: scale(1.04); }
-  .table-badge {
-    position: absolute; top: 16px; left: 16px;
-    padding: 4px 10px; background: var(--sage); color: white;
-    font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
-    font-weight: 500; border-radius: 1px;
-  }
+  .table-badge { position: absolute; top: 16px; left: 16px; padding: 4px 10px; background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
   .table-badge.sold-out { background: var(--stone); }
   .table-badge.commissioned { background: var(--ink); }
-  .view-btn {
-    position: absolute; bottom: 0; left: 0; right: 0; padding: 14px;
-    background: rgba(44,42,38,0.82); backdrop-filter: blur(6px);
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: white; text-align: center; font-weight: 500;
-    opacity: 0; transform: translateY(100%); transition: opacity 0.3s, transform 0.3s;
-  }
-  .table-card:hover .view-btn { opacity: 1; transform: translateY(0); }
 
-  .table-info {
-    padding: 24px 28px 28px; border-top: 1px solid var(--line);
-    flex: 1; display: flex; flex-direction: column;
-  }
+  /* SALE TAG on cards */
+  .sale-tag { position: absolute; top: 16px; right: 16px; background: #b8800a; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 8px; border-radius: 2px; font-family: 'Inter Tight', sans-serif; }
+
+  .view-btn { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px; background: rgba(44,42,38,0.82); backdrop-filter: blur(6px); font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: white; text-align: center; font-weight: 500; opacity: 0; transform: translateY(100%); transition: opacity 0.3s, transform 0.3s; }
+  .table-card:hover .view-btn { opacity: 1; transform: translateY(0); }
+  .table-info { padding: 24px 28px 28px; border-top: 1px solid var(--line); flex: 1; display: flex; flex-direction: column; }
   .table-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.01em; }
   .table-stone { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 8px; }
   .table-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 16px; }
   .table-dims { font-size: 11px; color: var(--stone); margin-bottom: 20px; }
   .table-price { font-size: 15px; color: var(--sage-deep); font-weight: 400; margin-bottom: 14px; }
   .table-price s { color: var(--stone); font-size: 12px; margin-right: 6px; }
+  .table-price .save-pill { display: inline-block; background: #fff3d6; color: #b8800a; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
   .table-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .table-type { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); }
-  .enquire-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    text-decoration: none; border: 1px solid var(--sage); color: var(--sage);
-    background: transparent; cursor: pointer; transition: all 0.3s;
-    font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px;
-  }
+  .enquire-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--sage); color: var(--sage); background: transparent; cursor: pointer; transition: all 0.3s; font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px; }
   .enquire-btn:hover { background: var(--sage); color: white; }
 
-  .coming-soon { padding: 96px 56px; text-align: center; background: var(--cream-soft); }
-  .coming-soon-icon { font-family: 'Cormorant Garamond', serif; font-size: 64px; color: var(--sage); opacity: 0.3; margin-bottom: 24px; display: block; }
-  .coming-soon h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink); margin-bottom: 12px; }
-  .coming-soon p { font-size: 14px; color: var(--ink-soft); max-width: 360px; margin: 0 auto 32px; line-height: 1.75; }
-  .notify-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage);
-    background: transparent; text-decoration: none;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
-    text-transform: uppercase; font-weight: 500; transition: all 0.3s; border-radius: 1px;
-  }
-  .notify-btn:hover { background: var(--sage); color: white; }
-
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(44,42,38,0.85);
-    backdrop-filter: blur(12px); z-index: 200; display: none;
-    align-items: center; justify-content: center; padding: 20px;
-  }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(44,42,38,0.85); backdrop-filter: blur(12px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--cream); max-width: 900px; width: 100%;
-    border-radius: 2px; overflow: hidden; position: relative; max-height: 92vh;
-    display: grid; grid-template-columns: 1fr 1fr;
-  }
+  .modal { background: var(--cream); max-width: 900px; width: 100%; border-radius: 2px; overflow: hidden; position: relative; max-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; }
   .modal-img-col { background: var(--cream-soft); position: relative; overflow: hidden; min-height: 500px; }
   .modal-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .modal-stone-tag {
-    position: absolute; top: 20px; left: 20px; padding: 5px 12px;
-    background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em;
-    text-transform: uppercase; font-weight: 500; border-radius: 1px;
-  }
+  .modal-stone-tag { position: absolute; top: 20px; left: 20px; padding: 5px 12px; background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
+  .modal-sale-tag { position: absolute; top: 20px; right: 20px; padding: 5px 12px; background: #b8800a; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; border-radius: 2px; }
   .modal-info-col { padding: 40px 36px; display: flex; flex-direction: column; overflow-y: auto; border-left: 1px solid var(--line); }
-  .modal-close {
-    position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
-    border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10;
-  }
+  .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10; }
   .modal-close:hover { background: white; color: var(--ink); }
   .modal-eyebrow { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
   .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
@@ -266,35 +213,21 @@
   .detail-val { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--ink-soft); text-align: right; }
   .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 20px 0; font-style: italic; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 20px; }
-  .modal-btn-primary {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 14px; background: var(--sage); color: white; border: none; border-radius: 1px;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
-    text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none;
-  }
+  .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: var(--sage); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; }
   .modal-btn-primary:hover { background: var(--sage-deep); }
-  .modal-btn-ghost {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 14px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
-    text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none;
-  }
+  .modal-btn-ghost { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; }
   .modal-btn-ghost:hover { background: var(--sage); color: white; }
+  /* Modal sale box */
+  .modal-sale-box { background: #fff8ee; border: 1px solid rgba(201,169,110,0.4); border-radius: 2px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .msb-icon { font-size: 18px; flex-shrink: 0; }
+  .msb-text { font-size: 12px; color: #b8800a; line-height: 1.5; }
+  .msb-text strong { font-weight: 700; display: block; font-size: 13px; }
 
-  .cta-strip {
-    background: var(--ink); padding: 72px 56px;
-    display: flex; justify-content: space-between; align-items: center; gap: 40px;
-  }
+  .cta-strip { background: var(--ink); padding: 72px 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
   .cta-strip h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(28px, 3vw, 44px); color: white; line-height: 1.1; }
   .cta-strip h2 em { font-style: italic; color: var(--sage-soft); }
   .cta-strip p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 360px; margin-top: 12px; }
-  .cta-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage);
-    background: transparent; text-decoration: none;
-    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em;
-    text-transform: uppercase; font-weight: 500; transition: all 0.3s; border-radius: 1px; flex-shrink: 0;
-  }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage); background: transparent; text-decoration: none; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; transition: all 0.3s; border-radius: 1px; flex-shrink: 0; }
   .cta-btn:hover { background: var(--sage); color: white; }
 
   footer { padding: 48px 56px 28px; background: var(--cream-soft); border-top: 1px solid var(--line); }
@@ -312,18 +245,17 @@
 
   .seo-blurb { padding: 40px 56px; border-top: 1px solid var(--line); background: var(--cream-soft); }
   .seo-blurb p { font-size: 12px; color: var(--stone); line-height: 1.9; max-width: 960px; }
-  @media (max-width: 768px) { .seo-blurb { padding: 28px 24px; } }
 
-  @media (max-width: 900px) {
-    .modal { grid-template-columns: 1fr; }
-    .modal-img-col { min-height: 320px; }
-  }
+  @media (max-width: 900px) { .modal { grid-template-columns: 1fr; } .modal-img-col { min-height: 320px; } }
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    .page-hero { padding: 110px 24px 60px; flex-direction: column; align-items: flex-start; }
+    .sale-hero { padding: 36px 24px; flex-direction: column; gap: 24px; margin-top: 60px; }
+    .sale-pct { font-size: 72px; }
+    .page-hero { padding: 40px 24px 48px; flex-direction: column; align-items: flex-start; }
     .section-header { padding: 40px 24px 32px; flex-direction: column; align-items: flex-start; gap: 12px; }
     .section-desc { text-align: left; max-width: 100%; }
+    .section-sale-strip { padding: 12px 24px; flex-wrap: wrap; }
     .tables-grid { grid-template-columns: 1fr 1fr; }
     .table-card:nth-child(3n) { border-right: 1px solid var(--line); }
     .table-card:nth-child(2n) { border-right: none; }
@@ -333,12 +265,19 @@
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
     .cat-tab { padding: 16px 24px; }
+    .seo-blurb { padding: 28px 24px; }
   }
 </style>
 </head>
 <body>
 
-<div style="background:#7BA5A8;color:white;text-align:center;padding:18px 20px;font-family:'Inter Tight',sans-serif;font-size:14px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;border-bottom:3px solid #5D8588;">&#10052; Winter Sale &mdash; 20% Off All Tables &mdash; Giving Back to the Prime Piece Family &mdash; While Stock Lasts</div>
+<!-- SALE BANNER TOP -->
+<div class="sale-banner">
+  <div class="sale-banner-label">Winter Sale — Now On</div>
+  <div class="sale-banner-main">❄ 20% Off All Tables ❄</div>
+  <div class="sale-banner-sub">One-of-one pieces · <span>While stock lasts</span> · Handcrafted Auckland NZ</div>
+</div>
+
 <nav>
   <a href="/" class="logo-wrap">
     <div class="logo">PRIME PIECE</div>
@@ -352,6 +291,34 @@
     <li><a href="/#contact">Contact</a></li>
   </ul>
 </nav>
+
+<!-- SALE HERO -->
+<div class="sale-hero">
+  <div class="sale-hero-left">
+    <div class="sale-hero-eyebrow">Winter Sale 2026</div>
+    <h2>20% off every<br><strong>stone table.</strong></h2>
+    <p class="sale-hero-desc">Every table in the collection is on sale right now. One-of-one pieces — once they're gone, they're gone. No restocks, no reprints.</p>
+    <div class="sale-hero-badges">
+      <span class="sale-badge">20% off all tables</span>
+      <span class="sale-badge">One of one</span>
+      <span class="sale-badge">Free Auckland delivery</span>
+    </div>
+  </div>
+  <div class="sale-hero-right">
+    <div class="sale-pct">20%</div>
+    <div class="sale-pct-label">Off everything</div>
+    <div class="sale-ends-label" style="margin-top:16px;">Sale ends in</div>
+    <div class="sale-countdown-hero">
+      <div class="schu"><span class="schu-num" id="cd-days">--</span><span class="schu-label">Days</span></div>
+      <span class="schu-sep">:</span>
+      <div class="schu"><span class="schu-num" id="cd-hours">--</span><span class="schu-label">Hrs</span></div>
+      <span class="schu-sep">:</span>
+      <div class="schu"><span class="schu-num" id="cd-mins">--</span><span class="schu-label">Min</span></div>
+      <span class="schu-sep">:</span>
+      <div class="schu"><span class="schu-num" id="cd-secs">--</span><span class="schu-label">Sec</span></div>
+    </div>
+  </div>
+</div>
 
 <section class="page-hero">
   <div class="hero-left reveal">
@@ -380,22 +347,41 @@
     </div>
     <p class="section-desc">Round stone tops on black steel frames. Each piece is 500mm tall × 450mm diameter. One of one — never repeated.</p>
   </div>
+  <div class="section-sale-strip">
+    <div class="ssl-dot"></div>
+    <span class="ssl-text"><strong>Winter Sale — 20% off all coffee tables.</strong> Sale prices shown below. One of one — no restocks.</span>
+    <span class="ssl-savings">Save up to $100 per piece</span>
+  </div>
   <div class="tables-grid">
     <div class="table-card reveal" onclick="openModal('Fire Flow','Azul Marble','table-10.jpg','A swirling storm of amber, copper and black — like lava frozen mid-flow. The Azul marble brings raw geological drama to any space.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="table-10.jpg" alt="Fire Flow — Azul Marble natural stone coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Fire Flow</div><div class="table-stone">Azul Marble</div><div class="table-desc">A swirling storm of amber, copper and black — like lava frozen mid-flow.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price" style="color:var(--stone)"><s>NZD $499</s> NZD $349 — Sold</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Pink Storm','Monica Marble','table-1.jpg','Soft crimson waves with silver and white breaking through — like a storm rolling in off the ocean at dusk. Monica marble at its most dramatic.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-1.jpg" alt="Pink Storm — Monica Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Pink Storm</div><div class="table-stone">Monica Marble</div><div class="table-desc">Soft crimson waves with silver and white breaking through — dramatic Monica marble.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $299</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-pink-storm" onclick="event.stopPropagation(); Cart.add({id:'table-pink-storm',name:'Pink Storm',type:'Coffee Table',image:'table-1.jpg',price:299})">Add to Cart →</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Jade Jewel','Green Marble Onyx','table-3.jpg','Translucent jade green with glowing crystal formations — the rarest piece in the collection. Green onyx catches light like no other stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-3.jpg" alt="Jade Jewel — Green Marble Onyx coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Jade Jewel</div><div class="table-stone">Green Marble Onyx</div><div class="table-desc">Translucent jade green with glowing crystal formations — the rarest in the collection.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $319</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-jade-jewel" onclick="event.stopPropagation(); Cart.add({id:'table-jade-jewel',name:'Jade Jewel',type:'Coffee Table',image:'table-3.jpg',price:319})">Add to Cart →</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Amazon Vein','Rainforest Marble','table-2.jpg','Deep forest greens and copper veins running through dark stone — inspired by the canopy above the Amazon river at golden hour.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-2.jpg" alt="Amazon Vein — Rainforest Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Amazon Vein</div><div class="table-stone">Rainforest Marble</div><div class="table-desc">Deep forest greens and copper veins — inspired by the Amazon canopy at golden hour.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $279</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-amazon-vein" onclick="event.stopPropagation(); Cart.add({id:'table-amazon-vein',name:'Amazon Vein',type:'Coffee Table',image:'table-2.jpg',price:279})">Add to Cart →</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Midnight Wave','Verde Apli Marble','table-4.jpg','Dark forest green with bold white veining — elegant and commanding. Verde Apli from Spain, one of the most sought-after stones in the collection.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-4.jpg" alt="Midnight Wave — Verde Apli Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Midnight Wave</div><div class="table-stone">Verde Apli Marble</div><div class="table-desc">Dark forest green with bold white veining — elegant and commanding.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $309</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-midnight-wave" onclick="event.stopPropagation(); Cart.add({id:'table-midnight-wave',name:'Midnight Wave',type:'Coffee Table',image:'table-4.jpg',price:309})">Add to Cart →</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Sunset Stone','Macael Marble','table-5.jpg','Warm amber and gold tones fractured with dark veining — like the last light hitting the horizon. Macael marble from the mountains of Spain.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-5.jpg" alt="Sunset Stone — Macael Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Sunset Stone</div><div class="table-stone">Macael Marble</div><div class="table-desc">Warm amber and gold tones fractured with dark veining — like last light on the horizon.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $399</s> NZD $239</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-sunset-stone" onclick="event.stopPropagation(); Cart.add({id:'table-sunset-stone',name:'Sunset Stone',type:'Coffee Table',image:'table-5.jpg',price:239})">Add to Cart →</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Solar Eclipse','Titanium Black Granite','table-6.jpg','Black granite with swirling gold and copper mineral deposits — like looking at the surface of another planet. Titanium black is rare and extraordinary.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-6.jpg" alt="Solar Eclipse — Titanium Black Granite coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Solar Eclipse</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Black granite with swirling gold and copper mineral deposits — rare and extraordinary.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $289</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-solar-eclipse" onclick="event.stopPropagation(); Cart.add({id:'table-solar-eclipse',name:'Solar Eclipse',type:'Coffee Table',image:'table-6.jpg',price:289})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Pink Storm','Monica Marble','table-1.jpg','Soft crimson waves with silver and white breaking through — like a storm rolling in off the ocean at dusk. Monica marble at its most dramatic.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-1.jpg" alt="Pink Storm — Monica Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Pink Storm</div><div class="table-stone">Monica Marble</div><div class="table-desc">Soft crimson waves with silver and white breaking through — dramatic Monica marble.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $299 <span class="save-pill">Save $200</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-pink-storm" onclick="event.stopPropagation(); Cart.add({id:'table-pink-storm',name:'Pink Storm',type:'Coffee Table',image:'table-1.jpg',price:299})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Jade Jewel','Green Marble Onyx','table-3.jpg','Translucent jade green with glowing crystal formations — the rarest piece in the collection. Green onyx catches light like no other stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-3.jpg" alt="Jade Jewel — Green Marble Onyx coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Jade Jewel</div><div class="table-stone">Green Marble Onyx</div><div class="table-desc">Translucent jade green with glowing crystal formations — the rarest in the collection.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $319 <span class="save-pill">Save $180</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-jade-jewel" onclick="event.stopPropagation(); Cart.add({id:'table-jade-jewel',name:'Jade Jewel',type:'Coffee Table',image:'table-3.jpg',price:319})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Amazon Vein','Rainforest Marble','table-2.jpg','Deep forest greens and copper veins running through dark stone — inspired by the canopy above the Amazon river at golden hour.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-2.jpg" alt="Amazon Vein — Rainforest Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Amazon Vein</div><div class="table-stone">Rainforest Marble</div><div class="table-desc">Deep forest greens and copper veins — inspired by the Amazon canopy at golden hour.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $279 <span class="save-pill">Save $220</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-amazon-vein" onclick="event.stopPropagation(); Cart.add({id:'table-amazon-vein',name:'Amazon Vein',type:'Coffee Table',image:'table-2.jpg',price:279})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Midnight Wave','Verde Apli Marble','table-4.jpg','Dark forest green with bold white veining — elegant and commanding. Verde Apli from Spain, one of the most sought-after stones in the collection.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-4.jpg" alt="Midnight Wave — Verde Apli Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Midnight Wave</div><div class="table-stone">Verde Apli Marble</div><div class="table-desc">Dark forest green with bold white veining — elegant and commanding.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $309 <span class="save-pill">Save $190</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-midnight-wave" onclick="event.stopPropagation(); Cart.add({id:'table-midnight-wave',name:'Midnight Wave',type:'Coffee Table',image:'table-4.jpg',price:309})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Sunset Stone','Macael Marble','table-5.jpg','Warm amber and gold tones fractured with dark veining — like the last light hitting the horizon. Macael marble from the mountains of Spain.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-5.jpg" alt="Sunset Stone — Macael Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Sunset Stone</div><div class="table-stone">Macael Marble</div><div class="table-desc">Warm amber and gold tones fractured with dark veining — like last light on the horizon.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $399</s> NZD $239 <span class="save-pill">Save $160</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-sunset-stone" onclick="event.stopPropagation(); Cart.add({id:'table-sunset-stone',name:'Sunset Stone',type:'Coffee Table',image:'table-5.jpg',price:239})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Solar Eclipse','Titanium Black Granite','table-6.jpg','Black granite with swirling gold and copper mineral deposits — like looking at the surface of another planet. Titanium black is rare and extraordinary.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-6.jpg" alt="Solar Eclipse — Titanium Black Granite coffee table handcrafted in Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Solar Eclipse</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Black granite with swirling gold and copper mineral deposits — rare and extraordinary.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $499</s> NZD $289 <span class="save-pill">Save $210</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-solar-eclipse" onclick="event.stopPropagation(); Cart.add({id:'table-solar-eclipse',name:'Solar Eclipse',type:'Coffee Table',image:'table-6.jpg',price:289})">Add to Cart →</button></div></div></div>
+
     <div class="table-card reveal" onclick="openModal('Lava Vein','Sahara Noir Marble','table-7.jpg','Deep black with warm copper veining running through like rivers of fire. Sahara Noir brings a bold, moody presence to any interior.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="table-7.jpg" alt="Lava Vein — Sahara Noir Marble stone coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Lava Vein</div><div class="table-stone">Sahara Noir Marble</div><div class="table-desc">Deep black with warm copper veining running through like rivers of fire.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price" style="color:var(--stone)"><s>NZD $499</s> NZD $349 — Sold</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div></div>
+
     <div class="table-card reveal" onclick="openModal('Cloud Vein','Grey Marble','table-8.jpg','Cool grey stone with dramatic white and charcoal fracture patterns — effortlessly versatile. Sits beautifully in both minimalist and layered interiors.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="table-8.jpg" alt="Cloud Vein — Grey Marble stone coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Cloud Vein</div><div class="table-stone">Grey Marble</div><div class="table-desc">Cool grey with dramatic white and charcoal fracture patterns — effortlessly versatile.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price" style="color:var(--stone)"><s>NZD $499</s> NZD $349 — Sold</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div></div>
+
     <div class="table-card reveal" onclick="openModal('Lunar Eclipse','Diesel Marble','table-9.jpg','Warm cream tones with sweeping dark veins arching across the surface — quiet and refined. The kind of piece that anchors a room without demanding attention.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="table-9.jpg" alt="Lunar Eclipse — Diesel Marble stone coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Lunar Eclipse</div><div class="table-stone">Diesel Marble</div><div class="table-desc">Warm cream with sweeping dark veins — quiet and refined. Anchors a room effortlessly.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price" style="color:var(--stone)"><s>NZD $499</s> NZD $349 — Sold</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div></div>
+
     <div class="table-card reveal" onclick="openModal('Teal Tide','Mystique Green','table-11.jpg','Soft teal and sage tones with golden veining flowing across the surface — a rare and calming stone that brings the outside in.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="table-11.jpg" alt="Teal Tide — Mystique Green Marble coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Teal Tide</div><div class="table-stone">Mystique Green</div><div class="table-desc">Soft teal and sage tones with golden veining — a rare, calming stone that brings the outside in.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price" style="color:var(--stone)"><s>NZD $499</s> NZD $349 — Sold</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Desert Drift','Kangaroo Quartzite','table-12.jpg','Rich terracotta, burnt orange and slate tones swirling together — the ancient colours of the Australian outback captured in stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-12.jpg" alt="Desert Drift — Kangaroo Quartzite natural stone coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Desert Drift</div><div class="table-stone">Kangaroo Quartzite</div><div class="table-desc">Rich terracotta, burnt orange and slate — the ancient colours of the outback in stone.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $379</s> NZD $219</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-desert-drift" onclick="event.stopPropagation(); Cart.add({id:'table-desert-drift',name:'Desert Drift',type:'Coffee Table',image:'table-12.jpg',price:219})">Add to Cart →</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('Mountain Breeze','Super White Marble','table-16.jpg','Pure white with the finest, most delicate grey veining — clean, airy and serene. Super White marble is the choice for those who want understated luxury.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-16.jpg" alt="Mountain Breeze — Super White Marble coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Mountain Breeze</div><div class="table-stone">Super White Marble</div><div class="table-desc">Pure white with the finest grey veining — clean, airy and serene. Understated luxury.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $349</s> NZD $199</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-mountain-breeze" onclick="event.stopPropagation(); Cart.add({id:'table-mountain-breeze',name:'Mountain Breeze',type:'Coffee Table',image:'table-16.jpg',price:199})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Desert Drift','Kangaroo Quartzite','table-12.jpg','Rich terracotta, burnt orange and slate tones swirling together — the ancient colours of the Australian outback captured in stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-12.jpg" alt="Desert Drift — Kangaroo Quartzite natural stone coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Desert Drift</div><div class="table-stone">Kangaroo Quartzite</div><div class="table-desc">Rich terracotta, burnt orange and slate — the ancient colours of the outback in stone.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $379</s> NZD $219 <span class="save-pill">Save $160</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-desert-drift" onclick="event.stopPropagation(); Cart.add({id:'table-desert-drift',name:'Desert Drift',type:'Coffee Table',image:'table-12.jpg',price:219})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('Mountain Breeze','Super White Marble','table-16.jpg','Pure white with the finest, most delicate grey veining — clean, airy and serene. Super White marble is the choice for those who want understated luxury.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-16.jpg" alt="Mountain Breeze — Super White Marble coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Mountain Breeze</div><div class="table-stone">Super White Marble</div><div class="table-desc">Pure white with the finest grey veining — clean, airy and serene. Understated luxury.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $349</s> NZD $199 <span class="save-pill">Save $150</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-mountain-breeze" onclick="event.stopPropagation(); Cart.add({id:'table-mountain-breeze',name:'Mountain Breeze',type:'Coffee Table',image:'table-16.jpg',price:199})">Add to Cart →</button></div></div></div>
+
     <div class="table-card reveal" onclick="openModal('Ocean Ember','Blue Porcelain','table-13.jpg','Deep ocean blue with copper mineral veining cutting through — like watching a sunset reflected on dark water. Rare blue porcelain from Spain.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="table-13.jpg" alt="Ocean Ember — Blue Porcelain natural stone coffee table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">Ocean Ember</div><div class="table-stone">Blue Porcelain</div><div class="table-desc">Deep ocean blue with copper mineral veining — like a sunset reflected on dark water.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price" style="color:var(--stone)"><s>NZD $499</s> NZD $349 — Sold</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button></div></div></div>
-    <div class="table-card reveal" onclick="openModal('White Haven','Carrara Marble','table-14.jpg','Classic Carrara white with elegant grey veining — timeless, versatile and endlessly beautiful. The benchmark of natural stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="table-14.jpg" alt="White Haven — Carrara Marble coffee table handcrafted Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">White Haven</div><div class="table-stone">Carrara Marble</div><div class="table-desc">Classic Carrara white with elegant grey veining — timeless and endlessly beautiful.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $429</s> NZD $249</div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-white-haven" onclick="event.stopPropagation(); Cart.add({id:'table-white-haven',name:'White Haven',type:'Coffee Table',image:'table-14.jpg',price:249})">Add to Cart →</button></div></div></div>
+
+    <div class="table-card reveal" onclick="openModal('White Haven','Carrara Marble','table-14.jpg','Classic Carrara white with elegant grey veining — timeless, versatile and endlessly beautiful. The benchmark of natural stone.','500mm (H) × 450mm (Dia)','Coffee Table')"><div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="table-14.jpg" alt="White Haven — Carrara Marble coffee table handcrafted Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div><div class="table-info"><div class="table-name">White Haven</div><div class="table-stone">Carrara Marble</div><div class="table-desc">Classic Carrara white with elegant grey veining — timeless and endlessly beautiful.</div><div class="table-dims">H: 500mm × Ø: 450mm · Black steel frame</div><div class="table-price"><s>NZD $429</s> NZD $249 <span class="save-pill">Save $180</span></div><div class="table-foot"><span class="table-type">Coffee Table</span><button class="enquire-btn pp-add-btn" data-id="table-white-haven" onclick="event.stopPropagation(); Cart.add({id:'table-white-haven',name:'White Haven',type:'Coffee Table',image:'table-14.jpg',price:249})">Add to Cart →</button></div></div></div>
   </div>
 </div>
 
@@ -408,10 +394,14 @@
     </div>
     <p class="section-desc">Sculptural stone side tables — the perfect accent piece for a bedroom, lounge or hallway. Handcrafted in Auckland from natural stone sourced across Europe and beyond.</p>
   </div>
+  <div class="section-sale-strip">
+    <div class="ssl-dot"></div>
+    <span class="ssl-text"><strong>Winter Sale — 20% off all side tables.</strong> Sale prices shown below. One of one — no restocks.</span>
+  </div>
   <div class="tables-grid">
     <div class="table-card reveal" onclick="openModal('Twin Jade','Mystique Green Marble','side-1.jpg','Two sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. Cool teal tones with golden veining that shifts with the light. A rare pairing, never repeated.','450mm (H) × 600mm × 600mm · Black X-frame','Side Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="side-1.jpg" alt="Twin Jade — Mystique Green Marble stone side tables set of 2 Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-price">NZD $1,199 each <span style="font-size:12px;color:var(--stone)">or $2,199 as a set</span></div><div class="table-foot" style="flex-direction:column;align-items:stretch;gap:8px"><div style="display:flex;gap:8px"><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade-single',name:'Twin Jade (Single)',type:'Side Table',image:'side-1.jpg',price:1199})">1 Table — $1,199 →</button><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center;background:var(--sage);color:#fff;border-color:var(--sage)" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade',name:'Twin Jade (Set of 2)',type:'Side Table',image:'side-1.jpg',price:2199})">Set of 2 — $2,199 →</button></div><span class="table-type" style="text-align:center">Side Table — Set of 2</span></div></div>
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="side-1.jpg" alt="Twin Jade — Mystique Green Marble stone side tables set of 2 Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-price">NZD $1,199 each <span style="font-size:12px;color:var(--stone)">or $2,199 as a set</span> <span class="save-pill">Save up to $600</span></div><div class="table-foot" style="flex-direction:column;align-items:stretch;gap:8px"><div style="display:flex;gap:8px"><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade-single',name:'Twin Jade (Single)',type:'Side Table',image:'side-1.jpg',price:1199})">1 Table — $1,199 →</button><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center;background:var(--sage);color:#fff;border-color:var(--sage)" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade',name:'Twin Jade (Set of 2)',type:'Side Table',image:'side-1.jpg',price:2199})">Set of 2 — $2,199 →</button></div><span class="table-type" style="text-align:center">Side Table — Set of 2</span></div></div>
     </div>
     <div class="table-card reveal" onclick="openModal('Jade Bedside','Green Marble Onyx','side-2.jpg','Luminous jade green onyx with amber fault lines running across a translucent surface — this bedside table glows in natural light. On a bold black C-frame, it sits flush beside any bed with quiet confidence.','600mm (H) × 450mm (W) · Black steel C-frame','Side Table')">
       <div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="side-2.jpg" alt="Jade Bedside — Green Marble Onyx bedside table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
@@ -429,31 +419,35 @@
     </div>
     <p class="section-desc">Large-format stone slabs on hand-welded steel frames — built to command a room. Each piece is handcrafted in New Zealand and designed for both indoor and outdoor settings. Stone this scale is rare. These pieces are one of one.</p>
   </div>
+  <div class="section-sale-strip">
+    <div class="ssl-dot"></div>
+    <span class="ssl-text"><strong>Winter Sale — 20% off all lounge tables.</strong> Sale prices shown below. One of one — once sold, gone forever.</span>
+    <span class="ssl-savings">Save up to $1,000 per piece</span>
+  </div>
   <div class="tables-grid">
-
     <div class="table-card reveal" onclick="openModal('Jade Horizon','Mitered Mystique Green Marble','lounge-1.jpg','A sweeping slab of mitered Mystique Green — the stone\'s cool jade tones and golden fault lines catch every shift of light. Bevelled edges give this piece a refined, gallery-quality finish. Built for outdoor terraces and open-plan living.','400mm (H) × 1200mm × 600mm','Lounge Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-1.jpg" alt="Jade Horizon — Mystique Green Marble lounge table handcrafted Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Jade Horizon</div><div class="table-stone">Mitered Mystique Green Marble</div><div class="table-desc">A sweeping mitered slab — cool jade tones and golden fault lines with a refined bevelled edge finish.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $3,800</s> NZD $2,999</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-jade-horizon" onclick="event.stopPropagation(); Cart.add({id:'table-jade-horizon',name:'Jade Horizon',type:'Lounge Table',image:'lounge-1.jpg',price:2999})">Add to Cart →</button></div></div>
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="lounge-1.jpg" alt="Jade Horizon — Mystique Green Marble lounge table handcrafted Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Jade Horizon</div><div class="table-stone">Mitered Mystique Green Marble</div><div class="table-desc">A sweeping mitered slab — cool jade tones and golden fault lines with a refined bevelled edge finish.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $3,800</s> NZD $2,999 <span class="save-pill">Save $801</span></div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-jade-horizon" onclick="event.stopPropagation(); Cart.add({id:'table-jade-horizon',name:'Jade Horizon',type:'Lounge Table',image:'lounge-1.jpg',price:2999})">Add to Cart →</button></div></div>
     </div>
 
     <div class="table-card reveal" onclick="openModal('Obsidian Storm','Titanium Black Granite','lounge-2.jpg','Pure geological drama. Titanium Black granite with explosive silver and white mineral formations across a deep black field — like a storm frozen in stone. A statement piece for those who want to own a room.','400mm (H) × 1200mm × 600mm','Lounge Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-2.jpg" alt="Obsidian Storm — Titanium Black Granite lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Obsidian Storm</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Explosive silver and white mineral formations across a deep black field — like a storm frozen in stone.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $4,200</s> NZD $3,299</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-obsidian-storm" onclick="event.stopPropagation(); Cart.add({id:'table-obsidian-storm',name:'Obsidian Storm',type:'Lounge Table',image:'lounge-2.jpg',price:3299})">Add to Cart →</button></div></div>
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="lounge-2.jpg" alt="Obsidian Storm — Titanium Black Granite lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Obsidian Storm</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Explosive silver and white mineral formations across a deep black field — like a storm frozen in stone.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $4,200</s> NZD $3,299 <span class="save-pill">Save $901</span></div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-obsidian-storm" onclick="event.stopPropagation(); Cart.add({id:'table-obsidian-storm',name:'Obsidian Storm',type:'Lounge Table',image:'lounge-2.jpg',price:3299})">Add to Cart →</button></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Sage Plateau','Mystique Green Marble','lounge-3.jpg','The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges that let the stone speak for itself. Copper fault lines run across a sage and teal field. Designed for indoor living rooms and outdoor entertaining.','400mm (H) × 1200mm × 600mm','Lounge Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-3.jpg" alt="Sage Plateau — Mystique Green Marble natural stone lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Sage Plateau</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Clean straight edges on rare Mystique Green — copper fault lines across a sage and teal field.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $3,800</s> NZD $2,999</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-sage-plateau" onclick="event.stopPropagation(); Cart.add({id:'table-sage-plateau',name:'Sage Plateau',type:'Lounge Table',image:'lounge-3.jpg',price:2999})">Add to Cart →</button></div></div>
+    <div class="table-card reveal" onclick="openModal('Sage Plateau','Mystique Green Marble','lounge-3.jpg','The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges that let the stone speak for itself. Copper fault lines run across a sage and teal field.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="lounge-3.jpg" alt="Sage Plateau — Mystique Green Marble natural stone lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Sage Plateau</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Clean straight edges on rare Mystique Green — copper fault lines across a sage and teal field.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $3,800</s> NZD $2,999 <span class="save-pill">Save $801</span></div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-sage-plateau" onclick="event.stopPropagation(); Cart.add({id:'table-sage-plateau',name:'Sage Plateau',type:'Lounge Table',image:'lounge-3.jpg',price:2999})">Add to Cart →</button></div></div>
     </div>
 
     <div class="table-card reveal" onclick="openModal('Desert Crown','Taj Mahal Quartzite','lounge-4.jpg','Taj Mahal quartzite — warm cream and soft gold tones with the finest veining, sourced from Brazil. This stone has graced the world\'s most exclusive interiors. At this scale, it is something else entirely.','400mm (H) × 1200mm × 650mm','Lounge Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-4.jpg" alt="Desert Crown — Taj Mahal Quartzite lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Desert Crown</div><div class="table-stone">Taj Mahal Quartzite</div><div class="table-desc">Warm cream and soft gold tones with the finest veining — Taj Mahal quartzite at its most commanding.</div><div class="table-dims">H: 400mm × 1200mm × 650mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $4,500</s> NZD $3,599</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-desert-crown" onclick="event.stopPropagation(); Cart.add({id:'table-desert-crown',name:'Desert Crown',type:'Lounge Table',image:'lounge-4.jpg',price:3599})">Add to Cart →</button></div></div>
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="lounge-4.jpg" alt="Desert Crown — Taj Mahal Quartzite lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Desert Crown</div><div class="table-stone">Taj Mahal Quartzite</div><div class="table-desc">Warm cream and soft gold tones with the finest veining — Taj Mahal quartzite at its most commanding.</div><div class="table-dims">H: 400mm × 1200mm × 650mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $4,500</s> NZD $3,599 <span class="save-pill">Save $901</span></div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-desert-crown" onclick="event.stopPropagation(); Cart.add({id:'table-desert-crown',name:'Desert Crown',type:'Lounge Table',image:'lounge-4.jpg',price:3599})">Add to Cart →</button></div></div>
     </div>
 
     <div class="table-card reveal" onclick="openModal('Black Gold','Gold & Black Titanium Granite','lounge-5.jpg','The most dramatic piece in the lounge collection. Black titanium granite laced with sweeping veins of gold and warm copper — a stone that shifts from moody to luminous depending on the light.','400mm (H) × 1200mm × 600mm','Lounge Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-5.jpg" alt="Black Gold — Titanium Granite luxury lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Black Gold</div><div class="table-stone">Gold & Black Titanium Granite</div><div class="table-desc">Black titanium granite laced with sweeping veins of gold and copper — shifts from moody to luminous.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $4,800</s> NZD $3,799</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-black-gold" onclick="event.stopPropagation(); Cart.add({id:'table-black-gold',name:'Black Gold',type:'Lounge Table',image:'lounge-5.jpg',price:3799})">Add to Cart →</button></div></div>
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="lounge-5.jpg" alt="Black Gold — Titanium Granite luxury lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">Black Gold</div><div class="table-stone">Gold & Black Titanium Granite</div><div class="table-desc">Black titanium granite laced with sweeping veins of gold and copper — shifts from moody to luminous.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price"><s>NZD $4,800</s> NZD $3,799 <span class="save-pill">Save $1,001</span></div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-black-gold" onclick="event.stopPropagation(); Cart.add({id:'table-black-gold',name:'Black Gold',type:'Lounge Table',image:'lounge-5.jpg',price:3799})">Add to Cart →</button></div></div>
     </div>
 
     <div class="table-card reveal" onclick="openModal('Ocean Ember','Blue Marble','lounge-6.jpg','Deep ocean blue marble with rivers of warm gold veining cutting through — like watching last light reflected on dark water. A round form that softens its drama. This piece has found its home.','500mm (H) × 700mm (Dia)','Lounge Table')">
@@ -461,34 +455,32 @@
       <div class="table-info"><div class="table-name">Ocean Ember</div><div class="table-stone">Blue Marble</div><div class="table-desc">Deep ocean blue with rivers of warm gold veining — round form, sold to its forever home.</div><div class="table-dims">H: 500mm × Ø: 700mm · Black steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Ocean Ember Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Desert Drift','Kangaroo Quartzite','lounge-7.jpg','Rich earthy tones of terracotta, copper and warm brown — the ancient colours of the Australian outback at this scale are something else. A bold round form on a sculptural steel base. Gone, but not forgotten.','300mm (H) × 800mm (Dia)','Lounge Table')">
+    <div class="table-card reveal" onclick="openModal('Desert Drift','Kangaroo Quartzite','lounge-7.jpg','Rich earthy tones of terracotta, copper and warm brown — the ancient colours of the Australian outback at this scale are something else. A bold round form on a sculptural steel base.','300mm (H) × 800mm (Dia)','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge sold-out">Sold Out</span><img class="table-img" src="lounge-7.jpg" alt="Desert Drift — Kangaroo Quartzite round stone lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Desert Drift</div><div class="table-stone">Kangaroo Quartzite</div><div class="table-desc">Rich earthy tones of terracotta and copper — the Australian outback at this scale is extraordinary.</div><div class="table-dims">H: 300mm × Ø: 800mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><a href="mailto:james@primepiece.co.nz?subject=Enquiry — Desert Drift Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('White Haven','Carrara Marble','lounge-8.jpg','Classic Carrara white with elegant grey veining and a hand-finished bull nose edge — timeless, clean and endlessly beautiful. The round form adds softness; the bull nose edge adds craft. Available now.','500mm (H) × 700mm (Dia)','Lounge Table')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-8.jpg" alt="White Haven — Carrara Marble round lounge table bull nose edge Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">White Haven</div><div class="table-stone">Carrara Marble</div><div class="table-desc">Classic Carrara white with bull nose edge — timeless and endlessly beautiful in a round lounge form.</div><div class="table-dims">H: 500mm × Ø: 700mm · Bull nose edge · Hand-welded steel frame</div><div class="table-price"><s>NZD $2,499</s> NZD $1,999</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-white-haven-lounge" onclick="event.stopPropagation(); Cart.add({id:'table-white-haven-lounge',name:'White Haven Carrara Lounge Table',type:'Lounge Table',image:'lounge-8.jpg',price:1999})">Add to Cart →</button></div></div>
+    <div class="table-card reveal" onclick="openModal('White Haven','Carrara Marble','lounge-8.jpg','Classic Carrara white with elegant grey veining and a hand-finished bull nose edge — timeless, clean and endlessly beautiful.','500mm (H) × 700mm (Dia)','Lounge Table')">
+      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="lounge-8.jpg" alt="White Haven — Carrara Marble round lounge table bull nose edge Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
+      <div class="table-info"><div class="table-name">White Haven</div><div class="table-stone">Carrara Marble</div><div class="table-desc">Classic Carrara white with bull nose edge — timeless and endlessly beautiful in a round lounge form.</div><div class="table-dims">H: 500mm × Ø: 700mm · Bull nose edge · Hand-welded steel frame</div><div class="table-price"><s>NZD $2,499</s> NZD $1,999 <span class="save-pill">Save $500</span></div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-white-haven-lounge" onclick="event.stopPropagation(); Cart.add({id:'table-white-haven-lounge',name:'White Haven Carrara Lounge Table',type:'Lounge Table',image:'lounge-8.jpg',price:1999})">Add to Cart →</button></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Silver Mist','Silver Travertine','lounge-9.jpg','Silver travertine with its distinctive linear grain and warm neutral tones — on a custom hand-crafted wooden base that grounds the stone beautifully. A low-profile piece that sits close to the floor. Commission yours.','200mm (H) × 650mm (Dia)','Lounge Table')">
+    <div class="table-card reveal" onclick="openModal('Silver Mist','Silver Travertine','lounge-9.jpg','Silver travertine with its distinctive linear grain and warm neutral tones — on a custom hand-crafted wooden base that grounds the stone beautifully.','200mm (H) × 650mm (Dia)','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge commissioned">Commissioned</span><img class="table-img" src="lounge-9.jpg" alt="Silver Mist — Silver Travertine low lounge table custom wooden base Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Silver Mist</div><div class="table-stone">Silver Travertine</div><div class="table-desc">Silver travertine on a custom wooden base — low profile, warm tones. Can be commissioned to order.</div><div class="table-dims">H: 200mm × Ø: 650mm · Custom wooden base</div><div class="table-foot"><span class="table-type">Lounge Table — Commission</span><a href="mailto:james@primepiece.co.nz?subject=Commission Enquiry — Silver Mist Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Arabesque','Arabescato Marble','lounge-10.jpg','A full-scale Arabescato marble dining table — sweeping white stone with dramatic grey veining across a 1500mm slab. Custom teal cylindrical pedestals. One of the most extraordinary pieces Prime Piece has produced. Commission yours.','900mm (H) × 1500mm (L) × 500mm (W)','Dining Table')">
+    <div class="table-card reveal" onclick="openModal('Arabesque','Arabescato Marble','lounge-10.jpg','A full-scale Arabescato marble dining table — sweeping white stone with dramatic grey veining across a 1500mm slab. Custom teal cylindrical pedestals. One of the most extraordinary pieces Prime Piece has produced.','900mm (H) × 1500mm (L) × 500mm (W)','Dining Table')">
       <div class="table-img-wrap"><span class="table-badge commissioned">Commissioned</span><img class="table-img" src="lounge-10.jpg" alt="Arabesque — Arabescato Marble dining table custom teal pedestals Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Arabesque</div><div class="table-stone">Arabescato Marble</div><div class="table-desc">A full-scale Arabescato marble slab on custom teal pedestals — one of the most extraordinary pieces ever made.</div><div class="table-dims">H: 900mm × 1500mm (L) × 500mm (W) · Custom pedestal base</div><div class="table-foot"><span class="table-type">Dining Table — Commission</span><a href="mailto:james@primepiece.co.nz?subject=Commission Enquiry — Arabesque Dining Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
 
-    <div class="table-card reveal" onclick="openModal('Jade Runner','Green Marble Onyx','lounge-11.jpg','A dramatic low runner in translucent jade green onyx — 1000mm long, only 100mm wide, hovering just 200mm off the ground. Designed as a centrepiece for a long hallway or between two sofas. Light passes through this stone. Commission yours.','200mm (H) × 1000mm (L) × 100mm (W)','Lounge Table')">
+    <div class="table-card reveal" onclick="openModal('Jade Runner','Green Marble Onyx','lounge-11.jpg','A dramatic low runner in translucent jade green onyx — 1000mm long, only 100mm wide, hovering just 200mm off the ground. Light passes through this stone.','200mm (H) × 1000mm (L) × 100mm (W)','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge commissioned">Commissioned</span><img class="table-img" src="lounge-11.jpg" alt="Jade Runner — Green Marble Onyx low runner table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Jade Runner</div><div class="table-stone">Green Marble Onyx</div><div class="table-desc">A dramatic low runner in translucent jade green onyx — light passes through this stone. Commission yours.</div><div class="table-dims">H: 200mm × 1000mm (L) × 100mm (W) · Custom steel base</div><div class="table-foot"><span class="table-type">Lounge Table — Commission</span><a href="mailto:james@primepiece.co.nz?subject=Commission Enquiry — Jade Runner Lounge Table" class="enquire-btn" onclick="event.stopPropagation()">Enquire →</a></div></div>
     </div>
-
   </div>
 </div>
-
 
 <div class="cta-strip">
   <div>
@@ -525,12 +517,17 @@
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-img-col">
       <span class="modal-stone-tag" id="modal-stone-tag"></span>
+      <span class="modal-sale-tag" id="modal-sale-tag" style="display:none;">20% OFF</span>
       <img id="modal-img" src="" alt="">
     </div>
     <div class="modal-info-col">
       <div class="modal-eyebrow">Prime Piece — Stone Table</div>
       <div class="modal-name" id="modal-name"></div>
       <div class="modal-stone" id="modal-stone-text"></div>
+      <div id="modal-sale-box" class="modal-sale-box" style="display:none;">
+        <span class="msb-icon">❄</span>
+        <div class="msb-text"><strong>Winter Sale — 20% Off</strong>Sale price applied. One of one — once sold, gone forever.</div>
+      </div>
       <div class="modal-desc-text" id="modal-desc-text"></div>
       <div class="modal-divider"></div>
       <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-val" id="modal-dims"></span></div>
@@ -549,25 +546,35 @@
 </div>
 
 <script>
+  // Countdown — ends July 31 2026
+  const SALE_END = new Date('2026-07-31T23:59:59+12:00');
+  function updateCountdown() {
+    const now = new Date();
+    const diff = SALE_END - now;
+    if (diff <= 0) { document.querySelectorAll('#cd-days,#cd-hours,#cd-mins,#cd-secs').forEach(el => el.textContent = '00'); return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
     { threshold: 0.06 }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Auto-open tab (and optionally modal) from URL hash
   (function() {
     const hash = window.location.hash.replace('#','');
     const tabs = document.querySelectorAll('.cat-tab');
     const tabMap = { coffee: [0,'coffee'], side: [1,'side'], lounge: [2,'lounge'] };
-    const productMap = {
-      'twin-jade': { tab: [1,'side'], args: ['Twin Jade','Mystique Green Marble','side-1.jpg','Two sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. Cool teal tones with golden veining that shifts with the light. A rare pairing, never repeated.','450mm (H) × 600mm × 600mm · Black X-frame','Side Table'] }
-    };
-    if (productMap[hash]) {
-      const [tabIdx, tabCat] = productMap[hash].tab;
-      showCategory(tabCat, tabs[tabIdx]);
-      openModal(...productMap[hash].args);
-    } else if (tabMap[hash]) {
+    if (tabMap[hash]) {
       const [tabIdx, tabCat] = tabMap[hash];
       showCategory(tabCat, tabs[tabIdx]);
     }
@@ -597,7 +604,7 @@
     'table-13.jpg': { price: 279, was: 499, sold: true,  id: 'table-ocean-ember' },
     'table-14.jpg': { price: 249, was: 429,              id: 'table-white-haven' },
     'side-1.jpg':   { price: 2199, singlePrice: 1199, singleId: 'table-twin-jade-single', id: 'table-twin-jade' },
-    'side-2.jpg':   { price: 2995,          sold: true,  id: 'table-jade-bedside' },
+    'side-2.jpg':   { price: 2995, sold: true,           id: 'table-jade-bedside' },
     'lounge-1.jpg': { price: 2999, was: 3800, id: 'table-jade-horizon' },
     'lounge-2.jpg': { price: 3299, was: 4200, id: 'table-obsidian-storm' },
     'lounge-3.jpg': { price: 2999, was: 3800, id: 'table-sage-plateau' },
@@ -605,9 +612,7 @@
     'lounge-5.jpg': { price: 3799, was: 4800, id: 'table-black-gold' },
     'lounge-8.jpg': { price: 1999, was: 2499, id: 'table-white-haven-lounge' },
   };
-
   const NOT_PURCHASABLE = ['lounge-6.jpg','lounge-7.jpg','lounge-9.jpg','lounge-10.jpg','lounge-11.jpg'];
-
   let _modalItem = null;
 
   function openModal(name, stone, img, desc, dims, type) {
@@ -618,22 +623,27 @@
     document.getElementById('modal-img').src = img;
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-type').textContent = type;
+    const info = TABLE_PRICES[img];
+    const saleTag = document.getElementById('modal-sale-tag');
+    const saleBox = document.getElementById('modal-sale-box');
+    const hasSale = info && info.was && !info.sold;
+    saleTag.style.display = hasSale ? '' : 'none';
+    saleBox.style.display = hasSale ? '' : 'none';
 
     const btn = document.getElementById('modal-add-cart');
-    const info = TABLE_PRICES[img];
-
     const singleBtnEl = document.getElementById('modal-add-single');
     if (singleBtnEl) singleBtnEl.style.display = 'none';
 
     if (NOT_PURCHASABLE.includes(img)) {
       _modalItem = null;
       btn.textContent = 'Enquire About This Piece →';
+      btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
       btn.onclick = () => { window.location.href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table'; };
     } else if (info) {
       if (info.sold) {
         _modalItem = null;
-        btn.textContent = `NZD $${info.price} (was $${info.was}) — Sold Out`;
-        btn.onclick = null; btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'default';
+        btn.textContent = `NZD $${info.price} (was $${info.was || info.price}) — Sold Out`;
+        btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'default'; btn.onclick = null;
       } else {
         btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
         if (info.singlePrice) {
@@ -663,9 +673,9 @@
     } else {
       _modalItem = null;
       btn.textContent = 'Enquire →';
+      btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
       btn.onclick = () => { window.location.href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table'; };
     }
-
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
