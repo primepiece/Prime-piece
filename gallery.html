@@ -3,137 +3,139 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Google Analytics -->
+<link rel="icon" type="image/png" href="logo.png">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-S14SLX5T16"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S14SLX5T16');</script>
-<!-- Meta Pixel -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=722124784327437&ev=PageView&noscript=1"/></noscript>
-<title>Gallery — Prime Piece</title>
-<meta name="description" content="Prime Piece sculptural stone furniture — plinths, tables and boards photographed in Auckland homes.">
+<title>Gallery | Stone Furniture Auckland — Prime Piece</title>
+<meta name="description" content="Gallery of handcrafted stone furniture by Prime Piece Auckland. Marble plinths, coffee tables, lounge tables, side tables and serving boards. One-of-one pieces made in New Zealand.">
+<meta name="keywords" content="stone furniture gallery Auckland, marble furniture photos NZ, stone plinths gallery, marble table gallery Auckland, Prime Piece gallery">
+<link rel="canonical" href="https://www.primepiece.co.nz/gallery.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.primepiece.co.nz/gallery.html">
+<meta property="og:title" content="Gallery | Stone Furniture Auckland — Prime Piece">
+<meta property="og:description" content="Handcrafted stone furniture gallery. Marble plinths, tables and boards made in Auckland, NZ.">
+<meta property="og:image" content="https://www.primepiece.co.nz/plinth-3.jpg">
+<meta property="og:site_name" content="Prime Piece">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter+Tight:wght@300;400;500&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #F5F1EA;
     --cream-soft: #EBE5DA;
+    --cream-deep: #E0D9CA;
     --sage: #7BA5A8;
     --sage-deep: #5D8588;
+    --sage-soft: #A8C3C5;
     --ink: #2C2A26;
     --ink-soft: #554F45;
-    --line: rgba(44, 42, 38, 0.12);
-    --display: 'Cormorant Garamond', serif;
-    --script: 'Dancing Script', cursive;
-    --body: 'Inter Tight', -apple-system, sans-serif;
+    --stone: #8A8275;
+    --line: rgba(44,42,38,0.12);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { background: var(--cream); color: var(--ink); font-family: var(--body); font-weight: 300; overflow-x: hidden; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Inter Tight', sans-serif; font-weight: 300; line-height: 1.5; overflow-x: hidden; }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    padding: 28px 56px;
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 100; transition: all 0.5s ease;
-    background: rgba(245,241,234,0.96);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--line);
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 22px 56px; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(245,241,234,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); }
   .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
-  .logo { font-family: var(--display); font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
-  .logo-sub { font-family: var(--script); font-size: 12px; color: var(--sage); margin-top: 3px; }
-  .nav-back { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; font-weight: 500; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
-  .nav-back:hover { color: var(--sage); }
-  .nav-back::before { content: '←'; font-size: 13px; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
+  .logo-sub { font-family: 'Dancing Script', cursive; font-size: 11px; color: var(--sage); margin-top: 2px; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
 
-  /* HEADER */
-  .gallery-hero {
-    padding: 140px 56px 64px;
-    border-bottom: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: flex-end;
-  }
-  .gallery-hero h1 {
-    font-family: var(--display);
-    font-size: clamp(56px, 8vw, 120px);
-    font-weight: 300; letter-spacing: -0.03em; line-height: 0.9;
-    color: var(--ink);
-  }
-  .gallery-hero h1 em {
-    font-family: var(--script); font-style: normal;
-    color: var(--sage); font-size: 0.85em;
-  }
-  .gallery-hero-right {
-    display: flex; flex-direction: column; align-items: flex-end; gap: 14px;
-    padding-bottom: 8px;
-  }
-  .gallery-count {
-    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--ink-soft); font-weight: 500;
-  }
-  .ig-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 20px; border: 1px solid var(--sage); border-radius: 1px;
-    color: var(--sage); text-decoration: none;
-    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
-    font-family: var(--body); transition: all 0.3s;
-  }
-  .ig-btn:hover { background: var(--sage); color: var(--cream); }
-  .ig-btn svg { width: 13px; height: 13px; }
+  .page-hero { padding: 140px 56px 72px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .hero-left { max-width: 560px; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sage); }
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(42px, 5vw, 72px); line-height: 1.0; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 20px; }
+  h1 em { font-style: italic; color: var(--sage); }
+  .hero-desc { font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 420px; }
+  .hero-right { text-align: right; flex-shrink: 0; }
+  .hero-stat { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--sage); line-height: 1; }
+  .hero-stat-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-top: 4px; }
 
-  /* MASONRY GRID */
-  .gallery-grid {
-    columns: 4;
-    column-gap: 3px;
-    padding: 3px;
-    background: var(--cream-soft);
-  }
-  .gallery-item {
-    position: relative; display: block; overflow: hidden;
-    break-inside: avoid; margin-bottom: 3px;
-    cursor: pointer; text-decoration: none;
-  }
-  .gallery-item img {
-    width: 100%; height: auto; display: block;
-    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+  .filter-bar { padding: 20px 56px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; background: var(--cream-soft); flex-wrap: wrap; }
+  .filter-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-right: 8px; }
+  .filter-btn { padding: 6px 16px; border: 1px solid var(--line); border-radius: 20px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-soft); background: transparent; cursor: pointer; transition: all 0.2s; font-weight: 400; }
+  .filter-btn:hover { border-color: var(--sage); color: var(--sage); }
+  .filter-btn.active { background: var(--sage); border-color: var(--sage); color: white; }
+
+  /* Masonry grid */
+  .gallery-grid { columns: 3; column-gap: 0; line-height: 0; }
+  .gallery-item { position: relative; display: block; overflow: hidden; break-inside: avoid; border: 1px solid var(--cream-soft); cursor: pointer; line-height: 0; }
+  .gallery-item img { width: 100%; height: auto; display: block; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
   .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-overlay {
-    position: absolute; inset: 0;
-    background: rgba(14,13,11,0);
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.4s;
-  }
-  .gallery-item:hover .gallery-overlay { background: rgba(14,13,11,0.38); }
-  .gallery-overlay-icon {
-    opacity: 0; transform: scale(0.7);
-    transition: opacity 0.35s, transform 0.35s; color: #fff;
-  }
-  .gallery-item:hover .gallery-overlay-icon { opacity: 1; transform: scale(1); }
-  .gallery-overlay-icon svg { width: 28px; height: 28px; }
+  .gallery-overlay { position: absolute; inset: 0; background: rgba(14,13,11,0); display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 20px; transition: background 0.4s; }
+  .gallery-item:hover .gallery-overlay { background: rgba(14,13,11,0.52); }
+  .gallery-overlay-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: #fff; line-height: 1; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; }
+  .gallery-overlay-type { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-top: 4px; opacity: 0; transform: translateY(8px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; font-weight: 500; }
+  .gallery-overlay-tag { position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: var(--sage); color: #fff; font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; border-radius: 1px; opacity: 0; transition: opacity 0.3s; }
+  .gallery-overlay-tag.sold { background: var(--stone); }
+  .gallery-item:hover .gallery-overlay-name,
+  .gallery-item:hover .gallery-overlay-type,
+  .gallery-item:hover .gallery-overlay-tag { opacity: 1; transform: translateY(0); }
 
-  /* FOOTER */
-  .gallery-footer {
-    padding: 48px 56px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-top: 1px solid var(--line);
-    background: var(--cream);
-  }
-  .gallery-footer-brand { font-family: var(--display); font-size: 18px; letter-spacing: 0.3em; color: var(--sage); font-weight: 400; }
-  .gallery-footer a { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: color 0.3s; }
-  .gallery-footer a:hover { color: var(--sage); }
+  /* Lightbox */
+  .lightbox { position: fixed; inset: 0; background: rgba(14,13,11,0.94); z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .lightbox.open { display: flex; }
+  .lightbox-inner { position: relative; max-width: 1000px; width: 100%; display: grid; grid-template-columns: 1fr 340px; background: var(--cream); border-radius: 2px; overflow: hidden; max-height: 90vh; }
+  .lightbox-img-col { background: var(--cream-soft); display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 500px; }
+  .lightbox-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lightbox-info { padding: 40px 32px; display: flex; flex-direction: column; border-left: 1px solid var(--line); overflow-y: auto; }
+  .lightbox-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.95); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--stone); z-index: 10; transition: all 0.2s; }
+  .lightbox-close:hover { background: #fff; color: var(--ink); }
+  .lightbox-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
+  .lightbox-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .lightbox-stone { font-size: 12px; color: var(--ink-soft); margin-bottom: 24px; }
+  .lightbox-divider { height: 1px; background: var(--line); margin-bottom: 20px; }
+  .lb-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); gap: 12px; }
+  .lb-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
+  .lb-val { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--ink-soft); text-align: right; }
+  .lightbox-actions { margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .lb-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; background: var(--sage); color: #fff; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+  .lb-btn-primary:hover { background: var(--sage-deep); }
+  .lb-btn-ghost { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+  .lb-btn-ghost:hover { background: var(--sage); color: #fff; }
+  .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background: rgba(245,241,234,0.9); border: 1px solid var(--line); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--ink); z-index: 10; transition: all 0.2s; }
+  .lightbox-nav:hover { background: #fff; }
+  .lightbox-nav.prev { left: -22px; }
+  .lightbox-nav.next { right: -22px; }
 
-  @media (max-width: 1024px) { .gallery-grid { columns: 3; } }
+  .cta-strip { background: var(--ink); padding: 72px 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+  .cta-strip h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(28px, 3vw, 44px); color: white; line-height: 1.1; }
+  .cta-strip h2 em { font-style: italic; color: var(--sage-soft); }
+  .cta-strip p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 360px; margin-top: 12px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border: 1px solid var(--sage); color: var(--sage); background: transparent; text-decoration: none; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; transition: all 0.3s; border-radius: 1px; flex-shrink: 0; }
+  .cta-btn:hover { background: var(--sage); color: white; }
+
+  footer { padding: 48px 56px 28px; background: var(--cream-soft); border-top: 1px solid var(--line); }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; letter-spacing: 0.3em; color: var(--sage); margin-bottom: 4px; }
+  .footer-brand-sub { font-family: 'Dancing Script', cursive; font-size: 13px; color: var(--sage); margin-bottom: 12px; }
+  .footer-brand-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); margin-bottom: 14px; font-weight: 600; }
+  .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 9px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--sage); }
+  .footer-bottom { padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) { .lightbox-inner { grid-template-columns: 1fr; } .lightbox-img-col { min-height: 300px; } }
   @media (max-width: 768px) {
-    nav { padding: 18px 20px; }
-    .gallery-hero { padding: 100px 24px 48px; flex-direction: column; align-items: flex-start; gap: 24px; }
-    .gallery-hero-right { align-items: flex-start; }
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .page-hero { padding: 110px 24px 56px; flex-direction: column; align-items: flex-start; }
+    .filter-bar { padding: 14px 24px; }
     .gallery-grid { columns: 2; }
-    .gallery-footer { padding: 32px 24px; flex-direction: column; gap: 16px; text-align: center; }
+    .cta-strip { padding: 56px 24px; flex-direction: column; align-items: flex-start; }
+    footer { padding: 48px 24px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; gap: 6px; }
+    .lightbox-nav { display: none; }
   }
-  @media (max-width: 480px) { .gallery-grid { columns: 2; } }
 </style>
 </head>
 <body>
@@ -143,226 +145,548 @@
     <div class="logo">PRIME PIECE</div>
     <div class="logo-sub">one of one</div>
   </a>
-  <a href="/" class="nav-back">Back to site</a>
+  <ul class="nav-links">
+    <li><a href="/#collection">Collection</a></li>
+    <li><a href="plinths.html">Plinths</a></li>
+    <li><a href="tables.html">Tables</a></li>
+    <li><a href="boards.html">Boards</a></li>
+    <li><a href="gallery.html" class="nav-active">Gallery</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<div class="gallery-hero">
-  <h1>The<br><em>Work</em>.</h1>
-  <div class="gallery-hero-right">
-    <span class="gallery-count">Every piece — one of one</span>
-    <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="ig-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4"/>
-        <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/>
-      </svg>
-      Follow @prime.piece
-    </a>
+<section class="page-hero">
+  <div class="hero-left reveal">
+    <div class="eyebrow">The Collection</div>
+    <h1>Every piece,<br><em>in one place</em>.</h1>
+    <p class="hero-desc">Plinths, tables and boards — handcrafted in Auckland from natural stone. One of one, never repeated. Click any piece to explore.</p>
+  </div>
+  <div class="hero-right reveal">
+    <div class="hero-stat">50+</div>
+    <div class="hero-stat-label">Pieces made</div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter</span>
+  <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
+  <button class="filter-btn" onclick="filterGallery('plinth',this)">Plinths</button>
+  <button class="filter-btn" onclick="filterGallery('table',this)">Tables</button>
+  <button class="filter-btn" onclick="filterGallery('board',this)">Boards</button>
+  <button class="filter-btn" onclick="filterGallery('available',this)">Available</button>
+</div>
+
+<div class="gallery-grid" id="gallery-grid">
+
+  <!-- PLINTHS -->
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Africano Table" data-stone="Rosso Africano Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 300mm" data-price="NZD $4,900" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-7.jpg" alt="Rosso Africano marble coffee table plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Rosso Africano</div>
+      <div class="gallery-overlay-type">Coffee Table Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Africano Plinth" data-stone="Rosso Africano Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $3,800" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-3.jpg" alt="Rosso Africano marble plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Rosso Africano</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Verde Apli Marble Table" data-stone="Verde Apli Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 300mm" data-price="NZD $4,000" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-9.jpg" alt="Verde Apli marble table plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Verde Apli</div>
+      <div class="gallery-overlay-type">Coffee Table Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Navarro Marble Plinth" data-stone="Navarro Marble" data-type="Plinth" data-dims="H: 550mm × W: 300mm × D: 300mm" data-price="NZD $3,499" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-14.jpg" alt="Navarro marble plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Navarro Marble</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Florim Plinth" data-stone="Florim" data-type="Plinth" data-dims="H: 600mm × W: 300mm × D: 300mm" data-price="NZD $3,200" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-5.jpg" alt="Florim stone plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Florim</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Dekton Sirius Plinth" data-stone="Dekton Sirius — Dark Grey" data-type="Plinth" data-dims="H: 520mm × W: 350mm × D: 350mm" data-price="NZD $2,400" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-10.jpg" alt="Dekton Sirius dark stone plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Dekton Sirius</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Levanto Plinth" data-stone="Rosso Levanto Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $2,499" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-4.jpg" alt="Rosso Levanto marble plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Rosso Levanto</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Dekton Sirius Side Plinth" data-stone="Dekton Sirius — Dark Grey" data-type="Side Plinth" data-dims="H: 400mm × W: 300mm × D: 300mm" data-price="NZD $1,500" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-6.jpg" alt="Dekton Sirius side plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Dekton Sirius</div>
+      <div class="gallery-overlay-type">Side Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Grey Porcelain Plinth" data-stone="Grey Porcelain" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $1,499" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-1.jpg" alt="Grey Porcelain plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Grey Porcelain</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Grey Porcelain Side Plinth" data-stone="Grey Porcelain" data-type="Side Plinth" data-dims="H: 450mm × W: 300mm × D: 300mm" data-price="NZD $700" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-2.jpg" alt="Grey Porcelain side plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Grey Porcelain</div>
+      <div class="gallery-overlay-type">Side Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Green Calacatta Table" data-stone="Green Calacatta Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 280mm" data-price="Sold" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-8.jpg" alt="Green Calacatta marble table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Green Calacatta</div>
+      <div class="gallery-overlay-type">Coffee Table Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Natural Travertine Plinth" data-stone="Natural Travertine" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="Sold" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-15.jpg" alt="Natural Travertine plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Natural Travertine</div>
+      <div class="gallery-overlay-type">Plinth</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Dekton Sirius II" data-stone="Dekton Sirius — Dark Grey" data-type="Side Plinth" data-dims="H: 450mm × W: 300mm × D: 300mm" data-price="Sold" data-link="plinths.html" onclick="openLightbox(this)">
+    <img src="plinth-13.jpg" alt="Dekton Sirius II side plinth Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Dekton Sirius II</div>
+      <div class="gallery-overlay-type">Side Plinth</div>
+    </div>
+  </div>
+
+  <!-- COFFEE TABLES -->
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Pink Storm" data-stone="Monica Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $299 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-1.jpg" alt="Pink Storm Monica Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Pink Storm</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Amazon Vein" data-stone="Rainforest Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $279 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-2.jpg" alt="Amazon Vein Rainforest Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Amazon Vein</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Jewel" data-stone="Green Marble Onyx" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $319 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-3.jpg" alt="Jade Jewel Green Onyx coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Jade Jewel</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Midnight Wave" data-stone="Verde Apli Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $309 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-4.jpg" alt="Midnight Wave Verde Apli coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Midnight Wave</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Sunset Stone" data-stone="Macael Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $239 (was $399)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-5.jpg" alt="Sunset Stone Macael Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Sunset Stone</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Solar Eclipse" data-stone="Titanium Black Granite" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $289 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-6.jpg" alt="Solar Eclipse Titanium Black Granite coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Solar Eclipse</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Desert Drift" data-stone="Kangaroo Quartzite" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $219 (was $379)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-12.jpg" alt="Desert Drift Kangaroo Quartzite coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Desert Drift</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Mountain Breeze" data-stone="Super White Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $199 (was $349)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-16.jpg" alt="Mountain Breeze Super White Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Mountain Breeze</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="White Haven" data-stone="Carrara Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $249 (was $429)" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-14.jpg" alt="White Haven Carrara Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">White Haven</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Fire Flow" data-stone="Azul Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-10.jpg" alt="Fire Flow Azul Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Fire Flow</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Lava Vein" data-stone="Sahara Noir Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-7.jpg" alt="Lava Vein Sahara Noir coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Lava Vein</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Cloud Vein" data-stone="Grey Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-8.jpg" alt="Cloud Vein Grey Marble coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Cloud Vein</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Teal Tide" data-stone="Mystique Green" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
+    <img src="table-11.jpg" alt="Teal Tide Mystique Green coffee table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Teal Tide</div>
+      <div class="gallery-overlay-type">Coffee Table</div>
+    </div>
+  </div>
+
+  <!-- SIDE TABLES -->
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Twin Jade" data-stone="Mystique Green Marble" data-type="Side Table (Set of 2)" data-dims="H: 450mm × 600mm × 600mm" data-price="NZD $2,199 set / $1,199 each" data-link="tables.html#side" onclick="openLightbox(this)">
+    <img src="side-1.jpg" alt="Twin Jade Mystique Green side tables Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Twin Jade</div>
+      <div class="gallery-overlay-type">Side Tables</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Jade Bedside" data-stone="Green Marble Onyx" data-type="Bedside Table" data-dims="H: 600mm × W: 450mm" data-price="Sold" data-link="tables.html#side" onclick="openLightbox(this)">
+    <img src="side-2.jpg" alt="Jade Bedside Green Onyx bedside table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Jade Bedside</div>
+      <div class="gallery-overlay-type">Bedside Table</div>
+    </div>
+  </div>
+
+  <!-- LOUNGE TABLES -->
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Horizon" data-stone="Mitered Mystique Green" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $2,999 (was $3,800)" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-1.jpg" alt="Jade Horizon Mystique Green lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Jade Horizon</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Obsidian Storm" data-stone="Titanium Black Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $3,299 (was $4,200)" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-2.jpg" alt="Obsidian Storm Titanium Black lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Obsidian Storm</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Sage Plateau" data-stone="Mystique Green Marble" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $2,999 (was $3,800)" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-3.jpg" alt="Sage Plateau Mystique Green lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Sage Plateau</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Desert Crown" data-stone="Taj Mahal Quartzite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 650mm" data-price="NZD $3,599 (was $4,500)" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-4.jpg" alt="Desert Crown Taj Mahal Quartzite lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Desert Crown</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Black Gold" data-stone="Gold & Black Titanium Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $3,799 (was $4,800)" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-5.jpg" alt="Black Gold Titanium Granite lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Black Gold</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="White Haven Lounge" data-stone="Carrara Marble" data-type="Lounge Table" data-dims="H: 500mm × Ø: 700mm" data-price="NZD $1,999 (was $2,499)" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-8.jpg" alt="White Haven Carrara Marble lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">White Haven</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Ocean Ember" data-stone="Blue Marble" data-type="Lounge Table" data-dims="H: 500mm × Ø: 700mm" data-price="Sold" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-6.jpg" alt="Ocean Ember Blue Marble lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Ocean Ember</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Desert Drift Lounge" data-stone="Kangaroo Quartzite" data-type="Lounge Table" data-dims="H: 300mm × Ø: 800mm" data-price="Sold" data-link="tables.html#lounge" onclick="openLightbox(this)">
+    <img src="lounge-7.jpg" alt="Desert Drift Kangaroo Quartzite round lounge table Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Desert Drift</div>
+      <div class="gallery-overlay-type">Lounge Table</div>
+    </div>
+  </div>
+
+  <!-- BOARDS -->
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide Board" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-teal-tide.jpg" alt="Teal Tide marble serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Teal Tide</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Emerald Vein Board" data-stone="Dark Green Marble — White Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-emerald-vein.jpg" alt="Emerald Vein green marble serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Emerald Vein</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Pink Storm Board" data-stone="Pink Onyx Marble" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-pink-storm.jpg" alt="Pink Storm pink onyx marble serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Pink Storm</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="White Haven Board" data-stone="White Marble — Grey Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-white-haven.jpg" alt="White Haven white marble serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">White Haven</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Volcanic Ash Board" data-stone="Dark Marble — Red & Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-volcanic-ash.jpg" alt="Volcanic Ash dark marble serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag">Available</span>
+      <div class="gallery-overlay-name">Volcanic Ash</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Lava Vein Board" data-stone="Black Marble — Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="Sold" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-lava-vein.jpg" alt="Lava Vein black marble serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Lava Vein</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Golden Dune Board" data-stone="Golden Quartzite" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="Sold" data-link="boards.html" onclick="openLightbox(this)">
+    <img src="board-golden-dune.jpg" alt="Golden Dune quartzite serving board Auckland" loading="lazy">
+    <div class="gallery-overlay">
+      <span class="gallery-overlay-tag sold">Sold</span>
+      <div class="gallery-overlay-name">Golden Dune</div>
+      <div class="gallery-overlay-type">Serving Board</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cta-strip">
+  <div>
+    <h2>Don't see what<br>you're looking <em>for?</em></h2>
+    <p>Every piece can be made to order — any stone, any size, any finish. Fabricated from our Auckland workshop.</p>
+  </div>
+  <a href="mailto:james@primepiece.co.nz?subject=Commission Enquiry" class="cta-btn">Start a Conversation →</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">PRIME PIECE</div>
+      <div class="footer-brand-sub">one of one</div>
+      <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. One of one, carved in Auckland from Italian and Spanish stone.</p>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="/#made-to-order">Made To Order</a></div>
+    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="/#process">Process</a><a href="gallery.html">Gallery</a><a href="/#collection">Collection</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="#">Archers Road, Wairau Valley</a><a href="#">Auckland, NZ</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Prime Piece Ltd. All Rights Reserved.</span>
+    <span>Crafted in Auckland</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lightbox-inner" id="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav prev" onclick="navLightbox(-1)">←</button>
+    <button class="lightbox-nav next" onclick="navLightbox(1)">→</button>
+    <div class="lightbox-img-col">
+      <img id="lb-img" src="" alt="">
+    </div>
+    <div class="lightbox-info">
+      <div class="lightbox-eyebrow" id="lb-type">Prime Piece</div>
+      <div class="lightbox-name" id="lb-name"></div>
+      <div class="lightbox-stone" id="lb-stone"></div>
+      <div class="lightbox-divider"></div>
+      <div class="lb-row"><span class="lb-label">Dimensions</span><span class="lb-val" id="lb-dims"></span></div>
+      <div class="lb-row"><span class="lb-label">Price</span><span class="lb-val" id="lb-price"></span></div>
+      <div class="lb-row"><span class="lb-label">Origin</span><span class="lb-val">Handcrafted Auckland, NZ</span></div>
+      <div class="lb-row"><span class="lb-label">Edition</span><span class="lb-val">One of one — never repeated</span></div>
+      <div class="lightbox-actions">
+        <a id="lb-btn-view" href="#" class="lb-btn-primary">View Full Details →</a>
+        <a href="mailto:james@primepiece.co.nz" class="lb-btn-ghost">Enquire About This Piece →</a>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="gallery-grid">
+<script>
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.06 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-1.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-1.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-1.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-2.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-2.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-2.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-3.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-3.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-3.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-4.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-4.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-4.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-5.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-5.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-5.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-6.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-6.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-6.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-7.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-7.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-8.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-8.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-8.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-9.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-9.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-9.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-10.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-10.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-10.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lounge-11.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-11.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-11.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-12.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-12.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-13.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="plinth-13.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-14.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lifestyle-1.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="lifestyle-2.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="side-1.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-emerald-vein.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-golden-dune.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-lava-vein.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-pink-storm.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-teal-tide.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-volcanic-ash.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="board-white-haven.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
-  <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="gallery-item">
-    <img src="table-16.jpg" alt="Prime Piece" loading="lazy">
-    <div class="gallery-overlay"><div class="gallery-overlay-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></div></div>
-  </a>
+  let _items = [];
+  let _currentIdx = 0;
 
-</div>
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const matchCat = cat === 'all' || item.dataset.cat === cat;
+      const matchAvail = cat !== 'available' || item.dataset.status === 'available';
+      item.style.display = (matchCat && matchAvail) ? 'block' : 'none';
+    });
+  }
 
-<div class="gallery-footer">
-  <span class="gallery-footer-brand">PRIME PIECE</span>
-  <a href="mailto:james@primepiece.co.nz">Enquire about a piece →</a>
-  <a href="/">← Back to site</a>
-</div>
+  function getVisibleItems() {
+    return Array.from(document.querySelectorAll('.gallery-item')).filter(el => el.style.display !== 'none');
+  }
 
+  function openLightbox(el) {
+    _items = getVisibleItems();
+    _currentIdx = _items.indexOf(el);
+    renderLightbox(_currentIdx);
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderLightbox(idx) {
+    const el = _items[idx];
+    document.getElementById('lb-img').src = el.querySelector('img').src;
+    document.getElementById('lb-img').alt = el.querySelector('img').alt;
+    document.getElementById('lb-name').textContent = el.dataset.name;
+    document.getElementById('lb-stone').textContent = el.dataset.stone;
+    document.getElementById('lb-type').textContent = 'Prime Piece — ' + el.dataset.type;
+    document.getElementById('lb-dims').textContent = el.dataset.dims;
+    document.getElementById('lb-price').textContent = el.dataset.price;
+    document.getElementById('lb-btn-view').href = el.dataset.link;
+  }
+
+  function navLightbox(dir) {
+    _currentIdx = (_currentIdx + dir + _items.length) % _items.length;
+    renderLightbox(_currentIdx);
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOutside(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') navLightbox(1);
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+  });
+</script>
 </body>
 </html>
