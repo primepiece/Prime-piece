@@ -526,7 +526,6 @@
     <li><a href="#collection">Collection</a></li>
     <li><a href="#showroom">Showroom</a></li>
     <li><a href="#render">Free Render</a></li>
-    <li><a href="#process">Process</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="plinths.html" class="nav-shop-link">Shop Now →</a></li>
     <li>
@@ -621,79 +620,14 @@
       <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
     </div>
   </div>
-  <p class="ba2-note">Drag to compare</p>
-  <div class="ba2-wrap reveal" style="margin-top:32px;">
-    <div class="ba2-slider ba2-instance" id="ba2-slider-2">
-      <div class="ba2-layer ba2-after"><img src="after2.png" alt="After — with Prime Piece"></div>
-      <div class="ba2-layer ba2-before"><img src="before2.png" alt="Before"></div>
-      <div class="ba2-divider"></div>
-      <div class="ba2-handle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4L2 10L7 16M13 4L18 10L13 16"/></svg></div>
-      <span class="ba2-pill ba2-pill-before">Before</span>
-      <span class="ba2-pill ba2-pill-after">After — Prime Piece</span>
-    </div>
-  </div>
-  <p class="ba2-note">Drag to compare</p>
-  <div class="render-form-outer reveal">
-    <div class="render-form-head">
-      <h3>Get yours done — free.</h3>
-      <p>Upload your room, tell us what you're after. We'll render it personally and send it back within 24 hours.</p>
-    </div>
-    <div class="render-card">
-      <div class="render-card-header">
-        <span class="render-card-title">Free render request</span>
-        <span class="render-card-badge">Personal — 24hrs</span>
-      </div>
-      <div id="render-form-wrap">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:20px 20px 0;">
-          <div><label class="rf-field-label">Your name</label><input class="rf-input" id="rf-name" type="text" placeholder="James"></div>
-          <div><label class="rf-field-label">Email address</label><input class="rf-input" id="rf-email" type="email" placeholder="you@email.com"></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px 0;">
-          <div><label class="rf-field-label">Piece type</label><select class="rf-input" id="rf-piece"><option value="Coffee Table">Coffee Table</option><option value="Side Table">Side Table</option><option value="Stone Plinth">Stone Plinth</option><option value="Console Table">Console Table</option><option value="Not sure yet">Not sure yet</option></select></div>
-          <div><label class="rf-field-label">Stone interest</label><select class="rf-input" id="rf-stone"><option value="Rosso Africano">Rosso Africano</option><option value="Green Calacatta">Green Calacatta</option><option value="Verde Apli">Verde Apli</option><option value="Carrara White">Carrara White</option><option value="Rosso Levanto">Rosso Levanto</option><option value="Navarro">Navarro</option><option value="Dekton Sirius">Dekton Sirius</option><option value="Travertine">Travertine</option><option value="Not sure yet">Not sure yet</option></select></div>
-        </div>
-        <div style="padding:12px 20px 0;">
-          <label class="rf-field-label">Your room photo</label>
-          <label class="upload-zone" id="rf-upload-zone" for="rf-photo-input" style="margin-top:0;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 15V3M12 3L7 8M12 3L17 8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 17V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V17" stroke-linecap="round"/></svg>
-            <h4 style="font-size:16px;">Drop your photo here</h4>
-            <p>or tap to browse</p>
-            <input type="file" id="rf-photo-input" accept="image/*">
-          </label>
-          <div class="upload-preview" id="rf-preview"><img id="rf-preview-thumb" alt=""><div class="file-meta"><strong id="rf-preview-name"></strong><span id="rf-preview-size"></span></div></div>
-        </div>
-        <div style="padding:12px 20px 0;"><label class="rf-field-label">Anything else? <span style="color:var(--stone);font-weight:400;">(optional)</span></label><textarea class="rf-input" id="rf-notes" rows="2" placeholder="e.g. I have a dark sofa, want something that pops..." style="resize:none;"></textarea></div>
-        <div id="rf-error" style="display:none;padding:8px 20px 0;font-size:12px;color:#7a3a2a;"></div>
-        <button type="button" class="render-submit" id="rf-submit-btn">Get My Free Render →</button>
-      </div>
-      <div id="rf-sending" style="display:none;padding:40px 24px;text-align:center;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink-soft);font-style:italic;margin-bottom:14px;">Sending your room...</div>
-        <div style="width:100%;height:1px;background:var(--line);border-radius:1px;overflow:hidden;"><div style="height:100%;background:var(--sage);width:60%;transition:width 1s ease;"></div></div>
-      </div>
-      <div id="rf-success" style="display:none;padding:48px 28px;text-align:center;">
-        <div style="width:48px;height:48px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;"><svg viewBox="0 0 20 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:16px;"><path d="M1 8l5.5 6L19 1"/></svg></div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;color:var(--ink);margin-bottom:10px;">Thank you — we're on it.</div>
-        <p style="font-size:13px;color:var(--ink-soft);line-height:1.75;max-width:300px;margin:0 auto 24px;">Prime Piece will have your render back to you within 12 hours. Keep an eye on your inbox.</p>
-        <a href="plinths.html" class="btn btn-primary" style="display:inline-flex;justify-content:center;">Browse the collection →</a>
-      </div>
-    </div>
+  <p class="ba2-note" style="margin-bottom:40px;">Drag to compare</p>
+  <div class="reveal" style="text-align:center;">
+    <p style="font-size:15px;color:var(--ink-soft);margin-bottom:28px;line-height:1.7;">Send us a photo of your room — we'll render your piece into it personally and send it back within 24 hours. Free, no commitment.</p>
+    <a href="mailto:james@primepiece.co.nz?subject=Free Render Request" class="btn btn-primary" style="display:inline-flex;">Get My Free Render →</a>
   </div>
 </section>
 
-<section class="process-section" id="process">
-  <div class="process-header reveal">
-    <div>
-      <span class="section-label">Process</span>
-      <h2>Made by hand.<br>One at a <em>time</em>.</h2>
-    </div>
-    <p class="process-header-desc">From quarry to Auckland workshop — every Prime Piece passes through the same hands, start to finish.</p>
-  </div>
-  <div class="process-grid">
-    <div class="process-item reveal"><div class="process-img-wrap"><img class="process-img-landscape" src="process-1.jpg" alt="Stone sourcing"></div><span class="process-num">One</span><h3>Source</h3><p>Stone sourced from Italy, Spain and beyond — selected for character, movement and rarity.</p></div>
-    <div class="process-item reveal"><div class="process-img-wrap"><img class="process-img-landscape" src="process-2.jpg" alt="Stone carving"></div><span class="process-num">Two</span><h3>Craft</h3><p>Cut, finished and assembled by hand in Auckland. Every edge, every surface, considered.</p></div>
-    <div class="process-item reveal"><div class="process-img-rotate-wrap"><img src="process-3.jpg" alt="Stone delivery"></div><span class="process-num">Three</span><h3>Deliver</h3><p>Local pickup or delivery across Auckland — arranged personally with every order.</p></div>
-  </div>
-</section>
+
 
 <section class="mto-section" id="made-to-order">
   <div class="mto-copy reveal">
@@ -975,7 +909,7 @@
   var stepReveal = document.getElementById('pp-step-reveal');
   function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
   function hide() { overlay.style.display = 'none'; }
-  setTimeout(show, 2000);
+  setTimeout(show, 45000);
   document.getElementById('pp-popup-close').addEventListener('click', hide);
   overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
   document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
