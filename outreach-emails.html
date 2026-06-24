@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prime Piece — Outreach Emails</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --stone: #f5f2ee;
+      --charcoal: #1c1c1a;
+      --warm: #a89070;
+      --mid: #6b6560;
+      --rule: #ddd8d2;
+      --green: #2d6a4f;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      background: #e8e4df;
+      color: var(--charcoal);
+      padding: 32px 16px 80px;
+    }
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 6px;
+      color: var(--charcoal);
+    }
+    .page-sub {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 40px;
+    }
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .filter-btn {
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 6px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--charcoal);
+      color: #fff;
+      border-color: var(--charcoal);
+    }
+    .cards {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--stone);
+      border-bottom: 1px solid var(--rule);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--rule);
+      line-height: 1;
+      min-width: 28px;
+    }
+    .card-biz {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+    .card-person {
+      font-size: 12px;
+      color: var(--mid);
+      margin-top: 1px;
+    }
+    .card-badges {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .badge-cat {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm);
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .badge-priority {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+    .p10 { color: #1a3a2a; background: #d4edda; border-color: #a8d5b5; }
+    .p9  { color: #2d4a1a; background: #dde8cc; border-color: #b8d494; }
+    .p8  { color: #4a3a1a; background: #f0e6cc; border-color: #d4c08a; }
+    .p7  { color: #4a2a1a; background: #f0dcc8; border-color: #d4a880; }
+    .p6  { color: var(--mid); background: var(--stone); border-color: var(--rule); }
+    .p5, .p4 { color: #888; background: #f8f8f8; border-color: #e0e0e0; }
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .email-block {
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .email-label {
+      background: var(--charcoal);
+      color: #fff;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      border-radius: 1px;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .copy-btn.copied { color: #90ee90; border-color: #90ee90; }
+    .email-inner {
+      padding: 14px 16px;
+    }
+    .email-subject {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .email-subject span { color: var(--mid); text-transform: none; letter-spacing: 0; font-size: 12px; }
+    .email-body {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--charcoal);
+      white-space: pre-wrap;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+    }
+    .email-to {
+      font-size: 11px;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+    .email-to span { color: var(--charcoal); font-weight: 400; }
+    .divider {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rule);
+      padding: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-title">Prime Piece</div>
+<div class="page-sub">Auckland Outreach — 50 Emails Ready to Send</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All (50)</button>
+  <button class="filter-btn" onclick="filterCards('hotel', this)">Hotels</button>
+  <button class="filter-btn" onclick="filterCards('furniture', this)">Furniture &amp; Homeware</button>
+  <button class="filter-btn" onclick="filterCards('design', this)">Interior Design</button>
+  <button class="filter-btn" onclick="filterCards('architecture', this)">Architecture</button>
+  <button class="filter-btn" onclick="filterCards('gallery', this)">Galleries</button>
+  <button class="filter-btn" onclick="filterCards('hospitality', this)">Hospitality</button>
+  <button class="filter-btn" onclick="filterCards('developer', this)">Developers</button>
+  <button class="filter-btn" onclick="filterCards('staging', this)">Staging</button>
+  <button class="filter-btn" onclick="filterCards('other', this)">Other</button>
+</div>
+
+<div class="cards" id="cards"></div>
+
+<script>
+const sig = `James Hopwood
+Prime Piece
+primepiece.co.nz
+@prime.piece`;
+
+const emails = [
+  {
+    num: 1, biz: "Hotel Britomart", cat: "hotel", person: "Reservations / GM",
+    to: "hello@hotelbritomart.com", priority: 10,
+    subject: "Prime Piece — stone furniture for Hotel Britomart",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio that makes one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+We're placing a small number of pieces with select Auckland spaces this year, and Hotel Britomart felt like a genuine fit. No cost to you — the piece lives in your space, you have the option to purchase at any point, and we handle everything else.
+
+Happy to come in and show you something in person if that's easier.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note from last week about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I'd love to explore placing a piece at Hotel Britomart.
+
+Happy to come by at a time that suits you, or send through our lookbook if you'd prefer to start there.
+
+${sig}`
+  },
+  {
+    num: 2, biz: "ECC Furniture", cat: "furniture", person: "Showroom Manager / Buyer",
+    to: "info@eccfurniture.co.nz", priority: 10,
+    subject: "Prime Piece — one-of-one stone furniture, consignment",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making handcrafted stone furniture in marble, quartzite and natural stone. Every piece is one-of-one.
+
+We're looking for one Auckland showroom to place work on consignment — no upfront cost, no risk. You take a percentage on sale only. I think it would sit well alongside ECC's current range and fill a gap that's genuinely hard to find locally.
+
+Happy to bring a piece in so you can see it properly.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, porcelain — and I'd love to place a few pieces at ECC on consignment.
+
+Could be worth 20 minutes of your time. Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 3, biz: "Fearon Hay Architects", cat: "architecture", person: "Tim Hay / Jeff Fearon",
+    to: "studio@fearonhay.com", priority: 10,
+    subject: "Prime Piece — bespoke stone furniture",
+    body: `Hi Tim,
+
+My name is James — I run Prime Piece, an Auckland studio that makes bespoke stone furniture and objects in marble, quartzite and natural stone. One-of-one pieces, made here, with custom commissions available to brief.
+
+I've long admired Fearon Hay's work — the attention to materiality in your projects is exactly the kind of context our pieces belong in. If you ever have a project that calls for something singular, I'd love to be on your radar.
+
+Happy to put together a material sample pack for the studio if that would be useful.
+
+${sig}`,
+    followup: `Hi Tim,
+
+Just following up on my note about Prime Piece. We make bespoke stone furniture — marble, quartzite, natural stone — with custom commissions available for specific project briefs.
+
+Happy to come into the studio for a quick introduction whenever timing suits.
+
+${sig}`
+  },
+  {
+    num: 4, biz: "Matisse", cat: "furniture", person: "Showroom Director / Buyer",
+    to: "info@matisse.co.nz", priority: 10,
+    subject: "Prime Piece — one-of-one stone furniture, Auckland",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+We're looking for one Auckland retail partner. Matisse was the first name I thought of. I think a small, curated placement would sit well with what you already carry — and there's nothing quite like it in the Auckland market right now.
+
+Happy to bring pieces in so you can see them properly, or send through our lookbook to start.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — each piece in marble, quartzite or natural stone, handcrafted in Auckland.
+
+I'd love 20 minutes to show you what we're doing. Happy to come in whenever suits the team.
+
+${sig}`
+  },
+  {
+    num: 5, biz: "Patterson Associates", cat: "architecture", person: "Andrew Patterson",
+    to: "studio@pattersonassociates.com", priority: 9,
+    subject: "Prime Piece — bespoke stone furniture",
+    body: `Hi Andrew,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone.
+
+I've been a long-time admirer of your work. The intention behind every Patterson Associates project — the way materials are chosen and used — is exactly the kind of context our pieces are made for. If you ever have a project where a custom stone piece makes sense, I'd love to be part of that conversation.
+
+Happy to come in and introduce the work properly whenever timing suits.
+
+${sig}`,
+    followup: `Hi Andrew,
+
+Just following up on my note about Prime Piece. We make bespoke stone furniture with custom commissions available to brief — marble, quartzite, natural stone.
+
+Happy to share the portfolio or bring samples into the studio. Let me know if there's a good time.
+
+${sig}`
+  },
+  {
+    num: 6, biz: "Clooney Restaurant", cat: "hospitality", person: "GM / Owner",
+    to: "reservations@clooney.co.nz", priority: 9,
+    subject: "Prime Piece — stone furniture for Clooney",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio that makes one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+Clooney is one of the few Auckland spaces where a stone piece would belong without explanation. We're placing work with a small number of select venues this year — no cost to you, the piece lives in the space, and you have the option to purchase at any point.
+
+Happy to come in and show you something in person.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture for spaces that take design seriously — and Clooney is exactly that kind of space.
+
+Happy to bring something in to show you. Takes about 20 minutes.
+
+${sig}`
+  },
+  {
+    num: 7, biz: "Ctrl Space", cat: "design", person: "Studio Director",
+    to: "hello@ctrlspace.co.nz", priority: 9,
+    subject: "Prime Piece — bespoke stone furniture for your projects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone. One-of-one pieces, made here, with custom commissions available to brief.
+
+We work with interior designers as trade partners — you get trade pricing on anything in our current collection, and we take custom briefs for client projects. Happy to put a sample pack together for the studio.
+
+Worth connecting if custom stone pieces are ever relevant to your work.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and work with Auckland designers on a trade basis.
+
+Happy to come in for a quick introduction whenever suits the studio.
+
+${sig}`
+  },
+  {
+    num: 8, biz: "Ahi Restaurant", cat: "hospitality", person: "Ben Bayly",
+    to: "info@ahirestaurant.co.nz", priority: 9,
+    subject: "Prime Piece — stone furniture for Ahi",
+    body: `Hi Ben,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+What you've built at Ahi — the commitment to NZ ingredients, NZ craft, things made with intention — sits in the same world as what we do. A stone piece in the space felt like a natural fit rather than a stretch.
+
+We're placing work with a small number of Auckland venues this year, no cost to you. Happy to come in and show you something in person.
+
+${sig}`,
+    followup: `Hi Ben,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I think a piece would sit well at Ahi.
+
+Happy to bring something in to show you. Let me know if there's a good time.
+
+${sig}`
+  },
+  {
+    num: 9, biz: "Whitespace Gallery", cat: "gallery", person: "Tim Melville",
+    to: "info@whitespace.co.nz", priority: 9,
+    subject: "Prime Piece — stone furniture as objects",
+    body: `Hi Tim,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Each piece is singular — no two are the same. I've been thinking for a while that they belong in a gallery context as much as a home, and Whitespace is the space I keep coming back to. I'd love to explore whether there's a fit — a placement, a show, or something in between.
+
+Happy to share images and talk through what a collaboration might look like.
+
+${sig}`,
+    followup: `Hi Tim,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — singular enough, I think, to sit in a gallery context.
+
+Happy to come in and show you the work in person whenever suits.
+
+${sig}`
+  },
+  {
+    num: 10, biz: "Willis Bond", cat: "developer", person: "Mark McGuinness",
+    to: "info@willisbond.co.nz", priority: 9,
+    subject: "Prime Piece — stone furniture for premium Auckland interiors",
+    body: `Hi Mark,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making bespoke stone furniture in marble, quartzite and natural stone.
+
+We work with developers on a placement or purchase basis — statement pieces for lobbies, show apartments and premium common areas. If you have anything coming up where a custom stone piece would make a difference to how a space reads, I'd love to have a conversation.
+
+Happy to share the portfolio and talk through how it could work.
+
+${sig}`,
+    followup: `Hi Mark,
+
+Just following up on my note about Prime Piece. We make bespoke stone furniture — marble, quartzite, natural stone — and work with Auckland developers on placement and commission.
+
+If there's a relevant project coming up, happy to put together a proposal. Let me know.
+
+${sig}`
+  },
+  {
+    num: 11, biz: "RTA Studio", cat: "architecture", person: "Richard Naish",
+    to: "info@rtastudio.co.nz", priority: 9,
+    subject: "Prime Piece — bespoke stone furniture",
+    body: `Hi Richard,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone.
+
+RTA's residential work has a quality of materiality that I deeply respect — the way you choose what goes into a space. We work with architects as trade partners and take custom briefs for specific project requirements. If it's ever relevant to something you're working on, I'd love to be on your radar.
+
+Happy to put a sample pack together for the studio.
+
+${sig}`,
+    followup: `Hi Richard,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture with custom commissions available to brief — marble, quartzite, natural stone.
+
+Happy to come into the studio for a quick introduction whenever suits.
+
+${sig}`
+  },
+  {
+    num: 12, biz: "Koush Interior Design", cat: "design", person: "Kylie McMahon",
+    to: "hello@koush.co.nz", priority: 8,
+    subject: "Prime Piece — stone furniture for your projects",
+    body: `Hi Kylie,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+We work with interior designers as trade partners — trade pricing on our current collection, and custom commissions available to brief for specific projects. Looking at your portfolio, I think there's a strong fit.
+
+Happy to send through our lookbook or come in for a quick show-and-tell whenever suits.
+
+${sig}`,
+    followup: `Hi Kylie,
+
+Just following up on my note about Prime Piece. We make bespoke stone furniture — marble, quartzite, natural stone — and work with Auckland designers on a trade basis.
+
+Happy to come in for 20 minutes to introduce the work properly.
+
+${sig}`
+  },
+  {
+    num: 13, biz: "Naumi Hotel Auckland", cat: "hotel", person: "General Manager",
+    to: "auckland@naumihotels.com", priority: 8,
+    subject: "Prime Piece — stone furniture for Naumi Auckland",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+Naumi's design sensibility — layered, eclectic, premium — felt like a genuine fit for what we make. We're placing pieces with a small number of Auckland hotels this year, no cost to you. The piece lives in the space and you have the option to purchase at any point.
+
+Happy to come in and show you something in person.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture and I'd love to explore placing a piece at Naumi Auckland.
+
+Happy to come in at a time that suits, or send through our lookbook to start.
+
+${sig}`
+  },
+  {
+    num: 14, biz: "The Staging Company NZ", cat: "staging", person: "Director",
+    to: "hello@thestagingcompany.co.nz", priority: 8,
+    subject: "Prime Piece — stone furniture for high-end staging",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making stone furniture in marble, quartzite and natural stone. One-of-one pieces that photograph beautifully and read as premium the moment they're in a room.
+
+I'd love to explore a staging relationship — you use the pieces for high-end listings, we get the exposure. In return we'd ask for photo rights and a credit. Happy to talk through what an arrangement could look like.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make stone furniture that elevates how a premium property reads — in person and in photographs.
+
+Happy to meet and talk through a staging arrangement if it's of interest.
+
+${sig}`
+  },
+  {
+    num: 15, biz: "Jasmax", cat: "architecture", person: "Studio Principal",
+    to: "enquiries@jasmax.com", priority: 8,
+    subject: "Prime Piece — custom stone furniture",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone.
+
+We work with architecture studios on a trade basis and take custom commissions to brief — suited to premium hospitality, lobby and commercial projects. If it's ever relevant to something Jasmax is working on, I'd love to be on your radar.
+
+Happy to share the portfolio and material options for your studio library.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make bespoke stone furniture to brief — marble, quartzite, natural stone — and work with studios on a trade basis.
+
+Happy to come in for a quick introduction whenever suits the team.
+
+${sig}`
+  },
+  {
+    num: 16, biz: "Citta Design", cat: "furniture", person: "Buyer",
+    to: "hello@cittadesign.com", priority: 8,
+    subject: "Prime Piece — one-of-one stone furniture",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making one-of-one handcrafted stone furniture and objects in marble, quartzite and natural stone.
+
+We're exploring a small, curated placement with one or two Auckland retailers. Citta felt like a natural fit — the customer base is exactly right, and stone pieces at the top of your range would sit beautifully alongside what you carry.
+
+Happy to bring a few pieces in so you can see them properly.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I think a small placement at Citta would work well.
+
+Happy to come in whenever suits the team.
+
+${sig}`
+  },
+  {
+    num: 17, biz: "Melanie Roger Gallery", cat: "gallery", person: "Melanie Roger",
+    to: "info@melanieroge.com", priority: 8,
+    subject: "Prime Piece — stone objects",
+    body: `Hi Melanie,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Each piece is singular — made once, not repeated. I've been thinking about whether they belong in a gallery context, and your programme came to mind. I'd love to explore a placement or a conversation about what a collaboration might look like.
+
+Happy to share images and talk through the work.
+
+${sig}`,
+    followup: `Hi Melanie,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — singular enough, I think, for a gallery context.
+
+Happy to come in and show you the work in person whenever suits.
+
+${sig}`
+  },
+  {
+    num: 18, biz: "Baduzzi Restaurant", cat: "hospitality", person: "Owner / GM",
+    to: "info@baduzzi.co.nz", priority: 8,
+    subject: "Prime Piece — stone furniture for Baduzzi",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+Baduzzi has always felt like a space that takes design seriously — stone surfaces are part of the DNA. We're placing pieces with a select number of Auckland venues this year, no cost to you, with the option to purchase at any point.
+
+Happy to come in and show you something in person.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I'd love to explore placing a piece at Baduzzi.
+
+Happy to bring something in to show you. Let me know if there's a good time.
+
+${sig}`
+  },
+  {
+    num: 19, biz: "Michael Lett Gallery", cat: "gallery", person: "Michael Lett",
+    to: "info@michaellett.com", priority: 8,
+    subject: "Prime Piece — stone furniture as objects",
+    body: `Hi Michael,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+I've been thinking about the question of where these pieces belong — they're furniture, but each one is singular enough that the distinction starts to blur. Your gallery and the audience you've built came to mind. I'd love to explore whether there's a fit, even loosely.
+
+Happy to share images and have a conversation.
+
+${sig}`,
+    followup: `Hi Michael,
+
+Following up on my note about Prime Piece. We make one-of-one stone objects — marble, quartzite, natural stone — and I'm curious whether there's a conversation worth having about a placement or collaboration.
+
+Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 20, biz: "Juliette Domine Design", cat: "design", person: "Juliette Domine",
+    to: "studio@juliettedomine.com", priority: 8,
+    subject: "Prime Piece — stone furniture for your projects",
+    body: `Hi Juliette,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+Looking at your interiors, I think there's a strong fit — the layered, material-rich spaces you create are exactly the right context for what we make. We work with designers as trade partners and take custom commissions to brief. Happy to put a sample pack together for the studio.
+
+${sig}`,
+    followup: `Hi Juliette,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and work with Auckland designers on a trade basis.
+
+Happy to come in for a quick introduction or send the lookbook through. Let me know what works.
+
+${sig}`
+  },
+  {
+    num: 21, biz: "Architectus", cat: "architecture", person: "Studio Director — NZ",
+    to: "auckland@architectus.com.au", priority: 7,
+    subject: "Prime Piece — custom stone furniture",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone.
+
+We work with architecture studios on a trade basis and take custom commissions to brief — well suited to premium residential, commercial and hospitality projects. Happy to get on your radar if it's ever relevant to what Architectus NZ is working on.
+
+Happy to share the portfolio and material library.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make bespoke stone furniture to brief and work with studios on a trade basis. Happy to come in for a quick introduction whenever suits the Auckland team.
+
+${sig}`
+  },
+  {
+    num: 22, biz: "SO/ Auckland", cat: "hotel", person: "Design / F&B Contact",
+    to: "soauckland@so-hotels.com", priority: 7,
+    subject: "Prime Piece — stone furniture for SO/ Auckland",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+SO/ has a strong visual identity — design-forward, memorable, specific. A stone piece in the lobby or bar felt like a natural fit rather than a stretch. We're placing work with a small number of Auckland venues this year, no cost to you, with the option to purchase at any point.
+
+Happy to come in and show you the current collection.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture and I'd love to explore placing a piece at SO/ Auckland.
+
+Happy to come in at a time that suits.
+
+${sig}`
+  },
+  {
+    num: 23, biz: "Haven Home", cat: "furniture", person: "Buyer",
+    to: "hello@havenhome.co.nz", priority: 7,
+    subject: "Prime Piece — one-of-one stone furniture",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making handcrafted stone furniture and objects in marble, quartzite and natural stone. Every piece is one-of-one.
+
+I think a few pieces would sit well in Haven — the aesthetic is right and the customer base is exactly where our work belongs. We're open to consignment for the right partner.
+
+Happy to come in and show you what we're doing.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I think there's a genuine fit with Haven.
+
+Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 24, biz: "Orphans Kitchen", cat: "hospitality", person: "Tom Hishon",
+    to: "hello@orphanskitchen.co.nz", priority: 7,
+    subject: "Prime Piece — stone furniture for Orphans Kitchen",
+    body: `Hi Tom,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Orphans has always felt like a place that values things made with intention — the food, the space, the details. Prime Piece operates in the same way. I'd love to explore placing a piece or having a conversation about a collaboration if that interests you.
+
+No cost to you — the piece lives in the space and you have the option to purchase at any point.
+
+${sig}`,
+    followup: `Hi Tom,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — made with intention, singular. Could be worth 20 minutes to show you what we're doing.
+
+Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 25, biz: "Precinct Properties", cat: "developer", person: "Development Director",
+    to: "info@ppnz.co.nz", priority: 7,
+    subject: "Prime Piece — stone furniture for premium Auckland developments",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making bespoke stone furniture in marble, quartzite and natural stone.
+
+We work with developers on placement and commission — statement pieces for lobbies, show apartments and premium common areas. If you have anything coming up where a custom stone piece would add to how the space reads, I'd love to put together a proposal.
+
+Happy to share the portfolio and discuss timelines.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make bespoke stone furniture — marble, quartzite, natural stone — and work with Auckland developers on placement and custom commission.
+
+Happy to come in and introduce the work if there's a relevant project on the horizon.
+
+${sig}`
+  },
+  {
+    num: 26, biz: "Stow Interior Design", cat: "design", person: "Studio Lead",
+    to: "hello@stow.co.nz", priority: 7,
+    subject: "Prime Piece — stone furniture for your projects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+We work with interior designers as trade partners — trade pricing on our current collection, and custom commissions available to brief. If bespoke stone pieces are ever relevant to your projects, I'd love to be on your radar.
+
+Happy to send the lookbook or come in for a quick introduction.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture and work with Auckland designers on a trade basis. Happy to come in for 20 minutes whenever suits.
+
+${sig}`
+  },
+  {
+    num: 27, biz: "Two Rooms Gallery", cat: "gallery", person: "Director",
+    to: "info@tworooms.co.nz", priority: 7,
+    subject: "Prime Piece — stone furniture as objects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Each piece is singular — made once, not repeated. I've been thinking about where they belong, and a gallery context makes as much sense as a home. I'd love to explore whether there's a fit with your programme — a placement, a show, or something more informal.
+
+Happy to share images and have a conversation.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — singular enough, I think, to sit in a gallery context. Happy to come in and show you the work whenever suits.
+
+${sig}`
+  },
+  {
+    num: 28, biz: "Cosh Living", cat: "furniture", person: "Buyer",
+    to: "info@coshliving.com", priority: 7,
+    subject: "Prime Piece — one-of-one stone furniture",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one handcrafted stone furniture in marble, quartzite and natural stone.
+
+I think there's a natural fit between what we make and the Cosh aesthetic — premium material, considered design, built to last. We're open to a consignment arrangement for the right partner.
+
+Happy to bring pieces in so you can see them properly.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I think it would sit well with Cosh's range.
+
+Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 29, biz: "Giapo", cat: "other", person: "Giapo Grazioli",
+    to: "info@giapo.com", priority: 7,
+    subject: "Prime Piece x Giapo — a conversation",
+    body: `Hi Giapo,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+I've followed what you've built at Giapo for a long time. You're doing something rare — treating what could be ordinary as an opportunity to make something that has never existed before. That's exactly how we think about stone.
+
+I don't have a specific ask. I'm just curious whether there's a conversation worth having. A collaboration, a piece in the space, something else entirely — I'm open to where it could go.
+
+${sig}`,
+    followup: `Hi Giapo,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture — and I genuinely think there's something worth exploring between what you do and what we do. Happy to meet for a coffee if you're open to it.
+
+${sig}`
+  },
+  {
+    num: 30, biz: "Nood", cat: "furniture", person: "Buyer",
+    to: "hello@nood.co.nz", priority: 7,
+    subject: "Prime Piece — one-of-one stone furniture",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+I think a few pieces would sit well with the Nood range — the design sensibility is right and the audience is exactly where our work belongs. Happy to discuss a consignment arrangement.
+
+Would love to show you what we're making. Happy to send the lookbook or bring pieces in.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I think there's a genuine fit with Nood. Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 31, biz: "Mansons TCLM", cat: "developer", person: "Development Team",
+    to: "info@mansons.co.nz", priority: 7,
+    subject: "Prime Piece — stone furniture for premium Auckland developments",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making bespoke stone furniture in marble, quartzite and natural stone.
+
+We work with developers on custom commission and placement — statement pieces for lobbies and premium common areas. If there's an upcoming project where a bespoke stone piece would make a difference to how the space reads, I'd love to have a conversation.
+
+Happy to share the portfolio and discuss timelines.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make bespoke stone furniture — marble, quartzite, natural stone — and work with Auckland developers on commission and placement. Happy to come in if there's a relevant project on the horizon.
+
+${sig}`
+  },
+  {
+    num: 32, biz: "Azabu Restaurant", cat: "hospitality", person: "Owner / GM",
+    to: "info@azabu.co.nz", priority: 7,
+    subject: "Prime Piece — stone furniture for Azabu",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+Azabu has a refined, considered interior — exactly the kind of space where a stone piece would belong without needing an explanation. We're placing work with a small number of Auckland venues this year, no cost to you, with the option to purchase at any point.
+
+Happy to come in and show you what we're doing.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture for spaces that care about the details — and Azabu is that kind of space. Happy to bring something in to show you.
+
+${sig}`
+  },
+  {
+    num: 33, biz: "Milse", cat: "hospitality", person: "Brian Campbell",
+    to: "info@milse.co.nz", priority: 6,
+    subject: "Prime Piece — stone for Milse",
+    body: `Hi Brian,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+What you do at Milse is as much about how it looks as how it tastes. Stone surfaces and display objects feel like they belong in that world. I'd love to explore whether there's a fit — a custom display surface, a statement object, or simply a conversation.
+
+Happy to come in and show you what we're making.
+
+${sig}`,
+    followup: `Hi Brian,
+
+Just following up on my note about Prime Piece. We make stone objects and surfaces — marble, quartzite, natural stone — and I think something could belong at Milse. Happy to bring a piece in to show you.
+
+${sig}`
+  },
+  {
+    num: 34, biz: "Auckland Staging Co.", cat: "staging", person: "Director",
+    to: "hello@aucklandstaging.co.nz", priority: 6,
+    subject: "Prime Piece — stone furniture for premium staging",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making stone furniture in marble, quartzite and natural stone. One-of-one pieces that read as premium instantly and photograph beautifully.
+
+I'd love to explore a staging relationship — you use our pieces for high-end Auckland listings, we get the exposure and photo rights. Happy to talk through what a practical arrangement might look like.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make stone furniture that elevates how a premium property presents — in person and in photographs. Happy to meet and discuss a staging arrangement.
+
+${sig}`
+  },
+  {
+    num: 35, biz: "Stevens Lawson Architects", cat: "architecture", person: "Nick Stevens / Gary Lawson",
+    to: "studio@stevenslawson.co.nz", priority: 6,
+    subject: "Prime Piece — bespoke stone furniture",
+    body: `Hi Nick,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone.
+
+Stevens Lawson's work — particularly the residential and arts projects — has a quality of materiality that I deeply respect. We work with architects as trade partners and take custom commissions to brief. If it's ever relevant to something you're working on, I'd love to be on your radar.
+
+Happy to share the portfolio and material library.
+
+${sig}`,
+    followup: `Hi Nick,
+
+Following up on my note about Prime Piece. We make bespoke stone furniture to brief and work with studios on a trade basis. Happy to come in for a quick introduction whenever suits.
+
+${sig}`
+  },
+  {
+    num: 36, biz: "Workshop Jewellery", cat: "other", person: "Director",
+    to: "hello@workshopjewellery.com", priority: 6,
+    subject: "Prime Piece — a conversation",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+I've been thinking about the overlap between what Workshop does and what we do — both one-of-one, both made for people who care about craft and the object they're living with. I'd love to explore whether there's a collaboration or a shared event worth doing. No specific ask — just curious if it interests you.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. I think our audiences overlap more than you might expect — happy to meet for a coffee and explore whether there's something worth doing together.
+
+${sig}`
+  },
+  {
+    num: 37, biz: "The Marlborough Hotel", cat: "hotel", person: "GM / Design Contact",
+    to: "info@themarlborough.co.nz", priority: 6,
+    subject: "Prime Piece — stone furniture for The Marlborough",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making one-of-one handcrafted furniture in marble, quartzite and natural stone.
+
+The Marlborough has a strong design identity — a stone piece in the lobby or a common area felt like a natural fit. We're placing work with a small number of Auckland hotels this year, no cost to you, with the option to purchase at any point.
+
+Happy to show you the current collection.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture and I'd love to explore a placement at The Marlborough. Happy to come in at a time that suits.
+
+${sig}`
+  },
+  {
+    num: 38, biz: "Jardan NZ", cat: "furniture", person: "Showroom Manager — Auckland",
+    to: "auckland@jardan.com.au", priority: 6,
+    subject: "Prime Piece — one-of-one stone furniture, Auckland",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+I think a small, curated placement of local stone work alongside Jardan's range would add something genuine — a point of difference that also tells a local story. Happy to discuss what a consignment arrangement might look like.
+
+Would love to show you the work in person.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone — and I think it would sit well in the Jardan Auckland showroom. Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 39, biz: "Orexart", cat: "gallery", person: "Andrew Clifford",
+    to: "info@orexart.co.nz", priority: 6,
+    subject: "Prime Piece — stone objects",
+    body: `Hi Andrew,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Each piece is made once — no two are the same. I've been thinking about whether they sit in a gallery context, and Orexart kept coming to mind. Happy to share images and explore whether there's a fit with your programme.
+
+${sig}`,
+    followup: `Hi Andrew,
+
+Following up on my note about Prime Piece. We make one-of-one stone objects — marble, quartzite, natural stone. Happy to come in and show you the work whenever suits.
+
+${sig}`
+  },
+  {
+    num: 40, biz: "Penny Lane Interior Design", cat: "design", person: "Director",
+    to: "hello@pennylanehome.co.nz", priority: 6,
+    subject: "Prime Piece — stone furniture for your projects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+We work with interior designers as trade partners — trade pricing on our current collection, and custom commissions available to brief for client projects. Happy to connect and share what we're doing if it's relevant to any current or upcoming work.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make bespoke stone furniture and work with Auckland designers on a trade basis. Happy to send the lookbook or come in for a quick introduction.
+
+${sig}`
+  },
+  {
+    num: 41, biz: "Chhada Siembieda & Associates", cat: "design", person: "Studio Lead",
+    to: "info@cs-interiors.com", priority: 6,
+    subject: "Prime Piece — custom stone furniture for hospitality projects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making bespoke stone furniture and objects in marble, quartzite and natural stone.
+
+We work with commercial interior studios on a trade basis and take custom commissions to brief — well suited to premium hospitality and high-spec commercial projects. Happy to get on your radar for any upcoming work where custom stone makes sense.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make custom stone furniture to brief and work with studios on a trade basis. Happy to share the portfolio whenever suits.
+
+${sig}`
+  },
+  {
+    num: 42, biz: "Ivy & Stone Events", cat: "other", person: "Director",
+    to: "hello@ivyandstone.co.nz", priority: 5,
+    subject: "Prime Piece — stone furniture for premium events",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making stone furniture in marble, quartzite and natural stone.
+
+I'd love to explore whether there's a hire arrangement that works for both of us — your high-end events get the look, we get the exposure. Happy to talk through what that could look like practically.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make stone furniture that elevates premium event spaces — happy to meet and discuss a hire arrangement if it's of interest.
+
+${sig}`
+  },
+  {
+    num: 43, biz: "Parnell Gallery", cat: "gallery", person: "Director",
+    to: "info@parnellgallery.co.nz", priority: 5,
+    subject: "Prime Piece — stone furniture as objects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Each piece is made once — no two are the same. I'd love to explore whether there's a fit with your programme, even informally. Happy to share images and have a conversation.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — singular enough, I think, to sit in a gallery context. Happy to come in whenever suits.
+
+${sig}`
+  },
+  {
+    num: 44, biz: "Kate Sylvester", cat: "other", person: "Creative Director",
+    to: "info@katesylvester.com", priority: 5,
+    subject: "Prime Piece — a conversation",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+I've been thinking about the overlap between our audiences — people who care about how things are made, who they're made by, and whether they'll last. I'd love to explore whether there's a collaboration or a shared moment worth doing.
+
+No specific ask — just curious whether it interests you.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. I think our audiences overlap more than you might expect — happy to meet and explore whether there's something worth doing together.
+
+${sig}`
+  },
+  {
+    num: 45, biz: "Ponsonby Central", cat: "other", person: "Manager",
+    to: "info@ponsonbycentral.co.nz", priority: 5,
+    subject: "Prime Piece — pop-up display at Ponsonby Central",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+We're exploring a small number of premium Auckland spaces for a short pop-up display this year — Ponsonby Central felt like the right audience. Happy to talk through what a low-footprint activation might look like.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make one-of-one stone furniture and I'd love to explore a pop-up display at Ponsonby Central. Happy to come in and chat about what's possible.
+
+${sig}`
+  },
+  {
+    num: 46, biz: "Simon James Design", cat: "furniture", person: "Simon James",
+    to: "info@simonjames.co.nz", priority: 5,
+    subject: "Prime Piece — one-of-one stone furniture",
+    body: `Hi Simon,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture and objects in marble, quartzite and natural stone.
+
+Looking at what Simon James carries, I think there's a genuine fit — premium, considered, local where possible. I'd love to show you what we're making. Happy to bring pieces in or send the lookbook through.
+
+${sig}`,
+    followup: `Hi Simon,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone. Happy to come in whenever suits to show you the work.
+
+${sig}`
+  },
+  {
+    num: 47, biz: "NZ Sotheby's Staging", cat: "staging", person: "Staging Director",
+    to: "auckland@nzsothebysrealty.com", priority: 5,
+    subject: "Prime Piece — stone furniture for luxury property staging",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making stone furniture in marble, quartzite and natural stone. One-of-one pieces that photograph beautifully and read as premium the moment they're in a room.
+
+If you're staging high-value Auckland properties, I'd love to explore a loan arrangement — you get the look, we get the exposure and photography rights. Happy to talk through the practicalities.
+
+${sig}`,
+    followup: `Hi there,
+
+Just following up on my note about Prime Piece. We make stone furniture that elevates how a luxury property presents. Happy to meet and discuss what an arrangement might look like.
+
+${sig}`
+  },
+  {
+    num: 48, biz: "Bunny Street Collective", cat: "design", person: "Director",
+    to: "hello@bunnystreetcollective.co.nz", priority: 5,
+    subject: "Prime Piece — stone furniture for your projects",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+We work with interior designers as trade partners — trade pricing on our current collection, and custom briefs available for specific projects. Happy to connect if bespoke stone pieces are ever relevant to what you're working on.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture and work with Auckland designers on a trade basis. Happy to send the lookbook or meet for a coffee.
+
+${sig}`
+  },
+  {
+    num: 49, biz: "Hawthorne Coffee", cat: "hospitality", person: "Owner",
+    to: "hello@hawthornecoffee.com", priority: 4,
+    subject: "Prime Piece — stone furniture for Hawthorne",
+    body: `Hi there,
+
+My name is James — I run Prime Piece, an Auckland studio making one-of-one stone furniture in marble, quartzite and natural stone.
+
+Hawthorne is one of the few Auckland cafés where you can feel that the design has been thought about. A stone piece in the space felt like a natural fit. We're placing work with a small number of venues this year, no cost to you, with the option to purchase at any point.
+
+Happy to come in and show you what we're doing.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone. Happy to bring something in to show you.
+
+${sig}`
+  },
+  {
+    num: 50, biz: "Smith & Caughey's", cat: "furniture", person: "Home Department Buyer",
+    to: "info@smithandcaugheys.co.nz", priority: 4,
+    subject: "Prime Piece — one-of-one stone furniture",
+    body: `Hi there,
+
+My name is James — I'm the founder of Prime Piece, an Auckland studio making one-of-one handcrafted stone furniture and objects in marble, quartzite and natural stone.
+
+A small, curated display in the Smith & Caughey's home department would reach exactly the right buyer — people who already know what premium looks like and are willing to invest in it. I think a few pieces would perform well and add something genuinely distinctive to the floor.
+
+Happy to come in and show the team what we're making.
+
+${sig}`,
+    followup: `Hi there,
+
+Following up on my note about Prime Piece. We make one-of-one stone furniture — marble, quartzite, natural stone. Happy to come in and show the buying team whenever suits.
+
+${sig}`
+  }
+];
+
+function getPriorityClass(p) {
+  if (p === 10) return 'p10';
+  if (p === 9) return 'p9';
+  if (p === 8) return 'p8';
+  if (p === 7) return 'p7';
+  if (p === 6) return 'p6';
+  return 'p5';
+}
+
+function renderCards(filter) {
+  const container = document.getElementById('cards');
+  const filtered = filter === 'all' ? emails : emails.filter(e => e.cat === filter);
+  container.innerHTML = filtered.map(e => `
+    <div class="card" data-cat="${e.cat}">
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-num">${String(e.num).padStart(2,'0')}</div>
+          <div>
+            <div class="card-biz">${e.biz}</div>
+            <div class="card-person">${e.person} &nbsp;·&nbsp; ${e.to}</div>
+          </div>
+        </div>
+        <div class="card-badges">
+          <div class="badge-cat">${e.cat}</div>
+          <div class="badge-priority ${getPriorityClass(e.priority)}">Priority ${e.priority}</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="email-block">
+          <div class="email-label">
+            First Message
+            <button class="copy-btn" onclick="copyEmail(this, ${e.num}, 'first')">Copy</button>
+          </div>
+          <div class="email-inner">
+            <div class="email-subject">Subject: <span>${e.subject}</span></div>
+            <div class="email-to">To: <span>${e.to}</span></div>
+            <div class="email-body" id="first-${e.num}">${e.body}</div>
+          </div>
+        </div>
+        <div class="email-block">
+          <div class="email-label" style="background:#3d3d3a;">
+            Follow-Up (Day 7)
+            <button class="copy-btn" onclick="copyEmail(this, ${e.num}, 'follow')">Copy</button>
+          </div>
+          <div class="email-inner">
+            <div class="email-subject">Subject: <span>Re: ${e.subject}</span></div>
+            <div class="email-to">To: <span>${e.to}</span></div>
+            <div class="email-body" id="follow-${e.num}">${e.followup}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function copyEmail(btn, num, type) {
+  const el = document.getElementById(`${type}-${num}`);
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function filterCards(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards(cat);
+}
+
+renderCards('all');
+</script>
+</body>
+</html>
