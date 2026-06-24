@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prime Piece — Partnership Proposal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --stone:   #f5f2ee;
+      --charcoal:#1c1c1a;
+      --warm:    #a89070;
+      --mid:     #6b6560;
+      --rule:    #ddd8d2;
+    }
+
+    html, body {
+      background: #fff;
+      color: var(--charcoal);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 18mm 18mm 14mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 10mm;
+      border-bottom: 0.5px solid var(--rule);
+      margin-bottom: 10mm;
+    }
+
+    .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+    }
+
+    .wordmark span {
+      color: var(--warm);
+    }
+
+    .doc-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ── INTRO ── */
+    .intro {
+      margin-bottom: 9mm;
+    }
+
+    .intro h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 300;
+      line-height: 1.25;
+      margin-bottom: 4mm;
+      max-width: 130mm;
+    }
+
+    .intro h1 em {
+      font-style: italic;
+      color: var(--warm);
+    }
+
+    .intro p {
+      max-width: 140mm;
+      color: var(--mid);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    /* ── RULE ── */
+    hr {
+      border: none;
+      border-top: 0.5px solid var(--rule);
+      margin: 7mm 0;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 4mm;
+    }
+
+    /* ── WHAT WE MAKE ── */
+    .materials {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4mm;
+      margin-bottom: 9mm;
+    }
+
+    .material-card {
+      background: var(--stone);
+      padding: 4mm 5mm;
+    }
+
+    .material-card .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 400;
+      margin-bottom: 1mm;
+    }
+
+    .material-card .desc {
+      font-size: 10.5px;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    /* ── PARTNERSHIP MODELS ── */
+    .models {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm;
+      margin-bottom: 9mm;
+    }
+
+    .model {
+      border-left: 1.5px solid var(--warm);
+      padding-left: 4mm;
+    }
+
+    .model .model-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 1mm;
+    }
+
+    .model .model-who {
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 2mm;
+    }
+
+    .model .model-desc {
+      font-size: 11.5px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* ── TERMS TABLE ── */
+    .terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 9mm;
+      font-size: 11.5px;
+    }
+
+    .terms-table thead tr {
+      background: var(--charcoal);
+      color: #fff;
+    }
+
+    .terms-table thead th {
+      padding: 3mm 4mm;
+      text-align: left;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .terms-table tbody tr {
+      border-bottom: 0.5px solid var(--rule);
+    }
+
+    .terms-table tbody tr:nth-child(even) {
+      background: var(--stone);
+    }
+
+    .terms-table tbody td {
+      padding: 2.5mm 4mm;
+      color: var(--mid);
+    }
+
+    .terms-table tbody td:first-child {
+      color: var(--charcoal);
+      font-weight: 400;
+    }
+
+    /* ── WHAT WE ASK ── */
+    .ask-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+      margin-bottom: 9mm;
+    }
+
+    .ask-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+    }
+
+    .ask-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--rule);
+      line-height: 1;
+    }
+
+    .ask-text {
+      font-size: 11.5px;
+      color: var(--mid);
+      line-height: 1.55;
+    }
+
+    /* ── QUOTE ── */
+    .pull-quote {
+      border-top: 0.5px solid var(--rule);
+      border-bottom: 0.5px solid var(--rule);
+      padding: 6mm 0;
+      margin-bottom: 9mm;
+      text-align: center;
+    }
+
+    .pull-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.4;
+      max-width: 120mm;
+      margin: 0 auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: auto;
+      padding-top: 7mm;
+      border-top: 0.5px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .footer-contact p {
+      font-size: 11px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .footer-contact strong {
+      color: var(--charcoal);
+      font-weight: 400;
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--rule);
+      text-align: right;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      html, body { background: #fff; }
+      .page { margin: 0; padding: 15mm 16mm 13mm; }
+      @page { size: A4; margin: 0; }
+    }
+
+    @media screen {
+      body { background: #e8e4df; padding: 20px 0 40px; }
+      .page { box-shadow: 0 4px 40px rgba(0,0,0,0.12); }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="wordmark">Prime<span> </span>Piece</div>
+    <div class="doc-label">
+      Partnership Proposal<br>
+      Auckland, New Zealand<br>
+      2025
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <h1>Stone furniture made<br>to be <em>lived with.</em></h1>
+    <p>
+      Prime Piece creates one-of-one handcrafted furniture and objects in marble, quartzite, porcelain and natural stone.
+      Each piece is singular — no two are the same. We are looking for a small number of select Auckland spaces
+      to showcase work, collaborate, or commission custom pieces for premium interiors.
+    </p>
+  </div>
+
+  <!-- MATERIALS -->
+  <div class="section-label">What we work with</div>
+  <div class="materials">
+    <div class="material-card">
+      <div class="name">Marble</div>
+      <div class="desc">Calacatta, Nero Marquina, Statuario and more. Timeless, high-contrast, singular.</div>
+    </div>
+    <div class="material-card">
+      <div class="name">Quartzite</div>
+      <div class="desc">Harder and more durable than marble. Dramatic veining, made for daily use.</div>
+    </div>
+    <div class="material-card">
+      <div class="name">Porcelain</div>
+      <div class="desc">Large-format slabs with consistent patterning. Refined surface for contemporary spaces.</div>
+    </div>
+    <div class="material-card">
+      <div class="name">Natural Stone</div>
+      <div class="desc">Basalt, travertine and raw stone forms. Honest materiality, built to last generations.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PARTNERSHIP MODELS -->
+  <div class="section-label">How we work together</div>
+  <div class="models">
+    <div class="model">
+      <div class="model-title">Consignment</div>
+      <div class="model-who">Furniture & Homeware Stores</div>
+      <div class="model-desc">We place pieces in your showroom. You take a percentage on sale only — no upfront cost, no risk. We retain ownership until purchased.</div>
+    </div>
+    <div class="model">
+      <div class="model-title">Trade Partnership</div>
+      <div class="model-who">Interior Designers & Architects</div>
+      <div class="model-desc">Specify our pieces for client projects and receive trade pricing. We handle fabrication, delivery and installation. Custom briefs welcome.</div>
+    </div>
+    <div class="model">
+      <div class="model-title">Placement</div>
+      <div class="model-who">Hotels, Restaurants & Hospitality</div>
+      <div class="model-desc">A piece lives in your space for an agreed period. We handle insurance and logistics. You have the option to purchase at any time.</div>
+    </div>
+    <div class="model">
+      <div class="model-title">Commission</div>
+      <div class="model-who">Developers, Galleries & All</div>
+      <div class="model-desc">We create a bespoke piece to a brief. Material, scale and form are developed together. Suitable for lobbies, show homes, exhibitions and permanent collections.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PRICING -->
+  <div class="section-label">Indicative pricing</div>
+  <table class="terms-table">
+    <thead>
+      <tr>
+        <th>Piece</th>
+        <th>Examples</th>
+        <th>Retail Range</th>
+        <th>Consignment Split</th>
+        <th>Trade Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Object / Small</td>
+        <td>Stone tray, vessel, object</td>
+        <td>$400 – $900</td>
+        <td>65% / 35%</td>
+        <td>From $300</td>
+      </tr>
+      <tr>
+        <td>Side Table / Stool</td>
+        <td>Marble side table, stone stool</td>
+        <td>$1,500 – $3,500</td>
+        <td>65% / 35%</td>
+        <td>From $1,200</td>
+      </tr>
+      <tr>
+        <td>Statement Piece</td>
+        <td>Coffee table, console, shelf</td>
+        <td>$4,000 – $12,000</td>
+        <td>70% / 30%</td>
+        <td>From $3,200</td>
+      </tr>
+      <tr>
+        <td>Custom Commission</td>
+        <td>Dining table, sculptural object</td>
+        <td>$8,000 – $25,000+</td>
+        <td>Direct — no split</td>
+        <td>15% trade discount</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- WHAT WE ASK -->
+  <div class="section-label">In return, we ask for</div>
+  <div class="ask-grid">
+    <div class="ask-item">
+      <div class="ask-num">01</div>
+      <div class="ask-text">A credit card or table placement identifying Prime Piece wherever work is displayed.</div>
+    </div>
+    <div class="ask-item">
+      <div class="ask-num">02</div>
+      <div class="ask-text">Two Instagram posts tagging @primepiece.nz during the placement period.</div>
+    </div>
+    <div class="ask-item">
+      <div class="ask-num">03</div>
+      <div class="ask-text">Rights to use any professional photography featuring our pieces in our own marketing.</div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <p>"Each piece exists once. We make things that become part of a space — not decoration, but furniture that earns its place."</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-contact">
+      <p><strong>James Hopwood</strong><br>
+      Founder, Prime Piece<br>
+      james@primepiece.co.nz<br>
+      primepiece.co.nz &nbsp;·&nbsp; @primepiece.nz</p>
+    </div>
+    <div class="footer-note">
+      Auckland, New Zealand<br>
+      All prices NZD excl. GST
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
