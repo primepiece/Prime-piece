@@ -17,10 +17,10 @@ export default async function handler(req, res) {
   const html = `
 <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2C2A26;background:#F5F1EA;padding:40px 32px;">
   <p style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7BA5A8;margin:0 0 16px;">Prime Piece</p>
-  <h1 style="font-size:28px;font-weight:400;margin:0 0 12px;line-height:1.2;">Hi ${firstName}, here's your code</h1>
-  <p style="font-size:15px;color:#554F45;margin:0 0 24px;line-height:1.7;">Thank you for visiting. Use the code below for <strong>10% off</strong> your order — valid on any piece in the collection.</p>
+  <h1 style="font-size:28px;font-weight:400;margin:0 0 12px;line-height:1.2;">Hi ${firstName}, you're on the list</h1>
+  <p style="font-size:15px;color:#554F45;margin:0 0 24px;line-height:1.7;">Thank you for joining. You'll be the first to know when a new one-of-one piece is ready — often before we post it anywhere else.</p>
   <div style="background:#E0D9CA;border:1.5px dashed #7BA5A8;padding:16px 24px;text-align:center;margin-bottom:24px;display:inline-block;min-width:200px;">
-    <span style="font-size:26px;letter-spacing:0.2em;font-weight:500;">PRIME10</span>
+    <span style="font-size:20px;letter-spacing:0.1em;font-weight:500;">✓ Private Access</span>
   </div>
   <p style="font-size:14px;color:#554F45;margin:0 0 32px;line-height:1.7;">Each piece is handcrafted, one of one. Once it's gone, it's gone.</p>
   <a href="https://www.primepiece.co.nz/plinths.html" style="background:#2C2A26;color:#F5F1EA;padding:14px 32px;text-decoration:none;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;font-family:sans-serif;">Shop the Collection</a>
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       from: 'Prime Piece <james@primepiece.co.nz>',
       to: [email],
       bcc: ['james@primepiece.co.nz'],
-      subject: 'Your 10% off — Prime Piece',
+      subject: "You're on the list — Prime Piece",
       html,
     }),
   });
