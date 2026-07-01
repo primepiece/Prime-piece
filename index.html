@@ -909,7 +909,7 @@
   var stepReveal = document.getElementById('pp-step-reveal');
   function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
   function hide() { overlay.style.display = 'none'; }
-  setTimeout(show, 45000);
+  setTimeout(show, 15000);
   document.getElementById('pp-popup-close').addEventListener('click', hide);
   overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
   document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
