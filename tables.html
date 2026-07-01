@@ -200,6 +200,13 @@
   .modal-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .modal-stone-tag { position: absolute; top: 20px; left: 20px; padding: 5px 12px; background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
   .modal-sale-tag { position: absolute; top: 20px; right: 20px; padding: 5px 12px; background: #b8800a; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; border-radius: 2px; }
+  .modal-img-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(28,26,22,0.4); color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
+  .modal-img-nav:hover { background: rgba(28,26,22,0.65); }
+  .modal-img-prev { left: 16px; }
+  .modal-img-next { right: 16px; }
+  .modal-img-dots { position: absolute; bottom: 18px; left: 0; right: 0; display: flex; justify-content: center; gap: 7px; z-index: 6; }
+  .modal-img-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
+  .modal-img-dot.active { background: #fff; transform: scale(1.25); }
   .modal-info-col { padding: 40px 36px; display: flex; flex-direction: column; overflow-y: auto; border-left: 1px solid var(--line); }
   .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10; }
   .modal-close:hover { background: white; color: var(--ink); }
@@ -523,6 +530,9 @@
       <span class="modal-stone-tag" id="modal-stone-tag"></span>
       <span class="modal-sale-tag" id="modal-sale-tag" style="display:none;">20% OFF</span>
       <img id="modal-img" src="" alt="">
+      <button class="modal-img-nav modal-img-prev" id="modal-img-prev" onclick="event.stopPropagation(); prevModalImage()" aria-label="Previous photo" style="display:none;">‹</button>
+      <button class="modal-img-nav modal-img-next" id="modal-img-next" onclick="event.stopPropagation(); nextModalImage()" aria-label="Next photo" style="display:none;">›</button>
+      <div class="modal-img-dots" id="modal-img-dots"></div>
     </div>
     <div class="modal-info-col">
       <div class="modal-eyebrow">Prime Piece — Stone Table</div>
@@ -618,14 +628,41 @@
     'lounge-8.jpg': { price: 1999, was: 2499, id: 'table-white-haven-lounge' },
   };
   const NOT_PURCHASABLE = ['lounge-6.jpg','lounge-7.jpg','lounge-9.jpg','lounge-10.jpg','lounge-11.jpg'];
+  const TABLE_GALLERIES = {
+    'side-3.jpg': ['side-3.jpg', 'side-3-lifestyle.jpg', 'side-3-detail-1.jpg', 'side-3-detail-2.jpg'],
+  };
   let _modalItem = null;
+  let _modalGallery = [];
+  let _modalImgIndex = 0;
+
+  function renderModalImage() {
+    document.getElementById('modal-img').src = _modalGallery[_modalImgIndex];
+    const multi = _modalGallery.length > 1;
+    document.getElementById('modal-img-prev').style.display = multi ? '' : 'none';
+    document.getElementById('modal-img-next').style.display = multi ? '' : 'none';
+    const dotsEl = document.getElementById('modal-img-dots');
+    dotsEl.innerHTML = '';
+    if (multi) {
+      _modalGallery.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'modal-img-dot' + (i === _modalImgIndex ? ' active' : '');
+        dot.setAttribute('aria-label', `Photo ${i + 1}`);
+        dot.onclick = (e) => { e.stopPropagation(); _modalImgIndex = i; renderModalImage(); };
+        dotsEl.appendChild(dot);
+      });
+    }
+  }
+  function nextModalImage() { _modalImgIndex = (_modalImgIndex + 1) % _modalGallery.length; renderModalImage(); }
+  function prevModalImage() { _modalImgIndex = (_modalImgIndex - 1 + _modalGallery.length) % _modalGallery.length; renderModalImage(); }
 
   function openModal(name, stone, img, desc, dims, type, frame, setting, note) {
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
     document.getElementById('modal-stone-text').textContent = stone;
     document.getElementById('modal-desc-text').textContent = desc;
-    document.getElementById('modal-img').src = img;
+    _modalGallery = TABLE_GALLERIES[img] || [img];
+    _modalImgIndex = 0;
+    renderModalImage();
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-type').textContent = type;
     document.getElementById('modal-frame').textContent = frame || 'Hand-welded black steel';
@@ -703,7 +740,12 @@
     if (e.target === document.getElementById('modal-overlay')) closeModal();
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+    if (!document.getElementById('modal-overlay').classList.contains('open')) return;
+    if (e.key === 'ArrowRight') nextModalImage();
+    if (e.key === 'ArrowLeft') prevModalImage();
+  });
 </script>
 <script src="cart.js"></script>
 </body>
