@@ -393,6 +393,18 @@
   <div class="hero-right reveal">
     <div class="hero-stat">13</div>
     <div class="hero-stat-label">Pieces available</div>
+    <div style="margin-top:24px;text-align:center;">
+      <div style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px;">Sale ends in</div>
+      <div style="display:flex;gap:6px;align-items:flex-start;justify-content:center;">
+        <div style="text-align:center;"><span id="pcd-days" style="display:block;font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">--</span><span style="font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Days</span></div>
+        <span style="font-size:24px;color:#c9a96e;opacity:0.5;padding-top:2px;">:</span>
+        <div style="text-align:center;"><span id="pcd-hours" style="display:block;font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">--</span><span style="font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Hrs</span></div>
+        <span style="font-size:24px;color:#c9a96e;opacity:0.5;padding-top:2px;">:</span>
+        <div style="text-align:center;"><span id="pcd-mins" style="display:block;font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">--</span><span style="font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Min</span></div>
+        <span style="font-size:24px;color:#c9a96e;opacity:0.5;padding-top:2px;">:</span>
+        <div style="text-align:center;"><span id="pcd-secs" style="display:block;font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">--</span><span style="font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);">Sec</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -806,5 +818,19 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script src="cart.js"></script>
+<script>
+  const PLINTH_SALE_END = new Date('2026-07-09T23:59:59+12:00');
+  function updatePlinthCountdown() {
+    const diff = PLINTH_SALE_END - new Date();
+    const pad = n => String(Math.max(0,n)).padStart(2,'0');
+    if (diff <= 0) { ['pcd-days','pcd-hours','pcd-mins','pcd-secs'].forEach(id => document.getElementById(id).textContent = '00'); return; }
+    document.getElementById('pcd-days').textContent = pad(Math.floor(diff/86400000));
+    document.getElementById('pcd-hours').textContent = pad(Math.floor((diff%86400000)/3600000));
+    document.getElementById('pcd-mins').textContent = pad(Math.floor((diff%3600000)/60000));
+    document.getElementById('pcd-secs').textContent = pad(Math.floor((diff%60000)/1000));
+  }
+  updatePlinthCountdown();
+  setInterval(updatePlinthCountdown, 1000);
+</script>
 </body>
 </html>
