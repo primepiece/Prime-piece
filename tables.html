@@ -200,13 +200,6 @@
   .modal-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .modal-stone-tag { position: absolute; top: 20px; left: 20px; padding: 5px 12px; background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
   .modal-sale-tag { position: absolute; top: 20px; right: 20px; padding: 5px 12px; background: #b8800a; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; border-radius: 2px; }
-  .modal-img-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(28,26,22,0.4); color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
-  .modal-img-nav:hover { background: rgba(28,26,22,0.65); }
-  .modal-img-prev { left: 16px; }
-  .modal-img-next { right: 16px; }
-  .modal-img-dots { position: absolute; bottom: 18px; left: 0; right: 0; display: flex; justify-content: center; gap: 7px; z-index: 6; }
-  .modal-img-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
-  .modal-img-dot.active { background: #fff; transform: scale(1.25); }
   .modal-info-col { padding: 40px 36px; display: flex; flex-direction: column; overflow-y: auto; border-left: 1px solid var(--line); }
   .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10; }
   .modal-close:hover { background: white; color: var(--ink); }
@@ -254,9 +247,23 @@
   .seo-blurb p { font-size: 12px; color: var(--stone); line-height: 1.9; max-width: 960px; }
 
   @media (max-width: 900px) { .modal { grid-template-columns: 1fr; } .modal-img-col { min-height: 320px; } }
+  /* Hamburger */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
+  .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+  nav:not(.scrolled) .nav-hamburger span { background: #fff; }
+  .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 190; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--display); font-size: 36px; font-weight: 300; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--sage); }
+  .mobile-menu .mobile-shop-btn { font-size: 14px; font-family: var(--body); letter-spacing: 0.22em; text-transform: uppercase; padding: 14px 32px; border: 1px solid var(--sage); color: var(--sage); border-radius: 1px; }
+
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
     .sale-hero { padding: 36px 24px; flex-direction: column; gap: 24px; margin-top: 60px; }
     .sale-pct { font-size: 72px; }
     .page-hero { padding: 40px 24px 48px; flex-direction: column; align-items: flex-start; }
@@ -297,7 +304,20 @@
     <li><a href="boards.html">Boards</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="plinths.html">Plinths</a>
+  <a href="tables.html">Tables</a>
+  <a href="boards.html">Boards</a>
+  <a href="/#showroom">Showroom</a>
+  <a href="/#contact" class="mobile-shop-btn">Enquire Now</a>
+</div>
 
 <!-- SALE HERO -->
 <div class="sale-hero">
@@ -334,7 +354,7 @@
     <p class="hero-desc">The original Prime Piece. Round stone-top tables on hand-welded black steel frames — handcrafted in Auckland from some of the world's most unique natural stones.</p>
   </div>
   <div class="hero-right reveal">
-    <div class="hero-stat">30</div>
+    <div class="hero-stat">29</div>
     <div class="hero-stat-label">Pieces available</div>
   </div>
 </section>
@@ -397,19 +417,15 @@
   <div class="section-header reveal">
     <div>
       <h2 class="section-title">Side <em>Tables</em></h2>
-      <div class="section-count">3 pieces available</div>
+      <div class="section-count">2 pieces available</div>
     </div>
     <p class="section-desc">Sculptural stone side tables — the perfect accent piece for a bedroom, lounge or hallway. Handcrafted in Auckland from natural stone sourced across Europe and beyond.</p>
   </div>
   <div class="section-sale-strip">
     <div class="ssl-dot"></div>
-    <span class="ssl-text"><strong>Winter Sale — 20% off all side tables.</strong> Sale prices shown below. One of one — no restocks. As featured in our paid partnership with <a href="https://www.instagram.com/simone_anderson" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">@simone_anderson</a>.</span>
+    <span class="ssl-text"><strong>Winter Sale — 20% off all side tables.</strong> Sale prices shown below. One of one — no restocks.</span>
   </div>
   <div class="tables-grid">
-    <div class="table-card reveal" onclick="openModal('Lunar River','Lunar River Marble','side-3.jpg','Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. As featured in our collaboration with @simone_anderson. Shown at the size below; custom-sized to suit your space on request.','550mm (H) × 600mm (W) × 550mm (D) · 30mm Lunar River Marble','Side Table','Solid marble — no metal frame','Indoor only','Shown at 550mm (H) × 600mm (W) × 550mm (D). Custom sizes available to suit your space — natural stone colour and veining varies, every piece is completely unique.')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="side-3.jpg" alt="Lunar River — Lunar River Marble stone side table, as seen in the Simone Anderson collaboration, Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Lunar River</div><div class="table-stone">Lunar River Marble</div><div class="table-desc">Soft, warm neutral tones with natural movement — finished with an open shelf for effortless bedside styling. Custom sizes available.</div><div class="table-dims">H: 550mm × W: 600mm × D: 550mm · 30mm Marble · Indoor only</div><div class="table-price"><s>NZD $1,875</s> NZD $1,500 <span class="save-pill">Save $375</span></div><div class="table-foot"><span class="table-type">Side Table</span><button class="enquire-btn pp-add-btn" data-id="table-lunar-river" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Side Table',image:'side-3.jpg',price:1500})">Add to Cart →</button></div></div>
-    </div>
     <div class="table-card reveal" onclick="openModal('Twin Jade','Mystique Green Marble','side-1.jpg','Two sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. Cool teal tones with golden veining that shifts with the light. A rare pairing, never repeated.','450mm (H) × 600mm × 600mm · Black X-frame','Side Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="side-1.jpg" alt="Twin Jade — Mystique Green Marble stone side tables set of 2 Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-price">NZD $1,199 each <span style="font-size:12px;color:var(--stone)">or $2,199 as a set</span> <span class="save-pill">Save up to $600</span></div><div class="table-foot" style="flex-direction:column;align-items:stretch;gap:8px"><div style="display:flex;gap:8px"><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade-single',name:'Twin Jade (Single)',type:'Side Table',image:'side-1.jpg',price:1199})">1 Table — $1,199 →</button><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center;background:var(--sage);color:#fff;border-color:var(--sage)" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade',name:'Twin Jade (Set of 2)',type:'Side Table',image:'side-1.jpg',price:2199})">Set of 2 — $2,199 →</button></div><span class="table-type" style="text-align:center">Side Table — Set of 2</span></div></div>
@@ -530,9 +546,6 @@
       <span class="modal-stone-tag" id="modal-stone-tag"></span>
       <span class="modal-sale-tag" id="modal-sale-tag" style="display:none;">20% OFF</span>
       <img id="modal-img" src="" alt="">
-      <button class="modal-img-nav modal-img-prev" id="modal-img-prev" onclick="event.stopPropagation(); prevModalImage()" aria-label="Previous photo" style="display:none;">‹</button>
-      <button class="modal-img-nav modal-img-next" id="modal-img-next" onclick="event.stopPropagation(); nextModalImage()" aria-label="Next photo" style="display:none;">›</button>
-      <div class="modal-img-dots" id="modal-img-dots"></div>
     </div>
     <div class="modal-info-col">
       <div class="modal-eyebrow">Prime Piece — Stone Table</div>
@@ -545,12 +558,12 @@
       <div class="modal-desc-text" id="modal-desc-text"></div>
       <div class="modal-divider"></div>
       <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-val" id="modal-dims"></span></div>
-      <div class="detail-row"><span class="detail-label">Frame</span><span class="detail-val" id="modal-frame">Hand-welded black steel</span></div>
+      <div class="detail-row"><span class="detail-label">Frame</span><span class="detail-val">Hand-welded black steel</span></div>
       <div class="detail-row"><span class="detail-label">Origin</span><span class="detail-val">Handcrafted Auckland, NZ</span></div>
-      <div class="detail-row"><span class="detail-label">Setting</span><span class="detail-val" id="modal-setting">Indoor &amp; Outdoor</span></div>
+      <div class="detail-row"><span class="detail-label">Setting</span><span class="detail-val">Indoor &amp; Outdoor</span></div>
       <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val" id="modal-type"></span></div>
       <div class="detail-row"><span class="detail-label">Edition</span><span class="detail-val">One of one — never repeated</span></div>
-      <p class="modal-note" id="modal-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
+      <p class="modal-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
@@ -617,7 +630,6 @@
     'table-16.jpg': { price: 199, was: 349,              id: 'table-mountain-breeze' },
     'table-13.jpg': { price: 279, was: 499, sold: true,  id: 'table-ocean-ember' },
     'table-14.jpg': { price: 249, was: 429,              id: 'table-white-haven' },
-    'side-3.jpg':   { price: 1500, was: 1875,            id: 'table-lunar-river' },
     'side-1.jpg':   { price: 2199, singlePrice: 1199, singleId: 'table-twin-jade-single', id: 'table-twin-jade' },
     'side-2.jpg':   { price: 2995, sold: true,           id: 'table-jade-bedside' },
     'lounge-1.jpg': { price: 2999, was: 3800, id: 'table-jade-horizon' },
@@ -628,46 +640,16 @@
     'lounge-8.jpg': { price: 1999, was: 2499, id: 'table-white-haven-lounge' },
   };
   const NOT_PURCHASABLE = ['lounge-6.jpg','lounge-7.jpg','lounge-9.jpg','lounge-10.jpg','lounge-11.jpg'];
-  const TABLE_GALLERIES = {
-    'side-3.jpg': ['side-3.jpg', 'side-3-lifestyle.jpg', 'side-3-detail-1.jpg', 'side-3-detail-2.jpg'],
-  };
   let _modalItem = null;
-  let _modalGallery = [];
-  let _modalImgIndex = 0;
 
-  function renderModalImage() {
-    document.getElementById('modal-img').src = _modalGallery[_modalImgIndex];
-    const multi = _modalGallery.length > 1;
-    document.getElementById('modal-img-prev').style.display = multi ? '' : 'none';
-    document.getElementById('modal-img-next').style.display = multi ? '' : 'none';
-    const dotsEl = document.getElementById('modal-img-dots');
-    dotsEl.innerHTML = '';
-    if (multi) {
-      _modalGallery.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'modal-img-dot' + (i === _modalImgIndex ? ' active' : '');
-        dot.setAttribute('aria-label', `Photo ${i + 1}`);
-        dot.onclick = (e) => { e.stopPropagation(); _modalImgIndex = i; renderModalImage(); };
-        dotsEl.appendChild(dot);
-      });
-    }
-  }
-  function nextModalImage() { _modalImgIndex = (_modalImgIndex + 1) % _modalGallery.length; renderModalImage(); }
-  function prevModalImage() { _modalImgIndex = (_modalImgIndex - 1 + _modalGallery.length) % _modalGallery.length; renderModalImage(); }
-
-  function openModal(name, stone, img, desc, dims, type, frame, setting, note) {
+  function openModal(name, stone, img, desc, dims, type) {
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
     document.getElementById('modal-stone-text').textContent = stone;
     document.getElementById('modal-desc-text').textContent = desc;
-    _modalGallery = TABLE_GALLERIES[img] || [img];
-    _modalImgIndex = 0;
-    renderModalImage();
+    document.getElementById('modal-img').src = img;
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-type').textContent = type;
-    document.getElementById('modal-frame').textContent = frame || 'Hand-welded black steel';
-    document.getElementById('modal-setting').textContent = setting || 'Indoor & Outdoor';
-    document.getElementById('modal-note').textContent = note || 'Natural stone colour and veining varies. Every piece is completely unique.';
     const info = TABLE_PRICES[img];
     const saleTag = document.getElementById('modal-sale-tag');
     const saleBox = document.getElementById('modal-sale-box');
@@ -740,13 +722,20 @@
     if (e.target === document.getElementById('modal-overlay')) closeModal();
   }
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-    if (!document.getElementById('modal-overlay').classList.contains('open')) return;
-    if (e.key === 'ArrowRight') nextModalImage();
-    if (e.key === 'ArrowLeft') prevModalImage();
-  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script src="cart.js"></script>
+<script>
+  const ham = document.getElementById('nav-hamburger');
+  const mob = document.getElementById('mobile-menu');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mob.classList.toggle('open');
+    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+  });
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = '';
+  }));
+</script>
 </body>
 </html>
