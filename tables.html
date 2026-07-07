@@ -247,9 +247,23 @@
   .seo-blurb p { font-size: 12px; color: var(--stone); line-height: 1.9; max-width: 960px; }
 
   @media (max-width: 900px) { .modal { grid-template-columns: 1fr; } .modal-img-col { min-height: 320px; } }
+  /* Hamburger */
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
+  .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+  nav:not(.scrolled) .nav-hamburger span { background: #fff; }
+  .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 190; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--display); font-size: 36px; font-weight: 300; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--sage); }
+  .mobile-menu .mobile-shop-btn { font-size: 14px; font-family: var(--body); letter-spacing: 0.22em; text-transform: uppercase; padding: 14px 32px; border: 1px solid var(--sage); color: var(--sage); border-radius: 1px; }
+
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
     .sale-hero { padding: 36px 24px; flex-direction: column; gap: 24px; margin-top: 60px; }
     .sale-pct { font-size: 72px; }
     .page-hero { padding: 40px 24px 48px; flex-direction: column; align-items: flex-start; }
@@ -290,7 +304,20 @@
     <li><a href="boards.html">Boards</a></li>
     <li><a href="/#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="plinths.html">Plinths</a>
+  <a href="tables.html">Tables</a>
+  <a href="boards.html">Boards</a>
+  <a href="/#showroom">Showroom</a>
+  <a href="/#contact" class="mobile-shop-btn">Enquire Now</a>
+</div>
 
 <!-- SALE HERO -->
 <div class="sale-hero">
@@ -698,5 +725,17 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script src="cart.js"></script>
+<script>
+  const ham = document.getElementById('nav-hamburger');
+  const mob = document.getElementById('mobile-menu');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mob.classList.toggle('open');
+    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+  });
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = '';
+  }));
+</script>
 </body>
 </html>
