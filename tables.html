@@ -246,6 +246,44 @@
   .seo-blurb { padding: 40px 56px; border-top: 1px solid var(--line); background: var(--cream-soft); }
   .seo-blurb p { font-size: 12px; color: var(--stone); line-height: 1.9; max-width: 960px; }
 
+  /* ── Bedside Hero ── */
+  .bedside-hero { display: grid; grid-template-columns: 1fr 1fr; cursor: pointer; border-top: 1px solid var(--line); }
+  .bedside-hero:hover .bh-img.active { transform: scale(1.02); }
+  .bh-gallery { position: relative; overflow: hidden; background: var(--cream-soft); min-height: 560px; }
+  .bh-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s; }
+  .bh-img.active { opacity: 1; transition: opacity 0.5s, transform 0.6s; }
+  .bh-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(28,26,22,0.45); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
+  .bh-nav:hover { background: rgba(28,26,22,0.7); }
+  .bh-prev { left: 20px; }
+  .bh-next { right: 20px; }
+  .bh-dots { position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 6; }
+  .bh-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.45); border: none; cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
+  .bh-dot.active { background: #fff; transform: scale(1.3); }
+  .bh-badge-avail { position: absolute; top: 20px; left: 20px; padding: 5px 12px; background: var(--sage); color: white; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; z-index: 5; }
+  .bh-badge-sale { position: absolute; top: 20px; right: 20px; padding: 5px 12px; background: #b8800a; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; border-radius: 2px; z-index: 5; }
+  .bh-info { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
+  .bh-collab { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+  .bh-name { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .bh-stone { font-size: 12px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+  .bh-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 28px; font-style: italic; }
+  .bh-specs { margin-bottom: 24px; }
+  .bh-spec { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+  .bh-spec span:first-child { color: var(--stone); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; }
+  .bh-spec span:last-child { color: var(--ink-soft); font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+  .bh-price { font-size: 15px; color: var(--ink); margin-bottom: 16px; }
+  .bh-price s { color: var(--stone); margin-right: 8px; font-weight: 300; }
+  .bh-price strong { font-size: 22px; font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+  .bh-btn { display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--sage); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; margin-bottom: 14px; }
+  .bh-btn:hover { background: var(--sage-deep); }
+  .bh-note { font-size: 11px; color: var(--stone); font-style: italic; line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .bedside-hero { grid-template-columns: 1fr; }
+    .bh-gallery { min-height: 80vw; }
+    .bh-info { padding: 28px 20px 40px; border-left: none; border-top: 1px solid var(--line); }
+    .bh-name { font-size: 38px; }
+  }
+
   @media (max-width: 900px) {
     .modal-overlay { align-items: flex-start; padding: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .modal { grid-template-columns: 1fr; max-height: none; border-radius: 0; overflow: visible; }
@@ -372,6 +410,7 @@
 
 <div class="category-tabs">
   <button class="cat-tab active" onclick="showCategory('coffee', this)">Coffee Tables</button>
+  <button class="cat-tab" onclick="showCategory('bedside', this)">Bedside Tables</button>
   <button class="cat-tab" onclick="showCategory('side', this)">Side Tables</button>
   <button class="cat-tab" onclick="showCategory('lounge', this)">Lounge Tables</button>
 </div>
@@ -423,6 +462,57 @@
   </div>
 </div>
 
+<!-- ===================== BEDSIDE TABLES ===================== -->
+<div class="category-section" id="cat-bedside">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Bedside <em>Tables</em></h2>
+      <div class="section-count">1 piece available</div>
+    </div>
+    <p class="section-desc">Solid marble bedside tables — handcrafted in New Zealand. No metal frame, no filler. Just raw stone, shaped into something you'll have forever.</p>
+  </div>
+  <div class="section-sale-strip">
+    <div class="ssl-dot"></div>
+    <span class="ssl-text"><strong>Winter Sale — 20% off.</strong> Sale price shown. One of one — once sold, gone forever.</span>
+  </div>
+
+  <!-- Lunar River Hero -->
+  <div class="bedside-hero" onclick="openModal('Lunar River','Lunar River Marble','side-3.jpg','Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. As featured in our collaboration with @simone_anderson. Shown at the size below; custom-sized to suit your space on request.','550mm (H) × 600mm (W) × 550mm (D) · 30mm Lunar River Marble','Bedside Table','Solid marble — no metal frame','Indoor only','Shown at 550mm (H) × 600mm (W) × 550mm (D). Custom sizes available to suit your space — natural stone colour and veining varies, every piece is completely unique.')">
+    <div class="bh-gallery">
+      <img class="bh-img active" id="bh-img-0" src="side-3.jpg" alt="Lunar River marble bedside table">
+      <img class="bh-img" id="bh-img-1" src="side-3-lifestyle.jpg" alt="Lunar River marble bedside table lifestyle">
+      <img class="bh-img" id="bh-img-2" src="side-3-detail-1.jpg" alt="Lunar River marble detail">
+      <img class="bh-img" id="bh-img-3" src="side-3-detail-2.jpg" alt="Lunar River marble detail 2">
+      <button class="bh-nav bh-prev" onclick="event.stopPropagation(); bhNav(-1)">‹</button>
+      <button class="bh-nav bh-next" onclick="event.stopPropagation(); bhNav(1)">›</button>
+      <div class="bh-dots" id="bh-dots">
+        <button class="bh-dot active" onclick="event.stopPropagation(); bhGoto(0)"></button>
+        <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(1)"></button>
+        <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(2)"></button>
+        <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(3)"></button>
+      </div>
+      <span class="bh-badge-avail">Available</span>
+      <span class="bh-badge-sale">20% OFF</span>
+    </div>
+    <div class="bh-info">
+      <div class="bh-collab">As featured in the Simone Anderson collaboration</div>
+      <h3 class="bh-name">Lunar River</h3>
+      <div class="bh-stone">Lunar River Marble</div>
+      <div class="bh-desc">Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. Custom sizes available on request.</div>
+      <div class="bh-specs">
+        <div class="bh-spec"><span>Size</span><span>550 × 600 × 550mm</span></div>
+        <div class="bh-spec"><span>Material</span><span>30mm Solid Marble</span></div>
+        <div class="bh-spec"><span>Frame</span><span>None — solid stone</span></div>
+        <div class="bh-spec"><span>Setting</span><span>Indoor only</span></div>
+        <div class="bh-spec"><span>Edition</span><span>One of one</span></div>
+      </div>
+      <div class="bh-price"><s>NZD $1,875</s> <strong>NZD $1,500</strong> <span class="save-pill">Save $375</span></div>
+      <button class="bh-btn" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Bedside Table',image:'side-3.jpg',price:1500})">Add to Cart — NZD $1,500 →</button>
+      <div class="bh-note">Natural stone colour and veining varies. Every piece is completely unique.</div>
+    </div>
+  </div>
+</div>
+
 <!-- ===================== SIDE TABLES ===================== -->
 <div class="category-section" id="cat-side">
   <div class="section-header reveal">
@@ -441,7 +531,7 @@
       <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="side-1.jpg" alt="Twin Jade — Mystique Green Marble stone side tables set of 2 Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-price">NZD $1,199 each <span style="font-size:12px;color:var(--stone)">or $2,199 as a set</span> <span class="save-pill">Save up to $600</span></div><div class="table-foot" style="flex-direction:column;align-items:stretch;gap:8px"><div style="display:flex;gap:8px"><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade-single',name:'Twin Jade (Single)',type:'Side Table',image:'side-1.jpg',price:1199})">1 Table — $1,199 →</button><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center;background:var(--sage);color:#fff;border-color:var(--sage)" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade',name:'Twin Jade (Set of 2)',type:'Side Table',image:'side-1.jpg',price:2199})">Set of 2 — $2,199 →</button></div><span class="table-type" style="text-align:center">Side Table — Set of 2</span></div></div>
     </div>
-    <div class="table-card reveal" onclick="openModal('Lunar River','Lunar River Marble','side-3.jpg','Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. As featured in our collaboration with @simone_anderson. Shown at the size below; custom-sized to suit your space on request.','550mm (H) × 600mm (W) × 550mm (D) · 30mm Lunar River Marble','Side Table','Solid marble — no metal frame','Indoor only','Shown at 550mm (H) × 600mm (W) × 550mm (D). Custom sizes available to suit your space — natural stone colour and veining varies, every piece is completely unique.')">
+    <div class="table-card" onclick="openModal('Lunar River','Lunar River Marble','side-3.jpg','Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. As featured in our collaboration with @simone_anderson. Shown at the size below; custom-sized to suit your space on request.','550mm (H) × 600mm (W) × 550mm (D) · 30mm Lunar River Marble','Side Table','Solid marble — no metal frame','Indoor only','Shown at 550mm (H) × 600mm (W) × 550mm (D). Custom sizes available to suit your space — natural stone colour and veining varies, every piece is completely unique.')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><span class="sale-tag">20% OFF</span><img class="table-img" src="side-3.jpg" alt="Lunar River — Lunar River Marble stone side table, as seen in the Simone Anderson collaboration, Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Lunar River</div><div class="table-stone">Lunar River Marble</div><div class="table-desc">Soft, warm neutral tones with natural movement — finished with an open shelf for effortless bedside styling. Custom sizes available.</div><div class="table-dims">H: 550mm × W: 600mm × D: 550mm · 30mm Marble · Indoor only</div><div class="table-price"><s>NZD $1,875</s> NZD $1,500 <span class="save-pill">Save $375</span></div><div class="table-foot"><span class="table-type">Side Table</span><button class="enquire-btn pp-add-btn" data-id="table-lunar-river" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Side Table',image:'side-3.jpg',price:1500})">Add to Cart →</button></div></div>
     </div>
@@ -773,6 +863,19 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Bedside hero gallery
+  let _bhIdx = 0;
+  const _bhImgs = document.querySelectorAll('.bh-img');
+  const _bhDots = document.querySelectorAll('.bh-dot');
+  function bhGoto(i) {
+    _bhImgs[_bhIdx].classList.remove('active');
+    _bhDots[_bhIdx].classList.remove('active');
+    _bhIdx = (i + _bhImgs.length) % _bhImgs.length;
+    _bhImgs[_bhIdx].classList.add('active');
+    _bhDots[_bhIdx].classList.add('active');
+  }
+  function bhNav(dir) { bhGoto(_bhIdx + dir); }
 
   // Mobile: inject name+price label overlay into each card image
   if (window.innerWidth <= 768) {
