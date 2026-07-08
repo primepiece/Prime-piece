@@ -248,9 +248,8 @@
 
   /* ── Bedside Hero ── */
   .bedside-hero { display: grid; grid-template-columns: 1fr 1fr; cursor: pointer; border-top: 1px solid var(--line); }
-  .bedside-hero:hover .bh-img.active { transform: scale(1.02); }
   .bh-gallery { position: relative; overflow: hidden; background: var(--cream-soft); min-height: 560px; }
-  .bh-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s; }
+  .bh-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center center; opacity: 0; transition: opacity 0.5s; }
   .bh-img.active { opacity: 1; transition: opacity 0.5s, transform 0.6s; }
   .bh-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(28,26,22,0.45); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
   .bh-nav:hover { background: rgba(28,26,22,0.7); }
