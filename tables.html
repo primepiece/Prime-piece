@@ -212,7 +212,10 @@
   .detail-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
   .detail-val { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--ink-soft); text-align: right; }
   .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 20px 0; font-style: italic; }
-  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 20px; }
+  .modal-shipping-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--stone); margin-bottom: 12px; }
+  .modal-shipping-note svg { flex-shrink: 0; color: var(--sage); }
+  .modal-shipping-note a { color: var(--sage); text-decoration: underline; }
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 4px; }
   .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: var(--sage); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; }
   .modal-btn-primary:hover { background: var(--sage-deep); }
   .modal-btn-ghost { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; }
@@ -274,6 +277,8 @@
   .bh-price strong { font-size: 22px; font-family: 'Cormorant Garamond', serif; font-weight: 400; }
   .bh-btn { display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--sage); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; margin-bottom: 14px; }
   .bh-btn:hover { background: var(--sage-deep); }
+  .bh-shipping { font-size: 12px; color: var(--stone); margin-bottom: 10px; }
+  .bh-shipping a { color: var(--sage); text-decoration: underline; }
   .bh-note { font-size: 11px; color: var(--stone); font-style: italic; line-height: 1.6; }
 
   @media (max-width: 900px) {
@@ -507,6 +512,7 @@
       </div>
       <div class="bh-price"><s>NZD $1,875</s> <strong>NZD $1,500</strong> <span class="save-pill">Save $375</span></div>
       <button class="bh-btn" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Bedside Table',image:'side-3.jpg',price:1500})">Add to Cart — NZD $1,500 →</button>
+      <div class="bh-shipping">🚚 NZ-wide delivery available. Australia — <a href="mailto:james@primepiece.co.nz" onclick="event.stopPropagation()">email us</a>.</div>
       <div class="bh-note">Natural stone colour and veining varies. Every piece is completely unique.</div>
     </div>
   </div>
@@ -671,6 +677,10 @@
       <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val" id="modal-type"></span></div>
       <div class="detail-row"><span class="detail-label">Edition</span><span class="detail-val">One of one — never repeated</span></div>
       <p class="modal-note" id="modal-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
+      <div class="modal-shipping-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>NZ-wide delivery available. Australia — <a href="mailto:james@primepiece.co.nz">email us</a>.</span>
+      </div>
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
