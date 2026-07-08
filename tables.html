@@ -292,9 +292,17 @@
     .modal-overlay { align-items: flex-start; padding: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .modal { grid-template-columns: 1fr; max-height: none; border-radius: 0; overflow: visible; }
     .modal-img-col { min-height: 260px; max-height: 300px; }
-    .modal-info-col { overflow-y: visible; padding: 24px 20px 60px; border-left: none; border-top: 1px solid var(--line); }
+    .modal-info-col { overflow-y: visible; padding: 24px 20px 100px; border-left: none; border-top: 1px solid var(--line); }
     .modal-close { position: fixed; top: 12px; right: 12px; }
+    .modal-sticky-bar { display: flex; }
   }
+  /* Mobile sticky cart bar */
+  .modal-sticky-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 400; background: var(--cream); border-top: 1px solid var(--line); padding: 12px 16px; gap: 10px; align-items: center; box-shadow: 0 -4px 20px rgba(44,42,38,0.12); }
+  .msb-name { flex: 1; }
+  .msb-name strong { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; display: block; line-height: 1.1; }
+  .msb-name span { font-size: 11px; color: var(--stone); }
+  .msb-btn { background: var(--sage); color: white; border: none; border-radius: 1px; padding: 14px 20px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
   /* Hamburger */
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
   .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
@@ -689,6 +697,15 @@
   </div>
 </div>
 
+<!-- Mobile sticky Add to Cart bar -->
+<div class="modal-sticky-bar" id="modal-sticky-bar">
+  <div class="msb-name">
+    <strong id="msb-name"></strong>
+    <span id="msb-price"></span>
+  </div>
+  <button class="msb-btn" id="msb-btn" onclick="addModalToCart()">Add to Cart →</button>
+</div>
+
 <script>
   // Countdown — fixed deadline: midnight 15 July NZT (UTC+12 = 14 July 12:00 UTC)
   const SALE_END = new Date('2026-07-14T12:00:00Z');
@@ -853,16 +870,25 @@
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Mobile sticky bar
+    if (window.innerWidth <= 900 && _modalItem) {
+      document.getElementById('msb-name').textContent = name;
+      document.getElementById('msb-price').textContent = 'NZD $' + _modalItem.price.toLocaleString('en-NZ');
+      document.getElementById('modal-sticky-bar').style.display = 'flex';
+    }
   }
 
   function addModalToCart() {
     if (!_modalItem) return;
     Cart.add(_modalItem);
     document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
+    const msb = document.getElementById('msb-btn');
+    if (msb) msb.textContent = 'In Cart ✓';
   }
 
   function closeModal() {
     document.getElementById('modal-overlay').classList.remove('open');
+    document.getElementById('modal-sticky-bar').style.display = 'none';
     document.body.style.overflow = '';
   }
 
