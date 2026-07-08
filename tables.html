@@ -340,9 +340,9 @@
 
 <!-- SALE BANNER TOP -->
 <div class="sale-banner">
-  <div class="sale-banner-label">Winter Sale — Now On</div>
+  <div class="sale-banner-label">Winter Sale — Ends Midnight 15 July</div>
   <div class="sale-banner-main">❄ 20% Off All Tables ❄</div>
-  <div class="sale-banner-sub">One-of-one pieces · <span>While stock lasts</span> · Handcrafted Auckland NZ</div>
+  <div class="sale-banner-sub">One-of-one pieces · <span>Once sold, gone forever</span> · Sale ends midnight 15 July</div>
 </div>
 
 <nav>
@@ -690,9 +690,8 @@
 </div>
 
 <script>
-  // Countdown — 7 days from page load, stored in localStorage so it doesn't reset
-  const STORED = localStorage.getItem('pp_sale_end');
-  const SALE_END = STORED ? new Date(STORED) : (function(){ const d = new Date(Date.now() + 7*24*3600*1000); localStorage.setItem('pp_sale_end', d.toISOString()); return d; })();
+  // Countdown — fixed deadline: midnight 15 July NZT (UTC+12 = 14 July 12:00 UTC)
+  const SALE_END = new Date('2026-07-14T12:00:00Z');
   function updateCountdown() {
     const now = new Date();
     const diff = SALE_END - now;
