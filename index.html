@@ -68,7 +68,7 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5.0",
-        "reviewCount": "13",
+        "reviewCount": "15",
         "bestRating": "5",
         "worstRating": "5"
       }
@@ -401,6 +401,9 @@
   .reviews-marquee:hover { animation-play-state: paused; }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   .testimonial { flex-shrink: 0; width: 320px; padding: 32px 28px; background: var(--cream-soft); border: 1px solid var(--line); border-radius: 2px; }
+  .testimonial.has-photo { padding: 0; overflow: hidden; }
+  .testimonial.has-photo .t-photo { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .testimonial.has-photo .t-body { padding: 24px 28px 28px; }
   .stars { color: var(--sage); font-size: 11px; letter-spacing: 3px; margin-bottom: 14px; }
   .testimonial-title { font-family: var(--display); font-size: 20px; font-style: italic; margin-bottom: 10px; color: var(--ink); }
   .testimonial-body { font-size: 13px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 16px; }
@@ -724,8 +727,8 @@
 
 <section class="reviews-section">
   <div class="reviews-header reveal">
-    <div><span class="section-label">Google Reviews</span><h2>13 five-star<br><em>reviews</em>.</h2></div>
-    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">13 reviews · Google Maps</div></div></div>
+    <div><span class="section-label">Google Reviews</span><h2>15 five-star<br><em>reviews</em>.</h2></div>
+    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">15 reviews · Google Maps</div></div></div>
   </div>
   <div class="reviews-marquee-wrap">
     <div class="reviews-marquee">
@@ -742,6 +745,8 @@
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">James is the man.</div><p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p><div class="testimonial-author">Rafi Headifen</div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Highly recommend.</div><p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p><div class="testimonial-author">Dan Dunphy · Local Guide</div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Stunning piece.</div><p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p><div class="testimonial-author">Kate de Lautour</div></div>
+      <div class="testimonial has-photo"><img class="t-photo" src="review-simone.jpg" alt="Custom marble side tables — Simone Pretscherer review"><div class="t-body"><div class="stars">★★★★★</div><div class="testimonial-title">15/10.</div><p class="testimonial-body">Ordered custom side tables and could not be happier, the service was incredible, they listened and nailed the brief. They even hand delivered and put them exactly into place!</p><div class="testimonial-author">Simone Pretscherer</div></div></div>
+      <div class="testimonial has-photo"><img class="t-photo" src="review-omer.jpg" alt="Custom marble office table — Omer Hazer review"><div class="t-body"><div class="stars">★★★★★</div><div class="testimonial-title">A corner stone in our office.</div><p class="testimonial-body">We ordered a custom Prime Piece from the team and we love it. A corner stone in our office — James and the team are exceptional at what they do!</p><div class="testimonial-author">Omer Hazer</div></div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Far exceeded expectations.</div><p class="testimonial-body">James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend!</p><div class="testimonial-author">Creed Bell</div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Mint.</div><p class="testimonial-body">Picked up a marble table from James and it's honestly mint. Solid build, looks clean and just makes the lounge feel a bit sharper. Easy as dealing with him too. Cheers mate.</p><div class="testimonial-author">Finn Lyness · Local Guide</div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Beautiful marble board.</div><p class="testimonial-body">I bought this beautiful marble board. It is solid, stylish, and perfect for prep. Looks great on the bench and feels premium to use. What a great idea and product. Highly recommend!</p><div class="testimonial-author">Christoph Schumacher</div></div>
@@ -755,6 +760,8 @@
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">James is the man.</div><p class="testimonial-body">James is the man! Made a custom piece for us at an insane price. Delivered within a very reasonable time frame too. Love his work!</p><div class="testimonial-author">Rafi Headifen</div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Highly recommend.</div><p class="testimonial-body">Great service and a beautiful marble table. Solid build, stylish design, and easy to deal with. Highly recommend. Thanks again.</p><div class="testimonial-author">Dan Dunphy · Local Guide</div></div>
       <div class="testimonial"><div class="stars">★★★★★</div><div class="testimonial-title">Stunning piece.</div><p class="testimonial-body">This is a stunning piece — quite heavy and solid with a stunning granite top.</p><div class="testimonial-author">Kate de Lautour</div></div>
+      <div class="testimonial has-photo"><img class="t-photo" src="review-simone.jpg" alt="Custom marble side tables — Simone Pretscherer review"><div class="t-body"><div class="stars">★★★★★</div><div class="testimonial-title">15/10.</div><p class="testimonial-body">Ordered custom side tables and could not be happier, the service was incredible, they listened and nailed the brief. They even hand delivered and put them exactly into place!</p><div class="testimonial-author">Simone Pretscherer</div></div></div>
+      <div class="testimonial has-photo"><img class="t-photo" src="review-omer.jpg" alt="Custom marble office table — Omer Hazer review"><div class="t-body"><div class="stars">★★★★★</div><div class="testimonial-title">A corner stone in our office.</div><p class="testimonial-body">We ordered a custom Prime Piece from the team and we love it. A corner stone in our office — James and the team are exceptional at what they do!</p><div class="testimonial-author">Omer Hazer</div></div></div>
     </div>
   </div>
 </section>
