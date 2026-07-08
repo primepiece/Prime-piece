@@ -246,7 +246,12 @@
   .seo-blurb { padding: 40px 56px; border-top: 1px solid var(--line); background: var(--cream-soft); }
   .seo-blurb p { font-size: 12px; color: var(--stone); line-height: 1.9; max-width: 960px; }
 
-  @media (max-width: 900px) { .modal { grid-template-columns: 1fr; } .modal-img-col { min-height: 320px; } }
+  @media (max-width: 900px) {
+    .modal-overlay { align-items: flex-start; padding: 0; }
+    .modal { grid-template-columns: 1fr; max-height: none; border-radius: 0; min-height: 100dvh; overflow-y: auto; }
+    .modal-img-col { min-height: 55vw; max-height: 60vw; }
+    .modal-info-col { overflow-y: visible; padding: 28px 20px 40px; }
+  }
   /* Hamburger */
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
   .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
@@ -273,12 +278,12 @@
     .tables-grid { grid-template-columns: 1fr 1fr; }
     .table-card:nth-child(3n) { border-right: 1px solid var(--line); }
     .table-card:nth-child(2n) { border-right: none; }
-    .view-btn { opacity: 1; transform: translateY(0); }
+    .view-btn { display: none; }
     .table-info { display: none; }
     .table-img-wrap { aspect-ratio: 3/4; }
-    .table-mobile-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px 12px; background: linear-gradient(transparent, rgba(28,26,22,0.72)); color: #fff; }
-    .table-mobile-label .tml-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300; line-height: 1.1; display: block; }
-    .table-mobile-label .tml-price { font-size: 11px; opacity: 0.85; margin-top: 2px; display: block; }
+    .table-mobile-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 12px 14px; background: linear-gradient(transparent, rgba(20,18,15,0.78)); color: #fff; }
+    .table-mobile-label .tml-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 300; line-height: 1.1; display: block; }
+    .table-mobile-label .tml-price { font-size: 12px; font-weight: 500; opacity: 0.9; margin-top: 3px; display: block; }
     .cta-strip { padding: 56px 24px; flex-direction: column; align-items: flex-start; }
     footer { padding: 48px 24px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -777,7 +782,13 @@
       if (!nameEl || !wrap) return;
       const label = document.createElement('div');
       label.className = 'table-mobile-label';
-      const priceText = priceEl ? priceEl.textContent.trim().split('\n')[0].trim() : '';
+      // Extract just the sale/current price — find the first NZD $X amount
+      let priceText = '';
+      if (priceEl) {
+        const m = priceEl.textContent.match(/NZD\s*\$[\d,]+/g);
+        // If two prices (strikethrough + sale), take the last (sale); if sold, skip
+        if (m && !priceEl.textContent.includes('Sold')) priceText = m[m.length - 1];
+      }
       label.innerHTML = `<span class="tml-name">${nameEl.textContent}</span>${priceText ? `<span class="tml-price">${priceText}</span>` : ''}`;
       wrap.appendChild(label);
     });
