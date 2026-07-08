@@ -718,7 +718,7 @@
   (function() {
     const hash = window.location.hash.replace('#','');
     const tabs = document.querySelectorAll('.cat-tab');
-    const tabMap = { coffee: [0,'coffee'], side: [1,'side'], lounge: [2,'lounge'] };
+    const tabMap = { coffee: [0,'coffee'], bedside: [1,'bedside'], 'cat-bedside': [1,'bedside'], side: [2,'side'], lounge: [3,'lounge'] };
     if (tabMap[hash]) {
       const [tabIdx, tabCat] = tabMap[hash];
       showCategory(tabCat, tabs[tabIdx]);
