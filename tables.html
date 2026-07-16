@@ -1018,6 +1018,14 @@
         <label style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:6px;">Message</label>
         <textarea id="enq-message" rows="4" placeholder="Tell us what you're after — stone, size, room, budget…" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);background:var(--cream-soft);font-family:'Inter Tight',sans-serif;font-size:13px;color:var(--ink);outline:none;resize:vertical;border-radius:1px;line-height:1.6;" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--line)'"></textarea>
       </div>
+            <div style="margin-bottom:20px;">
+        <label style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:6px;">Photo <span style="opacity:0.5;font-size:8px;">(Optional)</span></label>
+        <label id="enq-photo-label" for="enq-photo" style="display:flex;align-items:center;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;border:1px dashed var(--line);background:var(--cream-soft);border-radius:1px;cursor:pointer;transition:border-color 0.2s;" onmouseover="this.style.borderColor="var(--sage)"" onmouseout="this.style.borderColor="var(--line)"">
+          <span style="font-size:18px;line-height:1;">📎</span>
+          <span id="enq-photo-text" style="font-size:12px;color:var(--stone);font-family:"Inter Tight",sans-serif;">Attach a photo of your room (optional)</span>
+        </label>
+        <input id="enq-photo" type="file" accept="image/*" style="display:none;" onchange="enqHandlePhoto(this)">
+      </div>
       <p id="enq-error" style="font-size:12px;color:#c0392b;margin-bottom:12px;display:none;"></p>
       <button onclick="submitEnquire()" style="width:100%;padding:14px;background:var(--sage);color:#fff;border:none;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;font-weight:500;cursor:pointer;border-radius:1px;transition:background 0.2s;">Send Message →</button>
       <p style="font-size:11px;color:var(--stone);text-align:center;margin-top:12px;">Or text James directly — <a href="tel:0211466990" style="color:var(--sage);text-decoration:none;">021 146 6990</a></p>
@@ -1034,12 +1042,29 @@
   </div>
 </div>
 <script>
+let enqImageBase64 = null, enqImageMime = "image/jpeg";
+function enqHandlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  enqImageMime = file.type || "image/jpeg";
+  const reader = new FileReader();
+  reader.onload = ev => {
+    enqImageBase64 = ev.target.result.split(",")[1];
+    document.getElementById("enq-photo-text").textContent = "✓ " + file.name;
+    document.getElementById("enq-photo-label").style.borderColor = "var(--sage)";
+  };
+  reader.readAsDataURL(file);
+}
 function openEnquireModal(subject) {
   document.getElementById('enq-title').textContent = subject || 'Get in touch';
   document.getElementById('enq-form-wrap').style.display = 'block';
   document.getElementById('enq-sending').style.display = 'none';
   document.getElementById('enq-success').style.display = 'none';
   document.getElementById('enq-error').style.display = 'none';
+  enqImageBase64 = null; enqImageMime = 'image/jpeg';
+  document.getElementById('enq-photo').value = '';
+  document.getElementById('enq-photo-text').textContent = 'Attach a photo of your room (optional)';
+  document.getElementById('enq-photo-label').style.borderColor = 'var(--line)';
   document.getElementById('enq-overlay').style.display = 'flex';
   document.getElementById('enq-name').focus();
 }
@@ -1057,7 +1082,7 @@ async function submitEnquire() {
   document.getElementById('enq-sending').style.display = 'block';
   try {
     const subject = document.getElementById('enq-title').textContent;
-    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject }) });
+    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
     document.getElementById('enq-sending').style.display = 'none';
     document.getElementById('enq-success').style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
