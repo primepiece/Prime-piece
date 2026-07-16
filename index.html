@@ -386,33 +386,28 @@
   .faq-answer a { color: var(--sage); }
   .faq-item.open .faq-answer { display: block; }
 
-  .reviews-section { padding: 96px 0 96px; background: var(--cream); border-top: 1px solid var(--line); overflow: hidden; }
+  .reviews-section { padding: 96px 0; background: var(--cream); border-top: 1px solid var(--line); }
   .reviews-header { padding: 0 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; }
   .reviews-header-right { display: flex; align-items: center; gap: 12px; }
   .reviews-score { font-family: var(--display); font-size: 48px; font-weight: 300; color: var(--ink); letter-spacing: -0.03em; line-height: 1; }
   .reviews-score-sub { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
   .reviews-stars-all { color: var(--sage); font-size: 13px; letter-spacing: 2px; margin-bottom: 4px; }
   .reviews-source { font-size: 11px; color: var(--stone); letter-spacing: 0.16em; }
-  .reviews-marquee-wrap { position: relative; }
-  .reviews-marquee-wrap::before, .reviews-marquee-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none; }
-  .reviews-marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
-  .reviews-marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
-  .reviews-marquee { display: flex; gap: 24px; width: max-content; animation: marquee 50s linear infinite; align-items: stretch; }
-  .reviews-marquee:hover { animation-play-state: paused; }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  .testimonial { flex-shrink: 0; width: 340px; background: var(--cream-soft); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; display: flex; flex-direction: column; }
-  .testimonial .t-body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex: 1; }
-  .testimonial.has-photo .t-photo { width: 100%; height: 240px; object-fit: cover; display: block; flex-shrink: 0; }
-  .testimonial.has-photo .t-photo[src="review-omer.jpg"] { object-position: center 30%; }
-  .t-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .stars { color: var(--sage); font-size: 12px; letter-spacing: 2px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; padding: 0 56px; }
+  .testimonial { background: var(--cream-soft); border: 1px solid var(--line); border-radius: 0; overflow: hidden; display: flex; flex-direction: column; margin: -1px 0 0 -1px; }
+  .testimonial .t-body { padding: 24px 24px 28px; display: flex; flex-direction: column; flex: 1; }
+  .testimonial.has-photo .t-photo { width: 100%; height: 200px; object-fit: cover; display: block; flex-shrink: 0; }
+  .t-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .stars { color: var(--sage); font-size: 11px; letter-spacing: 2px; }
   .t-verified { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 500; display: flex; align-items: center; gap: 4px; }
   .t-verified::before { content: '✓'; color: var(--sage); font-size: 10px; }
-  .testimonial-title { font-family: var(--display); font-size: 22px; font-style: italic; margin-bottom: 10px; color: var(--ink); line-height: 1.2; }
-  .testimonial-body { font-size: 13px; line-height: 1.85; color: var(--ink-soft); margin-bottom: 20px; flex: 1; }
-  .t-footer { display: flex; align-items: center; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); margin-top: auto; }
-  .t-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: white; font-family: var(--body); flex-shrink: 0; letter-spacing: 0; }
-  .testimonial-author { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
+  .testimonial-title { font-family: var(--display); font-size: 20px; font-style: italic; margin-bottom: 8px; color: var(--ink); line-height: 1.2; }
+  .testimonial-body { font-size: 12px; line-height: 1.85; color: var(--ink-soft); margin-bottom: 16px; flex: 1; }
+  .t-footer { display: flex; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); margin-top: auto; }
+  .t-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: white; font-family: var(--body); flex-shrink: 0; letter-spacing: 0; }
+  .testimonial-author { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
+  @media (max-width: 1024px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px; } .reviews-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; } }
 
   .cta-section { padding: 144px 56px; text-align: center; background: radial-gradient(ellipse at 50% 60%, rgba(123,165,168,0.09) 0%, transparent 65%), var(--cream); border-top: 1px solid var(--line); }
   .cta-section .section-label { margin-bottom: 18px; }
@@ -735,9 +730,7 @@
     <div><span class="section-label">Google Reviews</span><h2>15 five-star<br><em>reviews</em>.</h2></div>
     <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">15 reviews · Google Maps</div></div></div>
   </div>
-  <div class="reviews-marquee-wrap">
-    <div class="reviews-marquee" id="reviews-marquee"></div>
-  </div>
+  <div class="reviews-grid" id="reviews-marquee"></div>
 </section>
 <script>
 (function(){
@@ -774,8 +767,7 @@
     </div>`;
   }
   const marquee = document.getElementById('reviews-marquee');
-  const all = [...REVIEWS, ...REVIEWS];
-  marquee.innerHTML = all.map(card).join('');
+  marquee.innerHTML = REVIEWS.map(card).join('');
 })();
 </script>
 
