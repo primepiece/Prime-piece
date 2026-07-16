@@ -103,6 +103,10 @@
   .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
+  .nav-ig { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); color: var(--ink-soft); text-decoration: none; transition: all 0.2s; flex-shrink: 0; }
+  .nav-ig:hover { border-color: var(--sage); color: var(--sage); }
+  .nav-ig svg { width: 15px; height: 15px; }
+  .stock-warn { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: #c97a3a; margin-top: 5px; }
 
   .page-hero {
     padding: 140px 56px 80px;
@@ -406,6 +410,7 @@
     <li><a href="tables.html">Tables</a></li>
     <li><a href="boards.html" class="nav-active">Boards</a></li>
     <li><a href="/#contact">Contact</a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
 </nav>
 

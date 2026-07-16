@@ -104,6 +104,10 @@
   .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
+  .nav-ig { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); color: var(--ink-soft); text-decoration: none; transition: all 0.2s; flex-shrink: 0; }
+  .nav-ig:hover { border-color: var(--sage); color: var(--sage); }
+  .nav-ig svg { width: 15px; height: 15px; }
+  .stock-warn { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: #c97a3a; margin-top: 5px; }
   .plinth-price {
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px; font-weight: 300; color: var(--sage);
@@ -381,6 +385,7 @@
     <li><a href="tables.html">Tables</a></li>
     <li><a href="boards.html">Boards</a></li>
     <li><a href="/#contact">Contact</a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
 </nav>
 
@@ -438,6 +443,7 @@
       <div class="plinth-stone">Rosso Africano Marble</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
       <div class="plinth-price">NZD $4,900</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot" style="flex-direction:column;gap:8px;align-items:stretch;">
         <div style="display:flex;gap:8px;">
           <span class="plinth-type">Coffee Table Plinth</span>
@@ -460,6 +466,7 @@
       <div class="plinth-stone">Indian Green Marble</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $1,499</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-indian-green-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-indian-green-2',name:'Indian Green Marble Plinth',type:'Plinth',image:'plinth-indian-green-2.jpg.png',price:1499})">Add to Cart →</button>
@@ -479,6 +486,7 @@
       <div class="plinth-stone">Rosso Africano Marble</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $3,800</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot" style="flex-direction:column;gap:8px;align-items:stretch;">
         <div style="display:flex;gap:8px;">
           <span class="plinth-type">Plinth</span>
@@ -501,6 +509,7 @@
       <div class="plinth-stone">Verde Apli Marble</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
       <div class="plinth-price">NZD $4,000</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Coffee Table Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-verde-apli-table" onclick="event.stopPropagation(); Cart.add({id:'plinth-verde-apli-table',name:'Verde Apli Marble Table',type:'Coffee Table Plinth',image:'plinth-9.jpg',price:4000})">Add to Cart →</button>
@@ -520,6 +529,7 @@
       <div class="plinth-stone">Navarro Marble</div>
       <div class="plinth-dims">H: 550mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $3,499</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-navarro" onclick="event.stopPropagation(); Cart.add({id:'plinth-navarro',name:'Navarro Marble',type:'Plinth',image:'plinth-14.jpg',price:3499})">Add to Cart →</button>
@@ -539,6 +549,7 @@
       <div class="plinth-stone">Florim</div>
       <div class="plinth-dims">H: 600mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $3,200</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-florim" onclick="event.stopPropagation(); Cart.add({id:'plinth-florim',name:'Florim',type:'Plinth',image:'plinth-5.jpg',price:3200})">Add to Cart →</button>
@@ -577,6 +588,7 @@
       <div class="plinth-stone">Rosso Levanto Marble</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $1,400</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-levanto-plinth" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-levanto-plinth',name:'Rosso Levanto Marble',type:'Plinth',image:'plinth-4.jpg',price:1400})">Add to Cart →</button>
@@ -596,6 +608,7 @@
       <div class="plinth-stone">Dekton Sirius — Dark Grey</div>
       <div class="plinth-dims">H: 400mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $1,500</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Side Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-dekton-sirius-side" onclick="event.stopPropagation(); Cart.add({id:'plinth-dekton-sirius-side',name:'Dekton Sirius',type:'Side Plinth',image:'plinth-6.jpg',price:1500})">Add to Cart →</button>
@@ -615,6 +628,7 @@
       <div class="plinth-stone">Grey Porcelain</div>
       <div class="plinth-dims">H: 800mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $1,499</div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-grey-porcelain-800" onclick="event.stopPropagation(); Cart.add({id:'plinth-grey-porcelain-800',name:'Grey Porcelain Plinth',type:'Plinth',image:'plinth-1.jpg',price:1499})">Add to Cart →</button>
@@ -634,6 +648,7 @@
       <div class="plinth-stone">Grey Porcelain</div>
       <div class="plinth-dims">H: 450mm × W: 300mm × D: 300mm</div>
       <div class="plinth-price">NZD $700 <span style="font-size:11px;color:var(--stone);margin-left:8px;">or both for $1,500</span></div>
+      <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Side Plinth</span>
         <button class="enquire-btn pp-add-btn" data-id="plinth-grey-porcelain-450" onclick="event.stopPropagation(); Cart.add({id:'plinth-grey-porcelain-450',name:'Grey Porcelain Side Plinth',type:'Side Plinth',image:'plinth-2.jpg',price:700})">Add to Cart →</button>
