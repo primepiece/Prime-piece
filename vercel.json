@@ -17,7 +17,8 @@
   ],
   "functions": {
     "api/render.js": { "maxDuration": 10 },
-    "api/poll.js": { "maxDuration": 10 }
+    "api/poll.js": { "maxDuration": 10 },
+    "api/enquire.js": { "maxDuration": 10 }
   },
   "cleanUrls": false,
   "trailingSlash": false

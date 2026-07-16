@@ -1149,10 +1149,17 @@ async function submitEnquire() {
   document.getElementById('enq-sending').style.display = 'block';
   try {
     const subject = document.getElementById('enq-title').textContent;
-    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
+    const stone = document.getElementById('enq-stone') ? document.getElementById('enq-stone').textContent : '';
+    const res = await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, stone, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
     document.getElementById('enq-sending').style.display = 'none';
-    document.getElementById('enq-success').style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    if (res.ok) {
+      document.getElementById('enq-success').style.display = 'block';
+      if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    } else {
+      document.getElementById('enq-form-wrap').style.display = 'block';
+      errEl.textContent = 'Something went wrong — please text James on 021 146 6990.';
+      errEl.style.display = 'block';
+    }
   } catch(e) {
     document.getElementById('enq-sending').style.display = 'none';
     document.getElementById('enq-form-wrap').style.display = 'block';
