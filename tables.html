@@ -324,12 +324,16 @@
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .sale-hero { padding: 36px 24px; flex-direction: column; gap: 24px; margin-top: 60px; }
-    .sale-pct { font-size: 72px; }
-    .page-hero { padding: 40px 24px 48px; flex-direction: column; align-items: flex-start; }
-    .section-header { padding: 40px 24px 32px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .sale-hero { padding: 28px 20px; flex-direction: column; gap: 20px; margin-top: 56px; }
+    .sale-hero h2 { font-size: clamp(28px, 7vw, 40px); }
+    .sale-pct { font-size: 64px; }
+    .sale-countdown-hero { gap: 4px; }
+    .schu { min-width: 44px; padding: 6px 8px; }
+    .schu-num { font-size: 22px; }
+    .page-hero { padding: 32px 20px 40px; flex-direction: column; align-items: flex-start; }
+    .section-header { padding: 32px 20px 28px; flex-direction: column; align-items: flex-start; gap: 12px; }
     .section-desc { text-align: left; max-width: 100%; }
-    .section-sale-strip { padding: 12px 24px; flex-wrap: wrap; }
+    .section-sale-strip { padding: 10px 20px; flex-wrap: wrap; }
     .tables-grid { grid-template-columns: 1fr 1fr; }
     .table-card:nth-child(3n) { border-right: 1px solid var(--line); }
     .table-card:nth-child(2n) { border-right: none; }
@@ -339,12 +343,36 @@
     .table-mobile-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 12px 14px; background: linear-gradient(transparent, rgba(20,18,15,0.78)); color: #fff; }
     .table-mobile-label .tml-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 300; line-height: 1.1; display: block; }
     .table-mobile-label .tml-price { font-size: 12px; font-weight: 500; opacity: 0.9; margin-top: 3px; display: block; }
-    .cta-strip { padding: 56px 24px; flex-direction: column; align-items: flex-start; }
-    footer { padding: 48px 24px 24px; }
+    .cta-strip { padding: 48px 20px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    footer { padding: 48px 20px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
-    .cat-tab { padding: 16px 24px; }
-    .seo-blurb { padding: 28px 24px; }
+    .cat-tab { padding: 14px 20px; font-size: 10px; }
+    .seo-blurb { padding: 28px 20px; }
+    /* Bedside hero mobile refinements */
+    .bh-info { padding: 24px 20px 36px; }
+    .bh-name { font-size: 36px; margin-bottom: 4px; }
+    .bh-desc { font-size: 13px; margin-bottom: 20px; }
+    .bh-btn { font-size: 12px; padding: 18px; }
+    .bh-collab { font-size: 9px; margin-bottom: 10px; }
+    /* Modal improvements mobile */
+    .modal-info-col { padding: 20px 16px 100px; }
+    .modal-name { font-size: 28px; }
+    .modal-actions { gap: 8px; }
+    .modal-btn-primary, .modal-btn-ghost { padding: 16px; font-size: 11px; }
+    /* Enquire modal full-screen on mobile */
+    #enq-overlay { padding: 0 !important; align-items: flex-end !important; }
+    #enq-overlay > div { max-width: 100% !important; border-radius: 12px 12px 0 0 !important; max-height: 92vh; overflow-y: auto; }
+    /* Sale banner */
+    .sale-banner { padding: 10px 16px; }
+    .sale-banner-sub { display: none; }
+  }
+  @media (max-width: 480px) {
+    .tables-grid { grid-template-columns: 1fr 1fr; }
+    .bh-specs { margin-bottom: 16px; }
+    .bh-spec { padding: 8px 0; }
+    .sale-hero-badges { gap: 6px; }
+    .sale-badge { font-size: 9px; padding: 5px 10px; }
   }
 </style>
 </head>
@@ -524,8 +552,9 @@
         <div class="bh-spec"><span>Edition</span><span>One of one</span></div>
       </div>
       <div class="bh-price"><s>NZD $1,875</s> <strong>NZD $1,500</strong> <span class="save-pill">Save $375</span></div>
+      <div style="font-size:11px;color:#b8800a;font-weight:600;letter-spacing:0.08em;margin-bottom:14px;">⚡ Only 1 available — once it's gone, it's gone</div>
       <button class="bh-btn" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Bedside Table',image:'side-3.jpg',price:1500})">Add to Cart — NZD $1,500 →</button>
-      <div class="bh-shipping">🚚 NZ-wide delivery available. Australia — <a href="mailto:james@primepiece.co.nz" onclick="event.stopPropagation()">email us</a>.</div>
+      <div class="bh-shipping">🚚 NZ-wide delivery available. Questions? <a href="tel:0211466990" onclick="event.stopPropagation()">Text James — 021 146 6990</a></div>
       <div class="bh-note">Natural stone colour and veining varies. Every piece is completely unique.</div>
     </div>
   </div>

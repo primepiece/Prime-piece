@@ -520,6 +520,53 @@
     .mto-option-val { text-align: left; }
     .product-picker { grid-template-columns: repeat(2, 1fr); }
   }
+
+  /* ── Mobile overrides for inline-styled elements ── */
+  @media (max-width: 768px) {
+    /* Sale banner */
+    #campaign-banner { padding: 16px 20px !important; gap: 6px !important; }
+    #campaign-banner > div:first-child { display: none !important; } /* hide decorative lines row */
+    #campaign-banner > div:nth-child(2) { font-size: 13px !important; letter-spacing: 0.08em !important; line-height: 1.35 !important; }
+    #banner-close { top: 10px !important; right: 10px !important; transform: none !important; }
+
+    /* Collab strip */
+    #collab-strip { padding: 18px 20px !important; gap: 14px !important; }
+    #collab-strip img { width: 72px !important; height: 72px !important; }
+    #collab-strip > div:last-child { display: none !important; } /* hide "Shop Now →" — strip itself is tappable */
+    #collab-strip > div:nth-child(2) > div:nth-child(2) { font-size: 19px !important; }
+
+    /* Reviews: show only first 6 on mobile, rest hidden */
+    #reviews-marquee .testimonial:nth-child(n+7) { display: none; }
+    .reviews-show-all { display: flex !important; }
+
+    /* Hero: ensure buttons stack nicely */
+    .btn-group { flex-direction: column; gap: 10px; }
+    .btn-group .btn { width: 100%; justify-content: center; }
+
+    /* CTA section buttons stack */
+    .cta-section .btn-group { flex-direction: column; align-items: center; }
+    .cta-section .btn-group .btn, .cta-section .btn-group button.btn { width: 100%; max-width: 340px; justify-content: center; }
+
+    /* Enquire modal full width on mobile */
+    #enq-overlay { padding: 0 !important; align-items: flex-end !important; }
+    #enq-overlay > div { max-width: 100% !important; border-radius: 0 !important; }
+  }
+
+  /* "See all reviews" toggle button — hidden on desktop */
+  .reviews-show-all {
+    display: none;
+    margin: 20px auto 0;
+    padding: 12px 28px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    font-family: var(--body);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--sage);
+    cursor: pointer;
+    font-weight: 500;
+  }
 </style>
 </head>
 <body>
@@ -600,6 +647,7 @@
     <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">15 reviews · Google Maps</div></div></div>
   </div>
   <div class="reviews-grid" id="reviews-marquee"></div>
+  <button class="reviews-show-all" id="reviews-show-all" onclick="document.querySelectorAll('#reviews-marquee .testimonial').forEach(el=>el.style.display='flex');this.style.display='none';">See all 15 reviews →</button>
 </section>
 <script>
 (function(){
@@ -787,7 +835,7 @@
   <h2>Commission a<br><em>Prime Piece</em>.</h2>
   <p>Made-to-order tables, plinths and boards. Designed for your space, fabricated from stone you choose.</p>
   <div class="btn-group" style="justify-content:center">
-    <a href="plinths.html" class="btn btn-primary">Shop Now <span class="btn-arrow">→</span></a>
+    <a href="tables.html" class="btn btn-primary">Shop Now <span class="btn-arrow">→</span></a>
     <button onclick="openEnquireModal('Quote Request')" class="btn" style="cursor:pointer;">Request A Quote <span class="btn-arrow">→</span></button>
     <a href="tel:0211466990" class="btn">Call 021 146 6990</a>
   </div>
