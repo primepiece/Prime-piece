@@ -704,7 +704,7 @@
   <p class="ba2-note" style="margin-bottom:40px;">Drag to compare</p>
   <div class="reveal" style="text-align:center;">
     <p style="font-size:15px;color:var(--ink-soft);margin-bottom:28px;line-height:1.7;">Send us a photo of your room — we'll render your piece into it personally and send it back within 24 hours. Free, no commitment.</p>
-    <a href="mailto:james@primepiece.co.nz?subject=Free Render Request" class="btn btn-primary" style="display:inline-flex;">Get My Free Render →</a>
+    <a href="#render-form-wrap" onclick="event.preventDefault();document.getElementById('render-form-wrap').scrollIntoView({behavior:'smooth',block:'center'});" class="btn btn-primary" style="display:inline-flex;">Get My Free Render →</a>
   </div>
 </section>
 
@@ -722,7 +722,7 @@
       <div class="mto-option"><span class="mto-option-label">Lead time</span><span class="mto-option-val">4–8 weeks from order</span></div>
       <div class="mto-option"><span class="mto-option-label">Delivery</span><span class="mto-option-val">Auckland &amp; nationwide freight available</span></div>
     </div>
-    <a href="mailto:james@primepiece.co.nz?subject=Made to Order Enquiry" class="btn btn-dark">Start a Conversation <span class="btn-arrow">→</span></a>
+    <button onclick="openEnquireModal('Made to Order Enquiry')" class="btn btn-dark" style="cursor:pointer;">Start a Conversation <span class="btn-arrow">→</span></button>
   </div>
   <div class="mto-image"><img src="lifestyle-2.jpg" alt="Custom stone benchtops, vanities and furniture made to order in Auckland — Prime Piece"></div>
 </section>
@@ -790,7 +790,7 @@
   <p>Made-to-order tables, plinths and boards. Designed for your space, fabricated from stone you choose.</p>
   <div class="btn-group" style="justify-content:center">
     <a href="plinths.html" class="btn btn-primary">Shop Now <span class="btn-arrow">→</span></a>
-    <a href="mailto:james@primepiece.co.nz" class="btn">Request A Quote <span class="btn-arrow">→</span></a>
+    <button onclick="openEnquireModal('Quote Request')" class="btn" style="cursor:pointer;">Request A Quote <span class="btn-arrow">→</span></button>
     <a href="tel:0211466990" class="btn">Call 021 146 6990</a>
   </div>
 </section>
@@ -812,7 +812,7 @@
   </div>
 </footer>
 
-<a href="mailto:james@primepiece.co.nz?subject=Enquiry — Prime Piece" class="float-enquire" id="float-enquire" aria-label="Enquire">
+<a href="#" onclick="event.preventDefault();openEnquireModal('General Enquiry')" class="float-enquire" id="float-enquire" aria-label="Enquire">
   <div class="float-enquire-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
   <span class="float-enquire-label">Enquire Now</span>
 </a>
@@ -967,6 +967,87 @@
   });
   document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); document.getElementById('collection') ? document.getElementById('collection').scrollIntoView({behavior:'smooth'}) : window.scrollTo({top: 600, behavior: 'smooth'}); });
 })();
+</script>
+
+<!-- ENQUIRE MODAL -->
+<div id="enq-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.6);z-index:9998;align-items:center;justify-content:center;padding:1.5rem;" onclick="if(event.target===this)closeEnquireModal()">
+  <div style="background:var(--cream);max-width:460px;width:100%;position:relative;border:1px solid var(--line);box-shadow:0 32px 80px rgba(44,42,38,0.22);">
+    <div style="padding:28px 32px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:4px;">Prime Piece</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);" id="enq-title">Get in touch</div>
+      </div>
+      <button onclick="closeEnquireModal()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--stone);padding:4px 8px;line-height:1;">&times;</button>
+    </div>
+    <div id="enq-form-wrap" style="padding:28px 32px 32px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div>
+          <label style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:6px;">Name</label>
+          <input id="enq-name" type="text" placeholder="Your name" autocomplete="given-name" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);background:var(--cream-soft);font-family:'Inter Tight',sans-serif;font-size:13px;color:var(--ink);outline:none;border-radius:1px;" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--line)'">
+        </div>
+        <div>
+          <label style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:6px;">Email</label>
+          <input id="enq-email" type="email" placeholder="your@email.com" autocomplete="email" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);background:var(--cream-soft);font-family:'Inter Tight',sans-serif;font-size:13px;color:var(--ink);outline:none;border-radius:1px;" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--line)'">
+        </div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:6px;">Phone (optional)</label>
+        <input id="enq-phone" type="tel" placeholder="021 000 0000" autocomplete="tel" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);background:var(--cream-soft);font-family:'Inter Tight',sans-serif;font-size:13px;color:var(--ink);outline:none;border-radius:1px;" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--line)'">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:6px;">Message</label>
+        <textarea id="enq-message" rows="4" placeholder="Tell us what you're after — stone, size, room, budget…" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);background:var(--cream-soft);font-family:'Inter Tight',sans-serif;font-size:13px;color:var(--ink);outline:none;resize:vertical;border-radius:1px;line-height:1.6;" onfocus="this.style.borderColor='var(--sage)'" onblur="this.style.borderColor='var(--line)'"></textarea>
+      </div>
+      <p id="enq-error" style="font-size:12px;color:#c0392b;margin-bottom:12px;display:none;"></p>
+      <button id="enq-submit" onclick="submitEnquire()" style="width:100%;padding:14px;background:var(--sage);color:#fff;border:none;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;font-weight:500;cursor:pointer;border-radius:1px;transition:background 0.2s;">Send Message →</button>
+      <p style="font-size:11px;color:var(--stone);text-align:center;margin-top:12px;">Or text James directly — <a href="tel:0211466990" style="color:var(--sage);text-decoration:none;">021 146 6990</a></p>
+    </div>
+    <div id="enq-sending" style="display:none;padding:56px 32px;text-align:center;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:8px;">Sending…</div>
+      <p style="font-size:13px;color:var(--stone);">Just a moment</p>
+    </div>
+    <div id="enq-success" style="display:none;padding:56px 32px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:16px;">✓</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--ink);margin-bottom:10px;">Message sent!</div>
+      <p style="font-size:13px;color:var(--stone);line-height:1.7;">James will be in touch personally within 24 hours.<br>Or text him now — <a href="tel:0211466990" style="color:var(--sage);">021 146 6990</a></p>
+    </div>
+  </div>
+</div>
+<script>
+function openEnquireModal(subject) {
+  document.getElementById('enq-title').textContent = subject || 'Get in touch';
+  document.getElementById('enq-form-wrap').style.display = 'block';
+  document.getElementById('enq-sending').style.display = 'none';
+  document.getElementById('enq-success').style.display = 'none';
+  document.getElementById('enq-error').style.display = 'none';
+  document.getElementById('enq-overlay').style.display = 'flex';
+  document.getElementById('enq-name').focus();
+}
+function closeEnquireModal() { document.getElementById('enq-overlay').style.display = 'none'; }
+async function submitEnquire() {
+  const name = document.getElementById('enq-name').value.trim();
+  const email = document.getElementById('enq-email').value.trim();
+  const phone = document.getElementById('enq-phone').value.trim();
+  const message = document.getElementById('enq-message').value.trim();
+  const errEl = document.getElementById('enq-error');
+  errEl.style.display = 'none';
+  if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
+  if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
+  document.getElementById('enq-form-wrap').style.display = 'none';
+  document.getElementById('enq-sending').style.display = 'block';
+  try {
+    const subject = document.getElementById('enq-title').textContent;
+    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject }) });
+    document.getElementById('enq-sending').style.display = 'none';
+    document.getElementById('enq-success').style.display = 'block';
+    if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+  } catch(e) {
+    document.getElementById('enq-sending').style.display = 'none';
+    document.getElementById('enq-form-wrap').style.display = 'block';
+    errEl.textContent = 'Network error — please try again or text James on 021 146 6990.';
+    errEl.style.display = 'block';
+  }
+}
 </script>
 
 <script>
