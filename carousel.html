@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter+Tight:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F4F0E8;
+    --ink: #2C2A26;
+    --teal: #7BA5A8;
+    --stone: #8A8580;
+    --line: #D8D2C8;
+  }
+
+  body { background: #111; padding: 40px; display: flex; flex-direction: column; gap: 60px; align-items: center; }
+
+  .slide { width: 1080px; height: 1350px; flex-shrink: 0; overflow: hidden; position: relative; }
+
+
+  /* ═══════════════════════════════
+     SLIDE 1 — EDITORIAL MOSAIC
+  ═══════════════════════════════ */
+  .slide-1 { background: var(--cream); display: flex; flex-direction: column; }
+
+  /* Top brand bar */
+  .s1-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 44px 60px 0; flex-shrink: 0;
+  }
+  .s1-brand {
+    font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink);
+  }
+  .s1-tag {
+    font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic;
+    font-weight: 300; color: var(--teal);
+  }
+
+  /* Mosaic image grid */
+  .s1-mosaic {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-rows: 1fr 0.55fr;
+    gap: 6px;
+    margin: 28px 60px 0;
+    flex: 1; min-height: 0;
+  }
+
+  /* A: tall hero left, spans both rows */
+  .s1-cell-a {
+    grid-column: 1; grid-row: 1 / 3;
+    position: relative; overflow: hidden; border-radius: 3px;
+  }
+
+  /* B: top right */
+  .s1-cell-b {
+    grid-column: 2; grid-row: 1;
+    position: relative; overflow: hidden; border-radius: 3px;
+  }
+
+  /* C: bottom right — split into two side by side */
+  .s1-cell-c-wrap {
+    grid-column: 2; grid-row: 2;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  }
+
+  .s1-cell-c, .s1-cell-d {
+    position: relative; overflow: hidden; border-radius: 3px;
+  }
+
+  .s1-mosaic img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  /* Hero gets zoomed to show the stone top */
+  .s1-cell-a img { object-position: center 30%; }
+  .s1-cell-b img { object-position: center 25%; }
+  .s1-cell-c img { object-position: center 20%; }
+  .s1-cell-d img { object-position: center 25%; }
+
+  /* Thin teal border accent on hero */
+  .s1-cell-a::after {
+    content: ''; position: absolute; inset: 0;
+    box-shadow: inset 0 0 0 2px rgba(123,165,168,0.3);
+    border-radius: 3px; pointer-events: none;
+  }
+
+  /* Bottom text block */
+  .s1-text {
+    padding: 28px 60px 48px; flex-shrink: 0;
+    border-top: 1px solid var(--line); margin-top: 20px;
+  }
+
+  .s1-eyebrow {
+    font-family: 'Inter Tight', sans-serif; font-size: 9.5px; font-weight: 500;
+    letter-spacing: 0.5em; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 10px;
+  }
+
+  .s1-headline {
+    font-family: 'Cormorant Garamond', serif; font-size: 98px; font-weight: 400;
+    line-height: 0.87; color: var(--ink); letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .s1-headline em { font-style: italic; color: var(--teal); }
+
+  .s1-stats {
+    display: flex; align-items: stretch; gap: 0;
+  }
+
+  .s1-stat { flex: 1; }
+  .s1-stat + .s1-stat { border-left: 1px solid var(--line); padding-left: 32px; }
+
+  .s1-stat-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300;
+    line-height: 1; color: var(--ink);
+  }
+
+  .s1-stat-label {
+    font-family: 'Inter Tight', sans-serif; font-size: 9px; font-weight: 500;
+    letter-spacing: 0.32em; text-transform: uppercase; color: var(--stone); margin-top: 4px;
+  }
+
+  .s1-swipe {
+    font-family: 'Inter Tight', sans-serif; font-size: 9.5px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--teal); margin-top: 18px;
+  }
+
+
+  /* ═══════════════════════════════
+     SLIDE 2 — STILL AVAILABLE (8 pieces, 4×2)
+  ═══════════════════════════════ */
+  .slide-2 {
+    background: var(--cream); display: flex; flex-direction: column;
+    padding: 52px 56px 48px;
+  }
+
+  .s2-eyebrow {
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.45em; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 12px; flex-shrink: 0;
+  }
+
+  .s2-headline {
+    font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300;
+    line-height: 0.92; color: var(--ink); letter-spacing: -0.01em;
+    margin-bottom: 14px; flex-shrink: 0;
+  }
+
+  .s2-subhead {
+    font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300;
+    font-style: italic; color: var(--stone); border-top: 1px solid var(--line);
+    padding-top: 14px; margin-bottom: 20px; flex-shrink: 0;
+  }
+
+  .s2-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr);
+    gap: 10px; flex: 1; min-height: 0; margin-bottom: 22px;
+  }
+
+  .s2-cell { display: flex; flex-direction: column; overflow: hidden; }
+  .s2-cell-img { flex: 1; overflow: hidden; border-radius: 2px; }
+  .s2-cell-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .s2-cell-info { padding: 7px 0 0; flex-shrink: 0; }
+
+  .s2-cell-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400;
+    color: var(--ink); line-height: 1.1;
+  }
+
+  .s2-cell-price {
+    font-family: 'Inter Tight', sans-serif; font-size: 9px; font-weight: 400;
+    letter-spacing: 0.12em; color: var(--teal); margin-top: 2px;
+  }
+
+  .s2-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--line); padding-top: 18px; flex-shrink: 0;
+  }
+
+  .s2-cta-left {
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.35em; text-transform: uppercase; color: var(--ink);
+  }
+
+  .s2-brand {
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--stone);
+  }
+
+
+  /* ═══════════════════════════════
+     SLIDE 3 — 25 SOLD (5×5 grid)
+  ═══════════════════════════════ */
+  .slide-3 {
+    background: var(--ink); display: flex; flex-direction: column;
+    padding: 48px 56px 44px;
+  }
+
+  .s3-header { flex-shrink: 0; margin-bottom: 16px; }
+
+  .s3-eyebrow {
+    font-family: 'Inter Tight', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.45em; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 10px;
+  }
+
+  .s3-headline {
+    font-family: 'Cormorant Garamond', serif; font-size: 58px; font-weight: 300;
+    line-height: 0.92; color: #F4F0E8; letter-spacing: -0.01em;
+  }
+
+  .s3-headline em { font-style: italic; color: var(--teal); }
+
+  .s3-subhead {
+    font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300;
+    font-style: italic; color: rgba(244,240,232,0.48);
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; margin-top: 12px;
+  }
+
+  /* 5×5 grid */
+  .s3-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 5px;
+    flex: 1; min-height: 0; margin: 16px 0 18px;
+  }
+
+  .s3-cell {
+    position: relative; overflow: hidden; border-radius: 2px;
+  }
+
+  .s3-cell img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: brightness(0.68) saturate(0.5);
+  }
+
+  .s3-sold {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  }
+
+  .s3-sold span {
+    font-family: 'Inter Tight', sans-serif; font-size: 7.5px; font-weight: 600;
+    letter-spacing: 0.35em; text-transform: uppercase; color: rgba(244,240,232,0.85);
+    border: 1px solid rgba(244,240,232,0.45); padding: 4px 8px; border-radius: 1px;
+    background: rgba(44,42,38,0.35); backdrop-filter: blur(1px); white-space: nowrap;
+  }
+
+  .s3-footer {
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; flex-shrink: 0;
+  }
+
+  .s3-footer-line1 {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300;
+    font-style: italic; color: rgba(244,240,232,0.88); margin-bottom: 5px;
+  }
+
+  .s3-footer-line2 {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Inter Tight', sans-serif; font-size: 9.5px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--teal);
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide slide-1" id="slide1">
+  <div class="s1-bar">
+    <div class="s1-brand">Prime Piece</div>
+    <div class="s1-tag">one of one</div>
+  </div>
+
+  <div class="s1-mosaic">
+    <!-- A: Hero left — Ocean Ember (deep blue, very striking) -->
+    <div class="s1-cell-a">
+      <img src="/home/user/Prime-piece/table-13.jpg" alt="">
+    </div>
+    <!-- B: Top right — Jade Jewel (bright green/cream) -->
+    <div class="s1-cell-b">
+      <img src="/home/user/Prime-piece/table-3.jpg" alt="">
+    </div>
+    <!-- C/D: Bottom right pair — Fire Flow + Pink Storm -->
+    <div class="s1-cell-c-wrap">
+      <div class="s1-cell-c">
+        <img src="/home/user/Prime-piece/table-10.jpg" alt="">
+      </div>
+      <div class="s1-cell-d">
+        <img src="/home/user/Prime-piece/table-1.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="s1-text">
+    <div class="s1-eyebrow">Stone Coffee Tables · Auckland, New Zealand</div>
+    <div class="s1-headline">The<br>Collection<br>Is <em>Moving.</em></div>
+    <div class="s1-stats">
+      <div class="s1-stat">
+        <div class="s1-stat-num">25+</div>
+        <div class="s1-stat-label">One-of-one pieces sold</div>
+      </div>
+      <div class="s1-stat">
+        <div class="s1-stat-num">8</div>
+        <div class="s1-stat-label">Still available</div>
+      </div>
+    </div>
+    <div class="s1-swipe">Swipe to see what's still available →</div>
+  </div>
+</div>
+
+
+<!-- SLIDE 2 -->
+<div class="slide slide-2" id="slide2">
+  <div class="s2-eyebrow">Prime Piece · One of One</div>
+  <div class="s2-headline">Still<br>Available</div>
+  <div class="s2-subhead">Eight one-of-one pieces. Once sold, they will not be recreated.</div>
+
+  <div class="s2-grid">
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-3.jpg" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Jade Jewel</div><div class="s2-cell-price">NZD $319</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-4.jpg" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Midnight Wave</div><div class="s2-cell-price">NZD $309</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-5.jpg" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Sunset Stone</div><div class="s2-cell-price">NZD $250</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-6.jpg" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Solar Eclipse</div><div class="s2-cell-price">NZD $289</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-12.jpg" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Desert Drift</div><div class="s2-cell-price">NZD $219</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-14.jpg" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">White Haven</div><div class="s2-cell-price">NZD $249</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-green-calacatta.jpg.png" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Jade Rain</div><div class="s2-cell-price">NZD $319</div></div>
+    </div>
+    <div class="s2-cell">
+      <div class="s2-cell-img"><img src="/home/user/Prime-piece/table-midnight-river.png" alt=""></div>
+      <div class="s2-cell-info"><div class="s2-cell-name">Midnight River</div><div class="s2-cell-price">NZD $290</div></div>
+    </div>
+  </div>
+
+  <div class="s2-cta">
+    <div class="s2-cta-left">Shop the remaining collection →</div>
+    <div class="s2-brand">Primepiece.co.nz</div>
+  </div>
+</div>
+
+
+<!-- SLIDE 3 — 25 sold, 5×5 grid -->
+<div class="slide slide-3" id="slide3">
+  <div class="s3-header">
+    <div class="s3-eyebrow">Prime Piece · Coffee Tables</div>
+    <div class="s3-headline">25 One-Of-One Coffee Tables.<br><em>Found Their Home.</em></div>
+    <div class="s3-subhead">Every single one — one of one. None recreated.</div>
+  </div>
+
+  <!-- 5×5 grid — real sold photos -->
+  <div class="s3-grid">
+    <!-- Row 1 -->
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-1.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-2.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-7.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-8.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-9.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <!-- Row 2 -->
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-10.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-11.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-13.jpg" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-17.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-20.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <!-- Row 3 -->
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-21.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-22.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-23.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-24.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-29.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <!-- Row 4 -->
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-26.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-27.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-28.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-30.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-31.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <!-- Row 5 -->
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-32.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-25.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-33.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-34.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+    <div class="s3-cell"><img src="/home/user/Prime-piece/table-35.png" alt=""><div class="s3-sold"><span>Sold</span></div></div>
+  </div>
+
+  <div class="s3-footer">
+    <div class="s3-footer-line1">Once they're gone, they're gone.</div>
+    <div class="s3-footer-line2">
+      <span>Browse the remaining one-of-one collection.</span>
+      <span style="font-size:12.5px">Primepiece.co.nz</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
