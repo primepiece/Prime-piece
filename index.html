@@ -70,7 +70,7 @@
         "ratingValue": "5.0",
         "reviewCount": "15",
         "bestRating": "5",
-        "worstRating": "5"
+        "worstRating": "1"
       }
     },
     {
@@ -1121,10 +1121,18 @@ async function submitEnquire() {
   document.getElementById('enq-sending').style.display = 'block';
   try {
     const subject = document.getElementById('enq-title').textContent;
-    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
+    const res = await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
+    const data = await res.json().catch(() => ({}));
     document.getElementById('enq-sending').style.display = 'none';
-    document.getElementById('enq-success').style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    if (res.ok && data.success !== false) {
+      document.getElementById('enq-success').style.display = 'block';
+      if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+      if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { event_category: 'enquiry', event_label: subject });
+    } else {
+      document.getElementById('enq-form-wrap').style.display = 'block';
+      errEl.textContent = 'Something went wrong — please try again or text James on 021 146 6990.';
+      errEl.style.display = 'block';
+    }
   } catch(e) {
     document.getElementById('enq-sending').style.display = 'none';
     document.getElementById('enq-form-wrap').style.display = 'block';
