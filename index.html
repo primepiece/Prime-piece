@@ -204,9 +204,8 @@
   .campaign-banner-close { position: absolute; right: 16px; font-size: 14px; color: rgba(255,255,255,0.25); cursor: pointer; padding: 4px 8px; transition: color 0.2s; background: none; border: none; font-family: var(--body); }
   .campaign-banner-close:hover { color: rgba(255,255,255,0.6); }
 
-  nav { position: fixed; top: 37px; left: 0; right: 0; padding: 32px 56px; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: all 0.5s ease; }
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 32px 56px; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: all 0.5s ease; }
   nav.scrolled { background: rgba(245, 241, 234, 0.96); backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); padding: 18px 56px; }
-  nav.banner-hidden { top: 0; }
   .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
   .logo { font-family: var(--display); font-size: 20px; font-weight: 400; letter-spacing: 0.35em; color: #fff; transition: color 0.5s; }
   .logo-sub { font-family: var(--script); font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 3px; transition: color 0.5s; }
@@ -525,15 +524,6 @@
 </head>
 <body>
 
-<a href="tables.html" id="campaign-banner" style="position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:center;gap:20px;padding:14px 56px;background:#0E0D0B;border-bottom:1px solid rgba(201,169,110,0.35);text-decoration:none;cursor:pointer;">
-  <span style="font-family:'Inter Tight',sans-serif;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.45);font-weight:500;white-space:nowrap;">Ends Midnight 15 July</span>
-  <span style="width:1px;height:14px;background:rgba(255,255,255,0.12);flex-shrink:0;"></span>
-  <span style="font-family:'Inter Tight',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#fff;font-weight:600;white-space:nowrap;"><strong style="color:#C9A96E;">20% OFF</strong> ALL STONE TABLES — One of one, once sold they're gone</span>
-  <span style="width:1px;height:14px;background:rgba(255,255,255,0.12);flex-shrink:0;"></span>
-  <span style="font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C9A96E;font-weight:600;white-space:nowrap;">Shop Now →</span>
-  <button id="banner-close" aria-label="Close banner" style="position:absolute;right:16px;font-size:14px;color:rgba(255,255,255,0.2);cursor:pointer;padding:4px 8px;background:none;border:none;" onclick="event.preventDefault();event.stopPropagation();document.getElementById('campaign-banner').style.display='none';document.getElementById('nav').style.top='0';">✕</button>
-</a>
-
 <nav id="nav">
   <a href="/" class="logo-wrap">
     <div class="logo">PRIME PIECE</div>
@@ -582,6 +572,15 @@
   </div>
 </section>
 
+<!-- SALE BANNER -->
+<a href="tables.html" id="campaign-banner" style="display:flex;align-items:center;justify-content:center;gap:20px;padding:16px 56px;background:#0E0D0B;border-bottom:1px solid rgba(201,169,110,0.35);text-decoration:none;cursor:pointer;position:relative;">
+  <span style="font-family:'Inter Tight',sans-serif;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.45);font-weight:500;white-space:nowrap;">Ends Midnight 15 July</span>
+  <span style="width:1px;height:14px;background:rgba(255,255,255,0.12);flex-shrink:0;"></span>
+  <span style="font-family:'Inter Tight',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#fff;font-weight:600;white-space:nowrap;"><strong style="color:#C9A96E;">20% OFF</strong> ALL STONE TABLES — One of one, once sold they're gone</span>
+  <span style="width:1px;height:14px;background:rgba(255,255,255,0.12);flex-shrink:0;"></span>
+  <span style="font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C9A96E;font-weight:600;white-space:nowrap;">Shop Now →</span>
+  <button id="banner-close" aria-label="Close banner" style="position:absolute;right:16px;font-size:14px;color:rgba(255,255,255,0.2);cursor:pointer;padding:4px 8px;background:none;border:none;" onclick="event.preventDefault();event.stopPropagation();document.getElementById('campaign-banner').style.display='none';">✕</button>
+</a>
 
 <!-- SIMONE COLLAB STRIP -->
 <a href="tables.html#cat-bedside" id="collab-strip" style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;background:var(--cream-soft);border-bottom:1px solid var(--line);padding:20px 40px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#e0d9ca'" onmouseout="this.style.background='var(--cream-soft)'">
@@ -593,6 +592,49 @@
   </div>
   <div style="font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;font-weight:500;color:var(--sage);white-space:nowrap;">Shop Now →</div>
 </a>
+
+<section class="reviews-section">
+  <div class="reviews-header reveal">
+    <div><span class="section-label">Google Reviews</span><h2>15 five-star<br><em>reviews</em>.</h2></div>
+    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">15 reviews · Google Maps</div></div></div>
+  </div>
+  <div class="reviews-grid" id="reviews-marquee"></div>
+</section>
+<script>
+(function(){
+  const REVIEWS = [
+    { author:'Simone Pretscherer', init:'S', body:'Ordered custom side tables and could not be happier. The service was incredible — they listened, nailed the brief, hand delivered and put them exactly into place. 15/10.' },
+    { author:'Omer Hazer', init:'O', body:'We ordered a custom Prime Piece and we love it. A corner stone in our office — James and the team are exceptional at what they do.' },
+    { author:'Creed Bell', init:'C', body:'James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend.' },
+    { author:'Clare Geor', init:'C', body:'From inception to completion, James exceeded expectations. Design was exactly to order — he maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.' },
+    { author:'Cameron Brinkley', init:'C', body:'Absolutely love my marble side table. The craftsmanship is incredible — unique natural pattern, beautifully finished, and even better in person than in the photos.' },
+    { author:'Josh Burgisser', init:'J', body:'Words cannot express how talented and professional James and the team are. For something custom to round out your home or commercial space, Prime Piece is the only way to go.' },
+    { author:'Jamie McDowell', init:'J', body:'Stoked with our one of a kind piece for the office. A real conversation starter. Beautiful craftsmanship meeting industrial vibes — won\'t be our last purchase.' },
+    { author:'Finn Lyness', init:'F', body:'Picked up a marble table from James and it\'s honestly mint. Solid build, looks clean, makes the lounge feel sharper. Easy to deal with too. Cheers mate.' },
+    { author:'Christoph Schumacher', init:'C', body:'Bought this marble board and it is solid, stylish, and perfect for prep. Looks great on the bench and feels premium. What a great product. Highly recommend.' },
+    { author:'Daniel Thomas', init:'D', body:'Just got a coffee table from Prime Piece. Looks beautiful in our home. James was great to deal with — top-notch service. Cheers mate.' },
+    { author:'Cindy Z', init:'C', body:'Absolutely love our side coffee tables. Would highly recommend to anyone looking for stunning furniture. Would\'ve got more if we had more rooms!' },
+    { author:'Rafi Headifen', init:'R', body:'James is the man! Made a custom piece for us at an insane price, delivered within a very reasonable time frame. Love his work.' },
+    { author:'Dan Dunphy', init:'D', body:'Great service and a beautiful marble table. Solid build, stylish design, easy to deal with. Highly recommend.' },
+    { author:'Kate de Lautour', init:'K', body:'This is a stunning piece — quite heavy and solid with a beautiful granite top.' },
+    { author:'Sofia', init:'S', body:'Authentic NZ made small business! Great service and really nice owner.' },
+  ];
+  function card(r) {
+    return `<div class="testimonial">
+      <div class="t-body">
+        <div class="t-header"><span class="stars">★★★★★</span><span class="t-verified">Google</span></div>
+        <p class="testimonial-body">${r.body}</p>
+        <div class="t-footer">
+          <div class="t-avatar">${r.init}</div>
+          <span class="testimonial-author">${r.author}</span>
+        </div>
+      </div>
+    </div>`;
+  }
+  const marquee = document.getElementById('reviews-marquee');
+  marquee.innerHTML = REVIEWS.map(card).join('');
+})();
+</script>
 
 <section class="collection-section" id="collection">
   <div class="collection-header reveal">
@@ -720,49 +762,6 @@
   </div>
 </section>
 
-<section class="reviews-section">
-  <div class="reviews-header reveal">
-    <div><span class="section-label">Google Reviews</span><h2>15 five-star<br><em>reviews</em>.</h2></div>
-    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">15 reviews · Google Maps</div></div></div>
-  </div>
-  <div class="reviews-grid" id="reviews-marquee"></div>
-</section>
-<script>
-(function(){
-  const REVIEWS = [
-    { author:'Simone Pretscherer', init:'S', body:'Ordered custom side tables and could not be happier. The service was incredible — they listened, nailed the brief, hand delivered and put them exactly into place. 15/10.' },
-    { author:'Omer Hazer', init:'O', body:'We ordered a custom Prime Piece and we love it. A corner stone in our office — James and the team are exceptional at what they do.' },
-    { author:'Creed Bell', init:'C', body:'James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend.' },
-    { author:'Clare Geor', init:'C', body:'From inception to completion, James exceeded expectations. Design was exactly to order — he maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.' },
-    { author:'Cameron Brinkley', init:'C', body:'Absolutely love my marble side table. The craftsmanship is incredible — unique natural pattern, beautifully finished, and even better in person than in the photos.' },
-    { author:'Josh Burgisser', init:'J', body:'Words cannot express how talented and professional James and the team are. For something custom to round out your home or commercial space, Prime Piece is the only way to go.' },
-    { author:'Jamie McDowell', init:'J', body:'Stoked with our one of a kind piece for the office. A real conversation starter. Beautiful craftsmanship meeting industrial vibes — won\'t be our last purchase.' },
-    { author:'Finn Lyness', init:'F', body:'Picked up a marble table from James and it\'s honestly mint. Solid build, looks clean, makes the lounge feel sharper. Easy to deal with too. Cheers mate.' },
-    { author:'Christoph Schumacher', init:'C', body:'Bought this marble board and it is solid, stylish, and perfect for prep. Looks great on the bench and feels premium. What a great product. Highly recommend.' },
-    { author:'Daniel Thomas', init:'D', body:'Just got a coffee table from Prime Piece. Looks beautiful in our home. James was great to deal with — top-notch service. Cheers mate.' },
-    { author:'Cindy Z', init:'C', body:'Absolutely love our side coffee tables. Would highly recommend to anyone looking for stunning furniture. Would\'ve got more if we had more rooms!' },
-    { author:'Rafi Headifen', init:'R', body:'James is the man! Made a custom piece for us at an insane price, delivered within a very reasonable time frame. Love his work.' },
-    { author:'Dan Dunphy', init:'D', body:'Great service and a beautiful marble table. Solid build, stylish design, easy to deal with. Highly recommend.' },
-    { author:'Kate de Lautour', init:'K', body:'This is a stunning piece — quite heavy and solid with a beautiful granite top.' },
-    { author:'Sofia', init:'S', body:'Authentic NZ made small business! Great service and really nice owner.' },
-  ];
-  function card(r) {
-    return `<div class="testimonial">
-      <div class="t-body">
-        <div class="t-header"><span class="stars">★★★★★</span><span class="t-verified">Google</span></div>
-        <p class="testimonial-body">${r.body}</p>
-        <div class="t-footer">
-          <div class="t-avatar">${r.init}</div>
-          <span class="testimonial-author">${r.author}</span>
-        </div>
-      </div>
-    </div>`;
-  }
-  const marquee = document.getElementById('reviews-marquee');
-  marquee.innerHTML = REVIEWS.map(card).join('');
-})();
-</script>
-
 <section class="showroom-section" id="showroom">
   <div class="showroom-img-col">
     <iframe class="showroom-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3192.0!2d174.7384!3d-36.7889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d0d47f3c3c3c3c3%3A0x0!2s209B+Archers+Road%2C+Wairau+Valley%2C+Auckland!5e0!3m2!1sen!2snz!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Prime Piece Showroom — 209B Archers Road Wairau Valley Auckland"></iframe>
@@ -816,11 +815,7 @@
 </a>
 
 <script>
-  const bannerEl = document.getElementById('campaign-banner');
-  const bannerClose = document.getElementById('banner-close');
   const navEl = document.getElementById('nav');
-  function hideBanner() { bannerEl.style.display = 'none'; navEl.style.top = '0'; navEl.classList.add('banner-hidden'); }
-  bannerClose.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); hideBanner(); });
   const floatBtn = document.getElementById('float-enquire');
   const contactSection = document.getElementById('contact');
   if (floatBtn && contactSection) {
