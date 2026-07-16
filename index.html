@@ -573,13 +573,16 @@
 </section>
 
 <!-- SALE BANNER -->
-<a href="tables.html" id="campaign-banner" style="display:flex;align-items:center;justify-content:center;gap:20px;padding:16px 56px;background:#0E0D0B;border-bottom:1px solid rgba(201,169,110,0.35);text-decoration:none;cursor:pointer;position:relative;">
-  <span style="font-family:'Inter Tight',sans-serif;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.45);font-weight:500;white-space:nowrap;">Ends Midnight 15 July</span>
-  <span style="width:1px;height:14px;background:rgba(255,255,255,0.12);flex-shrink:0;"></span>
-  <span style="font-family:'Inter Tight',sans-serif;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#fff;font-weight:600;white-space:nowrap;"><strong style="color:#C9A96E;">20% OFF</strong> ALL STONE TABLES — One of one, once sold they're gone</span>
-  <span style="width:1px;height:14px;background:rgba(255,255,255,0.12);flex-shrink:0;"></span>
-  <span style="font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C9A96E;font-weight:600;white-space:nowrap;">Shop Now →</span>
-  <button id="banner-close" aria-label="Close banner" style="position:absolute;right:16px;font-size:14px;color:rgba(255,255,255,0.2);cursor:pointer;padding:4px 8px;background:none;border:none;" onclick="event.preventDefault();event.stopPropagation();document.getElementById('campaign-banner').style.display='none';">✕</button>
+<a href="tables.html" id="campaign-banner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:36px 56px;background:linear-gradient(135deg,#1a1208 0%,#0E0D0B 50%,#160e04 100%);border-top:1px solid rgba(201,169,110,0.2);border-bottom:1px solid rgba(201,169,110,0.3);text-decoration:none;cursor:pointer;position:relative;text-align:center;">
+  <div style="display:flex;align-items:center;gap:14px;">
+    <span style="display:inline-block;width:40px;height:1px;background:rgba(201,169,110,0.35);"></span>
+    <span style="font-family:'Inter Tight',sans-serif;font-size:9px;letter-spacing:0.38em;text-transform:uppercase;color:rgba(201,169,110,0.65);font-weight:500;">Limited Time — Ends Midnight 15 July</span>
+    <span style="display:inline-block;width:40px;height:1px;background:rgba(201,169,110,0.35);"></span>
+  </div>
+  <div style="font-family:'Inter Tight',sans-serif;font-size:clamp(20px,2.4vw,32px);letter-spacing:0.1em;text-transform:uppercase;color:#fff;font-weight:700;line-height:1.15;"><em style="color:#C9A96E;font-style:normal;font-size:1.1em;">20% OFF</em> ALL STONE TABLES</div>
+  <div style="font-family:'Inter Tight',sans-serif;font-size:13px;letter-spacing:0.12em;color:rgba(255,255,255,0.45);font-weight:300;">One of one — once sold, they're gone forever</div>
+  <div style="margin-top:6px;display:inline-flex;align-items:center;gap:8px;padding:11px 28px;border:1px solid rgba(201,169,110,0.8);border-radius:1px;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:#C9A96E;font-weight:600;transition:all 0.2s;">Shop the Sale →</div>
+  <button id="banner-close" aria-label="Close banner" style="position:absolute;top:14px;right:18px;font-size:16px;color:rgba(255,255,255,0.18);cursor:pointer;padding:4px 8px;background:none;border:none;" onclick="event.preventDefault();event.stopPropagation();document.getElementById('campaign-banner').style.display='none';">✕</button>
 </a>
 
 <!-- SIMONE COLLAB STRIP -->
