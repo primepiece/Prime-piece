@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   }
 
   const html = `
-    <h2 style="font-family:sans-serif;color:#2c2a26;">New Render Request</h2>
+    <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry</h2>
     <table style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;">
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Name</td><td>${name}</td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
@@ -41,10 +41,10 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${resendKey}`,
       },
       body: JSON.stringify({
-        from: 'Prime Piece Renders <renders@primepiece.co.nz>',
+        from: 'Prime Piece <james@primepiece.co.nz>',
         to: ['james@primepiece.co.nz'],
         reply_to: email,
-        subject: `Render Request — ${name} (${piece}, ${stone})`,
+        subject: `Enquiry — ${name}${piece && piece !== 'Get in touch' ? ' · ' + piece : ''}`,
         html,
         attachments,
       }),
@@ -55,6 +55,35 @@ export default async function handler(req, res) {
       console.error('Resend error:', JSON.stringify(emailData));
       return res.status(500).json({ error: emailData.message || emailData.error || 'Failed to send email' });
     }
+
+    // Auto-reply to customer
+    const replyHtml = `
+      <div style="font-family:sans-serif;max-width:520px;margin:0 auto;color:#2c2a26;">
+        <div style="background:#2c2a26;padding:28px 32px;margin-bottom:24px;">
+          <div style="color:#C9A96E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
+          <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Thanks, ${name}.</div>
+        </div>
+        <div style="padding:0 32px 32px;">
+          <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:18px;">Your message has come through — James will be in touch personally within 24 hours.</p>
+          <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:18px;">In the meantime, take a look at the full gallery to see more of the collection:</p>
+          <a href="https://www.primepiece.co.nz/gallery.html" style="display:inline-block;padding:12px 24px;background:#7BA5A8;color:#fff;text-decoration:none;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;border-radius:1px;margin-bottom:28px;">View the Gallery →</a>
+          <p style="font-size:13px;color:#888;line-height:1.6;border-top:1px solid #eee;padding-top:20px;margin-top:8px;">For anything urgent, text James directly: <a href="tel:0211466990" style="color:#7BA5A8;">021 146 6990</a><br>Or reply to this email — it goes straight to him.</p>
+          <p style="font-size:12px;color:#bbb;margin-top:16px;">Prime Piece · Wairau Valley, Auckland NZ · <a href="https://www.primepiece.co.nz" style="color:#bbb;">primepiece.co.nz</a></p>
+        </div>
+      </div>
+    `;
+
+    // Send auto-reply (fire and forget — don't fail the main request if this errors)
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
+      body: JSON.stringify({
+        from: 'James at Prime Piece <james@primepiece.co.nz>',
+        to: [email],
+        subject: `Got your message, ${name} — Prime Piece`,
+        html: replyHtml,
+      }),
+    }).catch(err => console.error('Auto-reply error:', err));
 
     return res.status(200).json({ success: true });
   } catch (err) {

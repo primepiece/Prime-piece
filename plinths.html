@@ -360,6 +360,16 @@
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-hamburger { flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 190; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--display); font-size: 36px; font-weight: 300; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+    .mobile-menu .mobile-shop-btn { font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; padding: 14px 32px; border: 1px solid var(--sage); color: var(--sage); border-radius: 1px; }
     .page-hero { padding: 110px 24px 60px; flex-direction: column; align-items: flex-start; }
     .filter-bar { padding: 16px 24px; }
     .seo-blurb { padding: 28px 24px; }
@@ -386,10 +396,20 @@
     <li><a href="plinths.html" class="nav-active">Plinths</a></li>
     <li><a href="tables.html">Tables</a></li>
     <li><a href="boards.html">Boards</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
     <li><a href="/#contact">Contact</a></li>
     <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">Home</a>
+  <a href="plinths.html">Plinths</a>
+  <a href="tables.html">Tables</a>
+  <a href="boards.html">Boards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="/#contact" class="mobile-shop-btn">Enquire Now</a>
+</div>
 
 <section class="page-hero">
   <div class="hero-left reveal">
@@ -706,6 +726,27 @@
   <button onclick="openEnquireModal('Custom Plinth Enquiry')" class="cta-btn" style="cursor:pointer;border:none;font-family:inherit;">Start a Conversation →</button>
 </div>
 
+<section style="padding:48px 56px;border-top:1px solid var(--line);background:var(--cream);" aria-label="Customer reviews">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+    <span style="color:#C9A96E;font-size:15px;letter-spacing:3px;">★★★★★</span>
+    <span style="font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);">15 Five-Star Google Reviews</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+    <blockquote style="margin:0;padding:20px;background:var(--cream-soft);border-left:2px solid var(--sage);">
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:10px;">"James exceeded expectations. The design was exactly to order — he maximised the reclaimed stone into two beautiful pieces."</p>
+      <cite style="font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--stone);font-style:normal;">— Clare G., Auckland</cite>
+    </blockquote>
+    <blockquote style="margin:0;padding:20px;background:var(--cream-soft);border-left:2px solid var(--sage);">
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:10px;">"Made a custom piece for us at an insane price, delivered within a very reasonable time frame. Absolutely stunning."</p>
+      <cite style="font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--stone);font-style:normal;">— Rafi H., Auckland</cite>
+    </blockquote>
+    <blockquote style="margin:0;padding:20px;background:var(--cream-soft);border-left:2px solid var(--sage);">
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:10px;">"Ordered a custom piece and could not be happier. Hand delivered and placed exactly into position. 15/10."</p>
+      <cite style="font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--stone);font-style:normal;">— Simone P., Auckland</cite>
+    </blockquote>
+  </div>
+</section>
+
 <section class="seo-blurb" aria-label="About Prime Piece stone plinths">
   <p>Prime Piece crafts handcrafted marble plinths and natural stone pedestals in Auckland, New Zealand. Each plinth is carved from a single block of natural stone — Rosso Africano from Africa, Rosso Levanto from Spain, Natural Travertine, Navarro Marble, Green Calacatta, Dekton Sirius and more. Our marble plinths are used as sculptural display pedestals, plant stands, side tables and art platforms. Every piece is one of one — no two are ever the same. Custom stone plinths are available to commission in any stone, any height and any finish. Made by hand in our Wairau Valley workshop, Auckland. We ship across New Zealand.</p>
 </section>
@@ -943,6 +984,12 @@ async function submitEnquire() {
     errEl.style.display = "block";
   }
 }
+</script>
+<script>
+  const ham = document.getElementById('nav-hamburger');
+  const mob = document.getElementById('mobile-menu');
+  ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : ''; });
+  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = ''; }));
 </script>
 </body>
 </html>
