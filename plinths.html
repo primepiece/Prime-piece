@@ -822,6 +822,7 @@
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: name, content_category: type, content_ids: [id], currency: 'NZD', value: enquireOnly ? 0 : price });
   }
 
   function addModalToCart() {

@@ -615,14 +615,26 @@
 <section class="hero">
   <div class="hero-content">
     <div class="eyebrow">Handcrafted in Auckland</div>
-    <h1>Sculptural stone<br>furniture for elevated<br>Auckland spaces.</h1>
-    <p class="hero-sub">Handcrafted one-of-one stone furniture made in Auckland from premium natural stone.</p>
+    <h1>One-of-one stone<br>furniture, made<br>in Auckland.</h1>
+    <p class="hero-sub">Marble tables, plinths and boards — each piece handcrafted from natural stone and never recreated. When it's gone, it's gone.</p>
     <div class="btn-group">
-      <a href="tables.html" class="btn btn-primary">Shop Now <span class="btn-arrow">→</span></a>
-      <a href="#collection" class="btn btn-ghost">Explore Pieces <span class="btn-arrow">→</span></a>
+      <a href="tables.html" class="btn btn-primary">View the Collection <span class="btn-arrow">→</span></a>
+      <a href="#render" class="btn btn-ghost">Free Room Render <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
+
+<!-- TRUST BAR -->
+<div style="display:flex;align-items:center;justify-content:center;gap:28px;padding:14px 24px;background:var(--cream-soft);border-bottom:1px solid var(--line);flex-wrap:wrap;">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span style="color:#C9A96E;font-size:14px;letter-spacing:2px;">★★★★★</span>
+    <span style="font-family:'Inter Tight',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone);">15 Five-Star Google Reviews</span>
+  </div>
+  <span style="width:1px;height:16px;background:var(--line);display:inline-block;"></span>
+  <div style="font-family:'Inter Tight',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone);">Handcrafted by James · Auckland, NZ</div>
+  <span style="width:1px;height:16px;background:var(--line);display:inline-block;"></span>
+  <div style="font-family:'Inter Tight',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone);">Every piece made once — never repeated</div>
+</div>
 
 <!-- SALE BANNER -->
 <a href="tables.html" id="campaign-banner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px 56px;background:linear-gradient(135deg,#1a1208 0%,#0E0D0B 50%,#160e04 100%);border-top:1px solid rgba(201,169,110,0.2);border-bottom:1px solid rgba(201,169,110,0.3);text-decoration:none;cursor:pointer;position:relative;text-align:center;">
@@ -1008,7 +1020,12 @@
   var stepReveal = document.getElementById('pp-step-reveal');
   function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
   function hide() { overlay.style.display = 'none'; }
-  setTimeout(show, 5000);
+  // Exit-intent: show when mouse leaves viewport upward
+  var shown = false;
+  function tryShow() { if (!shown) { shown = true; show(); } }
+  document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
+  // Fallback: show after 25s if no exit-intent
+  setTimeout(tryShow, 25000);
   document.getElementById('pp-popup-close').addEventListener('click', hide);
   overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
   document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
@@ -1024,7 +1041,7 @@
     stepForm.style.display = 'none'; stepReveal.style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
   });
-  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); document.getElementById('collection') ? document.getElementById('collection').scrollIntoView({behavior:'smooth'}) : window.scrollTo({top: 600, behavior: 'smooth'}); });
+  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); window.location.href = 'tables.html'; });
 })();
 </script>
 

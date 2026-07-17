@@ -486,8 +486,8 @@
 <section class="page-hero">
   <div class="hero-left reveal">
     <div class="eyebrow">Stone Tables</div>
-    <h1>Where it all<br><em>began</em>.</h1>
-    <p class="hero-desc">The original Prime Piece. Round stone-top tables on hand-welded black steel frames — handcrafted in Auckland from some of the world's most unique natural stones.</p>
+    <h1>Stone tables.<br><em>One of one.</em></h1>
+    <p class="hero-desc">Round stone-top tables on hand-welded black steel frames — handcrafted in Auckland from some of the world's most unique natural stones. Every piece is made once. Never repeated.</p>
   </div>
   <div class="hero-right reveal">
     <div class="hero-stat">21</div>
@@ -1037,6 +1037,11 @@
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Fire Meta Pixel ViewContent
+    if (typeof fbq !== 'undefined') {
+      const info2 = TABLE_PRICES[img];
+      fbq('track', 'ViewContent', { content_name: name, content_category: type, content_ids: [img], currency: 'NZD', value: info2 && !info2.sold ? info2.price : 0 });
+    }
     // Mobile sticky bar
     if (window.innerWidth <= 900 && _modalItem) {
       document.getElementById('msb-name').textContent = name;
