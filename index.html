@@ -1026,9 +1026,10 @@
     if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
     var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
-    try { await fetch('/api/discount', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email }) }); } catch(e) {}
+    try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
     stepForm.style.display = 'none'; stepReveal.style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
   });
   document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); window.location.href = 'tables.html'; });
 })();
