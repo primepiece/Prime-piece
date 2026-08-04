@@ -736,32 +736,32 @@
     'carrara-vessel': {
       name: 'White Carrara', stone: 'Carrara Marble · Vessel Basin',
       desc: 'Classic Italian Carrara white with delicate grey veining. The benchmark of natural stone — timeless, versatile and endlessly beautiful in any bathroom.',
-      dims: 'Ø 435mm × H 135mm', material: 'Carrara Marble', lead: 'In stock — ships within 1 week', badge: 'In Stock', price: 'From NZD $650'
+      dims: 'Ø 435mm × H 135mm', material: 'Carrara Marble', lead: 'In stock — ships within 1 week', badge: 'In Stock', price: 'From NZD $650', img: 'white-carrara-vessel.png'
     },
     'beige-vessel': {
       name: 'Warm Beige', stone: 'Beige Travertine · Vessel Basin',
       desc: 'Warm sandy travertine with natural texture and subtle movement. Pairs beautifully with timber vanities, warm neutrals and earthy interior palettes.',
-      dims: 'Ø 435mm × H 135mm', material: 'Beige Travertine', lead: 'In stock — ships within 1 week', badge: 'In Stock', price: 'From NZD $650'
+      dims: 'Ø 435mm × H 135mm', material: 'Beige Travertine', lead: 'In stock — ships within 1 week', badge: 'In Stock', price: 'From NZD $650', img: 'warm-beige-vessel.png'
     },
     'nero-vessel': {
       name: 'Nero Marquina', stone: 'Black Marble · Vessel Basin',
       desc: 'Deep jet black with fine white veining running across the surface. Bold, dramatic and unforgettable. The statement piece your bathroom has been waiting for.',
-      dims: 'Ø 435mm × H 135mm', material: 'Nero Marquina Marble', lead: '3–5 weeks from order', badge: 'Made to Order', price: 'From NZD $750'
+      dims: 'Ø 435mm × H 135mm', material: 'Nero Marquina Marble', lead: '3–5 weeks from order', badge: 'Made to Order', price: 'From NZD $750', img: 'nero-marquina-vessel.png'
     },
     'onyx-vessel': {
       name: 'Green Onyx', stone: 'Green Onyx · Vessel Basin',
       desc: 'Translucent jade green with flowing banded pattern unique to each piece. When backlit, it glows. The most coveted stone in the basin collection.',
-      dims: 'Ø 435mm × H 135mm', material: 'Green Onyx', lead: '3–5 weeks from order', badge: 'Made to Order', price: 'From NZD $850'
+      dims: 'Ø 435mm × H 135mm', material: 'Green Onyx', lead: '3–5 weeks from order', badge: 'Made to Order', price: 'From NZD $850', img: 'green-onyx-vessel.png'
     },
     'carrara-standing': {
       name: 'Aurora Standing', stone: 'Carrara Marble · Standing Basin',
       desc: 'A full standing basin carved from a single block of Carrara marble. Basin and pedestal in one seamless form. No plumbing box required — this is the centrepiece.',
-      dims: 'W 500mm × D 420mm × H 850mm', material: 'Carrara Marble', lead: '4–6 weeks from order', badge: 'Made to Order', price: 'From NZD $2,200'
+      dims: 'W 500mm × D 420mm × H 850mm', material: 'Carrara Marble', lead: '4–6 weeks from order', badge: 'Made to Order', price: 'From NZD $2,200', img: 'aurora-standing.png'
     },
     'beige-standing': {
       name: 'Tuscan Standing', stone: 'Beige Travertine · Standing Basin',
       desc: 'Warm travertine standing basin that brings the feel of a Tuscan villa to your home. A piece of architecture, not just a basin. Nothing else like it in NZ.',
-      dims: 'W 500mm × D 420mm × H 850mm', material: 'Beige Travertine', lead: '4–6 weeks from order', badge: 'Made to Order', price: 'From NZD $2,200'
+      dims: 'W 500mm × D 420mm × H 850mm', material: 'Beige Travertine', lead: '4–6 weeks from order', badge: 'Made to Order', price: 'From NZD $2,200', img: 'tuscan-standing.png'
     }
   };
 
@@ -779,6 +779,17 @@
     document.getElementById('modal-lead').textContent = b.lead;
     document.getElementById('modal-badge').textContent = b.badge;
     document.getElementById('modal-enq-btn').onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
+    const modalImg = document.getElementById('modal-img');
+    const modalPlaceholder = document.getElementById('modal-img-placeholder');
+    if (b.img) {
+      modalImg.src = b.img;
+      modalImg.alt = b.name;
+      modalImg.style.display = 'block';
+      modalPlaceholder.style.display = 'none';
+    } else {
+      modalImg.style.display = 'none';
+      modalPlaceholder.style.display = 'flex';
+    }
     document.getElementById('basin-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
