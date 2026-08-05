@@ -627,6 +627,34 @@
 </section>
 
 
+<!-- TRUST STRIP -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);background:var(--cream);">
+  <div style="padding:22px 24px;display:flex;align-items:center;gap:14px;border-right:1px solid var(--line);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7BA5A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <div><div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;color:var(--ink);margin-bottom:2px;">Free NZ Delivery</div><div style="font-size:11px;color:var(--stone);">On all orders</div></div>
+  </div>
+  <div style="padding:22px 24px;display:flex;align-items:center;gap:14px;border-right:1px solid var(--line);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7BA5A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    <div><div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;color:var(--ink);margin-bottom:2px;">Handcrafted in Auckland</div><div style="font-size:11px;color:var(--stone);">Natural stone, one of one</div></div>
+  </div>
+  <div style="padding:22px 24px;display:flex;align-items:center;gap:14px;border-right:1px solid var(--line);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7BA5A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <div><div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;color:var(--ink);margin-bottom:2px;">5.0 Google Rating</div><div style="font-size:11px;color:var(--stone);">15 verified reviews</div></div>
+  </div>
+  <div style="padding:22px 24px;display:flex;align-items:center;gap:14px;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7BA5A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    <div><div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;font-weight:600;color:var(--ink);margin-bottom:2px;">Custom Sizing</div><div style="font-size:11px;color:var(--stone);">Made to your measurements</div></div>
+  </div>
+</div>
+<style>
+@media(max-width:768px){
+  #trust-strip{grid-template-columns:repeat(2,1fr)!important;}
+  #trust-strip>div:nth-child(2){border-right:none!important;}
+  #trust-strip>div:nth-child(3){border-top:1px solid var(--line);}
+  #trust-strip>div:nth-child(4){border-top:1px solid var(--line);}
+}
+</style>
+
 <!-- SALE BANNER -->
 <a href="tables.html" id="campaign-banner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px 56px;background:linear-gradient(135deg,#1a1208 0%,#0E0D0B 50%,#160e04 100%);border-top:1px solid rgba(201,169,110,0.2);border-bottom:1px solid rgba(201,169,110,0.3);text-decoration:none;cursor:pointer;position:relative;text-align:center;">
   <div style="display:flex;align-items:center;gap:14px;">
@@ -696,17 +724,76 @@
   <div class="collection-grid">
     <a href="plinths.html" class="collection-card">
       <img class="collection-card-img" src="product-1.jpg" alt="Stone Plinths Auckland">
-      <div class="collection-card-label"><span class="collection-card-name">Plinths</span><span class="collection-card-arrow">↗</span></div>
+      <div class="collection-card-label">
+        <div><span class="collection-card-name">Plinths</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">From NZD $800</div></div>
+        <span class="collection-card-arrow">↗</span>
+      </div>
     </a>
     <a href="tables.html" class="collection-card">
       <img class="collection-card-img" src="product-2.jpg" alt="Marble Tables Auckland">
-      <div class="collection-card-label"><span class="collection-card-name">Tables</span><span class="collection-card-arrow">↗</span></div>
+      <div class="collection-card-label">
+        <div><span class="collection-card-name">Tables</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">From NZD $1,200</div></div>
+        <span class="collection-card-arrow">↗</span>
+      </div>
     </a>
     <a href="boards.html" class="collection-card">
       <img class="collection-card-img" src="product-3.jpg" alt="Stone Boards NZ">
-      <div class="collection-card-label"><span class="collection-card-name">Boards</span><span class="collection-card-arrow">↗</span></div>
+      <div class="collection-card-label">
+        <div><span class="collection-card-name">Boards</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">From NZD $280</div></div>
+        <span class="collection-card-arrow">↗</span>
+      </div>
     </a>
   </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section style="background:var(--cream);border-top:1px solid var(--line);padding:72px 56px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;">
+    <div>
+      <span class="section-label">Best Sellers</span>
+      <h2>What people<br>are buying <em>now</em>.</h2>
+    </div>
+    <a href="tables.html" style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-weight:500;font-family:var(--body);">View All →</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);">
+    <a href="boards.html" style="background:var(--cream-soft);text-decoration:none;display:block;overflow:hidden;position:relative;">
+      <div style="overflow:hidden;aspect-ratio:1;"><img src="board-white-haven.jpg" alt="White Haven Stone Board" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:20px 20px 24px;">
+        <div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:6px;">Cheese &amp; Serving Boards</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em;">White Haven Board</div>
+        <div style="font-size:12px;color:var(--stone);">NZD $280 · In Stock</div>
+      </div>
+    </a>
+    <a href="tables.html" style="background:var(--cream-soft);text-decoration:none;display:block;overflow:hidden;">
+      <div style="overflow:hidden;aspect-ratio:1;"><img src="table-1.jpg" alt="Marble Coffee Table" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:20px 20px 24px;">
+        <div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:6px;">Coffee Tables</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em;">Natural Stone Coffee Table</div>
+        <div style="font-size:12px;color:var(--stone);">From NZD $1,200 · Made to Order</div>
+      </div>
+    </a>
+    <a href="boards.html" style="background:var(--cream-soft);text-decoration:none;display:block;overflow:hidden;">
+      <div style="overflow:hidden;aspect-ratio:1;"><img src="board-golden-dune.jpg" alt="Golden Dune Stone Board" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:20px 20px 24px;">
+        <div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:6px;">Cheese &amp; Serving Boards</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em;">Golden Dune Board</div>
+        <div style="font-size:12px;color:var(--stone);">NZD $280 · In Stock</div>
+      </div>
+    </a>
+    <a href="made-to-order.html" style="background:var(--cream-soft);text-decoration:none;display:block;overflow:hidden;">
+      <div style="overflow:hidden;aspect-ratio:1;"><img src="white-carrara-vessel.png" alt="White Carrara Stone Basin" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+      <div style="padding:20px 20px 24px;">
+        <div style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:6px;">Stone Basins · New</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:4px;letter-spacing:-0.01em;">White Carrara Basin</div>
+        <div style="font-size:12px;color:var(--stone);">From NZD $650 · In Stock</div>
+      </div>
+    </a>
+  </div>
+  <style>
+    @media(max-width:768px){
+      #best-sellers-grid{grid-template-columns:repeat(2,1fr)!important;}
+    }
+  </style>
 </section>
 
 <section class="reviews-section">
