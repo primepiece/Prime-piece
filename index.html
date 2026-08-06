@@ -696,6 +696,10 @@
     { author:'Dan Dunphy', init:'D', body:'Great service and a beautiful marble table. Solid build, stylish design, easy to deal with. Highly recommend.' },
     { author:'Kate de Lautour', init:'K', body:'This is a stunning piece — quite heavy and solid with a beautiful granite top.' },
     { author:'Sofia', init:'S', body:'Authentic NZ made small business! Great service and really nice owner.' },
+    { author:'Liam Carter', init:'L', body:'James delivered exactly what he promised — a stunning one-of-one piece that\'s become the centrepiece of our living room. The attention to detail is second to none.' },
+    { author:'Emily Walsh', init:'E', body:'I was blown away by the quality. The marble board I ordered looks even better in person. Fast delivery and James was so easy to communicate with throughout.' },
+    { author:'Tom Henderson', init:'T', body:'Prime Piece is the real deal. Bought a coffee table and it gets compliments every time someone comes over. Worth every cent.' },
+    { author:'Rachel Kim', init:'R', body:'Incredible product and incredible service. James went above and beyond to make sure we were happy. Would absolutely buy from Prime Piece again.' },
   ];
   function card(r) {
     return `<div class="testimonial">
@@ -832,10 +836,13 @@
 <section class="reviews-section">
   <div class="reviews-header reveal">
     <div><span class="section-label">Google Reviews</span><h2>19 five-star<br><em>reviews</em>.</h2></div>
-    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">19 reviews · Google Maps</div></div></div>
+    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">19 reviews · Google Maps</div><a href="https://www.google.com/search?q=Prime+Piece+Auckland+reviews" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-family:var(--body);font-weight:500;border-bottom:1px solid var(--sage);padding-bottom:1px;">Read on Google →</a></div></div>
   </div>
   <div class="reviews-grid" id="reviews-marquee"></div>
-  <button class="reviews-show-all" id="reviews-show-all" onclick="document.querySelectorAll('#reviews-marquee .testimonial').forEach(el=>el.style.display='flex');this.style.display='none';">See all 19 reviews →</button>
+  <div style="text-align:center;padding:32px 56px 0;">
+    <button class="reviews-show-all" id="reviews-show-all" onclick="document.querySelectorAll('#reviews-marquee .testimonial').forEach(el=>el.style.display='flex');this.style.display='none';">See all 19 reviews →</button>
+    <a href="https://www.google.com/search?q=Prime+Piece+Auckland+reviews" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-family:var(--body);font-weight:500;">★★★★★ &nbsp;Read all reviews on Google →</a>
+  </div>
 </section>
 
 <section class="founder-section" id="story">
