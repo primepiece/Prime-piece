@@ -821,15 +821,20 @@
   function updateCountdown() {
     const now = new Date();
     const diff = SALE_END - now;
-    if (diff <= 0) { document.querySelectorAll('#cd-days,#cd-hours,#cd-mins,#cd-secs').forEach(el => el.textContent = '00'); return; }
+    const dEl = document.getElementById('cd-days');
+    const hEl = document.getElementById('cd-hours');
+    const mEl = document.getElementById('cd-mins');
+    const sEl = document.getElementById('cd-secs');
+    if (!dEl || !hEl || !mEl || !sEl) return;
+    if (diff <= 0) { [dEl,hEl,mEl,sEl].forEach(el => el.textContent = '00'); return; }
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
-    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+    dEl.textContent = String(d).padStart(2,'0');
+    hEl.textContent = String(h).padStart(2,'0');
+    mEl.textContent = String(m).padStart(2,'0');
+    sEl.textContent = String(s).padStart(2,'0');
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
