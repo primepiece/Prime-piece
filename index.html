@@ -407,13 +407,25 @@
   @media (max-width: 900px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 768px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px; } .reviews-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; } }
 
+  .journal-section { background: var(--cream-soft); border-top: 1px solid var(--line); padding: 96px 56px; }
+  .journal-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; }
+  .journal-header-right { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sage); font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .journal-header-right:hover { color: var(--sage-deep); }
+  .journal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .journal-card { background: var(--cream); border: 1px solid var(--line); padding: 28px 24px 24px; text-decoration: none; display: block; transition: border-color 0.25s, transform 0.25s; }
+  .journal-card:hover { border-color: var(--sage); transform: translateY(-3px); }
+  .journal-card-cat { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 12px; }
+  .journal-card h3 { font-family: var(--display); font-size: 20px; font-weight: 300; color: var(--ink); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .journal-card p { font-size: 13px; color: var(--stone); line-height: 1.65; margin-bottom: 18px; }
+  .journal-card-arrow { font-size: 11px; color: var(--sage); letter-spacing: 0.15em; }
+
   .cta-section { padding: 144px 56px; text-align: center; background: radial-gradient(ellipse at 50% 60%, rgba(123,165,168,0.09) 0%, transparent 65%), var(--cream); border-top: 1px solid var(--line); }
   .cta-section .section-label { margin-bottom: 18px; }
   .cta-section h2 { max-width: 600px; margin: 0 auto 22px; }
   .cta-section p { max-width: 400px; margin: 0 auto 40px; color: var(--ink-soft); font-size: 15px; line-height: 1.8; }
 
   footer { padding: 64px 56px 32px; background: var(--cream-soft); border-top: 1px solid var(--line); }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-brand { font-family: var(--display); font-size: 24px; font-weight: 400; letter-spacing: 0.3em; color: var(--sage); margin-bottom: 4px; }
   .footer-brand-sub { font-family: var(--script); font-size: 14px; color: var(--sage); margin-bottom: 14px; }
   .footer-brand-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.7; max-width: 280px; }
@@ -508,6 +520,9 @@
     .reviews-section { padding: 64px 0; }
     .reviews-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .cta-section { padding: 96px 24px; }
+    .journal-section { padding: 56px 20px; }
+    .journal-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 32px; }
+    .journal-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
     footer { padding: 56px 24px 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 8px; }
@@ -1011,6 +1026,42 @@
   </div>
 </section>
 
+<section class="journal-section">
+  <div class="journal-header">
+    <div>
+      <span class="section-label">From the Journal</span>
+      <h2>Stone &amp; <em>Style</em></h2>
+    </div>
+    <a href="blog-marble-coffee-table-nz.html" class="journal-header-right">Read all articles →</a>
+  </div>
+  <div class="journal-grid">
+    <a href="blog-marble-coffee-table-nz.html" class="journal-card">
+      <div class="journal-card-cat">Living Room</div>
+      <h3>Marble Coffee Tables NZ — Styling Guide</h3>
+      <p>How to choose the right stone and style it in any NZ living room.</p>
+      <div class="journal-card-arrow">Read →</div>
+    </a>
+    <a href="blog-vessel-basin-nz.html" class="journal-card">
+      <div class="journal-card-cat">Bathroom</div>
+      <h3>How to Choose a Vessel Basin for Your NZ Bathroom</h3>
+      <p>Stone selection, vanity heights, and installation tips.</p>
+      <div class="journal-card-arrow">Read →</div>
+    </a>
+    <a href="blog-stone-plinth-nz.html" class="journal-card">
+      <div class="journal-card-cat">Interior Styling</div>
+      <h3>Stone Plinths NZ — How to Style a Marble Plinth</h3>
+      <p>Sizing guide, stone options, and five ways to style a plinth.</p>
+      <div class="journal-card-arrow">Read →</div>
+    </a>
+    <a href="blog-marble-serving-board-nz.html" class="journal-card">
+      <div class="journal-card-cat">Kitchen &amp; Entertaining</div>
+      <h3>Marble Serving Boards NZ — The Complete Guide</h3>
+      <p>Stone types, care tips, and how to build a perfect board spread.</p>
+      <div class="journal-card-arrow">Read →</div>
+    </a>
+  </div>
+</section>
+
 <footer>
   <div class="footer-grid">
     <div>
@@ -1021,6 +1072,7 @@
     <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Shop All Pieces</a><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="gallery.html">Gallery</a><a href="#made-to-order">Made To Order</a></div>
     <div class="footer-col"><h4>Brand</h4><a href="#story">About</a><a href="#process">Process</a><a href="#collection">Collection</a><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a><a href="trust.html">Why Prime Piece</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a><a href="privacy.html">Privacy Policy</a></div>
+    <div class="footer-col"><h4>Journal</h4><a href="blog-marble-coffee-table-nz.html">Styling a Marble Table NZ</a><a href="blog-vessel-basin-nz.html">Choosing a Vessel Basin NZ</a><a href="blog-stone-plinth-nz.html">Stone Plinths NZ Guide</a><a href="blog-marble-serving-board-nz.html">Marble Serving Boards NZ</a></div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 Prime Piece Ltd. All Rights Reserved.</span>
