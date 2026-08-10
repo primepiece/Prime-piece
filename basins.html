@@ -58,8 +58,27 @@
   .mobile-menu .mobile-shop-btn { font-size: 14px; font-family: 'Inter Tight', sans-serif; letter-spacing: 0.22em; text-transform: uppercase; padding: 14px 32px; border: 1px solid var(--sage); color: var(--sage); border-radius: 1px; }
 
   /* HERO */
-  .page-hero { padding: 120px 56px 72px; border-bottom: 1px solid var(--line); background: var(--ink); position: relative; overflow: hidden; }
-  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(123,165,168,0.12) 0%, transparent 70%); pointer-events: none; }
+  .page-hero { border-bottom: 1px solid var(--line); background: var(--ink); position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 35% 50%, rgba(123,165,168,0.12) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .hero-copy { padding: 120px 56px 72px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+
+  /* SWATCHES */
+  .swatches-panel { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 1fr); border-left: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 1; }
+  .swatch { position: relative; overflow: hidden; cursor: pointer; transition: filter 0.3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 24px; border-bottom: 1px solid rgba(0,0,0,0.15); border-right: 1px solid rgba(0,0,0,0.12); }
+  .swatch:nth-child(2n) { border-right: none; }
+  .swatch:nth-child(5), .swatch:nth-child(6) { border-bottom: none; }
+  .swatch:hover { filter: brightness(1.1); }
+  .swatch::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%); }
+  .swatch-content { position: relative; z-index: 1; }
+  .swatch-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: 3px; }
+  .swatch-type { font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; }
+  .swatch-price { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 4px; }
+  .swatch-statuario { background: linear-gradient(135deg, #f0ece6 0%, #e2ddd6 25%, #d4cfc7 50%, #c8c4bc 70%, #e8e4de 100%); }
+  .swatch-pietra { background: linear-gradient(135deg, #3d3d3d 0%, #2a2a2a 35%, #1e1e1e 60%, #333 100%); }
+  .swatch-pink-purple { background: linear-gradient(135deg, #f0c8dc 0%, #e0b0cc 30%, #c890b8 55%, #d4a0c0 80%, #e8b4c8 100%); }
+  .swatch-tiger { background: linear-gradient(135deg, #C4762A 0%, #8B4513 25%, #D4902A 50%, #5C3308 70%, #8B6914 100%); }
+  .swatch-pink-onyx { background: linear-gradient(135deg, #f4c8d0 0%, #f0c0cc 30%, #dca0b0 60%, #e8b0bc 100%); }
+  .swatch-yellow { background: linear-gradient(135deg, #D4B040 0%, #C9A030 30%, #A07010 55%, #E0C050 80%, #B8901A 100%); }
   .hero-eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
   .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sage); }
   .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(48px, 6vw, 86px); line-height: 1.0; letter-spacing: -0.02em; color: #fff; margin-bottom: 24px; }
@@ -193,7 +212,9 @@
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .page-hero { padding: 100px 20px 56px; }
+    .page-hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-copy { padding: 100px 20px 56px; }
+    .swatches-panel { display: none; }
     .products-header { padding: 40px 20px 28px; flex-direction: column; align-items: flex-start; }
     .products-header-right { text-align: left; }
     .basins-grid { grid-template-columns: 1fr 1fr; }
@@ -250,6 +271,7 @@
 
 <!-- HERO -->
 <section class="page-hero">
+<div class="hero-copy">
   <div class="hero-eyebrow">New Arrival · Natural Stone Basins</div>
   <h1>Six rare stones,<br>arriving in <em>Auckland</em>.</h1>
   <p class="hero-desc">Hand-selected vessel basins sourced directly from the quarry. Each piece is carved from a single slab — no two are alike. Enquire now to secure yours.</p>
@@ -289,6 +311,53 @@
       <div class="hero-trust-text"><strong>Talk to James direct</strong>021 146 6990 — real person, fast reply</div>
     </div>
   </div>
+</div>
+
+<!-- STONE SWATCHES -->
+<div class="swatches-panel">
+  <div class="swatch swatch-statuario" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
+    <div class="swatch-content">
+      <div class="swatch-name">Statuario</div>
+      <div class="swatch-type">Statuario Marble</div>
+      <div class="swatch-price">From NZD $850</div>
+    </div>
+  </div>
+  <div class="swatch swatch-pietra" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
+    <div class="swatch-content">
+      <div class="swatch-name">Pietra Grey</div>
+      <div class="swatch-type">Pietra Grey Marble</div>
+      <div class="swatch-price">From NZD $1,050</div>
+    </div>
+  </div>
+  <div class="swatch swatch-pink-purple" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
+    <div class="swatch-content">
+      <div class="swatch-name">Pink Purple Onyx</div>
+      <div class="swatch-type">Pink Purple Onyx</div>
+      <div class="swatch-price">From NZD $1,499</div>
+    </div>
+  </div>
+  <div class="swatch swatch-tiger" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
+    <div class="swatch-content">
+      <div class="swatch-name">Tiger Onyx</div>
+      <div class="swatch-type">Tiger Onyx</div>
+      <div class="swatch-price">From NZD $1,050</div>
+    </div>
+  </div>
+  <div class="swatch swatch-pink-onyx" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
+    <div class="swatch-content">
+      <div class="swatch-name">Pink Onyx Shell</div>
+      <div class="swatch-type">Pink Onyx</div>
+      <div class="swatch-price">From NZD $1,199</div>
+    </div>
+  </div>
+  <div class="swatch swatch-yellow" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
+    <div class="swatch-content">
+      <div class="swatch-name">Yellow Onyx</div>
+      <div class="swatch-type">Yellow Onyx</div>
+      <div class="swatch-price">From NZD $950</div>
+    </div>
+  </div>
+</div>
 </section>
 
 <!-- PRODUCT GRID -->
