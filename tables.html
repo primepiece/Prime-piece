@@ -260,6 +260,9 @@
   .modal-shipping-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--stone); margin-bottom: 12px; }
   .modal-shipping-note svg { flex-shrink: 0; color: var(--sage); }
   .modal-shipping-note a { color: var(--sage); text-decoration: underline; }
+  .modal-trust-strip { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+  .modal-trust-strip span { display: flex; align-items: center; gap: 5px; font-size: 10px; letter-spacing: 0.1em; color: var(--stone); text-transform: uppercase; }
+  .modal-trust-strip svg { color: var(--sage); flex-shrink: 0; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 4px; }
   .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: var(--sage); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; }
   .modal-btn-primary:hover { background: var(--sage-deep); }
@@ -798,6 +801,11 @@
       <div class="modal-shipping-note">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
         <span>NZ-wide delivery available. Questions? <a href="tel:0211466990" onclick="event.stopPropagation()">Text James — 021 146 6990</a></span>
+      </div>
+      <div class="modal-trust-strip">
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure Checkout</span>
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> NZ Handcrafted</span>
+        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Free NZ Delivery</span>
       </div>
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
