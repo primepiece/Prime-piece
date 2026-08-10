@@ -389,7 +389,7 @@
       </div>
       <div class="summary-row">
         <span class="summary-row-label">Delivery</span>
-        <span class="summary-row-val" id="summary-delivery">Free (Pickup)</span>
+        <span class="summary-row-val" id="summary-delivery">Free — Showroom pickup</span>
       </div>
       <div class="summary-row" id="discount-row" style="display:none;">
         <span class="summary-row-label" style="color:#5a8a5a;">Discount (10%)</span>
@@ -462,7 +462,7 @@
 
   function updateDeliveryLabel() {
     const el = document.getElementById('summary-delivery');
-    if (el) el.textContent = deliveryMode === 'pickup' ? 'Free (Showroom pickup)' : 'TBC (We\'ll be in touch)';
+    if (el) el.textContent = deliveryMode === 'pickup' ? 'Free — Showroom pickup' : 'TBC — confirmed after purchase';
   }
 
   // ── Stripe setup ────────────────────────────────────────
