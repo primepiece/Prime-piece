@@ -551,7 +551,7 @@
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.origin + '/success.html',
+        return_url: window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length),
         payment_method_data: {
           billing_details: {
             name: firstName + ' ' + lastName,
