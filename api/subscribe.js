@@ -17,7 +17,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const r = await fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
+    // Step 1: Create or update profile
+    const profileRes = await fetch('https://a.klaviyo.com/api/profiles/', {
       method: 'POST',
       headers: {
         'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
@@ -26,29 +27,45 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         data: {
-          type: 'profile-subscription-bulk-create-job',
+          type: 'profile',
           attributes: {
-            profiles: {
-              data: [{
-                type: 'profile',
-                attributes: {
-                  email,
-                  first_name: name || '',
-                  properties: { source },
-                },
-              }],
-            },
-          },
-          relationships: {
-            list: { data: { type: 'list', id: listId } },
+            email,
+            first_name: name || '',
+            properties: { source },
           },
         },
       }),
     });
 
-    if (!r.ok) {
-      const err = await r.json().catch(() => ({}));
-      console.error('Klaviyo error:', JSON.stringify(err));
+    let profileId;
+    if (profileRes.status === 201) {
+      const profileData = await profileRes.json();
+      profileId = profileData.data.id;
+    } else if (profileRes.status === 409) {
+      const profileData = await profileRes.json();
+      profileId = profileData.errors?.[0]?.meta?.duplicate_profile_id;
+    } else {
+      const err = await profileRes.json().catch(() => ({}));
+      console.error('Klaviyo profile error:', JSON.stringify(err));
+    }
+
+    // Step 2: Add profile to list
+    if (profileId) {
+      const listRes = await fetch(`https://a.klaviyo.com/api/lists/${listId}/relationships/profiles/`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
+          'Content-Type': 'application/json',
+          'revision': '2023-12-15',
+        },
+        body: JSON.stringify({
+          data: [{ type: 'profile', id: profileId }],
+        }),
+      });
+      if (!listRes.ok && listRes.status !== 204) {
+        const err = await listRes.json().catch(() => ({}));
+        console.error('Klaviyo list error:', JSON.stringify(err));
+      }
     }
   } catch (err) {
     console.error('Subscribe error:', err);
