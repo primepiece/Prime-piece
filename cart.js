@@ -192,7 +192,7 @@
             <span class="cart-subtotal-label">Total (NZD incl. GST)</span>
             <span class="cart-subtotal-val" id="cart-total">$0</span>
           </div>
-          <a href="checkout.html" class="cart-checkout-btn" id="cart-checkout-btn">
+          <a href="checkout.html" class="cart-checkout-btn" id="cart-checkout-btn" onclick="Cart.beginCheckout()">
             Proceed to Checkout &nbsp;→
           </a>
           <p class="cart-note">
@@ -270,12 +270,25 @@
     });
   }
 
+  function track(gaEvent, gaParams, fbEvent, fbParams) {
+    try { if (typeof gtag !== 'undefined') gtag('event', gaEvent, gaParams); } catch(e) {}
+    try { if (typeof fbq !== 'undefined' && fbEvent) fbq('track', fbEvent, fbParams); } catch(e) {}
+  }
+
   window.Cart = {
     open() {
       document.getElementById('cart-drawer')?.classList.add('open');
       document.getElementById('cart-overlay')?.classList.add('open');
       document.body.style.overflow = 'hidden';
       render();
+      const items = getItems();
+      if (items.length > 0) {
+        track('view_cart', {
+          currency: 'NZD',
+          value: items.reduce((s, i) => s + i.price, 0),
+          items: items.map(i => ({ item_id: i.id, item_name: i.name, item_category: i.type, price: i.price, quantity: 1 })),
+        });
+      }
     },
     close() {
       document.getElementById('cart-drawer')?.classList.remove('open');
@@ -288,12 +301,30 @@
       items.push(item);
       setItems(items);
       updateBadge();
+      track(
+        'add_to_cart',
+        { currency: 'NZD', value: item.price, items: [{ item_id: item.id, item_name: item.name, item_category: item.type, price: item.price, quantity: 1 }] },
+        'AddToCart',
+        { content_ids: [item.id], content_name: item.name, content_type: 'product', value: item.price, currency: 'NZD' }
+      );
       Cart.open();
     },
     remove(id) {
+      const item = getItems().find(i => i.id === id);
       setItems(getItems().filter(i => i.id !== id));
       updateBadge();
       render();
+      if (item) track('remove_from_cart', { currency: 'NZD', value: item.price, items: [{ item_id: item.id, item_name: item.name, price: item.price, quantity: 1 }] });
+    },
+    beginCheckout() {
+      const items = getItems();
+      const value = items.reduce((s, i) => s + i.price, 0);
+      track(
+        'begin_checkout',
+        { currency: 'NZD', value, items: items.map(i => ({ item_id: i.id, item_name: i.name, item_category: i.type, price: i.price, quantity: 1 })) },
+        'InitiateCheckout',
+        { content_ids: items.map(i => i.id), value, currency: 'NZD', num_items: items.length }
+      );
     },
     getItems,
     getTotal() { return getItems().reduce((s, i) => s + i.price, 0); },

@@ -1033,11 +1033,11 @@
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-    // Fire Meta Pixel ViewContent
-    if (typeof fbq !== 'undefined') {
-      const info2 = TABLE_PRICES[img];
-      fbq('track', 'ViewContent', { content_name: name, content_category: type, content_ids: [img], currency: 'NZD', value: info2 && !info2.sold ? info2.price : 0 });
-    }
+    // Fire tracking events on modal open
+    const info2 = TABLE_PRICES[img];
+    const itemValue = info2 && !info2.sold ? info2.price : 0;
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: name, content_category: type, content_ids: [img], currency: 'NZD', value: itemValue });
+    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: itemValue, items: [{ item_id: img, item_name: name, item_category: type, price: itemValue, quantity: 1 }] });
     // Mobile sticky bar
     if (window.innerWidth <= 900 && _modalItem) {
       document.getElementById('msb-name').textContent = name;
