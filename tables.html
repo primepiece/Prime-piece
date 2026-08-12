@@ -103,45 +103,55 @@
   /* SALE HERO STRIP */
   .sale-hero {
     position: relative;
-    background: #1a0800;
-    border-bottom: 1px solid rgba(201,169,110,0.3);
-    padding: 72px 56px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
     margin-top: 65px;
-    min-height: 420px;
+    height: 88vh;
+    min-height: 520px;
+    max-height: 780px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .sale-hero-bg {
     position: absolute;
     inset: 0;
     background-image: url('lounge-5.jpg');
     background-size: cover;
-    background-position: center 40%;
-    opacity: 0.65;
+    background-position: center 35%;
     z-index: 0;
   }
   .sale-hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(15,6,0,0.72) 0%, rgba(15,6,0,0.4) 55%, rgba(15,6,0,0.15) 100%);
-    z-index: 0;
+    background: rgba(10,5,0,0.48);
+    z-index: 1;
   }
-  .sale-hero-left, .sale-hero-right { position: relative; z-index: 1; }
-  .sale-hero-left {}
-  .sale-hero-eyebrow { font-size: 9px; letter-spacing: 0.36em; text-transform: uppercase; color: rgba(255,255,255,0.45); font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-  .sale-hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); opacity: 0.6; }
-  .sale-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 56px); font-weight: 300; color: #fff; line-height: 1; margin-bottom: 10px; }
-  .sale-hero h2 strong { color: var(--gold); font-weight: 400; }
-  .sale-hero-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 380px; margin-bottom: 20px; }
-  .sale-hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
-  .sale-badge { padding: 6px 14px; border: 1px solid rgba(201,169,110,0.35); border-radius: 99px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
-  .sale-hero-right { text-align: center; flex-shrink: 0; }
-  .sale-pct { font-family: 'Cormorant Garamond', serif; font-size: 96px; font-weight: 300; color: var(--gold); line-height: 1; letter-spacing: -0.04em; }
-  .sale-pct-label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 4px; }
+  .sale-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .sale-hero-eyebrow {
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); font-weight: 500; margin-bottom: 20px;
+  }
+  .sale-hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 300; font-style: italic;
+    color: #fff; line-height: 1.05;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .sale-hero h2 strong { color: var(--gold); font-weight: 300; font-style: normal; }
+  .sale-hero-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 420px; margin: 0 auto 28px; }
+  .sale-hero-badges { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .sale-badge { padding: 7px 16px; border: 1px solid rgba(201,169,110,0.45); border-radius: 99px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+  /* hide old right col — not used in new layout */
+  .sale-hero-right { display: none; }
+  .sale-pct, .sale-pct-label { display: none; }
   .sale-countdown-hero { display: flex; gap: 6px; align-items: flex-start; margin-top: 16px; justify-content: center; }
   .schu { text-align: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.2); border-radius: 4px; padding: 8px 12px; min-width: 52px; }
   .schu-num { display: block; font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: #fff; line-height: 1; }
@@ -390,8 +400,8 @@
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .sale-hero { padding: 28px 20px; flex-direction: column; gap: 20px; margin-top: 56px; }
-    .sale-hero h2 { font-size: clamp(28px, 7vw, 40px); }
+    .sale-hero { margin-top: 56px; height: 75vh; min-height: 420px; }
+    .sale-hero h2 { font-size: clamp(36px, 10vw, 56px); }
     .sale-pct { font-size: 64px; }
     .sale-countdown-hero { gap: 4px; }
     .schu { min-width: 44px; padding: 6px 8px; }
@@ -488,20 +498,15 @@
 <!-- SALE HERO -->
 <div class="sale-hero">
   <div class="sale-hero-bg"></div>
-  <div class="sale-hero-left">
-    <div class="sale-hero-eyebrow">Lounge Table Clearance</div>
-    <h2>25% off all<br><strong>lounge tables.</strong></h2>
-    <p class="sale-hero-desc">We're clearing our lounge table collection — all at 25% off. One-of-one pieces, hand-welded steel frames. Once they're gone, they're gone.</p>
+  <div class="sale-hero-content">
+    <div class="sale-hero-eyebrow">Prime Piece · Auckland</div>
+    <h2>Stone tables.<br><strong>25% off.</strong></h2>
+    <p class="sale-hero-desc">Five lounge tables. Single-slab stone. Hand-welded steel. All at 25% off — one of one, never repeated. Once they're gone, they're gone.</p>
     <div class="sale-hero-badges">
       <span class="sale-badge">25% off lounge tables</span>
       <span class="sale-badge">One of one</span>
       <span class="sale-badge">Free Auckland delivery</span>
     </div>
-  </div>
-  <div class="sale-hero-right">
-    <div class="sale-pct">25%</div>
-    <div class="sale-pct-label">Off lounge tables</div>
-    <div class="sale-ends-label" style="margin-top:16px;">Limited stock only</div>
   </div>
 </div>
 
