@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="logo.png">
+<title>Stone Furniture Sale — Up to 40% Off | Prime Piece Auckland</title>
+<meta name="description" content="Flash sale on one-of-one stone furniture. Marble coffee tables, stone plinths, serving boards. Handcrafted in Auckland. Up to 40% off while stock lasts.">
+<meta name="robots" content="noindex">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S14SLX5T16"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S14SLX5T16');</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="cart.js" defer></script>
+<style>
+:root {
+  --cream: #F5F1EA;
+  --cream-soft: #EBE5DA;
+  --ink: #2C2A26;
+  --ink-soft: #554F45;
+  --stone: #8A8275;
+  --sage: #7BA5A8;
+  --gold: #C9A96E;
+  --amber: #b8800a;
+  --line: rgba(44,42,38,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--ink); font-family: 'Inter Tight', sans-serif; font-weight: 300; line-height: 1.5; overflow-x: hidden; }
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar {
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.ann-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 1.6s ease-in-out infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)} }
+.ann-bar span { color: var(--gold); }
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(245,241,234,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400; letter-spacing: 0.3em; color: var(--sage); text-decoration: none; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-back { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); text-decoration: none; transition: color 0.2s; }
+.nav-back:hover { color: var(--ink); }
+
+/* ── HERO ── */
+.hero {
+  padding: 72px 48px 56px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--amber); font-weight: 600; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--amber); opacity: 0.5; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 300; font-style: italic;
+  color: var(--ink); line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.hero h1 em { color: var(--sage); font-style: italic; }
+.hero-sub {
+  font-size: 15px; color: var(--ink-soft); line-height: 1.8;
+  max-width: 480px; margin: 0 auto 40px;
+}
+
+/* ── COUNTDOWN ── */
+.countdown-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  padding: 20px 36px;
+  margin-bottom: 16px;
+}
+.countdown-label { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.countdown-units { display: flex; align-items: flex-start; gap: 4px; }
+.cu { text-align: center; min-width: 52px; }
+.cu-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 300; color: #fff; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cu-lbl { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 3px; display: block; }
+.cu-sep { font-size: 28px; color: var(--gold); opacity: 0.4; padding-top: 4px; line-height: 1; }
+.hero-note { font-size: 11px; color: var(--stone); letter-spacing: 0.08em; }
+
+/* ── SOCIAL PROOF ── */
+.proof-strip {
+  background: var(--cream-soft);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.proof-item { display: flex; align-items: center; gap: 10px; }
+.proof-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
+.proof-text { font-size: 12px; color: var(--ink-soft); }
+.proof-text strong { color: var(--ink); font-weight: 500; }
+.proof-divider { width: 1px; height: 28px; background: var(--line); }
+
+/* ── FILTERS ── */
+.filter-row {
+  padding: 28px 48px 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.filter-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-right: 4px; }
+.f-btn {
+  font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 8px 20px; cursor: pointer;
+  border: 1px solid var(--line); background: transparent; color: var(--stone);
+  transition: all 0.2s;
+}
+.f-btn:hover { border-color: var(--ink); color: var(--ink); }
+.f-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.item-count { margin-left: auto; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+
+/* ── GRID ── */
+.grid-wrap {
+  padding: 24px 48px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.sale-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+.sale-card {
+  background: var(--cream);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.sale-card:hover { background: #f0ece4; }
+.sale-card.hidden { display: none; }
+
+.sc-img-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--cream-soft);
+}
+.sc-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+.sale-card:hover .sc-img-wrap img { transform: scale(1.03); }
+
+.sc-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 4px 10px;
+}
+.sc-badge.sale { background: var(--amber); color: #fff; }
+.sc-badge.one { background: var(--ink); color: #fff; }
+.sc-badge.enquiry { background: var(--sage); color: #fff; }
+
+.sc-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.sc-category { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--sage); }
+.sc-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.1; }
+.sc-stone { font-size: 11px; color: var(--stone); }
+.sc-divider { width: 24px; height: 1px; background: var(--gold); margin: 6px 0; }
+.sc-pricing { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.sc-now { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: var(--ink); }
+.sc-was { font-size: 12px; color: var(--stone); text-decoration: line-through; }
+.sc-save { font-size: 10px; font-weight: 600; color: var(--amber); letter-spacing: 0.1em; }
+.sc-enquiry-price { font-size: 12px; color: var(--ink-soft); font-style: italic; }
+
+.sc-footer { padding: 0 20px 20px; display: flex; gap: 8px; }
+.sc-btn {
+  flex: 1;
+  padding: 12px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: pointer; border: none; transition: all 0.2s;
+  text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center;
+}
+.sc-btn.primary { background: var(--sage); color: #fff; }
+.sc-btn.primary:hover { background: #5D8588; }
+.sc-btn.secondary { background: transparent; border: 1px solid var(--line); color: var(--ink-soft); }
+.sc-btn.secondary:hover { border-color: var(--ink); color: var(--ink); }
+.sc-one-left {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--amber); font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 20px 16px;
+}
+.sc-one-left::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+/* ── REVIEWS ── */
+.reviews-section {
+  background: var(--cream-soft);
+  border-top: 1px solid var(--line);
+  padding: 64px 48px;
+}
+.reviews-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 300; font-style: italic;
+  text-align: center; color: var(--ink);
+  margin-bottom: 40px;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.review-card {
+  background: var(--cream);
+  padding: 28px;
+  border: 1px solid var(--line);
+}
+.rv-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 12px; }
+.rv-text { font-size: 13px; color: var(--ink-soft); line-height: 1.75; font-style: italic; margin-bottom: 14px; }
+.rv-name { font-size: 11px; font-weight: 500; color: var(--ink); letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* ── STICKY MOBILE BAR ── */
+.sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  padding: 14px 20px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 200;
+  box-shadow: 0 -4px 24px rgba(44,42,38,0.2);
+}
+.sticky-cta-text { color: rgba(255,255,255,0.7); font-size: 12px; }
+.sticky-cta-text strong { color: #fff; font-weight: 500; }
+.sticky-cta-btn {
+  background: var(--sage);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+}
+
+/* ── FOOTER ── */
+.sale-footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+}
+.sale-footer a { color: var(--gold); text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .hero { padding: 48px 20px 40px; }
+  .proof-strip { padding: 16px 20px; gap: 20px; }
+  .proof-divider { display: none; }
+  .filter-row { padding: 20px 20px 0; }
+  .grid-wrap { padding: 16px 0 80px; }
+  .sale-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .sc-body { padding: 12px; }
+  .sc-footer { padding: 0 12px 12px; }
+  .sc-one-left { padding: 0 12px 10px; }
+  .sc-name { font-size: 17px; }
+  .sc-now { font-size: 20px; }
+  .reviews-section { padding: 40px 20px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .sticky-cta { display: flex; }
+}
+@media (max-width: 480px) {
+  .sale-grid { grid-template-columns: 1fr; }
+  .countdown-wrap { padding: 16px 24px; }
+  .cu-num { font-size: 28px; }
+  .cu { min-width: 42px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANN BAR -->
+<div class="ann-bar">
+  <div class="ann-dot"></div>
+  <span>Flash Sale — Up to 40% off</span>
+  ·
+  One-of-one · Once sold, gone forever
+  ·
+  <span>Free Auckland delivery</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">PRIME PIECE</a>
+  <div class="nav-right">
+    <a class="nav-back" href="index.html">← Back to site</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Flash Sale — Limited Time</div>
+  <h1>One-of-one stone.<br><em>Up to 40% off.</em></h1>
+  <p class="hero-sub">Every piece handcrafted in Auckland from natural stone. None will ever be made again. When they're gone, they're gone.</p>
+
+  <div class="countdown-wrap">
+    <div class="countdown-label">Sale ends in</div>
+    <div class="countdown-units">
+      <div class="cu"><span class="cu-num" id="cd-d">00</span><span class="cu-lbl">Days</span></div>
+      <span class="cu-sep">:</span>
+      <div class="cu"><span class="cu-num" id="cd-h">00</span><span class="cu-lbl">Hours</span></div>
+      <span class="cu-sep">:</span>
+      <div class="cu"><span class="cu-num" id="cd-m">00</span><span class="cu-lbl">Mins</span></div>
+      <span class="cu-sep">:</span>
+      <div class="cu"><span class="cu-num" id="cd-s">00</span><span class="cu-lbl">Secs</span></div>
+    </div>
+  </div>
+  <p class="hero-note">★★★★★ Rated 5.0 · 19 verified Google reviews</p>
+</div>
+
+<!-- SOCIAL PROOF -->
+<div class="proof-strip">
+  <div class="proof-item">
+    <span class="proof-stars">★★★★★</span>
+    <span class="proof-text"><strong>19 Five-Star</strong> Google Reviews</span>
+  </div>
+  <div class="proof-divider"></div>
+  <div class="proof-item">
+    <span class="proof-text">🇳🇿 <strong>Handcrafted in Auckland</strong></span>
+  </div>
+  <div class="proof-divider"></div>
+  <div class="proof-item">
+    <span class="proof-text">📦 <strong>Free delivery</strong> Auckland-wide</span>
+  </div>
+  <div class="proof-divider"></div>
+  <div class="proof-item">
+    <span class="proof-text">🪨 <strong>Natural stone</strong> — never repeated</span>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filter-row">
+  <span class="filter-label">Filter:</span>
+  <button class="f-btn active" onclick="filterSale('all',this)">All pieces</button>
+  <button class="f-btn" onclick="filterSale('table',this)">Tables</button>
+  <button class="f-btn" onclick="filterSale('plinth',this)">Plinths</button>
+  <button class="f-btn" onclick="filterSale('board',this)">Boards</button>
+  <button class="f-btn" onclick="filterSale('basin',this)">Basins</button>
+  <span class="item-count" id="item-count"></span>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+  <div class="sale-grid" id="sale-grid">
+
+    <!-- ═══ LOUNGE TABLES ═══ -->
+    <div class="sale-card" data-cat="table" data-name="Jade Horizon" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="lounge-1.jpg" alt="Jade Horizon — Mystique Green Marble lounge table" loading="lazy">
+        <span class="sc-badge sale">25% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">Jade Horizon</div>
+        <div class="sc-stone">Mystique Green Marble · 1200 × 600mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $2,999</span>
+          <span class="sc-was">$3,599</span>
+          <span class="sc-save">Save $600</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-jade-horizon',name:'Jade Horizon',type:'Lounge Table',image:'lounge-1.jpg',price:2999})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="Obsidian Storm" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="lounge-2.jpg" alt="Obsidian Storm lounge table" loading="lazy">
+        <span class="sc-badge sale">25% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">Obsidian Storm</div>
+        <div class="sc-stone">Titanium Black Granite · 1200 × 600mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $2,549</span>
+          <span class="sc-was">$3,399</span>
+          <span class="sc-save">Save $850</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-obsidian-storm',name:'Obsidian Storm',type:'Lounge Table',image:'lounge-2.jpg',price:2549})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="Sage Plateau" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="lounge-3.jpg" alt="Sage Plateau lounge table" loading="lazy">
+        <span class="sc-badge sale">23% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">Sage Plateau</div>
+        <div class="sc-stone">Mystique Green Marble · 1200 × 600mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $1,999</span>
+          <span class="sc-was">$2,599</span>
+          <span class="sc-save">Save $600</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-sage-plateau',name:'Sage Plateau',type:'Lounge Table',image:'lounge-3.jpg',price:1999})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="Desert Crown" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="lounge-4.jpg" alt="Desert Crown lounge table" loading="lazy">
+        <span class="sc-badge sale">31% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">Desert Crown</div>
+        <div class="sc-stone">Taj Mahal Quartzite · 1200 × 600mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $2,499</span>
+          <span class="sc-was">$3,599</span>
+          <span class="sc-save">Save $1,100</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-desert-crown',name:'Desert Crown',type:'Lounge Table',image:'lounge-4.jpg',price:2499})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="Midnight Gold" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="lounge-5.jpg" alt="Midnight Gold lounge table" loading="lazy">
+        <span class="sc-badge sale">29% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">Midnight Gold</div>
+        <div class="sc-stone">Gold &amp; Black Titanium Granite · 1200 × 600mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $2,700</span>
+          <span class="sc-was">$3,799</span>
+          <span class="sc-save">Save $1,099</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-black-gold',name:'Midnight Gold',type:'Lounge Table',image:'lounge-5.jpg',price:2700})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="White Haven" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="lounge-8.jpg" alt="White Haven lounge table" loading="lazy">
+        <span class="sc-badge sale">25% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">White Haven</div>
+        <div class="sc-stone">Carrara Marble · Round</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $1,499</span>
+          <span class="sc-was">$1,999</span>
+          <span class="sc-save">Save $500</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-white-haven-lounge',name:'White Haven',type:'Lounge Table',image:'lounge-8.jpg',price:1499})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <!-- ═══ COFFEE TABLES (sale priced) ═══ -->
+    <div class="sale-card" data-cat="table" data-name="Gold Rush" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="gold-rush-table.jpg" alt="Gold Rush coffee table" loading="lazy">
+        <span class="sc-badge sale">40% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Coffee Table</div>
+        <div class="sc-name">Gold Rush</div>
+        <div class="sc-stone">Black Forest Gold Marble · 500 × 450mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $300</span>
+          <span class="sc-was">$499</span>
+          <span class="sc-save">Save $199</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-gold-rush',name:'Gold Rush',type:'Coffee Table',image:'gold-rush-table.jpg',price:300})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="Dark Current" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="dark-current-table.jpg" alt="Dark Current coffee table" loading="lazy">
+        <span class="sc-badge sale">41% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Coffee Table</div>
+        <div class="sc-name">Dark Current</div>
+        <div class="sc-stone">Laurent Black Marble · 500 × 450mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $295</span>
+          <span class="sc-was">$499</span>
+          <span class="sc-save">Save $204</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-dark-current',name:'Dark Current',type:'Coffee Table',image:'dark-current-table.jpg',price:295})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="table" data-name="Lunar River" onclick="goTo('tables.html')">
+      <div class="sc-img-wrap">
+        <img src="side-3.jpg" alt="Lunar River side table" loading="lazy">
+        <span class="sc-badge sale">20% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Side Table</div>
+        <div class="sc-name">Lunar River</div>
+        <div class="sc-stone">Lunar River Marble · 550 × 600 × 550mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $1,500</span>
+          <span class="sc-was">$1,875</span>
+          <span class="sc-save">Save $375</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Side Table',image:'side-3.jpg',price:1500})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="tables.html">Details</a>
+      </div>
+    </div>
+
+    <!-- ═══ PLINTHS ═══ -->
+    <div class="sale-card" data-cat="plinth" data-name="Grey Porcelain Side Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-side-grey.jpg" alt="Grey Porcelain Side Plinth" loading="lazy" onerror="this.src='plinth-6.jpg'">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Side Plinth</div>
+        <div class="sc-name">Grey Porcelain</div>
+        <div class="sc-stone">Grey Porcelain · Side plinth</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $700</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-grey-porcelain-side',name:'Grey Porcelain Side Plinth',type:'Plinth',image:'plinth-6.jpg',price:700})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="plinth" data-name="Rosso Levanto Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-4.jpg" alt="Rosso Levanto Marble Plinth" loading="lazy">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Plinth</div>
+        <div class="sc-name">Rosso Levanto</div>
+        <div class="sc-stone">Rosso Levanto Marble</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $1,400</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-rosso-levanto-plinth',name:'Rosso Levanto Marble',type:'Plinth',image:'plinth-4.jpg',price:1400})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="plinth" data-name="Indian Green Marble Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-indian-green-2.jpg.png" alt="Indian Green Marble Plinth" loading="lazy" onerror="this.src='plinth-2.jpg'">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Plinth</div>
+        <div class="sc-name">Indian Green</div>
+        <div class="sc-stone">Indian Green Marble</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $1,499</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-indian-green-2',name:'Indian Green Marble Plinth',type:'Plinth',image:'plinth-2.jpg',price:1499})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="plinth" data-name="Dekton Sirius Side Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-6.jpg" alt="Dekton Sirius Side Plinth" loading="lazy">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Side Plinth</div>
+        <div class="sc-name">Dekton Sirius</div>
+        <div class="sc-stone">Dekton Sirius</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $1,500</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-dekton-sirius-side',name:'Dekton Sirius',type:'Side Plinth',image:'plinth-6.jpg',price:1500})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="plinth" data-name="Florim Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-5.jpg" alt="Florim Plinth" loading="lazy">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Plinth</div>
+        <div class="sc-name">Florim</div>
+        <div class="sc-stone">Florim</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $3,200</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-florim',name:'Florim',type:'Plinth',image:'plinth-5.jpg',price:3200})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="plinth" data-name="Navarro Marble Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-14.jpg" alt="Navarro Marble Plinth" loading="lazy">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Plinth</div>
+        <div class="sc-name">Navarro</div>
+        <div class="sc-stone">Navarro Marble</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $3,499</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-navarro',name:'Navarro Marble',type:'Plinth',image:'plinth-14.jpg',price:3499})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="plinth" data-name="Rosso Africano Plinth" onclick="goTo('plinths.html')">
+      <div class="sc-img-wrap">
+        <img src="plinth-3.jpg" alt="Rosso Africano Marble Plinth" loading="lazy">
+        <span class="sc-badge one">One of one</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Plinth</div>
+        <div class="sc-name">Rosso Africano</div>
+        <div class="sc-stone">Rosso Africano Marble</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $3,800</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-rosso-africano-plinth',name:'Rosso Africano Marble',type:'Plinth',image:'plinth-3.jpg',price:3800})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="plinths.html">Details</a>
+      </div>
+    </div>
+
+    <!-- ═══ BOARDS ═══ -->
+    <div class="sale-card" data-cat="board" data-name="Teal Tide Board" onclick="goTo('boards.html')">
+      <div class="sc-img-wrap">
+        <img src="board-teal-tide.png" alt="Teal Tide serving board" loading="lazy">
+        <span class="sc-badge sale">From $99</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Serving Board</div>
+        <div class="sc-name">Teal Tide</div>
+        <div class="sc-stone">Mystique Green · Natural stone</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $99</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'board-teal-tide',name:'Teal Tide',type:'Serving Board',image:'board-teal-tide.png',price:99})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="boards.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="board" data-name="White Haven Board" onclick="goTo('boards.html')">
+      <div class="sc-img-wrap">
+        <img src="board-white-haven.png" alt="White Haven serving board" loading="lazy">
+        <span class="sc-badge sale">From $99</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Serving Board</div>
+        <div class="sc-name">White Haven</div>
+        <div class="sc-stone">Carrara Marble · Natural stone</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $99</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'board-white-haven',name:'White Haven',type:'Serving Board',image:'board-white-haven.png',price:99})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="boards.html">Details</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="board" data-name="Emerald Vein Board" onclick="goTo('boards.html')">
+      <div class="sc-img-wrap">
+        <img src="board-emerald-vein.png" alt="Emerald Vein serving board" loading="lazy">
+        <span class="sc-badge sale">From $99</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Serving Board</div>
+        <div class="sc-name">Emerald Vein</div>
+        <div class="sc-stone">Green Marble · Natural stone</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $99</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'board-emerald-vein',name:'Emerald Vein',type:'Serving Board',image:'board-emerald-vein.png',price:99})">Add to Cart →</button>
+        <a class="sc-btn secondary" href="boards.html">Details</a>
+      </div>
+    </div>
+
+    <!-- ═══ BASINS ═══ -->
+    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" onclick="goTo('basins.html')">
+      <div class="sc-img-wrap">
+        <img src="white-carrara-vessel.jpg" alt="White Carrara stone basin" loading="lazy">
+        <span class="sc-badge enquiry">Enquire</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Stone Basin</div>
+        <div class="sc-name">White Carrara</div>
+        <div class="sc-stone">Carrara Marble · Vessel basin</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-enquiry-price">Price on enquiry — from $850</span>
+        </div>
+      </div>
+      <div class="sc-footer">
+        <a class="sc-btn primary" href="basins.html">Enquire Now →</a>
+      </div>
+    </div>
+
+    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" onclick="goTo('basins.html')">
+      <div class="sc-img-wrap">
+        <img src="basin-nero-marquina.jpg" alt="Nero Marquina stone basin" loading="lazy" onerror="this.src='basin-dark-green.jpg'">
+        <span class="sc-badge enquiry">Enquire</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Stone Basin</div>
+        <div class="sc-name">Nero Marquina</div>
+        <div class="sc-stone">Nero Marquina Marble · Vessel basin</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-enquiry-price">Price on enquiry — from $850</span>
+        </div>
+      </div>
+      <div class="sc-footer">
+        <a class="sc-btn primary" href="basins.html">Enquire Now →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="reviews-section">
+  <h2>What customers say</h2>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"Absolutely stunning piece. The quality is exceptional and it arrived perfectly packaged. It's become the centrepiece of our living room — everyone comments on it."</p>
+      <div class="rv-name">Sarah M. — Auckland</div>
+    </div>
+    <div class="review-card">
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"James was incredibly helpful throughout the whole process. The table is exactly as described — one of a kind and genuinely beautiful. Worth every cent."</p>
+      <div class="rv-name">Tom K. — Ponsonby</div>
+    </div>
+    <div class="review-card">
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-text">"I bought a serving board and a plinth. Both are incredible quality. The stone is so much better in person than in photos. Fast delivery too. Highly recommend."</p>
+      <div class="rv-name">Emma R. — Grey Lynn</div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE STICKY CTA -->
+<div class="sticky-cta">
+  <div class="sticky-cta-text"><strong>Flash sale — up to 40% off.</strong> Ends Sunday.</div>
+  <a class="sticky-cta-btn" href="#sale-grid">Shop now →</a>
+</div>
+
+<!-- FOOTER -->
+<div class="sale-footer">
+  <a href="index.html">primepiece.co.nz</a> · Handcrafted in Auckland, New Zealand · Free delivery Auckland-wide
+</div>
+
+<script>
+// Countdown to next Sunday midnight
+function getNextSunday() {
+  const now = new Date();
+  const d = new Date(now);
+  d.setDate(d.getDate() + (7 - d.getDay()) % 7 || 7);
+  d.setHours(23, 59, 59, 0);
+  return d;
+}
+const end = getNextSunday();
+function tick() {
+  const diff = end - new Date();
+  if (diff <= 0) return;
+  const days = Math.floor(diff / 86400000);
+  const hrs  = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-d').textContent = String(days).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(hrs).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(mins).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(secs).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+// Filter
+function filterSale(cat, btn) {
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.sale-card');
+  let visible = 0;
+  cards.forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  document.getElementById('item-count').textContent = visible + ' pieces';
+}
+// Init count
+document.getElementById('item-count').textContent = document.querySelectorAll('.sale-card').length + ' pieces';
+
+function goTo(url) { window.location.href = url; }
+
+// GA4 page view
+if (typeof gtag !== 'undefined') {
+  gtag('event', 'view_item_list', { item_list_name: 'Flash Sale Page' });
+}
+if (typeof fbq !== 'undefined') {
+  fbq('track', 'ViewContent', { content_name: 'Flash Sale Page' });
+}
+</script>
+</body>
+</html>
