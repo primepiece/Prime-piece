@@ -120,7 +120,14 @@
     background-image: url('lounge-5.jpg');
     background-size: cover;
     background-position: center 40%;
-    opacity: 0.35;
+    opacity: 0.65;
+    z-index: 0;
+  }
+  .sale-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(15,6,0,0.72) 0%, rgba(15,6,0,0.4) 55%, rgba(15,6,0,0.15) 100%);
     z-index: 0;
   }
   .sale-hero-left, .sale-hero-right { position: relative; z-index: 1; }
