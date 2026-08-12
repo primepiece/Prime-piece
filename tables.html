@@ -1089,6 +1089,8 @@
     document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
     const msb = document.getElementById('msb-btn');
     if (msb) msb.textContent = 'In Cart ✓';
+    if (typeof gtag !== 'undefined') gtag('event', 'add_to_cart', { currency: 'NZD', value: _modalItem.price, items: [{ item_id: _modalItem.id, item_name: _modalItem.name, item_category: _modalItem.type, price: _modalItem.price, quantity: 1 }] });
+    if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', { content_name: _modalItem.name, content_ids: [_modalItem.id], currency: 'NZD', value: _modalItem.price });
   }
 
   function closeModal() {
@@ -1102,6 +1104,31 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Scroll depth tracking
+  (function() {
+    const depths = [25, 50, 75, 90];
+    const fired = new Set();
+    window.addEventListener('scroll', function() {
+      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      depths.forEach(d => {
+        if (pct >= d && !fired.has(d)) {
+          fired.add(d);
+          if (typeof gtag !== 'undefined') gtag('event', 'scroll_depth', { depth: d, page: 'tables' });
+        }
+      });
+    }, { passive: true });
+    // Time on page engagement
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_30s', { page: 'tables' }); }, 30000);
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_90s', { page: 'tables' }); }, 90000);
+    // Card click tracking (before modal opens)
+    document.querySelectorAll('.table-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const name = this.querySelector('.table-name');
+        if (name && typeof gtag !== 'undefined') gtag('event', 'select_item', { item_name: name.textContent, page: 'tables' });
+      });
+    });
+  })();
 
   // Bedside hero gallery
   let _bhIdx = 0;

@@ -907,13 +907,17 @@
 
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (typeof fbq !== 'undefined') { const bi = BOARD_PRICES[img]; fbq('track', 'ViewContent', { content_name: name, content_category: 'Serving Board', content_ids: [img], currency: 'NZD', value: bi && !bi.sold ? bi.price : 0 }); }
+    const itemValue = info && !info.sold ? info.price : 0;
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: name, content_category: 'Serving Board', content_ids: [img], currency: 'NZD', value: itemValue });
+    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: itemValue, items: [{ item_id: img, item_name: name, item_category: 'Serving Board', price: itemValue, quantity: 1 }] });
   }
 
   function addModalToCart() {
     if (!_modalItem) return;
     Cart.add(_modalItem);
     document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
+    if (typeof gtag !== 'undefined') gtag('event', 'add_to_cart', { currency: 'NZD', value: _modalItem.price, items: [{ item_id: _modalItem.id, item_name: _modalItem.name, item_category: 'Serving Board', price: _modalItem.price, quantity: 1 }] });
+    if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', { content_name: _modalItem.name, content_ids: [_modalItem.id], currency: 'NZD', value: _modalItem.price });
   }
 
   function closeModal() {
@@ -926,6 +930,17 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Scroll depth + engagement tracking
+  (function() {
+    const depths = [25, 50, 75, 90]; const fired = new Set();
+    window.addEventListener('scroll', function() {
+      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      depths.forEach(d => { if (pct >= d && !fired.has(d)) { fired.add(d); if (typeof gtag !== 'undefined') gtag('event', 'scroll_depth', { depth: d, page: 'boards' }); } });
+    }, { passive: true });
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_30s', { page: 'boards' }); }, 30000);
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_90s', { page: 'boards' }); }, 90000);
+  })();
 
   // Wire sticky bar
   const _stickyBar = document.getElementById('modal-sticky-bar');

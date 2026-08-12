@@ -775,6 +775,8 @@
       document.getElementById('msb-btn').onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
       bar.style.display = 'flex';
     }
+    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: 850, items: [{ item_id: id, item_name: b.name, item_category: 'Basin', price: 850, quantity: 1 }] });
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: b.name, content_category: 'Basin', currency: 'NZD', value: 850 });
   }
   function closeBasinModal(e) { if (e.target === document.getElementById('basin-modal')) closeBasinModalBtn(); }
   function closeBasinModalBtn() {
@@ -791,6 +793,7 @@
     document.getElementById('enq-success').style.display = 'none';
     document.getElementById('enq-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout', { currency: 'NZD', items: [{ item_name: product || 'Natural Stone Basin', item_category: 'Basin' }] });
   }
   function closeEnquiry() { document.getElementById('enq-overlay').classList.remove('open'); document.body.style.overflow = ''; }
   function closeEnquiryOutside(e) { if (e.target === document.getElementById('enq-overlay')) closeEnquiry(); }
@@ -813,6 +816,17 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeBasinModalBtn(); closeEnquiry(); } });
+
+  // Scroll depth + engagement tracking
+  (function() {
+    const depths = [25, 50, 75, 90]; const fired = new Set();
+    window.addEventListener('scroll', function() {
+      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      depths.forEach(d => { if (pct >= d && !fired.has(d)) { fired.add(d); if (typeof gtag !== 'undefined') gtag('event', 'scroll_depth', { depth: d, page: 'basins' }); } });
+    }, { passive: true });
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_30s', { page: 'basins' }); }, 30000);
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_90s', { page: 'basins' }); }, 90000);
+  })();
 </script>
 </body>
 </html>

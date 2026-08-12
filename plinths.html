@@ -882,13 +882,17 @@
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: name, content_category: type, content_ids: [id], currency: 'NZD', value: enquireOnly ? 0 : price });
+    const itemValue = enquireOnly ? 0 : price;
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: name, content_category: type, content_ids: [id], currency: 'NZD', value: itemValue });
+    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: itemValue, items: [{ item_id: id, item_name: name, item_category: type, price: itemValue, quantity: 1 }] });
   }
 
   function addModalToCart() {
     if (!_modalItem) return;
     Cart.add(_modalItem);
     document.getElementById('modal-add-cart').textContent = 'In Cart ✓';
+    if (typeof gtag !== 'undefined') gtag('event', 'add_to_cart', { currency: 'NZD', value: _modalItem.price, items: [{ item_id: _modalItem.id, item_name: _modalItem.name, item_category: _modalItem.type, price: _modalItem.price, quantity: 1 }] });
+    if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', { content_name: _modalItem.name, content_ids: [_modalItem.id], currency: 'NZD', value: _modalItem.price });
   }
 
   function closeModal() {
@@ -901,6 +905,17 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Scroll depth + engagement tracking
+  (function() {
+    const depths = [25, 50, 75, 90]; const fired = new Set();
+    window.addEventListener('scroll', function() {
+      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      depths.forEach(d => { if (pct >= d && !fired.has(d)) { fired.add(d); if (typeof gtag !== 'undefined') gtag('event', 'scroll_depth', { depth: d, page: 'plinths' }); } });
+    }, { passive: true });
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_30s', { page: 'plinths' }); }, 30000);
+    setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_90s', { page: 'plinths' }); }, 90000);
+  })();
 </script>
 
 <!-- Mobile sticky Add to Cart bar -->
