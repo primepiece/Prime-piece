@@ -102,15 +102,28 @@
 
   /* SALE HERO STRIP */
   .sale-hero {
-    background: linear-gradient(135deg, #1a0a00 0%, #2d1200 50%, #1a0800 100%);
+    position: relative;
+    background: #1a0800;
     border-bottom: 1px solid rgba(201,169,110,0.3);
-    padding: 48px 56px;
+    padding: 72px 56px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 40px;
     margin-top: 65px;
+    min-height: 420px;
+    overflow: hidden;
   }
+  .sale-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('lounge-5.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    opacity: 0.35;
+    z-index: 0;
+  }
+  .sale-hero-left, .sale-hero-right { position: relative; z-index: 1; }
   .sale-hero-left {}
   .sale-hero-eyebrow { font-size: 9px; letter-spacing: 0.36em; text-transform: uppercase; color: rgba(255,255,255,0.45); font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
   .sale-hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); opacity: 0.6; }
@@ -129,7 +142,7 @@
   .schu-sep { font-size: 20px; color: var(--gold); opacity: 0.4; padding-top: 8px; }
   .sale-ends-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
 
-  .page-hero { padding: 72px 56px 60px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .page-hero { padding: 36px 56px 32px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
   .hero-left { max-width: 560px; }
   .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
   .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sage); }
@@ -467,6 +480,7 @@
 
 <!-- SALE HERO -->
 <div class="sale-hero">
+  <div class="sale-hero-bg"></div>
   <div class="sale-hero-left">
     <div class="sale-hero-eyebrow">Lounge Table Clearance</div>
     <h2>25% off all<br><strong>lounge tables.</strong></h2>
