@@ -233,6 +233,8 @@
     font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px;
   }
   .enquire-btn:hover { background: var(--sage); color: white; }
+  .pp-add-btn { background: var(--sage); color: white; border-color: var(--sage); }
+  .pp-add-btn:hover { background: var(--sage-deep); border-color: var(--sage-deep); }
 
   /* MODAL */
   .modal-overlay {
@@ -311,6 +313,14 @@
     font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none;
   }
   .modal-btn-primary:hover { background: var(--sage-deep); }
+
+  /* Mobile sticky cart bar */
+  .modal-sticky-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 400; background: var(--cream); border-top: 1px solid var(--line); padding: 12px 16px; gap: 10px; align-items: center; box-shadow: 0 -4px 20px rgba(44,42,38,0.12); }
+  .msb-name { flex: 1; }
+  .msb-name strong { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; display: block; line-height: 1.1; }
+  .msb-name span { font-size: 11px; color: var(--stone); }
+  .msb-btn { background: var(--sage); color: white; border: none; border-radius: 1px; padding: 14px 20px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  @media (max-width: 768px) { .modal-sticky-bar { display: flex; } }
 
   .modal-btn-ghost {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -891,6 +901,33 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+<!-- Mobile sticky Add to Cart bar -->
+<div id="modal-sticky-bar" class="modal-sticky-bar" style="display:none;">
+  <div class="msb-name">
+    <strong id="msb-name"></strong>
+    <span id="msb-price"></span>
+  </div>
+  <button class="msb-btn" id="msb-btn" onclick="addModalToCart()">Add to Cart →</button>
+</div>
+<script>
+  (function() {
+    const bar = document.getElementById('modal-sticky-bar');
+    const _open = openModal;
+    window.openModal = function(name, stone, img, dims, type, price, id, enquireOnly) {
+      _open(name, stone, img, dims, type, price, id, enquireOnly);
+      if (bar && !enquireOnly) {
+        document.getElementById('msb-name').textContent = name;
+        document.getElementById('msb-price').textContent = `NZD $${price.toLocaleString('en-NZ')}`;
+        bar.style.display = 'flex';
+      } else if (bar) {
+        bar.style.display = 'none';
+      }
+    };
+    const _close = closeModal;
+    window.closeModal = function() { _close(); if (bar) bar.style.display = 'none'; };
+  })();
 </script>
 <script src="cart.js"></script>
 <!-- Enquire Modal -->
