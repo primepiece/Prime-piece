@@ -326,6 +326,48 @@ nav {
   .cu-num { font-size: 28px; }
   .cu { min-width: 42px; }
 }
+
+/* ── PRODUCT MODAL ── */
+.pm-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(13,12,10,0.72); backdrop-filter: blur(6px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+.pm-overlay.open { display: flex; }
+.pm-modal {
+  background: var(--cream); max-width: 780px; width: 100%;
+  max-height: 90vh; overflow-y: auto; border-radius: 2px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.28);
+}
+@media(max-width:600px){ .pm-modal { grid-template-columns: 1fr; } }
+.pm-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+.pm-body { padding: 36px 32px 32px; display: flex; flex-direction: column; gap: 0; }
+.pm-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; font-size: 22px; cursor: pointer;
+  color: var(--ink); opacity: 0.5; line-height: 1;
+}
+.pm-close:hover { opacity: 1; }
+.pm-wrap { position: relative; }
+.pm-cat { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.pm-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.1; margin-bottom: 8px; }
+.pm-stone { font-size: 12px; letter-spacing: 0.1em; color: var(--ink); opacity: 0.5; margin-bottom: 24px; }
+.pm-divider { width: 28px; height: 1px; background: var(--amber); margin-bottom: 20px; opacity: 0.6; }
+.pm-pricing { margin-bottom: 6px; }
+.pm-now { font-size: 26px; font-weight: 400; color: var(--ink); display: block; margin-bottom: 4px; }
+.pm-was-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.pm-was { font-size: 13px; color: var(--ink); opacity: 0.4; text-decoration: line-through; }
+.pm-save { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+.pm-avail { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); opacity: 0.4; margin-bottom: 20px; }
+.pm-add {
+  width: 100%; padding: 14px 20px; background: var(--ink); color: var(--cream);
+  border: none; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  cursor: pointer; font-weight: 500; transition: opacity 0.15s;
+}
+.pm-add:hover { opacity: 0.82; }
+.pm-added { background: #2a6b42 !important; }
+
 </style>
 </head>
 <body>
@@ -333,7 +375,7 @@ nav {
 <!-- ANN BAR -->
 <div class="ann-bar">
   <div class="ann-dot"></div>
-  <span>Flash Sale — Up to 25% off</span>
+  <span>Final Collection — 40% off</span>
   ·
   One-of-one · Once sold, gone forever
   ·
@@ -405,10 +447,10 @@ nav {
   <div class="sale-grid" id="sale-grid">
 
     <!-- ═══ LOUNGE TABLES ═══ -->
-    <div class="sale-card" data-cat="table" data-name="Jade Horizon" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Jade Horizon" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-1.jpg" alt="Jade Horizon — Mystique Green Marble lounge table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -424,14 +466,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-jade-horizon',name:'Jade Horizon',type:'Lounge Table',image:'lounge-1.jpg',price:2999})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Obsidian Storm" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Obsidian Storm" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-2.jpg" alt="Obsidian Storm lounge table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -447,14 +489,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-obsidian-storm',name:'Obsidian Storm',type:'Lounge Table',image:'lounge-2.jpg',price:2549})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Sage Plateau" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Sage Plateau" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-3.jpg" alt="Sage Plateau lounge table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -470,14 +512,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-sage-plateau',name:'Sage Plateau',type:'Lounge Table',image:'lounge-3.jpg',price:1999})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Desert Crown" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Desert Crown" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-4.jpg" alt="Desert Crown lounge table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -493,14 +535,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-desert-crown',name:'Desert Crown',type:'Lounge Table',image:'lounge-4.jpg',price:2499})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Midnight Gold" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Midnight Gold" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-5.jpg" alt="Midnight Gold lounge table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -516,14 +558,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-black-gold',name:'Midnight Gold',type:'Lounge Table',image:'lounge-5.jpg',price:2700})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="White Haven" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="White Haven" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-8.jpg" alt="White Haven lounge table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -539,15 +581,15 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-white-haven-lounge',name:'White Haven',type:'Lounge Table',image:'lounge-8.jpg',price:1499})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
     <!-- ═══ COFFEE TABLES (sale priced) ═══ -->
-    <div class="sale-card" data-cat="table" data-name="Gold Rush" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Gold Rush" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="gold-rush-table.jpg" alt="Gold Rush coffee table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Coffee Table</div>
@@ -563,14 +605,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-gold-rush',name:'Gold Rush',type:'Coffee Table',image:'gold-rush-table.jpg',price:300})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Serpentine Storm" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Serpentine Storm" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="serpentine-storm-table.jpg" alt="Serpentine Storm coffee table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Coffee Table</div>
@@ -586,14 +628,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-serpentine-storm',name:'Serpentine Storm',type:'Coffee Table',image:'serpentine-storm-table.jpg',price:275})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Dark Current" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Dark Current" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="dark-current-table.jpg" alt="Dark Current coffee table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Coffee Table</div>
@@ -609,14 +651,14 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-dark-current',name:'Dark Current',type:'Coffee Table',image:'dark-current-table.jpg',price:295})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Lunar River" onclick="goTo('tables.html')">
+    <div class="sale-card" data-cat="table" data-name="Lunar River" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="side-3.jpg" alt="Lunar River side table" loading="lazy">
-        <span class="sc-badge sale">25% off</span>
+        <span class="sc-badge sale">40% off</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Side Table</div>
@@ -632,12 +674,12 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Side Table',image:'side-3.jpg',price:1500})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="tables.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
     <!-- ═══ PLINTHS ═══ -->
-    <div class="sale-card" data-cat="plinth" data-name="Grey Porcelain Side Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Grey Porcelain Side Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-6.jpg" alt="Grey Porcelain Side Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -654,11 +696,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-grey-porcelain-side',name:'Grey Porcelain Side Plinth',type:'Plinth',image:'plinth-6.jpg',price:700})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Rosso Levanto Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Rosso Levanto Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-4.jpg" alt="Rosso Levanto Marble Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -675,11 +717,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-rosso-levanto-plinth',name:'Rosso Levanto Marble',type:'Plinth',image:'plinth-4.jpg',price:1400})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Indian Green Marble Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Indian Green Marble Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-indian-green-2.jpg.png" alt="Indian Green Marble Plinth" loading="lazy" onerror="this.src='plinth-2.jpg'">
         <span class="sc-badge one">One of one</span>
@@ -696,11 +738,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-indian-green-2',name:'Indian Green Marble Plinth',type:'Plinth',image:'plinth-2.jpg',price:1499})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Dekton Sirius Side Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Dekton Sirius Side Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-6.jpg" alt="Dekton Sirius Side Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -717,11 +759,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-dekton-sirius-side',name:'Dekton Sirius',type:'Side Plinth',image:'plinth-6.jpg',price:1500})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Florim Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Florim Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-5.jpg" alt="Florim Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -738,11 +780,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-florim',name:'Florim',type:'Plinth',image:'plinth-5.jpg',price:3200})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Navarro Marble Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Navarro Marble Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-14.jpg" alt="Navarro Marble Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -759,11 +801,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-navarro',name:'Navarro Marble',type:'Plinth',image:'plinth-14.jpg',price:3499})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Rosso Africano Plinth" onclick="goTo('plinths.html')">
+    <div class="sale-card" data-cat="plinth" data-name="Rosso Africano Plinth" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-3.jpg" alt="Rosso Africano Marble Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -780,12 +822,12 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'plinth-rosso-africano-plinth',name:'Rosso Africano Marble',type:'Plinth',image:'plinth-3.jpg',price:3800})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="plinths.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
     <!-- ═══ BOARDS ═══ -->
-    <div class="sale-card" data-cat="board" data-name="Teal Tide Board" onclick="goTo('boards.html')">
+    <div class="sale-card" data-cat="board" data-name="Teal Tide Board" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="board-teal-tide.png" alt="Teal Tide serving board" loading="lazy">
         <span class="sc-badge sale">From $99</span>
@@ -802,11 +844,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'board-teal-tide',name:'Teal Tide',type:'Serving Board',image:'board-teal-tide.png',price:99})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="boards.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="board" data-name="White Haven Board" onclick="goTo('boards.html')">
+    <div class="sale-card" data-cat="board" data-name="White Haven Board" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="board-white-haven.png" alt="White Haven serving board" loading="lazy">
         <span class="sc-badge sale">From $99</span>
@@ -823,11 +865,11 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'board-white-haven',name:'White Haven',type:'Serving Board',image:'board-white-haven.png',price:99})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="boards.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="board" data-name="Emerald Vein Board" onclick="goTo('boards.html')">
+    <div class="sale-card" data-cat="board" data-name="Emerald Vein Board" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="board-emerald-vein.png" alt="Emerald Vein serving board" loading="lazy">
         <span class="sc-badge sale">From $99</span>
@@ -844,12 +886,12 @@ nav {
       <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'board-emerald-vein',name:'Emerald Vein',type:'Serving Board',image:'board-emerald-vein.png',price:99})">Add to Cart →</button>
-        <a class="sc-btn secondary" href="boards.html">Details</a>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
     <!-- ═══ BASINS ═══ -->
-    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" onclick="goTo('basins.html')">
+    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="white-carrara-vessel.jpg" alt="White Carrara stone basin" loading="lazy">
         <span class="sc-badge enquiry">Enquire</span>
@@ -868,7 +910,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" onclick="goTo('basins.html')">
+    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="basin-pietra-grey-1.jpg" alt="Nero Marquina stone basin" loading="lazy" onerror="this.src='basin-dark-green.jpg'">
         <span class="sc-badge enquiry">Enquire</span>
@@ -965,6 +1007,84 @@ if (typeof gtag !== 'undefined') {
 if (typeof fbq !== 'undefined') {
   fbq('track', 'ViewContent', { content_name: 'Flash Sale Page' });
 }
+
+// Product modal
+let _pmData = {};
+function openProductModal(card) {
+  const img   = card.querySelector('.sc-img-wrap img');
+  const cat   = card.querySelector('.sc-category');
+  const name  = card.querySelector('.sc-name');
+  const stone = card.querySelector('.sc-stone');
+  const now   = card.querySelector('.sc-now');
+  const was   = card.querySelector('.sc-was');
+  const save  = card.querySelector('.sc-save');
+  // Pull Cart data from existing Add to Cart button
+  const atcBtn = card.querySelector('.sc-btn.primary');
+  const atcOnclick = atcBtn ? atcBtn.getAttribute('onclick') : '';
+  const match = atcOnclick.match(/Cart\.add\(({.*?})\)/s);
+  _pmData = match ? JSON.parse(match[1].replace(/'/g,'"')) : {};
+
+  document.getElementById('pm-img').src = img ? img.src : '';
+  document.getElementById('pm-img').alt = img ? img.alt : '';
+  document.getElementById('pm-cat').textContent  = cat  ? cat.textContent  : '';
+  document.getElementById('pm-name').textContent = name ? name.textContent : '';
+  document.getElementById('pm-stone').textContent= stone? stone.textContent: '';
+  document.getElementById('pm-now').textContent  = now  ? now.textContent  : '';
+  document.getElementById('pm-was').textContent  = was  ? was.textContent  : '';
+  document.getElementById('pm-save').textContent = save ? save.textContent : '';
+  const btn = document.getElementById('pm-add-btn');
+  btn.textContent = 'Add to Cart →';
+  btn.classList.remove('pm-added');
+  document.getElementById('pm-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePM(e) {
+  if (e.target === document.getElementById('pm-overlay')) {
+    document.getElementById('pm-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+function pmAddToCart() {
+  if (_pmData.id && typeof Cart !== 'undefined') {
+    Cart.add(_pmData);
+    const btn = document.getElementById('pm-add-btn');
+    btn.textContent = 'Added ✓';
+    btn.classList.add('pm-added');
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('pm-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
 </script>
+
+<!-- PRODUCT MODAL -->
+<div class="pm-overlay" id="pm-overlay" onclick="closePM(event)">
+  <div class="pm-wrap">
+    <button class="pm-close" onclick="document.getElementById('pm-overlay').classList.remove('open')">✕</button>
+    <div class="pm-modal">
+      <img class="pm-img" id="pm-img" src="" alt="">
+      <div class="pm-body">
+        <div class="pm-cat" id="pm-cat"></div>
+        <div class="pm-name" id="pm-name"></div>
+        <div class="pm-stone" id="pm-stone"></div>
+        <div class="pm-divider"></div>
+        <div class="pm-pricing">
+          <span class="pm-now" id="pm-now"></span>
+          <div class="pm-was-row">
+            <span class="pm-was" id="pm-was"></span>
+            <span class="pm-save" id="pm-save"></span>
+          </div>
+        </div>
+        <div class="pm-avail">Only 1 left · Ships free Auckland-wide</div>
+        <button class="pm-add" id="pm-add-btn" onclick="pmAddToCart()">Add to Cart →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
