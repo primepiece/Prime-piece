@@ -585,6 +585,29 @@ nav {
       </div>
     </div>
 
+    <div class="sale-card" data-cat="table" data-name="Midnight Moon" data-cart-id="table-midnight-moon" data-cart-name="Midnight Moon" data-cart-price="2159" onclick="openProductModal(this)">
+      <div class="sc-img-wrap">
+        <img src="midnight-moon-table.png" alt="Midnight Moon — Titanium Black Granite lounge table" loading="lazy">
+        <span class="sc-badge sale">40% off</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-category">Lounge Table</div>
+        <div class="sc-name">Midnight Moon</div>
+        <div class="sc-stone">Titanium Black Granite · 1200 × 600mm</div>
+        <div class="sc-divider"></div>
+        <div class="sc-pricing">
+          <span class="sc-now">NZD $2,159</span>
+          <span class="sc-was">$3,599</span>
+          <span class="sc-save">Save $1,440</span>
+        </div>
+      </div>
+      <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-footer">
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-midnight-moon',name:'Midnight Moon',type:'Lounge Table',image:'midnight-moon-table.png',price:2159})">Add to Cart →</button>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
+      </div>
+    </div>
+
     <!-- ═══ COFFEE TABLES (sale priced) ═══ -->
     <div class="sale-card" data-cat="table" data-name="Gold Rush"  data-cart-id="table-gold-rush" data-cart-name="Gold Rush" data-cart-price="300" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
