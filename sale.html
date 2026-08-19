@@ -245,7 +245,8 @@ nav {
   display: flex; align-items: center; gap: 6px;
   padding: 0 20px 16px;
 }
-.sc-one-left::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+.sc-one-left::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; animation: pulse 1.4s ease-in-out infinite; }
+.sc-ends { font-size: 9px; color: var(--stone); letter-spacing: 0.08em; padding: 0 20px 4px; }
 
 /* ── REVIEWS ── */
 .reviews-section {
@@ -474,6 +475,7 @@ nav {
         </div>
       </div>
       <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-ends">Sale ends 26 Aug</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-jade-horizon',name:'Jade Horizon',type:'Lounge Table',image:'lounge-1.jpg',price:2100})">Add to Cart →</button>
         <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
@@ -497,6 +499,7 @@ nav {
         </div>
       </div>
       <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-ends">Sale ends 26 Aug</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-obsidian-storm',name:'Obsidian Storm',type:'Lounge Table',image:'lounge-2.jpg',price:2040})">Add to Cart →</button>
         <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
@@ -520,6 +523,7 @@ nav {
         </div>
       </div>
       <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-ends">Sale ends 26 Aug</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-sage-plateau',name:'Sage Plateau',type:'Lounge Table',image:'lounge-3.jpg',price:1499})">Add to Cart →</button>
         <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
@@ -543,6 +547,7 @@ nav {
         </div>
       </div>
       <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-ends">Sale ends 26 Aug</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-desert-crown',name:'Desert Crown',type:'Lounge Table',image:'lounge-4.jpg',price:1999})">Add to Cart →</button>
         <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
@@ -585,6 +590,7 @@ nav {
         </div>
       </div>
       <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-ends">Sale ends 26 Aug</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-white-haven-lounge',name:'White Haven',type:'Lounge Table',image:'lounge-8.jpg',price:1199})">Add to Cart →</button>
         <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
@@ -608,6 +614,7 @@ nav {
         </div>
       </div>
       <div class="sc-one-left">Only 1 left</div>
+      <div class="sc-ends">Sale ends 26 Aug</div>
       <div class="sc-footer">
         <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-midnight-moon',name:'Midnight Moon',type:'Lounge Table',image:'midnight-moon-table.png',price:2159})">Add to Cart →</button>
         <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
@@ -916,10 +923,10 @@ nav {
     </div>
 
     <!-- ═══ BASINS ═══ -->
-    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" data-cart-id="basin-white-carrara" data-cart-name="White Carrara Basin" data-cart-price="850" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="white-carrara-vessel.jpg" alt="White Carrara stone basin" loading="lazy">
-        <span class="sc-badge enquiry">Enquire</span>
+        <span class="sc-badge sale">From $850</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Stone Basin</div>
@@ -927,18 +934,20 @@ nav {
         <div class="sc-stone">Carrara Marble · Vessel basin</div>
         <div class="sc-divider"></div>
         <div class="sc-pricing">
-          <span class="sc-enquiry-price">Price on enquiry — from $850</span>
+          <span class="sc-now">NZD $850</span>
         </div>
       </div>
+      <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
-        <a class="sc-btn primary" href="basins.html">Enquire Now →</a>
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'basin-white-carrara',name:'White Carrara Basin',type:'Stone Basin',image:'white-carrara-vessel.jpg',price:850})">Add to Cart →</button>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
-    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" data-cart-id="basin-nero-marquina" data-cart-name="Nero Marquina Basin" data-cart-price="850" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="basin-pietra-grey-1.jpg" alt="Nero Marquina stone basin" loading="lazy" onerror="this.src='basin-dark-green.jpg'">
-        <span class="sc-badge enquiry">Enquire</span>
+        <span class="sc-badge sale">From $850</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Stone Basin</div>
@@ -946,11 +955,13 @@ nav {
         <div class="sc-stone">Nero Marquina Marble · Vessel basin</div>
         <div class="sc-divider"></div>
         <div class="sc-pricing">
-          <span class="sc-enquiry-price">Price on enquiry — from $850</span>
+          <span class="sc-now">NZD $850</span>
         </div>
       </div>
+      <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
-        <a class="sc-btn primary" href="basins.html">Enquire Now →</a>
+        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'basin-nero-marquina',name:'Nero Marquina Basin',type:'Stone Basin',image:'basin-pietra-grey-1.jpg',price:850})">Add to Cart →</button>
+        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
       </div>
     </div>
 
@@ -963,18 +974,18 @@ nav {
   <div class="reviews-grid">
     <div class="review-card">
       <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">"Absolutely stunning piece. The quality is exceptional and it arrived perfectly packaged. It's become the centrepiece of our living room — everyone comments on it."</p>
-      <div class="rv-name">Sarah M. — Auckland</div>
+      <p class="rv-text">"James delivered exactly what he promised — a stunning one-of-one piece that's become the centrepiece of our living room. The attention to detail is second to none."</p>
+      <div class="rv-name">Liam Carter — Auckland</div>
     </div>
     <div class="review-card">
       <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">"James was incredibly helpful throughout the whole process. The table is exactly as described — one of a kind and genuinely beautiful. Worth every cent."</p>
-      <div class="rv-name">Tom K. — Ponsonby</div>
+      <p class="rv-text">"Picked up a marble table from James and it's honestly mint. Solid build, looks clean, makes the lounge feel sharper. Easy to deal with too. Cheers mate."</p>
+      <div class="rv-name">Finn Lyness — Auckland</div>
     </div>
     <div class="review-card">
       <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">"I bought a serving board and a plinth. Both are incredible quality. The stone is so much better in person than in photos. Fast delivery too. Highly recommend."</p>
-      <div class="rv-name">Emma R. — Grey Lynn</div>
+      <p class="rv-text">"Absolutely love my marble side table. The craftsmanship is incredible — unique natural pattern, beautifully finished, and even better in person than in the photos."</p>
+      <div class="rv-name">Cameron Brinkley — Auckland</div>
     </div>
   </div>
 </div>
