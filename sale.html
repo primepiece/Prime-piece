@@ -538,10 +538,10 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Midnight Gold"  data-cart-id="table-black-gold" data-cart-name="Midnight Gold" data-cart-price="2159" onclick="openProductModal(this)">
-      <div class="sc-img-wrap">
+    <div class="sale-card sold-card" data-cat="table" data-name="Midnight Gold" style="opacity:0.55;pointer-events:none;">
+      <div class="sc-img-wrap" style="filter:grayscale(0.6);">
         <img src="lounge-5.jpg" alt="Midnight Gold lounge table" loading="lazy">
-        <span class="sc-badge sale">40% off</span>
+        <span class="sc-badge" style="background:var(--ink);color:#fff;">Sold</span>
       </div>
       <div class="sc-body">
         <div class="sc-category">Lounge Table</div>
@@ -549,15 +549,11 @@ nav {
         <div class="sc-stone">Gold &amp; Black Titanium Granite · 1200 × 600mm</div>
         <div class="sc-divider"></div>
         <div class="sc-pricing">
-          <span class="sc-now">NZD $2,159</span>
-          <span class="sc-was">$3,599</span>
-          <span class="sc-save">Save $1,440</span>
+          <span class="sc-now" style="text-decoration:line-through;opacity:0.5;">NZD $2,159</span>
         </div>
       </div>
-      <div class="sc-one-left">Only 1 left</div>
       <div class="sc-footer">
-        <button class="sc-btn primary" onclick="event.stopPropagation();Cart.add({id:'table-black-gold',name:'Midnight Gold',type:'Lounge Table',image:'lounge-5.jpg',price:2159})">Add to Cart →</button>
-        <button class="sc-btn secondary" onclick="event.stopPropagation();openProductModal(this.closest('.sale-card'))">Details</button>
+        <button class="sc-btn secondary" style="flex:1;cursor:default;">This piece has sold</button>
       </div>
     </div>
 
