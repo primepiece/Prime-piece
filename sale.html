@@ -364,42 +364,78 @@ nav {
 /* ── PRODUCT MODAL ── */
 .pm-overlay {
   display: none; position: fixed; inset: 0; z-index: 1000;
-  background: rgba(13,12,10,0.72); backdrop-filter: blur(6px);
+  background: rgba(13,12,10,0.78); backdrop-filter: blur(8px);
   align-items: center; justify-content: center; padding: 20px;
 }
 .pm-overlay.open { display: flex; }
 .pm-modal {
-  background: var(--cream); max-width: 780px; width: 100%;
-  max-height: 90vh; overflow-y: auto; border-radius: 2px;
+  background: var(--cream); max-width: 920px; width: 100%;
+  max-height: 92vh; border-radius: 2px;
   display: grid; grid-template-columns: 1fr 1fr;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.28);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.32);
+  overflow: hidden;
 }
-@media(max-width:600px){ .pm-modal { grid-template-columns: 1fr; } }
-.pm-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
-.pm-body { padding: 36px 32px 32px; display: flex; flex-direction: column; gap: 0; }
+@media(max-width:640px){ .pm-modal { grid-template-columns: 1fr; max-height: 95vh; overflow-y: auto; } }
+.pm-img-col { position: relative; }
+.pm-img { width: 100%; height: 100%; min-height: 380px; object-fit: cover; display: block; }
+.pm-sale-badge {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--amber); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 11px;
+}
+.pm-body { padding: 32px 32px 28px; display: flex; flex-direction: column; gap: 0; overflow-y: auto; max-height: 92vh; }
+@media(max-width:640px){ .pm-body { max-height: none; } }
 .pm-close {
-  position: absolute; top: 16px; right: 20px;
-  background: none; border: none; font-size: 22px; cursor: pointer;
-  color: var(--ink); opacity: 0.5; line-height: 1;
+  position: absolute; top: 14px; right: 18px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(44,42,38,0.08); border: none; font-size: 14px; cursor: pointer;
+  color: var(--ink); display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; z-index: 10;
 }
-.pm-close:hover { opacity: 1; }
+.pm-close:hover { background: rgba(44,42,38,0.16); }
 .pm-wrap { position: relative; }
-.pm-cat { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
-.pm-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.1; margin-bottom: 8px; }
-.pm-stone { font-size: 12px; letter-spacing: 0.1em; color: var(--ink); opacity: 0.5; margin-bottom: 24px; }
-.pm-divider { width: 28px; height: 1px; background: var(--amber); margin-bottom: 20px; opacity: 0.6; }
-.pm-pricing { margin-bottom: 6px; }
-.pm-now { font-size: 26px; font-weight: 400; color: var(--ink); display: block; margin-bottom: 4px; }
-.pm-was-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
-.pm-was { font-size: 13px; color: var(--ink); opacity: 0.4; text-decoration: line-through; }
-.pm-save { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
-.pm-avail { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); opacity: 0.4; margin-bottom: 20px; }
-.pm-add {
-  width: 100%; padding: 14px 20px; background: var(--ink); color: var(--cream);
-  border: none; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  cursor: pointer; font-weight: 500; transition: opacity 0.15s;
+.pm-eyebrow { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+.pm-cat { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 4px; }
+.pm-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.05; margin-bottom: 6px; }
+.pm-stone { font-size: 12px; letter-spacing: 0.08em; color: var(--ink); opacity: 0.45; margin-bottom: 18px; }
+.pm-divider { width: 28px; height: 1px; background: var(--amber); margin-bottom: 16px; opacity: 0.7; }
+.pm-sale-strip {
+  background: #fff8ec; border: 1px solid rgba(184,128,10,0.2);
+  padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px;
 }
-.pm-add:hover { opacity: 0.82; }
+.pm-sale-strip-icon { color: var(--amber); font-size: 14px; margin-top: 1px; flex-shrink: 0; }
+.pm-sale-strip-text { font-size: 12px; font-weight: 600; color: var(--amber); line-height: 1.4; }
+.pm-sale-strip-sub { font-size: 11px; font-weight: 400; color: var(--ink); opacity: 0.6; display: block; }
+.pm-rating { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; }
+.pm-stars { color: var(--amber); font-size: 13px; letter-spacing: 1px; }
+.pm-rating-text { font-size: 11px; color: var(--stone); }
+.pm-desc { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.65; margin-bottom: 18px; opacity: 0.85; }
+.pm-rule { border: none; border-top: 1px solid rgba(44,42,38,0.1); margin: 0 0 18px; }
+.pm-pricing { margin-bottom: 4px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.pm-now { font-size: 28px; font-weight: 400; color: var(--ink); font-family: 'Cormorant Garamond', serif; }
+.pm-was { font-size: 14px; color: var(--ink); opacity: 0.4; text-decoration: line-through; }
+.pm-save { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); font-weight: 700; background: #fff8ec; padding: 3px 8px; }
+.pm-was-row { margin-bottom: 18px; }
+.pm-specs { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.pm-specs tr { border-bottom: 1px solid rgba(44,42,38,0.07); }
+.pm-specs td { padding: 8px 0; font-size: 12px; vertical-align: top; }
+.pm-specs td:first-child { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--stone); width: 38%; padding-right: 12px; }
+.pm-specs td:last-child { color: var(--ink); text-align: right; }
+.pm-stone-note { font-size: 11px; font-style: italic; color: var(--stone); margin-bottom: 14px; line-height: 1.5; }
+.pm-contact { font-size: 11px; color: var(--stone); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+.pm-contact a { color: var(--sage); text-decoration: none; font-weight: 500; }
+.pm-contact a:hover { text-decoration: underline; }
+.pm-trust { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+.pm-trust-item { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); display: flex; align-items: center; gap: 5px; }
+.pm-trust-item svg { width: 11px; height: 11px; flex-shrink: 0; }
+.pm-add {
+  width: 100%; padding: 16px 20px; background: var(--ink); color: var(--cream);
+  border: none; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  cursor: pointer; font-weight: 600; transition: background 0.2s;
+  font-family: 'Inter Tight', sans-serif;
+}
+.pm-add:hover { background: #3d3a35; }
 .pm-added { background: #2a6b42 !important; }
 
 </style>
@@ -481,7 +517,7 @@ nav {
   <div class="sale-grid" id="sale-grid">
 
     <!-- ═══ LOUNGE TABLES ═══ -->
-    <div class="sale-card" data-cat="table" data-name="Jade Horizon"  data-cart-id="table-jade-horizon" data-cart-name="Jade Horizon" data-cart-price="2100" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Jade Horizon" data-cart-id="table-jade-horizon" data-cart-name="Jade Horizon" data-cart-price="2100" data-desc="A sweeping slab of mitered Mystique Green — cool jade tones and golden fault lines catch every shift of light. Bevelled edges give this piece a refined, gallery-quality finish. Built for outdoor terraces and open-plan living." data-dims="400mm (H) × 1200mm × 600mm" data-frame="Hand-welded black steel" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-1.jpg" alt="Jade Horizon — Mystique Green Marble lounge table" loading="lazy">
         <span class="sc-badge sale">40% off</span>
@@ -505,7 +541,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Obsidian Storm"  data-cart-id="table-obsidian-storm" data-cart-name="Obsidian Storm" data-cart-price="2040" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Obsidian Storm" data-cart-id="table-obsidian-storm" data-cart-name="Obsidian Storm" data-cart-price="2040" data-desc="Pure geological drama. Titanium Black granite with explosive silver and white mineral formations across a deep black field — like a storm frozen in stone. A statement piece for those who want to own a room." data-dims="400mm (H) × 1200mm × 600mm" data-frame="Hand-welded black steel" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-2.jpg" alt="Obsidian Storm lounge table" loading="lazy">
         <span class="sc-badge sale">40% off</span>
@@ -529,7 +565,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Sage Plateau"  data-cart-id="table-sage-plateau" data-cart-name="Sage Plateau" data-cart-price="1499" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Sage Plateau" data-cart-id="table-sage-plateau" data-cart-name="Sage Plateau" data-cart-price="1499" data-desc="The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges that let the stone speak for itself. Copper fault lines run across a sage and teal field. Serene, considered and completely one of one." data-dims="400mm (H) × 1200mm × 600mm" data-frame="Hand-welded black steel" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-3.jpg" alt="Sage Plateau lounge table" loading="lazy">
         <span class="sc-badge sale">40% off</span>
@@ -553,7 +589,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Desert Crown"  data-cart-id="table-desert-crown" data-cart-name="Desert Crown" data-cart-price="1999" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Desert Crown" data-cart-id="table-desert-crown" data-cart-name="Desert Crown" data-cart-price="1999" data-desc="Warm ivory tones with dramatic bronze and rust veining sweeping across a creamy white ground — Taj Mahal Quartzite at its most regal. One of the hardest and most durable stones in the collection. A piece that brings warmth and weight to any space." data-dims="400mm (H) × 1200mm × 600mm" data-frame="Hand-welded black steel" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-4.jpg" alt="Desert Crown lounge table" loading="lazy">
         <span class="sc-badge sale">40% off</span>
@@ -596,7 +632,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="White Haven"  data-cart-id="table-white-haven-lounge" data-cart-name="White Haven" data-cart-price="1199" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="White Haven" data-cart-id="table-white-haven-lounge" data-cart-name="White Haven" data-cart-price="1199" data-desc="Classic Carrara white marble in a rare round format — clean, pure and completely timeless. Pure white with delicate grey veining that shifts with every angle of light. The kind of piece that works in any room, any style, any home." data-dims="400mm (H) × Ø 900mm" data-frame="Hand-welded black steel" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="lounge-8.jpg" alt="White Haven lounge table" loading="lazy">
         <span class="sc-badge sale">40% off</span>
@@ -620,7 +656,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Midnight Moon" data-cart-id="table-midnight-moon" data-cart-name="Midnight Moon" data-cart-price="2159" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Midnight Moon" data-cart-id="table-midnight-moon" data-cart-name="Midnight Moon" data-cart-price="2159" data-desc="Deep black titanium granite with moonlit silver and crystal formations scattered across the surface. Like a clear night sky captured in stone — dramatic, rare and completely one of one. The most striking piece in the collection." data-dims="400mm (H) × 1200mm × 600mm" data-frame="Hand-welded black steel" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="midnight-moon-table.png" alt="Midnight Moon — Titanium Black Granite lounge table" loading="lazy">
         <span class="sc-badge sale">40% off</span>
@@ -645,7 +681,7 @@ nav {
     </div>
 
     <!-- ═══ COFFEE TABLES (sale priced) ═══ -->
-    <div class="sale-card" data-cat="table" data-name="Gold Rush"  data-cart-id="table-gold-rush" data-cart-name="Gold Rush" data-cart-price="300" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Gold Rush" data-cart-id="table-gold-rush" data-cart-name="Gold Rush" data-cart-price="300" data-desc="Jet black with molten rivers of gold cascading across the surface — Black Forest Gold Marble is one of the most opulent stones in the world. The gold veining catches the light like nothing else in the collection." data-dims="500mm (H) × Ø 450mm" data-frame="Black steel frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="gold-rush-table.jpg" alt="Gold Rush coffee table" loading="lazy">
               </div>
@@ -667,7 +703,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Serpentine Storm"  data-cart-id="table-serpentine-storm" data-cart-name="Serpentine Storm" data-cart-price="275" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Serpentine Storm" data-cart-id="table-serpentine-storm" data-cart-name="Serpentine Storm" data-cart-price="275" data-desc="Deep forest green with explosive white veining bursting through the surface — Verde Imperiale at its most dramatic. Wild, rich and completely alive. The kind of piece that draws every eye in the room." data-dims="500mm (H) × Ø 450mm" data-frame="Black steel frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="serpentine-storm-table.jpg" alt="Serpentine Storm coffee table" loading="lazy">
               </div>
@@ -689,7 +725,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Dark Current"  data-cart-id="table-dark-current" data-cart-name="Dark Current" data-cart-price="295" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Dark Current" data-cart-id="table-dark-current" data-cart-name="Dark Current" data-cart-price="295" data-desc="Jet black with a dramatic sweep of white and gold veining tearing across the surface — Laurent Black Marble at its most striking. The contrast between the deep black ground and the bold river of white and gold is unlike anything else." data-dims="500mm (H) × Ø 450mm" data-frame="Matte black steel frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="dark-current-table.jpg" alt="Dark Current coffee table" loading="lazy">
               </div>
@@ -711,7 +747,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="table" data-name="Lunar River"  data-cart-id="table-lunar-river" data-cart-name="Lunar River" data-cart-price="1500" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="table" data-name="Lunar River" data-cart-id="table-lunar-river" data-cart-name="Lunar River" data-cart-price="1500" data-desc="A rare free-form stone side table in Lunar River marble — cool grey-blue tones with sweeping white veining that catches the light from every angle. Substantial, sculptural and completely one of one." data-dims="550mm (H) × 600mm × 550mm" data-frame="Hand-welded black steel" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="side-3.jpg" alt="Lunar River side table" loading="lazy">
               </div>
@@ -734,7 +770,7 @@ nav {
     </div>
 
     <!-- ═══ PLINTHS ═══ -->
-    <div class="sale-card" data-cat="plinth" data-name="Grey Porcelain Side Plinth"  data-cart-id="plinth-grey-porcelain-side" data-cart-name="Grey Porcelain Side Plinth" data-cart-price="700" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Grey Porcelain Side Plinth" data-cart-id="plinth-grey-porcelain-side" data-cart-name="Grey Porcelain Side Plinth" data-cart-price="700" data-desc="A refined side plinth in cool grey porcelain — clean lines and a matte finish that works with any interior. Lightweight enough to move, substantial enough to anchor a room." data-dims="800mm (H) × 200mm × 200mm" data-frame="Solid stone — no frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-6.jpg" alt="Grey Porcelain Side Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -755,7 +791,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Rosso Levanto Plinth"  data-cart-id="plinth-rosso-levanto-plinth" data-cart-name="Rosso Levanto Marble" data-cart-price="1400" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Rosso Levanto Plinth" data-cart-id="plinth-rosso-levanto-plinth" data-cart-name="Rosso Levanto Marble" data-cart-price="1400" data-desc="Deep burgundy and red tones with dramatic white veining running through — Rosso Levanto marble at full intensity. One of the richest, most visually striking stones in the collection. A plinth that commands any room." data-dims="800mm (H) × 300mm × 300mm" data-frame="Solid stone — no frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-4.jpg" alt="Rosso Levanto Marble Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -776,7 +812,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Indian Green Marble Plinth"  data-cart-id="plinth-indian-green-2" data-cart-name="Indian Green Marble Plinth" data-cart-price="1499" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Indian Green Marble Plinth" data-cart-id="plinth-indian-green-2" data-cart-name="Indian Green Marble Plinth" data-cart-price="1499" data-desc="Deep forest green with a rich, earthy grain running through — Indian Green marble is bold and distinctive. A striking presence in any interior, from an entryway to a living room or gallery space." data-dims="800mm (H) × 300mm × 300mm" data-frame="Solid stone — no frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-indian-green-2.jpg.png" alt="Indian Green Marble Plinth" loading="lazy" onerror="this.src='plinth-2.jpg'">
         <span class="sc-badge one">One of one</span>
@@ -797,7 +833,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Dekton Sirius Side Plinth"  data-cart-id="plinth-dekton-sirius-side" data-cart-name="Dekton Sirius" data-cart-price="1500" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Dekton Sirius Side Plinth" data-cart-id="plinth-dekton-sirius-side" data-cart-name="Dekton Sirius" data-cart-price="1500" data-desc="Dekton Sirius in a refined side plinth format — ultra-compact sintered stone with a sophisticated grey-concrete look. Exceptionally durable, scratch resistant and timeless. A modern statement piece." data-dims="800mm (H) × 200mm × 200mm" data-frame="Solid stone — no frame" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-6.jpg" alt="Dekton Sirius Side Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -818,7 +854,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Florim Plinth"  data-cart-id="plinth-florim" data-cart-name="Florim" data-cart-price="3200" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Florim Plinth" data-cart-id="plinth-florim" data-cart-name="Florim" data-cart-price="3200" data-desc="A tall full-height plinth in Florim sintered stone — precision engineered, ultra-durable and with a refined surface texture unlike anything in natural stone. The premium plinth in the collection." data-dims="800mm (H) × 300mm × 300mm" data-frame="Solid stone — no frame" data-setting="Indoor & Outdoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-5.jpg" alt="Florim Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -839,7 +875,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Navarro Marble Plinth"  data-cart-id="plinth-navarro" data-cart-name="Navarro Marble" data-cart-price="3499" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Navarro Marble Plinth" data-cart-id="plinth-navarro" data-cart-name="Navarro Marble" data-cart-price="3499" data-desc="Navarro marble in a full-height plinth — deep, characterful tones with a surface that shifts between warm and cool depending on the light. Sourced from Spain and handcrafted in Auckland into a gallery-quality pedestal." data-dims="550mm (H) × 300mm × 300mm" data-frame="Solid stone — no frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-14.jpg" alt="Navarro Marble Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -860,7 +896,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="plinth" data-name="Rosso Africano Plinth"  data-cart-id="plinth-rosso-africano-plinth" data-cart-name="Rosso Africano Marble" data-cart-price="3800" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="plinth" data-name="Rosso Africano Plinth" data-cart-id="plinth-rosso-africano-plinth" data-cart-name="Rosso Africano Marble" data-cart-price="3800" data-desc="Rosso Africano marble — one of the most dramatic and sought-after marbles in the world. Deep red ground with bold white and gold veining cutting through. The signature plinth of the Prime Piece collection. Completely one of one." data-dims="800mm (H) × 300mm × 300mm" data-frame="Solid stone — no frame" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="plinth-3.jpg" alt="Rosso Africano Marble Plinth" loading="lazy">
         <span class="sc-badge one">One of one</span>
@@ -882,7 +918,7 @@ nav {
     </div>
 
     <!-- ═══ BOARDS ═══ -->
-    <div class="sale-card" data-cat="board" data-name="Teal Tide Board"  data-cart-id="board-teal-tide" data-cart-name="Teal Tide" data-cart-price="99" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="board" data-name="Teal Tide Board" data-cart-id="board-teal-tide" data-cart-name="Teal Tide" data-cart-price="99" data-desc="Teal-green Mystique marble with a carved stone handle — one of the most distinctive serving boards in the collection. The cool teal tone makes an instant impression on any table setting." data-dims="300mm × 200mm" data-frame="Carved stone handle" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="board-teal-tide.png" alt="Teal Tide serving board" loading="lazy">
         <span class="sc-badge sale">From $99</span>
@@ -903,7 +939,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="board" data-name="White Haven Board"  data-cart-id="board-white-haven" data-cart-name="White Haven" data-cart-price="99" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="board" data-name="White Haven Board" data-cart-id="board-white-haven" data-cart-name="White Haven" data-cart-price="99" data-desc="Pure white Carrara marble with delicate grey veining and a carved handle — classic, clean and completely timeless. Elevates any cheese board, charcuterie spread or kitchen counter instantly." data-dims="300mm × 200mm" data-frame="Carved stone handle" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="board-white-haven.png" alt="White Haven serving board" loading="lazy">
         <span class="sc-badge sale">From $99</span>
@@ -924,7 +960,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="board" data-name="Emerald Vein Board"  data-cart-id="board-emerald-vein" data-cart-name="Emerald Vein" data-cart-price="99" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="board" data-name="Emerald Vein Board" data-cart-id="board-emerald-vein" data-cart-name="Emerald Vein" data-cart-price="99" data-desc="Dark green marble with bold white veining and a carved handle — dramatic and eye-catching. The Emerald Vein board is the boldest of the three and the one that always gets commented on." data-dims="300mm × 200mm" data-frame="Carved stone handle" data-setting="Indoor" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="board-emerald-vein.png" alt="Emerald Vein serving board" loading="lazy">
         <span class="sc-badge sale">From $99</span>
@@ -946,7 +982,7 @@ nav {
     </div>
 
     <!-- ═══ BASINS ═══ -->
-    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" data-cart-id="basin-white-carrara" data-cart-name="White Carrara Basin" data-cart-price="850" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="basin" data-name="White Carrara Basin" data-cart-id="basin-white-carrara" data-cart-name="White Carrara Basin" data-cart-price="850" data-desc="A carved vessel basin in pure white Carrara marble — the most classic and versatile stone in the world. Each basin is hand-carved from a single block, so the veining pattern is completely unique to your piece. A statement bathroom that lasts forever." data-dims="Ø 350mm × 120mm (H)" data-frame="Vessel mount — no frame" data-setting="Bathroom" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="white-carrara-vessel.jpg" alt="White Carrara stone basin" loading="lazy">
         <span class="sc-badge sale">From $850</span>
@@ -967,7 +1003,7 @@ nav {
       </div>
     </div>
 
-    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" data-cart-id="basin-nero-marquina" data-cart-name="Nero Marquina Basin" data-cart-price="850" onclick="openProductModal(this)">
+    <div class="sale-card" data-cat="basin" data-name="Nero Marquina Basin" data-cart-id="basin-nero-marquina" data-cart-name="Nero Marquina Basin" data-cart-price="850" data-desc="A carved vessel basin in Nero Marquina — deep jet black marble with fine white veining running through. The most dramatic bathroom basin in the collection. Hand-carved from a single block, making every piece entirely unique." data-dims="Ø 350mm × 120mm (H)" data-frame="Vessel mount — no frame" data-setting="Bathroom" onclick="openProductModal(this)">
       <div class="sc-img-wrap">
         <img src="basin-pietra-grey-1.jpg" alt="Nero Marquina stone basin" loading="lazy" onerror="this.src='basin-dark-green.jpg'">
         <span class="sc-badge sale">From $850</span>
@@ -1077,7 +1113,6 @@ function openProductModal(card) {
   const now   = card.querySelector('.sc-now');
   const was   = card.querySelector('.sc-was');
   const save  = card.querySelector('.sc-save');
-  // Pull Cart data from data attributes on card
   _pmData = {
     id: card.dataset.cartId || '',
     name: card.dataset.cartName || (name ? name.textContent : ''),
@@ -1088,12 +1123,18 @@ function openProductModal(card) {
 
   document.getElementById('pm-img').src = img ? img.src : '';
   document.getElementById('pm-img').alt = img ? img.alt : '';
-  document.getElementById('pm-cat').textContent  = cat  ? cat.textContent  : '';
-  document.getElementById('pm-name').textContent = name ? name.textContent : '';
-  document.getElementById('pm-stone').textContent= stone? stone.textContent: '';
-  document.getElementById('pm-now').textContent  = now  ? now.textContent  : '';
-  document.getElementById('pm-was').textContent  = was  ? was.textContent  : '';
-  document.getElementById('pm-save').textContent = save ? save.textContent : '';
+  document.getElementById('pm-cat').textContent   = cat   ? cat.textContent   : '';
+  document.getElementById('pm-name').textContent  = name  ? name.textContent  : '';
+  document.getElementById('pm-stone').textContent = stone ? stone.textContent : '';
+  document.getElementById('pm-now').textContent   = now   ? now.textContent   : '';
+  document.getElementById('pm-was').textContent   = was   ? was.textContent   : '';
+  document.getElementById('pm-save').textContent  = save  ? save.textContent  : '';
+  document.getElementById('pm-desc').textContent  = card.dataset.desc || '';
+  document.getElementById('pm-dims').textContent  = card.dataset.dims || '—';
+  document.getElementById('pm-frame').textContent = card.dataset.frame || '—';
+  document.getElementById('pm-setting').textContent = card.dataset.setting || 'Indoor & Outdoor';
+  document.getElementById('pm-type').textContent  = cat ? cat.textContent : '';
+
   const btn = document.getElementById('pm-add-btn');
   btn.textContent = 'Add to Cart →';
   btn.classList.remove('pm-added');
@@ -1128,20 +1169,61 @@ document.addEventListener('keydown', e => {
   <div class="pm-wrap">
     <button class="pm-close" onclick="document.getElementById('pm-overlay').classList.remove('open');document.body.style.overflow=''">✕</button>
     <div class="pm-modal">
-      <img class="pm-img" id="pm-img" src="" alt="">
+      <div class="pm-img-col">
+        <img class="pm-img" id="pm-img" src="" alt="">
+        <span class="pm-sale-badge">40% Off</span>
+      </div>
       <div class="pm-body">
+        <div class="pm-eyebrow">Prime Piece — Stone Table</div>
         <div class="pm-cat" id="pm-cat"></div>
         <div class="pm-name" id="pm-name"></div>
         <div class="pm-stone" id="pm-stone"></div>
         <div class="pm-divider"></div>
-        <div class="pm-pricing">
-          <span class="pm-now" id="pm-now"></span>
-          <div class="pm-was-row">
-            <span class="pm-was" id="pm-was"></span>
-            <span class="pm-save" id="pm-save"></span>
+        <div class="pm-sale-strip">
+          <span class="pm-sale-strip-icon">✦</span>
+          <div class="pm-sale-strip-text">40% Off — Clearance
+            <span class="pm-sale-strip-sub">Reduced to clear. One of one — once sold, gone forever.</span>
           </div>
         </div>
-        <div class="pm-avail">Only 1 left · Ships free Auckland-wide</div>
+        <div class="pm-rating">
+          <span class="pm-stars">★★★★★</span>
+          <span class="pm-rating-text">5.0 — 19 verified reviews</span>
+        </div>
+        <div class="pm-desc" id="pm-desc"></div>
+        <hr class="pm-rule">
+        <div class="pm-pricing">
+          <span class="pm-now" id="pm-now"></span>
+          <span class="pm-was" id="pm-was"></span>
+          <span class="pm-save" id="pm-save"></span>
+        </div>
+        <div style="margin-bottom:18px"></div>
+        <table class="pm-specs" id="pm-specs">
+          <tr><td>Dimensions</td><td id="pm-dims"></td></tr>
+          <tr><td>Frame</td><td id="pm-frame"></td></tr>
+          <tr><td>Origin</td><td>Handcrafted Auckland, NZ</td></tr>
+          <tr><td>Setting</td><td id="pm-setting"></td></tr>
+          <tr><td>Type</td><td id="pm-type"></td></tr>
+          <tr><td>Edition</td><td>One of one — never repeated</td></tr>
+        </table>
+        <p class="pm-stone-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
+        <p class="pm-contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8l5 3-5 3V8z"/></svg>
+          NZ-wide delivery available. Questions? <a href="sms:+64211466990">Text James — 021 146 6990</a>
+        </p>
+        <div class="pm-trust">
+          <span class="pm-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Secure Checkout
+          </span>
+          <span class="pm-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            NZ Handcrafted
+          </span>
+          <span class="pm-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="16" r="1"/></svg>
+            Free Pick-up Auckland
+          </span>
+        </div>
         <button class="pm-add" id="pm-add-btn" onclick="pmAddToCart()">Add to Cart →</button>
       </div>
     </div>
