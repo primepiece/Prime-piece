@@ -772,7 +772,8 @@
       },
       "shippingDestination": {
         "@type": "DefinedRegion",
-        "addressCountry": "NZ"
+        "addressCountry": "NZ",
+        "addressRegion": "Auckland"
       },
       "deliveryTime": {
         "@type": "ShippingDeliveryTime",
@@ -785,7 +786,35 @@
         "transitTime": {
           "@type": "QuantitativeValue",
           "minValue": 1,
-          "maxValue": 5,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        }
+      }
+    },
+    {
+      "@type": "OfferShippingDetails",
+      "@id": "https://www.primepiece.co.nz/#shipping-nz",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "150",
+        "currency": "NZD"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "NZ"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 3,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 2,
+          "maxValue": 7,
           "unitCode": "DAY"
         }
       }
