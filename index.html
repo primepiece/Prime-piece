@@ -63,7 +63,12 @@
       "priceRange": "$$$",
       "currenciesAccepted": "NZD",
       "areaServed": ["Auckland","New Zealand"],
-      "hasOfferCatalog": {"@type":"OfferCatalog","name":"Stone Furniture & Basins","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Coffee Tables NZ"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Stone Plinths Auckland"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Natural Stone Vessel Basins NZ"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Serving Boards NZ"}}]},
+      "hasOfferCatalog": {"@type":"OfferCatalog","name":"Stone Furniture & Basins","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Coffee Tables NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Stone Plinths Auckland"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Natural Stone Vessel Basins NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Serving Boards NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}}
+      ]},
       "hasMap": "https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland",
       "sameAs": ["https://www.instagram.com/prime.piece"],
       "aggregateRating": {
@@ -631,7 +636,12 @@
       "priceRange": "$$$",
       "currenciesAccepted": "NZD",
       "areaServed": ["Auckland","New Zealand"],
-      "hasOfferCatalog": {"@type":"OfferCatalog","name":"Stone Furniture & Basins","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Coffee Tables NZ"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Stone Plinths Auckland"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Natural Stone Vessel Basins NZ"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Serving Boards NZ"}}]},
+      "hasOfferCatalog": {"@type":"OfferCatalog","name":"Stone Furniture & Basins","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Coffee Tables NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Stone Plinths Auckland"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Natural Stone Vessel Basins NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
+        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Serving Boards NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}}
+      ]},
       "hasMap": "https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland",
       "sameAs": ["https://www.instagram.com/prime.piece"],
       "aggregateRating": {
@@ -742,6 +752,43 @@
       "areaServed": ["Auckland", "New Zealand"],
       "serviceType": "Custom Stone Furniture",
       "url": "https://www.primepiece.co.nz/#made-to-order"
+    },
+    {
+      "@type": "MerchantReturnPolicy",
+      "@id": "https://www.primepiece.co.nz/#return-policy",
+      "applicableCountry": "NZ",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    {
+      "@type": "OfferShippingDetails",
+      "@id": "https://www.primepiece.co.nz/#shipping",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "NZD"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "NZ"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 3,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 5,
+          "unitCode": "DAY"
+        }
+      }
     }
   ]
 }
