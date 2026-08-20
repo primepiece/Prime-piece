@@ -211,6 +211,47 @@
           }
         }
       ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://www.primepiece.co.nz/#bespoke-service",
+      "name": "Bespoke Stone Furniture Commissions",
+      "description": "Custom and bespoke stone furniture made to order in Auckland, New Zealand.",
+      "provider": {"@id": "https://www.primepiece.co.nz/#business"},
+      "areaServed": ["Auckland", "New Zealand"],
+      "serviceType": "Custom Stone Furniture",
+      "url": "https://www.primepiece.co.nz/#made-to-order"
+    },
+    {
+      "@type": "MerchantReturnPolicy",
+      "@id": "https://www.primepiece.co.nz/#return-policy",
+      "applicableCountry": "NZ",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    {
+      "@type": "OfferShippingDetails",
+      "@id": "https://www.primepiece.co.nz/#shipping",
+      "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": "NZD"},
+      "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NZ", "addressRegion": "Auckland"},
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY"},
+        "transitTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitCode": "DAY"}
+      }
+    },
+    {
+      "@type": "OfferShippingDetails",
+      "@id": "https://www.primepiece.co.nz/#shipping-nz",
+      "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": "NZD", "description": "Freight cost discussed at time of order"},
+      "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NZ"},
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY"},
+        "transitTime": {"@type": "QuantitativeValue", "minValue": 2, "maxValue": 7, "unitCode": "DAY"}
+      }
     }
   ]
 }
@@ -599,230 +640,6 @@
 <meta name="twitter:title" content="Stone Furniture Auckland NZ | Marble Tables, Plinths & Stone Boards — Prime Piece">
 <meta name="twitter:description" content="Handcrafted one-of-one marble tables, stone plinths and boards made in Auckland, NZ. Custom sizing available.">
 <meta name="twitter:image" content="https://www.primepiece.co.nz/hero.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "LocalBusiness",
-      "@id": "https://www.primepiece.co.nz/#business",
-      "name": "Prime Piece",
-      "description": "Custom stone furniture and handcrafted stone pieces made in Auckland, New Zealand. Marble coffee tables, stone plinths, vessel basins and bespoke commissions — shipped throughout New Zealand.",
-      "url": "https://www.primepiece.co.nz",
-      "telephone": "+64211466990",
-      "email": "james@primepiece.co.nz",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "209B Archers Road",
-        "addressLocality": "Wairau Valley",
-        "addressRegion": "Auckland",
-        "postalCode": "0627",
-        "addressCountry": "NZ"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": -36.7889,
-        "longitude": 174.7384
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-          "opens": "08:00",
-          "closes": "17:00"
-        }
-      ],
-      "image": "https://www.primepiece.co.nz/hero.png",
-      "priceRange": "$$$",
-      "currenciesAccepted": "NZD",
-      "areaServed": ["Auckland","New Zealand"],
-      "hasOfferCatalog": {"@type":"OfferCatalog","name":"Stone Furniture & Basins","itemListElement":[
-        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Coffee Tables NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
-        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Stone Plinths Auckland"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
-        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Natural Stone Vessel Basins NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}},
-        {"@type":"Offer","itemOffered":{"@type":"Product","name":"Marble Serving Boards NZ"},"hasMerchantReturnPolicy":{"@id":"https://www.primepiece.co.nz/#return-policy"},"shippingDetails":{"@id":"https://www.primepiece.co.nz/#shipping"}}
-      ]},
-      "hasMap": "https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland",
-      "sameAs": ["https://www.instagram.com/prime.piece"],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "19",
-        "bestRating": "5",
-        "worstRating": "1"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.primepiece.co.nz/#website",
-      "url": "https://www.primepiece.co.nz",
-      "name": "Prime Piece",
-      "description": "Handcrafted one-of-one stone furniture made in Auckland, New Zealand.",
-      "publisher": {"@id": "https://www.primepiece.co.nz/#business"}
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://www.primepiece.co.nz/#webpage",
-      "url": "https://www.primepiece.co.nz",
-      "name": "Stone Furniture Auckland NZ | Marble Tables, Plinths & Stone Boards — Prime Piece",
-      "description": "Handcrafted one-of-one marble tables, stone plinths and boards made in Auckland, New Zealand.",
-      "isPartOf": {"@id": "https://www.primepiece.co.nz/#website"},
-      "about": {"@id": "https://www.primepiece.co.nz/#business"},
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [{"@type": "ListItem","position": 1,"name": "Home","item": "https://www.primepiece.co.nz"}]
-      }
-    },
-    {
-      "@type": "ItemList",
-      "name": "Prime Piece Stone Furniture Collection",
-      "description": "Handcrafted stone furniture made in Auckland NZ",
-      "itemListElement": [
-        {"@type": "ListItem","position": 1,"name": "Stone Plinths Auckland","url": "https://www.primepiece.co.nz/plinths.html"},
-        {"@type": "ListItem","position": 2,"name": "Marble Tables Auckland","url": "https://www.primepiece.co.nz/tables.html"},
-        {"@type": "ListItem","position": 3,"name": "Stone Boards NZ","url": "https://www.primepiece.co.nz/boards.html"}
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can you make a custom marble kitchen benchtop?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Prime Piece fabricates custom marble and natural stone benchtops for kitchens, islands and butler's pantries across Auckland. We work from your measurements and help you choose the right stone, finish and edge profile. Enquire via james@primepiece.co.nz or call 021 146 6990."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you make stone bathroom vanities in Auckland?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. We fabricate custom stone vanity tops and bathroom surfaces in marble, travertine, granite and other natural stone. Each piece is made to your exact dimensions from our Wairau Valley, Auckland workshop."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What types of stone furniture and stone pieces do you make?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Prime Piece makes stone plinths, coffee tables, side tables, console tables, dining tables, kitchen benchtops, bathroom vanities, fireplace hearths, outdoor stone tables, shelving, boards and fully custom stone pieces. If you can imagine it in stone, get in touch."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How much does a custom stone piece cost?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pricing depends on stone type, size and complexity. Stone plinths start from around $800 NZD, coffee tables from $1,200 NZD, and custom benchtops are quoted per job. Contact us at james@primepiece.co.nz for a free quote."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you deliver stone furniture across New Zealand?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. We deliver across Auckland and can arrange freight to other parts of New Zealand. Local Auckland delivery is arranged personally with every order."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Where is the Prime Piece showroom in Auckland?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our showroom is at 209B Archers Road, Wairau Valley, Auckland. Open Monday to Friday 8am to 5pm. Walk-ins are welcome, or call 021 146 6990 to arrange a time."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What natural stones do you work with?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We work with Italian and Spanish marble, travertine, granite, basalt, quartzite and more. We can source specific stones on request. Visit our Wairau Valley showroom to see the full range in person."
-          }
-        }
-      ,
-    {
-      "@type": "Service",
-      "@id": "https://www.primepiece.co.nz/#bespoke-service",
-      "name": "Bespoke Stone Furniture Commissions",
-      "description": "Custom and bespoke stone furniture made to order in Auckland, New Zealand. Clients can commission marble tables, stone plinths and other handcrafted stone pieces to their exact specifications.",
-      "provider": {"@id": "https://www.primepiece.co.nz/#business"},
-      "areaServed": ["Auckland", "New Zealand"],
-      "serviceType": "Custom Stone Furniture",
-      "url": "https://www.primepiece.co.nz/#made-to-order"
-    },
-    {
-      "@type": "MerchantReturnPolicy",
-      "@id": "https://www.primepiece.co.nz/#return-policy",
-      "applicableCountry": "NZ",
-      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-      "merchantReturnDays": 14,
-      "returnMethod": "https://schema.org/ReturnByMail",
-      "returnFees": "https://schema.org/FreeReturn"
-    },
-    {
-      "@type": "OfferShippingDetails",
-      "@id": "https://www.primepiece.co.nz/#shipping",
-      "shippingRate": {
-        "@type": "MonetaryAmount",
-        "value": "0",
-        "currency": "NZD"
-      },
-      "shippingDestination": {
-        "@type": "DefinedRegion",
-        "addressCountry": "NZ",
-        "addressRegion": "Auckland"
-      },
-      "deliveryTime": {
-        "@type": "ShippingDeliveryTime",
-        "handlingTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 1,
-          "maxValue": 3,
-          "unitCode": "DAY"
-        },
-        "transitTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 1,
-          "maxValue": 2,
-          "unitCode": "DAY"
-        }
-      }
-    },
-    {
-      "@type": "OfferShippingDetails",
-      "@id": "https://www.primepiece.co.nz/#shipping-nz",
-      "shippingRate": {
-        "@type": "MonetaryAmount",
-        "value": "0",
-        "currency": "NZD",
-        "description": "Freight cost discussed at time of order"
-      },
-      "shippingDestination": {
-        "@type": "DefinedRegion",
-        "addressCountry": "NZ"
-      },
-      "deliveryTime": {
-        "@type": "ShippingDeliveryTime",
-        "handlingTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 1,
-          "maxValue": 3,
-          "unitCode": "DAY"
-        },
-        "transitTime": {
-          "@type": "QuantitativeValue",
-          "minValue": 2,
-          "maxValue": 7,
-          "unitCode": "DAY"
-        }
-      }
-    }
-  ]
-}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet">
