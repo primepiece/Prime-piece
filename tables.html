@@ -1019,7 +1019,9 @@
   let _modalImgIndex = 0;
 
   function renderModalImage() {
-    document.getElementById('modal-img').src = _modalGallery[_modalImgIndex];
+    const modalImgEl = document.getElementById('modal-img');
+    modalImgEl.src = _modalGallery[_modalImgIndex];
+    if (_modalItem) modalImgEl.alt = _modalItem.name + ' — ' + _modalItem.stone + ' stone table handcrafted in Auckland NZ';
     const multi = _modalGallery.length > 1;
     document.getElementById('modal-img-prev').style.display = multi ? '' : 'none';
     document.getElementById('modal-img-next').style.display = multi ? '' : 'none';
@@ -1039,6 +1041,7 @@
   function prevModalImage() { _modalImgIndex = (_modalImgIndex - 1 + _modalGallery.length) % _modalGallery.length; renderModalImage(); }
 
   function openModal(name, stone, img, desc, dims, type, frame, setting, note) {
+    _modalItem = { name, stone };
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
     document.getElementById('modal-stone-text').textContent = stone;
