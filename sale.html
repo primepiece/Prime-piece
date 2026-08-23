@@ -385,7 +385,7 @@ nav {
   font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   padding: 5px 11px;
 }
-.pm-body { flex: 1; padding: 32px 32px 28px; display: flex; flex-direction: column; gap: 0; overflow-y: auto; }
+.pm-body { flex: 1; padding: 32px 32px 0; display: flex; flex-direction: column; gap: 0; overflow-y: auto; }
 .pm-close {
   position: absolute; top: 14px; right: 18px;
   width: 32px; height: 32px; border-radius: 50%;
@@ -423,7 +423,7 @@ nav {
 .pm-specs td:first-child { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--stone); width: 38%; padding-right: 12px; }
 .pm-specs td:last-child { color: var(--ink); text-align: right; }
 .pm-stone-note { font-size: 11px; font-style: italic; color: var(--stone); margin-bottom: 14px; line-height: 1.5; }
-.pm-contact { font-size: 11px; color: var(--stone); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+.pm-contact { font-size: 11px; color: var(--stone); margin-bottom: 14px; }
 .pm-contact a { color: var(--sage); text-decoration: none; font-weight: 500; }
 .pm-contact a:hover { text-decoration: underline; }
 .pm-trust { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -434,6 +434,7 @@ nav {
   border: none; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
   cursor: pointer; font-weight: 600; transition: background 0.2s;
   font-family: 'Inter Tight', sans-serif;
+  position: sticky; bottom: 0; flex-shrink: 0; margin-top: auto;
 }
 .pm-add:hover { background: #3d3a35; }
 .pm-added { background: #2a6b42 !important; }
