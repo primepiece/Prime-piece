@@ -41,25 +41,68 @@
 html { scroll-behavior: smooth; }
 body { background: var(--cream); color: var(--ink); font-family: 'Inter Tight', sans-serif; font-weight: 300; line-height: 1.5; overflow-x: hidden; }
 
-/* ── ANNOUNCEMENT BAR ── */
+/* ── URGENCY BANNER ── */
 .ann-bar {
-  background: var(--ink);
+  background: #1a0a00;
   color: #fff;
   text-align: center;
-  padding: 10px 20px;
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  padding: 12px 20px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
+  border-bottom: 2px solid var(--amber);
 }
-.ann-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 1.6s ease-in-out infinite; flex-shrink: 0; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)} }
-.ann-bar span { color: var(--gold); }
+.ann-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); animation: pulse 1s ease-in-out infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.6)} }
+.ann-bar span { color: var(--amber); }
+.ann-mini-cd { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 400; color: var(--amber); letter-spacing: 0.05em; }
+
+/* ── CARD COUNTDOWN ── */
+.sc-urgency { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.sc-urgency-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); animation: pulse 1s ease-in-out infinite; flex-shrink: 0; }
+.sc-urgency-text { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+
+/* ── EXIT INTENT MODAL ── */
+.exit-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9000;
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.exit-overlay.show { opacity: 1; pointer-events: all; }
+.exit-panel {
+  background: var(--cream); width: 100%; max-width: 540px;
+  padding: 40px 36px 36px; position: relative;
+  transform: translateY(40px); transition: transform 0.35s ease;
+  border-top: 3px solid var(--amber);
+}
+.exit-overlay.show .exit-panel { transform: translateY(0); }
+.exit-close {
+  position: absolute; top: 16px; right: 20px; background: none; border: none;
+  font-size: 20px; cursor: pointer; color: var(--stone); line-height: 1;
+}
+.exit-eyebrow { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 12px; }
+.exit-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.1; margin-bottom: 12px; }
+.exit-sub { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 24px; }
+.exit-cd { display: flex; gap: 20px; margin-bottom: 28px; }
+.exit-cu { text-align: center; }
+.exit-cu-num { display: block; font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.exit-cu-lbl { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
+.exit-sep { font-size: 32px; color: var(--gold); opacity: 0.4; padding-top: 4px; }
+.exit-cta {
+  display: block; width: 100%; padding: 16px; background: var(--ink); color: #fff;
+  font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; text-align: center;
+  text-decoration: none; cursor: pointer; border: none;
+  transition: background 0.2s;
+}
+.exit-cta:hover { background: #3d3a35; }
+.exit-note { font-size: 10px; color: var(--stone); text-align: center; margin-top: 12px; }
 
 /* ── NAV ── */
 nav {
@@ -269,7 +312,7 @@ nav {
   padding: 0 20px 16px;
 }
 .sc-one-left::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; animation: pulse 1.4s ease-in-out infinite; }
-.sc-ends { font-size: 9px; color: var(--stone); letter-spacing: 0.08em; padding: 0 20px 4px; }
+.sc-ends { font-size: 9px; color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding: 0 20px 4px; }
 
 /* ── REVIEWS ── */
 .reviews-section {
@@ -478,14 +521,34 @@ nav {
 </head>
 <body>
 
-<!-- ANN BAR -->
+<!-- URGENCY BANNER -->
 <div class="ann-bar">
   <div class="ann-dot"></div>
-  <span>Final Collection — 40% off</span>
-  ·
-  19 Aug – 26 Aug only · One-of-one
-  ·
-  <span>Free Auckland delivery</span>
+  <span>Sale ends in</span>
+  <span class="ann-mini-cd"><span id="ab-h">00</span>h <span id="ab-m">00</span>m <span id="ab-s">00</span>s</span>
+  <span>·</span>
+  <span>40% off — once sold, gone forever</span>
+  <span>·</span>
+  Free Auckland delivery
+</div>
+
+<!-- EXIT INTENT MODAL -->
+<div class="exit-overlay" id="exit-overlay">
+  <div class="exit-panel">
+    <button class="exit-close" onclick="closeExit()">✕</button>
+    <div class="exit-eyebrow">⚡ Last chance</div>
+    <div class="exit-title">Sale ends tonight.<br>These won't come back.</div>
+    <p class="exit-sub">Every piece is one of one. When the sale closes at midnight 26 August, these prices are gone permanently — and so are most of the pieces.</p>
+    <div class="exit-cd">
+      <div class="exit-cu"><span class="exit-cu-num" id="ex-h">00</span><span class="exit-cu-lbl">Hours</span></div>
+      <span class="exit-sep">:</span>
+      <div class="exit-cu"><span class="exit-cu-num" id="ex-m">00</span><span class="exit-cu-lbl">Mins</span></div>
+      <span class="exit-sep">:</span>
+      <div class="exit-cu"><span class="exit-cu-num" id="ex-s">00</span><span class="exit-cu-lbl">Secs</span></div>
+    </div>
+    <button class="exit-cta" onclick="closeExit()">View the pieces →</button>
+    <p class="exit-note">Free Auckland delivery · Handcrafted in NZ · 19 five-star reviews</p>
+  </div>
 </div>
 
 <!-- NAV -->
@@ -1110,8 +1173,33 @@ function tick() {
   document.getElementById('cd-h').textContent = String(hrs).padStart(2,'0');
   document.getElementById('cd-m').textContent = String(mins).padStart(2,'0');
   document.getElementById('cd-s').textContent = String(secs).padStart(2,'0');
+  // banner mini countdown
+  document.getElementById('ab-h').textContent = String(hrs + days*24).padStart(2,'0');
+  document.getElementById('ab-m').textContent = String(mins).padStart(2,'0');
+  document.getElementById('ab-s').textContent = String(secs).padStart(2,'0');
+  // exit modal countdown
+  const exH = document.getElementById('ex-h');
+  const exM = document.getElementById('ex-m');
+  const exS = document.getElementById('ex-s');
+  if (exH) { exH.textContent = String(hrs + days*24).padStart(2,'0'); exM.textContent = String(mins).padStart(2,'0'); exS.textContent = String(secs).padStart(2,'0'); }
 }
 tick(); setInterval(tick, 1000);
+
+// Exit intent
+let _exitShown = sessionStorage.getItem('exitShown');
+function showExit() {
+  if (_exitShown) return;
+  _exitShown = true;
+  sessionStorage.setItem('exitShown', '1');
+  document.getElementById('exit-overlay').classList.add('show');
+}
+function closeExit() {
+  document.getElementById('exit-overlay').classList.remove('show');
+}
+// Trigger on mouse leaving window
+document.addEventListener('mouseleave', e => { if (e.clientY < 10) showExit(); });
+// Trigger after 45s if still on page
+setTimeout(showExit, 45000);
 
 // Filter
 function filterSale(cat, btn) {
