@@ -184,9 +184,14 @@
   .basin-stone { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 8px; }
   .basin-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 16px; }
   .basin-dims { font-size: 11px; color: var(--stone); margin-bottom: 20px; }
-  .basin-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .basin-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
   .basin-price { font-size: 15px; color: var(--sage-deep); font-weight: 400; }
   .basin-price small { font-size: 10px; color: var(--stone); display: block; margin-bottom: 2px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .basin-add-btn { display: flex; width: 100%; padding: 14px 20px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-family: 'Inter Tight', sans-serif; font-weight: 600; background: var(--ink); color: #fff; border: none; cursor: pointer; transition: background 0.2s; align-items: center; justify-content: center; gap: 8px; }
+  .basin-add-btn:hover { background: #3d3a35; }
+  .basin-add-btn.preorder { background: var(--sage); }
+  .basin-add-btn.preorder:hover { background: #5a8c8f; }
+  .basin-add-btn.added { background: #2a6b42; }
   .enquire-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--sage); color: var(--sage); background: transparent; cursor: pointer; transition: all 0.3s; font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px; }
   .enquire-btn:hover { background: var(--sage); color: white; }
   /* Mobile sticky enquiry bar */
@@ -451,7 +456,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $850</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('White Carrara Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-carrara','White Carrara Basin','white-carrara-vessel.jpg',850)">Add to Cart →</button>
         </div>
       </div>
     </div>
@@ -470,7 +475,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $850</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Warm Beige Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-beige','Warm Beige Basin','warm-beige-vessel.jpg',850)">Add to Cart →</button>
         </div>
       </div>
     </div>
@@ -489,7 +494,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $800</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Nero Marquina Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-nero','Nero Marquina Basin','nero-marquina-vessel.jpg',800)">Add to Cart →</button>
         </div>
       </div>
     </div>
@@ -508,7 +513,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $850</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Dark Green Marble Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-green','Dark Green Marble Basin','green-marble-vessel.jpg',850)">Add to Cart →</button>
         </div>
       </div>
     </div>
@@ -527,7 +532,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $950</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('White Onyx Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-white-onyx','White Onyx Basin','white-onyx-vessel.jpg',950)">Add to Cart →</button>
         </div>
       </div>
     </div>
@@ -546,7 +551,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $850</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Statuario Marble Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); basinAdd(this,'basin-statuario','Statuario Marble Basin','basin-statuario-2.jpg',850)">Pre-order →</button>
         </div>
       </div>
     </div>
@@ -565,7 +570,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $1,050</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Pietra Grey Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); basinAdd(this,'basin-pietra-grey','Pietra Grey Basin','basin-pietra-grey-1.jpg',1050)">Pre-order →</button>
         </div>
       </div>
     </div>
@@ -584,7 +589,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $1,499</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Pink Purple Onyx Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); basinAdd(this,'basin-pink-purple-onyx','Pink Purple Onyx Basin','basin-pink-purple-onyx-1.jpg',1499)">Pre-order →</button>
         </div>
       </div>
     </div>
@@ -603,7 +608,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $1,050</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Tiger Onyx Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); basinAdd(this,'basin-tiger-onyx','Tiger Onyx Basin','basin-tiger-onyx-1.jpg',1050)">Pre-order →</button>
         </div>
       </div>
     </div>
@@ -622,7 +627,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $1,199</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Pink Onyx Shell Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); basinAdd(this,'basin-pink-onyx-shell','Pink Onyx Shell Basin','basin-pink-onyx-shell-1.jpg',1199)">Pre-order →</button>
         </div>
       </div>
     </div>
@@ -641,7 +646,7 @@
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="basin-foot">
           <div class="basin-price"><small>From</small>NZD $950</div>
-          <button class="enquire-btn" onclick="event.stopPropagation(); openEnquiry('Yellow Onyx Vessel Basin')">Enquire →</button>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); basinAdd(this,'basin-yellow-onyx','Yellow Onyx Basin','basin-yellow-onyx-1.jpg',950)">Pre-order →</button>
         </div>
       </div>
     </div>
@@ -883,6 +888,16 @@
     setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_30s', { page: 'basins' }); }, 30000);
     setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_90s', { page: 'basins' }); }, 90000);
   })();
+
+  function basinAdd(btn, id, name, image, price) {
+    Cart.add({ id, name, type: 'Vessel Basin', image, price });
+    btn.textContent = 'Added ✓';
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.textContent = btn.classList.contains('preorder') ? 'Pre-order →' : 'Add to Cart →';
+      btn.classList.remove('added');
+    }, 2000);
+  }
 </script>
 </body>
 </html>
