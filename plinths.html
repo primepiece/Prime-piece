@@ -1119,5 +1119,67 @@ async function submitEnquire() {
   mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = ''; }));
 </script>
 
+<div id="pp-popup-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.55);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;">
+  <div id="pp-popup-box" style="background:var(--cream);max-width:440px;width:100%;padding:3rem 2.5rem 2.5rem;position:relative;text-align:center;border:1px solid var(--line);">
+    <button id="pp-popup-close" aria-label="Close" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--stone);line-height:1;">&times;</button>
+    <div id="pp-step-teaser">
+      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Welcome to Prime Piece</p>
+      <h2 style="font-family:var(--display);font-size:2rem;font-weight:400;color:var(--ink);margin:0 0 0.75rem;line-height:1.2;">You have a<br><em>secret offer</em></h2>
+      <p style="font-family:var(--body);font-size:0.85rem;color:var(--stone);margin:0 0 2rem;line-height:1.6;">Handcrafted stone, made once.<br>Unlock an exclusive discount — just for visiting today :)</p>
+      <button id="pp-btn-claim" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;font-weight:600;">Reveal My Offer</button>
+    </div>
+    <div id="pp-step-form" style="display:none;">
+      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Almost there</p>
+      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.6rem;">Where shall we send it?</h2>
+      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.75rem;">Enter your details and we'll reveal your discount code instantly.</p>
+      <input id="pp-name" type="text" placeholder="Your name" autocomplete="given-name" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.75rem;outline:none;">
+      <input id="pp-email" type="email" placeholder="Email address" autocomplete="email" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.25rem;outline:none;">
+      <p id="pp-form-error" style="font-size:0.78rem;color:#c0392b;margin:0.4rem 0 1rem;display:none;"></p>
+      <button id="pp-btn-submit" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;margin-top:0.5rem;font-weight:600;">Unlock Discount</button>
+      <p style="font-size:0.72rem;color:var(--stone);margin:1rem 0 0;line-height:1.5;">No spam. One email with your code, that's it.<br>Unsubscribe any time.</p>
+    </div>
+    <div id="pp-step-reveal" style="display:none;">
+      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Your exclusive offer</p>
+      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.5rem;">10% off your order</h2>
+      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.5rem;">Use this code at checkout:</p>
+      <div style="background:var(--cream-deep);border:1.5px dashed var(--sage);padding:1rem 1.5rem;margin-bottom:1.75rem;display:inline-block;min-width:180px;"><span id="pp-code" style="font-family:var(--display);font-size:1.6rem;letter-spacing:0.2em;color:var(--ink);font-weight:500;">PRIME10</span></div><br>
+      <button id="pp-btn-shop" style="width:100%;padding:0.9rem 1.5rem;background:var(--ink);color:var(--cream);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;">Shop the Collection</button>
+      <p style="font-size:0.72rem;color:var(--stone);margin:0.85rem 0 0;">Code sent to your inbox too.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  if (localStorage.getItem('pp_popup_seen')) return;
+  var overlay = document.getElementById('pp-popup-overlay');
+  var stepTeaser = document.getElementById('pp-step-teaser');
+  var stepForm = document.getElementById('pp-step-form');
+  var stepReveal = document.getElementById('pp-step-reveal');
+  function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
+  function hide() { overlay.style.display = 'none'; }
+  var shown = false;
+  function tryShow() { if (!shown) { shown = true; show(); } }
+  document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
+  setTimeout(tryShow, 7000);
+  document.getElementById('pp-popup-close').addEventListener('click', hide);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
+  document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
+  document.getElementById('pp-btn-submit').addEventListener('click', async function() {
+    var name = document.getElementById('pp-name').value.trim();
+    var email = document.getElementById('pp-email').value.trim();
+    var errEl = document.getElementById('pp-form-error');
+    errEl.style.display = 'none';
+    if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
+    var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
+    try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
+    stepForm.style.display = 'none'; stepReveal.style.display = 'block';
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
+  });
+  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
+})();
+</script>
+
 </body>
 </html>
