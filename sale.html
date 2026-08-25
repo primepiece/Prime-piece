@@ -1262,6 +1262,11 @@ function openProductModal(card) {
   const btn = document.getElementById('pm-add-btn');
   btn.textContent = 'Add to Cart →';
   btn.classList.remove('pm-added');
+  const apEl = document.getElementById('pm-afterpay');
+  const apAmt = document.getElementById('pm-ap-amount');
+  const salePrice = _pmData.price;
+  if (salePrice && salePrice <= 2000) { apEl.style.display = 'block'; apAmt.textContent = '$' + Math.ceil(salePrice / 4).toLocaleString('en-NZ'); }
+  else { apEl.style.display = 'none'; }
   document.getElementById('pm-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1348,6 +1353,7 @@ document.addEventListener('keydown', e => {
             Free Pick-up Auckland
           </span>
         </div>
+        <div id="pm-afterpay" style="display:none;text-align:center;font-size:11px;color:#8A8275;padding:8px 0 4px;">or 4 payments of <strong id="pm-ap-amount" style="color:#2C2A26;"></strong> with <strong style="color:#2C2A26;">Afterpay</strong></div>
         <button class="pm-add" id="pm-add-btn" onclick="pmAddToCart()">Add to Cart →</button>
       </div>
     </div>
