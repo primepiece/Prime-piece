@@ -956,6 +956,22 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+  // Inject Afterpay line on product cards
+  document.querySelectorAll('.plinth-card').forEach(function(card) {
+    var btn = card.querySelector('button[onclick*="Cart.add"]');
+    if (!btn) return;
+    var m = btn.getAttribute('onclick').match(/price:(\d+)/);
+    if (!m) return;
+    var price = parseInt(m[1]);
+    if (price < 35 || price > 2000) return;
+    var foot = card.querySelector('.plinth-foot');
+    if (!foot) return;
+    var ap = document.createElement('div');
+    ap.style.cssText = 'font-size:10px;color:var(--stone);text-align:center;margin-bottom:6px;';
+    ap.innerHTML = 'or 4 \xd7 <strong style="color:var(--ink)">$' + Math.ceil(price/4).toLocaleString('en-NZ') + '</strong> with <strong style="color:var(--ink)">Afterpay</strong>';
+    foot.parentNode.insertBefore(ap, foot);
+  });
+
   // Scroll depth + engagement tracking
   (function() {
     const depths = [25, 50, 75, 90]; const fired = new Set();
