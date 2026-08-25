@@ -1679,7 +1679,7 @@
   function tryShow() { if (!shown) { shown = true; show(); } }
   document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
   // Fallback: show after 25s if no exit-intent
-  setTimeout(tryShow, 25000);
+  setTimeout(tryShow, 7000);
   document.getElementById('pp-popup-close').addEventListener('click', hide);
   overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
   document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
