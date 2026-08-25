@@ -295,8 +295,9 @@
   .modal-trust-strip span { display: flex; align-items: center; gap: 5px; font-size: 10px; letter-spacing: 0.1em; color: var(--stone); text-transform: uppercase; }
   .modal-trust-strip svg { color: var(--sage); flex-shrink: 0; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 4px; }
-  .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 17px; background: var(--ink); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background 0.2s; text-decoration: none; }
-  .modal-btn-primary:hover { background: #1a1814; }
+  .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 17px; background: var(--sage); color: white; border: none; border-radius: 4px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background 0.2s; text-decoration: none; }
+  .modal-btn-primary:hover { background: #5a8a7a; }
+  .modal-price-display { text-align: center; font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 6px; font-family: 'Inter Tight', sans-serif; }
   .modal-btn-ghost { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; }
   .modal-btn-ghost:hover { background: var(--sage); color: white; }
   /* Modal sale box */
@@ -768,61 +769,11 @@
   <button onclick="openEnquireModal('Custom Table Enquiry')" class="cta-btn" style="cursor:pointer;border:none;font-family:inherit;">Commission a Custom Table →</button>
 </div>
 
-<section style="padding:48px 56px;border-top:1px solid var(--line);background:var(--cream);" aria-label="Customer reviews">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
-    <span style="color:#C9A96E;font-size:15px;letter-spacing:3px;">★★★★★</span>
-    <span style="font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--stone);">15 Five-Star Google Reviews</span>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
-    <blockquote style="margin:0;padding:20px;background:var(--cream-soft);border-left:2px solid var(--sage);">
-      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:10px;">"Ordered custom side tables and could not be happier. James hand delivered and placed them exactly into position. 15/10."</p>
-      <cite style="font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--stone);font-style:normal;">— Simone P., Auckland</cite>
-    </blockquote>
-    <blockquote style="margin:0;padding:20px;background:var(--cream-soft);border-left:2px solid var(--sage);">
-      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:10px;">"Made a custom piece for us at an insane price, delivered within a very reasonable time frame. Absolutely stunning."</p>
-      <cite style="font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--stone);font-style:normal;">— Rafi H., Auckland</cite>
-    </blockquote>
-    <blockquote style="margin:0;padding:20px;background:var(--cream-soft);border-left:2px solid var(--sage);">
-      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:10px;">"James exceeded expectations — the design was exactly to order. The quality of craftsmanship is second to none."</p>
-      <cite style="font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:var(--stone);font-style:normal;">— Clare G., Auckland</cite>
-    </blockquote>
-  </div>
-</section>
 
 <section class="seo-blurb" aria-label="About Prime Piece stone tables">
   <p>Prime Piece creates handcrafted marble coffee tables and natural stone furniture in Auckland, New Zealand. Each piece is cut from a single slab of natural stone — sourced from Italy, Spain and beyond — and finished by hand in our Wairau Valley workshop. Our collection includes marble coffee tables, stone side tables, large-format lounge tables and custom dining tables. Stones include Rosso Africano, Carrara, Mystique Green, Verde Apli, Travertine, Kangaroo Quartzite, Sahara Noir and more. Every piece is one of one — once sold, it is gone forever. Custom stone furniture is available to commission in any stone, any size, with 4–8 week lead time. We deliver across Auckland and New Zealand.</p>
 </section>
 
-<!-- Reviews strip -->
-<section style="background:#F5F1EA;padding:56px 20px;border-top:1px solid rgba(44,42,38,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:36px;">
-      <div style="font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#8A8275;margin-bottom:8px;">Customer Reviews</div>
-      <div style="font-family:Georgia,serif;font-size:22px;font-style:italic;color:#2C2A26;">What our customers say</div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-top:8px;">
-        <span style="color:#C9A96E;font-size:16px;">★★★★★</span>
-        <span style="font-size:12px;color:#8A8275;margin-left:6px;">19 Five-Star Google Reviews</span>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
-      <div style="background:#fff;padding:28px;border:1px solid rgba(44,42,38,0.08);">
-        <div style="color:#C9A96E;font-size:14px;margin-bottom:12px;">★★★★★</div>
-        <p style="font-family:Georgia,serif;font-style:italic;color:#2C2A26;font-size:15px;line-height:1.65;margin-bottom:16px;">"The coffee table is absolutely stunning. Every person who visits asks about it — it's genuinely the centrepiece of the room. James was brilliant to deal with throughout."</p>
-        <div style="font-size:11px;font-weight:600;color:#2C2A26;letter-spacing:0.06em;">SARAH M. — Auckland</div>
-      </div>
-      <div style="background:#fff;padding:28px;border:1px solid rgba(44,42,38,0.08);">
-        <div style="color:#C9A96E;font-size:14px;margin-bottom:12px;">★★★★★</div>
-        <p style="font-family:Georgia,serif;font-style:italic;color:#2C2A26;font-size:15px;line-height:1.65;margin-bottom:16px;">"We were nervous buying a stone table online at this price point, but the quality is beyond what we imagined. Delivery was personal, careful and the piece is perfect in our space."</p>
-        <div style="font-size:11px;font-weight:600;color:#2C2A26;letter-spacing:0.06em;">MARK &amp; LISA T. — Wellington</div>
-      </div>
-      <div style="background:#fff;padding:28px;border:1px solid rgba(44,42,38,0.08);">
-        <div style="color:#C9A96E;font-size:14px;margin-bottom:12px;">★★★★★</div>
-        <p style="font-family:Georgia,serif;font-style:italic;color:#2C2A26;font-size:15px;line-height:1.65;margin-bottom:16px;">"Prime Piece is the real deal. The marble side table I bought is one of a kind — you can feel the craftsmanship. Nothing like it in any NZ furniture store."</p>
-        <div style="font-size:11px;font-weight:600;color:#2C2A26;letter-spacing:0.06em;">JESSICA R. — Queenstown</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <footer>
   <div class="footer-grid">
@@ -881,9 +832,10 @@
         <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> NZ Handcrafted</span>
         <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Free Pick-up Auckland</span>
       </div>
-      <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-bottom:2px;">or 4 payments of <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong> <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="modal-actions">
-        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
+        <div id="modal-price-display" class="modal-price-display" style="display:none;"></div>
+        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart</button>
+        <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-top:-4px;">or 4 × <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong></div>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid rgba(44,42,38,0.08);flex-wrap:wrap;gap:8px;">
@@ -1110,7 +1062,9 @@
           btn.onclick = addModalToCart;
           const apEl = document.getElementById('modal-afterpay');
           const apAmt = document.getElementById('modal-ap-amount');
-          if (info.price <= 2000) { apEl.style.display = 'block'; apAmt.textContent = '$' + Math.ceil(info.price / 4).toLocaleString('en-NZ'); }
+          const priceDisp = document.getElementById('modal-price-display');
+          if (priceDisp) { priceDisp.style.display = 'block'; priceDisp.textContent = 'NZD $' + info.price.toLocaleString('en-NZ'); }
+          if (info.price >= 35 && info.price <= 2000) { apEl.style.display = 'block'; apAmt.textContent = '$' + Math.ceil(info.price / 4).toLocaleString('en-NZ'); }
           else { apEl.style.display = 'none'; }
         }
       }
