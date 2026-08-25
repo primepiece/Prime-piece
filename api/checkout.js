@@ -2,7 +2,7 @@ import { CATALOG } from './_catalog.js';
 
 // Promo codes live here now too — the client can suggest one, but the discount
 // it produces is only ever applied using this table, never a client-sent amount.
-const PROMO_CODES = { SAMPLEWORKSHOP: 0.10 };
+const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10 };
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
