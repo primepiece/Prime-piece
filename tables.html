@@ -1010,8 +1010,20 @@
     'lounge-5.jpg': { price: 2159, was: 3599, sold: true, id: 'table-black-gold' },
     'lounge-8.jpg': { price: 1499, was: 1999, id: 'table-white-haven-lounge' },
     'midnight-moon-table.png': { price: 2159, was: 3599, id: 'table-midnight-moon' },
+    'gold-rush-table.jpg': { price: 300, id: 'table-gold-rush' },
+    'serpentine-storm-table.jpg': { price: 275, id: 'table-serpentine-storm' },
+    'dark-current-table.jpg': { price: 295, id: 'table-dark-current' },
+    'blue-slate-side-table.jpg': { price: 270, id: 'table-blue-slate' },
+    'pietra-noir-side-table.jpg': { price: 270, id: 'table-pietra-noir' },
+    'desert-drift-2-table.jpg': { price: 250, id: 'table-desert-drift-ii' },
+    'table-midnight-river.png': { price: 290, was: 399, id: 'table-midnight-river' },
+    'table-18.png': { price: 329, was: 449, id: 'table-golden-hour' },
+    'table-19.png': { price: 299, was: 399, id: 'table-arctic-vein' },
+    'table-35.png': { price: 349, was: 436, id: 'table-patagonia-platinum' },
+    'table-34.png': { price: 320, was: 400, id: 'table-desert-drift-2' },
+    'table-green-calacatta (3).png': { price: 319, was: 399, id: 'table-jade-rain' },
   };
-  const NOT_PURCHASABLE = ['lounge-6.jpg','lounge-7.jpg','lounge-9.jpg','lounge-10.jpg','lounge-11.jpg'];
+  const NOT_PURCHASABLE = [];
   const TABLE_GALLERIES = {
     'side-3.jpg': ['side-3.jpg', 'side-3-lifestyle.jpg', 'side-3-detail-1.jpg', 'side-3-detail-2.jpg'],
   };
@@ -1066,12 +1078,8 @@
     const singleBtnEl = document.getElementById('modal-add-single');
     if (singleBtnEl) singleBtnEl.style.display = 'none';
 
-    if (NOT_PURCHASABLE.includes(img)) {
-      _modalItem = null;
-      btn.textContent = 'Enquire About This Piece →';
-      btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
-      btn.onclick = () => { window.location.href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table'; };
-    } else if (info) {
+    btn.style.display = '';
+    if (info) {
       if (info.sold) {
         _modalItem = null;
         btn.textContent = `NZD $${info.price} (was $${info.was || info.price}) — Sold Out`;
@@ -1107,10 +1115,7 @@
         }
       }
     } else {
-      _modalItem = null;
-      btn.textContent = 'Enquire →';
-      btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
-      btn.onclick = () => { window.location.href = 'mailto:james@primepiece.co.nz?subject=Enquiry — ' + name + ' Table'; };
+      btn.style.display = 'none';
     }
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
