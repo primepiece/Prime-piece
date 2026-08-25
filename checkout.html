@@ -472,6 +472,7 @@
   const stripe = Stripe(STRIPE_PK);
   let elements, paymentElement;
   let clientSecret = null;
+  let serverAmount = null;
 
   async function initStripe() {
     if (cart.length === 0) return;
@@ -490,7 +491,8 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: discountRate > 0 ? [{name: 'Order (promo applied)', price: discountedTotal}] : cart,
+          items: cart.map(i => ({ id: i.id })),
+          promoCode: discountRate > 0 ? document.getElementById('promo-code').value.trim() : '',
           customer: {
             name: firstName + ' ' + lastName,
             email,
@@ -503,6 +505,9 @@
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       clientSecret = data.clientSecret;
+      // The server is the source of truth for the amount actually being charged —
+      // it re-derives price from the catalog, not from anything sent by this page.
+      serverAmount = data.amount;
 
       elements = stripe.elements({ clientSecret, appearance: {
         theme: 'flat',
@@ -520,7 +525,7 @@
       paymentElement.mount('#payment-element');
       paymentElement.on('ready', () => {
         document.getElementById('pay-btn').disabled = false;
-        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(serverAmount) + ' NZD →';
       });
 
     } catch (err) {
@@ -552,7 +557,7 @@
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length),
+        return_url: window.location.origin + '/success.html?total=' + encodeURIComponent(serverAmount) + '&items=' + encodeURIComponent(cart.length),
         payment_method_data: {
           billing_details: {
             name: firstName + ' ' + lastName,
@@ -566,7 +571,7 @@
     if (error) {
       showError(error.message);
       document.getElementById('pay-btn').disabled = false;
-      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(serverAmount ?? total) + ' NZD →';
     }
   });
 
