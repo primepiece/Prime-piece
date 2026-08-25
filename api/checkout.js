@@ -45,6 +45,7 @@ export default async function handler(req, res) {
     currency: 'nzd',
     description,
     receipt_email: customer.email,
+    'automatic_payment_methods[enabled]': 'true',
     'metadata[customer_name]': customer.name,
     'metadata[customer_email]': customer.email,
     'metadata[customer_phone]': customer.phone || '',
