@@ -187,6 +187,7 @@
   .basin-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
   .basin-price { font-size: 15px; color: var(--sage-deep); font-weight: 400; }
   .basin-price small { font-size: 10px; color: var(--stone); display: block; margin-bottom: 2px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .basin-afterpay { font-size: 10px; color: var(--stone); text-align: center; }
   .basin-add-btn { display: flex; width: 100%; padding: 14px 20px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-family: 'Inter Tight', sans-serif; font-weight: 600; background: var(--ink); color: #fff; border: none; cursor: pointer; transition: background 0.2s; align-items: center; justify-content: center; gap: 8px; }
   .basin-add-btn:hover { background: #3d3a35; }
   .basin-add-btn.preorder { background: var(--sage); }
@@ -888,6 +889,22 @@
     setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_30s', { page: 'basins' }); }, 30000);
     setTimeout(() => { if (typeof gtag !== 'undefined') gtag('event', 'engaged_90s', { page: 'basins' }); }, 90000);
   })();
+
+  // Inject Afterpay line under each basin price
+  document.querySelectorAll('.basin-foot').forEach(foot => {
+    const btn = foot.querySelector('.basin-add-btn');
+    if (!btn) return;
+    const priceEl = foot.querySelector('.basin-price');
+    const match = btn.getAttribute('onclick').match(/,(\d+)\)/);
+    if (!match || !priceEl) return;
+    const price = parseInt(match[1]);
+    if (price <= 2000) {
+      const ap = document.createElement('div');
+      ap.className = 'basin-afterpay';
+      ap.innerHTML = `or 4 × <strong style="color:var(--ink)">$${Math.ceil(price/4).toLocaleString('en-NZ')}</strong> with <strong style="color:var(--ink)">Afterpay</strong>`;
+      foot.insertBefore(ap, btn);
+    }
+  });
 
   function basinAdd(btn, id, name, image, price) {
     Cart.add({ id, name, type: 'Vessel Basin', image, price });

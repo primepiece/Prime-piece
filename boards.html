@@ -879,6 +879,7 @@
         <span class="detail-val">One of one — never repeated</span>
       </div>
       <p class="modal-note" id="modal-note"></p>
+      <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-bottom:2px;">or 4 payments of <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong> <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
@@ -945,6 +946,10 @@
         const inCart = Cart.getItems().find(i => i.id === info.id);
         btn.textContent = inCart ? 'In Cart ✓' : `Add to Cart — NZD $${info.price} →`;
         btn.onclick = addModalToCart;
+        const apEl = document.getElementById('modal-afterpay');
+        const apAmt = document.getElementById('modal-ap-amount');
+        if (info.price <= 2000) { apEl.style.display = 'block'; apAmt.textContent = '$' + Math.ceil(info.price / 4).toLocaleString('en-NZ'); }
+        else { apEl.style.display = 'none'; }
       }
     }
 

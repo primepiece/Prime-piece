@@ -881,6 +881,7 @@
         <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> NZ Handcrafted</span>
         <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Free Pick-up Auckland</span>
       </div>
+      <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-bottom:2px;">or 4 payments of <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong> <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
@@ -1099,6 +1100,10 @@
           const priceLabel = info.was ? `NZD $${info.price} (was $${info.was})` : `NZD $${info.price.toLocaleString('en-NZ')}`;
           btn.textContent = inCart ? 'In Cart ✓' : `Add to Cart — ${priceLabel} →`;
           btn.onclick = addModalToCart;
+          const apEl = document.getElementById('modal-afterpay');
+          const apAmt = document.getElementById('modal-ap-amount');
+          if (info.price <= 2000) { apEl.style.display = 'block'; apAmt.textContent = '$' + Math.ceil(info.price / 4).toLocaleString('en-NZ'); }
+          else { apEl.style.display = 'none'; }
         }
       }
     } else {
