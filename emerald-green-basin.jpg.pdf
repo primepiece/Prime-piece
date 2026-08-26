@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Piece — Natural Stone Vessel Basin Collection 2026</title>
+<meta name="description" content="Ten natural stone vessel basins. Supplied and sold by Prime Piece, Auckland. From NZD $990.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper: #131210;
+  --ink: #E8E3DC;
+  --ink-mid: #A09B95;
+  --stone: #6E6A64;
+  --rule: rgba(255,255,255,0.08);
+  --cover: #0C0B09;
+  --sage: #7BA5A8;
+  --gold: #B08A4A;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ─── COVER ─────────────────────────────────────── */
+
+.cover {
+  min-height: 100vh;
+  background: var(--cover);
+  display: flex;
+  flex-direction: column;
+  padding: 56px 72px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 46%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgba(123,165,168,0.035) 100%);
+  pointer-events: none;
+}
+
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: auto;
+}
+
+.cover-logo {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+.cover-meta {
+  text-align: right;
+}
+
+.cover-year {
+  display: block;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 4px;
+}
+
+.cover-location {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+}
+
+.cover-body {
+  padding-top: 12vh;
+}
+
+.cover-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--sage);
+  opacity: 0.6;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 8.5vw, 128px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 0.93;
+  letter-spacing: -0.025em;
+  margin-bottom: 52px;
+}
+
+.cover-title em {
+  font-style: italic;
+  color: rgba(255,255,255,0.38);
+}
+
+.cover-divider {
+  width: 1px;
+  height: 56px;
+  background: rgba(255,255,255,0.12);
+  margin-bottom: 36px;
+}
+
+.cover-descriptor {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0;
+  max-width: 560px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 22px 0;
+  margin-bottom: 52px;
+}
+
+.cover-descriptor-item {
+  padding-right: 48px;
+}
+
+.cover-descriptor-item:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.07);
+  margin-right: 48px;
+}
+
+.cover-d-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 6px;
+}
+
+.cover-d-value {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.02em;
+}
+
+.cover-sub {
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.28);
+  line-height: 1.8;
+  max-width: 460px;
+}
+
+/* ─── COLLECTION INDEX ───────────────────────────── */
+
+.index-page {
+  background: var(--paper);
+  padding: 80px 72px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.index-eyebrow {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 40px;
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+
+.index-item {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+.index-item:hover { opacity: 0.45; }
+
+.index-item:nth-child(odd) { padding-right: 48px; border-right: 1px solid var(--rule); }
+.index-item:nth-child(even) { padding-left: 48px; }
+
+.index-num {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  color: var(--stone);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.index-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--ink);
+  flex: 1;
+}
+
+.index-price {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--stone);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* ─── BASIN SPREADS ──────────────────────────────── */
+
+.basin-spread {
+  display: grid;
+  grid-template-columns: 56% 44%;
+  min-height: 100vh;
+  border-bottom: 1px solid var(--rule);
+}
+
+.basin-spread.even {
+  grid-template-columns: 44% 56%;
+}
+
+.basin-spread.even .basin-image { order: 2; }
+.basin-spread.even .basin-info  { order: 1; }
+
+/* Image panel — very slightly deeper to create gallery depth */
+.basin-image {
+  position: relative;
+  overflow: hidden;
+  background: #0E0D0B;
+}
+
+.basin-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  padding: 10%;
+  box-sizing: border-box;
+}
+
+/* Info panel */
+.basin-info {
+  padding: 80px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid var(--rule);
+  position: relative;
+}
+
+.basin-spread.even .basin-info {
+  border-left: none;
+  border-right: 1px solid var(--rule);
+}
+
+.col-num {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  color: var(--stone);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.col-num::after {
+  content: '';
+  display: block;
+  flex: 1;
+  max-width: 36px;
+  height: 1px;
+  background: var(--rule);
+}
+
+.stone-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 4.4vw, 76px);
+  font-weight: 300;
+  line-height: 0.97;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.stone-type {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 32px;
+}
+
+.basin-rule {
+  width: 36px;
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin-bottom: 28px;
+}
+
+.stone-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.82;
+  color: var(--ink-mid);
+  max-width: 340px;
+  margin-bottom: 44px;
+}
+
+/* Spec table */
+.spec-table {
+  margin-bottom: 40px;
+}
+
+.spec-row {
+  display: flex;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.spec-row:first-child { border-top: 1px solid var(--rule); }
+
+.spec-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  width: 118px;
+  flex-shrink: 0;
+}
+
+.spec-value {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+/* Price */
+.basin-price-wrap {
+  margin-bottom: 28px;
+}
+
+.basin-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 7px;
+}
+
+.basin-price-note {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--stone);
+}
+
+/* Availability */
+.avail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 2px;
+}
+
+.avail-badge.in-stock {
+  background: rgba(123,165,168,0.1);
+  color: var(--sage);
+  border: 1px solid rgba(123,165,168,0.25);
+}
+
+.avail-badge.pre-order {
+  background: rgba(176,138,74,0.08);
+  color: var(--gold);
+  border: 1px solid rgba(176,138,74,0.2);
+}
+
+.avail-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ─── CLOSING ────────────────────────────────────── */
+
+.closing {
+  min-height: 88vh;
+  background: var(--cover);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 88px 72px 100px;
+  position: relative;
+}
+
+.closing-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.closing-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--sage);
+  opacity: 0.6;
+}
+
+.closing-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 6.5vw, 96px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  margin-bottom: 56px;
+}
+
+.closing-rule {
+  width: 1px;
+  height: 56px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 48px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 0 72px;
+  margin-bottom: 56px;
+}
+
+.contact-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 10px;
+}
+
+.contact-value {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.65;
+}
+
+.contact-value a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-value a:hover { color: rgba(255,255,255,0.85); }
+
+.closing-cta {
+  display: inline-block;
+  padding: 15px 32px;
+  background: var(--sage);
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.closing-cta:hover { background: #5e8e91; }
+
+.closing-footer {
+  position: absolute;
+  bottom: 44px;
+  left: 72px;
+  right: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 20px;
+}
+
+.closing-footer-logo {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.16);
+}
+
+.closing-footer-copy {
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.16);
+  letter-spacing: 0.06em;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+
+@media (max-width: 960px) {
+  .cover { padding: 44px 36px 52px; }
+  .cover-descriptor { grid-template-columns: 1fr 1fr; }
+
+  .index-page { padding: 60px 36px; }
+  .index-grid { grid-template-columns: 1fr; }
+  .index-item:nth-child(odd) { border-right: none; padding-right: 0; }
+  .index-item:nth-child(even) { padding-left: 0; }
+
+  .basin-spread,
+  .basin-spread.even {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .basin-spread.even .basin-image { order: 1; }
+  .basin-spread.even .basin-info  { order: 2; }
+  .basin-spread.even .basin-info  { border-right: none; }
+
+  .basin-image { min-height: 60vw; }
+
+  .basin-info {
+    padding: 52px 36px;
+    border-left: none !important;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stone-desc { max-width: none; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .closing { padding: 72px 36px 110px; }
+  .closing-footer { left: 36px; right: 36px; flex-direction: column; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 560px) {
+  .cover-descriptor { grid-template-columns: 1fr; }
+  .cover-descriptor-item:not(:last-child) { border-right: none; margin-right: 0; border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 18px; margin-bottom: 18px; }
+}
+
+/* ─── DOWNLOAD BUTTON ────────────────────────────── */
+
+.download-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.75);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.download-btn:hover {
+  background: rgba(255,255,255,0.13);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.download-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ─── PRINT / PDF STYLES ─────────────────────────── */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  body { background: var(--paper); }
+
+  .download-btn { display: none !important; }
+
+  .cover {
+    page-break-after: always;
+    min-height: 0;
+    height: 100vh;
+  }
+
+  .index-page {
+    page-break-after: always;
+  }
+
+  .basin-spread {
+    page-break-after: always;
+    min-height: 0;
+    height: 100vh;
+  }
+
+  .closing {
+    page-break-before: always;
+    min-height: 0;
+    height: 100vh;
+  }
+
+  .basin-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  a { color: inherit !important; text-decoration: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── COVER ──────────────────────────────────────── -->
+<section class="cover">
+  <div class="cover-header">
+    <span class="cover-logo">Prime Piece</span>
+    <div class="cover-meta">
+      <span class="cover-year">2026</span>
+      <span class="cover-location">Auckland, NZ</span>
+    </div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-eyebrow">Natural Stone Vessel Basin Collection</div>
+    <h1 class="cover-title">Ten rare<br>stones.<br><em>One form.</em></h1>
+    <div class="cover-divider"></div>
+
+    <div class="cover-descriptor">
+      <div class="cover-descriptor-item">
+        <div class="cover-d-label">Diameter</div>
+        <div class="cover-d-value">Ø 430 mm</div>
+      </div>
+      <div class="cover-descriptor-item">
+        <div class="cover-d-label">Height</div>
+        <div class="cover-d-value">135 mm</div>
+      </div>
+      <div class="cover-descriptor-item">
+        <div class="cover-d-label">From</div>
+        <div class="cover-d-value">NZD $990</div>
+      </div>
+    </div>
+
+    <p class="cover-sub">
+      Each basin is shaped and finished from a single block of natural stone.<br>
+      No two pieces are identical. Supplied and sold by Prime Piece, Auckland.<br>
+      Basin supplied only — client to source tapware and vanity.
+    </p>
+  </div>
+</section>
+
+<!-- ─── INDEX ─────────────────────────────────────── -->
+<div class="index-page">
+  <div class="index-eyebrow">Collection Index</div>
+  <div class="index-grid">
+    <a href="#b01" class="index-item">
+      <span class="index-num">01</span>
+      <span class="index-name">Carrara Marble</span>
+      <span class="index-price">NZD $1,190</span>
+    </a>
+    <a href="#b02" class="index-item">
+      <span class="index-num">02</span>
+      <span class="index-name">Beige Travertine</span>
+      <span class="index-price">NZD $990</span>
+    </a>
+    <a href="#b03" class="index-item">
+      <span class="index-num">03</span>
+      <span class="index-name">Nero Marquina</span>
+      <span class="index-price">NZD $1,050</span>
+    </a>
+    <a href="#b04" class="index-item">
+      <span class="index-num">04</span>
+      <span class="index-name">Emerald Green Marble</span>
+      <span class="index-price">NZD $1,090</span>
+    </a>
+    <a href="#b05" class="index-item">
+      <span class="index-num">05</span>
+      <span class="index-name">Ivory Onyx</span>
+      <span class="index-price">NZD $1,250</span>
+    </a>
+    <a href="#b06" class="index-item">
+      <span class="index-num">06</span>
+      <span class="index-name">Tiger Onyx</span>
+      <span class="index-price">NZD $1,350</span>
+    </a>
+    <a href="#b07" class="index-item">
+      <span class="index-num">07</span>
+      <span class="index-name">Pietra Grey</span>
+      <span class="index-price">NZD $1,350</span>
+    </a>
+    <a href="#b08" class="index-item">
+      <span class="index-num">08</span>
+      <span class="index-name">Ocean Blue Marble</span>
+      <span class="index-price">NZD $1,290</span>
+    </a>
+    <a href="#b09" class="index-item">
+      <span class="index-num">09</span>
+      <span class="index-name">Pink Onyx</span>
+      <span class="index-price">NZD $1,890</span>
+    </a>
+    <a href="#b10" class="index-item">
+      <span class="index-num">10</span>
+      <span class="index-name">Rosso Levanto</span>
+      <span class="index-price">NZD $1,350</span>
+    </a>
+  </div>
+</div>
+
+<!-- ─── 01 CARRARA MARBLE ─────────────────────────── -->
+<section class="basin-spread" id="b01">
+  <div class="basin-image">
+    <img src="white-carrara-vessel.jpg" alt="Carrara Marble Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">01 /</span>
+    <h2 class="stone-name">Carrara<br>Marble</h2>
+    <p class="stone-type">Carrara Marble</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">White ground with fine grey veining that varies naturally across each piece. Versatile and enduring — works across a wide range of interior palettes from cool minimalist to warm traditional.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,190</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge in-stock"><span class="avail-dot"></span>Available Now</span>
+  </div>
+</section>
+
+<!-- ─── 02 BEIGE TRAVERTINE ───────────────────────── -->
+<section class="basin-spread even" id="b02">
+  <div class="basin-image">
+    <img src="warm-beige-vessel.jpg" alt="Beige Travertine Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">02 /</span>
+    <h2 class="stone-name">Beige<br>Travertine</h2>
+    <p class="stone-type">Beige Travertine</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Warm sandy tones with natural pore texture and gentle linear movement through the stone. Pairs well with timber vanities, warm-toned fixtures and natural material palettes.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $990</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge in-stock"><span class="avail-dot"></span>Available Now</span>
+  </div>
+</section>
+
+<!-- ─── 03 NERO MARQUINA ──────────────────────────── -->
+<section class="basin-spread" id="b03">
+  <div class="basin-image">
+    <img src="nero-marquina-vessel.jpg" alt="Nero Marquina Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">03 /</span>
+    <h2 class="stone-name">Nero<br>Marquina</h2>
+    <p class="stone-type">Black Marble</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Deep jet black ground with crisp white veining. High contrast and visually bold — works as a feature piece against both light and dark bathroom palettes.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,050</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 04 EMERALD GREEN MARBLE ───────────────────── -->
+<section class="basin-spread even" id="b04">
+  <div class="basin-image">
+    <img src="emerald-green-basin.jpg" alt="Emerald Green Marble Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">04 /</span>
+    <h2 class="stone-name">Emerald<br>Green</h2>
+    <p class="stone-type">Emerald Green Marble</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Deep emerald green with dramatic natural patterning across the surface. High visual impact — suited to spaces where the basin is intended as a centrepiece rather than a background element.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,090</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 05 IVORY ONYX ─────────────────────────────── -->
+<section class="basin-spread" id="b05">
+  <div class="basin-image">
+    <img src="white-onyx-vessel.jpg" alt="Ivory Onyx Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">05 /</span>
+    <h2 class="stone-name">Ivory<br>Onyx</h2>
+    <p class="stone-type">White Onyx</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Ivory-white onyx with warm amber veining and a degree of natural translucency. The stone has a soft, luminous quality in natural light — visually distinct from opaque marbles and suited to softer, warmer interior palettes.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,250</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 06 TIGER ONYX ─────────────────────────────── -->
+<section class="basin-spread even" id="b06">
+  <div class="basin-image">
+    <img src="basin-tiger-onyx-1.jpg" alt="Tiger Onyx Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">06 /</span>
+    <h2 class="stone-name">Tiger<br>Onyx</h2>
+    <p class="stone-type">Tiger Onyx</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Amber and burnt-orange banding on the exterior with a contrasting grey-green tone visible on the interior bowl. The two-tone colour shift is inherent to this stone type and creates a layered visual effect particular to the vessel basin form.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,350</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 07 PIETRA GREY ────────────────────────────── -->
+<section class="basin-spread" id="b07">
+  <div class="basin-image">
+    <img src="basin-pietra-grey-1.jpg" alt="Pietra Grey Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">07 /</span>
+    <h2 class="stone-name">Pietra<br>Grey</h2>
+    <p class="stone-type">Pietra Grey Marble</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Deep charcoal grey with subtle ghosted veining visible through the surface. Low-contrast and tonally consistent — well-suited to dark, minimal bathroom schemes where material quality rather than pattern is the focus.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,350</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 08 OCEAN BLUE MARBLE ──────────────────────── -->
+<section class="basin-spread even" id="b08">
+  <div class="basin-image">
+    <img src="ocean-blue-basin.jpg" alt="Ocean Blue Marble Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">08 /</span>
+    <h2 class="stone-name">Ocean<br>Blue</h2>
+    <p class="stone-type">Ocean Blue Marble</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Deep blue-grey with tonal veining that moves through the stone in softer gradations than a typical high-contrast marble. Unusual colouring for a vessel basin — works well within coastal, spa or cool-toned interior palettes.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,290</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 09 PINK ONYX ──────────────────────────────── -->
+<section class="basin-spread" id="b09">
+  <div class="basin-image">
+    <img src="basin-pink-purple-onyx-1.jpg" alt="Pink Onyx Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">09 /</span>
+    <h2 class="stone-name">Pink<br>Onyx</h2>
+    <p class="stone-type">Pink Onyx</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Blush pink with translucent depth and swirling veins of lilac and white. A striking and unusual stone that draws attention in any considered bathroom setting.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">Polished</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,890</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── 10 ROSSO LEVANTO ───────────────────────────── -->
+<section class="basin-spread even" id="b10">
+  <div class="basin-image">
+    <img src="rosso-levanto-basin.jpg" alt="Rosso Levanto Vessel Basin">
+  </div>
+  <div class="basin-info">
+    <span class="col-num">10 /</span>
+    <h2 class="stone-name">Rosso<br>Levanto</h2>
+    <p class="stone-type">Rosso Levanto Marble</p>
+    <div class="basin-rule"></div>
+    <p class="stone-desc">Deep burgundy red with bold white and green veining. Unmistakable and uncompromising — a stone that commands any space it occupies.</p>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-label">Diameter</span><span class="spec-value">430 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Height</span><span class="spec-value">135 mm</span></div>
+      <div class="spec-row"><span class="spec-label">Finish</span><span class="spec-value">Polished</span></div>
+      <div class="spec-row"><span class="spec-label">Supply</span><span class="spec-value">Basin only</span></div>
+    </div>
+    <div class="basin-price-wrap">
+      <div class="basin-price">NZD $1,350</div>
+      <div class="basin-price-note">Incl. GST · Free Auckland delivery</div>
+    </div>
+    <span class="avail-badge pre-order"><span class="avail-dot"></span>Available to Order</span>
+  </div>
+</section>
+
+<!-- ─── CLOSING ───────────────────────────────────── -->
+<section class="closing">
+  <div class="closing-eyebrow">Specify with Prime Piece</div>
+  <h2 class="closing-title">Ready to<br>specify?</h2>
+  <div class="closing-rule"></div>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-label">Contact</div>
+      <div class="contact-value">James Hopwood<br>Director, Prime Piece</div>
+    </div>
+    <div>
+      <div class="contact-label">Phone</div>
+      <div class="contact-value"><a href="tel:0211466990">021 146 6990</a></div>
+    </div>
+    <div>
+      <div class="contact-label">Email</div>
+      <div class="contact-value"><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a></div>
+    </div>
+  </div>
+  <a href="https://www.primepiece.co.nz/basins.html" class="closing-cta">View Collection Online &nbsp;→</a>
+  <div class="closing-footer">
+    <span class="closing-footer-logo">Prime Piece</span>
+    <p style="margin:0 0 1rem;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;opacity:0.7;">Trade, designer and project enquiries welcome</p>
+    <span class="closing-footer-copy">© 2026 Prime Piece · Auckland, New Zealand · primepiece.co.nz</span>
+  </div>
+</section>
+
+<!-- Download button -->
+<button class="download-btn" onclick="window.print()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+  Save as PDF
+</button>
+
+</body>
+</html>
