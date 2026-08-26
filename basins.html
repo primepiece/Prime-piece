@@ -123,12 +123,13 @@
   .swatch:nth-child(5), .swatch:nth-child(6) { border-bottom: none; }
   .swatch:hover { filter: brightness(1.1); }
   .swatch::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 55%); }
+  .swatch-statuario::after { background: linear-gradient(to top, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 55%); }
   .swatch-content { position: relative; z-index: 1; }
   .swatch-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: 3px; }
   .swatch-type { font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 500; }
   .swatch-price { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 4px; }
-  .swatch-statuario { background: linear-gradient(135deg, #f0ece6 0%, #e2ddd6 25%, #d4cfc7 50%, #c8c4bc 70%, #e8e4de 100%); }
-  .swatch-pietra { background: linear-gradient(135deg, #3d3d3d 0%, #2a2a2a 35%, #1e1e1e 60%, #333 100%); }
+  .swatch-statuario { background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 30%, #ebebeb 60%, #f8f8f8 100%); }
+  .swatch-pietra { background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 30%, #111 55%, #3a3a3a 80%, #0d0d0d 100%); }
   .swatch-pink-onyx { background: linear-gradient(135deg, #f0c8dc 0%, #e0b0cc 30%, #c890b8 55%, #d4a0c0 80%, #e8b4c8 100%); }
   .swatch-tiger { background: linear-gradient(135deg, #C4762A 0%, #8B4513 25%, #D4902A 50%, #5C3308 70%, #8B6914 100%); }
   .swatch-ocean-blue { background: linear-gradient(135deg, #4a6a7a 0%, #3a5565 30%, #2a4555 55%, #3d6070 80%, #506878 100%); }
@@ -386,9 +387,9 @@
 <div class="swatches-panel">
   <div class="swatch swatch-statuario" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
     <div class="swatch-content">
-      <div class="swatch-name">Statuario</div>
-      <div class="swatch-type">Statuario Marble</div>
-      <div class="swatch-price">From NZD $1,250</div>
+      <div class="swatch-name" style="color:#1a1a1a;">White Carrara</div>
+      <div class="swatch-type" style="color:rgba(0,0,0,0.45);">Carrara Marble</div>
+      <div class="swatch-price" style="color:rgba(0,0,0,0.35);">From NZD $1,190</div>
     </div>
   </div>
   <div class="swatch swatch-pietra" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
