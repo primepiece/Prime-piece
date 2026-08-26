@@ -217,7 +217,7 @@
   .modal-overlay.open { display: flex; }
   .modal { background: var(--cream); max-width: 860px; width: 100%; border-radius: 2px; overflow: hidden; position: relative; max-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; }
   .modal-img-col { background: var(--cream-soft); position: relative; overflow: hidden; }
-  .modal-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-img-col img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 20px; box-sizing: border-box; }
   .modal-badge { position: absolute; top: 20px; left: 20px; padding: 5px 12px; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
   .modal-info-col { padding: 40px 36px; display: flex; flex-direction: column; overflow-y: auto; border-left: 1px solid var(--line); }
   .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10; }
@@ -671,7 +671,7 @@
     <button class="modal-close" onclick="closeBasinModalBtn()">✕</button>
     <div class="modal-img-col">
       <span class="modal-badge">Arriving Soon</span>
-      <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:contain;display:block;padding:20px;box-sizing:border-box;">
     </div>
     <div class="modal-info-col">
       <div class="modal-eyebrow">Prime Piece — Natural Stone Basin</div>
