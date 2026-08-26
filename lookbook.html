@@ -601,6 +601,87 @@ body {
   .cover-descriptor { grid-template-columns: 1fr; }
   .cover-descriptor-item:not(:last-child) { border-right: none; margin-right: 0; border-bottom: 1px solid rgba(255,255,255,0.07); padding-bottom: 18px; margin-bottom: 18px; }
 }
+
+/* ─── DOWNLOAD BUTTON ────────────────────────────── */
+
+.download-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  background: var(--ink);
+  color: #fff;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  transition: background 0.2s, transform 0.15s;
+}
+
+.download-btn:hover {
+  background: #2e2b26;
+  transform: translateY(-1px);
+}
+
+.download-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ─── PRINT / PDF STYLES ─────────────────────────── */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  body { background: var(--paper); }
+
+  .download-btn { display: none !important; }
+
+  .cover {
+    page-break-after: always;
+    min-height: 0;
+    height: 100vh;
+  }
+
+  .index-page {
+    page-break-after: always;
+  }
+
+  .basin-spread {
+    page-break-after: always;
+    min-height: 0;
+    height: 100vh;
+  }
+
+  .closing {
+    page-break-before: always;
+    min-height: 0;
+    height: 100vh;
+  }
+
+  .basin-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  a { color: inherit !important; text-decoration: none !important; }
+}
 </style>
 </head>
 <body>
@@ -975,6 +1056,16 @@ body {
     <span class="closing-footer-copy">© 2025 Prime Piece · Auckland, New Zealand · primepiece.co.nz</span>
   </div>
 </section>
+
+<!-- Download button -->
+<button class="download-btn" onclick="window.print()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+  Save as PDF
+</button>
 
 </body>
 </html>
