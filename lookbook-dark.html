@@ -10,12 +10,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --paper: #F6F3EE;
-  --ink: #1B1916;
-  --ink-mid: #5C5852;
-  --stone: #9A9590;
-  --rule: #D8D2CA;
-  --cover: #131210;
+  --paper: #131210;
+  --ink: #E8E3DC;
+  --ink-mid: #A09B95;
+  --stone: #6E6A64;
+  --rule: rgba(255,255,255,0.08);
+  --cover: #0C0B09;
   --sage: #7BA5A8;
   --gold: #B08A4A;
 }
@@ -217,7 +217,7 @@ body {
   transition: opacity 0.2s;
 }
 
-.index-item:hover { opacity: 0.55; }
+.index-item:hover { opacity: 0.45; }
 
 .index-item:nth-child(odd) { padding-right: 48px; border-right: 1px solid var(--rule); }
 .index-item:nth-child(even) { padding-left: 48px; }
@@ -263,11 +263,11 @@ body {
 .basin-spread.even .basin-image { order: 2; }
 .basin-spread.even .basin-info  { order: 1; }
 
-/* Image panel */
+/* Image panel — very slightly deeper to create gallery depth */
 .basin-image {
   position: relative;
   overflow: hidden;
-  background: #EDEAD4;
+  background: #0E0D0B;
 }
 
 .basin-image img {
@@ -338,7 +338,7 @@ body {
 .basin-rule {
   width: 36px;
   height: 1px;
-  background: var(--rule);
+  background: rgba(255,255,255,0.12);
   margin-bottom: 28px;
 }
 
@@ -418,15 +418,15 @@ body {
 }
 
 .avail-badge.in-stock {
-  background: rgba(123,165,168,0.09);
+  background: rgba(123,165,168,0.1);
   color: var(--sage);
-  border: 1px solid rgba(123,165,168,0.28);
+  border: 1px solid rgba(123,165,168,0.25);
 }
 
 .avail-badge.pre-order {
-  background: rgba(176,138,74,0.07);
+  background: rgba(176,138,74,0.08);
   color: var(--gold);
-  border: 1px solid rgba(176,138,74,0.22);
+  border: 1px solid rgba(176,138,74,0.2);
 }
 
 .avail-dot {
@@ -613,23 +613,23 @@ body {
   align-items: center;
   gap: 10px;
   padding: 13px 22px;
-  background: var(--ink);
-  color: #fff;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.75);
   font-family: 'Inter Tight', sans-serif;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.14);
   border-radius: 2px;
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
-  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .download-btn:hover {
-  background: #2e2b26;
-  transform: translateY(-1px);
+  background: rgba(255,255,255,0.13);
+  border-color: rgba(255,255,255,0.22);
 }
 
 .download-btn svg {
