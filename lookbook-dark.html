@@ -263,11 +263,45 @@ body {
 .basin-spread.even .basin-image { order: 2; }
 .basin-spread.even .basin-info  { order: 1; }
 
-/* Image panel — very slightly deeper to create gallery depth */
+/* Image panel — base fallback */
 .basin-image {
   position: relative;
   overflow: hidden;
   background: #0E0D0B;
+}
+
+/* Per-stone atmospheric studio gradients
+   Each is a radial ellipse lit from upper-left, fading to near-black at edges.
+   Colours are extreme desaturated versions of the stone's hue family. */
+#b01 .basin-image { /* Carrara — warm grey / charcoal */
+  background: radial-gradient(ellipse at 45% 40%, #38332d 0%, #1e1b17 52%, #0d0c0a 100%);
+}
+#b02 .basin-image { /* Beige Travertine — muted sand / taupe */
+  background: radial-gradient(ellipse at 45% 40%, #362c1e 0%, #1e1710 52%, #0c0a07 100%);
+}
+#b03 .basin-image { /* Nero Marquina — deep charcoal / near-black */
+  background: radial-gradient(ellipse at 45% 40%, #202020 0%, #111111 52%, #070707 100%);
+}
+#b04 .basin-image { /* Emerald Green — deep desaturated forest */
+  background: radial-gradient(ellipse at 45% 40%, #1b2b1f 0%, #101a13 52%, #080e09 100%);
+}
+#b05 .basin-image { /* Ivory Onyx — warm champagne / dark ivory */
+  background: radial-gradient(ellipse at 45% 40%, #33291a 0%, #1c1710 52%, #0d0b07 100%);
+}
+#b06 .basin-image { /* Tiger Onyx — deep amber / burnt sienna */
+  background: radial-gradient(ellipse at 45% 40%, #30200d 0%, #1c1208 52%, #0c0805 100%);
+}
+#b07 .basin-image { /* Pietra Grey — graphite / smoky */
+  background: radial-gradient(ellipse at 45% 40%, #252525 0%, #151515 52%, #090909 100%);
+}
+#b08 .basin-image { /* Ocean Blue — deep muted blue-grey */
+  background: radial-gradient(ellipse at 45% 40%, #172028 0%, #0f151d 52%, #080b0f 100%);
+}
+#b09 .basin-image { /* Pink Onyx — dark dusty blush / muted plum */
+  background: radial-gradient(ellipse at 45% 40%, #2c1d22 0%, #191013 52%, #0d0809 100%);
+}
+#b10 .basin-image { /* Rosso Levanto — deep oxblood / burgundy */
+  background: radial-gradient(ellipse at 45% 40%, #2b1012 0%, #180809 52%, #0c0607 100%);
 }
 
 .basin-image img {
@@ -276,8 +310,9 @@ body {
   object-fit: contain;
   object-position: center;
   display: block;
-  padding: 10%;
+  padding: 8%;
   box-sizing: border-box;
+  mix-blend-mode: normal;
 }
 
 /* Info panel */
