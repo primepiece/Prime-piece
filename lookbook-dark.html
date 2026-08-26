@@ -270,38 +270,95 @@ body {
   background: #0E0D0B;
 }
 
-/* Per-stone atmospheric studio gradients
-   Each is a radial ellipse lit from upper-left, fading to near-black at edges.
-   Colours are extreme desaturated versions of the stone's hue family. */
-#b01 .basin-image { /* Carrara — warm grey / charcoal */
+/* Basin image — sits below the vignette overlay */
+.basin-image img {
+  position: relative;
+  z-index: 0;
+}
+
+/* Vignette overlay — masks white photo backgrounds, blends basin into dark ground.
+   Radial gradient: transparent over the basin centre, fading to stone colour at edges.
+   Each basin overrides this with its matched colour. */
+.basin-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Per-stone atmospheric studio gradients + matched vignette overlays.
+   Background: radial light source from upper-left, near-black at edges.
+   ::after vignette: transparent centre fading to stone colour — masks white photo bg. */
+
+#b01 .basin-image { /* Carrara — warm grey charcoal */
   background: radial-gradient(ellipse at 45% 40%, #38332d 0%, #1e1b17 52%, #0d0c0a 100%);
 }
+#b01 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(30,27,23,0.55) 56%, rgba(13,12,10,0.92) 78%, #0d0c0a 100%);
+}
+
 #b02 .basin-image { /* Beige Travertine — muted sand / taupe */
   background: radial-gradient(ellipse at 45% 40%, #362c1e 0%, #1e1710 52%, #0c0a07 100%);
 }
+#b02 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(30,23,16,0.55) 56%, rgba(12,10,7,0.92) 78%, #0c0a07 100%);
+}
+
 #b03 .basin-image { /* Nero Marquina — deep charcoal / near-black */
   background: radial-gradient(ellipse at 45% 40%, #202020 0%, #111111 52%, #070707 100%);
 }
+#b03 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(17,17,17,0.55) 56%, rgba(7,7,7,0.92) 78%, #070707 100%);
+}
+
 #b04 .basin-image { /* Emerald Green — deep desaturated forest */
   background: radial-gradient(ellipse at 45% 40%, #1b2b1f 0%, #101a13 52%, #080e09 100%);
 }
+#b04 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(16,26,19,0.45) 56%, rgba(8,14,9,0.90) 78%, #080e09 100%);
+}
+
 #b05 .basin-image { /* Ivory Onyx — warm champagne / dark ivory */
   background: radial-gradient(ellipse at 45% 40%, #33291a 0%, #1c1710 52%, #0d0b07 100%);
 }
+#b05 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(28,23,16,0.55) 56%, rgba(13,11,7,0.92) 78%, #0d0b07 100%);
+}
+
 #b06 .basin-image { /* Tiger Onyx — deep amber / burnt sienna */
   background: radial-gradient(ellipse at 45% 40%, #30200d 0%, #1c1208 52%, #0c0805 100%);
 }
+#b06 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(28,18,8,0.55) 56%, rgba(12,8,5,0.92) 78%, #0c0805 100%);
+}
+
 #b07 .basin-image { /* Pietra Grey — graphite / smoky */
   background: radial-gradient(ellipse at 45% 40%, #252525 0%, #151515 52%, #090909 100%);
 }
+#b07 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(21,21,21,0.55) 56%, rgba(9,9,9,0.92) 78%, #090909 100%);
+}
+
 #b08 .basin-image { /* Ocean Blue — deep muted blue-grey */
   background: radial-gradient(ellipse at 45% 40%, #172028 0%, #0f151d 52%, #080b0f 100%);
 }
+#b08 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(15,21,29,0.55) 56%, rgba(8,11,15,0.92) 78%, #080b0f 100%);
+}
+
 #b09 .basin-image { /* Pink Onyx — dark dusty blush / muted plum */
   background: radial-gradient(ellipse at 45% 40%, #2c1d22 0%, #191013 52%, #0d0809 100%);
 }
+#b09 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(25,16,19,0.55) 56%, rgba(13,8,9,0.92) 78%, #0d0809 100%);
+}
+
 #b10 .basin-image { /* Rosso Levanto — deep oxblood / burgundy */
   background: radial-gradient(ellipse at 45% 40%, #2b1012 0%, #180809 52%, #0c0607 100%);
+}
+#b10 .basin-image::after {
+  background: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 32%, rgba(24,8,9,0.55) 56%, rgba(12,6,7,0.92) 78%, #0c0607 100%);
 }
 
 .basin-image img {
@@ -310,9 +367,10 @@ body {
   object-fit: contain;
   object-position: center;
   display: block;
-  padding: 8%;
+  padding: 7%;
   box-sizing: border-box;
-  mix-blend-mode: normal;
+  position: relative;
+  z-index: 0;
 }
 
 /* Info panel */
