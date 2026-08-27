@@ -140,6 +140,67 @@ body {
 
 .cover-body {
   padding-top: 4vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 80px;
+  align-items: start;
+}
+
+.cover-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-index {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.cover-index-eyebrow {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 28px;
+}
+
+.cover-index-item {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+.cover-index-item:hover { opacity: 0.45; }
+
+.cover-index-num {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--stone);
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.cover-index-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  flex: 1;
+}
+
+.cover-index-price {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--stone);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
 }
 
 .cover-eyebrow {
@@ -773,106 +834,52 @@ body {
     <div class="cover-meta">
       <span class="cover-year">2026</span>
       <span class="cover-location">Auckland, NZ</span>
-      <div class="cover-matkey">
-        <span class="cover-matkey-heading">The Collection</span>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">01</span><span class="cover-matkey-name">Carrara Marble</span><span class="cs" style="background:linear-gradient(135deg,#E2DDD8,#C8C3BC)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">02</span><span class="cover-matkey-name">Beige Travertine</span><span class="cs" style="background:linear-gradient(135deg,#C8B888,#A09060)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">03</span><span class="cover-matkey-name">Nero Marquina</span><span class="cs" style="background:linear-gradient(135deg,#222220,#0E0E0C)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">04</span><span class="cover-matkey-name">Emerald Green Marble</span><span class="cs" style="background:linear-gradient(135deg,#3A6B50,#1E4030)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">05</span><span class="cover-matkey-name">Ivory Onyx</span><span class="cs" style="background:linear-gradient(135deg,#E8DFC0,#C8C0A0)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">06</span><span class="cover-matkey-name">Tiger Onyx</span><span class="cs" style="background:linear-gradient(135deg,#D4900A,#8B5A04)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">07</span><span class="cover-matkey-name">Pietra Grey</span><span class="cs" style="background:linear-gradient(135deg,#2A2A28,#141412)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">08</span><span class="cover-matkey-name">Ocean Blue Marble</span><span class="cs" style="background:linear-gradient(135deg,#4A7A94,#2A4E6A)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">09</span><span class="cover-matkey-name">Pink Onyx</span><span class="cs" style="background:linear-gradient(135deg,#D4A8C0,#B87898)"></span></div>
-        <div class="cover-matkey-row"><span class="cover-matkey-num">10</span><span class="cover-matkey-name">Rosso Levanto</span><span class="cs" style="background:linear-gradient(135deg,#A02828,#6A1010)"></span></div>
-      </div>
     </div>
   </div>
 
   <div class="cover-body">
-    <div class="cover-eyebrow">Natural Stone Vessel Basin Collection</div>
-    <h1 class="cover-title">Ten rare<br>stones.<br><em>One form.</em></h1>
-    <div class="cover-divider"></div>
+    <div class="cover-left">
+      <div class="cover-eyebrow">Natural Stone Vessel Basin Collection</div>
+      <h1 class="cover-title">Ten rare<br>stones.<br><em>One form.</em></h1>
+      <div class="cover-divider"></div>
 
-    <div class="cover-descriptor">
-      <div class="cover-descriptor-item">
-        <div class="cover-d-label">Diameter</div>
-        <div class="cover-d-value">Ø 430 mm</div>
+      <div class="cover-descriptor">
+        <div class="cover-descriptor-item">
+          <div class="cover-d-label">Diameter</div>
+          <div class="cover-d-value">Ø 430 mm</div>
+        </div>
+        <div class="cover-descriptor-item">
+          <div class="cover-d-label">Height</div>
+          <div class="cover-d-value">135 mm</div>
+        </div>
+        <div class="cover-descriptor-item">
+          <div class="cover-d-label">From</div>
+          <div class="cover-d-value">NZD $990</div>
+        </div>
       </div>
-      <div class="cover-descriptor-item">
-        <div class="cover-d-label">Height</div>
-        <div class="cover-d-value">135 mm</div>
-      </div>
-      <div class="cover-descriptor-item">
-        <div class="cover-d-label">From</div>
-        <div class="cover-d-value">NZD $990</div>
-      </div>
+
+      <p class="cover-sub">
+        Each basin is shaped and finished from a single block of natural stone.<br>
+        No two pieces are identical. Supplied and sold by Prime Piece, Auckland.<br>
+        Basin supplied only — client to source tapware and vanity.
+      </p>
     </div>
 
-    <p class="cover-sub">
-      Each basin is shaped and finished from a single block of natural stone.<br>
-      No two pieces are identical. Supplied and sold by Prime Piece, Auckland.<br>
-      Basin supplied only — client to source tapware and vanity.
-    </p>
+    <div class="cover-index">
+      <div class="cover-index-eyebrow">Collection Index</div>
+      <a href="#b01" class="cover-index-item"><span class="cover-index-num">01</span><span class="cover-index-name">Carrara Marble</span><span class="cover-index-price">NZD $1,190</span></a>
+      <a href="#b02" class="cover-index-item"><span class="cover-index-num">02</span><span class="cover-index-name">Beige Travertine</span><span class="cover-index-price">NZD $990</span></a>
+      <a href="#b03" class="cover-index-item"><span class="cover-index-num">03</span><span class="cover-index-name">Nero Marquina</span><span class="cover-index-price">NZD $1,050</span></a>
+      <a href="#b04" class="cover-index-item"><span class="cover-index-num">04</span><span class="cover-index-name">Emerald Green Marble</span><span class="cover-index-price">NZD $1,090</span></a>
+      <a href="#b05" class="cover-index-item"><span class="cover-index-num">05</span><span class="cover-index-name">Ivory Onyx</span><span class="cover-index-price">NZD $1,250</span></a>
+      <a href="#b06" class="cover-index-item"><span class="cover-index-num">06</span><span class="cover-index-name">Tiger Onyx</span><span class="cover-index-price">NZD $1,350</span></a>
+      <a href="#b07" class="cover-index-item"><span class="cover-index-num">07</span><span class="cover-index-name">Pietra Grey</span><span class="cover-index-price">NZD $1,350</span></a>
+      <a href="#b08" class="cover-index-item"><span class="cover-index-num">08</span><span class="cover-index-name">Ocean Blue Marble</span><span class="cover-index-price">NZD $1,290</span></a>
+      <a href="#b09" class="cover-index-item"><span class="cover-index-num">09</span><span class="cover-index-name">Pink Onyx</span><span class="cover-index-price">NZD $1,890</span></a>
+      <a href="#b10" class="cover-index-item"><span class="cover-index-num">10</span><span class="cover-index-name">Rosso Levanto</span><span class="cover-index-price">NZD $1,350</span></a>
+    </div>
   </div>
 </section>
-
-<!-- ─── INDEX ─────────────────────────────────────── -->
-<div class="index-page">
-  <div class="index-eyebrow">Collection Index</div>
-  <div class="index-grid">
-    <a href="#b01" class="index-item">
-      <span class="index-num">01</span>
-      <span class="index-name">Carrara Marble</span>
-      <span class="index-price">NZD $1,190</span>
-    </a>
-    <a href="#b02" class="index-item">
-      <span class="index-num">02</span>
-      <span class="index-name">Beige Travertine</span>
-      <span class="index-price">NZD $990</span>
-    </a>
-    <a href="#b03" class="index-item">
-      <span class="index-num">03</span>
-      <span class="index-name">Nero Marquina</span>
-      <span class="index-price">NZD $1,050</span>
-    </a>
-    <a href="#b04" class="index-item">
-      <span class="index-num">04</span>
-      <span class="index-name">Emerald Green Marble</span>
-      <span class="index-price">NZD $1,090</span>
-    </a>
-    <a href="#b05" class="index-item">
-      <span class="index-num">05</span>
-      <span class="index-name">Ivory Onyx</span>
-      <span class="index-price">NZD $1,250</span>
-    </a>
-    <a href="#b06" class="index-item">
-      <span class="index-num">06</span>
-      <span class="index-name">Tiger Onyx</span>
-      <span class="index-price">NZD $1,350</span>
-    </a>
-    <a href="#b07" class="index-item">
-      <span class="index-num">07</span>
-      <span class="index-name">Pietra Grey</span>
-      <span class="index-price">NZD $1,350</span>
-    </a>
-    <a href="#b08" class="index-item">
-      <span class="index-num">08</span>
-      <span class="index-name">Ocean Blue Marble</span>
-      <span class="index-price">NZD $1,290</span>
-    </a>
-    <a href="#b09" class="index-item">
-      <span class="index-num">09</span>
-      <span class="index-name">Pink Onyx</span>
-      <span class="index-price">NZD $1,890</span>
-    </a>
-    <a href="#b10" class="index-item">
-      <span class="index-num">10</span>
-      <span class="index-name">Rosso Levanto</span>
-      <span class="index-price">NZD $1,350</span>
-    </a>
-  </div>
-</div>
 
 <!-- ─── 01 CARRARA MARBLE ─────────────────────────── -->
 <section class="basin-spread" id="b01">
