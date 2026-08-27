@@ -83,19 +83,18 @@ body {
 }
 
 .cover-swatches {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
   margin-top: 18px;
+  width: 120px;
 }
 
 .cs {
   display: block;
-  width: 22px;
-  height: 5px;
-  border-radius: 2px;
-  opacity: 0.75;
+  height: 38px;
+  border-radius: 3px;
+  opacity: 0.88;
 }
 
 .cover-location {
@@ -727,16 +726,16 @@ body {
       <span class="cover-year">2026</span>
       <span class="cover-location">Auckland, NZ</span>
       <div class="cover-swatches">
-        <span class="cs" style="background:#D4CFC9" title="White Carrara"></span>
-        <span class="cs" style="background:#C8A97A" title="Warm Travertine"></span>
-        <span class="cs" style="background:#1E1E1C" title="Nero Marquina"></span>
-        <span class="cs" style="background:#3D6B50" title="Emerald Green"></span>
-        <span class="cs" style="background:#E8DFC8" title="White Onyx"></span>
-        <span class="cs" style="background:#B87628" title="Tiger Onyx"></span>
-        <span class="cs" style="background:#5A5A58" title="Pietra Grey"></span>
-        <span class="cs" style="background:#3A6480" title="Ocean Blue"></span>
-        <span class="cs" style="background:#C47E96" title="Pink Onyx"></span>
-        <span class="cs" style="background:#8B2028" title="Rosso Levanto"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#E2DDD8 0%,#C8C3BC 100%)" title="White Carrara"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#2A2A28 0%,#141412 100%)" title="Pietra Grey"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#D4A8C0 0%,#B87898 100%)" title="Pink Onyx"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#D4900A 0%,#8B5A04 100%)" title="Tiger Onyx"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#4A7A94 0%,#2A4E6A 100%)" title="Ocean Blue"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#A02828 0%,#6A1010 100%)" title="Rosso Levanto"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#C8B888 0%,#A09060 100%)" title="Warm Travertine"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#3A6B50 0%,#1E4030 100%)" title="Emerald Green"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#222220 0%,#0E0E0C 100%)" title="Nero Marquina"></span>
+        <span class="cs" style="background:linear-gradient(135deg,#E8DFC0 0%,#C8C0A0 100%)" title="White Onyx"></span>
       </div>
     </div>
   </div>
