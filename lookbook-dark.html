@@ -280,17 +280,18 @@ body {
   box-sizing: border-box;
 }
 
-/* Per-stone atmospheric studio gradients — radial studio light from upper-left */
-#b01 .basin-image { background: radial-gradient(ellipse at 45% 40%, #38332d 0%, #1e1b17 52%, #0d0c0a 100%); }
-#b02 .basin-image { background: radial-gradient(ellipse at 45% 40%, #362c1e 0%, #1e1710 52%, #0c0a07 100%); }
-#b03 .basin-image { background: radial-gradient(ellipse at 45% 40%, #202020 0%, #111111 52%, #070707 100%); }
-#b04 .basin-image { background: radial-gradient(ellipse at 45% 40%, #1b2b1f 0%, #101a13 52%, #080e09 100%); }
-#b05 .basin-image { background: radial-gradient(ellipse at 45% 40%, #33291a 0%, #1c1710 52%, #0d0b07 100%); }
-#b06 .basin-image { background: radial-gradient(ellipse at 45% 40%, #30200d 0%, #1c1208 52%, #0c0805 100%); }
-#b07 .basin-image { background: radial-gradient(ellipse at 45% 40%, #252525 0%, #151515 52%, #090909 100%); }
-#b08 .basin-image { background: radial-gradient(ellipse at 45% 40%, #172028 0%, #0f151d 52%, #080b0f 100%); }
-#b09 .basin-image { background: radial-gradient(ellipse at 45% 40%, #2c1d22 0%, #191013 52%, #0d0809 100%); }
-#b10 .basin-image { background: radial-gradient(ellipse at 45% 40%, #2b1012 0%, #180809 52%, #0c0607 100%); }
+/* Per-stone panel backgrounds — centre matches photo white so basin sits flush,
+   edges fade to dark stone tone so the panel reads as one coloured environment */
+#b01 .basin-image { background: radial-gradient(ellipse at center, #e8e4de 0%, #b0a89e 55%, #38332d 100%); }
+#b02 .basin-image { background: radial-gradient(ellipse at center, #e6ddd0 0%, #b09a7e 55%, #362c1e 100%); }
+#b03 .basin-image { background: radial-gradient(ellipse at center, #d0d0d0 0%, #707070 55%, #202020 100%); }
+#b04 .basin-image { background: radial-gradient(ellipse at center, #c8d4ca 0%, #6e9178 55%, #1b2b1f 100%); }
+#b05 .basin-image { background: radial-gradient(ellipse at center, #e6dfc8 0%, #b0a070 55%, #33291a 100%); }
+#b06 .basin-image { background: radial-gradient(ellipse at center, #e0c89a 0%, #a07030 55%, #30200d 100%); }
+#b07 .basin-image { background: radial-gradient(ellipse at center, #d0d0d0 0%, #787878 55%, #252525 100%); }
+#b08 .basin-image { background: radial-gradient(ellipse at center, #c8d4e0 0%, #607090 55%, #172028 100%); }
+#b09 .basin-image { background: radial-gradient(ellipse at center, #f0d8e0 0%, #c08898 55%, #2c1d22 100%); }
+#b10 .basin-image { background: radial-gradient(ellipse at center, #e0c0c4 0%, #906070 55%, #2b1012 100%); }
 
 /* Info panel */
 .basin-info {
@@ -796,7 +797,7 @@ body {
 <!-- ─── 01 CARRARA MARBLE ─────────────────────────── -->
 <section class="basin-spread" id="b01">
   <div class="basin-image">
-    <img src="basin-carrara-cut.png" alt="Carrara Marble Vessel Basin">
+    <img src="white-carrara-vessel.jpg" alt="Carrara Marble Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">01 /</span>
@@ -820,7 +821,7 @@ body {
 <!-- ─── 02 BEIGE TRAVERTINE ───────────────────────── -->
 <section class="basin-spread even" id="b02">
   <div class="basin-image">
-    <img src="basin-travertine-cut.png" alt="Beige Travertine Vessel Basin">
+    <img src="warm-beige-vessel.jpg" alt="Beige Travertine Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">02 /</span>
@@ -844,7 +845,7 @@ body {
 <!-- ─── 03 NERO MARQUINA ──────────────────────────── -->
 <section class="basin-spread" id="b03">
   <div class="basin-image">
-    <img src="basin-nero-cut.png" alt="Nero Marquina Vessel Basin">
+    <img src="nero-marquina-vessel.jpg" alt="Nero Marquina Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">03 /</span>
@@ -868,7 +869,7 @@ body {
 <!-- ─── 04 EMERALD GREEN MARBLE ───────────────────── -->
 <section class="basin-spread even" id="b04">
   <div class="basin-image">
-    <img src="basin-emerald-cut.png" alt="Emerald Green Marble Vessel Basin">
+    <img src="emerald-green-basin.jpg" alt="Emerald Green Marble Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">04 /</span>
@@ -892,7 +893,7 @@ body {
 <!-- ─── 05 IVORY ONYX ─────────────────────────────── -->
 <section class="basin-spread" id="b05">
   <div class="basin-image">
-    <img src="basin-ivory-cut.png" alt="Ivory Onyx Vessel Basin">
+    <img src="white-onyx-vessel.jpg" alt="Ivory Onyx Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">05 /</span>
@@ -916,7 +917,7 @@ body {
 <!-- ─── 06 TIGER ONYX ─────────────────────────────── -->
 <section class="basin-spread even" id="b06">
   <div class="basin-image">
-    <img src="basin-tiger-cut.png" alt="Tiger Onyx Vessel Basin">
+    <img src="basin-tiger-onyx-1.jpg" alt="Tiger Onyx Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">06 /</span>
@@ -940,7 +941,7 @@ body {
 <!-- ─── 07 PIETRA GREY ────────────────────────────── -->
 <section class="basin-spread" id="b07">
   <div class="basin-image">
-    <img src="basin-pietra-cut.png" alt="Pietra Grey Vessel Basin">
+    <img src="basin-pietra-grey-1.jpg" alt="Pietra Grey Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">07 /</span>
@@ -964,7 +965,7 @@ body {
 <!-- ─── 08 OCEAN BLUE MARBLE ──────────────────────── -->
 <section class="basin-spread even" id="b08">
   <div class="basin-image">
-    <img src="basin-ocean-cut.png" alt="Ocean Blue Marble Vessel Basin">
+    <img src="ocean-blue-basin.jpg" alt="Ocean Blue Marble Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">08 /</span>
@@ -988,7 +989,7 @@ body {
 <!-- ─── 09 PINK ONYX ──────────────────────────────── -->
 <section class="basin-spread" id="b09">
   <div class="basin-image">
-    <img src="basin-pink-cut.png" alt="Pink Onyx Vessel Basin">
+    <img src="basin-pink-purple-onyx-1.jpg" alt="Pink Onyx Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">09 /</span>
@@ -1013,7 +1014,7 @@ body {
 <!-- ─── 10 ROSSO LEVANTO ───────────────────────────── -->
 <section class="basin-spread even" id="b10">
   <div class="basin-image">
-    <img src="basin-rosso-cut.png" alt="Rosso Levanto Vessel Basin">
+    <img src="rosso-levanto-basin.jpg" alt="Rosso Levanto Vessel Basin">
   </div>
   <div class="basin-info">
     <span class="col-num">10 /</span>
