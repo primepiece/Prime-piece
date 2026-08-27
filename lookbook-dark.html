@@ -82,19 +82,51 @@ body {
   margin-bottom: 4px;
 }
 
-.cover-swatches {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-  margin-top: 18px;
-  width: 120px;
+.cover-matkey {
+  margin-top: 22px;
+  text-align: right;
+}
+
+.cover-matkey-heading {
+  display: block;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.14);
+  margin-bottom: 14px;
+}
+
+.cover-matkey-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.cover-matkey-name {
+  font-size: 9.5px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.28);
+  white-space: nowrap;
+}
+
+.cover-matkey-num {
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.14);
 }
 
 .cs {
   display: block;
-  height: 38px;
-  border-radius: 3px;
-  opacity: 0.88;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  opacity: 0.82;
 }
 
 .cover-location {
@@ -741,17 +773,18 @@ body {
     <div class="cover-meta">
       <span class="cover-year">2026</span>
       <span class="cover-location">Auckland, NZ</span>
-      <div class="cover-swatches">
-        <span class="cs" style="background:linear-gradient(135deg,#E2DDD8 0%,#C8C3BC 100%)" title="White Carrara"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#2A2A28 0%,#141412 100%)" title="Pietra Grey"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#D4A8C0 0%,#B87898 100%)" title="Pink Onyx"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#D4900A 0%,#8B5A04 100%)" title="Tiger Onyx"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#4A7A94 0%,#2A4E6A 100%)" title="Ocean Blue"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#A02828 0%,#6A1010 100%)" title="Rosso Levanto"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#C8B888 0%,#A09060 100%)" title="Warm Travertine"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#3A6B50 0%,#1E4030 100%)" title="Emerald Green"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#222220 0%,#0E0E0C 100%)" title="Nero Marquina"></span>
-        <span class="cs" style="background:linear-gradient(135deg,#E8DFC0 0%,#C8C0A0 100%)" title="White Onyx"></span>
+      <div class="cover-matkey">
+        <span class="cover-matkey-heading">The Collection</span>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">01</span><span class="cover-matkey-name">Carrara Marble</span><span class="cs" style="background:linear-gradient(135deg,#E2DDD8,#C8C3BC)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">02</span><span class="cover-matkey-name">Beige Travertine</span><span class="cs" style="background:linear-gradient(135deg,#C8B888,#A09060)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">03</span><span class="cover-matkey-name">Nero Marquina</span><span class="cs" style="background:linear-gradient(135deg,#222220,#0E0E0C)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">04</span><span class="cover-matkey-name">Emerald Green Marble</span><span class="cs" style="background:linear-gradient(135deg,#3A6B50,#1E4030)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">05</span><span class="cover-matkey-name">Ivory Onyx</span><span class="cs" style="background:linear-gradient(135deg,#E8DFC0,#C8C0A0)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">06</span><span class="cover-matkey-name">Tiger Onyx</span><span class="cs" style="background:linear-gradient(135deg,#D4900A,#8B5A04)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">07</span><span class="cover-matkey-name">Pietra Grey</span><span class="cs" style="background:linear-gradient(135deg,#2A2A28,#141412)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">08</span><span class="cover-matkey-name">Ocean Blue Marble</span><span class="cs" style="background:linear-gradient(135deg,#4A7A94,#2A4E6A)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">09</span><span class="cover-matkey-name">Pink Onyx</span><span class="cs" style="background:linear-gradient(135deg,#D4A8C0,#B87898)"></span></div>
+        <div class="cover-matkey-row"><span class="cover-matkey-num">10</span><span class="cover-matkey-name">Rosso Levanto</span><span class="cs" style="background:linear-gradient(135deg,#A02828,#6A1010)"></span></div>
       </div>
     </div>
   </div>
