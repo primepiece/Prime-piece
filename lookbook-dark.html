@@ -799,10 +799,6 @@ body {
     height: 100vh;
   }
 
-  .index-page {
-    page-break-after: always;
-  }
-
   .basin-spread {
     page-break-after: always;
     min-height: 0;
@@ -1151,7 +1147,7 @@ body {
 </section>
 
 <!-- Download button -->
-<button class="download-btn" onclick="window.print()">
+<button class="download-btn" onclick="printPDF()">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
     <polyline points="7 10 12 15 17 10"/>
@@ -1159,6 +1155,28 @@ body {
   </svg>
   Save as PDF
 </button>
+
+<script>
+function printPDF() {
+  // Show instructions overlay before print dialog opens
+  const overlay = document.createElement('div');
+  overlay.id = 'print-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:Inter Tight,sans-serif;';
+  overlay.innerHTML = `
+    <div style="background:#1C1B19;border:1px solid rgba(255,255,255,0.1);padding:40px 48px;max-width:420px;text-align:center;border-radius:4px;">
+      <p style="color:rgba(255,255,255,0.9);font-size:15px;font-weight:300;letter-spacing:0.03em;margin-bottom:20px;line-height:1.7;">
+        In the print dialog:<br>
+        <strong style="font-weight:500;">Destination → Save as PDF<br>
+        Layout → Landscape<br>
+        Margins → None<br>
+        Background graphics → ✓ On</strong>
+      </p>
+      <p style="color:rgba(255,255,255,0.35);font-size:12px;">Click OK to open the dialog</p>
+      <button onclick="document.getElementById('print-overlay').remove();window.print();" style="margin-top:20px;background:#fff;color:#131210;border:none;padding:10px 28px;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit;">OK — Open Print Dialog</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+</script>
 
 </body>
 </html>
