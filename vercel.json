@@ -13,7 +13,8 @@
     { "source": "/500", "destination": "/", "permanent": true },
     { "source": "/gallery", "destination": "/#story", "permanent": true },
     { "source": "/reviews", "destination": "/", "permanent": true },
-    { "source": "/blog/:slug*", "destination": "/", "permanent": true }
+    { "source": "/blog/:slug*", "destination": "/", "permanent": true },
+    { "source": "/drop", "destination": "/drop.html", "permanent": false }
   ],
   "functions": {
     "api/render.js": { "maxDuration": 10 },
