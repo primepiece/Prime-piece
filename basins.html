@@ -643,9 +643,50 @@
     <h2>Not sure which stone<br>suits your <em>bathroom</em>? Ask James.</h2>
     <p>Send a photo of your vanity and he'll point you in the right direction. No obligation, no sales pitch.</p>
   </div>
-  <a href="sms:+64211466990" class="cta-btn">Text 021 146 6990 →</a>
+  <button class="cta-btn" onclick="openBasinAdvice()">Text 021 146 6990 →</button>
 </div>
 
+<!-- BASIN ADVICE MODAL -->
+<div id="basin-advice-overlay" style="position:fixed;inset:0;background:rgba(44,42,38,0.85);backdrop-filter:blur(12px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;" onclick="closeBasinAdviceOutside(event)">
+  <div style="background:var(--cream);max-width:520px;width:100%;border-radius:2px;padding:48px 44px;position:relative;max-height:92vh;overflow-y:auto;">
+    <button onclick="closeBasinAdvice()" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--stone);font-family:inherit;">✕</button>
+
+    <div id="basin-advice-form-wrap">
+      <div style="font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px;">Prime Piece</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--ink);line-height:1.05;margin-bottom:10px;">Find Your<br>Perfect Basin.</div>
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;margin-bottom:28px;">Tell James about your space and he'll point you to the right stone. No obligation — just honest advice from someone who knows the material.</p>
+
+      <form class="enq-form" onsubmit="submitBasinAdvice(event)">
+        <div class="enq-row">
+          <div class="enq-field"><label>Name *</label><input type="text" name="name" required placeholder="Your name"></div>
+          <div class="enq-field"><label>Email *</label><input type="email" name="email" required placeholder="your@email.com"></div>
+        </div>
+        <div class="enq-field"><label>Phone <span style="font-size:9px;letter-spacing:0.1em;text-transform:none;font-weight:400;color:var(--stone)">(optional)</span></label><input type="tel" name="phone" placeholder="021 000 0000"></div>
+        <div class="enq-field">
+          <label>Tell James about your bathroom</label>
+          <textarea name="message" style="min-height:100px;" placeholder="Vanity size, current colours, stone you're drawn to, budget — anything helps..."></textarea>
+        </div>
+        <div class="enq-field">
+          <label>Photo of your vanity <span style="font-size:9px;letter-spacing:0.1em;text-transform:none;font-weight:400;color:var(--stone)">(optional)</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px dashed var(--line);background:white;cursor:pointer;font-size:12px;color:var(--stone);border-radius:1px;">
+            <span style="font-size:18px;">📎</span>
+            <span id="basin-advice-filename">Attach a photo of your space</span>
+            <input type="file" name="photo" accept="image/*" style="display:none;" onchange="document.getElementById('basin-advice-filename').textContent=this.files[0]?this.files[0].name:'Attach a photo of your space'">
+          </label>
+        </div>
+        <input type="hidden" name="product" value="Vessel Basin Advice">
+        <button type="submit" class="enq-submit" id="basin-advice-submit">Send Message →</button>
+      </form>
+      <p class="enq-note">Or text James directly — <a href="sms:+64211466990" style="color:var(--sage);text-decoration:none;">021 146 6990</a></p>
+    </div>
+
+    <div id="basin-advice-success" style="display:none;text-align:center;padding:32px 0;">
+      <div style="font-size:40px;margin-bottom:20px;">✓</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--ink);margin-bottom:10px;">Message sent.</div>
+      <p style="font-size:13px;color:var(--ink-soft);line-height:1.7;">James will be in touch within a few hours. If it's urgent, text him directly on <a href="sms:+64211466990" style="color:var(--sage);">021 146 6990</a>.</p>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-grid">
@@ -815,6 +856,34 @@
   }
   function closeEnquiry() { document.getElementById('enq-overlay').classList.remove('open'); document.body.style.overflow = ''; }
   function closeEnquiryOutside(e) { if (e.target === document.getElementById('enq-overlay')) closeEnquiry(); }
+
+  function openBasinAdvice() {
+    document.getElementById('basin-advice-overlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBasinAdvice() {
+    document.getElementById('basin-advice-overlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function closeBasinAdviceOutside(e) {
+    if (e.target === document.getElementById('basin-advice-overlay')) closeBasinAdvice();
+  }
+  async function submitBasinAdvice(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('basin-advice-submit');
+    btn.textContent = 'Sending…'; btn.disabled = true;
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({...data, source: 'basins-cta', to: 'james@primepiece.co.nz'})
+      });
+    } catch(_) {}
+    document.getElementById('basin-advice-form-wrap').style.display = 'none';
+    document.getElementById('basin-advice-success').style.display = 'block';
+  }
 
   async function submitEnquiry(e) {
     e.preventDefault();
