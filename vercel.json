@@ -14,7 +14,10 @@
     { "source": "/gallery", "destination": "/#story", "permanent": true },
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true },
-    { "source": "/drop", "destination": "/drop.html", "permanent": false }
+    { "source": "/drop", "destination": "/drop.html", "permanent": false },
+    { "source": "/basins", "destination": "/basins.html", "permanent": false },
+    { "source": "/tables", "destination": "/tables.html", "permanent": false },
+    { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": false }
   ],
   "functions": {
     "api/render.js": { "maxDuration": 10 },
