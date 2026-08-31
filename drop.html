@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Piece — Coming Soon</title>
+<meta name="description" content="New Zealand's first real marble standing sink. 8 units. Handcarved from natural stone. Join the waitlist for first access.">
+<link rel="canonical" href="https://primepiece.co.nz/drop">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ground: #0A0908;
+  --paper:  #131210;
+  --ink:    #E8E3DC;
+  --sage:   #7BA5A8;
+  --stone:  #6E6A64;
+  --line:   rgba(232,227,220,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Inter Tight', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── VIGNETTE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── LAYOUT ── */
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+}
+
+/* ── HEADER ── */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.44em; text-transform: uppercase;
+  color: rgba(232,227,220,0.5);
+  text-decoration: none;
+}
+
+.header-tag {
+  font-size: 8.5px; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--sage);
+}
+
+/* ── MAIN ── */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  gap: 0;
+}
+
+.eyebrow {
+  font-size: 8.5px; font-weight: 500;
+  letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 36px;
+  display: flex; align-items: center; gap: 16px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: '';
+  display: block; width: 28px; height: 1px;
+  background: var(--line); flex-shrink: 0;
+}
+
+.teaser {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-style: italic;
+  font-size: clamp(34px, 6vw, 56px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 640px;
+  margin-bottom: 64px;
+  text-wrap: balance;
+}
+
+/* ── COUNTDOWN ── */
+.countdown {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 3vw, 36px);
+  margin-bottom: 64px;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.digits {
+  font-size: clamp(56px, 12vw, 112px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  min-width: 2ch;
+  text-align: center;
+}
+
+.sep {
+  font-size: clamp(40px, 9vw, 82px);
+  font-weight: 300;
+  color: rgba(232,227,220,0.12);
+  line-height: 1;
+  margin-top: 2px;
+  user-select: none;
+}
+
+.unit-label {
+  font-size: 7.5px; font-weight: 500;
+  letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* ── SCARCITY ── */
+.scarcity {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 52px;
+}
+.scarcity-pill {
+  background: rgba(123,165,168,0.1);
+  border: 1px solid rgba(123,165,168,0.2);
+  border-radius: 2px;
+  padding: 7px 14px;
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--sage);
+}
+.scarcity-text {
+  font-size: 12px; font-weight: 300;
+  color: var(--stone);
+  letter-spacing: 0.04em;
+}
+
+/* ── FORM ── */
+.form-wrap { width: 100%; max-width: 420px; }
+
+.form-row {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.form-row:focus-within { border-color: rgba(123,165,168,0.35); }
+
+.email-input {
+  flex: 1;
+  background: transparent;
+  border: none; outline: none;
+  padding: 15px 20px;
+  font-size: 13px; font-weight: 300;
+  font-family: 'Inter Tight', sans-serif;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+.email-input::placeholder { color: var(--stone); }
+
+.submit-btn {
+  background: var(--ink);
+  border: none; cursor: pointer;
+  padding: 15px 24px;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ground);
+  font-family: 'Inter Tight', sans-serif;
+  transition: background 0.2s, opacity 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.submit-btn:hover { background: rgba(232,227,220,0.88); }
+.submit-btn:disabled { opacity: 0.5; cursor: default; }
+
+.form-note {
+  font-size: 10.5px; font-weight: 300;
+  color: var(--stone);
+  margin-top: 14px;
+  line-height: 1.6;
+}
+
+/* ── SUCCESS ── */
+.success-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 420px;
+}
+.success-state.visible { display: flex; }
+.success-tick {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(123,165,168,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--sage); font-size: 14px;
+  margin-bottom: 4px;
+}
+.success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-style: italic;
+  font-size: 28px; color: var(--ink);
+  line-height: 1.1;
+}
+.success-sub {
+  font-size: 12px; font-weight: 300;
+  color: var(--stone); line-height: 1.7;
+  text-align: center;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 28px 48px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-left {
+  font-size: 10px; font-weight: 300;
+  color: var(--stone);
+  letter-spacing: 0.04em;
+}
+.footer-right {
+  font-size: 10px; font-weight: 300;
+  color: var(--stone);
+}
+.footer-right a {
+  color: var(--stone);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-right a:hover { color: var(--ink); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  header { padding: 24px 24px; }
+  footer  { padding: 24px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .scarcity { flex-direction: column; gap: 12px; }
+  .form-row { flex-direction: column; }
+  .submit-btn { padding: 14px 24px; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <a href="/" class="logo">Prime Piece</a>
+    <span class="header-tag">Auckland, NZ</span>
+  </header>
+
+  <main>
+    <div class="eyebrow">Something new is coming</div>
+
+    <h1 class="teaser">New Zealand's first real marble standing sink.</h1>
+
+    <div class="countdown" id="countdown" aria-label="Countdown to launch">
+      <div class="unit">
+        <span class="digits" id="cd-d">00</span>
+        <span class="unit-label">Days</span>
+      </div>
+      <span class="sep" aria-hidden="true">:</span>
+      <div class="unit">
+        <span class="digits" id="cd-h">00</span>
+        <span class="unit-label">Hours</span>
+      </div>
+      <span class="sep" aria-hidden="true">:</span>
+      <div class="unit">
+        <span class="digits" id="cd-m">00</span>
+        <span class="unit-label">Minutes</span>
+      </div>
+      <span class="sep" aria-hidden="true">:</span>
+      <div class="unit">
+        <span class="digits" id="cd-s">00</span>
+        <span class="unit-label">Seconds</span>
+      </div>
+    </div>
+
+    <div class="scarcity">
+      <span class="scarcity-pill">8 units only</span>
+      <span class="scarcity-text">Handcarved from natural stone · Ships to NZ</span>
+    </div>
+
+    <div class="form-wrap" id="form-wrap">
+      <form class="form-row" onsubmit="handleSubmit(event)">
+        <input
+          class="email-input"
+          type="email"
+          name="email"
+          placeholder="Your email address"
+          required
+          autocomplete="email"
+        >
+        <button class="submit-btn" type="submit" id="submit-btn">Join Waitlist</button>
+      </form>
+      <p class="form-note">Waitlist members get first access and a 48-hour priority hold before public release.</p>
+    </div>
+
+    <div class="success-state" id="success-state">
+      <div class="success-tick">✓</div>
+      <div class="success-title">You're on the list.</div>
+      <p class="success-sub">We'll reach out the moment it drops.<br>Only 8 units — you'll hear first.</p>
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-left">© 2026 Prime Piece · Natural Stone Basins · Auckland, NZ</span>
+    <span class="footer-right">
+      <a href="/">View collection</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:james@primepiece.co.nz">Contact</a>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+// ── COUNTDOWN ── set your launch date here
+const LAUNCH = new Date('2026-11-01T10:00:00+13:00');
+
+function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+function tick() {
+  const now  = new Date();
+  const diff = LAUNCH - now;
+  if (diff <= 0) {
+    document.getElementById('cd-d').textContent = '00';
+    document.getElementById('cd-h').textContent = '00';
+    document.getElementById('cd-m').textContent = '00';
+    document.getElementById('cd-s').textContent = '00';
+    return;
+  }
+  const days  = diff / 864e5;
+  const hours = (diff % 864e5) / 36e5;
+  const mins  = (diff % 36e5)  / 6e4;
+  const secs  = (diff % 6e4)   / 1e3;
+  document.getElementById('cd-d').textContent = pad(days);
+  document.getElementById('cd-h').textContent = pad(hours);
+  document.getElementById('cd-m').textContent = pad(mins);
+  document.getElementById('cd-s').textContent = pad(secs);
+}
+
+tick();
+setInterval(tick, 1000);
+
+// ── FORM ──
+async function handleSubmit(e) {
+  e.preventDefault();
+  const email = e.target.email.value.trim();
+  const btn   = document.getElementById('submit-btn');
+  btn.textContent = 'Joining…';
+  btn.disabled = true;
+
+  try {
+    await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        name:    '',
+        message: 'Waitlist signup — marble standing sink drop.',
+        source:  'sink-drop-waitlist',
+        product: 'marble-standing-sink',
+        to:      'james@primepiece.co.nz'
+      })
+    });
+  } catch (_) {}
+
+  document.getElementById('form-wrap').style.display   = 'none';
+  document.getElementById('success-state').classList.add('visible');
+}
+</script>
+</body>
+</html>
