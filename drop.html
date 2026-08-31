@@ -290,9 +290,9 @@ footer {
   </header>
 
   <main>
-    <div class="eyebrow">Something new is coming</div>
+    <div class="eyebrow">New collection · September 2026</div>
 
-    <h1 class="teaser">New Zealand's first real marble standing sink.</h1>
+    <h1 class="teaser">Ten rare stone basins. Finally arriving in Auckland.</h1>
 
     <div class="countdown" id="countdown" aria-label="Countdown to launch">
       <div class="unit">
@@ -317,8 +317,8 @@ footer {
     </div>
 
     <div class="scarcity">
-      <span class="scarcity-pill">8 units only</span>
-      <span class="scarcity-text">Handcarved from natural stone · Ships to NZ</span>
+      <span class="scarcity-pill">Limited stock</span>
+      <span class="scarcity-text">Handcarved from natural stone · 10 stones available</span>
     </div>
 
     <div class="form-wrap" id="form-wrap">
@@ -356,7 +356,7 @@ footer {
 
 <script>
 // ── COUNTDOWN ── set your launch date here
-const LAUNCH = new Date('2026-11-01T10:00:00+13:00');
+const LAUNCH = new Date('2026-09-14T09:00:00+12:00');
 
 function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
 
@@ -398,9 +398,9 @@ async function handleSubmit(e) {
       body: JSON.stringify({
         email,
         name:    '',
-        message: 'Waitlist signup — marble standing sink drop.',
-        source:  'sink-drop-waitlist',
-        product: 'marble-standing-sink',
+        message: 'Waitlist signup — basin collection drop.',
+        source:  'basin-drop-waitlist',
+        product: 'stone-vessel-basin',
         to:      'james@primepiece.co.nz'
       })
     });
