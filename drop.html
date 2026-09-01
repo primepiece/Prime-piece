@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prime Piece — Coming Soon</title>
-<meta name="description" content="New Zealand's first real marble standing sink. 8 units. Handcarved from natural stone. Join the waitlist for first access.">
+<meta name="description" content="Something new from Prime Piece. Natural stone. Handcrafted in Auckland. Arriving September 2026 — join the waitlist for first access.">
 <link rel="canonical" href="https://primepiece.co.nz/drop">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -292,7 +292,7 @@ footer {
   <main>
     <div class="eyebrow">New collection · September 2026</div>
 
-    <h1 class="teaser">Ten rare stone basins. Finally arriving in Auckland.</h1>
+    <h1 class="teaser">Something rare. Finally arriving in Auckland.</h1>
 
     <div class="countdown" id="countdown" aria-label="Countdown to launch">
       <div class="unit">
@@ -318,7 +318,7 @@ footer {
 
     <div class="scarcity">
       <span class="scarcity-pill">Limited stock</span>
-      <span class="scarcity-text">Handcarved from natural stone · 10 stones available</span>
+      <span class="scarcity-text">Handcarved from natural stone · one of one</span>
     </div>
 
     <div class="form-wrap" id="form-wrap">
@@ -339,12 +339,12 @@ footer {
     <div class="success-state" id="success-state">
       <div class="success-tick">✓</div>
       <div class="success-title">You're on the list.</div>
-      <p class="success-sub">We'll reach out the moment it drops.<br>Only 8 units — you'll hear first.</p>
+      <p class="success-sub">We'll reach out the moment it drops.<br>You'll hear first.</p>
     </div>
   </main>
 
   <footer>
-    <span class="footer-left">© 2026 Prime Piece · Natural Stone Basins · Auckland, NZ</span>
+    <span class="footer-left">© 2026 Prime Piece · Auckland, NZ</span>
     <span class="footer-right">
       <a href="/">View collection</a>
       &nbsp;·&nbsp;
@@ -392,16 +392,13 @@ async function handleSubmit(e) {
   btn.disabled = true;
 
   try {
-    await fetch('/api/enquiry', {
+    await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email,
-        name:    '',
-        message: 'Waitlist signup — basin collection drop.',
-        source:  'basin-drop-waitlist',
-        product: 'stone-vessel-basin',
-        to:      'james@primepiece.co.nz'
+        name: '',
+        source: 'basin-drop-waitlist'
       })
     });
   } catch (_) {}
