@@ -1,0 +1,25 @@
+{
+  "redirects": [
+    { "source": "/about", "destination": "/#story", "permanent": true },
+    { "source": "/about-us", "destination": "/#story", "permanent": true },
+    { "source": "/story", "destination": "/#story", "permanent": true },
+    { "source": "/process", "destination": "/#process", "permanent": true },
+    { "source": "/contact", "destination": "/#contact", "permanent": true },
+    { "source": "/contact-us", "destination": "/#contact", "permanent": true },
+    { "source": "/marble-coffee-tables", "destination": "/#collection", "permanent": true },
+    { "source": "/coffee-tables", "destination": "/tables", "permanent": true },
+    { "source": "/shop", "destination": "/#collection", "permanent": true },
+    { "source": "/giveaway", "destination": "/", "permanent": true },
+    { "source": "/500", "destination": "/", "permanent": true },
+    { "source": "/gallery", "destination": "/#story", "permanent": true },
+    { "source": "/reviews", "destination": "/", "permanent": true },
+    { "source": "/blog/:slug*", "destination": "/", "permanent": true }
+  ],
+  "functions": {
+    "api/render.js": { "maxDuration": 10 },
+    "api/poll.js": { "maxDuration": 10 },
+    "api/enquire.js": { "maxDuration": 10 }
+  },
+  "cleanUrls": false,
+  "trailingSlash": false
+}
