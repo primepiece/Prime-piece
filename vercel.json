@@ -19,6 +19,10 @@
     { "source": "/tables", "destination": "/tables.html", "permanent": false },
     { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": false }
   ],
+  "rewrites": [
+    { "source": "/scale-os", "destination": "/api/scale-os/dashboard" },
+    { "source": "/scale-os/:page", "destination": "/api/scale-os/:page" }
+  ],
   "functions": {
     "api/render.js": { "maxDuration": 10 },
     "api/poll.js": { "maxDuration": 10 },
