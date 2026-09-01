@@ -273,6 +273,7 @@
     <div class="field">
       <label for="email">Email Address</label>
       <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+      <p style="margin-top:6px;font-size:11px;color:var(--stone);line-height:1.5;">We may email you about this order or incomplete checkout. You can opt out at any time.</p>
     </div>
     <div class="field">
       <label for="phone">Phone Number</label>
@@ -540,7 +541,7 @@
       // Store email so cart.js can identify the user for subsequent events
       try { localStorage.setItem('pp_customer_email', email); } catch(_) {}
       // Send Started Checkout to Klaviyo (fire-and-forget, never blocks journey)
-      const cartItems = cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity || 1 }));
+      const cartItems = cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity || 1, image: 'https://primepiece.co.nz/' + (i.image || '') }));
       const cartValue = cart.reduce((s, i) => s + i.price * (i.quantity || 1), 0);
       fetch('/api/track', {
         method: 'POST',
@@ -553,6 +554,7 @@
             currency: 'NZD',
             item_count: cart.length,
             items: cartItems,
+            checkout_url: 'https://primepiece.co.nz/checkout.html',
             url: window.location.href,
           },
         }),

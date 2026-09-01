@@ -313,6 +313,7 @@
         if (knownEmail) {
           const allItems = getItems();
           const cartValue = allItems.reduce((s, i) => s + i.price, 0) + item.price;
+          const fullCart = allItems.concat([item]);
           fetch('/api/track', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -323,9 +324,17 @@
                 product_id: item.id,
                 product_name: item.name,
                 price: item.price,
+                product_image: 'https://primepiece.co.nz/' + (item.image || ''),
                 currency: 'NZD',
                 cart_value: cartValue,
+                checkout_url: 'https://primepiece.co.nz/checkout.html',
                 url: window.location.href,
+                items: fullCart.map(i => ({
+                  id: i.id,
+                  name: i.name,
+                  price: i.price,
+                  image: 'https://primepiece.co.nz/' + (i.image || ''),
+                })),
               },
             }),
           }).catch(() => {});
