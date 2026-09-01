@@ -11,18 +11,17 @@
     { "source": "/shop", "destination": "/#collection", "permanent": true },
     { "source": "/giveaway", "destination": "/", "permanent": true },
     { "source": "/500", "destination": "/", "permanent": true },
-    { "source": "/gallery", "destination": "/gallery.html", "permanent": false },
+    { "source": "/gallery", "destination": "/#story", "permanent": true },
     { "source": "/reviews", "destination": "/", "permanent": true },
-    { "source": "/blog/:slug*", "destination": "/", "permanent": true },
-    { "source": "/drop", "destination": "/drop.html", "permanent": false },
-    { "source": "/basins", "destination": "/basins.html", "permanent": false },
-    { "source": "/tables", "destination": "/tables.html", "permanent": false },
-    { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": false }
+    { "source": "/blog/:slug*", "destination": "/", "permanent": true }
   ],
   "functions": {
     "api/render.js": { "maxDuration": 10 },
     "api/poll.js": { "maxDuration": 10 },
-    "api/enquire.js": { "maxDuration": 10 }
+    "api/enquire.js": { "maxDuration": 10 },
+    "api/enquiry.js": { "maxDuration": 10 },
+    "api/track.js": { "maxDuration": 10 },
+    "api/webhook.js": { "maxDuration": 30 }
   },
   "cleanUrls": false,
   "trailingSlash": false

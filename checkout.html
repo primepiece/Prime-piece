@@ -472,7 +472,6 @@
   const stripe = Stripe(STRIPE_PK);
   let elements, paymentElement;
   let clientSecret = null;
-  let serverAmount = null;
 
   async function initStripe() {
     if (cart.length === 0) return;
@@ -487,12 +486,13 @@
     document.getElementById('pay-btn').disabled = true;
 
     try {
+      const appliedPromo = discountRate > 0 ? document.getElementById('promo-code').value.trim().toUpperCase() : '';
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: cart.map(i => ({ id: i.id })),
-          promoCode: discountRate > 0 ? document.getElementById('promo-code').value.trim() : '',
+          items: cart,
+          promoCode: appliedPromo,
           customer: {
             name: firstName + ' ' + lastName,
             email,
@@ -505,9 +505,6 @@
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       clientSecret = data.clientSecret;
-      // The server is the source of truth for the amount actually being charged —
-      // it re-derives price from the catalog, not from anything sent by this page.
-      serverAmount = data.amount;
 
       elements = stripe.elements({ clientSecret, appearance: {
         theme: 'flat',
@@ -525,7 +522,7 @@
       paymentElement.mount('#payment-element');
       paymentElement.on('ready', () => {
         document.getElementById('pay-btn').disabled = false;
-        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(serverAmount) + ' NZD →';
+        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(discountedTotal) + ' NZD →';
       });
 
     } catch (err) {
@@ -535,8 +532,32 @@
   }
 
   // Init Stripe when email is filled in and blurred
+  // Also fire Klaviyo "Started Checkout" via server-side relay
   document.getElementById('email').addEventListener('blur', () => {
     if (!elements) initStripe();
+    const email = document.getElementById('email').value.trim();
+    if (email && email.includes('@')) {
+      // Store email so cart.js can identify the user for subsequent events
+      try { localStorage.setItem('pp_customer_email', email); } catch(_) {}
+      // Send Started Checkout to Klaviyo (fire-and-forget, never blocks journey)
+      const cartItems = cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity || 1 }));
+      const cartValue = cart.reduce((s, i) => s + i.price * (i.quantity || 1), 0);
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          event: 'Started Checkout',
+          properties: {
+            cart_value: cartValue,
+            currency: 'NZD',
+            item_count: cart.length,
+            items: cartItems,
+            url: window.location.href,
+          },
+        }),
+      }).catch(() => {});
+    }
   });
 
   // ── Form submit ─────────────────────────────────────────
@@ -557,7 +578,7 @@
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.origin + '/success.html?total=' + encodeURIComponent(serverAmount) + '&items=' + encodeURIComponent(cart.length),
+        return_url: window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length),
         payment_method_data: {
           billing_details: {
             name: firstName + ' ' + lastName,
@@ -571,7 +592,7 @@
     if (error) {
       showError(error.message);
       document.getElementById('pay-btn').disabled = false;
-      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(serverAmount ?? total) + ' NZD →';
+      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
     }
   });
 
@@ -586,7 +607,7 @@
 
   function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
 
-  const PROMO_CODES = { 'SAMPLEWORKSHOP': 0.10 };
+  const PROMO_CODES = { 'SAMPLEWORKSHOP': 0.10, 'PRIME10': 0.10 };
   let discountRate = 0;
   let discountedTotal = total;
 

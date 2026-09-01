@@ -307,6 +307,30 @@
         'AddToCart',
         { content_ids: [item.id], content_name: item.name, content_type: 'product', value: item.price, currency: 'NZD' }
       );
+      // Klaviyo "Added to Cart" — only fires when customer email is already known
+      try {
+        const knownEmail = localStorage.getItem('pp_customer_email');
+        if (knownEmail) {
+          const allItems = getItems();
+          const cartValue = allItems.reduce((s, i) => s + i.price, 0) + item.price;
+          fetch('/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: knownEmail,
+              event: 'Added to Cart',
+              properties: {
+                product_id: item.id,
+                product_name: item.name,
+                price: item.price,
+                currency: 'NZD',
+                cart_value: cartValue,
+                url: window.location.href,
+              },
+            }),
+          }).catch(() => {});
+        }
+      } catch(_) {}
       Cart.open();
     },
     remove(id) {

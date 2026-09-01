@@ -14,14 +14,41 @@
     const p = new URLSearchParams(window.location.search);
     const total = parseFloat(p.get('total')) || 0;
     const items = parseInt(p.get('items')) || 1;
+
+    // Reconstruct cart items from localStorage for richer GA4 purchase event
+    let gaItems = [];
+    try {
+      const cartRaw = localStorage.getItem('pp_cart_v2');
+      if (cartRaw) {
+        const cartItems = JSON.parse(cartRaw);
+        gaItems = cartItems.map(i => ({
+          item_id: i.id || 'unknown',
+          item_name: i.name || 'Prime Piece Basin',
+          price: i.price || 0,
+          quantity: i.quantity || 1,
+        }));
+      }
+    } catch(_) {}
+    if (gaItems.length === 0) {
+      gaItems = [{ item_name: 'Prime Piece Order', quantity: items, price: total }];
+    }
+
     if (total > 0) {
       gtag('event','purchase',{
         transaction_id: 'pp-' + Date.now(),
         value: total,
         currency: 'NZD',
-        items: [{ item_name: 'Prime Piece Order', quantity: items, price: total }]
+        items: gaItems,
       });
       gtag('event','conversion',{ send_to: 'G-S14SLX5T16', value: total, currency: 'NZD' });
+    }
+
+    // Clear cart and customer email only after a confirmed purchase redirect
+    if (total > 0) {
+      try {
+        localStorage.removeItem('pp_cart_v2');
+        localStorage.removeItem('pp_customer_email');
+      } catch(_) {}
     }
   })();
 </script>
