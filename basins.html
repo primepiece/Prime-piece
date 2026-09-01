@@ -744,17 +744,17 @@
   updateCountdown(); setInterval(updateCountdown, 1000);
 
   const basins = {
-    'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Classic Italian Carrara white with delicate grey veining. The benchmark of natural stone — timeless in any bathroom.', img:'white-carrara-vessel.jpg' },
-    'beige-vessel': { name:'Warm Beige', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', desc:'Warm sandy tones with natural texture and movement. Pairs beautifully with timber vanities and warm interiors.', img:'warm-beige-vessel.jpg' },
-    'nero-vessel': { name:'Nero Marquina', stone:'Black Marble · Vessel Basin', material:'Nero Marquina Marble', desc:'Deep jet black with fine white veining. Bold, dramatic and unforgettable. The statement piece your bathroom has been waiting for.', img:'nero-marquina-vessel.jpg' },
-    'onyx-vessel': { name:'Dark Green Marble', stone:'Green Marble · Vessel Basin', material:'Dark Green Marble', desc:'Deep forest green with sweeping white veins. Bold and dramatic — makes a statement in any bathroom.', img:'green-marble-vessel.jpg' },
-    'white-onyx-vessel': { name:'White Onyx', stone:'White Onyx · Vessel Basin', material:'White Onyx', desc:'Translucent ivory with warm amber veins. When backlit it glows like no other stone. Incredibly rare, incredibly beautiful.', img:'white-onyx-vessel.jpg' },
-    'statuario': { name:'Statuario', stone:'Statuario Marble · Vessel Basin', material:'Statuario Marble', desc:'Pure white with bold sweeping grey veins — Statuario from the quarries of Tuscany. One of the most sought-after marbles in the world, shaped into something you use every day.', img:'basin-statuario-2.jpg' },
-    'pietra-grey': { name:'Pietra Grey', stone:'Pietra Grey Marble · Vessel Basin', material:'Pietra Grey Marble', desc:'Deep charcoal with a mirror-polished finish and subtle ghosted veining — Pietra Grey is the stone of choice for dark, dramatic bathrooms. Understated, powerful and completely refined.', img:'basin-pietra-grey-1.jpg' },
-    'pink-purple-onyx': { name:'Pink Purple Onyx', stone:'Pink Purple Onyx · Vessel Basin', material:'Pink Purple Onyx', desc:'Soft blush and rose tones with swirling white crystal formations — one of the rarest and most feminine stones in the world. A bathroom centrepiece unlike anything else available in New Zealand.', img:'basin-pink-purple-onyx-1.jpg' },
-    'tiger-onyx': { name:'Tiger Onyx', stone:'Tiger Onyx · Vessel Basin', material:'Tiger Onyx', desc:'Dramatic amber and burnt-orange banding on the exterior meets a contrasting grey-green interior — a two-tone effect unlike anything else. Raw geological drama.', img:'basin-tiger-onyx-1.jpg' },
-    'pink-onyx-shell': { name:'Pink Onyx Shell', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', desc:'Translucent blush pink with soft shell-like layers — glows warm in natural light. Delicate and striking in equal measure. Perfect for a powder room statement.', img:'basin-pink-onyx-shell-1.jpg' },
-    'yellow-onyx': { name:'Yellow Onyx', stone:'Yellow Onyx · Vessel Basin', material:'Yellow Onyx', desc:'Warm honey and amber tones with flowing translucent layers — Yellow Onyx catches the light unlike any other stone. Bold and completely one of a kind.', img:'basin-yellow-onyx-1.jpg' },
+    'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', price:1190, desc:'Classic Italian Carrara white with delicate grey veining. The benchmark of natural stone — timeless in any bathroom.', img:'white-carrara-vessel.jpg' },
+    'beige-vessel': { name:'Warm Beige', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', price:990, desc:'Warm sandy tones with natural texture and movement. Pairs beautifully with timber vanities and warm interiors.', img:'warm-beige-vessel.jpg' },
+    'nero-vessel': { name:'Nero Marquina', stone:'Black Marble · Vessel Basin', material:'Nero Marquina Marble', price:1190, desc:'Deep jet black with fine white veining. Bold, dramatic and unforgettable. The statement piece your bathroom has been waiting for.', img:'nero-marquina-vessel.jpg' },
+    'onyx-vessel': { name:'Dark Green Marble', stone:'Green Marble · Vessel Basin', material:'Dark Green Marble', price:1190, desc:'Deep forest green with sweeping white veins. Bold and dramatic — makes a statement in any bathroom.', img:'green-marble-vessel.jpg' },
+    'white-onyx-vessel': { name:'White Onyx', stone:'White Onyx · Vessel Basin', material:'White Onyx', price:1390, desc:'Translucent ivory with warm amber veins. When backlit it glows like no other stone. Incredibly rare, incredibly beautiful.', img:'white-onyx-vessel.jpg' },
+    'statuario': { name:'Statuario', stone:'Statuario Marble · Vessel Basin', material:'Statuario Marble', price:1390, desc:'Pure white with bold sweeping grey veins — Statuario from the quarries of Tuscany. One of the most sought-after marbles in the world, shaped into something you use every day.', img:'basin-statuario-2.jpg' },
+    'pietra-grey': { name:'Pietra Grey', stone:'Pietra Grey Marble · Vessel Basin', material:'Pietra Grey Marble', price:1190, desc:'Deep charcoal with a mirror-polished finish and subtle ghosted veining — Pietra Grey is the stone of choice for dark, dramatic bathrooms. Understated, powerful and completely refined.', img:'basin-pietra-grey-1.jpg' },
+    'pink-purple-onyx': { name:'Pink Purple Onyx', stone:'Pink Purple Onyx · Vessel Basin', material:'Pink Purple Onyx', price:1590, desc:'Soft blush and rose tones with swirling white crystal formations — one of the rarest and most feminine stones in the world. A bathroom centrepiece unlike anything else available in New Zealand.', img:'basin-pink-purple-onyx-1.jpg' },
+    'tiger-onyx': { name:'Tiger Onyx', stone:'Tiger Onyx · Vessel Basin', material:'Tiger Onyx', price:1390, desc:'Dramatic amber and burnt-orange banding on the exterior meets a contrasting grey-green interior — a two-tone effect unlike anything else. Raw geological drama.', img:'basin-tiger-onyx-1.jpg' },
+    'pink-onyx-shell': { name:'Pink Onyx Shell', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', price:1590, desc:'Translucent blush pink with soft shell-like layers — glows warm in natural light. Delicate and striking in equal measure. Perfect for a powder room statement.', img:'basin-pink-onyx-shell-1.jpg' },
+    'yellow-onyx': { name:'Yellow Onyx', stone:'Yellow Onyx · Vessel Basin', material:'Yellow Onyx', price:1390, desc:'Warm honey and amber tones with flowing translucent layers — Yellow Onyx catches the light unlike any other stone. Bold and completely one of a kind.', img:'basin-yellow-onyx-1.jpg' },
   };
   let currentBasin = '';
 
@@ -773,12 +773,13 @@
     const bar = document.getElementById('modal-sticky-bar');
     if (bar) {
       document.getElementById('msb-name').textContent = b.name;
-      document.getElementById('msb-price').textContent = 'From NZD $850';
+      document.getElementById('msb-price').textContent = b.price ? 'NZD $' + b.price.toLocaleString('en-NZ') : '';
       document.getElementById('msb-btn').onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
       bar.style.display = 'flex';
     }
-    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: 850, items: [{ item_id: id, item_name: b.name, item_category: 'Basin', price: 850, quantity: 1 }] });
-    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: b.name, content_category: 'Basin', currency: 'NZD', value: 850 });
+    const itemPrice = b.price || 0;
+    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: itemPrice, items: [{ item_id: id, item_name: b.name + ' Vessel Basin', item_category: 'Basin', price: itemPrice, quantity: 1 }] });
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_ids: [id], content_name: b.name + ' Vessel Basin', content_category: 'Basin', currency: 'NZD', value: itemPrice });
   }
   function closeBasinModal(e) { if (e.target === document.getElementById('basin-modal')) closeBasinModalBtn(); }
   function closeBasinModalBtn() {

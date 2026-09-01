@@ -530,8 +530,32 @@
   }
 
   // Init Stripe when email is filled in and blurred
+  // Also fire Klaviyo "Started Checkout" via server-side relay
   document.getElementById('email').addEventListener('blur', () => {
     if (!elements) initStripe();
+    const email = document.getElementById('email').value.trim();
+    if (email && email.includes('@')) {
+      // Store email so cart.js can identify the user for subsequent events
+      try { localStorage.setItem('pp_customer_email', email); } catch(_) {}
+      // Send Started Checkout to Klaviyo (fire-and-forget, never blocks journey)
+      const cartItems = cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity || 1 }));
+      const cartValue = cart.reduce((s, i) => s + i.price * (i.quantity || 1), 0);
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          event: 'Started Checkout',
+          properties: {
+            cart_value: cartValue,
+            currency: 'NZD',
+            item_count: cart.length,
+            items: cartItems,
+            url: window.location.href,
+          },
+        }),
+      }).catch(() => {});
+    }
   });
 
   // ── Form submit ─────────────────────────────────────────
@@ -581,7 +605,7 @@
 
   function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
 
-  const PROMO_CODES = { 'SAMPLEWORKSHOP': 0.10 };
+  const PROMO_CODES = { 'SAMPLEWORKSHOP': 0.10, 'PRIME10': 0.10 };
   let discountRate = 0;
   let discountedTotal = total;
 

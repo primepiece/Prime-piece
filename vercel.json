@@ -18,7 +18,10 @@
   "functions": {
     "api/render.js": { "maxDuration": 10 },
     "api/poll.js": { "maxDuration": 10 },
-    "api/enquire.js": { "maxDuration": 10 }
+    "api/enquire.js": { "maxDuration": 10 },
+    "api/enquiry.js": { "maxDuration": 10 },
+    "api/track.js": { "maxDuration": 10 },
+    "api/webhook.js": { "maxDuration": 30 }
   },
   "cleanUrls": false,
   "trailingSlash": false

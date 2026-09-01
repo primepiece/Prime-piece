@@ -1785,6 +1785,8 @@
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
     var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
     try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
+    // Store email so Klaviyo funnel events can identify this customer
+    try { localStorage.setItem('pp_customer_email', email); } catch(_) {}
     stepForm.style.display = 'none'; stepReveal.style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Lead');
     if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
