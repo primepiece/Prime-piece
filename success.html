@@ -43,11 +43,13 @@
       gtag('event','conversion',{ send_to: 'G-S14SLX5T16', value: total, currency: 'NZD' });
     }
 
-    // Clear cart and customer email after confirmed purchase
-    try {
-      localStorage.removeItem('pp_cart_v2');
-      localStorage.removeItem('pp_customer_email');
-    } catch(_) {}
+    // Clear cart and customer email only after a confirmed purchase redirect
+    if (total > 0) {
+      try {
+        localStorage.removeItem('pp_cart_v2');
+        localStorage.removeItem('pp_customer_email');
+      } catch(_) {}
+    }
   })();
 </script>
 <title>Order Confirmed — Prime Piece</title>

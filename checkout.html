@@ -486,11 +486,13 @@
     document.getElementById('pay-btn').disabled = true;
 
     try {
+      const appliedPromo = discountRate > 0 ? document.getElementById('promo-code').value.trim().toUpperCase() : '';
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: discountRate > 0 ? [{name: 'Order (promo applied)', price: discountedTotal}] : cart,
+          items: cart,
+          promoCode: appliedPromo,
           customer: {
             name: firstName + ' ' + lastName,
             email,
@@ -520,7 +522,7 @@
       paymentElement.mount('#payment-element');
       paymentElement.on('ready', () => {
         document.getElementById('pay-btn').disabled = false;
-        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+        document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(discountedTotal) + ' NZD →';
       });
 
     } catch (err) {
