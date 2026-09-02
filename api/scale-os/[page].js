@@ -2,9 +2,10 @@
 // Consolidated into one function (rather than one file per page) to stay under the
 // Vercel Hobby plan's 12-serverless-function-per-deployment limit alongside the
 // existing storefront api/*.js functions.
-import { requireAuth } from '../../scale-os/lib/auth.js';
+import { requireAuth, isAuthenticated } from '../../scale-os/lib/auth.js';
 import { renderShell, renderComingSoon } from '../../scale-os/lib/layout.js';
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
+import { getProducts, saveProducts, isStoreConfigured } from '../../scale-os/lib/store.js';
 
 const STAGES = ['Find Winner', 'Validate', 'Scale', 'Systemise', 'Expand'];
 const CURRENT_STAGE = 'Find Winner';
@@ -70,10 +71,50 @@ const COMING_SOON = {
   },
 };
 
-export default async function handler(req, res) {
-  if (!requireAuth(req, res)) return;
+// JSON data API for Product Lab (GET/PUT/POST), reached at /api/scale-os/products.
+// Kept in this same file rather than its own api/scale-os/products.js — this project is
+// already at Vercel's Hobby-plan cap of 12 serverless functions, so new endpoints have to
+// share the existing dynamic handler rather than add a 13th function.
+async function handleProducts(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({
+      error: 'No database connected yet. In Vercel: Project → Storage → connect a Redis database (Marketplace → Redis), then redeploy.',
+    });
+  }
 
+  if (req.method === 'GET') {
+    try {
+      const products = await getProducts();
+      return res.status(200).json({ products });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  if (req.method === 'PUT' || req.method === 'POST') {
+    const products = req.body?.products;
+    if (!Array.isArray(products)) return res.status(400).json({ error: 'Expected { products: [...] }' });
+    try {
+      await saveProducts(products);
+      return res.status(200).json({ success: true });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  res.setHeader('Allow', 'GET, PUT, POST');
+  return res.status(405).json({ error: 'Method not allowed' });
+}
+
+export default async function handler(req, res) {
   const page = req.query?.page;
+
+  if (page === 'products') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleProducts(req, res);
+  }
+
+  if (!requireAuth(req, res)) return;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
   if (page === 'dashboard') return res.status(200).send(renderDashboard());
