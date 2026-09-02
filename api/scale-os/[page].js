@@ -5,7 +5,8 @@
 import { requireAuth, isAuthenticated } from '../../scale-os/lib/auth.js';
 import { renderShell, renderComingSoon } from '../../scale-os/lib/layout.js';
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
-import { getProducts, saveProducts, isStoreConfigured } from '../../scale-os/lib/store.js';
+import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
+import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, isStoreConfigured } from '../../scale-os/lib/store.js';
 
 const STAGES = ['Find Winner', 'Validate', 'Scale', 'Systemise', 'Expand'];
 const CURRENT_STAGE = 'Find Winner';
@@ -45,6 +46,16 @@ function renderProductLab() {
     bodyHtml: PRODUCT_LAB_BODY,
     extraStyle: PRODUCT_LAB_STYLE,
     extraScript: PRODUCT_LAB_SCRIPT,
+  });
+}
+
+function renderMarketRadar() {
+  return renderShell({
+    title: 'Market Radar',
+    activeKey: 'radar',
+    bodyHtml: MARKET_RADAR_BODY,
+    extraStyle: MARKET_RADAR_STYLE,
+    extraScript: MARKET_RADAR_SCRIPT,
   });
 }
 
@@ -106,6 +117,45 @@ async function handleProducts(req, res) {
   return res.status(405).json({ error: 'Method not allowed' });
 }
 
+// JSON data API for Market Radar (GET only for V1 — written by the GitHub Actions
+// research worker directly via the same Redis REST API, not through this endpoint).
+async function handleRadarData(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({
+      error: 'No database connected yet. In Vercel: Project → Storage → connect a Redis database (Marketplace → Redis), then redeploy.',
+    });
+  }
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  try {
+    const opportunities = await getRadarOpportunities();
+    return res.status(200).json({ opportunities });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// Promotes one Market Radar opportunity into Product Lab.
+async function handleRadarPromote(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const id = req.body?.id;
+  if (!id) return res.status(400).json({ error: 'Expected { id: <opportunity id> }' });
+  try {
+    const productId = await promoteRadarItem(id);
+    return res.status(200).json({ success: true, productId });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+}
+
 export default async function handler(req, res) {
   const page = req.query?.page;
 
@@ -113,12 +163,21 @@ export default async function handler(req, res) {
     if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
     return handleProducts(req, res);
   }
+  if (page === 'radar-data') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleRadarData(req, res);
+  }
+  if (page === 'radar-promote') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleRadarPromote(req, res);
+  }
 
   if (!requireAuth(req, res)) return;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
   if (page === 'dashboard') return res.status(200).send(renderDashboard());
   if (page === 'product-lab') return res.status(200).send(renderProductLab());
+  if (page === 'radar') return res.status(200).send(renderMarketRadar());
   if (page && COMING_SOON[page]) {
     return res.status(200).send(renderComingSoon({ activeKey: page, ...COMING_SOON[page] }));
   }

@@ -1,0 +1,56 @@
+name: Market Radar scan
+
+# Manual trigger only for V1 — no cron schedule. The Market Intelligence Engine design
+# calls for scheduled scanning eventually, but that was explicitly out of scope until
+# V1 (Hunter + one enrichment pipeline + Evidence Auditor + Opportunity Ranker, writing
+# into Market Radar) is proven end to end first.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "hunt = find new candidates and research them. candidate = research/refresh one specific product."
+        required: true
+        type: choice
+        options: [hunt, candidate]
+        default: hunt
+      candidate:
+        description: 'Only used when mode=candidate. Format: "Product Name|Variant|Category" (variant/category optional).'
+        required: false
+        type: string
+      hunt_count:
+        description: "Only used when mode=hunt. New candidates to find and research (1-5, kept small on purpose — cost)."
+        required: false
+        type: string
+        default: "3"
+      search_budget:
+        description: "Max web searches per Claude call (2-10). Higher = more thorough, more cost."
+        required: false
+        type: string
+        default: "6"
+      dry_run:
+        description: "If true, skips real Anthropic API calls and uses fixture data — proves the merge/audit/rank pipeline for free."
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run Market Radar research worker
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          KV_REST_API_URL: ${{ secrets.KV_REST_API_URL }}
+          KV_REST_API_TOKEN: ${{ secrets.KV_REST_API_TOKEN }}
+          RADAR_MODE: ${{ inputs.mode }}
+          RADAR_CANDIDATE: ${{ inputs.candidate }}
+          RADAR_HUNT_COUNT: ${{ inputs.hunt_count }}
+          RADAR_SEARCH_BUDGET: ${{ inputs.search_budget }}
+          RADAR_DRY_RUN: ${{ inputs.dry_run }}
+        run: node scripts/market-radar/run.mjs
