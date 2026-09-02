@@ -5,6 +5,7 @@
 const NAV_ITEMS = [
   { href: '/scale-os', label: 'Dashboard', key: 'dashboard' },
   { href: '/scale-os/product-lab', label: 'Product Lab', key: 'product-lab' },
+  { href: '/scale-os/radar', label: 'Market Radar', key: 'radar' },
   { href: '/scale-os/experiments', label: 'Experiments', key: 'experiments' },
   { href: '/scale-os/trade-crm', label: 'Trade CRM', key: 'trade-crm' },
   { href: '/scale-os/weekly', label: 'Weekly', key: 'weekly' },

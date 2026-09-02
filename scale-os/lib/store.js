@@ -10,6 +10,7 @@
 // UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN) — either naming is supported below.
 
 const PRODUCTS_KEY = 'scale_os:products:v1';
+const RADAR_KEY = 'scale_os:radar:v1';
 
 function credentials() {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -71,4 +72,92 @@ export async function getProducts() {
 
 export async function saveProducts(products) {
   await redisCommand(['SET', PRODUCTS_KEY, JSON.stringify(products)]);
+}
+
+// --- Market Radar ---
+// A broader, continuously-refreshable opportunity universe, separate from Product Lab
+// (which is only the products Prime Piece is seriously investigating). Written by the
+// GitHub Actions research worker (scripts/market-radar/run.mjs) using the same Redis
+// REST API this file uses; read here for display and for "promote to Product Lab".
+
+export async function getRadarOpportunities() {
+  const raw = await redisCommand(['GET', RADAR_KEY]);
+  if (raw === null || raw === undefined) {
+    const { RADAR_SEED_DATA } = await import('./radar-seed.js');
+    await saveRadarOpportunities(RADAR_SEED_DATA);
+    return RADAR_SEED_DATA;
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function saveRadarOpportunities(opportunities) {
+  await redisCommand(['SET', RADAR_KEY, JSON.stringify(opportunities)]);
+}
+
+function radarUid() {
+  return 'r_' + Math.random().toString(36).slice(2, 10);
+}
+
+// Maps a radar opportunity's structured evidence into a fresh Product Lab row.
+// Only fields Market Radar actually has evidence for are filled — supplier cost,
+// freight, packaging etc. stay blank, exactly like every other Product Lab entry,
+// since no radar item has real supplier pricing.
+function mapRadarItemToProduct(item) {
+  const sb = item.scoreBreakdown || {};
+  const scaleFromScore = (dim) => {
+    const v = sb[dim]?.score;
+    if (typeof v !== 'number') return undefined;
+    return Math.max(1, Math.min(5, Math.round(v / 20))); // 0-100 -> 1-5
+  };
+  const invertScaleFromScore = (dim) => {
+    const v = scaleFromScore(dim);
+    return v === undefined ? undefined : 6 - v;
+  };
+
+  const sourcesList = (item.sources || []).map((s) => s.title || s.url).join(', ');
+
+  return {
+    id: radarUid(),
+    name: item.variant ? `${item.product} — ${item.variant}` : item.product,
+    category: item.category || '',
+    differentiation: scaleFromScore('differentiation'),
+    tradePotential: scaleFromScore('designerTrade'),
+    freightRisk: invertScaleFromScore('operationalRisk'),
+    damageRisk: invertScaleFromScore('operationalRisk'),
+    competition: undefined,
+    evidenceSource: `Promoted from Market Radar (opportunity score ${item.opportunityScore ?? '—'}, confidence ${item.confidenceScore ?? '—'}). Sources: ${sourcesList || 'see Market Radar detail'}.`,
+    confidence: item.confidenceScore >= 70 ? 'High' : item.confidenceScore >= 40 ? 'Medium' : 'Low',
+    notes: item.marketGap?.description || '',
+    status: 'Idea',
+    me_comparableCompetitors: (item.competitors || []).map((c) => `${c.name}${c.country ? ' (' + c.country + ')' : ''}`).join(', '),
+    me_comparableRetailPrices: item.priceBand ? `${item.priceBand.currency || ''}${item.priceBand.low ?? '?'}-${item.priceBand.high ?? '?'}` : '',
+    me_apparentMarketDemand: scaleFromScore('demandEvidence'),
+    me_apparentMarketDemandType: item.demandSignal?.type || '',
+    me_evidenceSources: sourcesList,
+    me_confidenceLevel: item.confidenceScore >= 70 ? 'High' : item.confidenceScore >= 40 ? 'Medium' : 'Low',
+    me_dateLastResearched: item.lastResearched || '',
+    me_keyTakeaway: item.marketGap?.description || '',
+  };
+}
+
+// Promotes one radar opportunity into Product Lab: appends a mapped row to the
+// products list and marks the radar item as promoted. Returns the new product id.
+export async function promoteRadarItem(radarId) {
+  const [opportunities, products] = await Promise.all([getRadarOpportunities(), getProducts()]);
+  const item = opportunities.find((o) => o.id === radarId);
+  if (!item) throw new Error('Opportunity not found');
+
+  const product = mapRadarItemToProduct(item);
+  products.push(product);
+  item.promotedToProductLab = true;
+  item.promotedAt = new Date().toISOString();
+  item.productLabId = product.id;
+
+  await Promise.all([saveProducts(products), saveRadarOpportunities(opportunities)]);
+  return product.id;
 }
