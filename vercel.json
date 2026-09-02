@@ -15,6 +15,10 @@
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true }
   ],
+  "rewrites": [
+    { "source": "/scale-os", "destination": "/api/scale-os/dashboard" },
+    { "source": "/scale-os/:page", "destination": "/api/scale-os/:page" }
+  ],
   "functions": {
     "api/render.js": { "maxDuration": 10 },
     "api/poll.js": { "maxDuration": 10 },
