@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "hunt = find new candidates and research them. candidate = research/refresh one specific product."
+        description: "diag-basic/diag-search = cheap 1-call connectivity checks (run these first if things are failing). hunt = find new candidates and research them. candidate = research/refresh one specific product."
         required: true
         type: choice
-        options: [hunt, candidate]
-        default: hunt
+        options: [diag-basic, diag-search, hunt, candidate]
+        default: diag-basic
       candidate:
         description: 'Only used when mode=candidate. Format: "Product Name|Variant|Category" (variant/category optional).'
         required: false
@@ -43,6 +43,11 @@ jobs:
         with:
           node-version: "22"
 
+      # diag-basic / diag-search run scripts/market-radar/diag.mjs — a separate, much
+      # smaller script with no retry logic, exactly one Anthropic call, and a short
+      # timeout (30s / 90s). Use these first when something is failing: they isolate
+      # "does a basic Messages API call succeed at all" and "does web_search succeed"
+      # from the full multi-call, multi-search research pipeline in run.mjs.
       - name: Run Market Radar research worker
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -53,4 +58,10 @@ jobs:
           RADAR_HUNT_COUNT: ${{ inputs.hunt_count }}
           RADAR_SEARCH_BUDGET: ${{ inputs.search_budget }}
           RADAR_DRY_RUN: ${{ inputs.dry_run }}
-        run: node scripts/market-radar/run.mjs
+          DIAG_MODE: ${{ inputs.mode == 'diag-basic' && 'basic' || (inputs.mode == 'diag-search' && 'search' || '') }}
+        run: |
+          if [[ "${{ inputs.mode }}" == diag-* ]]; then
+            node scripts/market-radar/diag.mjs
+          else
+            node scripts/market-radar/run.mjs
+          fi
