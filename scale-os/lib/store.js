@@ -27,17 +27,32 @@ async function redisCommand(command) {
   const { url, token } = credentials();
   if (!url || !token) throw new Error('No Redis/KV database connected to this project yet.');
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(command),
-  });
+  // Diagnostic logging is failure-path only — nothing here changes on a successful
+  // call, so this doesn't alter Redis behavior for Product Lab or anything else that
+  // already depends on this function. Never logs the URL/token — only the op name
+  // (command[0], e.g. "GET"/"SET") and, on failure, the HTTP status / safe error text.
+  let res;
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(command),
+    });
+  } catch (err) {
+    const cause = err?.cause ? (err.cause.code || err.cause.message || String(err.cause)) : null;
+    console.error(`[store] Redis ${command[0]} request failed (network): ${err.message}${cause ? ` (cause: ${cause})` : ''}`);
+    throw err;
+  }
 
-  const data = await res.json().catch(() => null);
+  const bodyText = await res.text();
+  let data = null;
+  try { data = JSON.parse(bodyText); } catch { /* handled below */ }
   if (!res.ok || !data || data.error) {
+    const safeBody = bodyText.length > 400 ? bodyText.slice(0, 400) + '…' : bodyText;
+    console.error(`[store] Redis ${command[0]} request failed: HTTP ${res.status} — ${data?.error || safeBody || '(empty body)'}`);
     throw new Error(`Storage request failed: ${data?.error || res.status}`);
   }
   return data.result;
