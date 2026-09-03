@@ -14,6 +14,9 @@
     const p = new URLSearchParams(window.location.search);
     const total = parseFloat(p.get('total')) || 0;
     const items = parseInt(p.get('items')) || 1;
+    // Shared with the server-side backstop purchase event (Stripe webhook) so
+    // GA4 dedupes the two by transaction_id instead of double-counting revenue.
+    const transactionId = p.get('pi') || ('pp-' + Date.now());
 
     // Reconstruct cart items from localStorage for richer GA4 purchase event
     let gaItems = [];
@@ -35,7 +38,7 @@
 
     if (total > 0) {
       gtag('event','purchase',{
-        transaction_id: 'pp-' + Date.now(),
+        transaction_id: transactionId,
         value: total,
         currency: 'NZD',
         items: gaItems,

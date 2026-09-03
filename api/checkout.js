@@ -117,6 +117,7 @@ export default async function handler(req, res) {
     'metadata[notes]': customer.notes || '',
     'metadata[items]': itemsLabel,
     'metadata[promo]': discountRate > 0 ? code : '',
+    'metadata[ga_client_id]': customer.gaClientId || '',
   });
 
   try {
@@ -136,7 +137,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: data.error.message });
     }
 
-    return res.status(200).json({ clientSecret: data.client_secret, amount: totalCents / 100 });
+    return res.status(200).json({ clientSecret: data.client_secret, paymentIntentId: data.id, amount: totalCents / 100 });
 
   } catch (err) {
     console.error('Checkout error:', err);

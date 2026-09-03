@@ -58,6 +58,42 @@ export default async function handler(req, res) {
 
   const klaviyoKey = process.env.KLAVIYO_API_KEY;
   const resendKey = process.env.RESEND_API_KEY;
+  const ga4Secret = process.env.GA4_API_SECRET;
+
+  // Server-side GA4 purchase event — backstops the client-side event fired
+  // from success.html, which silently never fires for ad-blocked browsers,
+  // failed redirects, or a tab closed before it loads. Both events share the
+  // Stripe PaymentIntent id as transaction_id, which GA4 uses to dedupe
+  // purchase events, so this never double-counts revenue.
+  if (ga4Secret) {
+    try {
+      const gaClientId = meta.ga_client_id || `${pi.id}.server`;
+      const items = itemsStr.split(' | ').filter(Boolean).map(entry => {
+        const match = entry.match(/^(.*) \(\$(\d+(?:\.\d+)?)\)$/);
+        return match
+          ? { item_name: match[1], price: parseFloat(match[2]), quantity: 1 }
+          : { item_name: entry, quantity: 1 };
+      });
+      await fetch(`https://www.google-analytics.com/mp/collect?measurement_id=G-S14SLX5T16&api_secret=${ga4Secret}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: gaClientId,
+          events: [{
+            name: 'purchase',
+            params: {
+              transaction_id: pi.id,
+              value: amountPaid,
+              currency: 'NZD',
+              items,
+            },
+          }],
+        }),
+      });
+    } catch (err) {
+      console.error('GA4 purchase event error:', err);
+    }
+  }
 
   // Upsert Klaviyo profile and send Placed Order event
   if (klaviyoKey) {
