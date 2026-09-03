@@ -51,12 +51,67 @@ function log(...args) {
 }
 
 // --- Anthropic call ---------------------------------------------------------------
+// Model/headers/tool shape verified 2026-09 against the current Messages API docs:
+// model "claude-sonnet-5" is a valid current model ID; "anthropic-version: 2023-06-01"
+// is still the correct wire-protocol version header (unrelated to model releases, not
+// flagged as changed); the web_search_20260209 tool takes exactly {type, name,
+// max_uses} with no beta header required. None of that was the bug.
+
+const REQUEST_TIMEOUT_MS = 120_000; // web-search-backed calls can run long
+const MAX_RETRIES = 2;
+const RETRY_DELAYS_MS = [2000, 5000];
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// Truncates a response body before logging — keeps CI logs readable. Only ever logs
+// response bodies, never request headers, so an API key/token can never appear here.
+function safeSnippet(text, max = 400) {
+  if (!text) return '(empty)';
+  return text.length > max ? text.slice(0, max) + '…' : text;
+}
+
+function isRetryableStatus(status) {
+  return status === 429 || status >= 500;
+}
+
+// Wraps fetch with a timeout (AbortController) and a small retry-with-backoff for
+// transient failures: network-layer errors (DNS, connection reset, timeout — the
+// generic Node "fetch failed") and 429/5xx responses. 4xx errors other than 429 are
+// NOT retried — retrying a malformed request just wastes another paid call. Every
+// attempt logs what happened (status or the underlying cause) before deciding.
+async function fetchWithRetry(url, options, label) {
+  let lastErr;
+  for (let attempt = 1; attempt <= MAX_RETRIES + 1; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok && isRetryableStatus(res.status) && attempt <= MAX_RETRIES) {
+        const bodyText = await res.text().catch(() => '');
+        log(`${label}: HTTP ${res.status} (retryable) on attempt ${attempt}/${MAX_RETRIES + 1} — body: ${safeSnippet(bodyText)}`);
+        await sleep(RETRY_DELAYS_MS[attempt - 1]);
+        continue;
+      }
+      return res;
+    } catch (err) {
+      clearTimeout(timer);
+      const cause = err?.cause ? (err.cause.code || err.cause.message || String(err.cause)) : null;
+      lastErr = err.name === 'AbortError' ? new Error(`${label}: timed out after ${REQUEST_TIMEOUT_MS}ms`) : err;
+      log(`${label}: network error "${err.message}"${cause ? ` (cause: ${cause})` : ''} on attempt ${attempt}/${MAX_RETRIES + 1}`);
+      if (attempt <= MAX_RETRIES) { await sleep(RETRY_DELAYS_MS[attempt - 1]); continue; }
+    }
+  }
+  throw lastErr;
+}
 
 async function callClaude({ system, prompt, maxSearches }) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not set — required for anything other than RADAR_DRY_RUN=1.');
 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const res = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'x-api-key': apiKey,
@@ -70,11 +125,14 @@ async function callClaude({ system, prompt, maxSearches }) {
       messages: [{ role: 'user', content: prompt }],
       tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: maxSearches }],
     }),
-  });
+  }, 'Anthropic API');
 
-  const data = await res.json().catch(() => null);
+  const bodyText = await res.text();
+  let data = null;
+  try { data = JSON.parse(bodyText); } catch { /* handled below */ }
   if (!res.ok || !data) {
-    throw new Error(`Anthropic API error: ${data?.error?.message || res.status}`);
+    log(`Anthropic API: HTTP ${res.status} — body: ${safeSnippet(bodyText)}`);
+    throw new Error(`Anthropic API error: ${data?.error?.message || `HTTP ${res.status}`}`);
   }
 
   const text = (data.content || [])
@@ -352,6 +410,15 @@ async function main() {
     log(`Saved. ${created} created, ${updated} updated, ${failed} failed.`);
   } else {
     log(`Nothing to save. ${failed} failed.`);
+  }
+
+  // Any failure must fail the job (red), even if some other candidate in the same run
+  // succeeded and got saved above — "success" only means every candidate researched
+  // cleanly. Without this, main() returns normally on an all-failed run and the
+  // process exits 0, which is exactly how GitHub Actions showed this run as green
+  // while nothing was actually saved.
+  if (failed > 0) {
+    throw new Error(`${failed} of ${candidates.length} candidate(s) failed — see logs above for the exact cause.`);
   }
 }
 
