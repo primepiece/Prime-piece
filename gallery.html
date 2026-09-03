@@ -620,8 +620,7 @@
       <div class="lb-row"><span class="lb-label">Origin</span><span class="lb-val">Handcrafted Auckland, NZ</span></div>
       <div class="lb-row"><span class="lb-label">Edition</span><span class="lb-val">One of one — never repeated</span></div>
       <div class="lightbox-actions">
-        <button id="lb-btn-cart" onclick="addLightboxToCart()" class="lb-btn-primary" style="cursor:pointer;border:none;font-family:inherit;width:100%;text-align:center;">Add to Cart →</button>
-        <a id="lb-btn-view" href="#" class="lb-btn-ghost">View Full Details →</a>
+        <a id="lb-btn-view" href="#" class="lb-btn-primary">View Full Details →</a>
         <button onclick="openEnquireModal('Piece Enquiry')" class="lb-btn-ghost" style="cursor:pointer;border:none;font-family:inherit;width:100%;text-align:center;margin-top:0;">Enquire About This Piece →</button>
       </div>
     </div>
@@ -670,31 +669,6 @@
     document.getElementById('lb-dims').textContent = el.dataset.dims;
     document.getElementById('lb-price').textContent = el.dataset.price;
     document.getElementById('lb-btn-view').href = el.dataset.link;
-    const cartBtn = document.getElementById('lb-btn-cart');
-    const isSold = el.dataset.status === 'sold' || el.dataset.price === 'Sold';
-    if (isSold) {
-      cartBtn.textContent = 'Sold Out';
-      cartBtn.disabled = true;
-      cartBtn.style.opacity = '0.45';
-      cartBtn.style.cursor = 'default';
-    } else {
-      cartBtn.disabled = false;
-      cartBtn.style.opacity = '1';
-      cartBtn.style.cursor = 'pointer';
-      cartBtn.textContent = 'Add to Cart →';
-    }
-  }
-
-  function addLightboxToCart() {
-    const el = _items[_currentIdx];
-    if (!el || el.dataset.status === 'sold') return;
-    const priceStr = el.dataset.price.replace(/[^0-9.]/g, '');
-    const price = parseFloat(priceStr);
-    const id = 'gallery-' + el.dataset.name.toLowerCase().replace(/\s+/g, '-');
-    const img = el.querySelector('img').src.split('/').pop();
-    Cart.add({ id, name: el.dataset.name, type: el.dataset.type, image: img, price });
-    const btn = document.getElementById('lb-btn-cart');
-    btn.textContent = 'In Cart ✓';
   }
 
   function navLightbox(dir) {
@@ -814,10 +788,16 @@ async function submitEnquire() {
   document.getElementById('enq-sending').style.display = 'block';
   try {
     const subject = document.getElementById('enq-title').textContent;
-    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
+    const res = await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
     document.getElementById('enq-sending').style.display = 'none';
-    document.getElementById('enq-success').style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    if (res.ok) {
+      document.getElementById('enq-success').style.display = 'block';
+      if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+    } else {
+      document.getElementById('enq-form-wrap').style.display = 'block';
+      errEl.textContent = 'Something went wrong — please text James on 021 146 6990.';
+      errEl.style.display = 'block';
+    }
   } catch(e) {
     document.getElementById('enq-sending').style.display = 'none';
     document.getElementById('enq-form-wrap').style.display = 'block';

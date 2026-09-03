@@ -530,6 +530,11 @@
       clientSecret = data.clientSecret;
       paymentIntentId = data.paymentIntentId || null;
 
+      // Applying a promo code after the payment form already mounted (elements
+      // reset to null) re-runs this — unmount the stale Element first so we
+      // don't stack a second Stripe iframe into the same container.
+      if (paymentElement) { try { paymentElement.unmount(); } catch (_) {} }
+
       elements = stripe.elements({ clientSecret, appearance: {
         theme: 'flat',
         variables: {

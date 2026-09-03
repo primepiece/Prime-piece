@@ -5,7 +5,12 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, email, piece, stone, notes, imageBase64, imageMime } = req.body;
+  const { name, email, piece, stone, phone, source } = req.body;
+  // Accept either field name — trade.html and other callers send `message`,
+  // the room-render form sends `notes`. Losing whichever one isn't read here
+  // means the actual enquiry content never reaches James.
+  const notes = req.body.notes || req.body.message;
+  const { imageBase64, imageMime } = req.body;
 
   if (!name || !email) return res.status(400).json({ error: 'Missing required fields' });
 
@@ -21,14 +26,15 @@ export default async function handler(req, res) {
   }
 
   const html = `
-    <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry</h2>
+    <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry${source ? ' — ' + source : ''}</h2>
     <table style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;">
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Name</td><td>${name}</td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${piece}</td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>
-      ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Notes</td><td>${notes}</td></tr>` : ''}
-      ${imageBase64 ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : '<tr><td style="color:#7BA5A8;font-weight:600;">Photo</td><td>Not uploaded</td></tr>'}
+      ${phone ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Phone</td><td><a href="tel:${phone}">${phone}</a></td></tr>` : ''}
+      ${piece ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${piece}</td></tr>` : ''}
+      ${stone ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>` : ''}
+      ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;vertical-align:top;">Notes</td><td style="white-space:pre-wrap;">${notes}</td></tr>` : ''}
+      ${imageBase64 ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : ''}
     </table>
     <p style="font-family:sans-serif;font-size:12px;color:#999;margin-top:24px;">Reply directly to this email to respond to ${name}.</p>
   `;
@@ -44,7 +50,7 @@ export default async function handler(req, res) {
         from: 'Prime Piece <james@primepiece.co.nz>',
         to: ['james@primepiece.co.nz'],
         reply_to: email,
-        subject: `Enquiry — ${name}${piece && piece !== 'Get in touch' ? ' · ' + piece : ''}`,
+        subject: `${source ? source + ' — ' : 'Enquiry — '}${name}${piece && piece !== 'Get in touch' ? ' · ' + piece : ''}`,
         html,
         attachments,
       }),
