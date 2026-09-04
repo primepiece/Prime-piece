@@ -345,6 +345,8 @@
   .bh-badge-sale { position: absolute; top: 20px; right: 20px; padding: 5px 12px; background: #b8800a; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; border-radius: 2px; z-index: 5; }
   .bh-info { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
   .bh-collab { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+  .bh-collab-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border: 1px solid var(--sage); border-radius: 100px; color: var(--sage-deep); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 18px; }
+  .bh-collab-badge strong { color: var(--ink); font-weight: 600; letter-spacing: 0.02em; text-transform: none; }
   .bh-name { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
   .bh-stone { font-size: 12px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
   .bh-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 28px; font-style: italic; }
@@ -608,9 +610,10 @@
   <div class="bedside-hero" onclick="openModal('Lunar River','Lunar River Marble','side-3.jpg','Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. As featured in our collaboration with @simone_anderson. Shown at the size below; custom-sized to suit your space on request.','550mm (H) × 600mm (W) × 550mm (D) · 30mm Lunar River Marble','Bedside Table','Solid marble — no metal frame','Indoor only','Shown at 550mm (H) × 600mm (W) × 550mm (D). Custom sizes available to suit your space — natural stone colour and veining varies, every piece is completely unique.')">
     <div class="bh-gallery">
       <img class="bh-img active" id="bh-img-0" src="side-3.jpg" alt="Lunar River marble bedside table">
-      <img class="bh-img" id="bh-img-1" src="side-3-lifestyle.jpg" alt="Lunar River marble bedside table lifestyle">
-      <img class="bh-img" id="bh-img-2" src="side-3-detail-1.jpg" alt="Lunar River marble detail">
-      <img class="bh-img" id="bh-img-3" src="side-3-detail-2.jpg" alt="Lunar River marble detail 2">
+      <img class="bh-img" id="bh-img-1" src="review-simone.jpg" alt="Lunar River marble bedside table styled by Simone Anderson">
+      <img class="bh-img" id="bh-img-2" src="side-3-lifestyle.jpg" alt="Lunar River marble bedside table lifestyle">
+      <img class="bh-img" id="bh-img-3" src="side-3-detail-1.jpg" alt="Lunar River marble detail">
+      <img class="bh-img" id="bh-img-4" src="side-3-detail-2.jpg" alt="Lunar River marble detail 2">
       <button class="bh-nav bh-prev" onclick="event.stopPropagation(); bhNav(-1)">‹</button>
       <button class="bh-nav bh-next" onclick="event.stopPropagation(); bhNav(1)">›</button>
       <div class="bh-dots" id="bh-dots">
@@ -618,13 +621,14 @@
         <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(1)"></button>
         <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(2)"></button>
         <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(3)"></button>
+        <button class="bh-dot" onclick="event.stopPropagation(); bhGoto(4)"></button>
       </div>
       <span class="bh-badge-avail">Available</span>
-      
+
     </div>
     <div class="bh-info">
+      <div class="bh-collab-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>As Featured With <strong>@simone_anderson</strong></div>
       <div class="bh-reviews">★★★★★ <span>5.0 — 21 verified reviews</span></div>
-      <div class="bh-collab">As featured in the Simone Anderson collaboration</div>
       <h3 class="bh-name">Lunar River</h3>
       <div class="bh-stone">Lunar River Marble</div>
       <div class="bh-desc">Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. Custom sizes available on request.</div>
@@ -649,7 +653,7 @@
   <div class="section-header reveal">
     <div>
       <h2 class="section-title">Side <em>Tables</em></h2>
-      <div class="section-count">2 pieces available</div>
+      <div class="section-count">1 piece available</div>
     </div>
     <p class="section-desc">Sculptural stone side tables — the perfect accent piece for a bedroom, lounge or hallway. Handcrafted in Auckland from natural stone sourced across Europe and beyond.</p>
   </div>
@@ -658,10 +662,6 @@
     <div class="table-card" onclick="openModal('Twin Jade','Mystique Green Marble','side-1.jpg','Two sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. Cool teal tones with golden veining that shifts with the light. A rare pairing, never repeated.','450mm (H) × 600mm × 600mm · Black X-frame','Side Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="side-1.jpg" alt="Twin Jade — Mystique Green Marble stone side tables set of 2 Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Twin Jade</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Two sculptural jade green tops on bold black X-frames — designed to sit together or apart.</div><div class="table-dims">H: 450mm × 600mm × 600mm · Black steel X-frame</div><div class="table-price">NZD $1,199 each <span style="font-size:12px;color:var(--stone)">or $2,199 as a set</span> <span class="save-pill">Save up to $600</span></div><div class="table-foot" style="flex-direction:column;align-items:stretch;gap:8px"><div style="display:flex;gap:8px"><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade-single',name:'Twin Jade (Single)',type:'Side Table',image:'side-1.jpg',price:1199})">1 Table — $1,199 →</button><button class="enquire-btn pp-add-btn" style="flex:1;justify-content:center" onclick="event.stopPropagation(); Cart.add({id:'table-twin-jade',name:'Twin Jade (Set of 2)',type:'Side Table',image:'side-1.jpg',price:2199})">Set of 2 — $2,199 →</button></div><span class="table-type" style="text-align:center">Side Table — Set of 2</span></div></div>
-    </div>
-    <div class="table-card" onclick="openModal('Lunar River','Lunar River Marble','side-3.jpg','Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. As featured in our collaboration with @simone_anderson. Shown at the size below; custom-sized to suit your space on request.','550mm (H) × 600mm (W) × 550mm (D) · 30mm Lunar River Marble','Side Table','Solid marble — no metal frame','Indoor only','Shown at 550mm (H) × 600mm (W) × 550mm (D). Custom sizes available to suit your space — natural stone colour and veining varies, every piece is completely unique.')">
-      <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="side-3.jpg" alt="Lunar River — Lunar River Marble stone side table, as seen in the Simone Anderson collaboration, Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
-      <div class="table-info"><div class="table-name">Lunar River</div><div class="table-stone">Lunar River Marble</div><div class="table-desc">Soft, warm neutral tones with natural movement — finished with an open shelf for effortless bedside styling. Custom sizes available.</div><div class="table-dims">H: 550mm × W: 600mm × D: 550mm · 30mm Marble · Indoor only</div><div class="table-price">NZD $1,875</div><div class="table-foot"><span class="table-type">Side Table</span><button class="enquire-btn pp-add-btn" data-id="table-lunar-river" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Side Table',image:'side-3.jpg',price:1500})">Add to Cart →</button></div></div>
     </div>
     <div class="table-card" onclick="openModal('Jade Bedside','Green Marble Onyx','side-2.jpg','Luminous jade green onyx with amber fault lines running across a translucent surface — this bedside table glows in natural light. On a bold black C-frame, it sits flush beside any bed with quiet confidence.','600mm (H) × 450mm (W) · Black steel C-frame','Side Table')">
       <div class="table-img-wrap"><span class="table-badge sold-out">Sold</span><img class="table-img" src="side-2.jpg" alt="Jade Bedside — Green Marble Onyx bedside table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
@@ -873,6 +873,8 @@
     if (tabMap[hash]) {
       const [tabIdx, tabCat] = tabMap[hash];
       showCategory(tabCat, tabs[tabIdx]);
+      const target = document.getElementById(hash);
+      if (target) setTimeout(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }), 0);
     }
   })();
 
@@ -933,7 +935,7 @@
     'table-13.jpg': { price: 499, sold: true,  id: 'table-ocean-ember' },
     'table-14.jpg': { price: 429,              id: 'table-white-haven' },
     'side-amazon-vein-2.png': { price: 1499, id: 'table-amazon-vein-2' },
-    'side-3.jpg':   { price: 1875,            id: 'table-lunar-river' },
+    'side-3.jpg':   { price: 1500,            id: 'table-lunar-river' },
     'side-1.jpg':   { price: 2199, singlePrice: 1199, singleId: 'table-twin-jade-single', id: 'table-twin-jade' },
     'side-2.jpg':   { price: 2995, sold: true,           id: 'table-jade-bedside' },
     'lounge-1.jpg': { price: 3500, id: 'table-jade-horizon' },
@@ -958,7 +960,7 @@
   };
   const NOT_PURCHASABLE = [];
   const TABLE_GALLERIES = {
-    'side-3.jpg': ['side-3.jpg', 'side-3-lifestyle.jpg', 'side-3-detail-1.jpg', 'side-3-detail-2.jpg'],
+    'side-3.jpg': ['side-3.jpg', 'review-simone.jpg', 'side-3-lifestyle.jpg', 'side-3-detail-1.jpg', 'side-3-detail-2.jpg'],
   };
   let _modalItem = null;
   let _modalGallery = [];
