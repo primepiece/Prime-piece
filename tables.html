@@ -294,7 +294,7 @@
   .modal-trust-strip { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
   .modal-trust-strip span { display: flex; align-items: center; gap: 5px; font-size: 10px; letter-spacing: 0.1em; color: var(--stone); text-transform: uppercase; }
   .modal-trust-strip svg { color: var(--sage); flex-shrink: 0; }
-  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 4px; }
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin: 18px 0 22px; }
   .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 17px; background: var(--sage); color: white; border: none; border-radius: 4px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background 0.2s; text-decoration: none; }
   .modal-btn-primary:hover { background: #5a8a7a; }
   .modal-price-display { text-align: center; font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 6px; font-family: 'Inter Tight', sans-serif; }
@@ -640,7 +640,7 @@
         <div class="bh-spec"><span>Edition</span><span>One of one</span></div>
       </div>
       <div class="bh-price"><s>NZD $1,875</s> <strong>NZD $1,500</strong> <span class="save-pill">Save $375</span></div>
-      <div style="font-size:11px;color:#b8800a;font-weight:600;letter-spacing:0.08em;margin-bottom:14px;">Final piece — gone when sold — once it's gone, it's gone</div>
+      <div style="font-size:11px;color:#b8800a;font-weight:600;letter-spacing:0.08em;margin-bottom:14px;">Limited Stock</div>
       <button class="bh-btn" onclick="event.stopPropagation(); Cart.add({id:'table-lunar-river',name:'Lunar River',type:'Bedside Table',image:'side-3.jpg',price:1500})">Add to Cart — NZD $1,500 →</button>
       <div class="bh-shipping">🚚 NZ-wide delivery available. Questions? <a href="tel:0211466990" onclick="event.stopPropagation()">Text James — 021 146 6990</a></div>
       <div class="bh-note">Natural stone colour and veining varies. Every piece is completely unique.</div>
@@ -795,33 +795,29 @@
         <div class="msb-text"><strong>40% Off — Clearance</strong>Reduced to clear. One of one — once sold, gone forever.</div>
       </div>
       <div class="modal-reviews">★★★★★ <span>5.0 — 21 verified reviews</span></div>
-      <div class="modal-desc-text" id="modal-desc-text"></div>
+
+      <div class="modal-actions">
+        <div id="modal-price-display" class="modal-price-display" style="display:none;"></div>
+        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart</button>
+        <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-top:-4px;">or 4 × <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong></div>
+        <div class="modal-trust-strip">
+          <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure Checkout</span>
+          <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> NZ Handcrafted</span>
+          <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Free Pick-up Auckland</span>
+        </div>
+      </div>
+
       <div class="modal-divider"></div>
+      <div class="modal-desc-text" id="modal-desc-text"></div>
       <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-val" id="modal-dims"></span></div>
       <div class="detail-row"><span class="detail-label">Frame</span><span class="detail-val" id="modal-frame">Hand-welded black steel</span></div>
       <div class="detail-row"><span class="detail-label">Origin</span><span class="detail-val">Handcrafted Auckland, NZ</span></div>
       <div class="detail-row"><span class="detail-label">Setting</span><span class="detail-val" id="modal-setting">Indoor &amp; Outdoor</span></div>
       <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val" id="modal-type"></span></div>
       <div class="detail-row"><span class="detail-label">Edition</span><span class="detail-val">One of one — never repeated</span></div>
-      <p class="modal-note" id="modal-note">Natural stone colour and veining varies. Every piece is completely unique.</p>
       <div class="modal-shipping-note">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
         <span>NZ-wide delivery available. Questions? <a href="tel:0211466990" onclick="event.stopPropagation()">Text James — 021 146 6990</a></span>
-      </div>
-      <div class="modal-trust-strip">
-        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Secure Checkout</span>
-        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> NZ Handcrafted</span>
-        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Free Pick-up Auckland</span>
-      </div>
-      <div class="modal-actions">
-        <div id="modal-price-display" class="modal-price-display" style="display:none;"></div>
-        <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart</button>
-        <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-top:-4px;">or 4 × <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong></div>
-        <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid rgba(44,42,38,0.08);flex-wrap:wrap;gap:8px;">
-        <span style="font-size:11px;color:#8A8275;">🔒 14-day returns · Fully insured delivery</span>
-        <span style="font-size:11px;color:#8A8275;">Afterpay &amp; Laybuy available</span>
       </div>
     </div>
   </div>
@@ -1001,7 +997,6 @@
     document.getElementById('modal-type').textContent = type;
     document.getElementById('modal-frame').textContent = frame || 'Hand-welded black steel';
     document.getElementById('modal-setting').textContent = setting || 'Indoor & Outdoor';
-    document.getElementById('modal-note').textContent = note || 'Natural stone colour and veining varies. Every piece is completely unique.';
     const info = TABLE_PRICES[img];
     const saleTag = document.getElementById('modal-sale-tag');
     const saleBox = document.getElementById('modal-sale-box');
@@ -1017,7 +1012,7 @@
     if (info) {
       if (info.sold) {
         _modalItem = null;
-        btn.textContent = `NZD $${info.price} (was $${info.was || info.price}) — Sold Out`;
+        btn.textContent = info.was ? `NZD $${info.price} (was $${info.was}) — Sold Out` : `NZD $${info.price} — Sold Out`;
         btn.disabled = true; btn.style.opacity = '0.5'; btn.style.cursor = 'default'; btn.onclick = null;
       } else {
         btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = '';
