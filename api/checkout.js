@@ -65,7 +65,7 @@ const CATALOG = {
   'rosso-bundle': { name: 'Rosso Africano Bundle — Table + Plinth', price: 7000 },
 };
 
-const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10 };
+const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
