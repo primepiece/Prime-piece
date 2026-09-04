@@ -703,9 +703,9 @@
 
 <style>
   .fc-section { background: var(--cream-soft); border-bottom: 1px solid var(--line); }
-  .fc-wrap { display: grid; grid-template-columns: 1fr 1fr; }
-  .fc-gallery { position: relative; overflow: hidden; background: var(--cream-deep); min-height: 560px; }
-  .fc-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0; transition: opacity 0.5s; }
+  .fc-wrap { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+  .fc-gallery { position: relative; overflow: hidden; background: var(--cream-deep); height: 560px; }
+  .fc-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center center; opacity: 0; transition: opacity 0.5s; }
   .fc-img.active { opacity: 1; }
   .fc-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(28,26,22,0.45); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
   .fc-nav:hover { background: rgba(28,26,22,0.7); }
@@ -735,7 +735,7 @@
   .fc-btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
   @media(max-width:900px){
     .fc-wrap { grid-template-columns: 1fr; }
-    .fc-gallery { min-height: 80vw; }
+    .fc-gallery { height: 80vw; }
     .fc-info { padding: 40px 24px 48px; }
     .fc-name { font-size: 40px; }
     .fc-desc { font-size: 14px; }
@@ -748,12 +748,16 @@
       <img class="fc-img active" id="fc-img-0" src="side-3.jpg" alt="Lunar River marble bedside table">
       <img class="fc-img" id="fc-img-1" src="review-simone.jpg" alt="Lunar River marble bedside table styled by Simone Anderson">
       <img class="fc-img" id="fc-img-2" src="side-3-lifestyle.jpg" alt="Lunar River marble bedside table lifestyle">
+      <img class="fc-img" id="fc-img-3" src="side-3-detail-1.jpg" alt="Lunar River marble detail">
+      <img class="fc-img" id="fc-img-4" src="side-3-detail-2.jpg" alt="Lunar River marble detail 2">
       <button class="fc-nav fc-prev" onclick="fcNav(-1)" aria-label="Previous photo">‹</button>
       <button class="fc-nav fc-next" onclick="fcNav(1)" aria-label="Next photo">›</button>
       <div class="fc-dots" id="fc-dots">
         <button class="fc-dot active" onclick="fcGoto(0)" aria-label="Photo 1"></button>
         <button class="fc-dot" onclick="fcGoto(1)" aria-label="Photo 2"></button>
         <button class="fc-dot" onclick="fcGoto(2)" aria-label="Photo 3"></button>
+        <button class="fc-dot" onclick="fcGoto(3)" aria-label="Photo 4"></button>
+        <button class="fc-dot" onclick="fcGoto(4)" aria-label="Photo 5"></button>
       </div>
       <span class="fc-badge-avail">Available</span>
     </div>
