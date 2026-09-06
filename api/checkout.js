@@ -18,11 +18,13 @@ const CATALOG = {
   'board-green-onyx':    { name: 'Jade Cloud',      price: 99 },
   'board-india-green':   { name: 'Forest Stone',    price: 99 },
   'board-pink-storm':    { name: 'Pink Storm',      price: 99 },
+  'board-teal-tide':     { name: 'Teal Tide',       price: 99 },
   'board-teal-tide-2':   { name: 'Teal Tide II',    price: 99 },
   'board-teal-tide-4':   { name: 'Teal Tide IV',    price: 99 },
   'board-volcanic-ash':  { name: 'Volcanic Ash',    price: 99 },
   'board-white-haven':   { name: 'White Haven',     price: 99 },
   // Plinths
+  'plinth-dekton-sirius-large':      { name: 'Dekton Sirius Plinth',               price: 2400 },
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Side Plinth',         price: 1500 },
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
   'plinth-grey-porcelain-450':       { name: 'Grey Porcelain Side Plinth',        price: 700  },
@@ -59,6 +61,7 @@ const CATALOG = {
   'table-serpentine-storm': { name: 'Serpentine Storm',      price: 275  },
   'table-sunset-stone':     { name: 'Sunset Stone',          price: 250  },
   'table-twin-jade':        { name: 'Twin Jade (Set of 2)',   price: 2199 },
+  'table-twin-jade-single': { name: 'Twin Jade (Single)',     price: 1199 },
   'table-white-haven':      { name: 'White Haven',           price: 249  },
   'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 1499 },
   // Bundles
