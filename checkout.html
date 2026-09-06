@@ -582,10 +582,12 @@
     document.getElementById('pay-btn').disabled = true;
     document.getElementById('pay-btn-text').textContent = 'Processing…';
 
-    const { error } = await stripe.confirmPayment({
+    const returnUrl = window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length);
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length),
+        return_url: returnUrl,
         payment_method_data: {
           billing_details: {
             name: firstName + ' ' + lastName,
@@ -593,13 +595,25 @@
             phone: document.getElementById('phone').value.trim(),
           }
         }
-      }
+      },
+      // Only hand off to a full page redirect when the card actually needs an
+      // off-page step (3D Secure etc). Without this, Stripe always redirects
+      // the whole page even for cards that don't need it — a flow that
+      // frequently breaks inside in-app browsers (Instagram, Facebook,
+      // TikTok), leaving the PaymentIntent stuck "Incomplete" forever with
+      // no error the customer (or we) ever see.
+      redirect: 'if_required',
     });
 
     if (error) {
       showError(error.message);
       document.getElementById('pay-btn').disabled = false;
       document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+      window.location.href = returnUrl;
+    } else {
+      // requires_action (e.g. 3D Secure) or another non-final state — Stripe
+      // has already taken over the page for the required verification step.
     }
   });
 
