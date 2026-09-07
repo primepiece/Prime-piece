@@ -283,6 +283,12 @@ footer {
       <div class="success-title">You're on the list.</div>
       <p class="success-sub">We'll reach out the moment it drops.<br>You'll hear first.</p>
     </div>
+
+    <div class="success-state" id="error-state">
+      <div class="success-title" style="font-size:20px;">Something went wrong.</div>
+      <p class="success-sub">Please try again or email<br><a href="mailto:james@primepiece.co.nz" style="color:var(--sage);">james@primepiece.co.nz</a></p>
+      <button onclick="resetForm()" style="margin-top:8px;background:none;border:1px solid var(--stone);color:var(--stone);padding:10px 24px;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;">Try Again</button>
+    </div>
   </main>
 
   <footer>
@@ -304,20 +310,37 @@ async function handleSubmit(e) {
   btn.textContent = 'Joining…';
   btn.disabled = true;
 
+  let succeeded = false;
   try {
-    await fetch('/api/subscribe', {
+    const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email,
-        name: '',
-        source: 'basin-collection-teaser'
-      })
+      body: JSON.stringify({ email, name: '', source: 'basin-collection-teaser' })
     });
+    if (res.ok) {
+      const data = await res.json();
+      succeeded = data.success === true;
+    }
   } catch (_) {}
 
   document.getElementById('form-wrap').style.display = 'none';
-  document.getElementById('success-state').classList.add('visible');
+
+  if (succeeded) {
+    document.getElementById('success-state').classList.add('visible');
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', { event_category: 'basin_waitlist', event_label: 'basin-collection-teaser' });
+    }
+  } else {
+    document.getElementById('error-state').classList.add('visible');
+  }
+}
+
+function resetForm() {
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Get Early Access';
+  btn.disabled = false;
+  document.getElementById('form-wrap').style.display = '';
+  document.getElementById('error-state').classList.remove('visible');
 }
 </script>
 </body>
