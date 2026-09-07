@@ -166,3 +166,43 @@ If a clip fails any check, don't try to fix it with more prompting — regenerat
 | 0:08.4–0:09.0 | Text stamp overlays, bottom third, fades in: "01 — WHITE CARRARA" + small Prime Piece wordmark | — | Tone hit sustains, drone fades out |
 
 Cut hard on the tone hit at 0:08.4 rather than fading — that's the moment that should feel like a held breath releasing. No music bed under this one beyond the drone/foley/tone — keep it sound-designed, not scored, so it reads as gallery/film rather than generic product-ad. This becomes the reference edit for Format A on every subsequent basin: same beat structure, same 9-second target, same tone hit, new stone.
+
+---
+
+## Second Reel — Beige Travertine (02)
+
+Carrara established the campaign's *skeleton* — Format A's beat structure, the black-set language, the typography and sound system. Travertine now proves the skeleton can carry a different emotional register without becoming a different campaign. **Carrara = elegance, purity, form. Travertine = warmth, texture, material.** The two Reels should feel like two movements of the same piece, not two different pieces.
+
+**The core differentiation strategy:** Carrara sells itself through *light on a mirror-polished surface and cool water* — it's about optical purity. Travertine has no mirror polish to sell — its story is tactile and porous, so it's sold through *grazing light raking across texture and a human hand*, not water. Where Carrara's camera stayed locked-off and let light do the moving, Travertine's camera itself moves (a slow arc/orbit) — because texture only fully reads as you change angle relative to it, the way it does when you turn a real piece of travertine in your hands. That single grammar swap — **static camera + moving light (Carrara)** vs **moving camera + raking light (Travertine)** — is the whole differentiation engine, and it's legible without the two ever needing to look inconsistent, because both are still slow, both are still on the same black set, both still end on the same signature tone hit.
+
+Target length: **10 seconds.**
+
+| Time | Shot | Mother Shoot ref | Camera | Lighting | Sound |
+|------|------|-------------------|--------|----------|-------|
+| 0:00–0:01.3 | Black frame, but not pure black — the faintest warm glow already breathing at the edges of frame. Text fades in, small caps, centered: "THE SIGNATURE COLLECTION" | — | Static | A whisper of warm (~2800–3000K) light already present, almost imperceptible | Same low sub drone as Reel 01, but with a faint grain/sand texture already audible underneath from frame one — warmth signalled before anything is seen |
+| 0:01.3–0:03.5 | Extreme macro on travertine's natural pitting/porous texture. Unlike Carrara's macro (which sat under still light), a soft grazing light is already sweeping across this frame from the first visible moment | #9 (travertine pass) + #12 combined | Static macro | Warm, hard-ish grazing side light sweeping slowly left→right, deliberately low-angle so it catches every pore and shadow-fills the holes | Drone continues, sand/stone grain foley builds in |
+| 0:03.5–0:05.5 | A hand enters frame, fingertip traces slowly across the porous rim — Travertine's signature emotional beat, replacing Carrara's water droplet | #17 (texture-tracing take) | Static macro-medium | Same grazing warm light, now catching the hand's shadow as it moves | Soft skin-on-stone friction foley, drone swells underneath |
+| 0:05.5–0:08.0 | Camera arcs slowly around the basin (~20–25° partial orbit), medium distance — this is where the **complete basin first appears**, revealed through movement rather than a cut | #2 (partial arc, speed-matched to the turntable pass) | Slow arc/orbit, motorized slider | Warm key rakes across the whole form as the angle changes, texture visibly shifting with the camera rather than the light alone | Drone continues, tonal swell begins building, grain foley fades out |
+| 0:08.0–0:10.0 | Arc settles to a stop at the 3/4 hero angle, basin held static and fully visible for the remainder of the reel | #1 (hero angle, matched framing to Carrara's) | Static (arc has settled) | Warm key holds, soft rim kicker separates the edge from black | Signature tone hit lands as the arc settles — same tone/instrument as Carrara's, arriving out of stillness rather than out of a ripple |
+| 0:08.8–0:10.0 | Text stamp overlays, bottom third, fades in: "02 — BEIGE TRAVERTINE" + wordmark | — | — | Tone hit sustains, drone fades out |
+
+**When the complete basin appears:** from 0:05.5 through to the end (4.5 of the 10 seconds) — deliberately more full-basin screen time than Carrara's ~1.8 seconds, because texture needs duration and changing angle to register, where Carrara's polish read instantly in a single static hero frame. Both Reels satisfy the "clearly show the complete basin" requirement; they just spend different amounts of time doing it, for a reason tied to the material itself.
+
+**Transition logic:** hard cuts only, no dissolves — identical cut language to Carrara. The beat skeleton is now locked as: *opening card → macro texture/light → tactile human beat → camera reveal of full basin → hero stop + tone hit + stamp.* That five-beat skeleton, not the specific content of each beat, is what Format A now means — basin 03 onward inherits this skeleton and varies only the texture, light quality, and touch/water choice to match each stone's character.
+
+**Typography:** identical system and animation (same font, same fade/slide-in, same small-caps treatment) to Carrara — only the timing shifts to sit ~0.6–0.8 seconds after the tone hit in both Reels, preserving the felt rhythm of "beat lands, then the name confirms it" even though this Reel runs a second longer overall.
+
+**How it differs from Carrara, without breaking consistency:**
+
+| | 01 Carrara | 02 Travertine |
+|---|---|---|
+| Emotional register | Elegance, purity, form | Warmth, texture, material |
+| Camera | Locked-off throughout | Slow arc/orbit for the reveal |
+| Light behaviour | Introduced mid-reel as a discrete sweep | Present and moving from the first frame |
+| Colour temperature | Cooler, higher-contrast, polish-forward | Warmer (~2800–3000K), softer contrast, texture-forward |
+| Signature sensory beat | Water droplet + ripple | Hand tracing texture |
+| Full-basin reveal mechanism | Static pull-back cut | Camera movement (orbit) settling to stillness |
+| Full-basin screen time | ~1.8s | ~4.5s |
+| Constant across both | Black set, cut-only editing, typography system, signature tone hit, ~9–10s runtime, five-beat Format A skeleton | |
+
+Once Carrara and Travertine are both locked as finished edits, they become the **reference pair** for testing the real→AI system on 03 Nero Marquina: Nero should borrow Carrara's grammar (cool, mirror-polish, purity) rather than Travertine's (texture/movement), since Nero Marquina is itself a polished, high-contrast stone — which is exactly the kind of "which real Reel does this still's material logic belong to" decision this pair now exists to make repeatable for basins 04–10 too.
