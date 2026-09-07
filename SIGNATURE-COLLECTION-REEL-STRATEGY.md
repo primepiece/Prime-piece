@@ -206,3 +206,78 @@ Target length: **10 seconds.**
 | Constant across both | Black set, cut-only editing, typography system, signature tone hit, ~9–10s runtime, five-beat Format A skeleton | |
 
 Once Carrara and Travertine are both locked as finished edits, they become the **reference pair** for testing the real→AI system on 03 Nero Marquina: Nero should borrow Carrara's grammar (cool, mirror-polish, purity) rather than Travertine's (texture/movement), since Nero Marquina is itself a polished, high-contrast stone — which is exactly the kind of "which real Reel does this still's material logic belong to" decision this pair now exists to make repeatable for basins 04–10 too.
+
+**Reel 02 is locked as written above.**
+
+---
+
+## Third Reel — Nero Marquina (03) — the first still-to-video proof of concept
+
+Emotional progression so far: 01 Carrara (elegance/purity) → 02 Travertine (warmth/texture) → **03 Nero Marquina (darkness/contrast)**. Nero inherits Carrara's grammar family (locked/near-locked camera, light does the work, no orbit) but must not read as "Carrara in black" — the differentiator is that here, **the hero performer is the veining itself**, not the light and not a human hand. Nero has no physical basin, no water shot, no tactile beat available — so instead of forcing one, the white vein network emerging out of near-total blackness becomes the beat that carries the emotional weight Carrara gave to water and Travertine gave to touch.
+
+### Source images
+
+Two files already in the asset library, and they are not equivalent — this matters:
+
+- **`nero-marquina-vessel.png`** (1024×1536) — 3/4 high-angle hero shot, **already composited on a dark charcoal gradient**, soft single-source light from upper-left, dramatic single vein crackling across the bowl. This is the primary source: its background is already close enough to the Mother Shoot's black-set falloff that it only needs a grade/vignette match, not a cutout. **Use this as the sole source for the full-basin beat.**
+- **`nero-marquina-vessel.jpg`** (1254×1254) — top-down catalog shot on a **plain white studio background**. Do not animate this one directly — a white background instantly breaks the black-set world and any attempt to AI-relight or extend it risks the model inventing an environment around the product. Its only use here is as a tight macro crop of the vein/rim intersection (cropped in tight enough that no white background remains in frame) for the macro beat, and as a cross-reference to verify the vein path is identical between both stills before animating either.
+- **Ask for, if it exists:** a higher-resolution master of the PNG (a 1536px-tall source is workable but a 3000px+ master will hold up better under Runway's own upscaling) and, ideally, a native macro/rim photograph rather than a digital crop — a real macro shot will always out-resolve a crop-and-enlarge of the hero image.
+
+### What stays completely static vs. what AI is allowed to touch
+
+| Never touched by AI (locked, pixel-identical to source) | AI is allowed to animate |
+|---|---|
+| Rim thickness and profile | Light position and intensity |
+| Vein path and pattern | Shadow travel across the surface |
+| Drain position | Camera scale, on a straight axis only, capped at ~4% over the whole shot |
+| Bowl depth and interior curvature | Nothing else |
+| Overall silhouette | |
+
+Practically: every generation starts from the untouched source frame, and the only instruction given to the model is a light/shadow move or a near-imperceptible push. No prompt in this reel ever asks the model to move, rotate, or complete the object.
+
+### Storyboard — 9.6 seconds
+
+| Time | Shot | Source | What's actually animating | Camera | Lighting | Sound |
+|---|---|---|---|---|---|---|
+| 0:00–01.4 | Black frame — held a fraction longer than Carrara or Travertine's opens, deeper into silence before the text arrives: "THE SIGNATURE COLLECTION" | — | Nothing (no footage) | — | True black | Same low drone, but sparser — more silence between drone pulses than Reels 01–02 |
+| 01.4–04.6 | **Vein Ignition.** Extreme macro on a single vein intersection, nearly invisible in near-black at the start; a hard, narrow light source travels along the vein's length, revealing it stroke by stroke like a current running through a crack | Macro crop of the PNG's central vein intersection | Runway Gen-1 (light-only) | Locked, zero movement | Hard, cool (~5000–5600K) directional light, narrow beam, high contrast — deep blacks held, no fill | Drone continues; a thin, high, crystalline "shimmer" tick fires each time the light reaches a new vein branch — Nero's new sonic signature, replacing Carrara's stone-tap and Travertine's grain |
+| 04.6–08.0 | **Full basin, revealed.** Cut to the complete hero image — the light continues its travel across the whole bowl, now visibly the same light source from the macro beat, while the camera pushes in by roughly 3–4% on a dead-straight axis | Full `nero-marquina-vessel.png`, uncropped | Runway Gen-2 (light travel + minimal push) | Extremely subtle push only, straight axis, no pan/tilt/orbit | Same hard cool key continuing its sweep, catching fresh sections of vein as it crosses the bowl | Shimmer ticks continue, drone begins to swell |
+| 08.0–09.6 | Hold on the final frame — light settles, basin fully static and completely visible | Held frame from the end of Gen-2 | Nothing (static hold, no further generation) | Locked | Light holds in its resting position | Signature tone hit lands (same tone/instrument as Reels 01–02) |
+| 08.8–09.6 | Text stamp: "03 — NERO MARQUINA" + wordmark | — | — | — | — | Tone sustains, drone fades |
+
+**When the complete basin appears:** from 04.6 to the end (5 of 9.6 seconds) — comparable to, even slightly longer than, Carrara's reveal, because the whole point of this reel is to let the audience actually look at the full piece once the vein has "switched on."
+
+### Exact Runway prompts
+
+Both generations run in **Runway Gen-4, Image to Video mode**, first frame locked to the exact source file (uploaded unedited/uncropped for Gen-2; uploaded as the tight macro crop for Gen-1), motion strength set low (2–3 out of 10), duration capped at 4 seconds each, no camera-control preset applied beyond what's specified below.
+
+**Gen-1 — Vein Ignition (macro):**
+> Static product photograph, macro detail of black marble with a single white vein. Camera is completely locked off — zero movement, zero zoom. Only the lighting changes: a narrow, hard light source moves slowly along the path of the white vein, illuminating it progressively as it travels, deep black shadow everywhere the light has not yet reached. The stone surface, vein pattern and geometry do not move, warp, or change in any way. No new veins. No camera motion. Cinematic, high-contrast, subtle, restrained.
+
+Camera controls: **Camera: Locked / Static.** Motion strength: low. If Runway's interface offers a "light" or "relight" motion preset, use that instead of any camera preset.
+
+**Gen-2 — Full basin push + continued light travel:**
+> Static product photograph of a black marble vessel basin with white veining, shot from a 3/4 high angle on a dark gradient background. Camera performs an extremely slow, subtle push-in on a straight, locked axis only — no pan, no tilt, no orbit, no rotation. The basin itself does not move, rotate, or change shape. Simultaneously, a hard, narrow light source continues sweeping slowly across the stone surface, revealing the vein network and casting shadow that shifts accordingly inside the bowl. Rim thickness, drain position, bowl depth and silhouette remain exactly as shown in the source image throughout. Cinematic, minimal, high contrast, restrained, no added objects.
+
+Camera controls: **Camera: Push In, minimal/lowest available intensity.** Horizontal and vertical pan/tilt: locked at zero. Roll: locked at zero. Motion strength: low (2–3/10). Duration: 3.5–4s, then cut — do not let a single generation run the whole beat.
+
+**Negative / restriction prompt (apply to both generations):**
+> morphing, warping, distorting geometry, changing shape, deforming, rotating object, new veining, extra veins, altered vein pattern, changing proportions, changing rim thickness, moving drain, added reflections, added objects, hands, fingers, people, faces, water, droplets, splashing, liquid, steam, text, watermark, logo, blurry, low quality, extra basin, duplicate object, distorted perspective
+
+### QA gate before publishing
+
+Frame-compare the first and last frame of every generated clip against the untouched source PNG: rim thickness, vein path, drain position, bowl depth, silhouette. Any drift, however small — regenerate shorter (drop to 2.5–3s) or fall back to the light-only technique with the push removed entirely and replaced by a static hold. The push-in is a nice-to-have; the geometry lock is not negotiable.
+
+### Transition from Travertine into Nero
+
+These are two separate posts, not one spliced sequence, so the "transition" is a feed-level one: both reels open on the identical mechanic (black frame, same drone register, same "THE SIGNATURE COLLECTION" card) — so anyone scrolling from 02 straight into 03 experiences it as the same ritual repeating, not a new production. The one deliberate variation is that Nero's opening black hold is a beat longer and the drone sparser before the text lands — a small, intentional signal that this entry is going somewhere darker, without breaking the shared opening grammar that makes the series read as one campaign.
+
+### Why 03 will sit beside 01 and 02 without feeling like "the AI one"
+
+- **The environment is already matched.** The PNG source was rendered on a dark gradient close to the Mother Shoot's black-set falloff — grade it to match the empty-frame plates exactly (same black level, same vignette) rather than treating it as a separate look.
+- **The uniform grain pass covers all three reels identically** (per the campaign-wide treatment) — this is still the single biggest disguise layer, and it's applied in the same edit pass to real and generated footage alike, so Nero doesn't suddenly look "cleaner" or "smoother" than Carrara or Travertine.
+- **AI's footprint is small and disciplined.** Of 9.6 seconds, only two generations totalling roughly 7.4 seconds exist at all, and within those, the only things moving are light and a near-invisible push — the one thing that must never move (the object) never does. Most audiences read "light moving across a dark surface" as clever lighting and grading, not as AI, especially once grain and sound design are doing their disguise work.
+- **The sound and typography systems are unchanged.** Same drone family, same tone hit, same type system, same cut-only edit language as 01 and 02 — the ear and the eye both get continuity even where the underlying production method differs.
+- **Trust is already banked.** 01 and 02 are 100% real and establish the physical credibility of the whole collection before Nero ever appears. Nero spends only a little of that trust, and spends it on the safest possible move (illumination, not geometry) — which is exactly why it's the right basin to test this system on first.
+
+This reel is the proof-of-concept for the real→AI system: if the QA gate above holds and Nero reads as belonging beside Carrara and Travertine, the same source-image requirements, static/animated split, prompt structure, and negative-prompt language carry forward to basins 04–10 with only the light colour temperature, vein/pattern description, and emotional register changing per stone.
