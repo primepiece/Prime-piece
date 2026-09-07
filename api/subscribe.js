@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   if (!klaviyoKey || !listId) {
     console.error('Klaviyo env vars missing');
-    return res.status(200).json({ success: true }); // fail silently to user
+    return res.status(500).json({ success: false, error: 'Configuration error' });
   }
 
   try {
@@ -47,28 +47,35 @@ export default async function handler(req, res) {
     } else {
       const err = await profileRes.json().catch(() => ({}));
       console.error('Klaviyo profile error:', JSON.stringify(err));
+      return res.status(500).json({ success: false, error: 'Klaviyo profile error' });
+    }
+
+    if (!profileId) {
+      console.error('Klaviyo profile ID missing after 409');
+      return res.status(500).json({ success: false, error: 'Klaviyo profile ID missing' });
     }
 
     // Step 2: Add profile to list
-    if (profileId) {
-      const listRes = await fetch(`https://a.klaviyo.com/api/lists/${listId}/relationships/profiles/`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
-          'Content-Type': 'application/json',
-          'revision': '2023-12-15',
-        },
-        body: JSON.stringify({
-          data: [{ type: 'profile', id: profileId }],
-        }),
-      });
-      if (!listRes.ok && listRes.status !== 204) {
-        const err = await listRes.json().catch(() => ({}));
-        console.error('Klaviyo list error:', JSON.stringify(err));
-      }
+    const listRes = await fetch(`https://a.klaviyo.com/api/lists/${listId}/relationships/profiles/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
+        'Content-Type': 'application/json',
+        'revision': '2023-12-15',
+      },
+      body: JSON.stringify({
+        data: [{ type: 'profile', id: profileId }],
+      }),
+    });
+    // 204 = already on list (idempotent success), 2xx = added
+    if (!listRes.ok && listRes.status !== 204) {
+      const err = await listRes.json().catch(() => ({}));
+      console.error('Klaviyo list error:', JSON.stringify(err));
+      return res.status(500).json({ success: false, error: 'Klaviyo list error' });
     }
   } catch (err) {
     console.error('Subscribe error:', err);
+    return res.status(500).json({ success: false, error: 'Unexpected error' });
   }
 
   // Send confirmation email — basin waitlist gets a launch confirmation, others get PRIME10
