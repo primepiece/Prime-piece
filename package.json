@@ -1,8 +1,12 @@
 {
   "scripts": {
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "optimize-images": "node scripts/optimize-images.mjs ."
   },
   "dependencies": {
     "playwright": "^1.61.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4"
   }
 }
