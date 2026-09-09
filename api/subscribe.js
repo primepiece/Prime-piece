@@ -1,3 +1,5 @@
+import { escapeHtml } from './_html.js';
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -82,6 +84,7 @@ export default async function handler(req, res) {
   const resendKey = process.env.RESEND_API_KEY;
   if (resendKey && email) {
     const firstName = (name || '').split(' ')[0] || 'there';
+    const safeFirstName = escapeHtml(firstName);
     const isBasinWaitlist = source === 'basin-collection-teaser';
 
     const emailPayload = isBasinWaitlist ? {
@@ -92,7 +95,7 @@ export default async function handler(req, res) {
         <div style="font-family:sans-serif;max-width:480px;margin:0 auto;color:#2c2a26;">
           <div style="background:#0A0908;padding:28px 32px;margin-bottom:24px;">
             <div style="color:#C9A86E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
-            <div style="color:#E8E3DC;font-size:22px;font-weight:300;letter-spacing:0.04em;">You're on the list, ${firstName}.</div>
+            <div style="color:#E8E3DC;font-size:22px;font-weight:300;letter-spacing:0.04em;">You're on the list, ${safeFirstName}.</div>
           </div>
           <div style="padding:0 32px 32px;">
             <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Our natural stone vessel basin collection launches on <strong>14 September 2026</strong>. You'll hear from us first — before anyone else gets access.</p>
@@ -109,7 +112,7 @@ export default async function handler(req, res) {
         <div style="font-family:sans-serif;max-width:480px;margin:0 auto;color:#2c2a26;">
           <div style="background:#2c2a26;padding:28px 32px;margin-bottom:24px;">
             <div style="color:#C9A96E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
-            <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Here's your code, ${firstName}.</div>
+            <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Here's your code, ${safeFirstName}.</div>
           </div>
           <div style="padding:0 32px 32px;">
             <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Thanks for joining the list. Use the code below for 10% off your order:</p>

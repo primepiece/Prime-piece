@@ -1,3 +1,5 @@
+import { escapeHtml } from './_html.js';
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -20,17 +22,23 @@ export default async function handler(req, res) {
     });
   }
 
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safePiece = escapeHtml(piece);
+  const safeStone = escapeHtml(stone);
+  const safeNotes = escapeHtml(notes);
+
   const html = `
     <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry</h2>
     <table style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;">
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Name</td><td>${name}</td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${piece}</td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>
-      ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Notes</td><td>${notes}</td></tr>` : ''}
+      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Name</td><td>${safeName}</td></tr>
+      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Email</td><td><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
+      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${safePiece}</td></tr>
+      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${safeStone}</td></tr>
+      ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Notes</td><td>${safeNotes}</td></tr>` : ''}
       ${imageBase64 ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : '<tr><td style="color:#7BA5A8;font-weight:600;">Photo</td><td>Not uploaded</td></tr>'}
     </table>
-    <p style="font-family:sans-serif;font-size:12px;color:#999;margin-top:24px;">Reply directly to this email to respond to ${name}.</p>
+    <p style="font-family:sans-serif;font-size:12px;color:#999;margin-top:24px;">Reply directly to this email to respond to ${safeName}.</p>
   `;
 
   try {
@@ -61,7 +69,7 @@ export default async function handler(req, res) {
       <div style="font-family:sans-serif;max-width:520px;margin:0 auto;color:#2c2a26;">
         <div style="background:#2c2a26;padding:28px 32px;margin-bottom:24px;">
           <div style="color:#C9A96E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
-          <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Thanks, ${name}.</div>
+          <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Thanks, ${safeName}.</div>
         </div>
         <div style="padding:0 32px 32px;">
           <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:18px;">Your message has come through — James will be in touch personally within 24 hours.</p>

@@ -1,3 +1,4 @@
+import { escapeHtml } from './_html.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,11 +14,12 @@ export default async function handler(req, res) {
   if (!resendKey) return res.status(500).json({ error: 'Email not configured' });
 
   const firstName = name.split(' ')[0];
+  const safeFirstName = escapeHtml(firstName);
 
   const html = `
 <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2C2A26;background:#F5F1EA;padding:40px 32px;">
   <p style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7BA5A8;margin:0 0 16px;">Prime Piece</p>
-  <h1 style="font-size:28px;font-weight:400;margin:0 0 12px;line-height:1.2;">Hi ${firstName}, you're on the list</h1>
+  <h1 style="font-size:28px;font-weight:400;margin:0 0 12px;line-height:1.2;">Hi ${safeFirstName}, you're on the list</h1>
   <p style="font-size:15px;color:#554F45;margin:0 0 24px;line-height:1.7;">Thank you for joining. You'll be the first to know when a new one-of-one piece is ready — often before we post it anywhere else.</p>
   <div style="background:#E0D9CA;border:1.5px dashed #7BA5A8;padding:16px 24px;text-align:center;margin-bottom:24px;display:inline-block;min-width:200px;">
     <span style="font-size:20px;letter-spacing:0.1em;font-weight:500;">✓ Private Access</span>

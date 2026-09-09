@@ -3,6 +3,9 @@
 // stored on the PaymentIntent at checkout time (customer email, name, items).
 // This is the authoritative post-purchase trigger — not success.html.
 
+import { createHmac } from 'node:crypto';
+import { escapeHtml } from './_html.js';
+
 export const config = { api: { bodyParser: false } };
 
 async function readRawBody(req) {
@@ -124,6 +127,13 @@ export default async function handler(req, res) {
 
   // Notify James of the sale (belt-and-suspenders alongside Stripe dashboard)
   if (resendKey) {
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeItems = escapeHtml(itemsStr);
+    const safeDelivery = escapeHtml(delivery);
+    const safePromo = escapeHtml(promo);
+    const safeNotes = escapeHtml(notes);
+
     fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
@@ -135,19 +145,19 @@ export default async function handler(req, res) {
           <div style="font-family:sans-serif;max-width:520px;color:#2c2a26;">
             <div style="background:#2c2a26;padding:20px 28px;margin-bottom:24px;">
               <div style="color:#C9A96E;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece — Order Received</div>
-              <div style="color:#fff;font-size:20px;font-weight:300;">NZD $${amountPaid.toLocaleString('en-NZ')} · ${name || 'Customer'}</div>
+              <div style="color:#fff;font-size:20px;font-weight:300;">NZD $${amountPaid.toLocaleString('en-NZ')} · ${safeName || 'Customer'}</div>
             </div>
             <table style="font-size:14px;line-height:2;color:#444;width:100%;">
-              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Customer</td><td>${name || '—'}</td></tr>
-              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Items</td><td>${itemsStr || '—'}</td></tr>
+              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Customer</td><td>${safeName || '—'}</td></tr>
+              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Email</td><td><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
+              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Items</td><td>${safeItems || '—'}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Total Paid</td><td>NZD $${amountPaid.toLocaleString('en-NZ')}</td></tr>
-              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Delivery</td><td>${delivery}</td></tr>
-              ${promo ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Promo</td><td>${promo}</td></tr>` : ''}
-              ${notes ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Notes</td><td>${notes}</td></tr>` : ''}
+              <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Delivery</td><td>${safeDelivery}</td></tr>
+              ${promo ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Promo</td><td>${safePromo}</td></tr>` : ''}
+              ${notes ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Notes</td><td>${safeNotes}</td></tr>` : ''}
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Stripe ID</td><td style="font-size:12px;color:#888;">${pi.id}</td></tr>
             </table>
-            <p style="font-size:12px;color:#999;margin-top:24px;padding-top:16px;border-top:1px solid #eee;">Reply to <a href="mailto:${email}">${email}</a> to arrange delivery. Check Stripe dashboard for full payment details.</p>
+            <p style="font-size:12px;color:#999;margin-top:24px;padding-top:16px;border-top:1px solid #eee;">Reply to <a href="mailto:${safeEmail}">${safeEmail}</a> to arrange delivery. Check Stripe dashboard for full payment details.</p>
           </div>`,
       }),
     }).catch(err => console.error('Order notify email error:', err));
@@ -157,7 +167,7 @@ export default async function handler(req, res) {
 }
 
 // Stripe webhook signature verification (manual — no SDK needed)
-function verifyStripeWebhook(payload, header, secret) {
+export function verifyStripeWebhook(payload, header, secret) {
   if (!header) throw new Error('No stripe-signature header');
   const parts = Object.fromEntries(header.split(',').map(p => p.split('=')));
   const timestamp = parts['t'];
@@ -170,8 +180,6 @@ function verifyStripeWebhook(payload, header, secret) {
 
   const signedPayload = `${timestamp}.${payload.toString()}`;
 
-  // HMAC-SHA256 — crypto is a Node built-in, no import needed
-  const { createHmac } = require('crypto');
   const expected = createHmac('sha256', secret).update(signedPayload).digest('hex');
 
   if (!timingSafeEqual(Buffer.from(expected), Buffer.from(signature))) {
@@ -181,7 +189,7 @@ function verifyStripeWebhook(payload, header, secret) {
   return JSON.parse(payload.toString());
 }
 
-function timingSafeEqual(a, b) {
+export function timingSafeEqual(a, b) {
   if (a.length !== b.length) return false;
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];

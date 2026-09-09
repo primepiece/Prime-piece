@@ -1,5 +1,7 @@
 // Basin enquiry handler — separate from /api/enquire (used by stone furniture forms)
 // Accepts the field format used by basins-launch.html enquiry modals.
+import { escapeHtml } from './_html.js';
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -25,23 +27,32 @@ export default async function handler(req, res) {
   const productLine = product || 'Natural Stone Basin';
   const sourceLine = source;
 
+  const safeName = escapeHtml(fullName);
+  const safeFirstName = escapeHtml(firstName);
+  const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone);
+  const safeCity = escapeHtml(city);
+  const safeProduct = escapeHtml(productLine);
+  const safeSource = escapeHtml(sourceLine);
+  const safeMessage = escapeHtml(message);
+
   // Email to James
   const notifyHtml = `
     <div style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;max-width:560px;">
       <div style="background:#2c2a26;padding:20px 28px;margin-bottom:24px;">
         <div style="color:#C9A96E;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece — Basin Enquiry</div>
-        <div style="color:#fff;font-size:18px;font-weight:300;">${fullName} is enquiring about ${productLine}</div>
+        <div style="color:#fff;font-size:18px;font-weight:300;">${safeName} is enquiring about ${safeProduct}</div>
       </div>
       <table style="font-size:14px;line-height:2;color:#444;width:100%;">
-        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Name</td><td>${fullName}</td></tr>
-        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-        ${phone ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Phone</td><td><a href="tel:${phone}">${phone}</a></td></tr>` : ''}
-        ${city ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">City</td><td>${city}</td></tr>` : ''}
-        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Product</td><td>${productLine}</td></tr>
-        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Source</td><td>${sourceLine}</td></tr>
-        ${message ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;vertical-align:top;">Message</td><td style="white-space:pre-wrap;">${message}</td></tr>` : ''}
+        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Name</td><td>${safeName}</td></tr>
+        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Email</td><td><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
+        ${phone ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Phone</td><td><a href="tel:${safePhone}">${safePhone}</a></td></tr>` : ''}
+        ${city ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">City</td><td>${safeCity}</td></tr>` : ''}
+        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Product</td><td>${safeProduct}</td></tr>
+        <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Source</td><td>${safeSource}</td></tr>
+        ${message ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;vertical-align:top;">Message</td><td style="white-space:pre-wrap;">${safeMessage}</td></tr>` : ''}
       </table>
-      <p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:16px;">Reply directly to this email to respond to ${fullName}.</p>
+      <p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:16px;">Reply directly to this email to respond to ${safeName}.</p>
     </div>`;
 
   // Auto-reply to customer
@@ -49,10 +60,10 @@ export default async function handler(req, res) {
     <div style="font-family:sans-serif;max-width:520px;margin:0 auto;color:#2c2a26;">
       <div style="background:#2c2a26;padding:28px 32px;margin-bottom:24px;">
         <div style="color:#C9A96E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
-        <div style="color:#fff;font-size:22px;font-weight:300;">Thanks, ${firstName}.</div>
+        <div style="color:#fff;font-size:22px;font-weight:300;">Thanks, ${safeFirstName}.</div>
       </div>
       <div style="padding:0 32px 32px;">
-        <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:18px;">Your enquiry about <strong style="color:#2c2a26;">${productLine}</strong> has come through. James will be in touch personally within 24 hours.</p>
+        <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:18px;">Your enquiry about <strong style="color:#2c2a26;">${safeProduct}</strong> has come through. James will be in touch personally within 24 hours.</p>
         <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:24px;">Every basin is carved from a single slab of natural stone — no two are identical, and none are restocked once sold. If you have questions in the meantime, text James directly:</p>
         <a href="sms:+64211466990" style="display:inline-block;padding:12px 24px;background:#7BA5A8;color:#fff;text-decoration:none;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;border-radius:1px;margin-bottom:28px;">Text James — 021 146 6990</a>
         <p style="font-size:12px;color:#bbb;margin-top:8px;padding-top:20px;border-top:1px solid #eee;">Prime Piece · Wairau Valley, Auckland NZ · <a href="https://www.primepiece.co.nz" style="color:#bbb;">primepiece.co.nz</a></p>
