@@ -151,6 +151,27 @@
       }
       .cart-note svg { width: 12px; height: 12px; flex-shrink: 0; }
 
+      .cart-save-box {
+        margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(44,42,38,0.08);
+      }
+      .cart-save-label {
+        font-size: 11px; color: #554F45; text-align: center; margin-bottom: 10px;
+        font-family: 'Inter Tight', sans-serif; line-height: 1.5;
+      }
+      .cart-save-row { display: flex; gap: 8px; }
+      .cart-save-row input {
+        flex: 1; min-width: 0; padding: 11px 12px; border: 1px solid rgba(44,42,38,0.18);
+        border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 12px;
+        background: #F5F1EA; color: #2C2A26;
+      }
+      .cart-save-row button {
+        padding: 11px 16px; background: #2C2A26; color: white; border: none;
+        border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px;
+        letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+        cursor: pointer; white-space: nowrap;
+      }
+      .cart-save-msg { font-size: 11px; text-align: center; margin-top: 8px; font-family: 'Inter Tight', sans-serif; }
+
       .pp-add-btn {
         display: inline-flex; align-items: center; gap: 8px;
         padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
@@ -200,8 +221,16 @@
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
               <path d="M7 11V7a5 5 0 0110 0v4"/>
             </svg>
-            Secure checkout · Powered by Stripe
+            Secure checkout · Powered by Stripe · 14-Day Returns
           </p>
+          <div class="cart-save-box" id="cart-save-box">
+            <div class="cart-save-label">Not ready to buy? Email me this cart &amp; a 10% off code.</div>
+            <div class="cart-save-row">
+              <input type="email" id="cart-save-email" placeholder="you@example.com" autocomplete="email">
+              <button type="button" onclick="Cart.saveCart()">Send</button>
+            </div>
+            <div class="cart-save-msg" id="cart-save-msg"></div>
+          </div>
         </div>
       </aside>
     `);
@@ -231,6 +260,14 @@
     const total = items.reduce((s, i) => s + i.price, 0);
     const totalEl = document.getElementById('cart-total');
     if (totalEl) totalEl.textContent = '$' + total.toLocaleString('en-NZ');
+
+    // Only ask for an email if we don't already have one and there's something to save.
+    const saveBox = document.getElementById('cart-save-box');
+    if (saveBox) {
+      let knownEmail = null;
+      try { knownEmail = localStorage.getItem('pp_customer_email'); } catch(_) {}
+      saveBox.style.display = (items.length > 0 && !knownEmail) ? '' : 'none';
+    }
 
     if (items.length === 0) {
       el.innerHTML = `
@@ -361,6 +398,61 @@
     },
     getItems,
     getTotal() { return getItems().reduce((s, i) => s + i.price, 0); },
+    saveCart() {
+      const input = document.getElementById('cart-save-email');
+      const msg = document.getElementById('cart-save-msg');
+      const email = (input?.value || '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (msg) { msg.textContent = 'Enter a valid email.'; msg.style.color = '#a33'; }
+        return;
+      }
+      if (msg) { msg.textContent = 'Sending…'; msg.style.color = '#8A8275'; }
+
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'cart-save' }),
+      })
+        .then(r => r.json().catch(() => ({})))
+        .then(data => {
+          if (!data || data.success !== true) throw new Error('subscribe failed');
+
+          try { localStorage.setItem('pp_customer_email', email); } catch(_) {}
+
+          // Now that we know the email, feed the already-live Klaviyo
+          // "Added to Cart" flow with the full current cart — this is the
+          // moment a previously-anonymous cart becomes recoverable.
+          const items = getItems();
+          const cartValue = items.reduce((s, i) => s + i.price, 0);
+          fetch('/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              event: 'Added to Cart',
+              properties: {
+                cart_value: cartValue,
+                currency: 'NZD',
+                checkout_url: 'https://primepiece.co.nz/checkout.html',
+                url: window.location.href,
+                items: items.map(i => ({
+                  id: i.id,
+                  name: i.name,
+                  price: i.price,
+                  image: 'https://primepiece.co.nz/' + (i.image || ''),
+                })),
+              },
+            }),
+          }).catch(() => {});
+
+          if (msg) { msg.textContent = "Done — check your inbox for your code."; msg.style.color = '#5a8a5a'; }
+          if (input) input.value = '';
+          render();
+        })
+        .catch(() => {
+          if (msg) { msg.textContent = "Couldn't send that — try again?"; msg.style.color = '#a33'; }
+        });
+    },
   };
 
   inject();
