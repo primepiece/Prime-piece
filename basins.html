@@ -192,12 +192,6 @@
   .enquire-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--sage); color: var(--sage); background: transparent; cursor: pointer; transition: all 0.3s; font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px; }
   .enquire-btn:hover { background: var(--sage); color: white; }
   /* Mobile sticky enquiry bar */
-  .modal-sticky-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 400; background: var(--cream); border-top: 1px solid var(--line); padding: 12px 16px; gap: 10px; align-items: center; box-shadow: 0 -4px 20px rgba(44,42,38,0.12); }
-  .msb-name { flex: 1; }
-  .msb-name strong { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; display: block; line-height: 1.1; }
-  .msb-name span { font-size: 11px; color: var(--stone); }
-  .msb-btn { background: var(--sage); color: white; border: none; border-radius: 1px; padding: 14px 20px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-  @media (max-width: 768px) { .modal-sticky-bar { display: flex; } }
 
   /* CTA STRIP */
   .cta-strip { background: var(--sage-deep); padding: 72px 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
@@ -239,6 +233,9 @@
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
   .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 18px; background: var(--ink); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; width: 100%; }
   .modal-btn-primary:hover { background: #000; }
+  .modal-btn-primary.added { background: #2a6b42; }
+  .modal-secondary-link { display: block; text-align: center; margin-top: 14px; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .modal-secondary-link:hover { color: var(--sage-deep); }
   .modal-trust-row { display: flex; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
   .modal-trust-item { flex: 1; text-align: center; padding: 0 8px; }
   .modal-trust-item + .modal-trust-item { border-left: 1px solid var(--line); }
@@ -733,7 +730,8 @@
       </div>
 
       <div class="modal-actions">
-        <button class="modal-btn-primary" id="modal-enq-btn">Enquire Now →</button>
+        <button class="modal-btn-primary" id="modal-cta-btn"></button>
+        <a class="modal-secondary-link" id="modal-secondary-link" style="display:none;">Enquire About This Piece</a>
       </div>
 
       <div class="modal-trust-row">
@@ -752,15 +750,6 @@
       </div>
     </div>
   </div>
-</div>
-
-<!-- Mobile sticky Enquire bar -->
-<div id="modal-sticky-bar" class="modal-sticky-bar" style="display:none;">
-  <div class="msb-name">
-    <strong id="msb-name"></strong>
-    <span id="msb-price"></span>
-  </div>
-  <button class="msb-btn" id="msb-btn">Enquire Now →</button>
 </div>
 
 <!-- ENQUIRY FORM -->
@@ -801,16 +790,16 @@
   mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
 
   const basins = {
-    'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Quarried in the mountains of Tuscany, Carrara marble has defined luxury stone for centuries. Pale Italian white, veined with soft grey that moves like ink through water — refined, timeless, unmistakably classic.', img:'white-carrara-vessel.jpg', images:['white-carrara-vessel.jpg','white-carrara-vessel.png','basin-carrara-cut.png'], badge:'In Stock', badgeClass:'stock' },
-    'beige-vessel': { name:'Beige Travertine', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', desc:'Warm, natural and timeless. Formed over millions of years, Beige Travertine features soft sandy tones, natural pitting and subtle texture, creating a basin that brings an organic, earthy feel to any space.', img:'warm-beige-vessel.jpg', images:['warm-beige-vessel.jpg','basin-travertine-cut.png'], badge:'In Stock', badgeClass:'stock' },
-    'nero-vessel': { name:'Nero Marquina', stone:'Nero Marquina Marble · Vessel Basin', material:'Nero Marquina Marble', desc:'Quarried in the Basque Country of Spain, Nero Marquina is one of the world\'s great black marbles. Deep jet ground, shot through with fine white veining that catches the light like cracked porcelain.', img:'nero-marquina-vessel.jpg', images:['nero-marquina-vessel.jpg','nero-marquina-vessel.png','basin-nero-cut.png'], badge:'Made to Order', badgeClass:'coming' },
-    'onyx-vessel': { name:'Emerald Green', stone:'Emerald Green Marble · Vessel Basin', material:'Emerald Green Marble', desc:'A deep, mirror-polished green with dramatic natural patterning sourced from rare mineral deposits. Every basin carries a completely unique arrangement of veining — bold, striking, one of one.', img:'emerald-green-basin.jpg', images:['emerald-green-basin.jpg','basin-emerald-cut.png'], badge:'Made to Order', badgeClass:'coming' },
-    'white-onyx-vessel': { name:'Ivory Onyx', stone:'Ivory Onyx · Vessel Basin', material:'Ivory Onyx', desc:'Onyx is unlike any other stone — formed in limestone caves over geological time, it carries a translucency that seems to glow from within. Warm ivory tones and amber veining, unlike anything else available in New Zealand.', img:'white-onyx-vessel.jpg', images:['white-onyx-vessel.jpg','basin-ivory-cut.png'], badge:'Made to Order', badgeClass:'coming' },
-    'ocean-blue-vessel': { name:'Ocean Blue', stone:'Ocean Blue Marble · Vessel Basin', material:'Ocean Blue Marble', desc:'A stone with the depth of open water — deep ocean blue ground with dramatic white veining that moves across the surface like a breaking wave. Bold enough to anchor an entire bathroom.', img:'ocean-blue-basin.jpg', images:['ocean-blue-basin.jpg','basin-ocean-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
-    'pietra-grey': { name:'Pietra Grey', stone:'Pietra Grey Marble · Vessel Basin', material:'Pietra Grey Marble', desc:'The stone of architects working in dark, considered palettes. Deep charcoal, mirror-polished, with ghosted white veining that shifts with the light — understated in a way that takes real confidence.', img:'basin-pietra-grey-1.jpg', images:['basin-pietra-grey-1.jpg','basin-pietra-grey-2.jpg','basin-pietra-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
-    'pink-purple-onyx': { name:'Pink Onyx', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', desc:'Pink Onyx forms at the intersection of rare and remarkable — soft blush and rose tones with swirling white crystal formations. No two slabs, and no two basins, are ever alike.', img:'basin-pink-purple-onyx-1.jpg', images:['basin-pink-purple-onyx-1.jpg','basin-pink-purple-onyx-2.jpg','basin-pink-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
-    'rosso-levanto': { name:'Rosso Levanto', stone:'Rosso Levanto Marble · Vessel Basin', material:'Rosso Levanto Marble', desc:'Quarried in the mountains of Liguria, Rosso Levanto is among the world\'s most dramatic marbles. Deep burgundy-red, cut through with white veining like lightning, polished to a mirror finish.', img:'rosso-levanto-basin.jpg', images:['rosso-levanto-basin.jpg','basin-rosso-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
-    'tiger-onyx': { name:'Tiger Onyx', stone:'Tiger Onyx · Vessel Basin', material:'Tiger Onyx', desc:'A study in geological drama — deep amber and burnt-orange banding on the exterior gives way to a contrasting grey-green interior. No two Tiger Onyx basins carry the same pattern.', img:'basin-tiger-onyx-1.jpg', images:['basin-tiger-onyx-1.jpg','basin-tiger-onyx-2.jpg','basin-tiger-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
+    'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Quarried in the mountains of Tuscany, Carrara marble has defined luxury stone for centuries. Pale Italian white, veined with soft grey that moves like ink through water — refined, timeless, unmistakably classic.', img:'white-carrara-vessel.jpg', images:['white-carrara-vessel.jpg','white-carrara-vessel.png','basin-carrara-cut.png'], badge:'In Stock', badgeClass:'stock', price:1190, cartId:'basin-carrara', cartName:'White Carrara Basin' },
+    'beige-vessel': { name:'Beige Travertine', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', desc:'Warm, natural and timeless. Formed over millions of years, Beige Travertine features soft sandy tones, natural pitting and subtle texture, creating a basin that brings an organic, earthy feel to any space.', img:'warm-beige-vessel.jpg', images:['warm-beige-vessel.jpg','basin-travertine-cut.png'], badge:'In Stock', badgeClass:'stock', price:990, cartId:'basin-beige', cartName:'Beige Travertine Basin' },
+    'nero-vessel': { name:'Nero Marquina', stone:'Nero Marquina Marble · Vessel Basin', material:'Nero Marquina Marble', desc:'Quarried in the Basque Country of Spain, Nero Marquina is one of the world\'s great black marbles. Deep jet ground, shot through with fine white veining that catches the light like cracked porcelain.', img:'nero-marquina-vessel.jpg', images:['nero-marquina-vessel.jpg','nero-marquina-vessel.png','basin-nero-cut.png'], badge:'Made to Order', badgeClass:'coming', price:1050 },
+    'onyx-vessel': { name:'Emerald Green', stone:'Emerald Green Marble · Vessel Basin', material:'Emerald Green Marble', desc:'A deep, mirror-polished green with dramatic natural patterning sourced from rare mineral deposits. Every basin carries a completely unique arrangement of veining — bold, striking, one of one.', img:'emerald-green-basin.jpg', images:['emerald-green-basin.jpg','basin-emerald-cut.png'], badge:'Made to Order', badgeClass:'coming', price:1090 },
+    'white-onyx-vessel': { name:'Ivory Onyx', stone:'Ivory Onyx · Vessel Basin', material:'Ivory Onyx', desc:'Onyx is unlike any other stone — formed in limestone caves over geological time, it carries a translucency that seems to glow from within. Warm ivory tones and amber veining, unlike anything else available in New Zealand.', img:'white-onyx-vessel.jpg', images:['white-onyx-vessel.jpg','basin-ivory-cut.png'], badge:'Made to Order', badgeClass:'coming', price:1250 },
+    'ocean-blue-vessel': { name:'Ocean Blue', stone:'Ocean Blue Marble · Vessel Basin', material:'Ocean Blue Marble', desc:'A stone with the depth of open water — deep ocean blue ground with dramatic white veining that moves across the surface like a breaking wave. Bold enough to anchor an entire bathroom.', img:'ocean-blue-basin.jpg', images:['ocean-blue-basin.jpg','basin-ocean-cut.png'], badge:'Arriving Soon', badgeClass:'coming', price:1290 },
+    'pietra-grey': { name:'Pietra Grey', stone:'Pietra Grey Marble · Vessel Basin', material:'Pietra Grey Marble', desc:'The stone of architects working in dark, considered palettes. Deep charcoal, mirror-polished, with ghosted white veining that shifts with the light — understated in a way that takes real confidence.', img:'basin-pietra-grey-1.jpg', images:['basin-pietra-grey-1.jpg','basin-pietra-grey-2.jpg','basin-pietra-cut.png'], badge:'Arriving Soon', badgeClass:'coming', price:1350 },
+    'pink-purple-onyx': { name:'Pink Onyx', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', desc:'Pink Onyx forms at the intersection of rare and remarkable — soft blush and rose tones with swirling white crystal formations. No two slabs, and no two basins, are ever alike.', img:'basin-pink-purple-onyx-1.jpg', images:['basin-pink-purple-onyx-1.jpg','basin-pink-purple-onyx-2.jpg','basin-pink-cut.png'], badge:'Arriving Soon', badgeClass:'coming', price:1890 },
+    'rosso-levanto': { name:'Rosso Levanto', stone:'Rosso Levanto Marble · Vessel Basin', material:'Rosso Levanto Marble', desc:'Quarried in the mountains of Liguria, Rosso Levanto is among the world\'s most dramatic marbles. Deep burgundy-red, cut through with white veining like lightning, polished to a mirror finish.', img:'rosso-levanto-basin.jpg', images:['rosso-levanto-basin.jpg','basin-rosso-cut.png'], badge:'Arriving Soon', badgeClass:'coming', price:1350 },
+    'tiger-onyx': { name:'Tiger Onyx', stone:'Tiger Onyx · Vessel Basin', material:'Tiger Onyx', desc:'A study in geological drama — deep amber and burnt-orange banding on the exterior gives way to a contrasting grey-green interior. No two Tiger Onyx basins carry the same pattern.', img:'basin-tiger-onyx-1.jpg', images:['basin-tiger-onyx-1.jpg','basin-tiger-onyx-2.jpg','basin-tiger-cut.png'], badge:'Arriving Soon', badgeClass:'coming', price:1350 },
   };
   let currentBasin = '';
   let currentBasinId = '';
@@ -863,25 +852,43 @@
       availText.textContent = 'Enquire now to secure your piece. We\'ll confirm pricing and coordinate delivery personally.';
     }
 
-    document.getElementById('modal-enq-btn').onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
+    const ctaBtn = document.getElementById('modal-cta-btn');
+    const secondaryLink = document.getElementById('modal-secondary-link');
+    if (b.badgeClass === 'stock') {
+      ctaBtn.textContent = 'Add to Cart — $' + b.price.toLocaleString('en-NZ');
+      ctaBtn.classList.remove('added');
+      ctaBtn.onclick = () => basinAddFromModal(ctaBtn, b);
+      secondaryLink.style.display = 'block';
+      secondaryLink.textContent = 'Enquire About This Piece';
+      secondaryLink.onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
+    } else {
+      ctaBtn.textContent = 'Enquire Now →';
+      ctaBtn.onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
+      secondaryLink.style.display = 'none';
+    }
+
     document.getElementById('basin-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
-    const bar = document.getElementById('modal-sticky-bar');
-    if (bar) {
-      document.getElementById('msb-name').textContent = b.name;
-      document.getElementById('msb-price').textContent = 'From NZD $990';
-      document.getElementById('msb-btn').onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
-      bar.style.display = 'flex';
-    }
-    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: 850, items: [{ item_id: id, item_name: b.name, item_category: 'Basin', price: 850, quantity: 1 }] });
-    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: b.name, content_category: 'Basin', currency: 'NZD', value: 850 });
+    if (typeof gtag !== 'undefined') gtag('event', 'view_item', { currency: 'NZD', value: b.price, items: [{ item_id: id, item_name: b.name, item_category: 'Basin', price: b.price, quantity: 1 }] });
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: b.name, content_category: 'Basin', currency: 'NZD', value: b.price });
   }
   function closeBasinModal(e) { if (e.target === document.getElementById('basin-modal')) closeBasinModalBtn(); }
   function closeBasinModalBtn() {
     document.getElementById('basin-modal').classList.remove('open');
     document.body.style.overflow = '';
-    const bar = document.getElementById('modal-sticky-bar');
-    if (bar) bar.style.display = 'none';
+  }
+
+  function basinAddFromModal(btn, b) {
+    Cart.add({ id: b.cartId, name: b.cartName, type: 'Vessel Basin', image: b.img, price: b.price });
+    const original = 'Add to Cart — $' + b.price.toLocaleString('en-NZ');
+    btn.textContent = 'Added to Cart ✓';
+    btn.classList.add('added');
+    setTimeout(() => {
+      if (currentBasinId && basins[currentBasinId] && basins[currentBasinId].cartId === b.cartId) {
+        btn.textContent = original;
+        btn.classList.remove('added');
+      }
+    }, 2000);
   }
 
   function openEnquiry(product) {
