@@ -210,29 +210,41 @@
   /* MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(44,42,38,0.85); backdrop-filter: blur(12px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
-  .modal { background: var(--cream); max-width: 860px; width: 100%; border-radius: 2px; overflow: hidden; position: relative; max-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; }
-  .modal-img-col { background: var(--cream-soft); position: relative; overflow: hidden; }
-  .modal-img-col img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 20px; box-sizing: border-box; }
-  .modal-badge { position: absolute; top: 20px; left: 20px; padding: 5px 12px; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
-  .modal-info-col { padding: 40px 36px; display: flex; flex-direction: column; overflow-y: auto; border-left: 1px solid var(--line); }
-  .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10; }
+  .modal { background: var(--cream); max-width: 1120px; width: 100%; border-radius: 2px; overflow: hidden; position: relative; max-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; }
+  .modal-img-col { background: #1c1a17; position: relative; overflow: hidden; }
+  .modal-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-badge { position: absolute; top: 22px; left: 22px; padding: 6px 14px; background: var(--gold); color: var(--ink); font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; border-radius: 1px; z-index: 3; }
+  .modal-badge.stock { background: var(--sage); color: white; }
+  .modal-thumbs { position: absolute; left: 0; right: 0; bottom: 0; display: flex; gap: 8px; padding: 16px; background: linear-gradient(to top, rgba(10,9,7,0.55), transparent); z-index: 3; }
+  .modal-thumb { width: 60px; height: 60px; border-radius: 2px; overflow: hidden; border: 2px solid rgba(255,255,255,0.35); cursor: pointer; padding: 0; background: none; flex-shrink: 0; opacity: 0.75; transition: opacity 0.2s, border-color 0.2s; }
+  .modal-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-thumb:hover { opacity: 1; }
+  .modal-thumb.active { border-color: #fff; opacity: 1; }
+  .modal-info-col { padding: 52px 48px; display: flex; flex-direction: column; overflow-y: auto; }
+  .modal-close { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; background: rgba(245,241,234,0.9); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--stone); transition: all 0.2s; z-index: 10; }
   .modal-close:hover { background: white; color: var(--ink); }
-  .modal-eyebrow { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
-  .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .modal-stone-text { font-size: 12px; color: var(--ink-soft); margin-bottom: 16px; }
-  .modal-desc-text { font-size: 13px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .modal-eyebrow { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 22px; }
+  .modal-eyebrow em { font-style: normal; color: var(--line); margin: 0 8px; }
+  .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 54px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .modal-subtitle { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; margin-bottom: 22px; }
+  .modal-desc-text { font-size: 14.5px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 26px; max-width: 440px; }
   .modal-divider { height: 1px; background: var(--line); margin-bottom: 24px; }
-  .detail-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); gap: 16px; }
-  .detail-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
+  .detail-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid var(--line); gap: 16px; }
+  .detail-label { display: flex; align-items: center; gap: 9px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); font-weight: 500; flex-shrink: 0; }
+  .detail-label svg { flex-shrink: 0; opacity: 0.55; }
   .detail-val { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--ink-soft); text-align: right; }
-  .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 20px 0; font-style: italic; }
-  .modal-arriving-box { background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.3); border-radius: 2px; padding: 12px 16px; margin-bottom: 16px; font-size: 12px; color: #8a6a20; line-height: 1.6; }
-  .modal-arriving-box strong { display: block; font-weight: 600; margin-bottom: 2px; font-size: 13px; }
-  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 16px; }
-  .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: var(--sage); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; }
-  .modal-btn-primary:hover { background: var(--sage-deep); }
-  .modal-btn-ghost { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: transparent; color: var(--sage); border: 1px solid var(--sage); border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; }
-  .modal-btn-ghost:hover { background: var(--sage); color: white; }
+  .modal-arriving-box { display: flex; align-items: flex-start; gap: 12px; background: rgba(201,169,110,0.12); border: 1px solid rgba(201,169,110,0.32); border-radius: 3px; padding: 16px 18px; margin: 24px 0 20px; font-size: 12.5px; color: #6d5119; line-height: 1.6; }
+  .modal-arriving-box svg { flex-shrink: 0; margin-top: 2px; }
+  .modal-arriving-box strong { display: block; font-weight: 600; margin-bottom: 3px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6d5119; }
+  .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 18px; background: var(--ink); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; width: 100%; }
+  .modal-btn-primary:hover { background: #000; }
+  .modal-trust-row { display: flex; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .modal-trust-item { flex: 1; text-align: center; padding: 0 8px; }
+  .modal-trust-item + .modal-trust-item { border-left: 1px solid var(--line); }
+  .modal-trust-item svg { color: var(--sage); margin-bottom: 8px; }
+  .modal-trust-item div { font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); line-height: 1.6; font-weight: 500; }
+  .modal-trust-item strong { display: block; color: var(--ink-soft); font-weight: 600; }
 
   /* ENQUIRY */
   #enq-overlay { position: fixed; inset: 0; background: rgba(44,42,38,0.85); backdrop-filter: blur(12px); z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
@@ -287,9 +299,13 @@
     footer { padding: 48px 20px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
-    .modal { grid-template-columns: 1fr; max-height: none; }
-    .modal-img-col { max-height: 280px; }
-    .modal-info-col { border-left: none; border-top: 1px solid var(--line); padding: 24px 20px 80px; overflow-y: visible; }
+    .modal-overlay { align-items: flex-start; overflow-y: auto; padding: 0; }
+    .modal { grid-template-columns: 1fr; max-height: none; grid-template-rows: auto auto; border-radius: 0; margin: 0 auto; }
+    .modal-img-col { height: 62vw; max-height: 360px; }
+    .modal-info-col { border-top: 1px solid var(--line); padding: 28px 20px 88px; overflow-y: visible; }
+    .modal-name { font-size: 38px; }
+    .modal-desc-text { max-width: none; }
+    .modal-trust-item div { font-size: 8px; }
     .enq-modal { padding: 32px 20px 40px; }
     .enq-row { grid-template-columns: 1fr; }
     #enq-overlay { align-items: flex-end; padding: 0; }
@@ -692,33 +708,47 @@
   <div class="modal">
     <button class="modal-close" onclick="closeBasinModalBtn()">✕</button>
     <div class="modal-img-col">
-      <span class="modal-badge">Arriving Soon</span>
-      <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:contain;display:block;padding:20px;box-sizing:border-box;">
+      <span class="modal-badge" id="modal-badge">Arriving Soon</span>
+      <img class="modal-hero-img" id="modal-img" src="" alt="">
+      <div class="modal-thumbs" id="modal-thumbs"></div>
     </div>
     <div class="modal-info-col">
-      <div class="modal-eyebrow">Prime Piece — Natural Stone Basin</div>
+      <div class="modal-eyebrow">PRIME PIECE <em>—</em> NATURAL STONE BASIN</div>
       <div class="modal-name" id="modal-name"></div>
-      <div class="modal-stone-text" id="modal-stone"></div>
-      <div class="modal-desc-text" id="modal-desc"></div>
+      <div class="modal-subtitle">Vessel Basin</div>
       <div class="modal-divider"></div>
-      <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-val">Ø 430mm × H 135mm</span></div>
-      <div class="detail-row"><span class="detail-label">Material</span><span class="detail-val" id="modal-material"></span></div>
-      <div class="detail-row"><span class="detail-label">Finish</span><span class="detail-val">High-polish</span></div>
-      <div class="detail-row"><span class="detail-label">Drain</span><span class="detail-val">Not included · 40mm waste fitting required</span></div>
-      <div class="detail-row"><span class="detail-label">Availability</span><span class="detail-val">Arriving September 2026</span></div>
-      <div class="detail-row"><span class="detail-label">Delivery</span><span class="detail-val">NZ-wide, fully insured</span></div>
-      <p class="modal-note">Natural stone colour and veining varies. Every basin is completely unique — no two are identical.</p>
-      <div class="modal-arriving-box">
-        <strong>Arriving September 2026</strong>
-        Enquire now to secure your piece. We'll confirm pricing and coordinate delivery personally.
+      <div class="modal-desc-text" id="modal-desc"></div>
+
+      <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Dimensions</span><span class="detail-val">Ø 430mm × H 135mm</span></div>
+      <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 3v18M4 7.5l8 4.5 8-4.5"/></svg>Material</span><span class="detail-val" id="modal-material"></span></div>
+      <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.8 5.6L19 10l-5.2 1.4L12 17l-1.8-5.6L5 10l5.2-1.4L12 3z"/></svg>Finish</span><span class="detail-val">High-polish</span></div>
+      <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>Drain</span><span class="detail-val">Not included<br>40mm waste fitting required</span></div>
+
+      <div class="modal-arriving-box" id="modal-arriving-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6d5119" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <div>
+          <strong id="modal-avail-title">Arriving September 2026</strong>
+          <span id="modal-avail-text">Enquire now to secure your piece. We'll confirm pricing and coordinate delivery personally.</span>
+        </div>
       </div>
+
       <div class="modal-actions">
-        <button class="modal-btn-primary" id="modal-enq-btn">Enquire About This Basin →</button>
-        <a class="modal-btn-ghost" href="sms:+64211466990">Text James — 021 146 6990</a>
+        <button class="modal-btn-primary" id="modal-enq-btn">Enquire Now →</button>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid rgba(44,42,38,0.08);flex-wrap:wrap;gap:8px;">
-        <span style="font-size:11px;color:#8A8275;">🔒 14-day returns · Fully insured delivery</span>
-        <span style="font-size:11px;color:#8A8275;">Afterpay &amp; Laybuy available</span>
+
+      <div class="modal-trust-row">
+        <div class="modal-trust-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c-4-3-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-3 8-7 11z"/><path d="M12 10v7M9 13c1-1.5 2-1.5 3 0"/></svg>
+          <div><strong>Natural Stone</strong>One of One</div>
+        </div>
+        <div class="modal-trust-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="7" width="14" height="10"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17.5" cy="19" r="1.6"/></svg>
+          <div><strong>NZ-Wide Delivery</strong>Fully Insured</div>
+        </div>
+        <div class="modal-trust-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l3 6-9 12L3 9l3-6z"/><path d="M3 9h18M9 3l3 6 3-6M12 9v12"/></svg>
+          <div><strong>Timeless Design</strong>Built to Last</div>
+        </div>
       </div>
     </div>
   </div>
@@ -771,28 +801,68 @@
   mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
 
   const basins = {
-    'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Quarried from the mountains of Tuscany, Carrara marble has defined luxury stone for centuries. Each basin is cut from a single slab — pale Italian white with delicate grey veining that moves like ink through water. Refined without trying to be. The choice of people who understand that restraint is its own luxury.', img:'white-carrara-vessel.jpg' },
-    'beige-vessel': { name:'Beige Travertine', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', desc:'Formed over millions of years from mineral-rich spring water, travertine carries its geological past on its surface — warm sandy tones, natural pitting, and a texture that no manufactured material can replicate. It sits beautifully alongside timber vanities, linen, and morning light. The kind of bathroom that feels like it was always meant to be there.', img:'warm-beige-vessel.jpg' },
-    'nero-vessel': { name:'Nero Marquina', stone:'Nero Marquina Marble · Vessel Basin', material:'Nero Marquina Marble', desc:'Quarried in the Basque Country of Spain, Nero Marquina is one of the world\'s great black marbles — a deep jet ground shot through with fine white veining that catches light like cracked porcelain. Maximum contrast. Zero compromise. A basin that defines the entire room it\'s placed in.', img:'nero-marquina-vessel.jpg' },
-    'onyx-vessel': { name:'Emerald Green', stone:'Emerald Green Marble · Vessel Basin', material:'Emerald Green Marble', desc:'A deep, mirror-polished green with dramatic natural patterning that does not ask permission. Sourced from rare deposits where mineral composition creates a colour intensity no synthetic material can approach. Every basin carries a completely unique arrangement of veining — there is no other one exactly like yours anywhere in the world.', img:'emerald-green-basin.jpg' },
-    'white-onyx-vessel': { name:'Ivory Onyx', stone:'Ivory Onyx · Vessel Basin', material:'Ivory Onyx', desc:'Onyx is unlike any other stone — formed in limestone caves from mineral-rich groundwater over geological time, it carries a translucency that makes it appear to glow from within. Warm ivory tones and amber veining become something else entirely when light passes through them. In a well-lit bathroom, there is nothing else like it available in New Zealand.', img:'white-onyx-vessel.jpg' },
-    'ocean-blue-vessel': { name:'Ocean Blue', stone:'Ocean Blue Marble · Vessel Basin', material:'Ocean Blue Marble', desc:'A stone with the depth and restlessness of open water — deep ocean blue ground with dramatic white veining that moves across the surface like a breaking wave. Mirror-polished to bring out the full intensity of the colour. Bold enough to anchor an entire bathroom design, precise enough to work with the right materials around it.', img:'ocean-blue-basin.jpg' },
-    'pietra-grey': { name:'Pietra Grey', stone:'Pietra Grey Marble · Vessel Basin', material:'Pietra Grey Marble', desc:'Pietra Grey is the stone of architects and interior designers who work in dark, considered palettes. Deep charcoal, mirror-polished to a near-reflective finish, with ghosted white veining that appears and disappears depending on the light. Understated in a way that takes real confidence. The right choice for bathrooms where every detail is intentional.', img:'basin-pietra-grey-1.jpg' },
-    'pink-purple-onyx': { name:'Pink Onyx', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', desc:'Pink Onyx forms at the intersection of rare and remarkable. Soft blush and rose tones with swirling white crystal formations that develop naturally over geological time — no two slabs carry the same arrangement, no two basins will ever look identical. One of the most unusual stones we carry, and one of the rarest pieces available in New Zealand.', img:'basin-pink-purple-onyx-1.jpg' },
-    'rosso-levanto': { name:'Rosso Levanto', stone:'Rosso Levanto Marble · Vessel Basin', material:'Rosso Levanto Marble', desc:'Quarried from the mountains of Liguria in northern Italy, Rosso Levanto is among the world\'s most dramatic marbles — deep burgundy-red ground with white veining that cuts through it like lightning. Polished to a mirror finish that intensifies the colour further. This is not a subtle choice, and it does not pretend to be. The most striking basin in our collection, full stop.', img:'rosso-levanto-basin.jpg' },
-    'tiger-onyx': { name:'Tiger Onyx', stone:'Tiger Onyx · Vessel Basin', material:'Tiger Onyx', desc:'The exterior is a study in geological drama — deep amber and burnt-orange banding laid down over millions of years. Open the basin and the interior shifts entirely to a contrasting grey-green, a two-tone effect that exists nowhere else in our collection. No two Tiger Onyx basins carry the same pattern. The most boldly individual stone we carry.', img:'basin-tiger-onyx-1.jpg' },
+    'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Quarried in the mountains of Tuscany, Carrara marble has defined luxury stone for centuries. Pale Italian white, veined with soft grey that moves like ink through water — refined, timeless, unmistakably classic.', img:'white-carrara-vessel.jpg', images:['white-carrara-vessel.jpg','white-carrara-vessel.png','basin-carrara-cut.png'], badge:'In Stock', badgeClass:'stock' },
+    'beige-vessel': { name:'Beige Travertine', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', desc:'Warm, natural and timeless. Formed over millions of years, Beige Travertine features soft sandy tones, natural pitting and subtle texture, creating a basin that brings an organic, earthy feel to any space.', img:'warm-beige-vessel.jpg', images:['warm-beige-vessel.jpg','basin-travertine-cut.png'], badge:'In Stock', badgeClass:'stock' },
+    'nero-vessel': { name:'Nero Marquina', stone:'Nero Marquina Marble · Vessel Basin', material:'Nero Marquina Marble', desc:'Quarried in the Basque Country of Spain, Nero Marquina is one of the world\'s great black marbles. Deep jet ground, shot through with fine white veining that catches the light like cracked porcelain.', img:'nero-marquina-vessel.jpg', images:['nero-marquina-vessel.jpg','nero-marquina-vessel.png','basin-nero-cut.png'], badge:'Made to Order', badgeClass:'coming' },
+    'onyx-vessel': { name:'Emerald Green', stone:'Emerald Green Marble · Vessel Basin', material:'Emerald Green Marble', desc:'A deep, mirror-polished green with dramatic natural patterning sourced from rare mineral deposits. Every basin carries a completely unique arrangement of veining — bold, striking, one of one.', img:'emerald-green-basin.jpg', images:['emerald-green-basin.jpg','basin-emerald-cut.png'], badge:'Made to Order', badgeClass:'coming' },
+    'white-onyx-vessel': { name:'Ivory Onyx', stone:'Ivory Onyx · Vessel Basin', material:'Ivory Onyx', desc:'Onyx is unlike any other stone — formed in limestone caves over geological time, it carries a translucency that seems to glow from within. Warm ivory tones and amber veining, unlike anything else available in New Zealand.', img:'white-onyx-vessel.jpg', images:['white-onyx-vessel.jpg','basin-ivory-cut.png'], badge:'Made to Order', badgeClass:'coming' },
+    'ocean-blue-vessel': { name:'Ocean Blue', stone:'Ocean Blue Marble · Vessel Basin', material:'Ocean Blue Marble', desc:'A stone with the depth of open water — deep ocean blue ground with dramatic white veining that moves across the surface like a breaking wave. Bold enough to anchor an entire bathroom.', img:'ocean-blue-basin.jpg', images:['ocean-blue-basin.jpg','basin-ocean-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
+    'pietra-grey': { name:'Pietra Grey', stone:'Pietra Grey Marble · Vessel Basin', material:'Pietra Grey Marble', desc:'The stone of architects working in dark, considered palettes. Deep charcoal, mirror-polished, with ghosted white veining that shifts with the light — understated in a way that takes real confidence.', img:'basin-pietra-grey-1.jpg', images:['basin-pietra-grey-1.jpg','basin-pietra-grey-2.jpg','basin-pietra-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
+    'pink-purple-onyx': { name:'Pink Onyx', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', desc:'Pink Onyx forms at the intersection of rare and remarkable — soft blush and rose tones with swirling white crystal formations. No two slabs, and no two basins, are ever alike.', img:'basin-pink-purple-onyx-1.jpg', images:['basin-pink-purple-onyx-1.jpg','basin-pink-purple-onyx-2.jpg','basin-pink-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
+    'rosso-levanto': { name:'Rosso Levanto', stone:'Rosso Levanto Marble · Vessel Basin', material:'Rosso Levanto Marble', desc:'Quarried in the mountains of Liguria, Rosso Levanto is among the world\'s most dramatic marbles. Deep burgundy-red, cut through with white veining like lightning, polished to a mirror finish.', img:'rosso-levanto-basin.jpg', images:['rosso-levanto-basin.jpg','basin-rosso-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
+    'tiger-onyx': { name:'Tiger Onyx', stone:'Tiger Onyx · Vessel Basin', material:'Tiger Onyx', desc:'A study in geological drama — deep amber and burnt-orange banding on the exterior gives way to a contrasting grey-green interior. No two Tiger Onyx basins carry the same pattern.', img:'basin-tiger-onyx-1.jpg', images:['basin-tiger-onyx-1.jpg','basin-tiger-onyx-2.jpg','basin-tiger-cut.png'], badge:'Arriving Soon', badgeClass:'coming' },
   };
   let currentBasin = '';
+  let currentBasinId = '';
+
+  function selectModalImage(idx) {
+    const b = basins[currentBasinId]; if (!b) return;
+    const imgs = b.images && b.images.length ? b.images : [b.img];
+    document.getElementById('modal-img').src = imgs[idx];
+    document.querySelectorAll('#modal-thumbs .modal-thumb').forEach((el, i) => el.classList.toggle('active', i === idx));
+  }
 
   function openBasinModal(id) {
     const b = basins[id]; if (!b) return;
+    currentBasinId = id;
     currentBasin = b.name + ' Vessel Basin';
+    const imgs = b.images && b.images.length ? b.images : [b.img];
+
     document.getElementById('modal-name').textContent = b.name;
-    document.getElementById('modal-stone').textContent = b.stone;
     document.getElementById('modal-material').textContent = b.material;
     document.getElementById('modal-desc').textContent = b.desc;
-    document.getElementById('modal-img').src = b.img;
+    document.getElementById('modal-img').src = imgs[0];
     document.getElementById('modal-img').alt = b.name + ' — stone vessel basin Auckland NZ';
+
+    const badgeEl = document.getElementById('modal-badge');
+    badgeEl.textContent = b.badge;
+    badgeEl.className = 'modal-badge' + (b.badgeClass === 'stock' ? ' stock' : '');
+
+    const thumbsWrap = document.getElementById('modal-thumbs');
+    thumbsWrap.innerHTML = '';
+    if (imgs.length > 1) {
+      imgs.forEach((src, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'modal-thumb' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', b.name + ' photo ' + (i + 1));
+        btn.onclick = () => selectModalImage(i);
+        const img = document.createElement('img');
+        img.src = src; img.alt = '';
+        btn.appendChild(img);
+        thumbsWrap.appendChild(btn);
+      });
+    }
+
+    const availTitle = document.getElementById('modal-avail-title');
+    const availText = document.getElementById('modal-avail-text');
+    if (b.badgeClass === 'stock') {
+      availTitle.textContent = 'In Stock — Ready to Ship';
+      availText.textContent = 'Enquire now — NZ-wide delivery, fully insured door to door.';
+    } else {
+      availTitle.textContent = 'Arriving September 2026';
+      availText.textContent = 'Enquire now to secure your piece. We\'ll confirm pricing and coordinate delivery personally.';
+    }
+
     document.getElementById('modal-enq-btn').onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
     document.getElementById('basin-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
