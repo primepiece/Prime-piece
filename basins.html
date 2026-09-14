@@ -191,7 +191,6 @@
   .basin-add-btn.added { background: #2a6b42; }
   .enquire-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--sage); color: var(--sage); background: transparent; cursor: pointer; transition: all 0.3s; font-family: 'Inter Tight', sans-serif; font-weight: 500; border-radius: 1px; }
   .enquire-btn:hover { background: var(--sage); color: white; }
-  /* Mobile sticky enquiry bar */
 
   /* CTA STRIP */
   .cta-strip { background: var(--sage-deep); padding: 72px 56px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
@@ -299,7 +298,7 @@
     .modal-overlay { align-items: flex-start; overflow-y: auto; padding: 0; }
     .modal { grid-template-columns: 1fr; max-height: none; grid-template-rows: auto auto; border-radius: 0; margin: 0 auto; }
     .modal-img-col { height: 62vw; max-height: 360px; }
-    .modal-info-col { border-top: 1px solid var(--line); padding: 28px 20px 88px; overflow-y: visible; }
+    .modal-info-col { border-top: 1px solid var(--line); padding: 28px 20px 40px; overflow-y: visible; }
     .modal-name { font-size: 38px; }
     .modal-desc-text { max-width: none; }
     .modal-trust-item div { font-size: 8px; }
@@ -789,6 +788,11 @@
   ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); });
   mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
 
+  const AVAILABILITY = {
+    'In Stock': { title: 'In Stock — Ready to Ship', text: 'Enquire now — NZ-wide delivery, fully insured door to door.' },
+    'Made to Order': { title: 'Made to Order', text: 'Each piece is cut and finished to order. Enquire now and we\'ll confirm lead time and pricing personally.' },
+    'Arriving Soon': { title: 'Arriving September 2026', text: 'Enquire now to secure your piece. We\'ll confirm pricing and coordinate delivery personally.' },
+  };
   const basins = {
     'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Quarried in the mountains of Tuscany, Carrara marble has defined luxury stone for centuries. Pale Italian white, veined with soft grey that moves like ink through water — refined, timeless, unmistakably classic.', img:'white-carrara-vessel.jpg', images:['white-carrara-vessel.jpg','white-carrara-vessel.png','basin-carrara-cut.png'], badge:'In Stock', badgeClass:'stock', price:1190, cartId:'basin-carrara', cartName:'White Carrara Basin' },
     'beige-vessel': { name:'Beige Travertine', stone:'Beige Travertine · Vessel Basin', material:'Beige Travertine', desc:'Warm, natural and timeless. Formed over millions of years, Beige Travertine features soft sandy tones, natural pitting and subtle texture, creating a basin that brings an organic, earthy feel to any space.', img:'warm-beige-vessel.jpg', images:['warm-beige-vessel.jpg','basin-travertine-cut.png'], badge:'In Stock', badgeClass:'stock', price:990, cartId:'basin-beige', cartName:'Beige Travertine Basin' },
@@ -842,15 +846,9 @@
       });
     }
 
-    const availTitle = document.getElementById('modal-avail-title');
-    const availText = document.getElementById('modal-avail-text');
-    if (b.badgeClass === 'stock') {
-      availTitle.textContent = 'In Stock — Ready to Ship';
-      availText.textContent = 'Enquire now — NZ-wide delivery, fully insured door to door.';
-    } else {
-      availTitle.textContent = 'Arriving September 2026';
-      availText.textContent = 'Enquire now to secure your piece. We\'ll confirm pricing and coordinate delivery personally.';
-    }
+    const availInfo = AVAILABILITY[b.badge] || AVAILABILITY['Made to Order'];
+    document.getElementById('modal-avail-title').textContent = availInfo.title;
+    document.getElementById('modal-avail-text').textContent = availInfo.text;
 
     const ctaBtn = document.getElementById('modal-cta-btn');
     const secondaryLink = document.getElementById('modal-secondary-link');
