@@ -385,10 +385,7 @@
         <span class="summary-row-label">Subtotal</span>
         <span class="summary-row-val" id="summary-subtotal">$0</span>
       </div>
-      <div class="summary-row">
-        <span class="summary-row-label">GST (15%)</span>
-        <span class="summary-row-val" id="summary-gst">$0</span>
-      </div>
+
       <div class="summary-row">
         <span class="summary-row-label">Delivery</span>
         <span class="summary-row-val" id="summary-delivery">Free — Showroom pickup</span>
@@ -439,10 +436,7 @@
       </div>
     `).join('');
 
-    const gst = Math.round(total * 0.15 * 100) / 100;
-    const ex = total - gst;
-    document.getElementById('summary-subtotal').textContent = fmt(Math.round(ex));
-    document.getElementById('summary-gst').textContent = fmt(Math.round(gst));
+    document.getElementById('summary-subtotal').textContent = fmt(total);
     document.getElementById('summary-total').textContent = fmt(total);
     summaryTotals.style.display = 'block';
     updateDeliveryLabel();
