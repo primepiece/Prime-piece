@@ -36,7 +36,7 @@ const CATALOG = {
   'plinth-rosso-levanto-plinth':     { name: 'Rosso Levanto Marble Plinth',       price: 1400 },
   'plinth-verde-apli-table':         { name: 'Verde Apli Marble Table',           price: 4000 },
   // Tables — coffee & side
-  'table-amazon-vein-2':    { name: 'Amazon Vein II',       price: 300  },
+  'table-amazon-vein-2':    { name: 'Amazon Vein II',       price: 299  },
   'table-arctic-vein':      { name: 'Arctic Vein',           price: 299  },
   'table-blue-slate':       { name: 'Blue Slate',            price: 270  },
   'table-dark-current':     { name: 'Dark Current',          price: 295  },
@@ -57,13 +57,13 @@ const CATALOG = {
   'table-obsidian-storm':   { name: 'Obsidian Storm',        price: 2040 },
   'table-patagonia-platinum':{ name: 'Patagonia Platinum',   price: 329  },
   'table-pietra-noir':      { name: 'Pietra Noir',           price: 270  },
-  'table-sage-plateau':     { name: 'Sage Plateau',          price: 299  },
+  'table-sage-plateau':     { name: 'Sage Plateau',          price: 1499 },
   'table-serpentine-storm': { name: 'Serpentine Storm',      price: 275  },
   'table-sunset-stone':     { name: 'Sunset Stone',          price: 259  },
   'table-twin-jade':        { name: 'Twin Jade (Set of 2)',   price: 2199 },
   'table-twin-jade-single': { name: 'Twin Jade (Single)',     price: 1199 },
   'table-white-haven':      { name: 'White Haven',           price: 269  },
-  'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 299  },
+  'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 1499 },
   // Bundles
   'rosso-bundle': { name: 'Rosso Africano Bundle — Table + Plinth', price: 7000 },
 };
