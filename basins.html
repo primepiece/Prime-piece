@@ -948,6 +948,14 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeBasinModalBtn(); closeEnquiry(); } });
 
+  // Deep-link support: opening basins.html#<basin-id> jumps straight to that product's modal
+  function openBasinFromHash() {
+    const id = decodeURIComponent(location.hash.replace('#', ''));
+    if (id && basins[id]) openBasinModal(id);
+  }
+  window.addEventListener('DOMContentLoaded', openBasinFromHash);
+  window.addEventListener('hashchange', openBasinFromHash);
+
   // Scroll depth + engagement tracking
   (function() {
     const depths = [25, 50, 75, 90]; const fired = new Set();
