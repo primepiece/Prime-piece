@@ -579,7 +579,12 @@ export async function synthesizeBrief(context) {
   const system = 'You are writing Prime Piece\'s daily executive brief. Prime Piece is a premium NZ natural-stone (marble/travertine) ecommerce brand with a HALO ($1,500-$8,000+ one-of-one) / CORE ($299-$1,200 repeatable, the primary scaling layer) / ENTRY ($99-$299 acquisition) product architecture, and a policy of at most one active CORE launch/test at a time. You are given ONLY real structured data below — never invent a name, number, score, or fact not present in it. A null field or empty array means that information is genuinely not recorded — say so explicitly in missingDataWarnings rather than guessing or filling the gap with something plausible-sounding. Be concise and decision-oriented, never generic AI commentary. Never recommend a large speculative inventory order based on a Market Radar score alone — that score reflects market opportunity, not proof Prime Piece should hold stock.';
   const prompt = `Here is today's Prime Piece data:\n${JSON.stringify(context, null, 0)}\n\nRespond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:\n${SYNTHESIS_SCHEMA_EXAMPLE}`;
 
-  const { text } = await callClaude({ system, prompt, maxTokens: 2000 });
+  // 2000 was measured too tight in production: a real (non-fixture) brief with
+  // actual bullets, rationale and moves got cut off mid-JSON before the model
+  // finished (confirmed 2026-09-15, run 35025859555 — "Unterminated JSON in model
+  // response"). This call is plain text completion, not search — doubling the
+  // ceiling costs little and gives real output room to finish.
+  const { text } = await callClaude({ system, prompt, maxTokens: 4000 });
   const parsed = extractJson(text);
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Synthesis did not return a JSON object.');
   if (!Array.isArray(parsed.pulseBullets) || !Array.isArray(parsed.threeMoves) || !Array.isArray(parsed.missingDataWarnings) || !parsed.nextThousand) {
