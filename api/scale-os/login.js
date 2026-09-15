@@ -15,7 +15,7 @@ function renderLogin({ error, next }) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Log in · Prime Piece Scale OS</title>
+<title>Log in · Prime Piece Pulse</title>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -42,7 +42,7 @@ function renderLogin({ error, next }) {
 <body>
   <div class="box">
     <div class="brand">Prime Piece</div>
-    <h1 class="title">Scale OS</h1>
+    <h1 class="title">Pulse</h1>
     ${notConfigured ? `<div class="error">SCALE_OS_PASSWORD is not set in the environment. Set it in Vercel project settings, then redeploy.</div>` : ''}
     ${error && !notConfigured ? `<div class="error">${escapeHtml(error)}</div>` : ''}
     <form method="POST" action="/scale-os/login">
