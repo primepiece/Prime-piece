@@ -47,6 +47,11 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
+    # Without this, a stuck run falls back to GitHub's 360-minute default cap.
+    # 90 min comfortably covers the worst case (every one of ~7 sequential Claude
+    # calls exhausting all 3 retries at the 240s per-call timeout, ~85 min) while
+    # guaranteeing a hang is auto-cancelled instead of running for hours unwatched.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
