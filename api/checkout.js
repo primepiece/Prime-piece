@@ -46,7 +46,7 @@ const CATALOG = {
   'table-desert-drift-ii':  { name: 'Desert Drift II',       price: 250  },
   'table-gold-rush':        { name: 'Gold Rush',             price: 300  },
   'table-golden-hour':      { name: 'Golden Hour',           price: 329  },
-  'table-jade-horizon':     { name: 'Jade Horizon',          price: 3500 },
+  'table-jade-horizon':     { name: 'Jade Horizon',          price: 2100 },
   'table-jade-jewel':       { name: 'Jade Jewel',            price: 299  },
   'table-jade-rain':        { name: 'Jade Rain',             price: 299  },
   'table-lunar-river':      { name: 'Lunar River',           price: 1500 },
