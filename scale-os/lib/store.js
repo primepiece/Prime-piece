@@ -62,12 +62,62 @@ function uid() {
   return 'p_' + Math.random().toString(36).slice(2, 10);
 }
 
+// Real Prime Piece priorities as of Sep 2026 (see product-lab.js for what tier/
+// priorityLane/status mean). Only used to seed a brand-new, empty database — an
+// already-populated one is never force-upserted, so this never overwrites or
+// duplicates rows James has already edited by hand.
 function seedProducts() {
   return [
-    { id: uid(), name: 'Carrara Natural Stone Basin', category: 'Vessel Basin', status: 'Idea' },
-    { id: uid(), name: 'Beige Travertine Basin', category: 'Vessel Basin', status: 'Idea' },
-    { id: uid(), name: '#41 Fluted Round Basin', category: 'Vessel Basin', status: 'Idea' },
+    {
+      id: uid(), name: 'Signature Collection Vessel Basins', category: 'Vessel Basin',
+      tier: 'CORE', priorityLane: 'Active', status: 'LAUNCH',
+      notes: 'Launched September 2026. Primary goal: generate sales and learn which stones/creative/messages convert.',
+    },
+    {
+      id: uid(), name: 'Stone Lighting', category: 'Lighting',
+      tier: 'CORE', priorityLane: 'Research Candidate', status: 'RESEARCH',
+      notes: 'Candidate for the next Core product test. Not yet approved.',
+    },
+    {
+      id: uid(), name: 'Noir Side Tables', category: 'Furniture',
+      tier: 'CORE', priorityLane: 'Maintain', status: 'SCALE',
+    },
+    {
+      id: uid(), name: 'Boards', category: 'Boards & Trays',
+      tier: 'ENTRY', priorityLane: 'Maintain', status: 'SCALE',
+    },
+    {
+      id: uid(), name: 'Custom Tables & Plinths', category: 'Halo / Custom',
+      tier: 'HALO', priorityLane: 'Maintain', status: 'SCALE',
+    },
   ];
+}
+
+// Migrates legacy status values (pre stage-pipeline rework) to the current
+// RESEARCH -> SAMPLE -> TEST -> VALIDATED -> LAUNCH -> SCALE -> HOLD -> KILL vocabulary.
+// Deliberately never maps anything into LAUNCH: a product only reaches LAUNCH by
+// someone actively setting it, since that stage means "genuinely launched," not
+// "was far along in the old pipeline." Idempotent — new-style values pass through.
+const STATUS_MIGRATION = {
+  Idea: 'RESEARCH',
+  Researching: 'RESEARCH',
+  Sampling: 'SAMPLE',
+  Testing: 'TEST',
+  Validated: 'VALIDATED',
+  Scaling: 'SCALE',
+  Killed: 'KILL',
+};
+
+function migrateStatuses(products) {
+  let changed = false;
+  products.forEach((p) => {
+    const mapped = STATUS_MIGRATION[p.status];
+    if (mapped) {
+      p.status = mapped;
+      changed = true;
+    }
+  });
+  return changed;
 }
 
 export async function getProducts() {
@@ -79,7 +129,9 @@ export async function getProducts() {
   }
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : seedProducts();
+    const products = Array.isArray(parsed) ? parsed : seedProducts();
+    if (migrateStatuses(products)) await saveProducts(products);
+    return products;
   } catch {
     return seedProducts();
   }
@@ -140,6 +192,8 @@ function mapRadarItemToProduct(item) {
     id: radarUid(),
     name: item.variant ? `${item.product} — ${item.variant}` : item.product,
     category: item.category || '',
+    tier: '', // Market Radar doesn't score HALO/CORE/ENTRY fit — set by hand in Product Lab.
+    priorityLane: '',
     differentiation: scaleFromScore('differentiation'),
     tradePotential: scaleFromScore('designerTrade'),
     freightRisk: invertScaleFromScore('operationalRisk'),
@@ -148,7 +202,7 @@ function mapRadarItemToProduct(item) {
     evidenceSource: `Promoted from Market Radar (opportunity score ${item.opportunityScore ?? '—'}, confidence ${item.confidenceScore ?? '—'}). Sources: ${sourcesList || 'see Market Radar detail'}.`,
     confidence: item.confidenceScore >= 70 ? 'High' : item.confidenceScore >= 40 ? 'Medium' : 'Low',
     notes: item.marketGap?.description || '',
-    status: 'Idea',
+    status: 'RESEARCH',
     me_comparableCompetitors: (item.competitors || []).map((c) => `${c.name}${c.country ? ' (' + c.country + ')' : ''}`).join(', '),
     me_comparableRetailPrices: item.priceBand ? `${item.priceBand.currency || ''}${item.priceBand.low ?? '?'}-${item.priceBand.high ?? '?'}` : '',
     me_apparentMarketDemand: scaleFromScore('demandEvidence'),

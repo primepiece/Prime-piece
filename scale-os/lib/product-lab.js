@@ -26,7 +26,7 @@ export const PRODUCT_LAB_STYLE = `
   .evidence-tag { font-size: 10.5px; letter-spacing: 0.03em; padding: 3px 9px; border-radius: 20px; background: #EEECE6; color: #555; }
   .empty-state { padding: 40px 20px; text-align: center; color: var(--muted); font-size: 13px; }
   .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--white); }
-  table.lab { border-collapse: collapse; width: 100%; min-width: 3300px; font-size: 12.5px; }
+  table.lab { border-collapse: collapse; width: 100%; min-width: 3520px; font-size: 12.5px; }
   table.lab th, table.lab td { border-bottom: 1px solid var(--line); border-right: 1px solid #EFEDE7; padding: 0; white-space: nowrap; }
   table.lab thead th {
     position: sticky; top: 56px; background: #F4F2EC; z-index: 5; padding: 9px 10px; text-align: left;
@@ -61,13 +61,14 @@ export const PRODUCT_LAB_STYLE = `
   .expand-btn { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); width: 100%; padding: 10px 0; }
   .expand-btn:hover { color: var(--black); }
   select.status-select { font-weight: 700; border-radius: 20px; text-align: center; text-align-last: center; padding-left: 12px; padding-right: 12px; }
-  .status-Idea, select.status-Idea { background: #EEECE6; color: #8A8577; }
-  .status-Researching, select.status-Researching { background: #E3ECEC; color: #4E7376; }
-  .status-Sampling, select.status-Sampling { background: #E9E2CC; color: #8A6A2A; }
-  .status-Testing, select.status-Testing { background: #DCE9E9; color: #3F7377; }
-  .status-Validated, select.status-Validated { background: #DCEAE0; color: #2E7D4F; }
-  .status-Scaling, select.status-Scaling { background: #111111; color: #fff; }
-  .status-Killed { background: #F1E4DF; color: #A05B44; }
+  .status-RESEARCH, select.status-RESEARCH { background: #EEECE6; color: #8A8577; }
+  .status-SAMPLE, select.status-SAMPLE { background: #E9E2CC; color: #8A6A2A; }
+  .status-TEST, select.status-TEST { background: #DCE9E9; color: #3F7377; }
+  .status-VALIDATED, select.status-VALIDATED { background: #DCEAE0; color: #2E7D4F; }
+  .status-LAUNCH, select.status-LAUNCH { background: #5E8689; color: #fff; }
+  .status-SCALE, select.status-SCALE { background: #111111; color: #fff; }
+  .status-HOLD, select.status-HOLD { background: #F0E4CC; color: #8A6A2A; }
+  .status-KILL { background: #F1E4DF; color: #A05B44; }
   .storage-note { font-size: 11.5px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
 
   tr.me-row td { background: #F7F6F2; padding: 20px 26px; border-right: none; white-space: normal; }
@@ -103,9 +104,17 @@ export const PRODUCT_LAB_BODY = `
       <p><strong>Contribution profit before advertising</strong> = Selling price − total landed cost − packaging − fulfilment/customer freight − payment fees − expected damage/returns allowance. It only calculates once <em>all seven</em> of those inputs are known — a missing cost is never assumed to be $0, so you'll see "— · n/7 costs" until every input is entered.</p>
       <p><strong>Contribution margin %</strong> = contribution profit ÷ selling price. <strong>Break-even CAC</strong> is the same number as contribution profit — the most you could spend acquiring one customer and still break even before fixed costs. <strong>Target CAC</strong> is a number you set yourself, with margin built in below break-even — there's no formula for it, so it's a plain manual entry.</p>
 
-      <h4>Overall score — 8 areas</h4>
+      <h4>Prime Opportunity Score — 8 areas</h4>
       <p>Unit Economics, Market Demand Evidence, Differentiation, Content Potential, Freight Risk, Damage Risk, Trade Potential, and Competition/Saturation. The score is the average of whichever areas actually have data — shown as e.g. "64 · 6/8 areas" — never presented as complete when it isn't. Confidence (Low/Medium/High) is shown alongside the score, not blended into it, so you can judge for yourself how much to trust it.</p>
       <p><strong>Unit Economics</strong> is derived automatically from Contribution Margin %: below 0% → 1, 0–14% → 2, 15–29% → 3, 30–44% → 4, 45%+ → 5. <strong>Market Demand Evidence</strong> comes from "Apparent market demand" in that product's Market Evidence panel below — there's no separate demand field in the main table anymore.</p>
+      <p>For imported CORE products, aim for landed cost ≤25–30% of retail price and 65%+ gross margin — check "Gross margin %" and "Total landed cost" against "Selling price" against that target.</p>
+
+      <h4>Tier &amp; priority lane</h4>
+      <p><strong>Tier</strong> — HALO ($1,500–$8,000+, NZ-made one-of-one), CORE ($299–$1,200, repeatable/importable — the primary scaling layer), ENTRY ($99–$299, acquisition/gifting).</p>
+      <p><strong>Priority lane</strong> — Active (the one thing we are currently trying to sell/scale), Research Candidate (the next thing under evaluation), Maintain (an established product left running, not being actively pushed). Prime Piece policy: at most one CORE product Active at a time, unless deliberately overridden — the app will warn you before letting a second one through.</p>
+
+      <h4>Stage pipeline</h4>
+      <p>RESEARCH → SAMPLE → TEST → VALIDATED → LAUNCH → SCALE, with HOLD and KILL reachable from any stage. TEST means actively trying to prove demand; VALIDATED means meaningful customer evidence has actually been achieved (preorders, paid deposits, strong conversion data or another real buying signal) — the app will warn if you mark something VALIDATED or LAUNCH without any of that recorded below in "Performance &amp; validation."</p>
 
       <h4>Evidence types</h4>
       <p>Every rated signal in Market Evidence must be labelled with what kind of evidence it actually is. Do not claim a competitor product is selling well unless there is genuine evidence for it.</p>
@@ -141,7 +150,7 @@ export const PRODUCT_LAB_BODY = `
           <tr class="group-row">
             <th class="sticky-col"></th>
             <th class="sticky-col2"></th>
-            <th colspan="2">Identity</th>
+            <th colspan="4">Identity</th>
             <th colspan="6">Landed Cost &amp; Margin</th>
             <th colspan="8">Contribution Economics</th>
             <th colspan="6">Scoring (1–5)</th>
@@ -163,10 +172,18 @@ export const PRODUCT_LAB_BODY = `
 export const PRODUCT_LAB_SCRIPT = `
 <script>
 (function () {
-  var STATUS_OPTIONS = ['Idea', 'Researching', 'Sampling', 'Testing', 'Validated', 'Scaling', 'Killed'];
+  // Stage pipeline: RESEARCH -> SAMPLE -> TEST -> VALIDATED -> LAUNCH -> SCALE, with
+  // HOLD and KILL reachable from anywhere. TEST means "actively trying to prove demand";
+  // VALIDATED means "meaningful customer evidence has been achieved" — kept as separate
+  // stages on purpose, not collapsed into one.
+  var STATUS_OPTIONS = ['RESEARCH', 'SAMPLE', 'TEST', 'VALIDATED', 'LAUNCH', 'SCALE', 'HOLD', 'KILL'];
   var CONFIDENCE_OPTIONS = ['Low', 'Medium', 'High'];
-  var ACTIVE_STATUSES = ['Idea', 'Researching', 'Sampling', 'Testing'];
+  var ACTIVE_STATUSES = ['RESEARCH', 'SAMPLE', 'TEST', 'VALIDATED'];
   var EVIDENCE_TYPE_OPTIONS = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumption'];
+  var TIER_OPTIONS = ['HALO', 'CORE', 'ENTRY'];
+  var PRIORITY_LANE_OPTIONS = ['Active', 'Research Candidate', 'Maintain'];
+  // Stages that count as genuine demand evidence for the TEST -> VALIDATED / LAUNCH gate.
+  var EVIDENCE_FIELDS = ['perf_preordersOrEnquiries', 'perf_preorderRevenue', 'perf_conversionRate'];
 
   var SCALE_5 = [
     { v: '', l: '—' }, { v: '1', l: '1' }, { v: '2', l: '2' }, { v: '3', l: '3' }, { v: '4', l: '4' }, { v: '5', l: '5' }
@@ -178,6 +195,8 @@ export const PRODUCT_LAB_SCRIPT = `
     { id: '__toggle', label: '', type: 'toggle', sticky: 2, width: 40 },
     { id: 'category', label: 'Category', type: 'text', width: 130 },
     { id: 'supplier', label: 'Supplier', type: 'text', width: 130 },
+    { id: 'tier', label: 'Tier', type: 'select', options: TIER_OPTIONS, width: 90, title: 'HALO ($1,500-$8,000+ one-of-one) / CORE ($299-$1,200 repeatable) / ENTRY ($99-$299 acquisition & gifting).' },
+    { id: 'priorityLane', label: 'Priority lane', type: 'select', options: PRIORITY_LANE_OPTIONS, width: 130, title: 'Active = the one thing we are currently trying to sell/scale. Research Candidate = the next thing under evaluation. Maintain = an established product left running, not being actively pushed.' },
 
     { id: 'supplierCost', label: 'Supplier cost', type: 'number', width: 100 },
     { id: 'freightCost', label: 'Freight / landed', type: 'number', width: 110 },
@@ -202,7 +221,7 @@ export const PRODUCT_LAB_SCRIPT = `
     { id: 'tradePotential', label: 'Trade potential', type: 'scale', title: 'Appeal to designers, architects, trade/wholesale buyers. 5 = strong appeal.' },
     { id: 'competition', label: 'Competition / saturation', type: 'scale', invert: true, title: 'How saturated / competitive this category is. 5 = highly saturated.' },
 
-    { id: 'overallScore', label: 'Overall score', type: 'computed', width: 160 },
+    { id: 'overallScore', label: 'Prime Opportunity Score', type: 'computed', width: 160 },
     { id: 'evidenceSource', label: 'Evidence source', type: 'textarea', width: 170 },
     { id: 'confidence', label: 'Confidence', type: 'select', options: CONFIDENCE_OPTIONS, width: 100 },
     { id: 'notes', label: 'Notes', type: 'textarea', width: 200 },
@@ -240,6 +259,24 @@ export const PRODUCT_LAB_SCRIPT = `
       { id: 'me_confidenceLevel', label: 'Confidence level', type: 'select', options: CONFIDENCE_OPTIONS },
       { id: 'me_dateLastResearched', label: 'Date last researched', type: 'date' },
       { id: 'me_keyTakeaway', label: 'Key takeaway', type: 'textarea', placeholder: 'One sentence: what does this evidence mean for Prime Piece?' },
+    ] },
+    // Real, manually-entered performance numbers — the same fields serve two purposes:
+    // (1) the demand-evidence gate before TEST can become VALIDATED/LAUNCH, and
+    // (2) the Dashboard's "what's making money now" view for Active products.
+    // No integrations — this is manual entry, kept deliberately small.
+    { title: 'Performance & validation', fields: [
+      { id: 'perf_periodLabel', label: 'Period', type: 'text', placeholder: 'e.g. Since launch (Sep 2026), Last 30 days' },
+      { id: 'perf_sessions', label: 'Sessions / traffic', type: 'number' },
+      { id: 'perf_waitlistSignups', label: 'Waitlist signups', type: 'number' },
+      { id: 'perf_preordersOrEnquiries', label: 'Preorders / enquiries', type: 'number' },
+      { id: 'perf_preorderRevenue', label: 'Preorder / deposit revenue', type: 'number' },
+      { id: 'perf_unitsSold', label: 'Units sold', type: 'number' },
+      { id: 'perf_revenue', label: 'Revenue', type: 'number' },
+      { id: 'perf_conversionRate', label: 'Conversion rate %', type: 'number' },
+      { id: 'perf_adSpend', label: 'Ad spend', type: 'number' },
+      { id: 'perf_currentStock', label: 'Current stock', type: 'text', placeholder: 'e.g. 6 units, Made to order' },
+      { id: 'perf_customerFeedback', label: 'Customer feedback', type: 'textarea' },
+      { id: 'perf_nextAction', label: 'Next action', type: 'textarea', placeholder: 'The single most useful next step for this product' },
     ] },
   ];
 
@@ -405,7 +442,7 @@ export const PRODUCT_LAB_SCRIPT = `
       var opts3 = STATUS_OPTIONS.map(function (o) {
         return '<option value="' + o + '"' + (val === o ? ' selected' : '') + '>' + o + '</option>';
       });
-      var statusClass = 'status-select status-' + (val || 'Idea');
+      var statusClass = 'status-select status-' + (val || 'RESEARCH');
       return '<td><select class="cell-input ' + statusClass + '" data-field="' + col.id + '" data-id="' + row.id + '">' + opts3.join('') + '</select></td>';
     }
     return '<td></td>';
@@ -422,6 +459,9 @@ export const PRODUCT_LAB_SCRIPT = `
     }
     if (f.type === 'date') {
       return '<input class="cell-input me-input" type="date" value="' + escapeAttr(val || '') + '" data-field="' + f.id + '" data-id="' + row.id + '">';
+    }
+    if (f.type === 'number') {
+      return '<input class="cell-input me-input" type="number" step="0.01" value="' + (val === undefined || val === null ? '' : val) + '"' + ph + ' data-field="' + f.id + '" data-id="' + row.id + '">';
     }
     if (f.type === 'select') {
       var opts = ['<option value="">—</option>'].concat(f.options.map(function (o) {
@@ -505,7 +545,7 @@ export const PRODUCT_LAB_SCRIPT = `
       body.innerHTML = rows.map(function (row) {
         var cells = COLUMNS.map(function (col) { return cellHtml(row, col, row._computed); }).join('');
         var delCell = '<td class="row-actions"><button class="del-btn" data-del="' + row.id + '" title="Delete">×</button></td>';
-        var statusClass = row.status === 'Killed' ? ' status-killed' : '';
+        var statusClass = row.status === 'KILL' ? ' status-killed' : '';
         var mainRow = '<tr class="' + statusClass + '">' + cells + delCell + '</tr>';
         var panelRow = expandedIds[row.id] ? renderMEPanel(row) : '';
         return mainRow + panelRow;
@@ -528,7 +568,7 @@ export const PRODUCT_LAB_SCRIPT = `
   function refreshBannerOnly() {
     var rows = state.slice();
     rows.forEach(function (r) { r._computed = r._computed || computeRow(r); });
-    var active = rows.filter(function (r) { return ACTIVE_STATUSES.indexOf(r.status || 'Idea') !== -1 && r._computed.overallScore !== null; });
+    var active = rows.filter(function (r) { return ACTIVE_STATUSES.indexOf(r.status || 'RESEARCH') !== -1 && r._computed.overallScore !== null; });
     active.sort(function (a, b) { return b._computed.overallScore - a._computed.overallScore; });
     var banner = document.getElementById('winnerBanner');
     var valueEl = document.getElementById('winnerValue');
@@ -549,13 +589,44 @@ export const PRODUCT_LAB_SCRIPT = `
     scheduleSave();
   }
 
+  function hasDemandEvidence(row) {
+    return EVIDENCE_FIELDS.some(function (f) { return num(row[f]) > 0; });
+  }
+
+  // Soft gates — confirm() rather than a hard block, since this is a single-founder
+  // tool: the rule is "make the founder look before leaping," not "make it impossible."
+  // Returns false (and reverts the control) if the change should not go ahead.
+  function guardFieldChange(t, row, field, newValue) {
+    if (field === 'status' && (newValue === 'VALIDATED' || newValue === 'LAUNCH') && row.status !== newValue && !hasDemandEvidence(row)) {
+      var ok = confirm(
+        'No recorded demand evidence (preorders/enquiries, deposit revenue or a conversion rate) for "' + (row.name || 'this product') +
+        '".\\n\\nTEST means actively trying to prove demand; VALIDATED means meaningful customer evidence has been achieved. Move to ' + newValue + ' anyway?'
+      );
+      if (!ok) { t.value = row.status || ''; return false; }
+    }
+    if (field === 'priorityLane' && newValue === 'Active' && row.tier === 'CORE') {
+      var otherActiveCore = state.filter(function (r) { return r.id !== row.id && r.tier === 'CORE' && r.priorityLane === 'Active'; });
+      if (otherActiveCore.length) {
+        var names = otherActiveCore.map(function (r) { return r.name || 'Untitled product'; }).join(', ');
+        var ok2 = confirm(
+          'Prime Piece policy: at most one CORE product should be Active at a time, unless deliberately overridden.\\n\\n' +
+          'Already Active: ' + names + '.\\n\\nMark "' + (row.name || 'this product') + '" Active as well? The Dashboard will keep showing a warning until this is resolved.'
+        );
+        if (!ok2) { t.value = row.priorityLane || ''; return false; }
+      }
+    }
+    return true;
+  }
+
   document.getElementById('tableBody').addEventListener('input', function (e) {
     var t = e.target;
     var field = t.getAttribute('data-field');
     var id = t.getAttribute('data-id');
     if (!field || !id) return;
-    updateField(id, field, t.value);
     var row = state.filter(function (r) { return r.id === id; })[0];
+    if (!row) return;
+    if ((field === 'status' || field === 'priorityLane') && !guardFieldChange(t, row, field, t.value)) return;
+    updateField(id, field, t.value);
     var computed = computeRow(row);
     row._computed = computed;
     refreshComputedCellsForRow(id, computed);
@@ -599,7 +670,7 @@ export const PRODUCT_LAB_SCRIPT = `
   });
 
   document.getElementById('addBtn').addEventListener('click', function () {
-    state.push({ id: uid(), name: '', status: 'Idea' });
+    state.push({ id: uid(), name: '', status: 'RESEARCH' });
     render();
     persistProducts();
   });
