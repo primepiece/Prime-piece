@@ -45,6 +45,10 @@ const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refres
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
+// Fallback budget for a research call's one retry after its full-budget attempt times
+// out — fewer searches means a shorter server-side tool loop, so the retry has a real
+// chance of finishing inside REQUEST_TIMEOUT_MS instead of repeating the same timeout.
+const RETRY_SEARCH_BUDGET = Math.max(2, Math.floor(SEARCH_BUDGET / 2));
 const DRY_RUN = process.env.RADAR_DRY_RUN === '1' || process.env.RADAR_DRY_RUN === 'true';
 
 function log(...args) {
@@ -104,8 +108,17 @@ async function fetchWithRetry(url, options, label) {
       return res;
     } catch (err) {
       clearTimeout(timer);
+      if (err.name === 'AbortError') {
+        // A slow web-search-backed call timing out is not a transient blip — retrying
+        // the identical request at the identical budget just reproduces the same
+        // timeout (confirmed 2026-09-15, run 35019228654: 4/5 candidates failed all 3
+        // attempts, each hitting the same 120000ms deadline). Fail this attempt
+        // immediately; the caller (huntCandidates/enrichCandidate) retries once with a
+        // reduced search budget instead of resending the same request.
+        throw new Error(`${label}: timed out after ${REQUEST_TIMEOUT_MS}ms`);
+      }
       const cause = err?.cause ? (err.cause.code || err.cause.message || String(err.cause)) : null;
-      lastErr = err.name === 'AbortError' ? new Error(`${label}: timed out after ${REQUEST_TIMEOUT_MS}ms`) : err;
+      lastErr = err;
       log(`${label}: network error "${err.message}"${cause ? ` (cause: ${cause})` : ''} on attempt ${attempt}/${MAX_RETRIES + 1}`);
       if (attempt <= MAX_RETRIES) { await sleep(RETRY_DELAYS_MS[attempt - 1]); continue; }
     }
@@ -204,11 +217,24 @@ Use web search to find ${HUNT_COUNT} NEW candidate natural-stone / marble / trav
 Respond with ONLY a JSON array (no markdown fences, no prose) of exactly ${HUNT_COUNT} objects shaped like:
 [{"product": "string", "variant": "string or empty", "category": "string", "rationale": "one sentence, cite what you actually found"}]`;
 
-  const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: SEARCH_BUDGET });
-  log(`Hunter used ${searchesUsed} searches.`);
-  const parsed = extractJson(text);
-  if (!Array.isArray(parsed)) throw new Error('Hunter did not return a JSON array.');
-  return parsed;
+  // Max 2 attempts total: full search budget, then — only if that timed out — one
+  // retry at a reduced budget. A third identical attempt would just repeat the same
+  // failure (see the AbortError comment in fetchWithRetry), so we don't make one.
+  const budgets = [SEARCH_BUDGET, RETRY_SEARCH_BUDGET];
+  let lastErr;
+  for (let i = 0; i < budgets.length; i++) {
+    try {
+      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i] });
+      log(`Hunter used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      const parsed = extractJson(text);
+      if (!Array.isArray(parsed)) throw new Error('Hunter did not return a JSON array.');
+      return parsed;
+    } catch (err) {
+      lastErr = err;
+      log(`Hunter attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
+    }
+  }
+  throw lastErr;
 }
 
 // --- Refresh: pick the N stalest existing opportunities to re-research ------------
@@ -289,11 +315,25 @@ Find: real competitors and their prices, review counts/themes if visible, trend/
 Respond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:
 ${ENRICH_SCHEMA_EXAMPLE}`;
 
-  const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: SEARCH_BUDGET });
-  log(`Enrich("${product}") used ${searchesUsed} searches.`);
-  const parsed = extractJson(text);
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error(`Enrich("${product}") did not return a JSON object.`);
-  return parsed;
+  // Max 2 attempts total: full search budget, then — only if that timed out — one
+  // retry at a reduced budget. If both fail, the caller (main()'s per-candidate try/
+  // catch) marks this candidate failed and moves on; it never blocks the other
+  // candidates or the Pulse synthesis step that follows them.
+  const budgets = [SEARCH_BUDGET, RETRY_SEARCH_BUDGET];
+  let lastErr;
+  for (let i = 0; i < budgets.length; i++) {
+    try {
+      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i] });
+      log(`Enrich("${product}") used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      const parsed = extractJson(text);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error(`Enrich("${product}") did not return a JSON object.`);
+      return parsed;
+    } catch (err) {
+      lastErr = err;
+      log(`Enrich("${product}") attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
+    }
+  }
+  throw lastErr;
 }
 
 // --- Agent 7: Evidence Auditor (plain code) ----------------------------------------
@@ -571,7 +611,14 @@ async function main() {
     candidates = pickStaleForRefresh(radar, REFRESH_COUNT).map((c) => ({ ...c, _source: 'refresh' }));
     log(`Refresh selected ${candidates.length} stalest tier A/B opportunity(ies): ${candidates.map((c) => c.product).join(', ') || '(none — radar has no tier A/B items yet)'}`);
   } else if (MODE === 'daily') {
-    const hunted = (await huntCandidates(knownNames)).map((c) => ({ ...c, _source: 'hunt' }));
+    // Hunter failing (even after its own 2-attempt retry) must not take the whole
+    // daily run down with it — refresh candidates and Pulse synthesis still matter.
+    let hunted = [];
+    try {
+      hunted = (await huntCandidates(knownNames)).map((c) => ({ ...c, _source: 'hunt' }));
+    } catch (err) {
+      log(`Hunter FAILED: ${err.message} — continuing with refresh candidates only.`);
+    }
     const stale = pickStaleForRefresh(radar, REFRESH_COUNT).map((c) => ({ ...c, _source: 'refresh' }));
     candidates = [...hunted, ...stale];
     log(`Daily scan: ${hunted.length} new candidate(s) from Hunter, ${stale.length} stale opportunity(ies) selected for refresh.`);
@@ -617,14 +664,19 @@ async function main() {
     }
     await savePulseBrief({ generatedAt: new Date().toISOString(), radarRun, ...brief });
     log('Pulse brief saved.');
-  }
 
-  // Any failure must fail the job (red), even if some other candidate in the same run
-  // succeeded and got saved above — "success" only means every candidate researched
-  // cleanly. Without this, main() returns normally on an all-failed run and the
-  // process exits 0, which is exactly how GitHub Actions showed this run as green
-  // while nothing was actually saved.
-  if (failed > 0) {
+    // A daily run producing the best brief it can from whatever research succeeded is
+    // the intended, successful outcome now — individual candidate timeouts are
+    // expected and already isolated above, so they must not turn the job red. Only
+    // fail the job if the actual deliverable, the Pulse brief itself, didn't get made.
+    if (brief.synthesisFailed) {
+      throw new Error('Pulse synthesis failed — see logs above. Market Radar data (if any candidates succeeded) was still saved.');
+    }
+  } else if (failed > 0) {
+    // Outside 'daily' mode there's no brief to fall back on — the candidate(s)
+    // researched ARE the deliverable, so any failure must fail the job (red). Without
+    // this, main() returns normally on an all-failed run and exits 0, which is
+    // exactly how GitHub Actions showed a past run as green while nothing was saved.
     throw new Error(`${failed} of ${candidates.length} candidate(s) failed — see logs above for the exact cause.`);
   }
 }
