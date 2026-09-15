@@ -58,7 +58,12 @@ function log(...args) {
 // flagged as changed); the web_search_20260209 tool takes exactly {type, name,
 // max_uses} with no beta header required. None of that was the bug.
 
-const REQUEST_TIMEOUT_MS = 120_000; // web-search-backed calls can run long
+// 120s was measured too short in production: real search-backed research calls
+// (multiple server-side web_search round trips per candidate) routinely exceeded
+// it, so every retry re-sent the identical request at the identical budget and
+// failed identically (confirmed 2026-09-15, run 35019228654 — 4/5 candidates
+// timed out on all 3 attempts). 240s gives real research calls room to finish.
+const REQUEST_TIMEOUT_MS = 240_000;
 const MAX_RETRIES = 2;
 const RETRY_DELAYS_MS = [2000, 5000];
 
