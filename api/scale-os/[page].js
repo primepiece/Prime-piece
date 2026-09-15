@@ -1,13 +1,16 @@
-// Single dynamic handler for every authenticated Scale OS page except login/logout.
-// Consolidated into one function (rather than one file per page) to stay under the
-// Vercel Hobby plan's 12-serverless-function-per-deployment limit alongside the
-// existing storefront api/*.js functions.
+// Single dynamic handler for every authenticated Prime Piece Pulse page except
+// login/logout. Consolidated into one function (rather than one file per page) to
+// stay under the Vercel Hobby plan's 12-serverless-function-per-deployment limit
+// alongside the existing storefront api/*.js functions. (Internally still routed at
+// /scale-os and stored under scale-os/ — renaming the URL path would force every
+// session to log in again for no user-visible benefit; only the product's name and
+// on-page branding changed to Prime Piece Pulse.)
 import { requireAuth, isAuthenticated } from '../../scale-os/lib/auth.js';
 import { renderShell, renderComingSoon } from '../../scale-os/lib/layout.js';
 import { DASHBOARD_STYLE, DASHBOARD_BODY, DASHBOARD_SCRIPT } from '../../scale-os/lib/dashboard.js';
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
 import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
-import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, isStoreConfigured } from '../../scale-os/lib/store.js';
+import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, isStoreConfigured } from '../../scale-os/lib/store.js';
 
 function renderDashboard() {
   return renderShell({
@@ -99,6 +102,9 @@ async function handleProducts(req, res) {
 
 // JSON data API for Market Radar (GET only for V1 — written by the GitHub Actions
 // research worker directly via the same Redis REST API, not through this endpoint).
+// Also carries the daily Pulse brief (same worker, 'daily' mode) so the Dashboard
+// can render Today's Pulse / Next $1,000 / Today's 3 Moves from one fetch, without
+// a second API route.
 async function handleRadarData(req, res) {
   if (!isStoreConfigured()) {
     return res.status(500).json({
@@ -110,8 +116,8 @@ async function handleRadarData(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   try {
-    const opportunities = await getRadarOpportunities();
-    return res.status(200).json({ opportunities });
+    const [opportunities, pulse] = await Promise.all([getRadarOpportunities(), getPulseBrief()]);
+    return res.status(200).json({ opportunities, pulse });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -165,6 +171,6 @@ export default async function handler(req, res) {
   return res.status(404).send(renderShell({
     title: 'Not found',
     activeKey: '',
-    bodyHtml: '<h1>Not found</h1><p class="page-sub">That Scale OS page does not exist.</p>',
+    bodyHtml: '<h1>Not found</h1><p class="page-sub">That Prime Piece Pulse page does not exist.</p>',
   }));
 }

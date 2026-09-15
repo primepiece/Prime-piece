@@ -26,7 +26,7 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts } from '../../scale-os/lib/store.js';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief } from '../../scale-os/lib/store.js';
 import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
@@ -41,8 +41,9 @@ const EVIDENCE_TYPES = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumptio
 const DIMENSION_KEYS = Object.keys(SCORE_WEIGHTS);
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate'
+const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
+const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
 const DRY_RUN = process.env.RADAR_DRY_RUN === '1' || process.env.RADAR_DRY_RUN === 'true';
 
@@ -107,9 +108,22 @@ async function fetchWithRetry(url, options, label) {
   throw lastErr;
 }
 
-async function callClaude({ system, prompt, maxSearches }) {
+// maxSearches omitted (undefined) -> no web_search tool attached at all, for calls
+// that only need to reason over data already given to them (the Pulse synthesis
+// call) rather than research the web — cheaper and keeps that call's intent honest.
+async function callClaude({ system, prompt, maxSearches, maxTokens }) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not set — required for anything other than RADAR_DRY_RUN=1.');
+
+  const body = {
+    model: MODEL,
+    max_tokens: maxTokens || 8000,
+    system,
+    messages: [{ role: 'user', content: prompt }],
+  };
+  if (maxSearches) {
+    body.tools = [{ type: 'web_search_20260209', name: 'web_search', max_uses: maxSearches }];
+  }
 
   const res = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -118,13 +132,7 @@ async function callClaude({ system, prompt, maxSearches }) {
       'anthropic-version': ANTHROPIC_VERSION,
       'content-type': 'application/json',
     },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: 8000,
-      system,
-      messages: [{ role: 'user', content: prompt }],
-      tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: maxSearches }],
-    }),
+    body: JSON.stringify(body),
   }, 'Anthropic API');
 
   const bodyText = await res.text();
@@ -196,6 +204,22 @@ Respond with ONLY a JSON array (no markdown fences, no prose) of exactly ${HUNT_
   const parsed = extractJson(text);
   if (!Array.isArray(parsed)) throw new Error('Hunter did not return a JSON array.');
   return parsed;
+}
+
+// --- Refresh: pick the N stalest existing opportunities to re-research ------------
+// This is what makes trend direction, score-change and confidence-change data real
+// over time — 'hunt' mode only ever finds brand-new items (it's explicitly told to
+// avoid duplicates), so without this, nothing already on the radar would ever be
+// revisited and "Biggest Movers" would have nothing to show. Tier A/B only (Kill/C
+// tier isn't worth repeat spend), sorted by lastResearched ascending so the whole
+// list rotates through coverage over time regardless of how large it grows.
+export function pickStaleForRefresh(radar, count) {
+  return radar
+    .filter((o) => o.tier === 'A' || o.tier === 'B')
+    .slice()
+    .sort((a, b) => (a.lastResearched || '0000-00-00').localeCompare(b.lastResearched || '0000-00-00'))
+    .slice(0, count)
+    .map((o) => ({ product: o.product, variant: o.variant || '', category: o.category || '' }));
 }
 
 // --- Agents 2-6 (combined): Competitor Scout / Trend Scanner / Review Miner /
@@ -341,13 +365,34 @@ function nextRadarId(list) {
   return 'radar_' + String(max + 1).padStart(3, '0');
 }
 
+// Finds the single scoreBreakdown dimension that moved the most between two scans
+// and returns a short human-readable clause using that dimension's own "why" text —
+// this is what turns "score 40->75" into an actual explanation of why, without a
+// second Claude call: the "why" text was already produced by the enrichment call
+// that generated the new scoreBreakdown, this just picks the most relevant one.
+export function biggestDimensionShift(oldBreakdown, newBreakdown) {
+  if (!oldBreakdown || !newBreakdown) return null;
+  let best = null;
+  for (const key of DIMENSION_KEYS) {
+    const oldVal = oldBreakdown[key]?.score;
+    const newVal = newBreakdown[key]?.score;
+    if (typeof oldVal !== 'number' || typeof newVal !== 'number') continue;
+    const delta = newVal - oldVal;
+    if (Math.abs(delta) < 10) continue; // ignore noise-level moves
+    if (!best || Math.abs(delta) > Math.abs(best.delta)) best = { key, delta, oldVal, newVal, why: newBreakdown[key]?.why };
+  }
+  if (!best) return null;
+  const arrow = best.delta > 0 ? '↑' : '↓';
+  return `${best.key} ${best.oldVal}${arrow}${best.newVal}${best.why ? ` (${best.why})` : ''}`;
+}
+
 export function mergeIntoRadar(list, ranked, note) {
   const { independentSourceCount, evidenceTags, disqualifiers, evidenceGap, ...item } = ranked;
-  const historyEntry = { scanDate: TODAY, score: item.opportunityScore, confidence: item.confidenceScore, priceRange: item.priceBand, reviewCount: null, note };
 
   const idx = list.findIndex((o) => o.product.toLowerCase() === item.product.toLowerCase() && (o.variant || '').toLowerCase() === (item.variant || '').toLowerCase());
 
   if (idx === -1) {
+    const historyEntry = { scanDate: TODAY, score: item.opportunityScore, confidence: item.confidenceScore, priceRange: item.priceBand, reviewCount: null, note };
     const history = [historyEntry];
     const created = { id: nextRadarId(list), ...item, trendDirection: trendDirectionFromHistory(history), firstSeen: TODAY, lastResearched: TODAY, history, promotedToProductLab: false };
     list.push(created);
@@ -355,6 +400,8 @@ export function mergeIntoRadar(list, ranked, note) {
   }
 
   const existing = list[idx];
+  const shift = biggestDimensionShift(existing.scoreBreakdown, item.scoreBreakdown);
+  const historyEntry = { scanDate: TODAY, score: item.opportunityScore, confidence: item.confidenceScore, priceRange: item.priceBand, reviewCount: null, note: shift ? `${note} — ${shift}` : note };
   const history = [...(existing.history || []), historyEntry];
   const updated = {
     ...existing, ...item, id: existing.id,
@@ -364,6 +411,136 @@ export function mergeIntoRadar(list, ranked, note) {
   };
   list[idx] = updated;
   return { action: 'updated', item: updated };
+}
+
+// --- Pulse synthesis (one plain Claude call, no web search, no invented facts) ----
+// Runs once at the end of a 'daily' scan, after Market Radar has already been
+// refreshed — never on Dashboard load. Given only the structured data we already
+// have (never re-researches anything itself), it must say "not recorded" rather
+// than guess when a field is missing. This is deliberately NOT a Vercel function —
+// it runs inside this same GitHub Actions worker and writes straight to Redis via
+// store.js, exactly like the rest of this script.
+
+function num(v) {
+  if (v === '' || v === null || v === undefined) return null;
+  const n = Number(v);
+  return Number.isNaN(n) ? null : n;
+}
+
+// Same 8-area score + landed-cost/margin math as scale-os/lib/product-lab.js and
+// dashboard.js — duplicated on purpose (this script has no access to client-side
+// inline-script code, and there's no shared-JS mechanism in this codebase) so the
+// number Pulse talks about is always the same number Dashboard shows.
+export function productEconomics(p) {
+  const supplierCost = num(p.supplierCost), freightCost = num(p.freightCost), sellingPrice = num(p.sellingPrice);
+  const packagingCost = num(p.packagingCost), fulfilmentFreightCost = num(p.fulfilmentFreightCost);
+  const paymentFeesCost = num(p.paymentFeesCost), damageReturnsAllowance = num(p.damageReturnsAllowance);
+  const totalLandedCost = (supplierCost !== null || freightCost !== null) ? (supplierCost || 0) + (freightCost || 0) : null;
+  const grossMarginPct = (totalLandedCost !== null && sellingPrice) ? ((sellingPrice - totalLandedCost) / sellingPrice) * 100 : null;
+  const landedCostPctOfRetail = (totalLandedCost !== null && sellingPrice) ? (totalLandedCost / sellingPrice) * 100 : null;
+  const inputs = [sellingPrice, supplierCost, freightCost, packagingCost, fulfilmentFreightCost, paymentFeesCost, damageReturnsAllowance];
+  const contributionComplete = inputs.every((v) => v !== null);
+  const contributionMarginPct = contributionComplete
+    ? ((sellingPrice - supplierCost - freightCost - packagingCost - fulfilmentFreightCost - paymentFeesCost - damageReturnsAllowance) / sellingPrice) * 100
+    : null;
+  return { sellingPrice, totalLandedCost, grossMarginPct, landedCostPctOfRetail, contributionMarginPct };
+}
+
+const SCORE_AREA_GETTERS = [
+  (p, econ) => { const m = econ.contributionMarginPct; return m === null ? null : m < 0 ? 1 : m < 15 ? 2 : m < 30 ? 3 : m < 45 ? 4 : 5; },
+  (p) => num(p.me_apparentMarketDemand),
+  (p) => num(p.differentiation),
+  (p) => num(p.contentPotential),
+  (p) => { const v = num(p.freightRisk); return v === null ? null : 6 - v; },
+  (p) => { const v = num(p.damageRisk); return v === null ? null : 6 - v; },
+  (p) => num(p.tradePotential),
+  (p) => { const v = num(p.competition); return v === null ? null : 6 - v; },
+];
+export function primeOpportunityScore(p) {
+  const econ = productEconomics(p);
+  let sum = 0, count = 0;
+  for (const get of SCORE_AREA_GETTERS) {
+    const v = get(p, econ);
+    if (v === null) continue;
+    sum += (v / 5) * 100;
+    count++;
+  }
+  return count ? Math.round(sum / count) : null;
+}
+
+export function buildSynthesisContext(products, radar) {
+  const notKilled = (p) => p.status !== 'KILL';
+  const perf = (p) => ({
+    period: p.perf_periodLabel || null,
+    revenue: num(p.perf_revenue),
+    unitsSold: num(p.perf_unitsSold),
+    sessions: num(p.perf_sessions),
+    conversionRatePct: num(p.perf_conversionRate),
+    adSpend: num(p.perf_adSpend),
+    preordersOrEnquiries: num(p.perf_preordersOrEnquiries),
+    preorderRevenue: num(p.perf_preorderRevenue),
+    currentStock: p.perf_currentStock || null,
+    founderRecordedNextAction: p.perf_nextAction || null,
+  });
+
+  const activeProducts = products.filter((p) => p.priorityLane === 'Active' && notKilled(p)).map((p) => ({
+    name: p.name, tier: p.tier || null, stage: p.status, unitEconomics: productEconomics(p), performance: perf(p),
+  }));
+  const researchCandidates = products.filter((p) => p.priorityLane === 'Research Candidate' && notKilled(p)).map((p) => ({
+    name: p.name, tier: p.tier || null, stage: p.status, primeOpportunityScore: primeOpportunityScore(p),
+    unitEconomics: productEconomics(p), keyTakeaway: p.me_keyTakeaway || null, performance: perf(p),
+  }));
+  const maintainProducts = products.filter((p) => p.priorityLane === 'Maintain' && notKilled(p)).map((p) => ({ name: p.name, tier: p.tier || null, stage: p.status }));
+  const recentlyKilledProducts = products.filter((p) => p.status === 'KILL').slice(-5).map((p) => ({ name: p.name, reason: p.notes || null }));
+  const recentlyKilledRadarItems = radar.filter((r) => r.tier === 'Kill').slice(-5).map((r) => ({ name: r.product, reason: (r.disqualifiers || []).join('; ') || null }));
+
+  const notPromoted = (r) => !r.promotedToProductLab;
+  const topOpportunities = radar.filter((r) => notPromoted(r) && r.tier !== 'Kill')
+    .slice().sort((a, b) => (b.opportunityScore || 0) - (a.opportunityScore || 0)).slice(0, 5)
+    .map((r) => ({ name: r.product, variant: r.variant || null, opportunityScore: r.opportunityScore, confidenceScore: r.confidenceScore, tier: r.tier, trendDirection: r.trendDirection, mainMarket: r.mainMarket || null, estimatedRetail: r.economicsPotential?.retailPriceRangeEstimate || null }));
+
+  const movers = radar.filter((r) => (r.history || []).length >= 2).map((r) => {
+    const [prev, cur] = r.history.slice(-2);
+    const delta = (cur.score ?? null) !== null && (prev.score ?? null) !== null ? cur.score - prev.score : null;
+    return { name: r.product, variant: r.variant || null, previousScore: prev.score, newScore: cur.score, scoreDelta: delta, trendDirection: r.trendDirection, whatChanged: cur.note || null };
+  }).filter((m) => m.scoreDelta !== null && Math.abs(m.scoreDelta) >= 5)
+    .sort((a, b) => Math.abs(b.scoreDelta) - Math.abs(a.scoreDelta)).slice(0, 5);
+
+  const newThisRun = radar.filter((r) => r.firstSeen === TODAY && (r.history || []).length === 1)
+    .slice().sort((a, b) => (b.opportunityScore || 0) - (a.opportunityScore || 0)).slice(0, 5)
+    .map((r) => ({ name: r.product, variant: r.variant || null, opportunityScore: r.opportunityScore, tier: r.tier, mainMarket: r.mainMarket || null }));
+
+  return { activeProducts, researchCandidates, maintainProducts, recentlyKilledProducts, recentlyKilledRadarItems, topOpportunities, movers, newThisRun };
+}
+
+const SYNTHESIS_SCHEMA_EXAMPLE = `{
+  "pulseBullets": ["max 5 short plain-English bullets — what matters most today, most important first"],
+  "nextThousand": {"recommendation": "one short sentence: the single best use of Prime Piece's next $1,000", "rationale": "1-3 sentences, grounded only in the data given"},
+  "threeMoves": ["exactly 3 specific, concrete actions for today"],
+  "missingDataWarnings": ["one sentence per important gap that limits confidence — empty array if nothing important is missing"]
+}`;
+
+export async function synthesizeBrief(context) {
+  if (DRY_RUN) {
+    log('DRY RUN — skipping real synthesis call, using a fixture brief.');
+    return {
+      pulseBullets: ['Dry-run fixture — no real synthesis performed.'],
+      nextThousand: { recommendation: 'Dry-run fixture.', rationale: 'Dry-run fixture.' },
+      threeMoves: ['Dry-run fixture.', 'Dry-run fixture.', 'Dry-run fixture.'],
+      missingDataWarnings: [],
+    };
+  }
+
+  const system = 'You are writing Prime Piece\'s daily executive brief. Prime Piece is a premium NZ natural-stone (marble/travertine) ecommerce brand with a HALO ($1,500-$8,000+ one-of-one) / CORE ($299-$1,200 repeatable, the primary scaling layer) / ENTRY ($99-$299 acquisition) product architecture, and a policy of at most one active CORE launch/test at a time. You are given ONLY real structured data below — never invent a name, number, score, or fact not present in it. A null field or empty array means that information is genuinely not recorded — say so explicitly in missingDataWarnings rather than guessing or filling the gap with something plausible-sounding. Be concise and decision-oriented, never generic AI commentary. Never recommend a large speculative inventory order based on a Market Radar score alone — that score reflects market opportunity, not proof Prime Piece should hold stock.';
+  const prompt = `Here is today's Prime Piece data:\n${JSON.stringify(context, null, 0)}\n\nRespond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:\n${SYNTHESIS_SCHEMA_EXAMPLE}`;
+
+  const { text } = await callClaude({ system, prompt, maxTokens: 2000 });
+  const parsed = extractJson(text);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Synthesis did not return a JSON object.');
+  if (!Array.isArray(parsed.pulseBullets) || !Array.isArray(parsed.threeMoves) || !Array.isArray(parsed.missingDataWarnings) || !parsed.nextThousand) {
+    throw new Error('Synthesis JSON is missing an expected field.');
+  }
+  return parsed;
 }
 
 // --- Main ---------------------------------------------------------------------------
@@ -377,15 +554,24 @@ async function main() {
     ...products.map((p) => p.name),
   ];
 
+  const NOTE_BY_SOURCE = { hunt: 'Automated Hunter scan', refresh: 'Scheduled refresh scan', candidate: 'Manual candidate refresh' };
   let candidates;
   if (MODE === 'candidate') {
     const raw = process.env.RADAR_CANDIDATE;
     if (!raw) throw new Error('RADAR_MODE=candidate requires RADAR_CANDIDATE="Product Name|Variant|Category" (variant/category optional).');
     const [product, variant, category] = raw.split('|').map((s) => (s || '').trim());
     if (!product) throw new Error('RADAR_CANDIDATE must include at least a product name.');
-    candidates = [{ product, variant, category }];
+    candidates = [{ product, variant, category, _source: 'candidate' }];
+  } else if (MODE === 'refresh') {
+    candidates = pickStaleForRefresh(radar, REFRESH_COUNT).map((c) => ({ ...c, _source: 'refresh' }));
+    log(`Refresh selected ${candidates.length} stalest tier A/B opportunity(ies): ${candidates.map((c) => c.product).join(', ') || '(none — radar has no tier A/B items yet)'}`);
+  } else if (MODE === 'daily') {
+    const hunted = (await huntCandidates(knownNames)).map((c) => ({ ...c, _source: 'hunt' }));
+    const stale = pickStaleForRefresh(radar, REFRESH_COUNT).map((c) => ({ ...c, _source: 'refresh' }));
+    candidates = [...hunted, ...stale];
+    log(`Daily scan: ${hunted.length} new candidate(s) from Hunter, ${stale.length} stale opportunity(ies) selected for refresh.`);
   } else {
-    candidates = await huntCandidates(knownNames);
+    candidates = (await huntCandidates(knownNames)).map((c) => ({ ...c, _source: 'hunt' }));
     log(`Hunter found ${candidates.length} candidate(s): ${candidates.map((c) => c.product).join(', ')}`);
   }
 
@@ -395,7 +581,7 @@ async function main() {
       const raw = await enrichCandidate(candidate);
       const audited = auditRaw(raw);
       const ranked = rankAudited(audited);
-      const note = MODE === 'candidate' ? 'Manual candidate refresh' : 'Automated Hunter scan';
+      const note = NOTE_BY_SOURCE[candidate._source] || 'Automated scan';
       const result = mergeIntoRadar(radar, ranked, note);
       if (result.action === 'created') created++; else updated++;
       log(`${result.action === 'created' ? 'Created' : 'Updated'} "${result.item.product}" — score ${result.item.opportunityScore}, confidence ${result.item.confidenceScore}, tier ${result.item.tier}${ranked.evidenceGap ? ' (evidence gap — no real sources found)' : ''}`);
@@ -410,6 +596,22 @@ async function main() {
     log(`Saved. ${created} created, ${updated} updated, ${failed} failed.`);
   } else {
     log(`Nothing to save. ${failed} failed.`);
+  }
+
+  if (MODE === 'daily') {
+    const radarRun = { mode: MODE, created, updated, failed, huntCount: HUNT_COUNT, refreshCount: REFRESH_COUNT };
+    let brief;
+    try {
+      const freshProducts = await getProducts();
+      const context = buildSynthesisContext(freshProducts, radar);
+      brief = await synthesizeBrief(context);
+      log('Pulse synthesis succeeded.');
+    } catch (err) {
+      log(`Pulse synthesis FAILED (radar data above was still saved successfully): ${err.message}`);
+      brief = { pulseBullets: [], nextThousand: null, threeMoves: [], missingDataWarnings: ['Today\'s synthesis call failed — see the GitHub Actions run log for the underlying Market Radar data, which updated successfully.'], synthesisFailed: true };
+    }
+    await savePulseBrief({ generatedAt: new Date().toISOString(), radarRun, ...brief });
+    log('Pulse brief saved.');
   }
 
   // Any failure must fail the job (red), even if some other candidate in the same run

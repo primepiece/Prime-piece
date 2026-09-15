@@ -1,15 +1,22 @@
-// Dashboard: Prime Piece's overall Scale OS command centre. Market Intelligence /
-// Product Pipeline is one function of this page, not a separate system — it reads the
-// same Product Lab and Market Radar data those two pages already own (via their
-// existing /api/scale-os/products and /api/scale-os/radar-data endpoints) and
-// aggregates it client-side, exactly like every other Scale OS page does. No new
-// storage key, no new API route, no new serverless function.
+// Dashboard: Prime Piece Pulse's command centre. Market Intelligence / Product
+// Pipeline is one function of this page, not a separate system — it reads the same
+// Product Lab and Market Radar data those two pages already own (via their existing
+// /api/scale-os/products and /api/scale-os/radar-data endpoints), plus the daily
+// Pulse brief written by the scheduled Market Radar worker (scripts/market-radar/
+// run.mjs, 'daily' mode) into a new Redis key read through that same radar-data
+// endpoint. Everything here is either aggregated client-side from existing data or
+// read as an already-generated brief — this page never calls Claude itself, so
+// opening it is always instant and never costs an API call. No new API route, no
+// new serverless function.
 //
-// Answers three questions, in this order, because that's the order James actually
-// needs them in:
-//   1. WHAT IS MAKING MONEY NOW?      -> Current Money Maker (priorityLane = Active)
-//   2. WHAT SHOULD GET THE NEXT $1,000? -> Next Product Candidate
-//   3. WHAT SHOULD I IGNORE?          -> Kill List + Maintain (steady-state) list
+// Meant to answer, within 60 seconds of opening it:
+//   1. What is making money now?        -> Current Money Maker (priorityLane = Active)
+//   2. What's happening globally?       -> Top 5 Global Opportunities, Biggest Movers
+//   3. What's beginning to trend?       -> Biggest Movers, Today's Pulse
+//   4. What's genuinely relevant to us? -> Next Product Candidate
+//   5. What deserves the next $1,000?   -> Next $1,000 (from the daily Pulse brief)
+//   6. What should I ignore?            -> Kill List + Maintain (steady-state) list
+//   7. What are today's 3 actions?      -> Today's 3 Moves (from the daily Pulse brief)
 
 export const DASHBOARD_STYLE = `
   .warn-banner {
@@ -58,17 +65,34 @@ export const DASHBOARD_STYLE = `
   .signal-row:last-child { border-bottom: none; }
   .signal-name { font-weight: 600; }
   .signal-meta { color: var(--muted); font-size: 11.5px; }
+  .freshness-line { font-size: 11.5px; color: var(--muted); margin-bottom: 14px; }
+  .pulse-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .pulse-list li { font-size: 13.5px; line-height: 1.5; padding-left: 18px; position: relative; }
+  .pulse-list li::before { content: "—"; position: absolute; left: 0; color: var(--teal-dark); }
+  .moves-list { list-style: none; margin: 0; padding: 0; counter-reset: move; display: flex; flex-direction: column; gap: 10px; }
+  .moves-list li { font-size: 13.5px; line-height: 1.5; padding-left: 26px; position: relative; counter-increment: move; }
+  .moves-list li::before { content: counter(move); position: absolute; left: 0; top: -1px; width: 18px; height: 18px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 10.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .missing-data-note { margin-top: 10px; font-size: 11.5px; color: #A05B44; }
+  .mover-up { color: #2E7D4F; font-weight: 700; }
+  .mover-down { color: var(--red); font-weight: 700; }
 `;
 
 export const DASHBOARD_BODY = `
-  <h1>Dashboard</h1>
-  <p class="page-sub">Prime Piece's command centre — what's making money, what's next, and what to leave alone.</p>
+  <h1>Prime Piece Pulse</h1>
+  <p class="page-sub">What's making money, what's happening globally, what deserves capital, and what to do today — in 60 seconds.</p>
 
   <div id="loadingState" class="empty-note">Loading…</div>
   <div id="loadErrorState" class="empty-note" style="display:none;"></div>
 
   <div id="dashContent" style="display:none;">
+    <div id="freshnessLine" class="freshness-line"></div>
+    <div id="staleWarning" class="warn-banner" style="display:none;"></div>
     <div id="coreWarning" class="warn-banner" style="display:none;"></div>
+
+    <div class="section">
+      <div class="section-head"><div class="section-title">Today's Pulse</div></div>
+      <div id="pulseBody"></div>
+    </div>
 
     <div class="section">
       <div class="section-head"><div><div class="section-q">What is making money now?</div><div class="section-title">Current Money Maker</div></div></div>
@@ -76,8 +100,24 @@ export const DASHBOARD_BODY = `
     </div>
 
     <div class="section">
-      <div class="section-head"><div><div class="section-q">What should get the next $1,000?</div><div class="section-title">Next Product Candidate</div></div></div>
+      <div class="section-head"><div><div class="section-q">What deserves the next $1,000?</div><div class="section-title">Next Product Candidate</div></div></div>
       <div id="nextCandidateBody"></div>
+      <div id="nextThousandBody"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><div class="section-title">Today's 3 Moves</div></div>
+      <div id="movesBody"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><div class="section-title">Top 5 Global Opportunities</div><a class="section-link" href="/scale-os/radar">Open Market Radar →</a></div>
+      <div id="topGlobalBody"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><div class="section-title">Biggest Movers</div></div>
+      <div id="moversBody"></div>
     </div>
 
     <div class="section">
@@ -88,11 +128,6 @@ export const DASHBOARD_BODY = `
     <div class="section">
       <div class="section-head"><div class="section-title">Product Pipeline</div><a class="section-link" href="/scale-os/product-lab">Open Product Lab →</a></div>
       <div id="pipelineBody"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-head"><div class="section-title">Market Signals</div><a class="section-link" href="/scale-os/radar">Open Market Radar →</a></div>
-      <div id="signalsBody"></div>
     </div>
 
     <div class="section">
@@ -355,18 +390,114 @@ export const DASHBOARD_SCRIPT = `
       }).join('') + '</tbody></table></div>';
   }
 
-  // --- Market Signals ---------------------------------------------------------
-  function renderSignals(radar) {
-    var el = document.getElementById('signalsBody');
-    var signals = (radar || [])
-      .filter(function (r) { return !r.promotedToProductLab && r.tier !== 'Kill' && /^(Rising|New)/.test(r.trendDirection || '') && (r.tier === 'A' || r.tier === 'B'); })
-      .sort(function (a, b) { return (b.opportunityScore || 0) - (a.opportunityScore || 0); })
+  // --- Top 5 Global Opportunities ------------------------------------------------
+  // Enough detail to understand what's happening globally without opening Market
+  // Radar: product, score, trend, confidence, market, estimated NZ retail, why it
+  // matters, and stage (the linked Product Lab stage if promoted, else the worker's
+  // own recommended next action as a stand-in "stage" for anything not yet promoted).
+  function renderTopGlobal(radar, products) {
+    var el = document.getElementById('topGlobalBody');
+    var byId = {};
+    products.forEach(function (p) { byId[p.id] = p; });
+    var top = (radar || [])
+      .filter(function (r) { return r.tier !== 'Kill'; })
+      .slice().sort(function (a, b) { return (b.opportunityScore || 0) - (a.opportunityScore || 0); })
+      .slice(0, 5);
+    if (!top.length) { el.innerHTML = '<p class="empty-note">Nothing on Market Radar yet.</p>'; return; }
+    el.innerHTML = '<div class="mini-table-wrap"><table class="mini"><thead><tr>' +
+      '<th>Product / category</th><th>Score</th><th>Trend</th><th>Confidence</th><th>Market</th><th>Est. NZ retail</th><th>Why it matters</th><th>Stage</th>' +
+      '</tr></thead><tbody>' +
+      top.map(function (r) {
+        var stage = r.promotedToProductLab && byId[r.productLabId] ? escapeText(byId[r.productLabId].status) : escapeText(r.recommendedNextAction || 'Not yet promoted');
+        var retail = (r.economicsPotential && r.economicsPotential.retailPriceRangeEstimate) || (r.priceBand ? (r.priceBand.currency || '') + (r.priceBand.low != null ? r.priceBand.low : '?') + '–' + (r.priceBand.high != null ? r.priceBand.high : '?') : '—');
+        var why = (r.marketGap && r.marketGap.description) || '—';
+        return '<tr><td>' + escapeText(r.product) + (r.variant ? ' — ' + escapeText(r.variant) : '') + '</td><td>' + (r.opportunityScore != null ? r.opportunityScore : '—') +
+          '</td><td>' + escapeText(r.trendDirection || '—') + '</td><td>' + (r.confidenceScore != null ? r.confidenceScore : '—') + '</td><td>' + escapeText(r.mainMarket || '—') +
+          '</td><td>' + escapeText(retail) + '</td><td>' + escapeText(why.length > 90 ? why.slice(0, 90) + '…' : why) + '</td><td>' + stage + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+
+  // --- Biggest Movers -------------------------------------------------------------
+  // Only opportunities whose score has actually moved meaningfully since the
+  // previous scan (>=5 points) — needs Market Radar's 'refresh' scans to actually
+  // revisit existing items over time, otherwise nothing here would ever move.
+  function renderMovers(radar) {
+    var el = document.getElementById('moversBody');
+    var movers = (radar || []).filter(function (r) { return (r.history || []).length >= 2; }).map(function (r) {
+      var h = r.history;
+      var prev = h[h.length - 2], cur = h[h.length - 1];
+      var delta = (cur.score != null && prev.score != null) ? cur.score - prev.score : null;
+      return { name: r.product, variant: r.variant, delta: delta, newScore: cur.score, note: cur.note };
+    }).filter(function (m) { return m.delta !== null && Math.abs(m.delta) >= 5; })
+      .sort(function (a, b) { return Math.abs(b.delta) - Math.abs(a.delta); })
       .slice(0, 8);
-    if (!signals.length) { el.innerHTML = '<p class="empty-note">No new Rising/tier A-B signals right now — check Market Radar for the full universe.</p>'; return; }
-    el.innerHTML = signals.map(function (r) {
-      return '<div class="signal-row"><span class="signal-name">' + escapeText(r.product) + (r.variant ? ' — ' + escapeText(r.variant) : '') + '</span>' +
-        '<span class="signal-meta">' + escapeText(r.trendDirection || '') + ' · Score ' + (r.opportunityScore != null ? r.opportunityScore : '—') + ' · Tier ' + escapeText(r.tier) + ' · ' + escapeText(r.mainMarket || '') + '</span></div>';
+    if (!movers.length) { el.innerHTML = '<p class="empty-note">No opportunity has moved meaningfully since its last scan.</p>'; return; }
+    el.innerHTML = movers.map(function (m) {
+      var cls = m.delta > 0 ? 'mover-up' : 'mover-down';
+      var arrow = m.delta > 0 ? '↑' : '↓';
+      return '<div class="signal-row"><span class="signal-name">' + escapeText(m.name) + (m.variant ? ' — ' + escapeText(m.variant) : '') + ' <span class="' + cls + '">' + arrow + ' ' + Math.abs(m.delta) + '</span></span>' +
+        '<span class="signal-meta">now ' + m.newScore + (m.note ? ' · ' + escapeText(m.note) : '') + '</span></div>';
     }).join('');
+  }
+
+  // --- Today's Pulse / Next $1,000 / Today's 3 Moves (AI-synthesized, stored) -----
+  // These three read a brief generated once per day by the scheduled Market Radar
+  // worker (scripts/market-radar/run.mjs, 'daily' mode) and stored in Redis — the
+  // Dashboard never calls Claude itself, so opening this page is always instant and
+  // never costs an API call.
+  function renderPulse(pulse) {
+    var el = document.getElementById('pulseBody');
+    if (!pulse) { el.innerHTML = '<p class="empty-note">No Pulse brief yet — it\\'s generated by the first scheduled Market Radar run (or run mode=daily by hand in GitHub Actions).</p>'; return; }
+    if (pulse.synthesisFailed) {
+      el.innerHTML = '<p class="empty-note">Today\\'s synthesis call failed. Market Radar data itself still updated — see Top 5 Global Opportunities and Biggest Movers below, and the GitHub Actions run log for what went wrong.</p>';
+      return;
+    }
+    var bullets = (pulse.pulseBullets || []).map(function (b) { return '<li>' + escapeText(b) + '</li>'; }).join('');
+    var warnings = (pulse.missingDataWarnings || []).length
+      ? '<div class="missing-data-note">Missing data: ' + (pulse.missingDataWarnings || []).map(escapeText).join(' · ') + '</div>'
+      : '';
+    el.innerHTML = '<ul class="pulse-list">' + (bullets || '<li>Nothing notable today.</li>') + '</ul>' + warnings;
+  }
+
+  function renderNextThousand(pulse) {
+    var el = document.getElementById('nextThousandBody');
+    if (!pulse || !pulse.nextThousand || pulse.synthesisFailed) { el.innerHTML = ''; return; }
+    el.innerHTML = '<div class="next-action-box" style="margin-top:10px;"><span class="k">Next $1,000</span>' + escapeText(pulse.nextThousand.recommendation) +
+      (pulse.nextThousand.rationale ? '<div style="margin-top:6px;color:var(--muted);font-size:12px;">' + escapeText(pulse.nextThousand.rationale) + '</div>' : '') + '</div>';
+  }
+
+  function renderMoves(pulse) {
+    var el = document.getElementById('movesBody');
+    if (!pulse || !(pulse.threeMoves || []).length || pulse.synthesisFailed) {
+      el.innerHTML = '<p class="empty-note">No moves generated yet — comes from the same daily Pulse brief as Today\\'s Pulse above.</p>';
+      return;
+    }
+    el.innerHTML = '<ol class="moves-list">' + pulse.threeMoves.map(function (m) { return '<li>' + escapeText(m) + '</li>'; }).join('') + '</ol>';
+  }
+
+  function renderFreshness(pulse) {
+    var line = document.getElementById('freshnessLine');
+    var warnEl = document.getElementById('staleWarning');
+    if (!pulse || !pulse.generatedAt) {
+      line.textContent = 'Last updated: never — Prime Piece Pulse has not completed a scheduled run yet.';
+      warnEl.style.display = 'block';
+      warnEl.innerHTML = '<strong>No Pulse data yet.</strong> Trigger the Market Radar workflow by hand (mode=daily) in GitHub Actions, or wait for the next scheduled run.';
+      return;
+    }
+    var generated = new Date(pulse.generatedAt);
+    var ageHours = (Date.now() - generated.getTime()) / 36e5;
+    var dateLabel = generated.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+    var runInfo = pulse.radarRun ? (' · Market Radar: ' + pulse.radarRun.created + ' created, ' + pulse.radarRun.updated + ' updated' + (pulse.radarRun.failed ? ', ' + pulse.radarRun.failed + ' failed' : '')) : '';
+    line.textContent = 'Last updated: ' + dateLabel + runInfo;
+    if (ageHours > 36) {
+      warnEl.style.display = 'block';
+      warnEl.innerHTML = '<strong>This data is stale (' + Math.round(ageHours) + ' hours old).</strong> Market Radar has not completed a scheduled run recently — check the GitHub Actions workflow.';
+    } else if (pulse.radarRun && pulse.radarRun.failed > 0) {
+      warnEl.style.display = 'block';
+      warnEl.innerHTML = '<strong>' + pulse.radarRun.failed + ' candidate(s) failed to research on the last run.</strong> Check the GitHub Actions run log — the rest of this data is still current.';
+    } else {
+      warnEl.style.display = 'none';
+    }
   }
 
   // --- Unit Economics -----------------------------------------------------------
@@ -397,13 +528,18 @@ export const DASHBOARD_SCRIPT = `
       }).join('') + '</tbody></table></div>';
   }
 
-  function renderAll(products, radar) {
+  function renderAll(products, radar, pulse) {
+    renderFreshness(pulse);
     renderCoreWarning(products);
+    renderPulse(pulse);
     renderMoneyMaker(products);
     renderNextCandidate(products, radar);
+    renderNextThousand(pulse);
+    renderMoves(pulse);
+    renderTopGlobal(radar, products);
+    renderMovers(radar);
     renderIgnore(products, radar);
     renderPipeline(products);
-    renderSignals(radar);
     renderEconomics(products);
     renderValidation(products);
   }
@@ -425,9 +561,10 @@ export const DASHBOARD_SCRIPT = `
     .then(function (results) {
       var products = results[0].products || [];
       var radar = results[1].opportunities || [];
+      var pulse = results[1].pulse || null;
       document.getElementById('loadingState').style.display = 'none';
       document.getElementById('dashContent').style.display = 'block';
-      renderAll(products, radar);
+      renderAll(products, radar, pulse);
     })
     .catch(function (err) {
       document.getElementById('loadingState').style.display = 'none';

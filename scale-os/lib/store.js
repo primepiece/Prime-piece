@@ -11,6 +11,7 @@
 
 const PRODUCTS_KEY = 'scale_os:products:v1';
 const RADAR_KEY = 'scale_os:radar:v1';
+const PULSE_KEY = 'scale_os:pulse:v1';
 
 function credentials() {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -120,6 +121,70 @@ function migrateStatuses(products) {
   return changed;
 }
 
+// --- One-time priority tagging (tier / priorityLane / status) for the 5 known
+// Prime Piece priority products ---
+//
+// This was deliberately NOT built as a fuzzy-matcher. No sandbox this was developed
+// in ever had network access or credentials to the real production Redis database
+// to see actual row names first — so instead of guessing at spelling variations,
+// this ships with an explicit, reviewable alias list (exact match only, after
+// trim + case-fold) that starts out covering only the canonical names themselves.
+// Every run reports, via console.log (visible in Vercel function logs and in the
+// GitHub Actions worker's own log), exactly which of the 5 targets matched and
+// which did not — so an unmatched target is surfaced for a human to extend the
+// alias list with the real name, never guessed at silently.
+//
+// Marker-based, not condition-based: once a row is stamped `_priorityTagged`, it is
+// never touched again by this function even if its tier/priorityLane are later
+// cleared back to blank by hand — "must not overwrite later manual changes" holds
+// even in that edge case.
+const PRIORITY_ALIAS_MAP = {
+  'Signature Collection Vessel Basins': { tier: 'CORE', priorityLane: 'Active', status: 'LAUNCH', aliases: ['Signature Collection Vessel Basins'] },
+  'Stone Lighting': { tier: 'CORE', priorityLane: 'Research Candidate', status: 'RESEARCH', aliases: ['Stone Lighting'] },
+  'Noir Side Tables': { tier: 'CORE', priorityLane: 'Maintain', status: 'SCALE', aliases: ['Noir Side Tables'] },
+  'Boards': { tier: 'ENTRY', priorityLane: 'Maintain', status: 'SCALE', aliases: ['Boards'] },
+  'Custom Tables & Plinths': { tier: 'HALO', priorityLane: 'Maintain', status: 'SCALE', aliases: ['Custom Tables & Plinths'] },
+};
+
+function norm(s) {
+  return String(s || '').trim().toLowerCase();
+}
+
+function migratePriorities(products) {
+  let changed = false;
+  const matchedTargets = [];
+  const unmatchedTargets = [];
+
+  for (const [canonicalName, rule] of Object.entries(PRIORITY_ALIAS_MAP)) {
+    const aliasSet = new Set(rule.aliases.map(norm));
+    // Already applied to some row for this target? Nothing to do or report —
+    // this is the steady-state case on every read after the first successful match.
+    const alreadyTagged = products.some((p) => p._priorityTagged === canonicalName);
+    if (alreadyTagged) continue;
+
+    const candidates = products.filter((p) => !p._priorityTagged && aliasSet.has(norm(p.name)));
+    if (candidates.length === 1) {
+      const row = candidates[0];
+      row.tier = rule.tier;
+      row.priorityLane = rule.priorityLane;
+      row.status = rule.status;
+      row._priorityTagged = canonicalName;
+      changed = true;
+      matchedTargets.push({ canonicalName, matchedName: row.name, id: row.id });
+    } else if (candidates.length > 1) {
+      // Ambiguous — more than one row has this exact name. Never guess which one.
+      unmatchedTargets.push({ canonicalName, reason: `${candidates.length} rows share an exact-match name — ambiguous, left untouched` });
+    } else {
+      unmatchedTargets.push({ canonicalName, reason: 'no exact-match row found' });
+    }
+  }
+
+  if (matchedTargets.length || unmatchedTargets.length) {
+    console.log('[store] Priority migration:', JSON.stringify({ matchedTargets, unmatchedTargets }));
+  }
+  return changed;
+}
+
 export async function getProducts() {
   const raw = await redisCommand(['GET', PRODUCTS_KEY]);
   if (raw === null || raw === undefined) {
@@ -130,7 +195,9 @@ export async function getProducts() {
   try {
     const parsed = JSON.parse(raw);
     const products = Array.isArray(parsed) ? parsed : seedProducts();
-    if (migrateStatuses(products)) await saveProducts(products);
+    const statusChanged = migrateStatuses(products);
+    const priorityChanged = migratePriorities(products);
+    if (statusChanged || priorityChanged) await saveProducts(products);
     return products;
   } catch {
     return seedProducts();
@@ -139,6 +206,26 @@ export async function getProducts() {
 
 export async function saveProducts(products) {
   await redisCommand(['SET', PRODUCTS_KEY, JSON.stringify(products)]);
+}
+
+// --- Pulse brief ---
+// The one Claude synthesis call per scheduled Market Radar run (see
+// scripts/market-radar/run.mjs, 'daily' mode) writes its output here: Today's Pulse,
+// the Next $1,000 recommendation, and Today's 3 Moves, plus a timestamp and a summary
+// of that run. The Dashboard only ever reads this — it never calls Claude itself, so
+// opening Prime Piece Pulse never costs an API call or waits on one.
+export async function getPulseBrief() {
+  const raw = await redisCommand(['GET', PULSE_KEY]);
+  if (raw === null || raw === undefined) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+export async function savePulseBrief(brief) {
+  await redisCommand(['SET', PULSE_KEY, JSON.stringify(brief)]);
 }
 
 // --- Market Radar ---

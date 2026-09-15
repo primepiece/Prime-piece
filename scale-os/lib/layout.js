@@ -1,6 +1,7 @@
-// Shared HTML shell for every Scale OS page: nav, design tokens, base styles.
+// Shared HTML shell for every Prime Piece Pulse page: nav, design tokens, base styles.
 // Deliberately plain server-rendered HTML + inline CSS/JS — no build step, no framework,
-// consistent with the rest of the (static) Prime Piece site.
+// consistent with the rest of the (static) Prime Piece site. (Still routed at /scale-os
+// and stored under scale-os/ internally — see api/scale-os/[page].js for why.)
 
 const NAV_ITEMS = [
   { href: '/scale-os', label: 'Dashboard', key: 'dashboard' },
@@ -30,7 +31,7 @@ export function renderShell({ title, activeKey, bodyHtml, extraStyle = '', extra
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>${escapeHtml(title)} · Prime Piece Scale OS</title>
+<title>${escapeHtml(title)} · Prime Piece Pulse</title>
 <style>
   :root {
     --black: #111111;
@@ -149,7 +150,7 @@ export function renderShell({ title, activeKey, bodyHtml, extraStyle = '', extra
 </head>
 <body>
   <div class="topbar">
-    <div class="brand">PRIME PIECE <span>SCALE OS</span></div>
+    <div class="brand">PRIME PIECE <span>PULSE</span></div>
     <nav class="nav">${navHtml}</nav>
     <div class="topbar-right">
       <a href="/scale-os/logout" class="logout-link">Log out</a>
