@@ -251,7 +251,7 @@
   nav.scrolled .nav-shop-link { border-color: var(--sage) !important; color: var(--sage) !important; background: transparent !important; }
   nav.scrolled .nav-shop-link:hover { background: var(--sage) !important; color: var(--cream) !important; }
 
-  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('lounge-11.jpg') center 30%/cover no-repeat; }
+  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.png') center/cover no-repeat; }
   .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(18,15,12,0.30) 0%, rgba(18,15,12,0.18) 40%, rgba(18,15,12,0.82) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: 720px; }
   .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage-soft); margin-bottom: 22px; font-weight: 500; display: flex; align-items: center; gap: 14px; }
@@ -270,6 +270,11 @@
   .btn-arrow { transition: transform 0.3s; }
   .btn:hover .btn-arrow { transform: translateX(4px); }
   .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-btn-group { align-items: center; gap: 32px; }
+  .hero-textlink { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; color: rgba(255,255,255,0.82); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 5px; transition: color 0.3s, border-color 0.3s; }
+  .hero-textlink:hover { color: #fff; border-color: rgba(255,255,255,0.85); }
+  .hero-textlink:hover .btn-arrow { transform: translateX(4px); }
+  .hero-textlink .btn-arrow { transition: transform 0.3s; }
 
   .section-label { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; display: block; }
   h2 { font-family: var(--display); font-weight: 300; font-size: clamp(36px, 4.5vw, 62px); line-height: 1.0; letter-spacing: -0.01em; color: var(--ink); }
@@ -377,7 +382,7 @@
   .reviews-score-sub { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
   .reviews-stars-all { color: var(--sage); font-size: 13px; letter-spacing: 2px; margin-bottom: 4px; }
   .reviews-source { font-size: 11px; color: var(--stone); letter-spacing: 0.16em; }
-  .reviews-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; padding: 0 56px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 0 56px; max-width: 1180px; margin: 0 auto; }
   .testimonial { background: var(--cream-soft); border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; margin: -1px 0 0 -1px; }
   .testimonial .t-body { padding: 20px 20px 22px; display: flex; flex-direction: column; flex: 1; }
   .t-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
@@ -387,9 +392,8 @@
   .t-footer { display: flex; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); margin-top: auto; }
   .t-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: white; font-family: var(--body); flex-shrink: 0; letter-spacing: 0; }
   .testimonial-author { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
-  @media (max-width: 1200px) { .reviews-grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (max-width: 900px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 768px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px; } .reviews-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; } }
+  @media (max-width: 900px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; padding: 0 20px; } .reviews-header { padding: 0 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; } }
 
   footer { padding: 64px 56px 32px; background: var(--cream-soft); border-top: 1px solid var(--line); }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
@@ -482,13 +486,11 @@
     <div class="logo-sub">one of one</div>
   </a>
   <ul class="nav-links">
-    <li><a href="#collection">Collection</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="#render">Free Render</a></li>
+    <li><a href="tables.html">Shop</a></li>
+    <li><a href="#collection">Collections</a></li>
+    <li><a href="#showroom">Custom</a></li>
+    <li><a href="#story">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="basins.html">Stone Basins</a></li>
-
-    <li><a href="tables.html" class="nav-shop-link">Shop Now →</a></li>
     <li>
       <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -506,12 +508,11 @@
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobile-menu">
-  <a href="plinths.html">Plinths</a>
-  <a href="tables.html">Tables</a>
-  <a href="boards.html">Boards</a>
-  <a href="basins.html">Stone Basins</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="faq.html">FAQ</a>
+  <a href="tables.html">Shop</a>
+  <a href="#collection">Collections</a>
+  <a href="#showroom">Custom</a>
+  <a href="#story">About</a>
+  <a href="#contact">Contact</a>
   <a href="#contact" class="mobile-shop-btn">Enquire Now</a>
   <a href="tel:0211466990" style="font-size:14px;font-family:var(--body);letter-spacing:0.1em;color:var(--stone);">021 146 6990</a>
 </div>
@@ -520,11 +521,11 @@
 <section class="hero">
   <div class="hero-content">
     <div class="eyebrow">Handcrafted in Auckland</div>
-    <h1>One-of-one stone<br>furniture, made<br>in Auckland.</h1>
-    <p class="hero-sub">Each piece is handcrafted from natural stone and never recreated — tables, plinths and boards, made to order.</p>
-    <div class="btn-group">
-      <a href="tables.html" class="btn btn-primary">View the Collection <span class="btn-arrow">→</span></a>
-      <a href="#" onclick="event.preventDefault();openEnquireModal('General Enquiry')" class="btn btn-ghost" style="cursor:pointer;">Enquire <span class="btn-arrow">→</span></a>
+    <h1>One of one.<br>Made in stone.</h1>
+    <p class="hero-sub">Natural stone furniture and objects, handcrafted in Auckland.</p>
+    <div class="btn-group hero-btn-group">
+      <a href="#collection" class="btn btn-primary">View Collection <span class="btn-arrow">→</span></a>
+      <a href="#showroom" class="hero-textlink">Custom Pieces <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -561,7 +562,7 @@
       </div>
     </a>
     <a href="basins.html" class="collection-card">
-      <img loading="lazy" class="collection-card-img" src="nero-marquina-vessel.jpg" alt="Stone Vessel Basins NZ" style="object-position:center;">
+      <img loading="lazy" class="collection-card-img" src="warm-beige-vessel.jpg" alt="Stone Vessel Basins NZ" style="object-position:center;">
       <div class="collection-card-label">
         <div><span class="collection-card-name">Basins</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">From NZD $1,190</div></div>
         <span class="collection-card-arrow">↗</span>
@@ -580,20 +581,20 @@
   </div>
   <div class="featured-grid">
     <a href="plinths.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="plinth-2.jpg" alt="Stone plinth side table in a living room, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Stone Plinths</span><span class="featured-card-arrow">↗</span></div>
+      <img loading="lazy" class="featured-card-img" src="plinth-1.jpg" alt="Grey Porcelain marble plinth in a living room, Auckland">
+      <div class="featured-card-label"><span class="featured-card-name">Grey Porcelain</span><span class="featured-card-arrow">↗</span></div>
     </a>
     <a href="tables.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="lounge-9.jpg" alt="Round travertine coffee table, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Coffee Tables</span><span class="featured-card-arrow">↗</span></div>
+      <img loading="lazy" class="featured-card-img" src="lounge-9.jpg" alt="Silver Mist travertine lounge table, Auckland">
+      <div class="featured-card-label"><span class="featured-card-name">Silver Mist</span><span class="featured-card-arrow">↗</span></div>
     </a>
     <a href="tables.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="pietra-noir-side-table.jpg" alt="Black marble round side table, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Side Tables</span><span class="featured-card-arrow">↗</span></div>
+      <img loading="lazy" class="featured-card-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir black marble coffee table, Auckland">
+      <div class="featured-card-label"><span class="featured-card-name">Pietra Noir</span><span class="featured-card-arrow">↗</span></div>
     </a>
-    <a href="tables.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="lifestyle-2.jpg" alt="Marble bedside table with brass lamp, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Bedside Tables</span><span class="featured-card-arrow">↗</span></div>
+    <a href="boards.html" class="featured-card">
+      <img loading="lazy" class="featured-card-img" src="board-white-haven.jpg" alt="White Haven marble serving board, Auckland">
+      <div class="featured-card-label"><span class="featured-card-name">White Haven</span><span class="featured-card-arrow">↗</span></div>
     </a>
   </div>
   <div class="featured-footer"><a href="tables.html" style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-weight:500;font-family:var(--body);">View Full Collection →</a></div>
@@ -602,7 +603,7 @@
 <section class="brand-statement">
   <div class="brand-statement-inner reveal">
     <div class="brand-statement-eyebrow">The Craft</div>
-    <p>Every piece begins as a single block of natural stone — cut, shaped and finished by hand in our Auckland workshop. Nothing is mass-produced, and nothing is repeated. What you see is what exists, once.</p>
+    <p>Every piece begins with natural stone — selected, cut, shaped and finished by hand in our Auckland workshop. Nothing is mass-produced, and no two pieces of stone are ever identical. What you see is what exists, once.</p>
   </div>
 </section>
 
@@ -635,11 +636,11 @@
     <div class="founder-divider"></div>
     <div class="founder-bio">
       <p>James Hopwood is an Auckland-based stonemason and founder of Prime Piece, a sculptural stone furniture brand creating one-of-one plinths and tables handcrafted in New Zealand.</p>
-      <p>Working with natural stone sourced from Italy and Spain, each piece is cut and finished by hand — shaped to celebrate the stone's own movement and texture, and never repeated.</p>
+      <p>Working with natural stone sourced from leading suppliers around the world, each piece is cut and finished by hand — shaped to celebrate the stone's own movement and texture, and never repeated.</p>
     </div>
     <div class="founder-detail">
       <div><div class="founder-detail-label">Based</div><div class="founder-detail-val">Auckland, NZ</div></div>
-      <div><div class="founder-detail-label">Stone</div><div class="founder-detail-val">Italian &amp; Spanish</div></div>
+      <div><div class="founder-detail-label">Stone</div><div class="founder-detail-val">Sourced Worldwide</div></div>
       <div><div class="founder-detail-label">Craft</div><div class="founder-detail-val">Stonemason</div></div>
     </div>
   </div>
@@ -663,25 +664,10 @@
 <script>
 (function(){
   const REVIEWS = [
-    { author:'Simone Pretscherer', init:'S', body:'Ordered custom side tables and could not be happier. The service was incredible — they listened, nailed the brief, hand delivered and put them exactly into place. 15/10.' },
-    { author:'Omer Hazer', init:'O', body:'We ordered a custom Prime Piece and we love it. A corner stone in our office — James and the team are exceptional at what they do.' },
-    { author:'Creed Bell', init:'C', body:'James has great craftsmanship and is easy to work with. Delivered a product that far exceeded my expectations. Highly recommend.' },
-    { author:'Clare Geor', init:'C', body:'From inception to completion, James exceeded expectations. Design was exactly to order — he maximised the reclaimed stone into two beautiful bedside tables. Would use Prime Piece again.' },
-    { author:'Cameron Brinkley', init:'C', body:'Absolutely love my marble side table. The craftsmanship is incredible — unique natural pattern, beautifully finished, and even better in person than in the photos.' },
-    { author:'Josh Burgisser', init:'J', body:'Words cannot express how talented and professional James and the team are. For something custom to round out your home or commercial space, Prime Piece is the only way to go.' },
-    { author:'Jamie McDowell', init:'J', body:'Stoked with our one of a kind piece for the office. A real conversation starter. Beautiful craftsmanship meeting industrial vibes — won\'t be our last purchase.' },
-    { author:'Finn Lyness', init:'F', body:'Picked up a marble table from James and it\'s honestly mint. Solid build, looks clean, makes the lounge feel sharper. Easy to deal with too. Cheers mate.' },
-    { author:'Christoph Schumacher', init:'C', body:'Bought this marble board and it is solid, stylish, and perfect for prep. Looks great on the bench and feels premium. What a great product. Highly recommend.' },
-    { author:'Daniel Thomas', init:'D', body:'Just got a coffee table from Prime Piece. Looks beautiful in our home. James was great to deal with — top-notch service. Cheers mate.' },
-    { author:'Cindy Z', init:'C', body:'Absolutely love our side coffee tables. Would highly recommend to anyone looking for stunning furniture. Would\'ve got more if we had more rooms!' },
-    { author:'Rafi Headifen', init:'R', body:'James is the man! Made a custom piece for us at an insane price, delivered within a very reasonable time frame. Love his work.' },
-    { author:'Dan Dunphy', init:'D', body:'Great service and a beautiful marble table. Solid build, stylish design, easy to deal with. Highly recommend.' },
-    { author:'Kate de Lautour', init:'K', body:'This is a stunning piece — quite heavy and solid with a beautiful granite top.' },
-    { author:'Sofia', init:'S', body:'Authentic NZ made small business! Great service and really nice owner.' },
-    { author:'Liam Carter', init:'L', body:'James delivered exactly what he promised — a stunning one-of-one piece that\'s become the centrepiece of our living room. The attention to detail is second to none.' },
+    { author:'Simone Pretscherer', init:'S', body:'Ordered custom side tables and could not be happier. The service was incredible, they listened, nailed the brief, hand delivered and put them exactly into place. 15/10.' },
+    { author:'Liam Carter', init:'L', body:'James delivered exactly what he promised, a stunning one-of-one piece that\'s become the centrepiece of our living room. The attention to detail is second to none.' },
+    { author:'Cameron Brinkley', init:'C', body:'Absolutely love my marble side table. The craftsmanship is incredible, unique natural pattern, beautifully finished, and even better in person than in the photos.' },
     { author:'Emily Walsh', init:'E', body:'I was blown away by the quality. The marble board I ordered looks even better in person. Fast delivery and James was so easy to communicate with throughout.' },
-    { author:'Tom Henderson', init:'T', body:'Prime Piece is the real deal. Bought a coffee table and it gets compliments every time someone comes over. Worth every cent.' },
-    { author:'Rachel Kim', init:'R', body:'Incredible product and incredible service. James went above and beyond to make sure we were happy. Would absolutely buy from Prime Piece again.' },
   ];
   function card(r) {
     return `<div class="testimonial">
