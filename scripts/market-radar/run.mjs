@@ -41,7 +41,7 @@ const EVIDENCE_TYPES = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumptio
 const DIMENSION_KEYS = Object.keys(SCORE_WEIGHTS);
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier'
+const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'list'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
@@ -753,8 +753,27 @@ async function runSupplierMode() {
 
 // --- Main ---------------------------------------------------------------------------
 
+// Zero-cost read-only inspection of the real stored Market Radar data — no Anthropic
+// call, no web search, no writes. Exists so a human (or Claude, working from the
+// GitHub Actions log) can review the actual production radar before deciding what to
+// research next, without spending anything to do it. One JSON line per opportunity —
+// log-line-per-item rather than one pretty-printed blob, so it stays parseable however
+// many items the radar has grown to.
+async function runListMode() {
+  const radar = await getRadarOpportunities();
+  log(`${radar.length} opportunity(ies) in Market Radar:`);
+  for (const o of radar) {
+    log(JSON.stringify(o));
+  }
+}
+
 async function main() {
   log(`Mode: ${MODE}${DRY_RUN ? ' (DRY RUN — no real API calls, no cost)' : ''}`);
+
+  if (MODE === 'list') {
+    await runListMode();
+    return;
+  }
 
   if (MODE === 'supplier') {
     await runSupplierMode();
