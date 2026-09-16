@@ -121,6 +121,29 @@ function migrateStatuses(products) {
   return changed;
 }
 
+// --- One-time productType tagging (Product Lab) -----------------------------------
+// Prime Piece Pulse's core question is "what should we import, test, reorder, scale,
+// hold or kill next" — HALO products are explicitly documented (see product-lab.js's
+// own legend) as "NZ-made one-of-one," i.e. bespoke local fabrication, never something
+// this tool should rank as an import candidate. CORE and ENTRY are equally explicitly
+// documented as "repeatable/importable." That existing tier definition is the migration
+// rule — not a guess at real-world sourcing details this sandbox has no way to verify.
+// A blank/unset tier is tagged OTHER (unknown) rather than assumed either way.
+// Marker-based and one-time, same pattern as migratePriorities — never re-applied once
+// tagged, even if productType is later cleared by hand.
+function migrateProductTypes(products) {
+  let changed = false;
+  products.forEach((p) => {
+    if (p._productTypeTagged) return;
+    if (p.tier === 'HALO') p.productType = 'BESPOKE_LOCAL';
+    else if (p.tier === 'CORE' || p.tier === 'ENTRY') p.productType = 'IMPORTED';
+    else p.productType = 'OTHER';
+    p._productTypeTagged = true;
+    changed = true;
+  });
+  return changed;
+}
+
 // --- One-time priority tagging (tier / priorityLane / status) for the 5 known
 // Prime Piece priority products ---
 //
@@ -197,7 +220,8 @@ export async function getProducts() {
     const products = Array.isArray(parsed) ? parsed : seedProducts();
     const statusChanged = migrateStatuses(products);
     const priorityChanged = migratePriorities(products);
-    if (statusChanged || priorityChanged) await saveProducts(products);
+    const productTypeChanged = migrateProductTypes(products);
+    if (statusChanged || priorityChanged || productTypeChanged) await saveProducts(products);
     return products;
   } catch {
     return seedProducts();
@@ -234,16 +258,36 @@ export async function savePulseBrief(brief) {
 // GitHub Actions research worker (scripts/market-radar/run.mjs) using the same Redis
 // REST API this file uses; read here for display and for "promote to Product Lab".
 
+// One-time productType tagging for Market Radar items created before this field
+// existed. Unlike Product Lab (which has an explicit HALO/CORE/ENTRY tier to key off),
+// every item Market Radar has ever hunted was already scoped to importable homeware/
+// furniture/decor candidates (see huntCandidates' prompt) — never bespoke fabrication —
+// so defaulting untagged items to IMPORTED reflects what this tool already only ever
+// searched for, not a guess. New items get productType from Enrich going forward.
+function migrateRadarProductTypes(opportunities) {
+  let changed = false;
+  opportunities.forEach((o) => {
+    if (o._productTypeTagged) return;
+    o.productType = 'IMPORTED';
+    o._productTypeTagged = true;
+    changed = true;
+  });
+  return changed;
+}
+
 export async function getRadarOpportunities() {
   const raw = await redisCommand(['GET', RADAR_KEY]);
   if (raw === null || raw === undefined) {
     const { RADAR_SEED_DATA } = await import('./radar-seed.js');
+    migrateRadarProductTypes(RADAR_SEED_DATA);
     await saveRadarOpportunities(RADAR_SEED_DATA);
     return RADAR_SEED_DATA;
   }
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    const opportunities = Array.isArray(parsed) ? parsed : [];
+    if (migrateRadarProductTypes(opportunities)) await saveRadarOpportunities(opportunities);
+    return opportunities;
   } catch {
     return [];
   }
@@ -281,6 +325,12 @@ function mapRadarItemToProduct(item) {
     category: item.category || '',
     tier: '', // Market Radar doesn't score HALO/CORE/ENTRY fit — set by hand in Product Lab.
     priorityLane: '',
+    // Carried straight from the radar item, not re-derived from tier (which is blank
+    // here) — without this, migrateProductTypes would see a blank tier and default a
+    // freshly-promoted IMPORTED item to OTHER. _productTypeTagged=true so that one-time
+    // migration skips this row entirely rather than re-deriving it.
+    productType: item.productType || 'IMPORTED',
+    _productTypeTagged: true,
     differentiation: scaleFromScore('differentiation'),
     tradePotential: scaleFromScore('designerTrade'),
     freightRisk: invertScaleFromScore('operationalRisk'),
@@ -316,4 +366,108 @@ export async function promoteRadarItem(radarId) {
 
   await Promise.all([saveProducts(products), saveRadarOpportunities(opportunities)]);
   return product.id;
+}
+
+// --- Suppliers ----------------------------------------------------------------------
+// Written by the GitHub Actions research worker's 'supplier' mode (scripts/market-radar/
+// run.mjs) for one Market Radar opportunity at a time — a manually-triggered, deliberately
+// separate pass from 'daily', never run automatically. Read here for the Suppliers page.
+// One flat array, keyed to an opportunity via opportunityId, same storage shape as
+// everything else in this file.
+
+const SUPPLIERS_KEY = 'scale_os:suppliers:v1';
+
+export async function getSuppliers() {
+  const raw = await redisCommand(['GET', SUPPLIERS_KEY]);
+  if (raw === null || raw === undefined) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function saveSuppliers(suppliers) {
+  await redisCommand(['SET', SUPPLIERS_KEY, JSON.stringify(suppliers)]);
+}
+
+// Replaces any prior supplier batch for this opportunity — a fresh supplier-research
+// pass supersedes the last one rather than accumulating duplicates alongside it.
+export async function saveSupplierBatch(opportunityId, newSuppliers) {
+  const existing = await getSuppliers();
+  const kept = existing.filter((s) => s.opportunityId !== opportunityId);
+  const merged = [...kept, ...newSuppliers];
+  await saveSuppliers(merged);
+  return merged;
+}
+
+// --- Approval Queue -------------------------------------------------------------------
+// The only place any automated pipeline is allowed to cause a real-world consequence —
+// everything upstream (discovery, research, supplier ranking) is read-only. Nothing acts
+// on an opportunity or supplier until a row here is APPROVED by a human. V1 has exactly
+// one approval type: SUPPLIER_OUTREACH (see run.mjs 'supplier' mode) — it recommends
+// contacting the top-ranked supplier, and approving it does not yet send anything
+// (no email integration exists yet); it only records the decision.
+
+const APPROVALS_KEY = 'scale_os:approvals:v1';
+
+function approvalUid() {
+  return 'appr_' + Math.random().toString(36).slice(2, 10);
+}
+
+export async function getApprovals() {
+  const raw = await redisCommand(['GET', APPROVALS_KEY]);
+  if (raw === null || raw === undefined) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function saveApprovals(approvals) {
+  await redisCommand(['SET', APPROVALS_KEY, JSON.stringify(approvals)]);
+}
+
+// Creates one PENDING approval request. Called by run.mjs's 'supplier' mode after
+// ranking suppliers for an opportunity — never auto-approved, never auto-actioned.
+export async function createApprovalRequest({ type, opportunityId, supplierId, summary, recommendation, rationale, estimatedCost }) {
+  const approvals = await getApprovals();
+  const request = {
+    id: approvalUid(),
+    type,
+    opportunityId,
+    supplierId: supplierId || null,
+    summary,
+    recommendation: recommendation || null,
+    rationale: rationale || null,
+    estimatedCost: estimatedCost ?? null,
+    status: 'PENDING',
+    createdAt: new Date().toISOString(),
+    decidedAt: null,
+    decisionNotes: null,
+  };
+  approvals.push(request);
+  await saveApprovals(approvals);
+  return request;
+}
+
+// Records a human decision on an approval request. Never performs any action beyond
+// recording the decision — approving SUPPLIER_OUTREACH does not send an email; that
+// integration does not exist yet by design.
+export async function decideApproval(id, decision, notes) {
+  if (decision !== 'APPROVED' && decision !== 'REJECTED') {
+    throw new Error('decision must be "APPROVED" or "REJECTED"');
+  }
+  const approvals = await getApprovals();
+  const request = approvals.find((a) => a.id === id);
+  if (!request) throw new Error('Approval request not found');
+  if (request.status !== 'PENDING') throw new Error(`Approval request is already ${request.status}`);
+  request.status = decision;
+  request.decidedAt = new Date().toISOString();
+  request.decisionNotes = notes || null;
+  await saveApprovals(approvals);
+  return request;
 }

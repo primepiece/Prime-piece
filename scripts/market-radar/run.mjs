@@ -26,8 +26,8 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief } from '../../scale-os/lib/store.js';
-import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS } from './scoring.mjs';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest } from '../../scale-os/lib/store.js';
+import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
 // not deep multi-step reasoning, and the brief was explicit about running this
@@ -41,7 +41,7 @@ const EVIDENCE_TYPES = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumptio
 const DIMENSION_KEYS = Object.keys(SCORE_WEIGHTS);
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily'
+const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
@@ -208,11 +208,29 @@ export async function huntCandidates(excludeNames) {
     return [{ product: 'Stone Soap Dispenser', variant: '', category: 'Bathroom Accessory', rationale: 'Dry-run fixture, not real research.' }];
   }
 
-  const system = 'You are the Opportunity Hunter for Prime Piece, a premium natural-stone (marble/travertine) ecommerce brand based in Auckland, NZ. You use web search to find real, evidenced candidate product ideas — never invent products, prices, or competitors.';
+  const system = 'You are the Opportunity Hunter for Prime Piece Pulse, the operating system for Prime Piece\'s scalable IMPORTED natural-stone (marble/travertine) ecommerce product business (Auckland, NZ). Your central question is: what scalable product should Prime Piece import, test, reorder, scale, hold or kill next? You use web search to find real, evidenced candidate product ideas — never invent products, prices, or competitors.';
   const prompt = `Prime Piece already sells or has researched these products (do NOT suggest anything on this list, or an obvious near-duplicate of it):
 ${excludeNames.map((n) => `- ${n}`).join('\n')}
 
-Use web search to find ${HUNT_COUNT} NEW candidate natural-stone / marble / travertine homeware, bathroom, furniture, or decor products that a premium NZ stone brand could plausibly sell, and that show some real market signal (a retailer stocking it, a design-press trend mention, marketplace listings, etc.) — not just something that sounds nice. Prefer AU/NZ/UK/US/EU markets.
+Use web search to find ${HUNT_COUNT} NEW candidate natural-stone / marble / travertine homeware, bathroom, furniture, or decor products that show some real market signal (a retailer stocking it, a design-press trend mention, marketplace listings, etc.) — not just something that sounds nice. Prefer AU/NZ/UK/US/EU markets.
+
+Every candidate must be realistically importable at scale from an overseas manufacturer — this is a sourcing/import business, not a bespoke fabrication one. Strongly favour candidates that look:
+- repeatable/importable (a factory could produce many identical units, not a one-off commission)
+- premium-looking but compact relative to its value (ships economically, doesn't dominate freight cost)
+- high perceived value for its likely landed cost — ideally landed cost could plausibly be ≤30% of retail
+- capable of 60-70%+ gross margin at a premium retail price
+- visually strong (photographs/films well)
+- relatively low breakage/damage risk in freight and handling
+- differentiated in the NZ market, not already saturated
+- reorderable (not a novelty/one-time purchase)
+- capable of meaningful ecommerce scale (broad appeal, not a narrow niche)
+
+Do NOT suggest anything that is:
+- bespoke-only, made-to-order, or requires NZ-based custom fabrication/one-off craftsmanship (Prime Piece Pulse explicitly excludes this — it belongs elsewhere in the business, not here)
+- bulky or low-value relative to its size/weight (poor freight economics)
+- a generic, undifferentiated commodity product
+- reliant on a large speculative minimum order quantity to be viable
+- in a category you can already tell is highly saturated in NZ with little realistic differentiation
 
 Respond with ONLY a JSON array (no markdown fences, no prose) of exactly ${HUNT_COUNT} objects shaped like:
 [{"product": "string", "variant": "string or empty", "category": "string", "rationale": "one sentence, cite what you actually found"}]`;
@@ -260,6 +278,7 @@ const ENRICH_SCHEMA_EXAMPLE = `{
   "product": "string",
   "variant": "string or empty",
   "category": "string",
+  "productType": "IMPORTED | BESPOKE_LOCAL | OTHER — IMPORTED if a factory could realistically produce many identical units for import at scale; BESPOKE_LOCAL if this genuinely requires NZ-based custom fabrication or one-off craftsmanship; OTHER only if you truly cannot tell",
   "mainMarket": "NZ | AU | UK | US | EU | Global",
   "auPotential": "Low | Moderate | High",
   "nzPotential": "Low | Moderate | High",
@@ -295,6 +314,7 @@ export async function enrichCandidate({ product, variant, category }) {
     log(`DRY RUN — skipping real Enrich call for "${product}", using a fixture.`);
     return {
       product, variant: variant || '', category: category || 'Bathroom Accessory',
+      productType: 'IMPORTED',
       mainMarket: 'NZ', auPotential: 'Moderate', nzPotential: 'Moderate', tradePotential: 'Low',
       priceBand: { low: 40, high: 90, currency: '$' },
       demandSignal: { level: 'Weak', type: 'Founder Assumption', description: 'Dry-run fixture — no real search performed.' },
@@ -307,10 +327,12 @@ export async function enrichCandidate({ product, variant, category }) {
     };
   }
 
-  const system = 'You are the research/enrichment step of the Prime Piece Market Radar. You use web search and report ONLY what you actually find. Never invent a competitor, a price, a review count, or a URL. If you find nothing for a field, use null/empty/"Not found" rather than guessing, and reflect that honestly in demandSignal.type and confidence-relevant fields.';
+  const system = 'You are the research/enrichment step of Prime Piece Pulse, the operating system for Prime Piece\'s scalable IMPORTED natural-stone ecommerce product business. You use web search and report ONLY what you actually find. Never invent a competitor, a price, a review count, or a URL. If you find nothing for a field, use null/empty/"Not found" rather than guessing, and reflect that honestly in demandSignal.type and confidence-relevant fields.';
   const prompt = `Research this candidate product for Prime Piece (premium natural-stone ecommerce, Auckland NZ) using web search: "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
 
-Find: real competitors and their prices, review counts/themes if visible, trend/design-press signals, the size of any pricing/market gap, and qualitative economics (retail price band, AOV, freight/damage difficulty, cross-sell fit). Score all 10 dimensions below 0-100 based only on what you found. Flag disqualifiers honestly — a low score or a Kill-worthy disqualifier is a valid, useful result.
+Find: real competitors and their prices, review counts/themes if visible, trend/design-press signals, the size of any pricing/market gap, and qualitative economics (retail price band, AOV, freight/damage difficulty, cross-sell fit). Score all 10 dimensions below 0-100 based only on what you found. Classify productType honestly — most candidates should be IMPORTED; only use BESPOKE_LOCAL if this genuinely cannot be manufactured overseas and imported at scale.
+
+Prime Piece Pulse's central question is what should be imported, tested, reordered, scaled, held or killed next — so flag disqualifiers honestly and put real weight on: bespoke-only or custom-fabrication-only products, bulky/low-value-for-size items with poor freight economics, generic commodity products with no differentiation, products that only make sense at a large speculative minimum order quantity, high compliance/import burden, and categories you can tell are already highly saturated in NZ. Any of these is a valid, useful disqualifier — a low score or a Kill-worthy disqualifier is a genuinely useful result, not a failure.
 
 Respond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:
 ${ENRICH_SCHEMA_EXAMPLE}`;
@@ -334,6 +356,78 @@ ${ENRICH_SCHEMA_EXAMPLE}`;
     }
   }
   throw lastErr;
+}
+
+// --- Supplier research (Phase 2 — Supplier + Approval Engine, manual trigger only) --
+// Runs only via RADAR_MODE=supplier, targeting one already-discovered Market Radar
+// opportunity by id. Never runs as part of 'daily' or 'refresh' — supplier research is
+// a deliberately separate, manually-triggered pass, kept off the automatic schedule to
+// control cost until this is proven out. Reuses the exact same call/retry shape as
+// huntCandidates/enrichCandidate (2 attempts, reduced budget on retry).
+
+const SUPPLIER_SCHEMA_EXAMPLE = `[{
+  "name": "string — real company name",
+  "country": "string",
+  "website": "string or null",
+  "sourcePlatform": "string — where you found them, e.g. Alibaba, Global Sources, direct company site, trade directory",
+  "credibilityScore": "0-100 — based on real signals only (years trading, verified/trade-assurance badges, review counts, company registration info actually found)",
+  "credibilitySignals": ["string — the actual signals behind the score above"],
+  "moq": "number or null — minimum order quantity in units",
+  "samplePrice": "number or null",
+  "sampleCurrency": "$ | NZ$ | AU$ | £ | € | US$ or null",
+  "pricingTiers": [{"qty": "number", "unitPrice": "number"}],
+  "cartonSpec": {"size": "string or null, e.g. 40x30x20cm", "weightKg": "number or null"},
+  "leadTimeDays": "number or null",
+  "freightEstimate": "string or null — whatever real freight/shipping info you found, in plain words",
+  "complianceNotes": "string or null — any certification, safety standard, or import compliance detail you found",
+  "sources": [{"url": "a real URL you actually retrieved via web search this session", "title": "string"}]
+}]`;
+
+export async function findSuppliers({ product, variant, category }) {
+  if (DRY_RUN) {
+    log(`DRY RUN — skipping real supplier search for "${product}", using fixture suppliers.`);
+    return [
+      { name: 'Dry Run Manufacturing Co (fixture)', country: 'Unknown', website: null, sourcePlatform: 'Dry-run fixture', credibilityScore: 40, credibilitySignals: ['Dry-run fixture — no real search performed.'], moq: 100, samplePrice: 25, sampleCurrency: 'US$', pricingTiers: [{ qty: 50, unitPrice: 12 }, { qty: 100, unitPrice: 10 }], cartonSpec: { size: null, weightKg: null }, leadTimeDays: 30, freightEstimate: 'Dry-run fixture.', complianceNotes: null, sources: [] },
+      { name: 'Dry Run Trading Ltd (fixture)', country: 'Unknown', website: null, sourcePlatform: 'Dry-run fixture', credibilityScore: 60, credibilitySignals: ['Dry-run fixture — no real search performed.'], moq: 50, samplePrice: 30, sampleCurrency: 'US$', pricingTiers: [{ qty: 50, unitPrice: 14 }, { qty: 100, unitPrice: 11 }], cartonSpec: { size: null, weightKg: null }, leadTimeDays: 21, freightEstimate: 'Dry-run fixture.', complianceNotes: null, sources: [] },
+    ];
+  }
+
+  const system = 'You are the supplier-sourcing step of Prime Piece Pulse. You use web search to find REAL, currently-operating manufacturers and report ONLY what you actually find in public listings, company sites, or trade directories. Never invent a company, price, MOQ, or URL. If a field is not publicly available, use null rather than guessing.';
+  const prompt = `Find 3-5 real, plausible overseas manufacturers who could supply this product for import to Prime Piece (premium natural-stone/marble/travertine ecommerce, Auckland NZ): "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
+
+For each, collect whatever public MOQ, pricing (ideally at multiple quantity tiers such as 10/25/50/100 units), sample price, carton size/weight, lead time, freight/shipping information, compliance/certification notes, and credibility signals (years trading, trade-assurance badges, review counts) you can actually find. A field you cannot find should be null, never guessed.
+
+Respond with ONLY a JSON array (no markdown fences, no prose) of 3-5 objects shaped like:
+${SUPPLIER_SCHEMA_EXAMPLE}`;
+
+  const budgets = [SEARCH_BUDGET, RETRY_SEARCH_BUDGET];
+  let lastErr;
+  for (let i = 0; i < budgets.length; i++) {
+    try {
+      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i] });
+      log(`Supplier search for "${product}" used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      const parsed = extractJson(text);
+      if (!Array.isArray(parsed)) throw new Error('Supplier search did not return a JSON array.');
+      return parsed;
+    } catch (err) {
+      lastErr = err;
+      log(`Supplier search for "${product}" attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
+    }
+  }
+  throw lastErr;
+}
+
+// Plain code, mirrors auditRaw(): strips implausible source URLs and clamps
+// credibilityScore into range — the one step in this pipeline deliberately suspicious
+// of the model's own output, same as the opportunity Evidence Auditor.
+export function auditSuppliers(rawSuppliers) {
+  return (rawSuppliers || []).map((s) => {
+    const sources = Array.isArray(s.sources) ? s.sources.filter((src) => isPlausibleUrl(src?.url)) : [];
+    const droppedCount = (s.sources?.length || 0) - sources.length;
+    if (droppedCount > 0) log(`Supplier Evidence Auditor: dropped ${droppedCount} implausible source URL(s) for "${s.name}".`);
+    const credibilityScore = typeof s.credibilityScore === 'number' ? Math.max(0, Math.min(100, s.credibilityScore)) : null;
+    return { ...s, sources, credibilityScore, evidenceGap: sources.length === 0 };
+  });
 }
 
 // --- Agent 7: Evidence Auditor (plain code) ----------------------------------------
@@ -439,7 +533,10 @@ export function mergeIntoRadar(list, ranked, note) {
   if (idx === -1) {
     const historyEntry = { scanDate: TODAY, score: item.opportunityScore, confidence: item.confidenceScore, priceRange: item.priceBand, reviewCount: null, note };
     const history = [historyEntry];
-    const created = { id: nextRadarId(list), ...item, trendDirection: trendDirectionFromHistory(history), firstSeen: TODAY, lastResearched: TODAY, history, promotedToProductLab: false };
+    // _productTypeTagged=true: Enrich just classified productType from real research,
+    // so the one-time store.js migration (which only backfills pre-existing untagged
+    // items) must never overwrite it on a later read.
+    const created = { id: nextRadarId(list), ...item, _productTypeTagged: true, trendDirection: trendDirectionFromHistory(history), firstSeen: TODAY, lastResearched: TODAY, history, promotedToProductLab: false };
     list.push(created);
     return { action: 'created', item: created };
   }
@@ -449,7 +546,7 @@ export function mergeIntoRadar(list, ranked, note) {
   const historyEntry = { scanDate: TODAY, score: item.opportunityScore, confidence: item.confidenceScore, priceRange: item.priceBand, reviewCount: null, note: shift ? `${note} — ${shift}` : note };
   const history = [...(existing.history || []), historyEntry];
   const updated = {
-    ...existing, ...item, id: existing.id,
+    ...existing, ...item, id: existing.id, _productTypeTagged: true,
     trendDirection: trendDirectionFromHistory(history),
     firstSeen: existing.firstSeen || TODAY, lastResearched: TODAY, history,
     promotedToProductLab: existing.promotedToProductLab, promotedAt: existing.promotedAt, productLabId: existing.productLabId,
@@ -513,6 +610,13 @@ export function primeOpportunityScore(p) {
   return count ? Math.round(sum / count) : null;
 }
 
+// Prime Piece Pulse's central question is what to import next — a bespoke/local NZ
+// fabrication item (productType BESPOKE_LOCAL) or one with unknown productType (OTHER,
+// not yet classified) must never distort product discovery, Next $1,000, or ranking.
+// Only IMPORTED items are eligible here. Current-operations context (Active/Maintain/
+// Killed) is untouched — this exclusion is specifically about forward-looking ranking.
+const isImportEligible = (item) => item.productType === 'IMPORTED';
+
 export function buildSynthesisContext(products, radar) {
   const notKilled = (p) => p.status !== 'KILL';
   const perf = (p) => ({
@@ -531,7 +635,7 @@ export function buildSynthesisContext(products, radar) {
   const activeProducts = products.filter((p) => p.priorityLane === 'Active' && notKilled(p)).map((p) => ({
     name: p.name, tier: p.tier || null, stage: p.status, unitEconomics: productEconomics(p), performance: perf(p),
   }));
-  const researchCandidates = products.filter((p) => p.priorityLane === 'Research Candidate' && notKilled(p)).map((p) => ({
+  const researchCandidates = products.filter((p) => p.priorityLane === 'Research Candidate' && notKilled(p) && isImportEligible(p)).map((p) => ({
     name: p.name, tier: p.tier || null, stage: p.status, primeOpportunityScore: primeOpportunityScore(p),
     unitEconomics: productEconomics(p), keyTakeaway: p.me_keyTakeaway || null, performance: perf(p),
   }));
@@ -540,18 +644,18 @@ export function buildSynthesisContext(products, radar) {
   const recentlyKilledRadarItems = radar.filter((r) => r.tier === 'Kill').slice(-5).map((r) => ({ name: r.product, reason: (r.disqualifiers || []).join('; ') || null }));
 
   const notPromoted = (r) => !r.promotedToProductLab;
-  const topOpportunities = radar.filter((r) => notPromoted(r) && r.tier !== 'Kill')
+  const topOpportunities = radar.filter((r) => notPromoted(r) && r.tier !== 'Kill' && isImportEligible(r))
     .slice().sort((a, b) => (b.opportunityScore || 0) - (a.opportunityScore || 0)).slice(0, 5)
     .map((r) => ({ name: r.product, variant: r.variant || null, opportunityScore: r.opportunityScore, confidenceScore: r.confidenceScore, tier: r.tier, trendDirection: r.trendDirection, mainMarket: r.mainMarket || null, estimatedRetail: r.economicsPotential?.retailPriceRangeEstimate || null }));
 
-  const movers = radar.filter((r) => (r.history || []).length >= 2).map((r) => {
+  const movers = radar.filter((r) => (r.history || []).length >= 2 && isImportEligible(r)).map((r) => {
     const [prev, cur] = r.history.slice(-2);
     const delta = (cur.score ?? null) !== null && (prev.score ?? null) !== null ? cur.score - prev.score : null;
     return { name: r.product, variant: r.variant || null, previousScore: prev.score, newScore: cur.score, scoreDelta: delta, trendDirection: r.trendDirection, whatChanged: cur.note || null };
   }).filter((m) => m.scoreDelta !== null && Math.abs(m.scoreDelta) >= 5)
     .sort((a, b) => Math.abs(b.scoreDelta) - Math.abs(a.scoreDelta)).slice(0, 5);
 
-  const newThisRun = radar.filter((r) => r.firstSeen === TODAY && (r.history || []).length === 1)
+  const newThisRun = radar.filter((r) => r.firstSeen === TODAY && (r.history || []).length === 1 && isImportEligible(r))
     .slice().sort((a, b) => (b.opportunityScore || 0) - (a.opportunityScore || 0)).slice(0, 5)
     .map((r) => ({ name: r.product, variant: r.variant || null, opportunityScore: r.opportunityScore, tier: r.tier, mainMarket: r.mainMarket || null }));
 
@@ -593,10 +697,69 @@ export async function synthesizeBrief(context) {
   return parsed;
 }
 
+// --- Supplier mode: manual trigger only, one existing opportunity at a time --------
+// Deliberately not part of 'daily' — this is the Supplier + Approval Engine's first
+// step, kept manual until proven out. Finds suppliers, ranks them (scoring.mjs,
+// independent of the opportunity-scoring model), saves the batch, and creates exactly
+// one PENDING approval request for the top-ranked supplier. Never sends anything —
+// approving that request only records a decision; no email integration exists yet.
+async function runSupplierMode() {
+  const targetId = process.env.RADAR_SUPPLIER_TARGET;
+  if (!targetId) throw new Error('RADAR_MODE=supplier requires RADAR_SUPPLIER_TARGET="<radar opportunity id>", e.g. radar_003.');
+
+  const radar = await getRadarOpportunities();
+  const opportunity = radar.find((o) => o.id === targetId);
+  if (!opportunity) throw new Error(`No Market Radar opportunity found with id "${targetId}".`);
+  if (opportunity.productType && opportunity.productType !== 'IMPORTED') {
+    throw new Error(`"${opportunity.product}" is tagged productType=${opportunity.productType}, not IMPORTED — supplier research only runs for importable opportunities.`);
+  }
+
+  log(`Researching suppliers for "${opportunity.product}"${opportunity.variant ? ` (${opportunity.variant})` : ''}...`);
+  const rawSuppliers = await findSuppliers({ product: opportunity.product, variant: opportunity.variant, category: opportunity.category });
+  const audited = auditSuppliers(rawSuppliers);
+  const now = new Date().toISOString();
+  const ranked = rankSuppliers(audited).map((s) => ({
+    ...s,
+    id: 'sup_' + Math.random().toString(36).slice(2, 10),
+    opportunityId: opportunity.id,
+    status: 'DISCOVERED',
+    lastContactedAt: null,
+    createdAt: now,
+    updatedAt: now,
+  }));
+
+  await saveSupplierBatch(opportunity.id, ranked);
+  log(`Saved ${ranked.length} supplier(s) for "${opportunity.product}"${ranked.length ? ` — top-ranked: ${ranked[0].name} (score ${ranked[0].supplierScore})` : ''}.`);
+
+  if (!ranked.length) {
+    log('No suppliers found — no approval request created.');
+    return;
+  }
+
+  const best = ranked[0];
+  const summary = `Supplier research for "${opportunity.product}"${opportunity.variant ? ` (${opportunity.variant})` : ''} found ${ranked.length} candidate supplier(s). Top-ranked: ${best.name} (${best.country || 'country unknown'}), supplier score ${best.supplierScore}/100.`;
+  const rationale = `Ranked ${best.supplierScore}/100 on price (${best.scoreBreakdown.price}), credibility (${best.scoreBreakdown.credibility}), MOQ fit (${best.scoreBreakdown.moq}) and lead time (${best.scoreBreakdown.leadTime}) relative to the other supplier(s) found in this batch.${best.evidenceGap ? ' No verifiable source URLs were found for this supplier — treat with caution.' : ''}`;
+  await createApprovalRequest({
+    type: 'SUPPLIER_OUTREACH',
+    opportunityId: opportunity.id,
+    supplierId: best.id,
+    summary,
+    recommendation: `Approve outreach to ${best.name} for a formal quote.`,
+    rationale,
+    estimatedCost: null, // a research/contact recommendation, not a purchase — no dollar cost to approve here
+  });
+  log(`Approval request created: SUPPLIER_OUTREACH for "${best.name}".`);
+}
+
 // --- Main ---------------------------------------------------------------------------
 
 async function main() {
   log(`Mode: ${MODE}${DRY_RUN ? ' (DRY RUN — no real API calls, no cost)' : ''}`);
+
+  if (MODE === 'supplier') {
+    await runSupplierMode();
+    return;
+  }
 
   const [radar, products] = await Promise.all([getRadarOpportunities(), getProducts()]);
   const knownNames = [

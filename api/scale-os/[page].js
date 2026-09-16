@@ -10,7 +10,8 @@ import { renderShell, renderComingSoon } from '../../scale-os/lib/layout.js';
 import { DASHBOARD_STYLE, DASHBOARD_BODY, DASHBOARD_SCRIPT } from '../../scale-os/lib/dashboard.js';
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
 import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
-import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, isStoreConfigured } from '../../scale-os/lib/store.js';
+import { SUPPLIERS_STYLE, SUPPLIERS_BODY, SUPPLIERS_SCRIPT } from '../../scale-os/lib/suppliers.js';
+import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, isStoreConfigured } from '../../scale-os/lib/store.js';
 
 function renderDashboard() {
   return renderShell({
@@ -39,6 +40,16 @@ function renderMarketRadar() {
     bodyHtml: MARKET_RADAR_BODY,
     extraStyle: MARKET_RADAR_STYLE,
     extraScript: MARKET_RADAR_SCRIPT,
+  });
+}
+
+function renderSuppliers() {
+  return renderShell({
+    title: 'Suppliers',
+    activeKey: 'suppliers',
+    bodyHtml: SUPPLIERS_BODY,
+    extraStyle: SUPPLIERS_STYLE,
+    extraScript: SUPPLIERS_SCRIPT,
   });
 }
 
@@ -116,10 +127,33 @@ async function handleRadarData(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   try {
-    const [opportunities, pulse] = await Promise.all([getRadarOpportunities(), getPulseBrief()]);
-    return res.status(200).json({ opportunities, pulse });
+    const [opportunities, pulse, suppliers, approvals] = await Promise.all([
+      getRadarOpportunities(), getPulseBrief(), getSuppliers(), getApprovals(),
+    ]);
+    return res.status(200).json({ opportunities, pulse, suppliers, approvals });
   } catch (err) {
     return res.status(500).json({ error: err.message });
+  }
+}
+
+// Records a human decision (approve/reject) on one Approval Queue request. Never
+// performs any action beyond recording the decision — no email integration exists
+// yet, so approving SUPPLIER_OUTREACH does not send anything.
+async function handleApprovalsDecide(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { id, decision, notes } = req.body || {};
+  if (!id || !decision) return res.status(400).json({ error: 'Expected { id, decision: "APPROVED"|"REJECTED", notes? }' });
+  try {
+    const request = await decideApproval(id, decision, notes);
+    return res.status(200).json({ success: true, request });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
   }
 }
 
@@ -157,6 +191,10 @@ export default async function handler(req, res) {
     if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
     return handleRadarPromote(req, res);
   }
+  if (page === 'approvals-decide') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleApprovalsDecide(req, res);
+  }
 
   if (!requireAuth(req, res)) return;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -164,6 +202,7 @@ export default async function handler(req, res) {
   if (page === 'dashboard') return res.status(200).send(renderDashboard());
   if (page === 'product-lab') return res.status(200).send(renderProductLab());
   if (page === 'radar') return res.status(200).send(renderMarketRadar());
+  if (page === 'suppliers') return res.status(200).send(renderSuppliers());
   if (page && COMING_SOON[page]) {
     return res.status(200).send(renderComingSoon({ activeKey: page, ...COMING_SOON[page] }));
   }
