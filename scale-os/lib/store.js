@@ -392,6 +392,40 @@ export async function saveSuppliers(suppliers) {
   await redisCommand(['SET', SUPPLIERS_KEY, JSON.stringify(suppliers)]);
 }
 
+// Stores a supplier's raw, unedited reply text (pasted by hand from whatever email
+// client James actually sent from — see the module comment above run.mjs's
+// 'quote-capture' mode for why this is manual rather than a live email integration)
+// and marks it pending parse. The raw text is kept permanently alongside the parsed
+// fields, never discarded, so a parse can always be checked against what was actually
+// said.
+export async function recordRawQuoteReply(supplierId, rawText) {
+  const suppliers = await getSuppliers();
+  const supplier = suppliers.find((s) => s.id === supplierId);
+  if (!supplier) throw new Error('Supplier not found');
+  supplier.quoteRawText = rawText;
+  supplier.quoteParseStatus = 'PENDING';
+  supplier.updatedAt = new Date().toISOString();
+  await saveSuppliers(suppliers);
+  return supplier;
+}
+
+// Applies parsed quote fields (from run.mjs's 'quote-capture' mode) onto a supplier
+// record. Only ever called with fields the parse actually found — missing fields stay
+// null, exactly like every other evidence field in this system; never backfilled with
+// a guess or a zero.
+export async function applyParsedQuote(supplierId, parsedFields) {
+  const suppliers = await getSuppliers();
+  const supplier = suppliers.find((s) => s.id === supplierId);
+  if (!supplier) throw new Error('Supplier not found');
+  Object.assign(supplier, parsedFields, {
+    quoteParseStatus: 'PARSED',
+    quoteReceivedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
+  await saveSuppliers(suppliers);
+  return supplier;
+}
+
 // Replaces any prior supplier batch for this opportunity — a fresh supplier-research
 // pass supersedes the last one rather than accumulating duplicates alongside it.
 export async function saveSupplierBatch(opportunityId, newSuppliers) {
@@ -405,10 +439,12 @@ export async function saveSupplierBatch(opportunityId, newSuppliers) {
 // --- Approval Queue -------------------------------------------------------------------
 // The only place any automated pipeline is allowed to cause a real-world consequence —
 // everything upstream (discovery, research, supplier ranking) is read-only. Nothing acts
-// on an opportunity or supplier until a row here is APPROVED by a human. V1 has exactly
-// one approval type: SUPPLIER_OUTREACH (see run.mjs 'supplier' mode) — it recommends
-// contacting the top-ranked supplier, and approving it does not yet send anything
-// (no email integration exists yet); it only records the decision.
+// on an opportunity or supplier until a row here is APPROVED by a human, and even then
+// nothing is sent automatically — there is no email integration; approving
+// SUPPLIER_OUTREACH only unlocks the drafted enquiry text for James to copy and send
+// himself. Two approval types: SUPPLIER_OUTREACH (a batch of up to 3 suppliers worth
+// quoting, from run.mjs's 'supplier' mode) and SAMPLE_ORDER (one recommended supplier
+// with real quote-derived economics, from run.mjs's 'quote-capture' mode).
 
 const APPROVALS_KEY = 'scale_os:approvals:v1';
 
@@ -431,19 +467,28 @@ export async function saveApprovals(approvals) {
   await redisCommand(['SET', APPROVALS_KEY, JSON.stringify(approvals)]);
 }
 
-// Creates one PENDING approval request. Called by run.mjs's 'supplier' mode after
-// ranking suppliers for an opportunity — never auto-approved, never auto-actioned.
-export async function createApprovalRequest({ type, opportunityId, supplierId, summary, recommendation, rationale, estimatedCost }) {
+// Creates one PENDING approval request. Called by run.mjs's 'supplier' and
+// 'quote-capture' modes — never auto-approved, never auto-actioned.
+// - supplierId: single-supplier approvals (SAMPLE_ORDER).
+// - supplierIds + draftMessages: batch approvals (SUPPLIER_OUTREACH) — draftMessages is
+//   [{supplierId, supplierName, subject, body}], the plain-template enquiry text James
+//   copies and sends himself once he approves; nothing here ever sends it.
+// - details: optional structured data for richer display (e.g. SAMPLE_ORDER's
+//   economics breakdown) alongside the plain-English summary/recommendation/rationale.
+export async function createApprovalRequest({ type, opportunityId, supplierId, supplierIds, draftMessages, summary, recommendation, rationale, estimatedCost, details }) {
   const approvals = await getApprovals();
   const request = {
     id: approvalUid(),
     type,
     opportunityId,
     supplierId: supplierId || null,
+    supplierIds: supplierIds || null,
+    draftMessages: draftMessages || null,
     summary,
     recommendation: recommendation || null,
     rationale: rationale || null,
     estimatedCost: estimatedCost ?? null,
+    details: details || null,
     status: 'PENDING',
     createdAt: new Date().toISOString(),
     decidedAt: null,

@@ -11,7 +11,7 @@ import { DASHBOARD_STYLE, DASHBOARD_BODY, DASHBOARD_SCRIPT } from '../../scale-o
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
 import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
 import { SUPPLIERS_STYLE, SUPPLIERS_BODY, SUPPLIERS_SCRIPT } from '../../scale-os/lib/suppliers.js';
-import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, isStoreConfigured } from '../../scale-os/lib/store.js';
+import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, recordRawQuoteReply, isStoreConfigured } from '../../scale-os/lib/store.js';
 
 function renderDashboard() {
   return renderShell({
@@ -157,6 +157,30 @@ async function handleApprovalsDecide(req, res) {
   }
 }
 
+// Records a supplier's raw reply text, pasted by hand from whichever email client James
+// actually sent from — there is no email integration, so this is the only way a real
+// reply enters the system. Parsing it into structured fields happens later, in the
+// GitHub Actions worker's 'quote-capture' mode (real Claude call, run manually) — this
+// endpoint only ever stores the raw text and marks it pending; it never calls Claude
+// itself, so pasting a reply never costs anything by itself.
+async function handleQuoteReply(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { supplierId, rawText } = req.body || {};
+  if (!supplierId || !rawText) return res.status(400).json({ error: 'Expected { supplierId, rawText }' });
+  try {
+    const supplier = await recordRawQuoteReply(supplierId, rawText);
+    return res.status(200).json({ success: true, supplier });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+}
+
 // Promotes one Market Radar opportunity into Product Lab.
 async function handleRadarPromote(req, res) {
   if (!isStoreConfigured()) {
@@ -194,6 +218,10 @@ export default async function handler(req, res) {
   if (page === 'approvals-decide') {
     if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
     return handleApprovalsDecide(req, res);
+  }
+  if (page === 'quote-reply') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleQuoteReply(req, res);
   }
 
   if (!requireAuth(req, res)) return;

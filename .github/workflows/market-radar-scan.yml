@@ -14,10 +14,10 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "list = zero-cost read-only dump of the real stored Market Radar data (no Anthropic call, no writes) — use this first to inspect production data for free. diag-basic/diag-search = cheap 1-call connectivity checks (run these first if things are failing). hunt = find new candidates only. refresh = re-research the stalest existing tier A/B opportunities only. daily = hunt + refresh + the Pulse synthesis brief, same as the nightly schedule. candidate = research/refresh one specific product. supplier = find and rank suppliers for one existing Market Radar opportunity (see supplier_target below) — never runs automatically."
+        description: "list = zero-cost read-only dump of the real stored Market Radar data (no Anthropic call, no writes) — use this first to inspect production data for free. diag-basic/diag-search = cheap 1-call connectivity checks (run these first if things are failing). hunt = find new candidates only. refresh = re-research the stalest existing tier A/B opportunities only. daily = hunt + refresh + the Pulse synthesis brief, same as the nightly schedule. candidate = research/refresh one specific product. supplier = find suppliers + draft an outreach approval for one existing Market Radar opportunity (see supplier_target below). quote-capture = parse any supplier replies James has pasted into the Suppliers page and recalculate economics. Neither supplier nor quote-capture ever run automatically."
         required: true
         type: choice
-        options: [list, diag-basic, diag-search, hunt, refresh, daily, candidate, supplier]
+        options: [list, diag-basic, diag-search, hunt, refresh, daily, candidate, supplier, quote-capture]
         default: diag-basic
       candidate:
         description: 'Only used when mode=candidate. Format: "Product Name|Variant|Category" (variant/category optional).'
