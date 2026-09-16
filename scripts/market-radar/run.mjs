@@ -27,7 +27,7 @@
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
 import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote } from '../../scale-os/lib/store.js';
-import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice } from './scoring.mjs';
+import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice, computeFitGate } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
 // not deep multi-step reasoning, and the brief was explicit about running this
@@ -41,7 +41,7 @@ const EVIDENCE_TYPES = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumptio
 const DIMENSION_KEYS = Object.keys(SCORE_WEIGHTS);
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'quote-capture' | 'list'
+const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'quote-capture' | 'demand-evidence' | 'list'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
@@ -1101,6 +1101,209 @@ export function estimateLandedEconomics(supplier, opportunity, rankedSuppliers) 
   };
 }
 
+// --- Demand-evidence enrichment (Commercial Funnel support, manual trigger only) ---
+// The Commercial Funnel's Demand Proof gate can only distinguish "no real demand"
+// from "not yet researched" if competitor/review evidence actually exists — most of
+// Market Radar's items were never given a dedicated consumer-market search (Enrich's
+// original pass is broader and thinner). This targets EXACTLY the opportunities that
+// currently PASS computeFitGate (the same gate the funnel itself uses, so the target
+// set can never drift from what's actually worth investigating), and gathers ONLY
+// consumer-market demand evidence — real retailers, countries, review counts, sold-
+// out/bestseller signals, real retail prices, NZ competitors. Uses Tavily for
+// retrieval and a plain non-tool Claude call for extraction, the same two-stage
+// pattern as supplier discovery above and for the same reason: no Anthropic
+// web_search tool loop to hang. Never touches opportunityScore, confidenceScore,
+// scoreBreakdown, or priceBand (Prime Piece's own anticipated retail estimate) —
+// purely additive evidence into the existing competitors[]/trendSignals[] fields the
+// Demand Proof / Price Validation / NZ Gap functions already read.
+function buildDemandSearchQueries({ product, variant, category }) {
+  const productLine = variant ? `${product} (${variant})` : product;
+  return [
+    `${productLine} buy reviews`,
+    `${productLine} bestseller OR "sold out" OR backorder OR "best seller"`,
+    `${productLine} New Zealand retailer OR store`,
+    `${productLine} ${category || ''} price`.replace(/\s+/g, ' ').trim(),
+  ];
+}
+
+const DEMAND_EVIDENCE_LIMIT = 8;
+const DEMAND_EVIDENCE_SNIPPET_CHARS = 450;
+
+async function gatherDemandEvidence({ product, variant, category }) {
+  if (!process.env.TAVILY_API_KEY) throw new Error('TAVILY_API_KEY is not set — required for demand-evidence enrichment (Stage 1 web retrieval).');
+  const queries = buildDemandSearchQueries({ product, variant, category });
+  const settled = await Promise.allSettled(queries.map((q) => tavilySearch(q, 5)));
+  const seen = new Set();
+  const evidence = [];
+  settled.forEach((result, i) => {
+    if (result.status === 'rejected') {
+      log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`);
+      return;
+    }
+    for (const item of result.value) {
+      if (!item.url || seen.has(item.url)) continue;
+      seen.add(item.url);
+      evidence.push(item);
+    }
+  });
+  return evidence.sort((a, b) => b.score - a.score).slice(0, DEMAND_EVIDENCE_LIMIT);
+}
+
+const DEMAND_SCHEMA_EXAMPLE = `{
+  "competitors": [{"name": "string", "country": "string", "priceLow": number|null, "priceHigh": number|null, "reviewCount": number|null, "bestsellerFlag": boolean}],
+  "trendSignals": [{"signal": "string", "type": "Fact | Proxy / Signal | Estimate | Founder Assumption", "source": "string"}]
+}`;
+
+const DEMAND_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      competitors: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            country: { type: 'string' },
+            priceLow: nullable({ type: 'number' }),
+            priceHigh: nullable({ type: 'number' }),
+            reviewCount: nullable({ type: 'number' }),
+            bestsellerFlag: { type: 'boolean' },
+          },
+          required: ['name', 'country', 'priceLow', 'priceHigh', 'reviewCount', 'bestsellerFlag'],
+          additionalProperties: false,
+        },
+      },
+      trendSignals: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: { signal: { type: 'string' }, type: { type: 'string' }, source: { type: 'string' } },
+          required: ['signal', 'type', 'source'],
+          additionalProperties: false,
+        },
+      },
+    },
+    required: ['competitors', 'trendSignals'],
+    additionalProperties: false,
+  },
+};
+
+export async function findDemandEvidence({ product, variant, category }) {
+  if (DRY_RUN) {
+    log(`DRY RUN — skipping real demand-evidence search for "${product}", using fixture evidence.`);
+    return {
+      competitors: [{ name: 'Dry Run Retailer (fixture)', country: 'Unknown', priceLow: 100, priceHigh: 150, reviewCount: 10, bestsellerFlag: false }],
+      trendSignals: [{ signal: 'Dry-run fixture signal', type: 'Founder Assumption', source: 'Dry-run fixture' }],
+    };
+  }
+
+  const evidence = await gatherDemandEvidence({ product, variant, category });
+  log(`Gathered ${evidence.length} unique demand-evidence item(s) from Tavily for "${product}".`);
+  if (!evidence.length) {
+    // No evidence found is a genuinely useful result, not a failure — the caller
+    // merges this in as zero new competitors/signals, which keeps Demand Proof at
+    // UNKNOWN rather than the pipeline throwing over a product Tavily just has
+    // nothing on.
+    return { competitors: [], trendSignals: [] };
+  }
+
+  const evidenceBlock = evidence
+    .map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, DEMAND_EVIDENCE_SNIPPET_CHARS)}`)
+    .join('\n\n');
+
+  const system = 'You are the demand-evidence extraction step of Prime Piece Pulse. You extract REAL consumer-market facts strictly from the search evidence given to you below — you have no web access of your own. Never invent a retailer, price, review count, or country not clearly supported by the evidence. If a fact is not stated, leave it null/empty. A bestsellerFlag of true requires the evidence to explicitly say the item is a bestseller, sold out, on backorder, or similarly in-demand — never infer this from price or general popularity alone.';
+  const prompt = `Here is web search evidence (title, URL, page excerpt) gathered for this product: "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
+
+${evidenceBlock}
+
+From ONLY the evidence above, extract:
+1. "competitors": every distinct real retailer/seller genuinely selling this product or a close match (NOT manufacturers/wholesalers/Alibaba-style listings — this is consumer-facing retail evidence only). For each: name, country (the market it sells into, only if clearly supported), priceLow/priceHigh if a real price is stated, reviewCount if stated, bestsellerFlag per the rule above.
+2. "trendSignals": any other real demand signal not already captured as a specific retailer above (e.g. "stocked by multiple independent boutiques", "featured in [publication]", genuine search/social trend evidence). type must be "Fact" (directly stated), "Proxy / Signal" (an indirect indicator like a bestseller badge or multi-retailer stocking), "Estimate", or "Founder Assumption" only if you are inferring rather than reading a direct statement.
+
+Leave a field null or omit an array entry rather than padding results to look more complete than the evidence supports.
+
+Respond with ONLY a JSON object in exactly this shape:
+${DEMAND_SCHEMA_EXAMPLE}`;
+
+  let lastErr;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 3500, responseFormat: DEMAND_RESPONSE_FORMAT });
+      if (stopReason === 'max_tokens') {
+        throw new Error('Demand-evidence extraction response was truncated (stop_reason=max_tokens) before completing.');
+      }
+      log(`Demand-evidence extraction for "${product}" completed (attempt ${attempt}/2, stop_reason=${stopReason}).`);
+      const parsed = extractJson(text);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Demand-evidence extraction did not return a JSON object.');
+      return { competitors: Array.isArray(parsed.competitors) ? parsed.competitors : [], trendSignals: Array.isArray(parsed.trendSignals) ? parsed.trendSignals : [] };
+    } catch (err) {
+      lastErr = err;
+      log(`Demand-evidence extraction for "${product}" attempt ${attempt}/2 failed: ${err.message}`);
+    }
+  }
+  throw lastErr;
+}
+
+function demandEvidenceDedupeKey(name, country) {
+  return `${(name || '').trim().toLowerCase()}|${(country || '').trim().toLowerCase()}`;
+}
+
+// Purely additive merge: new competitors/trendSignals are appended if not already
+// present (by name+country, or by exact signal text) — never overwrites or removes
+// existing evidence, never touches opportunityScore/confidenceScore/scoreBreakdown/
+// priceBand. Records a history entry so the enrichment pass itself is auditable.
+export function mergeDemandEvidence(opportunity, evidence) {
+  const existingCompetitorKeys = new Set((opportunity.competitors || []).map((c) => demandEvidenceDedupeKey(c.name, c.country)));
+  const newCompetitors = (evidence.competitors || []).filter((c) => c?.name && !existingCompetitorKeys.has(demandEvidenceDedupeKey(c.name, c.country)));
+  const existingSignalTexts = new Set((opportunity.trendSignals || []).map((t) => (t.signal || '').trim().toLowerCase()));
+  const newTrendSignals = (evidence.trendSignals || []).filter((t) => t?.signal && !existingSignalTexts.has(t.signal.trim().toLowerCase()));
+
+  return {
+    ...opportunity,
+    competitors: [...(opportunity.competitors || []), ...newCompetitors],
+    trendSignals: [...(opportunity.trendSignals || []), ...newTrendSignals],
+    lastResearched: TODAY,
+    history: [...(opportunity.history || []), {
+      scanDate: TODAY, score: opportunity.opportunityScore, confidence: opportunity.confidenceScore, priceRange: opportunity.priceBand, reviewCount: null,
+      note: `Demand-evidence enrichment (Tavily) — +${newCompetitors.length} competitor(s), +${newTrendSignals.length} trend signal(s)`,
+    }],
+  };
+}
+
+async function runDemandEvidenceMode() {
+  const radar = await getRadarOpportunities();
+  const targets = radar.filter((o) => computeFitGate(o).result === 'PASS');
+  log(`Demand-evidence pass targeting ${targets.length} opportunity(ies) that currently PASS Prime Piece Fit: ${targets.map((o) => o.id).join(', ') || '(none)'}`);
+  if (!targets.length) {
+    log('Nothing to enrich — no opportunity currently passes Fit.');
+    return;
+  }
+
+  let succeeded = 0, failed = 0;
+  for (const target of targets) {
+    try {
+      log(`Gathering demand evidence for "${target.product}"${target.variant ? ` (${target.variant})` : ''}...`);
+      const evidence = await findDemandEvidence({ product: target.product, variant: target.variant, category: target.category });
+      const idx = radar.findIndex((o) => o.id === target.id);
+      radar[idx] = mergeDemandEvidence(radar[idx], evidence);
+      const merged = radar[idx];
+      log(`"${target.product}": now ${merged.competitors.length} total competitor(s), ${merged.trendSignals.length} total trend signal(s) on record.`);
+      succeeded++;
+    } catch (err) {
+      failed++;
+      log(`FAILED demand-evidence pass on "${target.product}": ${err.message}`);
+    }
+  }
+
+  await saveRadarOpportunities(radar);
+  log(`Saved. ${succeeded} succeeded, ${failed} failed.`);
+  if (failed > 0 && succeeded === 0) {
+    throw new Error(`All ${failed} demand-evidence pass(es) failed — see logs above.`);
+  }
+}
+
 // --- Quote-capture mode: manual trigger only ---------------------------------------
 // Parses every supplier reply James has pasted in since the last run, then — for each
 // affected opportunity — recalculates real commercial ranking and landed economics and
@@ -1201,6 +1404,11 @@ async function main() {
 
   if (MODE === 'quote-capture') {
     await runQuoteCaptureMode();
+    return;
+  }
+
+  if (MODE === 'demand-evidence') {
+    await runDemandEvidenceMode();
     return;
   }
 

@@ -151,7 +151,10 @@ export const MARKET_RADAR_SCRIPT = `
     else { if (!econ.freightDifficulty) unknowns.push('Freight difficulty not assessed.'); if (!econ.damageRisk) unknowns.push('Damage risk not assessed.'); }
     var pb = o.priceBand || {};
     if (typeof pb.low === 'number' && typeof pb.high === 'number') {
-      if (!(pb.high >= 250 && pb.low <= 1200)) { fail = true; reasons.push('Price band does not overlap Core AOV target (NZ$250-1,200).'); }
+      var overlapsEntry = pb.high >= 99 && pb.low <= 299;
+      var overlapsCore = pb.high >= 299 && pb.low <= 1200;
+      if (!overlapsEntry && !overlapsCore) { fail = true; reasons.push('Price band does not overlap either Prime Piece lane (ENTRY $99-299 or CORE $299-1,200).'); }
+      else { reasons.push('Price band overlaps the ' + (overlapsCore ? 'CORE ($299-1,200)' : 'ENTRY ($99-299)') + ' lane.'); }
     } else { unknowns.push('Price band not established.'); }
     if (containsAny(textBlob(o), COMMODITY_WORDS)) { fail = true; reasons.push('Evidence flags commodity/saturated/big-box-dominated.'); }
     if (containsAny(textBlob(o), INSTALL_WORDS)) unknowns.push('Installation-related language present — complexity not confirmed manageable.');
@@ -167,6 +170,12 @@ export const MARKET_RADAR_SCRIPT = `
   function computeDemandProofGate(o) {
     if (!hasBeenResearched(o)) return { result: UNKNOWN, confidence: 'LOW', reasons: ['Not yet researched.'], sellerDepthCount: 0, distinctMarkets: 0, transactionTier: UNKNOWN };
     var competitors = o.competitors || [];
+    // Missing competitor evidence means "not yet researched for demand," not "proven
+    // no demand" — a hard FAIL requires a completed search (competitors populated)
+    // that still falls short, never a bare absence of data.
+    if (!competitors.length) {
+      return { result: UNKNOWN, confidence: 'LOW', reasons: ['No competitor/review evidence recorded yet — this opportunity has not been through a dedicated consumer-market demand research pass.'], sellerDepthCount: 0, distinctMarkets: 0, transactionTier: UNKNOWN };
+    }
     var consumerSellers = competitors.filter(isConsumerSeller);
     var marketSet = {};
     consumerSellers.forEach(function (c) { if (c.country) marketSet[c.country.trim()] = true; });

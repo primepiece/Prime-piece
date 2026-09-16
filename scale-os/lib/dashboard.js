@@ -273,7 +273,11 @@ export const DASHBOARD_SCRIPT = `
     var econ = o.economicsPotential || {};
     if (econ.freightDifficulty === 'High' && econ.damageRisk === 'High') fail = true;
     var pb = o.priceBand || {};
-    if (typeof pb.low === 'number' && typeof pb.high === 'number' && !(pb.high >= 250 && pb.low <= 1200)) fail = true;
+    if (typeof pb.low === 'number' && typeof pb.high === 'number') {
+      var overlapsEntry = pb.high >= 99 && pb.low <= 299;
+      var overlapsCore = pb.high >= 299 && pb.low <= 1200;
+      if (!overlapsEntry && !overlapsCore) fail = true;
+    }
     if (funnelContainsAny(funnelTextBlob(o), FUNNEL_COMMODITY_WORDS)) fail = true;
     return { result: fail ? 'FAIL' : 'PASS' };
   }
@@ -283,6 +287,9 @@ export const DASHBOARD_SCRIPT = `
   function funnelDemand(o) {
     if (!funnelHasResearch(o)) return { result: FUNNEL_UNKNOWN };
     var competitors = o.competitors || [];
+    // Missing competitor evidence means "not yet researched," not "proven no
+    // demand" — see scoring.mjs's computeDemandProofGate for the full rationale.
+    if (!competitors.length) return { result: FUNNEL_UNKNOWN };
     var consumerSellers = competitors.filter(funnelIsConsumerSeller);
     var marketSet = {};
     consumerSellers.forEach(function (c) { if (c.country) marketSet[c.country.trim()] = true; });
