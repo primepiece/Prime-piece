@@ -26,8 +26,8 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals } from '../../scale-os/lib/store.js';
-import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers } from './scoring.mjs';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote } from '../../scale-os/lib/store.js';
+import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
 // not deep multi-step reasoning, and the brief was explicit about running this
@@ -41,7 +41,7 @@ const EVIDENCE_TYPES = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumptio
 const DIMENSION_KEYS = Object.keys(SCORE_WEIGHTS);
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'list'
+const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'quote-capture' | 'list'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
@@ -697,12 +697,54 @@ export async function synthesizeBrief(context) {
   return parsed;
 }
 
+// --- Quote request template (plain text, no Claude call) --------------------------
+// This is fixed business boilerplate, not something that benefits from an LLM
+// generating it fresh each time (and doing so would cost a call for no real gain) —
+// a deterministic template keeps every enquiry consistent and guarantees the one hard
+// rule (never reveal Prime Piece's target retail price or margin) can never be
+// accidentally violated by a model improvising wording. James copies this into his own
+// email client and sends it himself; nothing here transmits anything.
+export function buildQuoteRequestEmail({ supplierName, product, variant, category }) {
+  const productLine = variant ? `${product} (${variant})` : product;
+  const subject = `Wholesale enquiry — ${productLine}`;
+  const body = `Hello ${supplierName || 'there'},
+
+We are Prime Piece, a premium natural-stone homeware retailer based in Auckland, New Zealand, and we are evaluating suppliers for the following product:
+
+${productLine}${category ? ` — category: ${category}` : ''}
+
+Could you please provide the following information:
+
+- Sample availability and sample price
+- Minimum order quantity (MOQ)
+- Unit pricing at 10 / 25 / 50 / 100 units
+- Available real stone types for this product
+- Standard dimensions, and whether custom dimensions are available
+- Net weight and packaged weight
+- Carton/crate dimensions
+- Packaging method
+- Production lead time
+- Branding or custom packaging options
+- Incoterms you work under
+- Shipping options and estimated cost to Auckland, New Zealand
+- Your damage/replacement policy
+- Any relevant quality control or certification information
+
+Thank you for your time — we look forward to your reply.
+
+Kind regards,
+Prime Piece`;
+  return { subject, body };
+}
+
 // --- Supplier mode: manual trigger only, one existing opportunity at a time --------
 // Deliberately not part of 'daily' — this is the Supplier + Approval Engine's first
-// step, kept manual until proven out. Finds suppliers, ranks them (scoring.mjs,
-// independent of the opportunity-scoring model), saves the batch, and creates exactly
-// one PENDING approval request for the top-ranked supplier. Never sends anything —
-// approving that request only records a decision; no email integration exists yet.
+// step, kept manual until proven out. Finds suppliers, ranks them by commercial terms
+// (rankSuppliers — meaningless before any quote exists, kept for later) and separately
+// by outreach fit (selectOutreachBatch — credibility + product/export/material
+// evidence, the actual basis for choosing who to contact), saves the full batch, and
+// creates ONE approval covering the top 3 by outreach fit. Never sends anything —
+// approving only unlocks the drafted enquiry text for James to send himself.
 async function runSupplierMode() {
   const targetId = process.env.RADAR_SUPPLIER_TARGET;
   if (!targetId) throw new Error('RADAR_MODE=supplier requires RADAR_SUPPLIER_TARGET="<radar opportunity id>", e.g. radar_003.');
@@ -718,37 +760,209 @@ async function runSupplierMode() {
   const rawSuppliers = await findSuppliers({ product: opportunity.product, variant: opportunity.variant, category: opportunity.category });
   const audited = auditSuppliers(rawSuppliers);
   const now = new Date().toISOString();
-  const ranked = rankSuppliers(audited).map((s) => ({
+  const withIds = audited.map((s) => ({
     ...s,
     id: 'sup_' + Math.random().toString(36).slice(2, 10),
     opportunityId: opportunity.id,
     status: 'DISCOVERED',
     lastContactedAt: null,
+    quoteParseStatus: null,
+    quoteRawText: null,
+    quoteReceivedAt: null,
     createdAt: now,
     updatedAt: now,
   }));
 
-  await saveSupplierBatch(opportunity.id, ranked);
-  log(`Saved ${ranked.length} supplier(s) for "${opportunity.product}"${ranked.length ? ` — top-ranked: ${ranked[0].name} (score ${ranked[0].supplierScore})` : ''}.`);
+  // Commercial ranking (rankSuppliers) is attached now even though it's near-uniformly
+  // low pre-quote — it becomes meaningful once quote-capture runs and is kept here so
+  // the Suppliers page always has a consistent shape to render.
+  const commerciallyRanked = rankSuppliers(withIds);
 
-  if (!ranked.length) {
+  await saveSupplierBatch(opportunity.id, commerciallyRanked);
+  log(`Saved ${commerciallyRanked.length} supplier(s) for "${opportunity.product}".`);
+
+  if (!commerciallyRanked.length) {
     log('No suppliers found — no approval request created.');
     return;
   }
 
-  const best = ranked[0];
-  const summary = `Supplier research for "${opportunity.product}"${opportunity.variant ? ` (${opportunity.variant})` : ''} found ${ranked.length} candidate supplier(s). Top-ranked: ${best.name} (${best.country || 'country unknown'}), supplier score ${best.supplierScore}/100.`;
-  const rationale = `Ranked ${best.supplierScore}/100 on price (${best.scoreBreakdown.price}), credibility (${best.scoreBreakdown.credibility}), MOQ fit (${best.scoreBreakdown.moq}) and lead time (${best.scoreBreakdown.leadTime}) relative to the other supplier(s) found in this batch.${best.evidenceGap ? ' No verifiable source URLs were found for this supplier — treat with caution.' : ''}`;
+  const outreachTarget = { product: opportunity.product, variant: opportunity.variant, category: opportunity.category };
+  const batch = selectOutreachBatch(commerciallyRanked, outreachTarget, 3);
+  const draftMessages = batch.map((s) => ({ supplierId: s.id, supplierName: s.name, ...buildQuoteRequestEmail({ supplierName: s.name, ...outreachTarget }) }));
+
+  const batchLines = batch.map((s) => `${s.name} (${s.country || 'country unknown'}) — outreach fit ${s.outreachFitScore}/100 [credibility ${s.breakdown.credibility}, product match ${s.breakdown.productMatch}, export ${s.breakdown.exportCapability}, material ${s.breakdown.materialCapability}]`);
+  const summary = `Supplier research for "${opportunity.product}"${opportunity.variant ? ` (${opportunity.variant})` : ''} found ${commerciallyRanked.length} candidate supplier(s). Recommending outreach to the ${batch.length} best-fit suppliers for a real quote — selected on credibility, explicit product/category match, export capability and material capability, not on current commercial-term scores (which are uninformative before any quote exists).`;
+  const rationale = `Selection order: ${batchLines.join(' | ')}.`;
   await createApprovalRequest({
     type: 'SUPPLIER_OUTREACH',
     opportunityId: opportunity.id,
-    supplierId: best.id,
+    supplierIds: batch.map((s) => s.id),
+    draftMessages,
     summary,
-    recommendation: `Approve outreach to ${best.name} for a formal quote.`,
+    recommendation: `Approve sending the drafted enquiry to ${batch.map((s) => s.name).join(', ')}.`,
     rationale,
     estimatedCost: null, // a research/contact recommendation, not a purchase — no dollar cost to approve here
   });
-  log(`Approval request created: SUPPLIER_OUTREACH for "${best.name}".`);
+  log(`Approval request created: SUPPLIER_OUTREACH for ${batch.map((s) => s.name).join(', ')}.`);
+}
+
+// --- Quote reply parsing (Phase 3 — Supplier Outreach + Quote Capture) -------------
+// James pastes a supplier's real email reply into the Suppliers page (no email
+// integration exists — see the module comment above); that raw text is stored via
+// store.js's recordRawQuoteReply(). This one Claude call, no web search, turns that
+// unstructured text into the same structured fields the Supplier record already has
+// slots for. Never invents a figure the supplier didn't actually state.
+
+const QUOTE_SCHEMA_EXAMPLE = `{
+  "moq": "number or null — minimum order quantity in units",
+  "samplePrice": "number or null",
+  "sampleCurrency": "$ | NZ$ | AU$ | £ | € | US$ or null",
+  "pricingTiers": [{"qty": "number", "unitPrice": "number"}],
+  "materials": ["string — real stone types actually mentioned, e.g. White Carrara Marble, Beige Travertine"],
+  "customDimensionsNotes": "string or null",
+  "netWeightKg": "number or null",
+  "cartonSpec": {"size": "string or null", "weightKg": "number or null — packaged/carton weight, distinct from netWeightKg"},
+  "packagingMethod": "string or null",
+  "leadTimeDays": "number or null",
+  "brandingOptions": "string or null",
+  "incoterms": "string or null, e.g. FOB, EXW, CIF",
+  "freightEstimate": "string or null — whatever freight/shipping information was actually given, in plain words",
+  "freightPerUnitEstimateUSD": "number or null — ONLY if a per-unit or easily-divisible freight figure was actually given; do not estimate or calculate one yourself",
+  "complianceNotes": "string or null — QC process or certifications actually mentioned",
+  "damageReplacementPolicy": "string or null"
+}`;
+
+export async function parseQuoteReply({ rawText, supplierName }) {
+  if (DRY_RUN) {
+    log(`DRY RUN — skipping real quote parse for "${supplierName}", using a fixture.`);
+    return {
+      moq: 50, samplePrice: 20, sampleCurrency: 'US$', pricingTiers: [{ qty: 50, unitPrice: 12 }, { qty: 100, unitPrice: 10 }],
+      materials: ['Dry-run fixture'], customDimensionsNotes: null, netWeightKg: null, cartonSpec: { size: null, weightKg: null },
+      packagingMethod: null, leadTimeDays: 25, brandingOptions: null, incoterms: 'FOB', freightEstimate: 'Dry-run fixture.',
+      freightPerUnitEstimateUSD: null, complianceNotes: null, damageReplacementPolicy: null,
+    };
+  }
+
+  const system = 'You extract structured commercial quote data from a real supplier email reply for Prime Piece Pulse. Report ONLY what the reply actually states. Never invent a number, material, or term the supplier did not mention, and never calculate a figure (like a per-unit freight cost) the supplier did not state directly. Use null for anything not stated.';
+  const prompt = `Here is a supplier's (${supplierName}) reply to a quote request. Extract the structured fields below from ONLY what is actually stated in the reply.
+
+---
+${rawText}
+---
+
+Respond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:
+${QUOTE_SCHEMA_EXAMPLE}`;
+
+  // Plain text extraction, no web search — same single-attempt shape as
+  // synthesizeBrief() (fetchWithRetry's own 429/5xx retry still applies; there's no
+  // search budget to reduce on a retry, so no second attempt is made here either).
+  const { text } = await callClaude({ system, prompt, maxTokens: 2000 });
+  const parsed = extractJson(text);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error(`Quote parse for "${supplierName}" did not return a JSON object.`);
+  return parsed;
+}
+
+// --- Landed economics (plain code, no Claude call) ---------------------------------
+// Every figure here is either a real number carried straight from a supplier's own
+// quote or Market Radar's own priceBand, or explicitly null with a note — never a
+// guess, never a missing figure silently treated as zero. This is what the SAMPLE_ORDER
+// approval is built from.
+export function estimateLandedEconomics(supplier, opportunity, rankedSuppliers) {
+  const unitPriceAt50 = representativeUnitPrice(supplier);
+  const freightPerUnitEstimateUSD = typeof supplier.freightPerUnitEstimateUSD === 'number' ? supplier.freightPerUnitEstimateUSD : null;
+  const estimatedLandedCost = (unitPriceAt50 !== null && freightPerUnitEstimateUSD !== null) ? unitPriceAt50 + freightPerUnitEstimateUSD : null;
+  const landedCostNote = unitPriceAt50 === null
+    ? 'No unit pricing received from this supplier yet.'
+    : freightPerUnitEstimateUSD === null
+      ? 'Unit price is known; a per-unit freight figure was not stated, so landed cost is incomplete rather than assumed.'
+      : null;
+
+  const sampleLandedCost = typeof supplier.samplePrice === 'number' ? supplier.samplePrice : null;
+
+  const targetRetail = opportunity.priceBand && typeof opportunity.priceBand.low === 'number' ? opportunity.priceBand.low : null;
+  const targetRetailCurrency = opportunity.priceBand?.currency || null;
+  const targetRetailNote = 'Entry-tier price from Market Radar\'s priceBand — a real target retail figure should be confirmed in Product Lab once/if this product is promoted.';
+
+  const grossMarginPct = (estimatedLandedCost !== null && targetRetail) ? Math.round(((targetRetail - estimatedLandedCost) / targetRetail) * 1000) / 10 : null;
+
+  const mainRisks = [
+    ...((opportunity.operatingRisks || [])),
+    ...(supplier.evidenceGap ? ['No verifiable source URLs were found for this supplier during discovery — treat with caution.'] : []),
+  ].slice(0, 5);
+
+  const others = (rankedSuppliers || []).filter((s) => s.id !== supplier.id);
+  const whyBeatsAlternatives = others.length
+    ? `Ranked ${supplier.supplierScore}/100 on real commercial terms vs. next-best "${others[0].name}" at ${others[0].supplierScore}/100.`
+    : 'Only supplier with a recorded quote so far — no alternative to compare against yet.';
+
+  return {
+    unitPriceAt50, freightPerUnitEstimateUSD, estimatedLandedCost, landedCostNote,
+    sampleLandedCost, targetRetail, targetRetailCurrency, targetRetailNote, grossMarginPct,
+    contributionMarginPotential: null,
+    contributionMarginNote: "Not computable yet — requires Prime Piece's own packaging/fulfilment/payment-fee assumptions, entered once this product is promoted to Product Lab.",
+    mainRisks, whyBeatsAlternatives,
+  };
+}
+
+// --- Quote-capture mode: manual trigger only ---------------------------------------
+// Parses every supplier reply James has pasted in since the last run, then — for each
+// affected opportunity — recalculates real commercial ranking and landed economics and
+// creates one SAMPLE_ORDER approval. Never orders anything; the approval only records
+// a recommendation for James to accept or reject.
+async function runQuoteCaptureMode() {
+  const suppliers = await getSuppliers();
+  const pending = suppliers.filter((s) => s.quoteParseStatus === 'PENDING');
+  if (!pending.length) {
+    log('No pending supplier quote replies to parse.');
+    return;
+  }
+
+  const affectedOpportunityIds = new Set();
+  for (const supplier of pending) {
+    try {
+      const parsed = await parseQuoteReply({ rawText: supplier.quoteRawText, supplierName: supplier.name });
+      await applyParsedQuote(supplier.id, parsed);
+      affectedOpportunityIds.add(supplier.opportunityId);
+      log(`Parsed quote reply from "${supplier.name}".`);
+    } catch (err) {
+      log(`FAILED to parse quote reply from "${supplier.name}": ${err.message}`);
+    }
+  }
+
+  const radar = await getRadarOpportunities();
+  const existingApprovals = await getApprovals();
+
+  for (const opportunityId of affectedOpportunityIds) {
+    const opportunity = radar.find((o) => o.id === opportunityId);
+    if (!opportunity) { log(`Opportunity ${opportunityId} not found — skipping recalculation.`); continue; }
+
+    const allSuppliers = await getSuppliers();
+    const forThisOpportunity = allSuppliers.filter((s) => s.opportunityId === opportunityId);
+    const reranked = rankSuppliers(forThisOpportunity);
+    await saveSupplierBatch(opportunityId, reranked);
+
+    const best = reranked[0];
+    if (!best) continue;
+
+    const alreadyPending = existingApprovals.some((a) => a.type === 'SAMPLE_ORDER' && a.opportunityId === opportunityId && a.status === 'PENDING');
+    if (alreadyPending) {
+      log(`A SAMPLE_ORDER approval is already pending for "${opportunity.product}" — recalculated rankings were saved, but not creating a duplicate approval.`);
+      continue;
+    }
+
+    const econ = estimateLandedEconomics(best, opportunity, reranked);
+    await createApprovalRequest({
+      type: 'SAMPLE_ORDER',
+      opportunityId,
+      supplierId: best.id,
+      summary: `Real quote data now exists for "${opportunity.product}". Recommended supplier: ${best.name} (${best.country || 'country unknown'}), supplier score ${best.supplierScore}/100.`,
+      recommendation: `Approve a sample order from ${best.name}.`,
+      rationale: econ.whyBeatsAlternatives,
+      estimatedCost: econ.sampleLandedCost,
+      details: econ,
+    });
+    log(`Approval request created: SAMPLE_ORDER for "${best.name}" on "${opportunity.product}".`);
+  }
 }
 
 // --- Main ---------------------------------------------------------------------------
@@ -785,6 +999,11 @@ async function main() {
 
   if (MODE === 'supplier') {
     await runSupplierMode();
+    return;
+  }
+
+  if (MODE === 'quote-capture') {
+    await runQuoteCaptureMode();
     return;
   }
 

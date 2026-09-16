@@ -45,6 +45,23 @@ export const SUPPLIERS_STYLE = `
   .best-tag { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 20px; background: #DCEAE0; color: #2E7D4F; margin-left: 6px; }
   .evidence-gap-tag { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 20px; background: #F1E4DF; color: #A05B44; margin-left: 6px; }
   .score-breakdown-mini { font-size: 10.5px; color: var(--muted); }
+  .draft-messages { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+  .draft-message { border: 1px solid var(--line); border-radius: 5px; padding: 10px 12px; background: var(--paper); }
+  .draft-message-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 12px; font-weight: 600; }
+  .draft-message-body { white-space: pre-wrap; font-family: inherit; font-size: 11.5px; line-height: 1.5; margin: 0; color: #333; }
+  .sample-order-details { margin-top: 10px; }
+  table.econ-mini td { font-size: 12px; }
+  table.econ-mini td:first-child { color: var(--muted); width: 210px; }
+  .why-supplier-box { background: #F4F2EC; border-radius: 5px; padding: 10px 12px; font-size: 12.5px; line-height: 1.5; margin-top: 8px; }
+  .why-supplier-box .k { font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 0.05em; color: var(--teal-dark); margin-right: 6px; }
+  .expand-btn-sm { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 4px; }
+  .expand-btn-sm:hover { color: var(--black); }
+  tr.quote-detail-row td { background: #F7F6F2; padding: 16px 18px; white-space: normal; }
+  .quote-detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 10px 18px; font-size: 12.5px; margin-bottom: 12px; }
+  .qd-label { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .raw-reply-toggle { font-size: 11px; color: var(--teal-dark); cursor: pointer; text-decoration: underline; }
+  .raw-reply-text { white-space: pre-wrap; font-size: 11px; color: var(--muted); margin-top: 6px; padding: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 4px; }
+  .paste-reply-form textarea { width: 100%; min-height: 90px; border: 1px solid var(--line); border-radius: 4px; padding: 8px; font-family: inherit; font-size: 12px; margin-bottom: 8px; box-sizing: border-box; }
 `;
 
 export const SUPPLIERS_BODY = `
@@ -81,14 +98,56 @@ export const SUPPLIERS_SCRIPT = `
   var opportunities = [];
   var suppliers = [];
   var approvals = [];
+  var expandedSupplierIds = {};
+  var draftTextByUid = {};
 
   function opportunityById(id) {
     return opportunities.filter(function (o) { return o.id === id; })[0] || null;
   }
 
+  function isOutreachApproved(supplierId) {
+    return approvals.some(function (a) {
+      return a.type === 'SUPPLIER_OUTREACH' && a.status === 'APPROVED' && (a.supplierIds || []).indexOf(supplierId) !== -1;
+    });
+  }
+
   // --- Approval Queue -------------------------------------------------------------
+  function draftMessagesHtml(a) {
+    if (a.type !== 'SUPPLIER_OUTREACH' || !a.draftMessages || !a.draftMessages.length) return '';
+    return '<div class="draft-messages">' + a.draftMessages.map(function (m, i) {
+      var uid = a.id + '_' + i;
+      var fullText = 'Subject: ' + m.subject + '\\n\\n' + m.body;
+      draftTextByUid[uid] = fullText;
+      return '<div class="draft-message">' +
+        '<div class="draft-message-head"><span>' + escapeText(m.supplierName) + '</span><button class="btn btn--ghost btn--small" data-copy="' + uid + '">Copy</button></div>' +
+        '<pre class="draft-message-body">' + escapeText(fullText) + '</pre>' +
+        '</div>';
+    }).join('') + '</div>';
+  }
+
+  function sampleOrderDetailsHtml(a) {
+    if (a.type !== 'SAMPLE_ORDER' || !a.details) return '';
+    var d = a.details;
+    var rows = [
+      ['Unit price (qty 50)', d.unitPriceAt50 != null ? money(d.unitPriceAt50, 'US$') : '—'],
+      ['Freight per unit', d.freightPerUnitEstimateUSD != null ? money(d.freightPerUnitEstimateUSD, 'US$') : '— (' + escapeText(d.landedCostNote || 'not stated') + ')'],
+      ['Estimated landed cost', d.estimatedLandedCost != null ? money(d.estimatedLandedCost, 'US$') : '— (' + escapeText(d.landedCostNote || 'incomplete') + ')'],
+      ['Sample cost', d.sampleLandedCost != null ? money(d.sampleLandedCost, 'US$') : '—'],
+      ['Target retail (entry tier)', d.targetRetail != null ? money(d.targetRetail, d.targetRetailCurrency) : '—'],
+      ['Estimated gross margin', d.grossMarginPct != null ? d.grossMarginPct + '%' : '—'],
+      ['Contribution margin', escapeText(d.contributionMarginNote || '—')],
+    ];
+    var risksHtml = (d.mainRisks && d.mainRisks.length) ? '<ul style="margin:4px 0 0;padding-left:18px;">' + d.mainRisks.map(function (r) { return '<li>' + escapeText(r) + '</li>'; }).join('') + '</ul>' : '<span class="muted">None recorded.</span>';
+    return '<div class="sample-order-details">' +
+      '<table class="mini econ-mini"><tbody>' + rows.map(function (r) { return '<tr><td>' + escapeText(r[0]) + '</td><td>' + r[1] + '</td></tr>'; }).join('') + '</tbody></table>' +
+      '<div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:0.05em;margin:12px 0 4px;">Main risks</div>' + risksHtml +
+      (d.whyBeatsAlternatives ? '<div class="why-supplier-box"><span class="k">Why this supplier</span>' + escapeText(d.whyBeatsAlternatives) + '</div>' : '') +
+      '</div>';
+  }
+
   function renderApprovals() {
     var el = document.getElementById('approvalsBody');
+    draftTextByUid = {};
     if (!approvals.length) { el.innerHTML = '<p class="empty-note">No approval requests yet — these are created automatically when supplier research finds and ranks suppliers for an opportunity.</p>'; return; }
 
     var sorted = approvals.slice().sort(function (a, b) {
@@ -108,12 +167,26 @@ export const SUPPLIERS_SCRIPT = `
         '<div class="approval-head"><span class="approval-type">' + escapeText(a.type) + '</span><span class="muted" style="font-size:11.5px;">' + oppName + '</span></div>' +
         '<div class="approval-summary">' + escapeText(a.summary) + '</div>' +
         (a.rationale ? '<div class="approval-rationale">' + escapeText(a.rationale) + '</div>' : '') +
+        draftMessagesHtml(a) + sampleOrderDetailsHtml(a) +
         '<div class="approval-actions">' + actions + '</div>' +
         '</div>';
     }).join('');
   }
 
   document.getElementById('approvalsBody').addEventListener('click', function (e) {
+    var copyUid = e.target.getAttribute('data-copy');
+    if (copyUid) {
+      var text = draftTextByUid[copyUid] || '';
+      var btn = e.target;
+      var restore = function () { btn.textContent = 'Copy'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied!'; setTimeout(restore, 1500); })
+          .catch(function () { alert('Could not copy automatically — please select and copy the text above by hand.'); });
+      } else {
+        alert('Clipboard not available — please select and copy the text above by hand.');
+      }
+      return;
+    }
     var id = e.target.getAttribute('data-approve') || e.target.getAttribute('data-reject');
     if (!id) return;
     var decision = e.target.hasAttribute('data-approve') ? 'APPROVED' : 'REJECTED';
@@ -129,6 +202,7 @@ export const SUPPLIERS_SCRIPT = `
         var a = approvals.filter(function (x) { return x.id === id; })[0];
         if (a) { a.status = decision; a.decidedAt = new Date().toISOString(); }
         renderApprovals();
+        renderChains();
       })
       .catch(function (err) {
         alert('Could not record decision: ' + err.message);
@@ -137,13 +211,74 @@ export const SUPPLIERS_SCRIPT = `
   });
 
   // --- Supplier research chains, grouped by opportunity ----------------------------
+  var DETAIL_COLSPAN = 9;
+
+  // Structured quote fields, once a pasted reply has been parsed by a quote-capture
+  // run — every field falls back to a dash rather than inventing a value, same
+  // "missing stays null" principle as the rest of this system.
+  function quoteDetailHtml(s) {
+    if (s.quoteParseStatus === 'PARSED') {
+      var cartonText = s.cartonSpec ? [s.cartonSpec.size, s.cartonSpec.weightKg != null ? s.cartonSpec.weightKg + ' kg' : null].filter(Boolean).join(', ') : null;
+      var fields = [
+        ['Materials', (s.materials || []).length ? s.materials.join(', ') : null],
+        ['Custom dimensions', s.customDimensionsNotes],
+        ['Net weight', s.netWeightKg != null ? s.netWeightKg + ' kg' : null],
+        ['Carton / crate spec', cartonText],
+        ['Packaging method', s.packagingMethod],
+        ['Branding options', s.brandingOptions],
+        ['Incoterms', s.incoterms],
+        ['Freight estimate', s.freightEstimate],
+        ['Damage / replacement policy', s.damageReplacementPolicy],
+        ['Compliance / QC', s.complianceNotes],
+      ];
+      var gridHtml = '<div class="quote-detail-grid">' + fields.map(function (f) {
+        return '<div><div class="qd-label">' + escapeText(f[0]) + '</div><div>' + (f[1] ? escapeText(f[1]) : '<span class="muted">—</span>') + '</div></div>';
+      }).join('') + '</div>';
+      var receivedHtml = s.quoteReceivedAt
+        ? '<div class="muted" style="font-size:11px;margin-bottom:8px;">Quote received ' + escapeText(new Date(s.quoteReceivedAt).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })) + '</div>'
+        : '';
+      var rawHtml = s.quoteRawText
+        ? '<div><span class="raw-reply-toggle" data-toggle-raw="' + s.id + '">View raw reply text</span><div class="raw-reply-text" id="raw-' + s.id + '" style="display:none;">' + escapeText(s.quoteRawText) + '</div></div>'
+        : '';
+      return receivedHtml + gridHtml + rawHtml;
+    }
+    if (s.quoteParseStatus === 'PENDING') {
+      return '<div class="muted" style="margin-bottom:10px;">Reply pasted — waiting for the next quote-capture run (GitHub Actions, mode=quote-capture) to parse it into structured fields.</div>' +
+        (s.quoteRawText ? '<div><span class="raw-reply-toggle" data-toggle-raw="' + s.id + '">View pasted reply text</span><div class="raw-reply-text" id="raw-' + s.id + '" style="display:none;">' + escapeText(s.quoteRawText) + '</div></div>' : '');
+    }
+    return '';
+  }
+
+  // Only shown once James has approved a SUPPLIER_OUTREACH batch that includes this
+  // supplier — there is no email integration, so this textarea is the only way a
+  // real reply ever enters the system.
+  function pasteReplyFormHtml(s) {
+    if (!isOutreachApproved(s.id)) {
+      return '<div class="muted">Outreach to this supplier has not been approved yet — approve the Supplier Outreach request above before recording a reply.</div>';
+    }
+    var label = s.quoteParseStatus ? 'Paste a new or updated reply' : 'Paste supplier reply';
+    return '<div class="paste-reply-form">' +
+      '<div class="muted" style="font-size:11px;margin-bottom:6px;">' + escapeText(label) + ' below — it is stored as-is, then parsed into the fields above by the next quote-capture run.</div>' +
+      '<textarea data-reply-input="' + s.id + '" placeholder="Paste the full text of the supplier reply here..."></textarea>' +
+      '<button class="btn btn--teal btn--small" data-submit-reply="' + s.id + '">Save reply</button>' +
+      '</div>';
+  }
+
+  function quoteDetailRowHtml(s) {
+    return '<tr class="quote-detail-row" id="detail-' + s.id + '" style="display:' + (expandedSupplierIds[s.id] ? 'table-row' : 'none') + ';">' +
+      '<td colspan="' + DETAIL_COLSPAN + '">' + quoteDetailHtml(s) + pasteReplyFormHtml(s) + '</td>' +
+      '</tr>';
+  }
+
   function supplierRowHtml(s, isBest) {
     var tiers = (s.pricingTiers || []).map(function (t) { return t.qty + 'x ' + money(t.unitPrice, s.sampleCurrency); }).join(', ') || '—';
     var name = '<span class="supplier-name">' + escapeText(s.name) + '</span>' + (isBest ? '<span class="best-tag">Best</span>' : '') + (s.evidenceGap ? '<span class="evidence-gap-tag">No sources</span>' : '');
     var breakdown = s.scoreBreakdown
       ? '<span class="score-breakdown-mini">price ' + s.scoreBreakdown.price + ' · cred ' + s.scoreBreakdown.credibility + ' · MOQ ' + s.scoreBreakdown.moq + ' · lead ' + s.scoreBreakdown.leadTime + '</span>'
       : '—';
+    var expandGlyph = expandedSupplierIds[s.id] ? '\\u25BE' : '\\u25B8';
     return '<tr class="' + (isBest ? 'best-supplier' : '') + '">' +
+      '<td><button class="expand-btn-sm" data-toggle-expand="' + s.id + '" title="Quote detail / paste reply">' + expandGlyph + '</button></td>' +
       '<td>' + name + '<div class="muted" style="font-size:11px;">' + escapeText(s.country || '—') + ' · ' + escapeText(s.sourcePlatform || '—') + '</div></td>' +
       '<td>' + (s.supplierScore != null ? s.supplierScore : '—') + '<div>' + breakdown + '</div></td>' +
       '<td>' + (s.moq != null ? s.moq : '—') + '</td>' +
@@ -152,7 +287,7 @@ export const SUPPLIERS_SCRIPT = `
       '<td>' + (s.leadTimeDays != null ? s.leadTimeDays + ' days' : '—') + '</td>' +
       '<td>' + escapeText(s.complianceNotes || '—') + '</td>' +
       '<td>' + ((s.sources || []).length ? (s.sources || []).map(function (src) { return '<a href="' + escapeText(src.url) + '" target="_blank" rel="noopener">' + escapeText(src.title || src.url) + '</a>'; }).join('<br>') : '<span class="muted">None</span>') + '</td>' +
-      '</tr>';
+      '</tr>' + quoteDetailRowHtml(s);
   }
 
   function chainCardHtml(opportunityId, oppSuppliers) {
@@ -165,12 +300,55 @@ export const SUPPLIERS_SCRIPT = `
     var rows = ranked.map(function (s, i) { return supplierRowHtml(s, i === 0); }).join('');
     return '<div class="chain-card">' +
       '<div class="chain-head"><div class="chain-title">' + name + '</div><span class="tag">' + ranked.length + ' supplier(s)</span></div>' +
-      '<div class="chain-sub">Est. NZ retail: ' + retail + ' — compare against each supplier\\'s unit pricing below to judge landed-cost viability.</div>' +
+      '<div class="chain-sub">Est. NZ retail: ' + retail + ' — compare against each supplier pricing below to judge landed-cost viability.</div>' +
       '<div class="mini-table-wrap"><table class="mini"><thead><tr>' +
-      '<th>Supplier</th><th>Score</th><th>MOQ</th><th>Sample price</th><th>Pricing tiers</th><th>Lead time</th><th>Compliance</th><th>Sources</th>' +
+      '<th></th><th>Supplier</th><th>Score</th><th>MOQ</th><th>Sample price</th><th>Pricing tiers</th><th>Lead time</th><th>Compliance</th><th>Sources</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '</div>';
   }
+
+  document.getElementById('chainsBody').addEventListener('click', function (e) {
+    var expandId = e.target.getAttribute('data-toggle-expand');
+    if (expandId) {
+      expandedSupplierIds[expandId] = !expandedSupplierIds[expandId];
+      var row = document.getElementById('detail-' + expandId);
+      if (row) row.style.display = expandedSupplierIds[expandId] ? 'table-row' : 'none';
+      e.target.innerHTML = expandedSupplierIds[expandId] ? '\\u25BE' : '\\u25B8';
+      return;
+    }
+    var rawId = e.target.getAttribute('data-toggle-raw');
+    if (rawId) {
+      var rawEl = document.getElementById('raw-' + rawId);
+      if (rawEl) rawEl.style.display = (rawEl.style.display === 'none') ? 'block' : 'none';
+      return;
+    }
+    var submitId = e.target.getAttribute('data-submit-reply');
+    if (submitId) {
+      var textarea = document.querySelector('[data-reply-input="' + submitId + '"]');
+      var rawText = textarea ? textarea.value.trim() : '';
+      if (!rawText) { alert('Paste the supplier reply text first.'); return; }
+      e.target.disabled = true;
+      e.target.textContent = 'Saving…';
+      fetch('/api/scale-os/quote-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ supplierId: submitId, rawText: rawText }),
+      }).then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (r) {
+          if (!r.ok) throw new Error(r.data.error || 'Failed to save reply');
+          var s = suppliers.filter(function (x) { return x.id === submitId; })[0];
+          if (s) { s.quoteRawText = rawText; s.quoteParseStatus = 'PENDING'; }
+          expandedSupplierIds[submitId] = true;
+          renderChains();
+        })
+        .catch(function (err) {
+          alert('Could not save reply: ' + err.message);
+          e.target.disabled = false;
+          e.target.textContent = 'Save reply';
+        });
+      return;
+    }
+  });
 
   function renderChains() {
     var el = document.getElementById('chainsBody');

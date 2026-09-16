@@ -99,7 +99,7 @@ export const SUPPLIER_SCORE_WEIGHTS = {
 // units) so suppliers quoting different tier structures (10/25/50/100) are still
 // comparable on roughly the same basis, rather than comparing a 10-unit price against
 // a 100-unit price.
-function representativeUnitPrice(supplier) {
+export function representativeUnitPrice(supplier) {
   const tiers = Array.isArray(supplier.pricingTiers)
     ? supplier.pricingTiers.filter((t) => typeof t?.unitPrice === 'number' && t.unitPrice > 0)
     : [];
@@ -153,6 +153,76 @@ export function rankSuppliers(suppliers) {
       scoreBreakdown: { price: priceScores[i], credibility: credibilityScores[i], moq: moqScores[i], leadTime: leadTimeScores[i] },
     }))
     .sort((a, b) => b.supplierScore - a.supplierScore);
+}
+
+// --- Outreach batch selection (Phase 3 — Supplier Outreach + Quote Capture) --------
+// Deliberately separate from rankSuppliers() above: that function ranks by real
+// commercial terms (price/MOQ/lead-time) and is meaningless before any quote exists —
+// every supplier scores ~0 on those dimensions until contacted. Choosing WHO to
+// contact in the first place needs a different question entirely: does this supplier
+// actually look capable of making and exporting this specific product, based on the
+// evidence already gathered? That's credibility + explicit product/category match +
+// export capability + material capability — plain keyword evidence over the supplier's
+// own researched text, not another Claude call.
+const MATERIAL_KEYWORDS = ['marble', 'travertine', 'onyx', 'granite', 'limestone', 'stone', 'natural stone'];
+const EXPORT_KEYWORDS = ['export', 'exporter', 'international', 'worldwide', 'overseas', 'supplying', 'ship to', 'shipped to', 'importer'];
+const GENERIC_WORDS = new Set(['the', 'and', 'for', 'with', 'from', 'this', 'that', 'stone', 'marble', 'travertine']);
+// This system's own evidence-honesty prompts make the model say things like "no
+// dedicated bowl product page was found" or "no dedicated stone-bowl product listing
+// located" — a naive substring match on "bowl" would count that as a positive match on
+// the exact sentence documenting its absence. Matching must be sentence-scoped and
+// negation-aware, or the honesty this system is built on becomes a false positive.
+const NEGATION_MARKERS = ['no ', 'not ', 'none', 'n/a', 'without', 'unable', 'could not', "didn't", 'did not', 'nothing'];
+
+function sentencesOf(supplier) {
+  const text = [supplier.name, supplier.sourcePlatform, ...(supplier.credibilitySignals || [])].join('. ').toLowerCase();
+  return text.split(/[.!?]/);
+}
+
+// True only if `needle` appears in some sentence that isn't itself negating it.
+function positiveMatch(sentences, needle) {
+  return sentences.some((s) => s.includes(needle) && !NEGATION_MARKERS.some((neg) => s.includes(neg)));
+}
+
+function anyPositiveMatch(sentences, needles) {
+  return needles.some((n) => positiveMatch(sentences, n));
+}
+
+// Pulls distinctive words out of the target product/category to check for an explicit
+// match in the supplier's own researched text (e.g. "Decorative Bowl Manufacturer"
+// matching a "Stone Decorative Bowl" opportunity) — generic material words are excluded
+// so every stone supplier doesn't trivially "match" on the word "marble" alone.
+function productKeywords(target) {
+  const raw = `${target.product || ''} ${target.variant || ''} ${target.category || ''}`.toLowerCase();
+  return raw.split(/[^a-z]+/).filter((w) => w.length > 3 && !GENERIC_WORDS.has(w));
+}
+
+// Returns { outreachFitScore (0-100), breakdown: {credibility, productMatch, export, material} }.
+// Equal-weighted across the 4 factors on purpose — the brief was explicit that
+// commercial-term scores (which don't exist yet) must not be what decides who gets
+// contacted, and no single one of these 4 factors should dominate the others either.
+export function computeOutreachFitScore(supplier, target) {
+  const sentences = sentencesOf(supplier);
+  const keywords = productKeywords(target);
+
+  const credibility = typeof supplier.credibilityScore === 'number' ? Math.max(0, Math.min(100, supplier.credibilityScore)) : 0;
+  const productMatch = keywords.length && anyPositiveMatch(sentences, keywords) ? 100 : 0;
+  const exportCapability = anyPositiveMatch(sentences, EXPORT_KEYWORDS) ? 100 : 0;
+  const materialCapability = anyPositiveMatch(sentences, MATERIAL_KEYWORDS) ? 100 : 0;
+
+  const outreachFitScore = Math.round((credibility + productMatch + exportCapability + materialCapability) / 4);
+  return { outreachFitScore, breakdown: { credibility, productMatch, exportCapability, materialCapability } };
+}
+
+// Selects the top `count` suppliers worth sending a real quote request to, from a
+// researched batch, by outreachFitScore — not by rankSuppliers()'s commercial-terms
+// score, which is uninformative before any quote exists. Returns suppliers with their
+// fit score/breakdown attached, best first.
+export function selectOutreachBatch(suppliers, target, count = 3) {
+  return suppliers
+    .map((s) => ({ ...s, ...computeOutreachFitScore(s, target) }))
+    .sort((a, b) => b.outreachFitScore - a.outreachFitScore)
+    .slice(0, count);
 }
 
 // Human-readable trend direction from the append-only history log — compares
