@@ -78,6 +78,7 @@ export const MARKET_RADAR_STYLE = `
   .funnel-HOLD { background: #E9E2CC; color: #8A6A2A; }
   .funnel-KILL { background: #F1E4DF; color: #A05B44; }
   .funnel-UNKNOWN { background: #EEECE6; color: #8A8577; }
+  .funnel-EXISTING_OPTIMISE { background: #E3ECEC; color: #4E7376; }
   .funnel-gate-row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; font-size: 12px; }
   .funnel-gate-row .funnel-gate-label { color: var(--muted); }
   .funnel-caveat { font-size: 11px; color: #B69B6B; font-style: italic; margin-top: 8px; }
@@ -135,9 +136,16 @@ export const MARKET_RADAR_SCRIPT = `
   var SOURCING_PLATFORM_WORDS = ['alibaba', 'made-in-china', 'global sources', 'manufacturer', 'wholesale supplier', 'trade directory', 'factory direct'];
   var COMMODITY_WORDS = ['commodity', 'saturated', 'big-box', 'big box', 'generic', 'race-to-the-bottom', 'race to the bottom'];
   var INSTALL_WORDS = ['installation', 'professional install', 'plumber', 'tradesperson required', 'built-in', 'permanent fixture'];
+  // Portfolio + Logistics Sanity Gate word lists — same "plain keyword heuristic over
+  // evidence actually gathered" philosophy as the lists above.
+  var NOT_GENUINE_STONE_WORDS = ['not real stone', 'marble-look', 'stone-look', 'faux marble', 'faux stone', 'printed canvas', 'graphic panel', 'mdf', 'engineered look'];
+  var PHYSICAL_RISK_WORDS = ['pallet', 'built to measure', 'trade/tile product', 'not a retail ecommerce sku', 'wall-anchoring', 'oversized', 'freight class', 'requires professional installation'];
+  var EXISTING_PORTFOLIO_SIGNAL_WORDS = ['overlaps heavily with', "prime piece's existing", 'overlaps existing', 'not a new product', 'repositioning play', 'already sell', 'already part of the range'];
+  var DECLARED_EXISTING_CATEGORIES = ['cheese board', 'cheese/serving board', 'serving board', 'chopping board', 'serving platter'];
 
   function hasBeenResearched(o) { return !!(o.scoreBreakdown || (o.sources && o.sources.length) || o.demandSignal); }
   function textBlob(o) { return [].concat(o.disqualifiers || [], o.operatingRisks || [], [(o.marketGap && o.marketGap.description) || '']).join(' . ').toLowerCase(); }
+  function extendedTextBlob(o) { return (textBlob(o) + ' . ' + (o.product || '') + ' ' + (o.variant || '') + ' ' + (o.category || '')).toLowerCase(); }
   function containsAny(text, words) { return words.some(function (w) { return text.indexOf(w) !== -1; }); }
 
   function computeFitGate(o) {
@@ -147,8 +155,19 @@ export const MARKET_RADAR_SCRIPT = `
     var disq = (o.disqualifiers || []).filter(Boolean);
     if (disq.length) { fail = true; reasons.push('Existing disqualifier(s): ' + disq.join('; ')); }
     var econ = o.economicsPotential || {};
-    if (econ.freightDifficulty === 'High' && econ.damageRisk === 'High') { fail = true; reasons.push('Freight difficulty AND damage risk are both High.'); }
-    else { if (!econ.freightDifficulty) unknowns.push('Freight difficulty not assessed.'); if (!econ.damageRisk) unknowns.push('Damage risk not assessed.'); }
+    if (econ.freightDifficulty === 'High' || econ.damageRisk === 'High' || econ.packagingDifficulty === 'High') {
+      fail = true; reasons.push('Physical scalability risk — freight/damage/packaging includes at least one High rating.');
+    } else {
+      if (!econ.freightDifficulty) unknowns.push('Freight difficulty not assessed.');
+      if (!econ.damageRisk) unknowns.push('Damage risk not assessed.');
+      if (!econ.packagingDifficulty) unknowns.push('Packaging difficulty not assessed.');
+    }
+    if (containsAny(extendedTextBlob(o), PHYSICAL_RISK_WORDS) || containsAny(extendedTextBlob(o), INSTALL_WORDS)) {
+      fail = true; reasons.push('Evidence indicates this is difficult to hold/reorder as normal parcel-shipped ecommerce inventory.');
+    }
+    if (containsAny(extendedTextBlob(o), NOT_GENUINE_STONE_WORDS)) {
+      fail = true; reasons.push('Evidence indicates this is not genuine natural stone (a "look"/faux/printed material).');
+    }
     var pb = o.priceBand || {};
     if (typeof pb.low === 'number' && typeof pb.high === 'number') {
       var overlapsEntry = pb.high >= 99 && pb.low <= 299;
@@ -157,12 +176,24 @@ export const MARKET_RADAR_SCRIPT = `
       else { reasons.push('Price band overlaps the ' + (overlapsCore ? 'CORE ($299-1,200)' : 'ENTRY ($99-299)') + ' lane.'); }
     } else { unknowns.push('Price band not established.'); }
     if (containsAny(textBlob(o), COMMODITY_WORDS)) { fail = true; reasons.push('Evidence flags commodity/saturated/big-box-dominated.'); }
-    if (containsAny(textBlob(o), INSTALL_WORDS)) unknowns.push('Installation-related language present — complexity not confirmed manageable.');
-    else unknowns.push('Installation complexity not assessed.');
+    if (!containsAny(extendedTextBlob(o), INSTALL_WORDS) && !containsAny(extendedTextBlob(o), PHYSICAL_RISK_WORDS)) unknowns.push('Installation complexity not assessed.');
     unknowns.push('Variant / future-collection potential not assessed.');
     unknowns.push('Prime Piece brand fit not assessed — founder judgment call.');
     if (!reasons.length) reasons.push('No structural disqualifier found in current evidence.');
     return { result: fail ? 'FAIL' : 'PASS', reasons: reasons, unknowns: unknowns };
+  }
+
+  // Portfolio check (Portfolio + Logistics Sanity Gate, check 1) — orthogonal to Fit:
+  // a product can pass Fit/Demand and still not be a genuinely new inventory bet if
+  // Prime Piece already sells it. See scoring.mjs's computePortfolioCheck for the
+  // full rationale (declared-facts list + evidence-driven marketGap phrase match).
+  function computePortfolioCheck(o) {
+    var productText = ((o.product || '') + ' ' + (o.variant || '') + ' ' + (o.category || '')).toLowerCase();
+    var declaredMatch = DECLARED_EXISTING_CATEGORIES.filter(function (k) { return productText.indexOf(k) !== -1; })[0];
+    if (declaredMatch) return { classification: 'EXISTING_OPTIMISE', reasons: ['Matches a declared existing Prime Piece category ("' + declaredMatch + '").'] };
+    var evidenceMatch = EXISTING_PORTFOLIO_SIGNAL_WORDS.filter(function (w) { return textBlob(o).indexOf(w) !== -1; })[0];
+    if (evidenceMatch) return { classification: 'EXISTING_OPTIMISE', reasons: ['Evidence explicitly states an overlap with Prime Piece\\'s existing range ("' + evidenceMatch + '").'] };
+    return { classification: 'NEW', reasons: ['No evidence or declared overlap with an existing Prime Piece product/category found.'] };
   }
 
   function isConsumerSeller(c) { return !containsAny(((c.name || '') + ' ' + (c.country || '')).toLowerCase(), SOURCING_PLATFORM_WORDS); }
@@ -300,6 +331,9 @@ export const MARKET_RADAR_SCRIPT = `
   }
 
   function computeFinalDecision(f) {
+    if (f.portfolio && f.portfolio.classification === 'EXISTING_OPTIMISE') {
+      return { decision: 'EXISTING_OPTIMISE', why: 'Prime Piece already sells this or a meaningfully similar product/category: ' + f.portfolio.reasons.join(' '), nextAction: 'Route to existing-product optimisation — not new-product evaluation.' };
+    }
     if (f.fit.result === 'FAIL') return { decision: 'KILL', why: 'Fails Prime Piece Fit: ' + f.fit.reasons.join(' '), nextAction: 'Do not pursue further.' };
     if (f.demand.result === 'FAIL') return { decision: 'KILL', why: 'No credible demand evidence found despite research.', nextAction: 'Do not pursue further research at this time.' };
     var s = f.sampleGate.summary;
@@ -315,9 +349,10 @@ export const MARKET_RADAR_SCRIPT = `
     var nzGap = computeNzGap(o);
     var economics = computeEconomicsReadiness(o, (suppliersByOpportunity && suppliersByOpportunity[o.id]) || []);
     var downside = computeDownsideStressTest(economics);
+    var portfolio = computePortfolioCheck(o);
     var sampleGate = computeSampleGate({ demand: demand, priceValidation: priceValidation, nzGap: nzGap, economics: economics, downside: downside });
-    var finalDecision = computeFinalDecision({ fit: fit, demand: demand, sampleGate: sampleGate });
-    return { fit: fit, demand: demand, priceValidation: priceValidation, nzGap: nzGap, economics: economics, downside: downside, sampleGate: sampleGate, finalDecision: finalDecision };
+    var finalDecision = computeFinalDecision({ fit: fit, demand: demand, sampleGate: sampleGate, portfolio: portfolio });
+    return { fit: fit, demand: demand, priceValidation: priceValidation, nzGap: nzGap, economics: economics, downside: downside, portfolio: portfolio, sampleGate: sampleGate, finalDecision: finalDecision };
   }
 
   var COLUMNS = [
@@ -505,6 +540,7 @@ export const MARKET_RADAR_SCRIPT = `
       funnelHtml =
         '<div class="detail-section" style="grid-column:1/-1;"><div class="detail-section-title">Commercial Funnel — Investment Readiness</div><div class="detail-section-body">' +
         '<div style="margin-bottom:8px;"><span class="funnel-pill funnel-' + fd.decision + '">' + fd.decision + '</span> — ' + escapeText(fd.why) + '</div>' +
+        gateRow('Portfolio', funnel.portfolio.classification) +
         gateRow('Prime Piece Fit', funnel.fit.result) +
         gateRow('Demand Proof', funnel.demand.result, funnel.demand.confidence) +
         gateRow('Price Validation', funnel.priceValidation.result, funnel.priceValidation.comparablesCount + ' comparable(s)') +

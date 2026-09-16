@@ -80,6 +80,7 @@ export const DASHBOARD_STYLE = `
   .funnel-HOLD { background: #E9E2CC; color: #8A6A2A; }
   .funnel-KILL { background: #F1E4DF; color: #A05B44; }
   .funnel-UNKNOWN { background: #EEECE6; color: #8A8577; }
+  .funnel-EXISTING_OPTIMISE { background: #E3ECEC; color: #4E7376; }
   .funnel-caveat { font-size: 11px; color: #B69B6B; font-style: italic; margin-top: 10px; }
 `;
 
@@ -261,8 +262,13 @@ export const DASHBOARD_SCRIPT = `
   var FUNNEL_UNKNOWN = 'UNKNOWN';
   var FUNNEL_SOURCING_WORDS = ['alibaba', 'made-in-china', 'global sources', 'manufacturer', 'wholesale supplier', 'trade directory', 'factory direct'];
   var FUNNEL_COMMODITY_WORDS = ['commodity', 'saturated', 'big-box', 'big box', 'generic', 'race-to-the-bottom', 'race to the bottom'];
+  var FUNNEL_NOT_GENUINE_STONE_WORDS = ['not real stone', 'marble-look', 'stone-look', 'faux marble', 'faux stone', 'printed canvas', 'graphic panel', 'mdf', 'engineered look'];
+  var FUNNEL_PHYSICAL_RISK_WORDS = ['pallet', 'built to measure', 'trade/tile product', 'not a retail ecommerce sku', 'wall-anchoring', 'oversized', 'freight class', 'requires professional installation', 'installation', 'professional install', 'plumber', 'tradesperson required', 'built-in', 'permanent fixture'];
+  var FUNNEL_EXISTING_PORTFOLIO_SIGNAL_WORDS = ['overlaps heavily with', "prime piece's existing", 'overlaps existing', 'not a new product', 'repositioning play', 'already sell', 'already part of the range'];
+  var FUNNEL_DECLARED_EXISTING_CATEGORIES = ['cheese board', 'cheese/serving board', 'serving board', 'chopping board', 'serving platter'];
   function funnelHasResearch(o) { return !!(o.scoreBreakdown || (o.sources && o.sources.length) || o.demandSignal); }
   function funnelTextBlob(o) { return [].concat(o.disqualifiers || [], o.operatingRisks || [], [(o.marketGap && o.marketGap.description) || '']).join(' . ').toLowerCase(); }
+  function funnelExtendedTextBlob(o) { return (funnelTextBlob(o) + ' . ' + (o.product || '') + ' ' + (o.variant || '') + ' ' + (o.category || '')).toLowerCase(); }
   function funnelContainsAny(text, words) { return words.some(function (w) { return text.indexOf(w) !== -1; }); }
 
   function funnelFit(o) {
@@ -271,7 +277,9 @@ export const DASHBOARD_SCRIPT = `
     if (o.productType && o.productType !== 'IMPORTED') fail = true;
     if ((o.disqualifiers || []).filter(Boolean).length) fail = true;
     var econ = o.economicsPotential || {};
-    if (econ.freightDifficulty === 'High' && econ.damageRisk === 'High') fail = true;
+    if (econ.freightDifficulty === 'High' || econ.damageRisk === 'High' || econ.packagingDifficulty === 'High') fail = true;
+    if (funnelContainsAny(funnelExtendedTextBlob(o), FUNNEL_PHYSICAL_RISK_WORDS)) fail = true;
+    if (funnelContainsAny(funnelExtendedTextBlob(o), FUNNEL_NOT_GENUINE_STONE_WORDS)) fail = true;
     var pb = o.priceBand || {};
     if (typeof pb.low === 'number' && typeof pb.high === 'number') {
       var overlapsEntry = pb.high >= 99 && pb.low <= 299;
@@ -280,6 +288,17 @@ export const DASHBOARD_SCRIPT = `
     }
     if (funnelContainsAny(funnelTextBlob(o), FUNNEL_COMMODITY_WORDS)) fail = true;
     return { result: fail ? 'FAIL' : 'PASS' };
+  }
+
+  // Portfolio check (Portfolio + Logistics Sanity Gate, check 1) — see
+  // scoring.mjs's computePortfolioCheck for the full rationale.
+  function funnelPortfolio(o) {
+    var productText = ((o.product || '') + ' ' + (o.variant || '') + ' ' + (o.category || '')).toLowerCase();
+    var declaredMatch = FUNNEL_DECLARED_EXISTING_CATEGORIES.filter(function (k) { return productText.indexOf(k) !== -1; })[0];
+    if (declaredMatch) return { classification: 'EXISTING_OPTIMISE', reasons: ['Matches a declared existing Prime Piece category ("' + declaredMatch + '").'] };
+    var evidenceMatch = FUNNEL_EXISTING_PORTFOLIO_SIGNAL_WORDS.filter(function (w) { return funnelTextBlob(o).indexOf(w) !== -1; })[0];
+    if (evidenceMatch) return { classification: 'EXISTING_OPTIMISE', reasons: ['Evidence explicitly states an overlap with Prime Piece\\'s existing range ("' + evidenceMatch + '").'] };
+    return { classification: 'NEW', reasons: [] };
   }
 
   function funnelIsConsumerSeller(c) { return !funnelContainsAny(((c.name || '') + ' ' + (c.country || '')).toLowerCase(), FUNNEL_SOURCING_WORDS); }
@@ -333,6 +352,15 @@ export const DASHBOARD_SCRIPT = `
     return { flag: downsideMarginPct === null ? FUNNEL_UNKNOWN : (downsideMarginPct >= 50 ? 'ROBUST' : (downsideMarginPct >= 30 ? 'MARGINAL' : 'FRAGILE')) };
   }
 
+  function funnelNzGap(o) {
+    if (!funnelHasResearch(o)) return { classification: FUNNEL_UNKNOWN };
+    var nzCompetitors = (o.competitors || []).filter(function (c) { return /new zealand|\bnz\b/i.test(c.country || ''); });
+    if (funnelContainsAny(funnelTextBlob(o), FUNNEL_COMMODITY_WORDS)) return { classification: 'BIG_BOX_COMMODITY' };
+    if (nzCompetitors.length >= 3) return { classification: 'STRONG_COMPETITION' };
+    if (nzCompetitors.length >= 1) return { classification: 'FRAGMENTED_COMPETITION' };
+    return { classification: FUNNEL_UNKNOWN };
+  }
+
   // Sample Gate: 10 tri-state conditions; rightToWin and validationPlan are always
   // UNKNOWN (founder judgment calls this pass never fabricates).
   function funnelSampleGate(demand, econ, downside) {
@@ -345,7 +373,10 @@ export const DASHBOARD_SCRIPT = `
     return { met: met, notMet: notMet, unknown: unknown, total: met + notMet + unknown };
   }
 
-  function funnelFinalDecision(fit, demand, sampleGate) {
+  function funnelFinalDecision(fit, demand, sampleGate, portfolio) {
+    if (portfolio && portfolio.classification === 'EXISTING_OPTIMISE') {
+      return { decision: 'EXISTING_OPTIMISE', why: 'Prime Piece already sells this or a meaningfully similar product/category.' };
+    }
     if (fit.result === 'FAIL') return { decision: 'KILL', why: 'Fails Prime Piece Fit.' };
     if (demand.result === 'FAIL') return { decision: 'KILL', why: 'No credible demand evidence found.' };
     if (sampleGate.notMet === 0 && sampleGate.unknown === 0) return { decision: 'SAMPLE', why: 'Every Sample Gate condition is met with real evidence.' };
@@ -361,18 +392,26 @@ export const DASHBOARD_SCRIPT = `
       var demand = funnelDemand(o);
       var econ = funnelEconomics(o, suppliersByOpportunity[o.id] || []);
       var downside = funnelDownside(econ);
+      var nzGap = funnelNzGap(o);
+      var portfolio = funnelPortfolio(o);
       var sampleGate = funnelSampleGate(demand, econ, downside);
-      var finalDecision = funnelFinalDecision(fit, demand, sampleGate);
-      return { o: o, fit: fit, demand: demand, econ: econ, sampleGate: sampleGate, finalDecision: finalDecision };
+      var finalDecision = funnelFinalDecision(fit, demand, sampleGate, portfolio);
+      var differentiationScore = (o.scoreBreakdown && o.scoreBreakdown.differentiation && o.scoreBreakdown.differentiation.score) || 0;
+      return { o: o, fit: fit, demand: demand, econ: econ, nzGap: nzGap, portfolio: portfolio, sampleGate: sampleGate, finalDecision: finalDecision, differentiationScore: differentiationScore };
     });
     var fitPassCount = evaluations.filter(function (e) { return e.fit.result === 'PASS'; }).length;
     var demandPassCount = evaluations.filter(function (e) { return e.demand.result === 'PASS'; }).length;
     var economicsReadyCount = evaluations.filter(function (e) { return e.econ.result === 'READY'; }).length;
     var kill = evaluations.filter(function (e) { return e.finalDecision.decision === 'KILL'; });
-    var eligible = evaluations.filter(function (e) { return e.finalDecision.decision !== 'KILL'; });
+    var existingOptimise = evaluations.filter(function (e) { return e.finalDecision.decision === 'EXISTING_OPTIMISE'; });
+    var eligible = evaluations.filter(function (e) { return e.finalDecision.decision !== 'KILL' && e.finalDecision.decision !== 'EXISTING_OPTIMISE'; });
+    // Separates MARKET DEMAND (demand.result, always shown) from ATTRACTIVENESS AS
+    // PRIME PIECE'S NEXT INVENTORY BET (this ranking) — saturated NZ competition and
+    // weak differentiation both demote an otherwise strong-demand item.
     var rankKey = function (e) {
       var demandRank = e.demand.result === 'PASS' ? 2 : e.demand.result === 'HOLD' ? 1 : 0;
-      return [demandRank, e.sampleGate.met, e.o.opportunityScore || 0];
+      var competitionPenalty = (e.nzGap.classification === 'STRONG_COMPETITION' || e.nzGap.classification === 'BIG_BOX_COMMODITY') ? 0 : 1;
+      return [demandRank, competitionPenalty, e.sampleGate.met, e.differentiationScore, e.o.opportunityScore || 0];
     };
     eligible.sort(function (a, b) {
       var ra = rankKey(a), rb = rankKey(b);
@@ -384,7 +423,7 @@ export const DASHBOARD_SCRIPT = `
     return {
       totalEvaluated: importable.length, fitPassCount: fitPassCount, demandPassCount: demandPassCount,
       economicsReadyCount: economicsReadyCount, sampleReadyCount: sampleReady.length,
-      top3: eligible.slice(0, 3), watchlistCount: watchlist.length, killCount: kill.length,
+      top3: eligible.slice(0, 3), watchlistCount: watchlist.length, killCount: kill.length, existingOptimiseCount: existingOptimise.length,
     };
   }
 
@@ -400,6 +439,7 @@ export const DASHBOARD_SCRIPT = `
       statTile('Economics-ready', summary.economicsReadyCount),
       statTile('Fully Sample-ready', summary.sampleReadyCount),
       statTile('Watchlist (HOLD)', summary.watchlistCount),
+      statTile('Existing / Optimise', summary.existingOptimiseCount),
       statTile('Kill', summary.killCount),
     ].join('');
     var top3Html = summary.top3.length
