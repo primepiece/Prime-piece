@@ -51,6 +51,16 @@ const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_B
 const RETRY_SEARCH_BUDGET = Math.max(2, Math.floor(SEARCH_BUDGET / 2));
 const DRY_RUN = process.env.RADAR_DRY_RUN === '1' || process.env.RADAR_DRY_RUN === 'true';
 
+// findSuppliers() has its own, smaller, fixed search budget — deliberately separate
+// from SEARCH_BUDGET/RETRY_SEARCH_BUDGET above (those are shared with huntCandidates/
+// enrichCandidate and are not being changed by this fix). A real production run for
+// radar_006 (2026-09-16) timed out at the full 240s request timeout with a 6-search
+// budget, then its retry (3 searches) came back with no parseable JSON at all — a
+// smaller budget means a shorter server-side search loop, so both attempts have a
+// much better chance of finishing well inside REQUEST_TIMEOUT_MS.
+const SUPPLIER_SEARCH_BUDGET = 3;
+const SUPPLIER_RETRY_SEARCH_BUDGET = 2;
+
 function log(...args) {
   console.log(`[market-radar]`, ...args);
 }
@@ -129,7 +139,7 @@ async function fetchWithRetry(url, options, label) {
 // maxSearches omitted (undefined) -> no web_search tool attached at all, for calls
 // that only need to reason over data already given to them (the Pulse synthesis
 // call) rather than research the web — cheaper and keeps that call's intent honest.
-async function callClaude({ system, prompt, maxSearches, maxTokens }) {
+async function callClaude({ system, prompt, maxSearches, maxTokens, responseFormat }) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not set — required for anything other than RADAR_DRY_RUN=1.');
 
@@ -141,6 +151,13 @@ async function callClaude({ system, prompt, maxSearches, maxTokens }) {
   };
   if (maxSearches) {
     body.tools = [{ type: 'web_search_20260209', name: 'web_search', max_uses: maxSearches }];
+  }
+  // Structured outputs (output_config.format) constrain the final text block to a
+  // JSON Schema — used by findSuppliers() so "the model returned prose instead of
+  // JSON" (a real production failure, 2026-09-16) becomes structurally impossible
+  // instead of something extractJson has to recover from after the fact.
+  if (responseFormat) {
+    body.output_config = { format: responseFormat };
   }
 
   const res = await fetchWithRetry('https://api.anthropic.com/v1/messages', {
@@ -365,7 +382,7 @@ ${ENRICH_SCHEMA_EXAMPLE}`;
 // control cost until this is proven out. Reuses the exact same call/retry shape as
 // huntCandidates/enrichCandidate (2 attempts, reduced budget on retry).
 
-const SUPPLIER_SCHEMA_EXAMPLE = `[{
+const SUPPLIER_SCHEMA_EXAMPLE = `{"suppliers": [{
   "name": "string — real company name",
   "country": "string",
   "website": "string or null",
@@ -381,7 +398,77 @@ const SUPPLIER_SCHEMA_EXAMPLE = `[{
   "freightEstimate": "string or null — whatever real freight/shipping info you found, in plain words",
   "complianceNotes": "string or null — any certification, safety standard, or import compliance detail you found",
   "sources": [{"url": "a real URL you actually retrieved via web search this session", "title": "string"}]
-}]`;
+}]}`;
+
+// Nullable leaf per the field above — the API's structured-outputs JSON Schema
+// support does not document `"type": ["string", "null"]` union syntax, but does
+// document `anyOf`, so nullable fields are built that way throughout the schema below.
+function nullable(schema) {
+  return { anyOf: [schema, { type: 'null' }] };
+}
+
+// Enforces the exact shape above at the API level (output_config.format,
+// type: "json_schema") — every response is guaranteed valid JSON in this shape or
+// the call fails outright, so "the model returned prose instead of JSON" (the
+// second failure in the 2026-09-16 production run) can no longer happen. Wrapped in
+// a top-level object (root type "object", not "array") to match every documented
+// structured-outputs example — a bare top-level array is not documented as supported.
+const SUPPLIER_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      suppliers: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            country: { type: 'string' },
+            website: nullable({ type: 'string' }),
+            sourcePlatform: { type: 'string' },
+            credibilityScore: { type: 'number' },
+            credibilitySignals: { type: 'array', items: { type: 'string' } },
+            moq: nullable({ type: 'number' }),
+            samplePrice: nullable({ type: 'number' }),
+            sampleCurrency: nullable({ type: 'string' }),
+            pricingTiers: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: { qty: { type: 'number' }, unitPrice: { type: 'number' } },
+                required: ['qty', 'unitPrice'],
+                additionalProperties: false,
+              },
+            },
+            cartonSpec: {
+              type: 'object',
+              properties: { size: nullable({ type: 'string' }), weightKg: nullable({ type: 'number' }) },
+              required: ['size', 'weightKg'],
+              additionalProperties: false,
+            },
+            leadTimeDays: nullable({ type: 'number' }),
+            freightEstimate: nullable({ type: 'string' }),
+            complianceNotes: nullable({ type: 'string' }),
+            sources: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: { url: { type: 'string' }, title: { type: 'string' } },
+                required: ['url', 'title'],
+                additionalProperties: false,
+              },
+            },
+          },
+          required: ['name', 'country', 'website', 'sourcePlatform', 'credibilityScore', 'credibilitySignals', 'moq', 'samplePrice', 'sampleCurrency', 'pricingTiers', 'cartonSpec', 'leadTimeDays', 'freightEstimate', 'complianceNotes', 'sources'],
+          additionalProperties: false,
+        },
+      },
+    },
+    required: ['suppliers'],
+    additionalProperties: false,
+  },
+};
 
 export async function findSuppliers({ product, variant, category }) {
   if (DRY_RUN) {
@@ -393,22 +480,32 @@ export async function findSuppliers({ product, variant, category }) {
   }
 
   const system = 'You are the supplier-sourcing step of Prime Piece Pulse. You use web search to find REAL, currently-operating manufacturers and report ONLY what you actually find in public listings, company sites, or trade directories. Never invent a company, price, MOQ, or URL. If a field is not publicly available, use null rather than guessing.';
-  const prompt = `Find 3-5 real, plausible overseas manufacturers who could supply this product for import to Prime Piece (premium natural-stone/marble/travertine ecommerce, Auckland NZ): "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
+  const prompt = `Find exactly 3 real, plausible overseas manufacturers who could supply this product for import to Prime Piece (premium natural-stone/marble/travertine ecommerce, Auckland NZ): "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}. 3 strong candidates is enough — do not list more.
 
-For each, collect whatever public MOQ, pricing (ideally at multiple quantity tiers such as 10/25/50/100 units), sample price, carton size/weight, lead time, freight/shipping information, compliance/certification notes, and credibility signals (years trading, trade-assurance badges, review counts) you can actually find. A field you cannot find should be null, never guessed.
+For each, collect whatever public MOQ, pricing (ideally at multiple quantity tiers such as 10/25/50/100 units), sample price, carton size/weight, lead time, freight/shipping information, compliance/certification notes, and credibility signals (years trading, trade-assurance badges, review counts) you can actually find. A field you cannot find should be null, never guessed. Report only the structured fields below — no summary, no commentary, no extra prose.
 
-Respond with ONLY a JSON array (no markdown fences, no prose) of 3-5 objects shaped like:
+Respond in exactly this shape (3 entries in "suppliers"):
 ${SUPPLIER_SCHEMA_EXAMPLE}`;
 
-  const budgets = [SEARCH_BUDGET, RETRY_SEARCH_BUDGET];
+  // Own budget (3, then 2 on retry) — smaller than Hunter/Enrich's SEARCH_BUDGET on
+  // purpose, see SUPPLIER_SEARCH_BUDGET above.
+  const budgets = [SUPPLIER_SEARCH_BUDGET, SUPPLIER_RETRY_SEARCH_BUDGET];
   let lastErr;
   for (let i = 0; i < budgets.length; i++) {
     try {
-      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i] });
+      // responseFormat (structured outputs) constrains the response to valid JSON in
+      // this exact shape at the API level — the model cannot return prose instead.
+      // maxTokens is small on purpose: 3 suppliers with no prose comfortably fits.
+      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i], maxTokens: 3000, responseFormat: SUPPLIER_RESPONSE_FORMAT });
       log(`Supplier search for "${product}" used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      // extractJson still runs as a defensive fallback (e.g. if output_config were
+      // ever ignored by a given deployment) — it recovers JSON wrapped in markdown
+      // fences or stray prose locally, with no extra paid call. Accepts either the
+      // new {"suppliers": [...]} shape or a bare array, in case of either path.
       const parsed = extractJson(text);
-      if (!Array.isArray(parsed)) throw new Error('Supplier search did not return a JSON array.');
-      return parsed;
+      const suppliers = Array.isArray(parsed) ? parsed : parsed?.suppliers;
+      if (!Array.isArray(suppliers)) throw new Error('Supplier search did not return a JSON array.');
+      return suppliers;
     } catch (err) {
       lastErr = err;
       log(`Supplier search for "${product}" attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
