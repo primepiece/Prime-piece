@@ -797,3 +797,202 @@ export function rankInvestmentReadiness(evaluations) {
     watchlist, kill, existingOptimise,
   };
 }
+
+// =====================================================================================
+// FAST TRACK PRODUCT ANALYSIS
+// One-off, URL-anchored, single-product intelligence workflow — distinct from the
+// batch Market Radar funnel above. James pastes a product URL (plus optional supplier/
+// competitor URLs, notes, image) and gets a concise SAMPLE/HOLD/KILL decision card in
+// one pass. Every stage that involves real evidence (extraction, market validation,
+// design intelligence, supplier search) is a real Anthropic/Tavily call made by
+// run.mjs's 'fast-track' mode (manual trigger only, same cost-control convention as
+// supplier/quote-capture); everything below is the deterministic, non-AI arithmetic
+// layer — ranking suppliers, modelling landed economics, and assembling the final
+// decision card — kept here so it's exactly reproducible and unit-testable, same
+// reasoning as every other plain-code function in this file.
+// =====================================================================================
+
+// --- Stage 4: Supplier ranking (Fast Track's own weights, per spec) -----------------
+// Deliberately separate from SUPPLIER_SCORE_WEIGHTS above (that one ranks by
+// commercial terms once a quote exists, meaningless before one). Fast Track ranks
+// supplier CANDIDATES before any quote — quality/expertise and unit economics carry
+// the most weight, MOQ/customisation next, then lead time/shipping, then soft signals.
+export const FAST_TRACK_SUPPLIER_WEIGHTS = {
+  quality: 0.20,
+  unitEconomics: 0.20,
+  moq: 0.15,
+  customisation: 0.15,
+  leadTime: 0.10,
+  shipping: 0.10,
+  communication: 0.05,
+  evidence: 0.05,
+};
+
+// A known/named supplier (e.g. one the founder already has a relationship with) is
+// passed through the exact same scoring as every other candidate — never assumed
+// best. Each 0-100 sub-score must come from real evidence; a candidate missing a
+// sub-score is scored 0 for it (same "unknown must never look like best" principle
+// as normalizeWithinBatch above), and the reasons array says explicitly which
+// sub-scores were UNKNOWN rather than silently averaging over fewer inputs.
+export function rankFastTrackSuppliers(candidates) {
+  if (!Array.isArray(candidates) || !candidates.length) return [];
+  const keys = Object.keys(FAST_TRACK_SUPPLIER_WEIGHTS);
+  return candidates
+    .map((c) => {
+      const missing = [];
+      let weightedSum = 0;
+      for (const key of keys) {
+        const raw = c.subScores?.[key];
+        const value = typeof raw === 'number' ? Math.max(0, Math.min(100, raw)) : null;
+        if (value === null) { missing.push(key); continue; }
+        weightedSum += value * FAST_TRACK_SUPPLIER_WEIGHTS[key];
+      }
+      const fastTrackScore = Math.round(weightedSum);
+      return {
+        ...c,
+        fastTrackScore,
+        missingSubScores: missing,
+        knownFactory: Boolean(c.isKnownSupplier),
+      };
+    })
+    .sort((a, b) => b.fastTrackScore - a.fastTrackScore);
+}
+
+// --- Stage 5: Unit economics (plain arithmetic, no Claude call) ---------------------
+// Every figure is either a real number the supplier-search/market-validation stages
+// actually found, or explicitly null — never a guess. LOW/BASE/HIGH scenario the
+// spec asks for is modelled by varying the two least-certain inputs (factory price,
+// freight) by ±15%; customs/GST/local-freight are applied at their real stated rates
+// (or left null) since those are policy facts, not estimates that vary by scenario.
+const SCENARIO_MULTIPLIERS = { LOW: 0.85, BASE: 1, HIGH: 1.15 };
+const NZ_GST_RATE = 0.15;
+
+function fastTrackScenario(inputs, multiplier) {
+  const { factoryPriceUSD, packagingPerUnitUSD, freightPerUnitUSD, dutyRatePct, localFreightPerUnitNZD, fxRateUSDtoNZD, targetRetailNZD } = inputs;
+  if (typeof factoryPriceUSD !== 'number') {
+    return { landedCostNZD: null, grossProfitNZD: null, grossMarginPct: null, reasons: ['No factory price known yet — economics cannot be modelled.'] };
+  }
+  const packaging = typeof packagingPerUnitUSD === 'number' ? packagingPerUnitUSD : 0;
+  const freight = typeof freightPerUnitUSD === 'number' ? freightPerUnitUSD * multiplier : null;
+  const factory = factoryPriceUSD * multiplier;
+  const fx = typeof fxRateUSDtoNZD === 'number' ? fxRateUSDtoNZD : null;
+  const usdSubtotal = freight !== null ? factory + packaging + freight : null;
+  const cifNZD = (usdSubtotal !== null && fx !== null) ? usdSubtotal * fx : null;
+  const duty = (cifNZD !== null && typeof dutyRatePct === 'number') ? cifNZD * (dutyRatePct / 100) : null;
+  const gstBase = (cifNZD !== null && duty !== null) ? cifNZD + duty : null;
+  const gst = gstBase !== null ? gstBase * NZ_GST_RATE : null;
+  const localFreight = typeof localFreightPerUnitNZD === 'number' ? localFreightPerUnitNZD : 0;
+  const landedCostNZD = (gstBase !== null && gst !== null) ? gstBase + gst + localFreight : null;
+  const grossProfitNZD = (landedCostNZD !== null && typeof targetRetailNZD === 'number') ? targetRetailNZD - landedCostNZD : null;
+  const grossMarginPct = (grossProfitNZD !== null && targetRetailNZD) ? Math.round((grossProfitNZD / targetRetailNZD) * 1000) / 10 : null;
+  const reasons = [];
+  if (fx === null) reasons.push('No USD→NZD FX rate provided — landed cost in NZD not calculable.');
+  if (freight === null) reasons.push('No per-unit freight figure known yet.');
+  if (typeof dutyRatePct !== 'number') reasons.push('Duty rate unknown — treated as 0%, not verified.');
+  return { landedCostNZD: landedCostNZD !== null ? Math.round(landedCostNZD * 100) / 100 : null, grossProfitNZD: grossProfitNZD !== null ? Math.round(grossProfitNZD * 100) / 100 : null, grossMarginPct, reasons };
+}
+
+// Reverse calculation: for each target gross margin (60/65/70/75%), what is the
+// maximum landed cost that still achieves it against the target retail price?
+// landedCost = retail * (1 - marginPct/100). Returns null if no target retail exists.
+function maxAllowableLandedCost(targetRetailNZD) {
+  if (typeof targetRetailNZD !== 'number') return null;
+  const out = {};
+  for (const marginPct of [60, 65, 70, 75]) {
+    out[marginPct] = Math.round(targetRetailNZD * (1 - marginPct / 100) * 100) / 100;
+  }
+  return out;
+}
+
+export function computeFastTrackEconomics(inputs) {
+  const scenarios = {};
+  for (const [name, multiplier] of Object.entries(SCENARIO_MULTIPLIERS)) {
+    scenarios[name] = fastTrackScenario(inputs, multiplier);
+  }
+  return {
+    scenarios,
+    maxAllowableLandedCostByMargin: maxAllowableLandedCost(inputs.targetRetailNZD),
+    moqCashRequirementUSD: (typeof inputs.factoryPriceUSD === 'number' && typeof inputs.moq === 'number') ? Math.round(inputs.factoryPriceUSD * inputs.moq * 100) / 100 : null,
+  };
+}
+
+// --- Stage 7: Decision card (plain arithmetic, assembles every prior stage) ---------
+// Same tri-state honesty as the Commercial Funnel above: KILL only ever fires on a
+// structural/safety problem actually found in evidence; SAMPLE only fires when the
+// core evidence pillars (demand, price validation, at least one viable supplier, and
+// a landed-cost-vs-target-margin fit) are all real and positive; everything else is
+// HOLD, with the decision card saying exactly what's missing rather than rounding up
+// to looking more confident than the evidence supports.
+export function computeFastTrackDecision({ marketValidation, designIntelligence, supplierRanking, economics, risk }) {
+  const reasons = [];
+  let structuralKill = null;
+
+  const criticalRisks = (risk?.checks || []).filter((c) => c.severity === 'HIGH' && c.status === 'CONFIRMED');
+  if (criticalRisks.length) {
+    structuralKill = `Confirmed high-severity risk: ${criticalRisks.map((c) => c.item).join(', ')}.`;
+  }
+  if (!structuralKill && marketValidation?.marketMaturity === 'SATURATED_COMMODITY') {
+    structuralKill = 'Market evidence indicates this is already a saturated commodity category.';
+  }
+
+  const bestSupplier = (supplierRanking || [])[0] || null;
+  const bestScenario = economics?.scenarios?.BASE;
+  const marginTargetMet = bestScenario && typeof bestScenario.grossMarginPct === 'number' && bestScenario.grossMarginPct >= 60;
+
+  const demandGenuine = marketValidation?.demandCharacter === 'GENUINE';
+  const hasComparables = (marketValidation?.comparables || []).length >= 3;
+  const hasSupplier = Boolean(bestSupplier);
+  const hasEconomics = Boolean(bestScenario && bestScenario.landedCostNZD !== null);
+
+  const pillars = [
+    { id: 'demand', label: 'Genuine (not purely aesthetic/social) demand evidence', met: demandGenuine },
+    { id: 'comparables', label: '3+ real retail comparables found', met: hasComparables },
+    { id: 'supplier', label: 'At least one viable supplier candidate identified', met: hasSupplier },
+    { id: 'economics', label: 'Landed cost modelled and meets ≥60% margin target', met: hasEconomics && marginTargetMet },
+  ];
+  const metCount = pillars.filter((p) => p.met).length;
+
+  let decision, why;
+  if (structuralKill) {
+    decision = 'KILL';
+    why = structuralKill;
+  } else if (metCount === pillars.length) {
+    decision = 'SAMPLE';
+    why = 'All core evidence pillars are met: genuine demand, validated pricing, a viable supplier, and economics that clear the margin target.';
+  } else {
+    decision = 'HOLD';
+    const missing = pillars.filter((p) => !p.met).map((p) => p.label);
+    why = `${pillars.length - metCount} of ${pillars.length} core evidence pillar(s) not yet met: ${missing.join('; ')}.`;
+  }
+
+  // Opportunity score: a simple, documented 0-100 composite — NOT the same formula as
+  // Market Radar's opportunityScore (that one is a 10-dimension weighted sum over
+  // Enrich's scoreBreakdown; this is a 4-pillar evidence-completeness score specific
+  // to the Fast Track flow). Never presented as more precise than "how many of the
+  // 4 core pillars are actually proven."
+  const opportunityScore = Math.round((metCount / pillars.length) * 100);
+  const confidence = metCount >= 3 ? 'MEDIUM' : metCount >= 1 ? 'LOW' : 'VERY LOW';
+
+  let nextExperiment;
+  if (decision === 'KILL') {
+    nextExperiment = 'Do not pursue further on current evidence.';
+  } else if (decision === 'SAMPLE') {
+    nextExperiment = `Order a physical sample from ${bestSupplier?.name || 'the best-ranked supplier'} in design direction ${designIntelligence?.recommendedDirection || '?'}, and test it against a real customer (waitlist, preorder, or trade showing) before committing to inventory.`;
+  } else {
+    const missingIds = pillars.filter((p) => !p.met).map((p) => p.id);
+    if (missingIds.includes('supplier')) nextExperiment = 'Get real supplier quotes — this is the single biggest gap right now.';
+    else if (missingIds.includes('economics')) nextExperiment = 'Get a firm factory price + freight quote so landed cost can be modelled against the margin target.';
+    else if (missingIds.includes('comparables')) nextExperiment = 'Search for more real retail comparables to validate the price point before committing further.';
+    else nextExperiment = 'Find genuine transaction evidence (sales, reviews, repeat-stocking) — current signal may be aesthetic/social only.';
+  }
+
+  return {
+    decision, why, opportunityScore, confidence, pillars, nextExperiment,
+    bestDesignDirection: designIntelligence?.recommendedDirection || null,
+    bestSupplier: bestSupplier ? { name: bestSupplier.name, fastTrackScore: bestSupplier.fastTrackScore } : null,
+    biggestRisk: (risk?.checks || []).slice().sort((a, b) => {
+      const sev = { HIGH: 2, MEDIUM: 1, LOW: 0 };
+      return (sev[b.severity] || 0) - (sev[a.severity] || 0);
+    })[0] || null,
+  };
+}

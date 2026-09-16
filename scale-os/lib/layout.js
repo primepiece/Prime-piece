@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: '/scale-os/product-lab', label: 'Product Lab', key: 'product-lab' },
   { href: '/scale-os/radar', label: 'Market Radar', key: 'radar' },
   { href: '/scale-os/suppliers', label: 'Suppliers', key: 'suppliers' },
+  { href: '/scale-os/fast-track', label: 'Fast Track', key: 'fast-track' },
   { href: '/scale-os/experiments', label: 'Experiments', key: 'experiments' },
   { href: '/scale-os/trade-crm', label: 'Trade CRM', key: 'trade-crm' },
   { href: '/scale-os/weekly', label: 'Weekly', key: 'weekly' },

@@ -11,7 +11,8 @@ import { DASHBOARD_STYLE, DASHBOARD_BODY, DASHBOARD_SCRIPT } from '../../scale-o
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
 import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
 import { SUPPLIERS_STYLE, SUPPLIERS_BODY, SUPPLIERS_SCRIPT } from '../../scale-os/lib/suppliers.js';
-import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, recordRawQuoteReply, isStoreConfigured } from '../../scale-os/lib/store.js';
+import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, recordRawQuoteReply, isStoreConfigured, getFastTrackAnalyses, createFastTrackRequest } from '../../scale-os/lib/store.js';
+import { FAST_TRACK_STYLE, FAST_TRACK_BODY, FAST_TRACK_SCRIPT } from '../../scale-os/lib/fast-track.js';
 
 function renderDashboard() {
   return renderShell({
@@ -50,6 +51,16 @@ function renderSuppliers() {
     bodyHtml: SUPPLIERS_BODY,
     extraStyle: SUPPLIERS_STYLE,
     extraScript: SUPPLIERS_SCRIPT,
+  });
+}
+
+function renderFastTrack() {
+  return renderShell({
+    title: 'Fast Track',
+    activeKey: 'fast-track',
+    bodyHtml: FAST_TRACK_BODY,
+    extraStyle: FAST_TRACK_STYLE,
+    extraScript: FAST_TRACK_SCRIPT,
   });
 }
 
@@ -200,6 +211,47 @@ async function handleRadarPromote(req, res) {
   }
 }
 
+// Read-only list of every Fast Track analysis (pending/running/complete/failed) plus
+// the Market Radar opportunities, so the Fast Track page can pre-fill from a radar
+// item's own sources[] without a second round trip.
+async function handleFastTrackData(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  try {
+    const [analyses, opportunities] = await Promise.all([getFastTrackAnalyses(), getRadarOpportunities()]);
+    return res.status(200).json({ analyses, opportunities });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// Creates one PENDING Fast Track request — zero cost, no API call. The actual
+// research (real Tavily + Claude calls) only ever runs via the GitHub Actions
+// worker's manually-triggered 'fast-track' mode, same convention as supplier/
+// quote-capture: nothing here is ever spent just because a form was submitted.
+async function handleFastTrackSubmit(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { productUrl, supplierUrl, competitorUrls, notes, imageBase64, sourceRadarId } = req.body || {};
+  if (!productUrl) return res.status(400).json({ error: 'Expected { productUrl, supplierUrl?, competitorUrls?, notes?, imageBase64?, sourceRadarId? }' });
+  try {
+    const request = await createFastTrackRequest({ productUrl, supplierUrl, competitorUrls, notes, imageBase64, sourceRadarId });
+    return res.status(200).json({ success: true, request });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+}
+
 export default async function handler(req, res) {
   const page = req.query?.page;
 
@@ -223,6 +275,14 @@ export default async function handler(req, res) {
     if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
     return handleQuoteReply(req, res);
   }
+  if (page === 'fast-track-data') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleFastTrackData(req, res);
+  }
+  if (page === 'fast-track-submit') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleFastTrackSubmit(req, res);
+  }
 
   if (!requireAuth(req, res)) return;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -230,6 +290,7 @@ export default async function handler(req, res) {
   if (page === 'dashboard') return res.status(200).send(renderDashboard());
   if (page === 'product-lab') return res.status(200).send(renderProductLab());
   if (page === 'radar') return res.status(200).send(renderMarketRadar());
+  if (page === 'fast-track') return res.status(200).send(renderFastTrack());
   if (page === 'suppliers') return res.status(200).send(renderSuppliers());
   if (page && COMING_SOON[page]) {
     return res.status(200).send(renderComingSoon({ activeKey: page, ...COMING_SOON[page] }));

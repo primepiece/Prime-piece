@@ -516,3 +516,60 @@ export async function decideApproval(id, decision, notes) {
   await saveApprovals(approvals);
   return request;
 }
+
+// --- Fast Track Product Analysis -------------------------------------------------------
+// One flat array, same storage shape as everything else in this file. A request is
+// created here (PENDING, no cost) the moment James submits a URL from the Fast Track
+// page or the Market Radar "Fast Track Analysis" button; the actual research (real
+// Tavily + Claude calls) only ever runs via the GitHub Actions worker's manually-
+// triggered 'fast-track' mode, matching the supplier/quote-capture convention — nothing
+// here is ever spent automatically just because a form was submitted.
+
+const FAST_TRACK_KEY = 'scale_os:fasttrack:v1';
+
+function fastTrackUid() {
+  return 'ft_' + Math.random().toString(36).slice(2, 10);
+}
+
+export async function getFastTrackAnalyses() {
+  const raw = await redisCommand(['GET', FAST_TRACK_KEY]);
+  if (raw === null || raw === undefined) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function saveFastTrackAnalyses(analyses) {
+  await redisCommand(['SET', FAST_TRACK_KEY, JSON.stringify(analyses)]);
+}
+
+// productUrl is the only required input — everything else (supplierUrl,
+// competitorUrls, notes, imageBase64, sourceRadarId) is optional context carried
+// straight through to the worker's Stage 1-6 functions unchanged.
+export async function createFastTrackRequest({ productUrl, supplierUrl, competitorUrls, notes, imageBase64, sourceRadarId }) {
+  if (!productUrl) throw new Error('productUrl is required.');
+  const analyses = await getFastTrackAnalyses();
+  const request = {
+    id: fastTrackUid(),
+    status: 'PENDING',
+    input: {
+      productUrl,
+      supplierUrl: supplierUrl || null,
+      competitorUrls: Array.isArray(competitorUrls) ? competitorUrls.filter(Boolean) : [],
+      notes: notes || null,
+      imageBase64: imageBase64 || null,
+      sourceRadarId: sourceRadarId || null,
+    },
+    createdAt: new Date().toISOString(),
+    completedAt: null,
+    stages: null,
+    decision: null,
+    error: null,
+  };
+  analyses.push(request);
+  await saveFastTrackAnalyses(analyses);
+  return request;
+}

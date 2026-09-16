@@ -557,6 +557,14 @@ export const MARKET_RADAR_SCRIPT = `
       ? '<div class="promoted-note">✓ Promoted to Product Lab</div>'
       : '<button class="btn btn--teal btn--small promote-btn" data-promote="' + item.id + '">Promote to Product Lab</button>';
 
+    // Pre-fills the Fast Track form from this opportunity's own first recorded source
+    // URL (if any) plus its product/category/why-it-matters as notes — never submits
+    // anything itself, James still reviews and clicks Submit on the Fast Track page.
+    var firstSourceUrl = (item.sources && item.sources.length && item.sources[0].url) || '';
+    var fastTrackNotes = (item.product || '') + (item.variant ? ' — ' + item.variant : '') + (item.category ? ' (' + item.category + ')' : '') + (item.marketGap && item.marketGap.description ? '. ' + item.marketGap.description : '');
+    var fastTrackHref = '/scale-os/fast-track?productUrl=' + encodeURIComponent(firstSourceUrl) + '&notes=' + encodeURIComponent(fastTrackNotes);
+    var fastTrackSection = '<a class="btn btn--ghost btn--small" href="' + fastTrackHref + '" style="margin-left:8px;">Fast Track Analysis</a>';
+
     var colspan = COLUMNS.length;
     return '<tr class="detail-row" data-detail-row="' + item.id + '"><td colspan="' + colspan + '">' +
       '<div class="detail-panel">' +
@@ -582,7 +590,7 @@ export const MARKET_RADAR_SCRIPT = `
         '<div class="detail-section" style="grid-column:1/-1;"><div class="detail-section-title">Research history</div><div class="detail-section-body">' + historyHtml + '</div></div>' +
         funnelHtml +
       '</div>' +
-      promoteSection +
+      promoteSection + fastTrackSection +
       '</div></td></tr>';
   }
 
