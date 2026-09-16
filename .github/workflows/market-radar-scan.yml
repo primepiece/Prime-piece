@@ -73,6 +73,9 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           KV_REST_API_URL: ${{ secrets.KV_REST_API_URL }}
           KV_REST_API_TOKEN: ${{ secrets.KV_REST_API_TOKEN }}
+          # Supplier discovery's Stage 1 (deterministic web retrieval) — only used by
+          # mode=supplier, never by hunt/refresh/daily/candidate.
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           RADAR_MODE: ${{ inputs.mode || 'daily' }}
           RADAR_CANDIDATE: ${{ inputs.candidate }}
           RADAR_SUPPLIER_TARGET: ${{ inputs.supplier_target }}
