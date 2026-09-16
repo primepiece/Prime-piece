@@ -183,7 +183,7 @@ async function callClaude({ system, prompt, maxSearches, maxTokens, responseForm
     .join('\n');
   const searchesUsed = (data.content || []).filter((block) => block.type === 'server_tool_use' && block.name === 'web_search').length;
 
-  return { text, searchesUsed, usage: data.usage };
+  return { text, searchesUsed, usage: data.usage, stopReason: data.stop_reason };
 }
 
 // Pulls the first well-formed JSON value out of a model's free-text response —
@@ -504,8 +504,17 @@ async function tavilySearch(query, maxResults) {
     log(`Tavily API: HTTP ${res.status} — body: ${safeSnippet(bodyText)}`);
     throw new Error(`Tavily API error: ${data?.detail?.error || data?.error || `HTTP ${res.status}`}`);
   }
-  return (Array.isArray(data.results) ? data.results : []).map((r) => ({ url: r.url, title: r.title, content: r.content }));
+  return (Array.isArray(data.results) ? data.results : []).map((r) => ({ url: r.url, title: r.title, content: r.content, score: typeof r.score === 'number' ? r.score : 0 }));
 }
+
+// Stage 2's real-world evidence set (up to 15 raw results across 3 queries) produced
+// a prompt large enough that the model's response was truncated mid-JSON at
+// maxTokens:3000 in production (2026-09-16) — both attempts failed identically with
+// "Unterminated JSON". Capping to the strongest results by Tavily's own relevance
+// score, and capping each snippet's length, shrinks the prompt without touching the
+// retrieval queries themselves.
+const SUPPLIER_EVIDENCE_LIMIT = 8;
+const SUPPLIER_EVIDENCE_SNIPPET_CHARS = 450;
 
 // A single failed query is logged and skipped rather than failing the whole gather —
 // partial evidence is still useful, and Stage 2 is instructed to only use what it's
@@ -530,7 +539,11 @@ async function gatherSupplierEvidence({ product, variant, category }) {
       evidence.push(item);
     }
   });
-  return evidence;
+  // Rank by Tavily's own relevance score and keep only the strongest — this bounds
+  // Stage 2's prompt size regardless of how many raw results the 3 queries return.
+  return evidence
+    .sort((a, b) => b.score - a.score)
+    .slice(0, SUPPLIER_EVIDENCE_LIMIT);
 }
 
 export async function findSuppliers({ product, variant, category }) {
@@ -549,7 +562,7 @@ export async function findSuppliers({ product, variant, category }) {
   }
 
   const evidenceBlock = evidence
-    .map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, 800)}`)
+    .map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, SUPPLIER_EVIDENCE_SNIPPET_CHARS)}`)
     .join('\n\n');
 
   // Stage 2: extraction/ranking only — no web_search tool, so there is no server-side
@@ -568,14 +581,23 @@ Respond in exactly this shape (up to 3 entries in "suppliers"):
 ${SUPPLIER_SCHEMA_EXAMPLE}`;
 
   // responseFormat (structured outputs) constrains the response to valid JSON in this
-  // exact shape at the API level. maxTokens is small on purpose: up to 3 suppliers
-  // with no prose comfortably fits. Two attempts, reusing the same Stage 1 evidence
-  // (no reason to re-spend Tavily credits on a retry of the extraction step alone).
+  // exact shape at the API level. maxTokens raised from the original 3000 (which
+  // truncated mid-JSON in production on 2026-09-16 — see SUPPLIER_EVIDENCE_LIMIT
+  // above for the evidence-size half of that fix) to 4500 — up to 3 suppliers with
+  // no prose, over an evidence set now capped at 8 short snippets, should fit
+  // comfortably with headroom. Two attempts, reusing the same Stage 1 evidence (no
+  // reason to re-spend Tavily credits on a retry of the extraction step alone).
   let lastErr;
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      const { text } = await callClaude({ system, prompt, maxTokens: 3000, responseFormat: SUPPLIER_RESPONSE_FORMAT });
-      log(`Supplier extraction for "${product}" completed (attempt ${attempt}/2).`);
+      const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 4500, responseFormat: SUPPLIER_RESPONSE_FORMAT });
+      // A max_tokens stop is truncation, not malformed output — report it as exactly
+      // that instead of handing an incomplete response to extractJson, which would
+      // just produce a confusing "Unterminated JSON" message for the same root cause.
+      if (stopReason === 'max_tokens') {
+        throw new Error('Supplier extraction response was truncated (stop_reason=max_tokens) before completing — this is a token-budget cutoff, not malformed JSON.');
+      }
+      log(`Supplier extraction for "${product}" completed (attempt ${attempt}/2, stop_reason=${stopReason}).`);
       // extractJson still runs as a defensive fallback (e.g. if output_config were
       // ever ignored by a given deployment) — it recovers JSON wrapped in markdown
       // fences or stray prose locally, with no extra paid call. Accepts either the
