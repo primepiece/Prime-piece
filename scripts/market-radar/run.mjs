@@ -26,8 +26,8 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote } from '../../scale-os/lib/store.js';
-import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice, computeFitGate } from './scoring.mjs';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote, getFastTrackAnalyses, saveFastTrackAnalyses } from '../../scale-os/lib/store.js';
+import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice, computeFitGate, rankFastTrackSuppliers, computeFastTrackEconomics, computeFastTrackDecision } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
 // not deep multi-step reasoning, and the brief was explicit about running this
@@ -41,7 +41,7 @@ const EVIDENCE_TYPES = ['Fact', 'Proxy / Signal', 'Estimate', 'Founder Assumptio
 const DIMENSION_KEYS = Object.keys(SCORE_WEIGHTS);
 const TODAY = new Date().toISOString().slice(0, 10);
 
-const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'quote-capture' | 'demand-evidence' | 'list'
+const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'quote-capture' | 'demand-evidence' | 'fast-track' | 'list'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
 const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
@@ -59,6 +59,11 @@ const DRY_RUN = process.env.RADAR_DRY_RUN === '1' || process.env.RADAR_DRY_RUN =
 // discovery is now a two-stage pipeline with a fast, predictable REST search API
 // (Tavily) doing retrieval and a plain non-tool Claude call doing extraction.
 const TAVILY_SEARCH_URL = 'https://api.tavily.com/search';
+// Fast Track's Stage 1 needs the actual content of a specific URL (the product page,
+// a named supplier's site) rather than a query search — Tavily's dedicated Extract
+// endpoint does exactly that (fetch + clean a real page into markdown/text), which is
+// far more reliable than trying to coax the same content out of a search query.
+const TAVILY_EXTRACT_URL = 'https://api.tavily.com/extract';
 
 function log(...args) {
   console.log(`[market-radar]`, ...args);
@@ -505,6 +510,34 @@ async function tavilySearch(query, maxResults) {
     throw new Error(`Tavily API error: ${data?.detail?.error || data?.error || `HTTP ${res.status}`}`);
   }
   return (Array.isArray(data.results) ? data.results : []).map((r) => ({ url: r.url, title: r.title, content: r.content, score: typeof r.score === 'number' ? r.score : 0 }));
+}
+
+// Fetches and cleans one or more specific URLs' actual page content (not a search —
+// used by Fast Track Stage 1 for the product/supplier/competitor URLs James pastes
+// in directly). A failed URL (dead link, blocked, JS-only page even at 'advanced'
+// depth) is reported per-URL via failed_results, never silently dropped — the caller
+// sees exactly which URLs came back empty and why, same evidence-honesty principle
+// as everywhere else in this file.
+async function tavilyExtract(urls) {
+  const apiKey = process.env.TAVILY_API_KEY;
+  const list = (Array.isArray(urls) ? urls : [urls]).filter(Boolean);
+  if (!list.length) return { extracted: [], failed: [] };
+  const res = await fetchWithRetry(TAVILY_EXTRACT_URL, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({ urls: list, extract_depth: 'advanced', format: 'text' }),
+  }, 'Tavily Extract API');
+  const bodyText = await res.text();
+  let data = null;
+  try { data = JSON.parse(bodyText); } catch { /* handled below */ }
+  if (!res.ok || !data) {
+    log(`Tavily Extract API: HTTP ${res.status} — body: ${safeSnippet(bodyText)}`);
+    throw new Error(`Tavily Extract API error: ${data?.detail?.error || data?.error || `HTTP ${res.status}`}`);
+  }
+  const extracted = (Array.isArray(data.results) ? data.results : []).map((r) => ({ url: r.url, content: r.raw_content || '' }));
+  const failed = (Array.isArray(data.failed_results) ? data.failed_results : []).map((r) => ({ url: r.url, error: r.error }));
+  if (failed.length) log(`Tavily Extract: ${failed.length} URL(s) failed — ${failed.map((f) => `${f.url} (${f.error})`).join('; ')}`);
+  return { extracted, failed };
 }
 
 // Stage 2's real-world evidence set (up to 15 raw results across 3 queries) produced
@@ -1304,6 +1337,484 @@ async function runDemandEvidenceMode() {
   }
 }
 
+// =====================================================================================
+// FAST TRACK PRODUCT ANALYSIS (manual trigger only, RADAR_MODE=fast-track)
+// James pastes a product URL (+ optional supplier/competitor URLs, notes, image) into
+// Pulse; that creates a PENDING record in Redis (scale_os:fasttrack:v1) at zero cost.
+// This mode processes every PENDING record in one run — same "process everything
+// waiting" convention as quote-capture — through 6 real-evidence stages (Tavily
+// Extract for the pasted URLs, Tavily Search + a plain non-tool Claude call for
+// market/design/supplier research, one more plain Claude call for risk) plus one
+// deterministic stage (economics) and a deterministic decision assembly
+// (computeFastTrackDecision in scoring.mjs). Never runs automatically; never orders
+// anything; a KILL/HOLD/SAMPLE here is a recommendation for James, same as every
+// other decision this system produces.
+// =====================================================================================
+
+function nullableStr() { return nullable({ type: 'string' }); }
+function nullableNum() { return nullable({ type: 'number' }); }
+
+// --- Stage 1: Product extraction ----------------------------------------------------
+const FAST_TRACK_EXTRACT_SCHEMA_EXAMPLE = `{
+  "category": "string", "materials": "string", "dimensions": "string or null", "capacity": "string or null",
+  "constructionMethod": "string or null", "designForm": "string", "accessories": "string or null",
+  "retailPrice": {"value": number|null, "currency": "string or null"},
+  "targetCustomer": "string", "positioning": "string", "sellingPoints": ["string"],
+  "careInstructions": "string or null", "foodSafetyClaims": "string or null",
+  "stockSignal": "IN_STOCK | PREORDER | SOLD_OUT | WAITLIST | UNKNOWN",
+  "searchVariants": ["string — 5-7 realistic search phrases a shopper or competitor-scout would use to find this exact product category, e.g. for a marble espresso cup: 'marble espresso cup', 'natural stone coffee cup', 'onyx espresso cup'"],
+  "confidenceType": "FACT | ESTIMATE | INFERENCE | UNKNOWN — FACT if this was read directly off the page, UNKNOWN if the page failed to load"
+}`;
+const FAST_TRACK_EXTRACT_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      category: { type: 'string' }, materials: { type: 'string' }, dimensions: nullableStr(), capacity: nullableStr(),
+      constructionMethod: nullableStr(), designForm: { type: 'string' }, accessories: nullableStr(),
+      retailPrice: { type: 'object', properties: { value: nullableNum(), currency: nullableStr() }, required: ['value', 'currency'], additionalProperties: false },
+      targetCustomer: { type: 'string' }, positioning: { type: 'string' }, sellingPoints: { type: 'array', items: { type: 'string' } },
+      careInstructions: nullableStr(), foodSafetyClaims: nullableStr(), stockSignal: { type: 'string' },
+      searchVariants: { type: 'array', items: { type: 'string' } }, confidenceType: { type: 'string' },
+    },
+    required: ['category', 'materials', 'dimensions', 'capacity', 'constructionMethod', 'designForm', 'accessories', 'retailPrice', 'targetCustomer', 'positioning', 'sellingPoints', 'careInstructions', 'foodSafetyClaims', 'stockSignal', 'searchVariants', 'confidenceType'],
+    additionalProperties: false,
+  },
+};
+
+// imageBase64, if provided, is a data URL ("data:image/jpeg;base64,...") from the
+// Fast Track form's file input — passed to Claude as a real image content block
+// (vision), not described in text. Never fabricates page content for a URL that
+// failed to extract; the prompt is told explicitly when that happened.
+function parseDataUrl(dataUrl) {
+  const m = /^data:([^;]+);base64,(.+)$/.exec(dataUrl || '');
+  return m ? { mediaType: m[1], data: m[2] } : null;
+}
+
+export async function fastTrackExtractProduct({ productUrl, notes, imageBase64 }) {
+  if (DRY_RUN) {
+    log('DRY RUN — skipping real Fast Track extraction, using a fixture.');
+    return {
+      category: 'Dry-run fixture category', materials: 'Dry-run fixture', dimensions: null, capacity: null,
+      constructionMethod: null, designForm: 'Dry-run fixture', accessories: null, retailPrice: { value: null, currency: null },
+      targetCustomer: 'Dry-run fixture', positioning: 'Dry-run fixture', sellingPoints: [], careInstructions: null,
+      foodSafetyClaims: null, stockSignal: 'UNKNOWN', searchVariants: ['dry-run fixture variant'], confidenceType: 'UNKNOWN',
+    };
+  }
+
+  const { extracted, failed } = await tavilyExtract([productUrl]);
+  const pageText = extracted[0]?.content ? extracted[0].content.slice(0, 6000) : null;
+  if (!pageText) {
+    log(`Fast Track: could not extract product URL content (${failed.map((f) => f.error).join('; ') || 'no content returned'}).`);
+  }
+
+  const system = 'You are the product-extraction step of Prime Piece Pulse\'s Fast Track workflow. Extract ONLY what the page content (and image, if given) actually shows. Never invent a dimension, price, material, or claim not present in the evidence — use null/empty and confidenceType UNKNOWN for anything not actually stated.';
+  const textForPrompt = pageText
+    ? `Here is the extracted content of the product page (${productUrl}):\n\n${pageText}`
+    : `The product page (${productUrl}) could not be extracted (${failed.map((f) => f.error).join('; ') || 'no content'}). Rely only on the founder's notes below and/or the attached image, if any.`;
+  const notesLine = notes ? `\n\nFounder's notes: ${notes}` : '';
+  const promptText = `${textForPrompt}${notesLine}\n\nExtract the product's details. Respond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:\n${FAST_TRACK_EXTRACT_SCHEMA_EXAMPLE}`;
+
+  const image = parseDataUrl(imageBase64);
+  const content = image
+    ? [{ type: 'image', source: { type: 'base64', media_type: image.mediaType, data: image.data } }, { type: 'text', text: promptText }]
+    : promptText;
+
+  // callClaude's `prompt` param is passed straight through as the message's `content`
+  // field, which the Messages API accepts as either a plain string or an array of
+  // content blocks — so passing the image+text array here needs no separate helper.
+  const { text, stopReason } = await callClaude({ system, prompt: content, maxTokens: 2000, responseFormat: FAST_TRACK_EXTRACT_RESPONSE_FORMAT });
+  if (stopReason === 'max_tokens') throw new Error('Fast Track extraction response was truncated (stop_reason=max_tokens).');
+  const parsed = extractJson(text);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Fast Track extraction did not return a JSON object.');
+  return parsed;
+}
+
+// --- Stage 2: Market validation -----------------------------------------------------
+function buildMarketValidationQueries(searchVariants) {
+  const variants = (searchVariants || []).slice(0, 7);
+  const queries = variants.map((v) => v);
+  // Fold explicit NZ/AU coverage onto the first couple of variants rather than the
+  // full variants × 4-countries cross product (keeps this a low-cost, targeted pass) —
+  // international coverage comes for free from the plain variant queries themselves.
+  if (variants[0]) queries.push(`${variants[0]} New Zealand`);
+  if (variants[1]) queries.push(`${variants[1]} Australia`);
+  return queries.length ? queries : ['(no search variants extracted)'];
+}
+
+const MARKET_EVIDENCE_LIMIT = 15;
+const MARKET_EVIDENCE_SNIPPET_CHARS = 400;
+
+async function gatherMarketEvidence(searchVariants) {
+  const queries = buildMarketValidationQueries(searchVariants);
+  const settled = await Promise.allSettled(queries.map((q) => tavilySearch(q, 5)));
+  const seen = new Set();
+  const evidence = [];
+  settled.forEach((result, i) => {
+    if (result.status === 'rejected') { log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`); return; }
+    for (const item of result.value) {
+      if (!item.url || seen.has(item.url)) continue;
+      seen.add(item.url);
+      evidence.push(item);
+    }
+  });
+  return evidence.sort((a, b) => b.score - a.score).slice(0, MARKET_EVIDENCE_LIMIT);
+}
+
+const FAST_TRACK_MARKET_SCHEMA_EXAMPLE = `{
+  "comparables": [{"company": "string", "country": "string", "url": "string", "product": "string", "retailPrice": {"value": number|null, "currency": "string or null"}, "stone": "string or null", "design": "string or null", "availability": "string or null", "reviewCount": number|null, "socialEvidence": "string or null", "positioning": "string or null", "confidenceType": "FACT | Proxy / Signal | ESTIMATE | INFERENCE"}],
+  "nzCompetitionLevel": "NONE_FOUND | LOW | MODERATE | HIGH",
+  "internationalCompetitionLevel": "LOW | MODERATE | HIGH",
+  "marketMaturity": "EMERGING | GROWING | MATURE | SATURATED_COMMODITY",
+  "demandCharacter": "GENUINE | MIXED | AESTHETIC_SOCIAL_ONLY — GENUINE requires real transaction/repeat-stocking/review evidence, not just that the product looks attractive or is trending on social",
+  "whitespaceNotes": "string",
+  "confidenceType": "FACT | ESTIMATE | INFERENCE | UNKNOWN"
+}`;
+const FAST_TRACK_MARKET_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      comparables: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            company: { type: 'string' }, country: { type: 'string' }, url: { type: 'string' }, product: { type: 'string' },
+            retailPrice: { type: 'object', properties: { value: nullableNum(), currency: nullableStr() }, required: ['value', 'currency'], additionalProperties: false },
+            stone: nullableStr(), design: nullableStr(), availability: nullableStr(), reviewCount: nullableNum(),
+            socialEvidence: nullableStr(), positioning: nullableStr(), confidenceType: { type: 'string' },
+          },
+          required: ['company', 'country', 'url', 'product', 'retailPrice', 'stone', 'design', 'availability', 'reviewCount', 'socialEvidence', 'positioning', 'confidenceType'],
+          additionalProperties: false,
+        },
+      },
+      nzCompetitionLevel: { type: 'string' }, internationalCompetitionLevel: { type: 'string' }, marketMaturity: { type: 'string' },
+      demandCharacter: { type: 'string' }, whitespaceNotes: { type: 'string' }, confidenceType: { type: 'string' },
+    },
+    required: ['comparables', 'nzCompetitionLevel', 'internationalCompetitionLevel', 'marketMaturity', 'demandCharacter', 'whitespaceNotes', 'confidenceType'],
+    additionalProperties: false,
+  },
+};
+
+export async function fastTrackMarketValidation({ category, searchVariants, competitorUrls }) {
+  if (DRY_RUN) {
+    log('DRY RUN — skipping real Fast Track market validation, using a fixture.');
+    return { comparables: [], nzCompetitionLevel: 'NONE_FOUND', internationalCompetitionLevel: 'LOW', marketMaturity: 'EMERGING', demandCharacter: 'MIXED', whitespaceNotes: 'Dry-run fixture.', confidenceType: 'UNKNOWN' };
+  }
+
+  const [searchEvidence, competitorExtract] = await Promise.all([
+    gatherMarketEvidence(searchVariants),
+    tavilyExtract(competitorUrls || []).catch((err) => { log(`Fast Track: competitor URL extraction failed: ${err.message}`); return { extracted: [], failed: [] }; }),
+  ]);
+  log(`Fast Track market validation: gathered ${searchEvidence.length} search result(s), extracted ${competitorExtract.extracted.length} named competitor URL(s).`);
+
+  const searchBlock = searchEvidence.map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, MARKET_EVIDENCE_SNIPPET_CHARS)}`).join('\n\n');
+  const competitorBlock = competitorExtract.extracted.map((e, i) => `[Named competitor ${i + 1}] URL: ${e.url}\n${(e.content || '').slice(0, 1200)}`).join('\n\n');
+
+  const system = 'You are the market-validation step of Prime Piece Pulse\'s Fast Track workflow. Extract REAL competitor/retailer facts strictly from the evidence given — never invent a company, price, review count, or country. Distinguish genuine transactional/repeat-stocking demand from evidence that is merely aesthetic or social-media attention: demandCharacter must be GENUINE only if real sales/review/repeat-stocking signals exist, not because the product looks attractive.';
+  const prompt = `Category: "${category}".\n\nSearch evidence:\n${searchBlock || '(none found)'}\n\n${competitorBlock ? `Named competitor/supplier URLs the founder specifically flagged:\n${competitorBlock}\n\n` : ''}From ONLY the evidence above, identify real competitors/retailers (NZ, AU, US, UK and any other market with real evidence), classify competition/market maturity/demand character, and note any genuine NZ whitespace — remembering that no competition found does not automatically mean an opportunity; it may mean no real demand either.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_MARKET_SCHEMA_EXAMPLE}`;
+
+  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 4500, responseFormat: FAST_TRACK_MARKET_RESPONSE_FORMAT });
+  if (stopReason === 'max_tokens') throw new Error('Fast Track market validation response was truncated (stop_reason=max_tokens).');
+  const parsed = extractJson(text);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Fast Track market validation did not return a JSON object.');
+  return parsed;
+}
+
+// --- Stage 3: Design intelligence ---------------------------------------------------
+const FAST_TRACK_DESIGN_SCHEMA_EXAMPLE = `{
+  "clusters": [{"pattern": "string — e.g. handleless, tapered, sphere handle, geometric handle, traditional handle, coaster, saucer, single stone, contrasting stones", "frequencyNote": "string, grounded in the evidence"}],
+  "directions": {
+    "A": {"label": "safest commercial design", "form": "string", "dimensions": "string", "capacity": "string or null", "handle": "string", "coasterSaucer": "string or null", "stones": "string", "manufacturingDifficulty": "Low | Moderate | High", "likelyCustomer": "string", "advantages": ["string"], "risks": ["string"]},
+    "B": {"label": "strongest luxury/editorial design", "form": "string", "dimensions": "string", "capacity": "string or null", "handle": "string", "coasterSaucer": "string or null", "stones": "string", "manufacturingDifficulty": "Low | Moderate | High", "likelyCustomer": "string", "advantages": ["string"], "risks": ["string"]},
+    "C": {"label": "most differentiated design", "form": "string", "dimensions": "string", "capacity": "string or null", "handle": "string", "coasterSaucer": "string or null", "stones": "string", "manufacturingDifficulty": "Low | Moderate | High", "likelyCustomer": "string", "advantages": ["string"], "risks": ["string"]}
+  },
+  "recommendedDirection": "A | B | C",
+  "recommendedWhy": "string"
+}`;
+function directionSchema() {
+  return {
+    type: 'object',
+    properties: {
+      label: { type: 'string' }, form: { type: 'string' }, dimensions: { type: 'string' }, capacity: nullableStr(),
+      handle: { type: 'string' }, coasterSaucer: nullableStr(), stones: { type: 'string' }, manufacturingDifficulty: { type: 'string' },
+      likelyCustomer: { type: 'string' }, advantages: { type: 'array', items: { type: 'string' } }, risks: { type: 'array', items: { type: 'string' } },
+    },
+    required: ['label', 'form', 'dimensions', 'capacity', 'handle', 'coasterSaucer', 'stones', 'manufacturingDifficulty', 'likelyCustomer', 'advantages', 'risks'],
+    additionalProperties: false,
+  };
+}
+const FAST_TRACK_DESIGN_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      clusters: { type: 'array', items: { type: 'object', properties: { pattern: { type: 'string' }, frequencyNote: { type: 'string' } }, required: ['pattern', 'frequencyNote'], additionalProperties: false } },
+      directions: { type: 'object', properties: { A: directionSchema(), B: directionSchema(), C: directionSchema() }, required: ['A', 'B', 'C'], additionalProperties: false },
+      recommendedDirection: { type: 'string' }, recommendedWhy: { type: 'string' },
+    },
+    required: ['clusters', 'directions', 'recommendedDirection', 'recommendedWhy'],
+    additionalProperties: false,
+  },
+};
+
+export async function fastTrackDesignIntelligence({ category, extractedProduct, marketValidation }) {
+  if (DRY_RUN) {
+    log('DRY RUN — skipping real Fast Track design intelligence, using a fixture.');
+    const fixtureDirection = { label: 'Dry-run fixture', form: 'Dry-run fixture', dimensions: 'n/a', capacity: null, handle: 'n/a', coasterSaucer: null, stones: 'n/a', manufacturingDifficulty: 'Moderate', likelyCustomer: 'n/a', advantages: [], risks: [] };
+    return { clusters: [], directions: { A: fixtureDirection, B: fixtureDirection, C: fixtureDirection }, recommendedDirection: 'A', recommendedWhy: 'Dry-run fixture.' };
+  }
+
+  const comparablesBlock = (marketValidation.comparables || []).map((c, i) => `[${i + 1}] ${c.company} (${c.country}) — ${c.product}. Design: ${c.design || 'not stated'}. Stone: ${c.stone || 'not stated'}. URL: ${c.url}`).join('\n');
+
+  const system = 'You are the design-intelligence step of Prime Piece Pulse\'s Fast Track workflow. Cluster real design patterns from the evidence given, then propose 3 ORIGINAL Prime Piece design directions inspired by the category, not a copy of any single named competitor. Never recommend directly copying a specific competitor\'s design.';
+  const prompt = `Category: "${category}". Product extraction: ${JSON.stringify(extractedProduct)}.\n\nReal comparable designs found:\n${comparablesBlock || '(none found)'}\n\nCluster the design patterns you see, then produce exactly 3 original Prime Piece design directions (A = safest commercial, B = strongest luxury/editorial, C = most differentiated), and recommend which ONE to prototype first and why.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_DESIGN_SCHEMA_EXAMPLE}`;
+
+  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 4000, responseFormat: FAST_TRACK_DESIGN_RESPONSE_FORMAT });
+  if (stopReason === 'max_tokens') throw new Error('Fast Track design intelligence response was truncated (stop_reason=max_tokens).');
+  const parsed = extractJson(text);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Fast Track design intelligence did not return a JSON object.');
+  return parsed;
+}
+
+// --- Stage 4: Supplier search --------------------------------------------------------
+// Deliberately broader than the existing Market Radar supplier-discovery queries
+// (buildSupplierSearchQueries above) — the spec explicitly names the platforms/regions
+// to check, and explicitly warns not to assume a known/named supplier is automatically
+// best, so that supplier is extracted and scored through the exact same pipeline as
+// every other candidate, never given a free pass.
+function buildFastTrackSupplierQueries(category) {
+  return [
+    `${category} manufacturer wholesale`,
+    `${category} factory export Alibaba`,
+    `${category} "Made-in-China" OR "Global Sources"`,
+    `${category} Xiamen stone factory`,
+    `${category} Shuitou stone manufacturer`,
+    `natural stone tableware manufacturer cups mugs`,
+    `stone carving factory small stone arts products`,
+  ];
+}
+
+const FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE = `{"candidates": [{
+  "name": "string — real company name", "country": "string", "website": "string or null", "sourcePlatform": "string",
+  "isKnownSupplier": "boolean — true only for the founder's own named supplier URL, if one was given",
+  "subScores": {"quality": number|null, "unitEconomics": number|null, "moq": number|null, "customisation": number|null, "leadTime": number|null, "shipping": number|null, "communication": number|null, "evidence": number|null},
+  "factoryPriceUSD": number|null, "moq": number|null,
+  "notes": "string — the real signals behind the sub-scores above",
+  "sources": [{"url": "string", "title": "string"}],
+  "supplierQuestions": ["string — a specific question to ask this supplier to fill a real gap in the evidence"]
+}]}`;
+const FAST_TRACK_SUPPLIER_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      candidates: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' }, country: { type: 'string' }, website: nullableStr(), sourcePlatform: { type: 'string' }, isKnownSupplier: { type: 'boolean' },
+            subScores: {
+              type: 'object',
+              properties: { quality: nullableNum(), unitEconomics: nullableNum(), moq: nullableNum(), customisation: nullableNum(), leadTime: nullableNum(), shipping: nullableNum(), communication: nullableNum(), evidence: nullableNum() },
+              required: ['quality', 'unitEconomics', 'moq', 'customisation', 'leadTime', 'shipping', 'communication', 'evidence'], additionalProperties: false,
+            },
+            factoryPriceUSD: nullableNum(), moq: nullableNum(), notes: { type: 'string' },
+            sources: { type: 'array', items: { type: 'object', properties: { url: { type: 'string' }, title: { type: 'string' } }, required: ['url', 'title'], additionalProperties: false } },
+            supplierQuestions: { type: 'array', items: { type: 'string' } },
+          },
+          required: ['name', 'country', 'website', 'sourcePlatform', 'isKnownSupplier', 'subScores', 'factoryPriceUSD', 'moq', 'notes', 'sources', 'supplierQuestions'],
+          additionalProperties: false,
+        },
+      },
+    },
+    required: ['candidates'],
+    additionalProperties: false,
+  },
+};
+
+export async function fastTrackSupplierSearch({ category, supplierUrl }) {
+  if (DRY_RUN) {
+    log('DRY RUN — skipping real Fast Track supplier search, using fixture candidates.');
+    return [{ name: 'Dry Run Factory (fixture)', country: 'Unknown', website: null, sourcePlatform: 'Dry-run fixture', isKnownSupplier: false, subScores: { quality: 40, unitEconomics: 40, moq: 40, customisation: 40, leadTime: 40, shipping: 40, communication: 40, evidence: 40 }, factoryPriceUSD: 5, moq: 100, notes: 'Dry-run fixture.', sources: [], supplierQuestions: [] }];
+  }
+
+  const queries = buildFastTrackSupplierQueries(category);
+  const [searchSettled, knownExtract] = await Promise.all([
+    Promise.allSettled(queries.map((q) => tavilySearch(q, 5))),
+    supplierUrl ? tavilyExtract([supplierUrl]).catch((err) => { log(`Fast Track: known supplier URL extraction failed: ${err.message}`); return { extracted: [], failed: [] }; }) : Promise.resolve({ extracted: [], failed: [] }),
+  ]);
+  const seen = new Set();
+  const evidence = [];
+  searchSettled.forEach((result, i) => {
+    if (result.status === 'rejected') { log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`); return; }
+    for (const item of result.value) { if (!item.url || seen.has(item.url)) continue; seen.add(item.url); evidence.push(item); }
+  });
+  const topEvidence = evidence.sort((a, b) => b.score - a.score).slice(0, SUPPLIER_EVIDENCE_LIMIT);
+  log(`Fast Track supplier search: gathered ${topEvidence.length} search result(s)${supplierUrl ? `, extracted the named supplier URL (${knownExtract.extracted.length ? 'success' : 'failed'})` : ''}.`);
+
+  const evidenceBlock = topEvidence.map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, SUPPLIER_EVIDENCE_SNIPPET_CHARS)}`).join('\n\n');
+  const knownBlock = knownExtract.extracted[0]?.content ? `\n\nThe founder's own named/known supplier (${supplierUrl}) — evaluate this one through the EXACT same scoring as every other candidate below; do not assume it is best:\n${knownExtract.extracted[0].content.slice(0, 2000)}` : '';
+
+  const system = 'You are the supplier-sourcing step of Prime Piece Pulse\'s Fast Track workflow. Extract REAL manufacturer facts strictly from the evidence given — never invent a price, MOQ, or capability. Score each of the 8 sub-scores (0-100) only where the evidence actually supports a judgment; leave a sub-score null rather than guessing. A founder-named/known supplier must be scored by the same standard as every other candidate, never given an automatic high score just for being named.';
+  const prompt = `Category: "${category}".\n\nSearch evidence:\n${evidenceBlock || '(none found)'}${knownBlock}\n\nIdentify real manufacturer candidates prioritising companies already producing cups/mugs/espresso cups/stone tableware/stone arts/small carved natural-stone products. For each, score the 8 sub-scores from evidence only, and list specific questions to ask to fill any real gap.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE}`;
+
+  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 4500, responseFormat: FAST_TRACK_SUPPLIER_RESPONSE_FORMAT });
+  if (stopReason === 'max_tokens') throw new Error('Fast Track supplier search response was truncated (stop_reason=max_tokens).');
+  const parsed = extractJson(text);
+  const candidates = Array.isArray(parsed) ? parsed : parsed?.candidates;
+  if (!Array.isArray(candidates)) throw new Error('Fast Track supplier search did not return a JSON array.');
+  return candidates;
+}
+
+// --- Stage 6: Risk assessment --------------------------------------------------------
+const FAST_TRACK_RISK_SCHEMA_EXAMPLE = `{"checks": [
+  {"item": "Food-contact safety", "severity": "HIGH | MEDIUM | LOW", "status": "CONFIRMED | LIKELY | UNKNOWN", "note": "string", "evidenceType": "FACT | ESTIMATE | INFERENCE | UNKNOWN"}
+]}`;
+const FAST_TRACK_RISK_ITEMS = ['Food-contact safety', 'Sealing', 'Heat resistance', 'Thermal shock', 'Staining', 'Acids', 'Cracking', 'Dishwasher suitability', 'Weight', 'Shipping breakage', 'Customer expectations', 'IP / design-copy risk'];
+const FAST_TRACK_RISK_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      checks: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: { item: { type: 'string' }, severity: { type: 'string' }, status: { type: 'string' }, note: { type: 'string' }, evidenceType: { type: 'string' } },
+          required: ['item', 'severity', 'status', 'note', 'evidenceType'], additionalProperties: false,
+        },
+      },
+    },
+    required: ['checks'], additionalProperties: false,
+  },
+};
+
+export async function fastTrackRiskAssessment({ extractedProduct, designIntelligence }) {
+  if (DRY_RUN) {
+    log('DRY RUN — skipping real Fast Track risk assessment, using a fixture.');
+    return { checks: FAST_TRACK_RISK_ITEMS.map((item) => ({ item, severity: 'LOW', status: 'UNKNOWN', note: 'Dry-run fixture.', evidenceType: 'UNKNOWN' })) };
+  }
+
+  // No web search here — this is a materials/food-safety/logistics judgment from the
+  // product's own extracted facts plus general natural-stone-material knowledge, not
+  // something a fresh web search resolves better. Every item still gets an honest
+  // evidenceType — most will be INFERENCE or ESTIMATE from material properties, not FACT.
+  const system = 'You are the risk-assessment step of Prime Piece Pulse\'s Fast Track workflow, evaluating a natural-stone product for real manufacturing/logistics/customer risks. Base every judgment on the product facts given plus genuine material-science/logistics knowledge — never claim FACT unless the extracted evidence itself stated it; use INFERENCE for a reasoned judgment from material properties, ESTIMATE for a rough quantitative guess, UNKNOWN when you genuinely cannot judge it.';
+  const prompt = `Product: ${JSON.stringify(extractedProduct)}.\nRecommended design direction: ${JSON.stringify(designIntelligence?.directions?.[designIntelligence?.recommendedDirection] || {})}.\n\nAssess EXACTLY these ${FAST_TRACK_RISK_ITEMS.length} risk items: ${FAST_TRACK_RISK_ITEMS.join(', ')}.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_RISK_SCHEMA_EXAMPLE}`;
+
+  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 3000, responseFormat: FAST_TRACK_RISK_RESPONSE_FORMAT });
+  if (stopReason === 'max_tokens') throw new Error('Fast Track risk assessment response was truncated (stop_reason=max_tokens).');
+  const parsed = extractJson(text);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Fast Track risk assessment did not return a JSON object.');
+  return parsed;
+}
+
+// --- Orchestrator ---------------------------------------------------------------------
+// Every stage is wrapped individually — one stage failing (e.g. a dead product URL, a
+// truncated response) never discards the stages that DID succeed. The decision card
+// (Stage 7) is deterministic code over whatever stages actually completed; a missing
+// stage shows up as an unmet pillar, never a fabricated pass.
+async function runOneFastTrackAnalysis(request) {
+  const input = request.input;
+  const stages = { extraction: null, marketValidation: null, designIntelligence: null, supplierSearch: null, economics: null, risk: null };
+  const errors = [];
+
+  try {
+    stages.extraction = await fastTrackExtractProduct({ productUrl: input.productUrl, notes: input.notes, imageBase64: input.imageBase64 });
+    log(`Fast Track [${request.id}]: extraction complete — category "${stages.extraction.category}".`);
+  } catch (err) {
+    errors.push(`Extraction: ${err.message}`);
+    log(`Fast Track [${request.id}] extraction FAILED: ${err.message}`);
+  }
+
+  const category = stages.extraction?.category || input.notes || input.productUrl;
+  try {
+    stages.marketValidation = await fastTrackMarketValidation({ category, searchVariants: stages.extraction?.searchVariants || [], competitorUrls: input.competitorUrls });
+  } catch (err) {
+    errors.push(`Market validation: ${err.message}`);
+    log(`Fast Track [${request.id}] market validation FAILED: ${err.message}`);
+  }
+
+  try {
+    stages.designIntelligence = await fastTrackDesignIntelligence({ category, extractedProduct: stages.extraction, marketValidation: stages.marketValidation || { comparables: [] } });
+  } catch (err) {
+    errors.push(`Design intelligence: ${err.message}`);
+    log(`Fast Track [${request.id}] design intelligence FAILED: ${err.message}`);
+  }
+
+  try {
+    stages.supplierSearch = await fastTrackSupplierSearch({ category, supplierUrl: input.supplierUrl });
+  } catch (err) {
+    errors.push(`Supplier search: ${err.message}`);
+    log(`Fast Track [${request.id}] supplier search FAILED: ${err.message}`);
+  }
+
+  const rankedSuppliers = stages.supplierSearch ? rankFastTrackSuppliers(stages.supplierSearch) : [];
+  const bestSupplier = rankedSuppliers[0] || null;
+  // targetRetailNZD comes from real evidence only: the founder's own extracted retail
+  // price if the product page stated one, else the median of real comparables found —
+  // never invented. fxRateUSDtoNZD is a documented planning assumption (not fetched
+  // live), clearly labelled as such in the decision card, not presented as fact.
+  const comparablePrices = (stages.marketValidation?.comparables || []).map((c) => c.retailPrice?.value).filter((v) => typeof v === 'number').sort((a, b) => a - b);
+  const targetRetailNZD = stages.extraction?.retailPrice?.value ?? (comparablePrices.length ? comparablePrices[Math.floor(comparablePrices.length / 2)] : null);
+  stages.economics = {
+    ...computeFastTrackEconomics({
+      factoryPriceUSD: bestSupplier?.factoryPriceUSD ?? null,
+      packagingPerUnitUSD: null,
+      freightPerUnitUSD: null,
+      dutyRatePct: null,
+      localFreightPerUnitNZD: null,
+      fxRateUSDtoNZD: 1.6, // documented planning assumption, not a live rate — see report
+      targetRetailNZD,
+      moq: bestSupplier?.moq ?? null,
+    }),
+    targetRetailNZD, // echoed back for display — the Fast Track page shows this alongside the scenarios
+    fxRateAssumptionNote: 'USD→NZD FX rate (1.6) is a documented planning assumption, not a live rate.',
+  };
+
+  try {
+    stages.risk = await fastTrackRiskAssessment({ extractedProduct: stages.extraction || {}, designIntelligence: stages.designIntelligence });
+  } catch (err) {
+    errors.push(`Risk assessment: ${err.message}`);
+    log(`Fast Track [${request.id}] risk assessment FAILED: ${err.message}`);
+  }
+
+  const decision = computeFastTrackDecision({
+    marketValidation: stages.marketValidation, designIntelligence: stages.designIntelligence,
+    supplierRanking: rankedSuppliers, economics: stages.economics, risk: stages.risk,
+  });
+
+  return { stages: { ...stages, supplierSearch: rankedSuppliers }, decision, errors };
+}
+
+async function runFastTrackMode() {
+  const analyses = await getFastTrackAnalyses();
+  const pending = analyses.filter((a) => a.status === 'PENDING');
+  log(`Fast Track: ${pending.length} pending request(s) to process.`);
+  if (!pending.length) { log('Nothing to process.'); return; }
+
+  let succeeded = 0, failed = 0;
+  for (const request of pending) {
+    const idx = analyses.findIndex((a) => a.id === request.id);
+    try {
+      log(`Fast Track [${request.id}]: processing "${request.input.productUrl}"...`);
+      const { stages, decision, errors } = await runOneFastTrackAnalysis(request);
+      analyses[idx] = { ...request, status: 'COMPLETE', completedAt: new Date().toISOString(), stages, decision, error: errors.length ? errors.join(' | ') : null };
+      log(`Fast Track [${request.id}]: COMPLETE — decision ${decision.decision} (score ${decision.opportunityScore}/100, confidence ${decision.confidence}).`);
+      succeeded++;
+    } catch (err) {
+      analyses[idx] = { ...request, status: 'FAILED', completedAt: new Date().toISOString(), error: err.message };
+      log(`Fast Track [${request.id}] FAILED entirely: ${err.message}`);
+      failed++;
+    }
+    await saveFastTrackAnalyses(analyses); // save after each — one bad request never loses progress on the others
+  }
+  log(`Fast Track run complete. ${succeeded} succeeded, ${failed} failed.`);
+}
+
 // --- Quote-capture mode: manual trigger only ---------------------------------------
 // Parses every supplier reply James has pasted in since the last run, then — for each
 // affected opportunity — recalculates real commercial ranking and landed economics and
@@ -1374,7 +1885,7 @@ async function runQuoteCaptureMode() {
 // log-line-per-item rather than one pretty-printed blob, so it stays parseable however
 // many items the radar has grown to.
 async function runListMode() {
-  const [radar, suppliers, approvals, products] = await Promise.all([getRadarOpportunities(), getSuppliers(), getApprovals(), getProducts()]);
+  const [radar, suppliers, approvals, products, fastTrackAnalyses] = await Promise.all([getRadarOpportunities(), getSuppliers(), getApprovals(), getProducts(), getFastTrackAnalyses()]);
   log(`${radar.length} opportunity(ies) in Market Radar:`);
   for (const o of radar) {
     log(JSON.stringify(o));
@@ -1393,6 +1904,15 @@ async function runListMode() {
   log(`${products.length} Product Lab item(s) on record:`);
   for (const p of products) {
     log(JSON.stringify(p));
+  }
+  log(`${fastTrackAnalyses.length} Fast Track analysis(es) on record:`);
+  for (const a of fastTrackAnalyses) {
+    // imageBase64 can be several hundred KB — redacted here to keep GH Actions log
+    // lines a sane size (a multi-MB single log line risks the same chunking/
+    // corruption issue seen earlier with long lines, and nothing in this pass needs
+    // the actual image bytes).
+    const redacted = a.input?.imageBase64 ? { ...a, input: { ...a.input, imageBase64: `[image data, ${a.input.imageBase64.length} chars, redacted]` } } : a;
+    log(JSON.stringify(redacted));
   }
 }
 
@@ -1416,6 +1936,11 @@ async function main() {
 
   if (MODE === 'demand-evidence') {
     await runDemandEvidenceMode();
+    return;
+  }
+
+  if (MODE === 'fast-track') {
+    await runFastTrackMode();
     return;
   }
 
