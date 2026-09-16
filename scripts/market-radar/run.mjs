@@ -1374,7 +1374,7 @@ async function runQuoteCaptureMode() {
 // log-line-per-item rather than one pretty-printed blob, so it stays parseable however
 // many items the radar has grown to.
 async function runListMode() {
-  const [radar, suppliers, approvals] = await Promise.all([getRadarOpportunities(), getSuppliers(), getApprovals()]);
+  const [radar, suppliers, approvals, products] = await Promise.all([getRadarOpportunities(), getSuppliers(), getApprovals(), getProducts()]);
   log(`${radar.length} opportunity(ies) in Market Radar:`);
   for (const o of radar) {
     log(JSON.stringify(o));
@@ -1386,6 +1386,13 @@ async function runListMode() {
   log(`${approvals.length} approval request(s) on record:`);
   for (const a of approvals) {
     log(JSON.stringify(a));
+  }
+  // Included so the Commercial Funnel's Portfolio Sanity Gate (scoring.mjs) can be
+  // checked against what Prime Piece actually already sells, without a second
+  // zero-cost run — Product Lab is the source of truth for "already in the portfolio."
+  log(`${products.length} Product Lab item(s) on record:`);
+  for (const p of products) {
+    log(JSON.stringify(p));
   }
 }
 
