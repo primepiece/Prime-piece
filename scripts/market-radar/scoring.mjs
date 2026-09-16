@@ -265,8 +265,36 @@ const SOURCING_PLATFORM_WORDS = ['alibaba', 'made-in-china', 'global sources', '
 const COMMODITY_WORDS = ['commodity', 'saturated', 'big-box', 'big box', 'generic', 'race-to-the-bottom', 'race to the bottom'];
 const INSTALL_WORDS = ['installation', 'professional install', 'plumber', 'tradesperson required', 'built-in', 'permanent fixture'];
 
+// Portfolio + Logistics Sanity Gate word lists (see computeFitGate's widened
+// disqualifiers and computePortfolioCheck below). Same "plain keyword heuristic over
+// evidence actually gathered" philosophy as the lists above — a real production run
+// surfaced marketGap text explicitly saying "not real stone" or "overlaps Prime
+// Piece's existing X line" for several Fit-passing items, so these are read as hard
+// signals rather than left as unknowns once that specific evidence exists.
+const NOT_GENUINE_STONE_WORDS = ['not real stone', 'marble-look', 'stone-look', 'faux marble', 'faux stone', 'printed canvas', 'graphic panel', 'mdf', 'engineered look'];
+const PHYSICAL_RISK_WORDS = ['pallet', 'built to measure', 'trade/tile product', 'not a retail ecommerce sku', 'wall-anchoring', 'oversized', 'freight class', 'requires professional installation'];
+// Evidence-driven — Enrich's own marketGap sometimes states outright that an item
+// overlaps something Prime Piece already has (e.g. "Overlaps heavily with Prime
+// Piece's existing 9-variant plinth line," "a repositioning play, not a new
+// product"). Multi-word phrases only, to avoid a bare "existing" false-positiving on
+// unrelated commentary.
+const EXISTING_PORTFOLIO_SIGNAL_WORDS = ['overlaps heavily with', "prime piece's existing", 'overlaps existing', 'not a new product', 'repositioning play', 'already sell', 'already part of the range'];
+// Founder-declared fact, not yet reflected in any Radar/Product-Lab evidence text —
+// Prime Piece's Product Lab currently tracks research candidates, not live SKUs, so
+// this is the one place a real-world "we already sell this" fact has to be recorded
+// by hand rather than derived. Keep this list to exactly what's been declared —
+// never infer additions to it.
+const DECLARED_EXISTING_CATEGORIES = ['cheese board', 'cheese/serving board', 'serving board', 'chopping board', 'serving platter'];
+
 function textBlob(o) {
   return [...(o.disqualifiers || []), ...(o.operatingRisks || []), o.marketGap?.description || ''].join(' . ').toLowerCase();
+}
+// Widened corpus for the Portfolio + Logistics Sanity Gate checks only — also folds
+// in product/variant/category text, since some of the strongest signals (a "Marble-
+// Look" name, a "Built-in ..." name) are only visible in the product name itself, not
+// in the separately-gathered evidence fields.
+function extendedTextBlob(o) {
+  return `${textBlob(o)} . ${o.product || ''} ${o.variant || ''} ${o.category || ''}`.toLowerCase();
 }
 function containsAny(text, words) {
   return words.some((w) => text.includes(w));
@@ -298,14 +326,41 @@ export function computeFitGate(o) {
     reasons.push(`Existing disqualifier(s): ${disq.join('; ')}`);
   }
 
+  // Widened per the Portfolio + Logistics Sanity Gate: a product should not pass
+  // merely because freight and damage risk are not BOTH High — packaging difficulty
+  // now counts too, and any ONE of the three being High is disqualifying. A real
+  // production run showed a genuinely High damage-risk item (heavy, brittle stone
+  // slabs) sailing through the old both-High gate because its freight rating alone
+  // was only "Moderate."
   const freight = o.economicsPotential?.freightDifficulty;
   const damage = o.economicsPotential?.damageRisk;
-  if (freight === 'High' && damage === 'High') {
+  const packaging = o.economicsPotential?.packagingDifficulty;
+  if (freight === 'High' || damage === 'High' || packaging === 'High') {
     fail = true;
-    reasons.push('Freight difficulty AND damage risk are both High — freight/breakage not manageable.');
+    reasons.push(`Physical scalability risk — freight ${freight || 'unassessed'} / damage ${damage || 'unassessed'} / packaging ${packaging || 'unassessed'} includes at least one High rating.`);
   } else {
     if (!freight) unknowns.push('Freight difficulty not assessed.');
     if (!damage) unknowns.push('Damage risk not assessed.');
+    if (!packaging) unknowns.push('Packaging difficulty not assessed.');
+  }
+
+  // Physical/logistics red flags visible only in free text (pallet freight, built-to-
+  // measure trade items, wall-mounted installs) — a numeric freight/damage/packaging
+  // rating alone missed these (e.g. a built-in shower bench rated only "Moderate" on
+  // all three, but its own marketGap says outright it "functions as a trade/tile
+  // product ... not a retail ecommerce SKU").
+  if (containsAny(extendedTextBlob(o), PHYSICAL_RISK_WORDS) || containsAny(extendedTextBlob(o), INSTALL_WORDS)) {
+    fail = true;
+    reasons.push('Evidence indicates this is difficult to hold/reorder as normal parcel-shipped ecommerce inventory (pallet/crate freight, built-to-measure/trade fulfilment, or a wall-mounted/professional install requirement).');
+  }
+
+  // Genuine natural stone is Prime Piece's entire premise — an item whose own
+  // evidence says the "stone" look is actually printed canvas, MDF, or a "marble-
+  // look" veneer cannot qualify for imported-product ranking at all, regardless of
+  // how good its demand evidence looks.
+  if (containsAny(extendedTextBlob(o), NOT_GENUINE_STONE_WORDS)) {
+    fail = true;
+    reasons.push('Evidence indicates this is not genuine natural stone (a "look"/faux/printed material) — stone is Prime Piece\'s core premise, not optional.');
   }
 
   // Two lanes, not one: Prime Piece's ENTRY ($99-299, acquisition/gifting) and CORE
@@ -333,18 +388,48 @@ export function computeFitGate(o) {
     reasons.push('Evidence flags this as commodity/saturated/big-box-dominated.');
   }
 
-  if (containsAny(textBlob(o), INSTALL_WORDS)) {
-    unknowns.push('Evidence text mentions installation-related language — installation complexity not confirmed manageable.');
-  } else {
+  // Installation-related language is now a hard fail above (via PHYSICAL_RISK_WORDS/
+  // INSTALL_WORDS) when evidence actually mentions it — this only flags the residual
+  // case where nothing in the evidence speaks to it either way.
+  if (!containsAny(extendedTextBlob(o), INSTALL_WORDS) && !containsAny(extendedTextBlob(o), PHYSICAL_RISK_WORDS)) {
     unknowns.push('Installation complexity not assessed.');
   }
   unknowns.push('Variant / future-collection potential not assessed.');
   unknowns.push('Prime Piece brand fit not assessed — this is a founder judgment call, not something evidence alone can answer.');
-  unknowns.push('Not independently reverified that genuine stone is integral to this item\'s value proposition (assumed true by Hunter/Enrich research scope, which only searches for natural-stone products).');
+  // Genuine-stone integrity is now a hard fail above when evidence actually says
+  // otherwise — this only flags the residual case where nothing contradicts the
+  // Hunter/Enrich research scope's own assumption that it's natural stone.
+  if (!containsAny(extendedTextBlob(o), NOT_GENUINE_STONE_WORDS)) {
+    unknowns.push('Not independently reverified that genuine stone is integral to this item\'s value proposition (assumed true by Hunter/Enrich research scope, which only searches for natural-stone products).');
+  }
 
   if (!reasons.length) reasons.push('No structural disqualifier found in current evidence.');
 
   return { result: fail ? 'FAIL' : 'PASS', reasons, unknowns };
+}
+
+// --- PORTFOLIO CHECK (Portfolio + Logistics Sanity Gate, check 1 of 3) -------------
+// Orthogonal to Fit/Demand — a product can have excellent evidence on both and still
+// not be a genuinely NEW inventory bet if Prime Piece already sells it or something
+// meaningfully similar. Two sources of evidence: (a) Enrich's own marketGap text
+// sometimes says outright that an opportunity overlaps an existing Prime Piece line
+// ("Overlaps heavily with Prime Piece's existing 9-variant plinth line," "a
+// repositioning play, not a new product") — read directly, no inference; (b) a small,
+// explicitly founder-declared list for real-world "we already sell this" facts that
+// Product Lab's own data doesn't yet capture (Product Lab currently tracks research
+// candidates, not live SKUs — every item in it is stage RESEARCH or KILL, none
+// Active/Maintain, so it cannot itself answer "what do we currently sell").
+export function computePortfolioCheck(o) {
+  const productText = `${o.product || ''} ${o.variant || ''} ${o.category || ''}`.toLowerCase();
+  const declaredMatch = DECLARED_EXISTING_CATEGORIES.find((k) => productText.includes(k));
+  if (declaredMatch) {
+    return { classification: 'EXISTING_OPTIMISE', reasons: [`Matches a declared existing Prime Piece category ("${declaredMatch}") — not treated as new-product discovery unless this represents a meaningfully different format or economics.`] };
+  }
+  const evidenceMatch = EXISTING_PORTFOLIO_SIGNAL_WORDS.find((w) => textBlob(o).includes(w));
+  if (evidenceMatch) {
+    return { classification: 'EXISTING_OPTIMISE', reasons: [`Evidence explicitly states an overlap with Prime Piece's existing range ("${evidenceMatch}") — see marketGap/operatingRisks.`] };
+  }
+  return { classification: 'NEW', reasons: ['No evidence or declared overlap with an existing Prime Piece product/category found.'] };
 }
 
 // --- STAGE 3: DEMAND PROOF -----------------------------------------------------------
@@ -603,7 +688,22 @@ export function computeSampleGate({ demand, priceValidation, nzGap, economics, d
 // KILL only ever fires on a structural problem already proven by real evidence (Fit
 // FAIL or Demand FAIL) — never on missing evidence, which is HOLD's job. SAMPLE only
 // fires when every Sample Gate condition is genuinely MET, not merely not-yet-unknown.
-export function computeFinalDecision({ fit, demand, sampleGate }) {
+// EXISTING_OPTIMISE is checked first and short-circuits everything else — an item
+// Prime Piece already sells is not a "new product" question at all, regardless of how
+// its own Fit/Demand evaluation reads; those are still computed and shown (the
+// opportunity's demand evidence is never discarded), just not used to decide whether
+// to KILL/HOLD/SAMPLE it as a next inventory bet.
+export function computeFinalDecision({ fit, demand, sampleGate, portfolio }) {
+  if (portfolio && portfolio.classification === 'EXISTING_OPTIMISE') {
+    return {
+      decision: 'EXISTING_OPTIMISE',
+      why: 'Prime Piece already sells this or a meaningfully similar product/category: ' + portfolio.reasons.join(' '),
+      criticalEvidence: portfolio.reasons,
+      mainRisk: 'Cannibalising or diluting an existing line rather than genuinely adding a new one.',
+      whatWouldChange: 'A meaningfully different format or economics from what Prime Piece already sells.',
+      nextAction: 'Route to existing-product optimisation (pricing, merchandising, cross-sell) — not new-product evaluation.',
+    };
+  }
   if (fit.result === 'FAIL') {
     return {
       decision: 'KILL',
@@ -660,13 +760,24 @@ export function computeFinalDecision({ fit, demand, sampleGate }) {
 // central rule. "Top 3" here means "currently most investment-ready based on available
 // evidence," not "will definitely sell" — sampleReadyCount tells you honestly how many
 // of them have actually cleared every Sample Gate condition.
+// Separates MARKET DEMAND (the demand/sampleGate evidence itself, always preserved
+// and shown) from ATTRACTIVENESS AS PRIME PIECE'S NEXT INVENTORY BET (this ranking) —
+// strong demand alone cannot make something #1 if it's already in the portfolio
+// (routed out entirely, see existingOptimise below), if NZ competition is already
+// saturated, or if its differentiation potential is weak.
 export function rankInvestmentReadiness(evaluations) {
   const kill = evaluations.filter((e) => e.finalDecision.decision === 'KILL');
-  const eligible = evaluations.filter((e) => e.finalDecision.decision !== 'KILL');
+  const existingOptimise = evaluations.filter((e) => e.finalDecision.decision === 'EXISTING_OPTIMISE');
+  const eligible = evaluations.filter((e) => e.finalDecision.decision !== 'KILL' && e.finalDecision.decision !== 'EXISTING_OPTIMISE');
 
   const rankKey = (e) => {
     const demandRank = e.demand.result === 'PASS' ? 2 : e.demand.result === 'HOLD' ? 1 : 0;
-    return [demandRank, e.sampleGate.summary.met, e.opportunityScore || 0];
+    // Saturated/big-box NZ competition and a weak differentiation sub-score (already
+    // part of opportunityScore's own inputs, read here but never re-weighted) both
+    // demote a "next inventory bet" ranking without touching the Radar score itself.
+    const competitionPenalty = (e.nzGap?.classification === 'STRONG_COMPETITION' || e.nzGap?.classification === 'BIG_BOX_COMMODITY') ? 0 : 1;
+    const differentiationScore = e.differentiationScore || 0;
+    return [demandRank, competitionPenalty, e.sampleGate.summary.met, differentiationScore, e.opportunityScore || 0];
   };
   const sorted = eligible.slice().sort((a, b) => {
     const ra = rankKey(a), rb = rankKey(b);
@@ -683,6 +794,6 @@ export function rankInvestmentReadiness(evaluations) {
     top10, top3,
     top3IsFullyQualified: sampleReady.length >= 3,
     sampleReadyCount: sampleReady.length,
-    watchlist, kill,
+    watchlist, kill, existingOptimise,
   };
 }
