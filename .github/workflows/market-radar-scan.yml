@@ -14,13 +14,17 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "diag-basic/diag-search = cheap 1-call connectivity checks (run these first if things are failing). hunt = find new candidates only. refresh = re-research the stalest existing tier A/B opportunities only. daily = hunt + refresh + the Pulse synthesis brief, same as the nightly schedule. candidate = research/refresh one specific product."
+        description: "diag-basic/diag-search = cheap 1-call connectivity checks (run these first if things are failing). hunt = find new candidates only. refresh = re-research the stalest existing tier A/B opportunities only. daily = hunt + refresh + the Pulse synthesis brief, same as the nightly schedule. candidate = research/refresh one specific product. supplier = find and rank suppliers for one existing Market Radar opportunity (see supplier_target below) — never runs automatically."
         required: true
         type: choice
-        options: [diag-basic, diag-search, hunt, refresh, daily, candidate]
+        options: [diag-basic, diag-search, hunt, refresh, daily, candidate, supplier]
         default: diag-basic
       candidate:
         description: 'Only used when mode=candidate. Format: "Product Name|Variant|Category" (variant/category optional).'
+        required: false
+        type: string
+      supplier_target:
+        description: 'Only used when mode=supplier. The Market Radar opportunity id to research suppliers for, e.g. "radar_003" (see the Market Radar page for ids).'
         required: false
         type: string
       hunt_count:
@@ -71,6 +75,7 @@ jobs:
           KV_REST_API_TOKEN: ${{ secrets.KV_REST_API_TOKEN }}
           RADAR_MODE: ${{ inputs.mode || 'daily' }}
           RADAR_CANDIDATE: ${{ inputs.candidate }}
+          RADAR_SUPPLIER_TARGET: ${{ inputs.supplier_target }}
           RADAR_HUNT_COUNT: ${{ inputs.hunt_count || '2' }}
           RADAR_REFRESH_COUNT: ${{ inputs.refresh_count || '3' }}
           RADAR_SEARCH_BUDGET: ${{ inputs.search_budget || '6' }}

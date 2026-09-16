@@ -236,6 +236,13 @@ export const DASHBOARD_SCRIPT = `
     return { value: null, basis: '' };
   }
 
+  // Prime Piece Pulse's central question is what to import next — a BESPOKE_LOCAL
+  // item (or one with unclassified productType, OTHER) must never distort product
+  // discovery, Next $1,000, or ranking. Only IMPORTED items are eligible here.
+  function isImportEligible(item) {
+    return item.productType === 'IMPORTED';
+  }
+
   function stagePill(status) {
     return '<span class="badge badge-stage">' + escapeText(status || '—') + '</span>';
   }
@@ -300,7 +307,7 @@ export const DASHBOARD_SCRIPT = `
   function renderNextCandidate(products, radar) {
     var el = document.getElementById('nextCandidateBody');
     var candidates = products
-      .filter(function (p) { return p.priorityLane === 'Research Candidate' && p.status !== 'KILL'; })
+      .filter(function (p) { return p.priorityLane === 'Research Candidate' && p.status !== 'KILL' && isImportEligible(p); })
       .map(function (p) { var econ = economics(p); return { row: p, econ: econ, score: primeScore(p, econ) }; })
       .filter(function (c) { return c.score !== null; })
       .sort(function (a, b) { return b.score - a.score; });
@@ -327,7 +334,7 @@ export const DASHBOARD_SCRIPT = `
     // No Research Candidate tagged in Product Lab yet — fall back to the top
     // not-yet-promoted Market Radar opportunity as a starting suggestion.
     var topRadar = (radar || [])
-      .filter(function (r) { return !r.promotedToProductLab && r.tier !== 'Kill'; })
+      .filter(function (r) { return !r.promotedToProductLab && r.tier !== 'Kill' && isImportEligible(r); })
       .sort(function (a, b) { return (b.opportunityScore || 0) - (a.opportunityScore || 0); })[0];
     if (topRadar) {
       el.innerHTML = '<div class="money-card">' +
@@ -400,10 +407,10 @@ export const DASHBOARD_SCRIPT = `
     var byId = {};
     products.forEach(function (p) { byId[p.id] = p; });
     var top = (radar || [])
-      .filter(function (r) { return r.tier !== 'Kill'; })
+      .filter(function (r) { return r.tier !== 'Kill' && isImportEligible(r); })
       .slice().sort(function (a, b) { return (b.opportunityScore || 0) - (a.opportunityScore || 0); })
       .slice(0, 5);
-    if (!top.length) { el.innerHTML = '<p class="empty-note">Nothing on Market Radar yet.</p>'; return; }
+    if (!top.length) { el.innerHTML = '<p class="empty-note">Nothing importable on Market Radar yet.</p>'; return; }
     el.innerHTML = '<div class="mini-table-wrap"><table class="mini"><thead><tr>' +
       '<th>Product / category</th><th>Score</th><th>Trend</th><th>Confidence</th><th>Market</th><th>Est. NZ retail</th><th>Why it matters</th><th>Stage</th>' +
       '</tr></thead><tbody>' +
