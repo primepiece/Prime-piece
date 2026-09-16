@@ -51,15 +51,14 @@ const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_B
 const RETRY_SEARCH_BUDGET = Math.max(2, Math.floor(SEARCH_BUDGET / 2));
 const DRY_RUN = process.env.RADAR_DRY_RUN === '1' || process.env.RADAR_DRY_RUN === 'true';
 
-// findSuppliers() has its own, smaller, fixed search budget — deliberately separate
-// from SEARCH_BUDGET/RETRY_SEARCH_BUDGET above (those are shared with huntCandidates/
-// enrichCandidate and are not being changed by this fix). A real production run for
-// radar_006 (2026-09-16) timed out at the full 240s request timeout with a 6-search
-// budget, then its retry (3 searches) came back with no parseable JSON at all — a
-// smaller budget means a shorter server-side search loop, so both attempts have a
-// much better chance of finishing well inside REQUEST_TIMEOUT_MS.
-const SUPPLIER_SEARCH_BUDGET = 3;
-const SUPPLIER_RETRY_SEARCH_BUDGET = 2;
+// findSuppliers() no longer uses Anthropic's web_search tool at all (see the Supplier
+// research section below) — two real production runs on 2026-09-16 timed out at the
+// full 240s request timeout, and the timeout persisted even after cutting the search
+// budget from 6 to 3 to 2, which pointed at the web_search tool loop itself (combined
+// with this request shape) as the reliability risk, not the budget. Supplier
+// discovery is now a two-stage pipeline with a fast, predictable REST search API
+// (Tavily) doing retrieval and a plain non-tool Claude call doing extraction.
+const TAVILY_SEARCH_URL = 'https://api.tavily.com/search';
 
 function log(...args) {
   console.log(`[market-radar]`, ...args);
@@ -379,8 +378,16 @@ ${ENRICH_SCHEMA_EXAMPLE}`;
 // Runs only via RADAR_MODE=supplier, targeting one already-discovered Market Radar
 // opportunity by id. Never runs as part of 'daily' or 'refresh' — supplier research is
 // a deliberately separate, manually-triggered pass, kept off the automatic schedule to
-// control cost until this is proven out. Reuses the exact same call/retry shape as
-// huntCandidates/enrichCandidate (2 attempts, reduced budget on retry).
+// control cost until this is proven out.
+//
+// Two-stage pipeline (replaces the single Claude-orchestrated web_search call that
+// failed twice in real production on 2026-09-16 — see the TAVILY_SEARCH_URL comment
+// above):
+//   Stage 1 (gatherSupplierEvidence/tavilySearch) — deterministic web retrieval via
+//     Tavily's REST search API. Plain HTTP, no Claude call, no tool loop to hang.
+//   Stage 2 (findSuppliers's own Claude call) — one plain, non-tool Claude call that
+//     only extracts/ranks from the evidence Stage 1 already collected. No web_search
+//     tool is attached, so there is no server-side search loop left to time out.
 
 const SUPPLIER_SCHEMA_EXAMPLE = `{"suppliers": [{
   "name": "string — real company name",
@@ -470,6 +477,62 @@ const SUPPLIER_RESPONSE_FORMAT = {
   },
 };
 
+// --- Supplier discovery Stage 1: deterministic web retrieval (Tavily, no Claude) --
+// Three targeted queries, run in parallel — a plain REST search API responds in
+// seconds and predictably, unlike a Claude-orchestrated web_search tool loop. Results
+// are deduped by URL so Stage 2's prompt isn't padded with the same page twice.
+function buildSupplierSearchQueries({ product, variant, category }) {
+  const productLine = variant ? `${product} (${variant})` : product;
+  return [
+    `${productLine} manufacturer wholesale supplier`,
+    `${productLine} ${category || ''} factory export Alibaba OR "Global Sources" OR "Made-in-China"`.replace(/\s+/g, ' ').trim(),
+    `${productLine} manufacturer contact MOQ`,
+  ];
+}
+
+async function tavilySearch(query, maxResults) {
+  const apiKey = process.env.TAVILY_API_KEY;
+  const res = await fetchWithRetry(TAVILY_SEARCH_URL, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({ query, search_depth: 'basic', max_results: maxResults }),
+  }, 'Tavily API');
+  const bodyText = await res.text();
+  let data = null;
+  try { data = JSON.parse(bodyText); } catch { /* handled below */ }
+  if (!res.ok || !data) {
+    log(`Tavily API: HTTP ${res.status} — body: ${safeSnippet(bodyText)}`);
+    throw new Error(`Tavily API error: ${data?.detail?.error || data?.error || `HTTP ${res.status}`}`);
+  }
+  return (Array.isArray(data.results) ? data.results : []).map((r) => ({ url: r.url, title: r.title, content: r.content }));
+}
+
+// A single failed query is logged and skipped rather than failing the whole gather —
+// partial evidence is still useful, and Stage 2 is instructed to only use what it's
+// actually given. A missing API key is checked once, up front, rather than letting it
+// surface as 3 identical per-query failures collapsing into a generic "no evidence"
+// error — a misconfigured secret should be immediately obvious, not look like Tavily
+// genuinely found nothing.
+async function gatherSupplierEvidence({ product, variant, category }) {
+  if (!process.env.TAVILY_API_KEY) throw new Error('TAVILY_API_KEY is not set — required for supplier discovery (Stage 1 web retrieval).');
+  const queries = buildSupplierSearchQueries({ product, variant, category });
+  const settled = await Promise.allSettled(queries.map((q) => tavilySearch(q, 5)));
+  const seen = new Set();
+  const evidence = [];
+  settled.forEach((result, i) => {
+    if (result.status === 'rejected') {
+      log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`);
+      return;
+    }
+    for (const item of result.value) {
+      if (!item.url || seen.has(item.url)) continue;
+      seen.add(item.url);
+      evidence.push(item);
+    }
+  });
+  return evidence;
+}
+
 export async function findSuppliers({ product, variant, category }) {
   if (DRY_RUN) {
     log(`DRY RUN — skipping real supplier search for "${product}", using fixture suppliers.`);
@@ -479,36 +542,51 @@ export async function findSuppliers({ product, variant, category }) {
     ];
   }
 
-  const system = 'You are the supplier-sourcing step of Prime Piece Pulse. You use web search to find REAL, currently-operating manufacturers and report ONLY what you actually find in public listings, company sites, or trade directories. Never invent a company, price, MOQ, or URL. If a field is not publicly available, use null rather than guessing.';
-  const prompt = `Find exactly 3 real, plausible overseas manufacturers who could supply this product for import to Prime Piece (premium natural-stone/marble/travertine ecommerce, Auckland NZ): "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}. 3 strong candidates is enough — do not list more.
+  const evidence = await gatherSupplierEvidence({ product, variant, category });
+  log(`Gathered ${evidence.length} unique evidence item(s) from Tavily for "${product}".`);
+  if (!evidence.length) {
+    throw new Error('Tavily returned no usable search results for this product — cannot extract suppliers from no evidence.');
+  }
 
-For each, collect whatever public MOQ, pricing (ideally at multiple quantity tiers such as 10/25/50/100 units), sample price, carton size/weight, lead time, freight/shipping information, compliance/certification notes, and credibility signals (years trading, trade-assurance badges, review counts) you can actually find. A field you cannot find should be null, never guessed. Report only the structured fields below — no summary, no commentary, no extra prose.
+  const evidenceBlock = evidence
+    .map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, 800)}`)
+    .join('\n\n');
 
-Respond in exactly this shape (3 entries in "suppliers"):
+  // Stage 2: extraction/ranking only — no web_search tool, so there is no server-side
+  // search loop left to hang (the cause of both real production timeouts on
+  // 2026-09-16). Claude reasons only over the evidence Stage 1 already gathered.
+  const system = 'You are the supplier-sourcing step of Prime Piece Pulse. You extract REAL manufacturer/supplier facts strictly from the search evidence given to you below — you have no web access of your own. Never invent a company, price, MOQ, URL, or any other commercial detail that is not explicitly present in the evidence. If a fact is not clearly supported by the evidence, its field must be null — never guess or infer a plausible-sounding value.';
+  const prompt = `Here is web search evidence (title, URL, and page excerpt) gathered for this product: "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
+
+${evidenceBlock}
+
+From ONLY the evidence above, identify up to 3 companies that the evidence clearly shows genuinely MANUFACTURE or SUPPLY this product (or a very close match) for wholesale/export. Reject general retailers, marketplace homepages, blog/news posts, and any company whose relevance as an actual manufacturer/supplier is not clearly supported by the evidence — do not include a company just to reach 3; return fewer if fewer are well-supported.
+
+Hard rule on every field: MOQ, sample price, pricing tiers, credibility signals (years trading, badges, review counts), carton/weight, lead time, freight information, and compliance notes must each be null unless the evidence text above actually states that specific fact for that company — never infer, estimate, or fill in a plausible-sounding value from general knowledge. Every supplier's "sources" must be exactly the URL(s) from the evidence above that support it — never a URL not shown above.
+
+Respond in exactly this shape (up to 3 entries in "suppliers"):
 ${SUPPLIER_SCHEMA_EXAMPLE}`;
 
-  // Own budget (3, then 2 on retry) — smaller than Hunter/Enrich's SEARCH_BUDGET on
-  // purpose, see SUPPLIER_SEARCH_BUDGET above.
-  const budgets = [SUPPLIER_SEARCH_BUDGET, SUPPLIER_RETRY_SEARCH_BUDGET];
+  // responseFormat (structured outputs) constrains the response to valid JSON in this
+  // exact shape at the API level. maxTokens is small on purpose: up to 3 suppliers
+  // with no prose comfortably fits. Two attempts, reusing the same Stage 1 evidence
+  // (no reason to re-spend Tavily credits on a retry of the extraction step alone).
   let lastErr;
-  for (let i = 0; i < budgets.length; i++) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
     try {
-      // responseFormat (structured outputs) constrains the response to valid JSON in
-      // this exact shape at the API level — the model cannot return prose instead.
-      // maxTokens is small on purpose: 3 suppliers with no prose comfortably fits.
-      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i], maxTokens: 3000, responseFormat: SUPPLIER_RESPONSE_FORMAT });
-      log(`Supplier search for "${product}" used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      const { text } = await callClaude({ system, prompt, maxTokens: 3000, responseFormat: SUPPLIER_RESPONSE_FORMAT });
+      log(`Supplier extraction for "${product}" completed (attempt ${attempt}/2).`);
       // extractJson still runs as a defensive fallback (e.g. if output_config were
       // ever ignored by a given deployment) — it recovers JSON wrapped in markdown
       // fences or stray prose locally, with no extra paid call. Accepts either the
-      // new {"suppliers": [...]} shape or a bare array, in case of either path.
+      // {"suppliers": [...]} shape or a bare array.
       const parsed = extractJson(text);
       const suppliers = Array.isArray(parsed) ? parsed : parsed?.suppliers;
-      if (!Array.isArray(suppliers)) throw new Error('Supplier search did not return a JSON array.');
+      if (!Array.isArray(suppliers)) throw new Error('Supplier extraction did not return a JSON array.');
       return suppliers;
     } catch (err) {
       lastErr = err;
-      log(`Supplier search for "${product}" attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
+      log(`Supplier extraction for "${product}" attempt ${attempt}/2 failed: ${err.message}`);
     }
   }
   throw lastErr;
