@@ -1791,6 +1791,20 @@ async function runOneFastTrackAnalysis(request) {
 }
 
 async function runFastTrackMode() {
+  // Optional ad-hoc seed for a manual GitHub Actions run — same pattern as
+  // RADAR_CANDIDATE for mode=candidate — so a request can be created and processed
+  // in one run without needing the Fast Track page's own form submission first
+  // (useful for proving the pipeline end-to-end, or a one-off analysis by hand).
+  if (process.env.FAST_TRACK_SEED_PRODUCT_URL) {
+    const seeded = await createFastTrackRequest({
+      productUrl: process.env.FAST_TRACK_SEED_PRODUCT_URL,
+      supplierUrl: process.env.FAST_TRACK_SEED_SUPPLIER_URL || null,
+      competitorUrls: (process.env.FAST_TRACK_SEED_COMPETITOR_URLS || '').split(',').map((s) => s.trim()).filter(Boolean),
+      notes: process.env.FAST_TRACK_SEED_NOTES || null,
+    });
+    log(`Seeded ad-hoc Fast Track request ${seeded.id} from workflow inputs.`);
+  }
+
   const analyses = await getFastTrackAnalyses();
   const pending = analyses.filter((a) => a.status === 'PENDING');
   log(`Fast Track: ${pending.length} pending request(s) to process.`);

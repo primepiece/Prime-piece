@@ -27,6 +27,22 @@ on:
         description: 'Only used when mode=supplier. The Market Radar opportunity id to research suppliers for, e.g. "radar_003" (see the Market Radar page for ids).'
         required: false
         type: string
+      fast_track_seed_product_url:
+        description: 'Optional, mode=fast-track only. Seeds one ad-hoc Fast Track request (product URL) before processing every pending request — for a one-off run without using the Fast Track page form first. Leave blank to just process whatever is already pending.'
+        required: false
+        type: string
+      fast_track_seed_supplier_url:
+        description: "Optional, mode=fast-track only. Known/named supplier URL for the seeded request above."
+        required: false
+        type: string
+      fast_track_seed_competitor_urls:
+        description: "Optional, mode=fast-track only. Comma-separated competitor URLs for the seeded request above."
+        required: false
+        type: string
+      fast_track_seed_notes:
+        description: "Optional, mode=fast-track only. Founder notes for the seeded request above."
+        required: false
+        type: string
       hunt_count:
         description: "Used when mode=hunt or daily. New candidates to find and research (1-5, kept small on purpose — cost)."
         required: false
@@ -79,6 +95,10 @@ jobs:
           RADAR_MODE: ${{ inputs.mode || 'daily' }}
           RADAR_CANDIDATE: ${{ inputs.candidate }}
           RADAR_SUPPLIER_TARGET: ${{ inputs.supplier_target }}
+          FAST_TRACK_SEED_PRODUCT_URL: ${{ inputs.fast_track_seed_product_url }}
+          FAST_TRACK_SEED_SUPPLIER_URL: ${{ inputs.fast_track_seed_supplier_url }}
+          FAST_TRACK_SEED_COMPETITOR_URLS: ${{ inputs.fast_track_seed_competitor_urls }}
+          FAST_TRACK_SEED_NOTES: ${{ inputs.fast_track_seed_notes }}
           RADAR_HUNT_COUNT: ${{ inputs.hunt_count || '2' }}
           RADAR_REFRESH_COUNT: ${{ inputs.refresh_count || '3' }}
           RADAR_SEARCH_BUDGET: ${{ inputs.search_budget || '6' }}
