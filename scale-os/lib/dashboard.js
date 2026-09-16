@@ -75,6 +75,12 @@ export const DASHBOARD_STYLE = `
   .missing-data-note { margin-top: 10px; font-size: 11.5px; color: #A05B44; }
   .mover-up { color: #2E7D4F; font-weight: 700; }
   .mover-down { color: var(--red); font-weight: 700; }
+  .funnel-pill { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 2px 9px; border-radius: 20px; white-space: nowrap; }
+  .funnel-SAMPLE { background: #DCEAE0; color: #2E7D4F; }
+  .funnel-HOLD { background: #E9E2CC; color: #8A6A2A; }
+  .funnel-KILL { background: #F1E4DF; color: #A05B44; }
+  .funnel-UNKNOWN { background: #EEECE6; color: #8A8577; }
+  .funnel-caveat { font-size: 11px; color: #B69B6B; font-style: italic; margin-top: 10px; }
 `;
 
 export const DASHBOARD_BODY = `
@@ -108,6 +114,11 @@ export const DASHBOARD_BODY = `
     <div class="section">
       <div class="section-head"><div class="section-title">Today's 3 Moves</div></div>
       <div id="movesBody"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><div><div class="section-q">What deserves capital, not just attention?</div><div class="section-title">Commercial Funnel — Investment Readiness</div></div><a class="section-link" href="/scale-os/radar">Open Market Radar →</a></div>
+      <div id="funnelBody"></div>
     </div>
 
     <div class="section">
@@ -241,6 +252,157 @@ export const DASHBOARD_SCRIPT = `
   // discovery, Next $1,000, or ranking. Only IMPORTED items are eligible here.
   function isImportEligible(item) {
     return item.productType === 'IMPORTED';
+  }
+
+  // --- Commercial Funnel / Investment Readiness ----------------------------------
+  // Mirrors scripts/market-radar/scoring.mjs (same duplicated-per-page convention
+  // as the rest of this file). Read-only summary: never triggers supplier research
+  // or sample spend. opportunityScore is never used to decide SAMPLE/HOLD/KILL here.
+  var FUNNEL_UNKNOWN = 'UNKNOWN';
+  var FUNNEL_SOURCING_WORDS = ['alibaba', 'made-in-china', 'global sources', 'manufacturer', 'wholesale supplier', 'trade directory', 'factory direct'];
+  var FUNNEL_COMMODITY_WORDS = ['commodity', 'saturated', 'big-box', 'big box', 'generic', 'race-to-the-bottom', 'race to the bottom'];
+  function funnelHasResearch(o) { return !!(o.scoreBreakdown || (o.sources && o.sources.length) || o.demandSignal); }
+  function funnelTextBlob(o) { return [].concat(o.disqualifiers || [], o.operatingRisks || [], [(o.marketGap && o.marketGap.description) || '']).join(' . ').toLowerCase(); }
+  function funnelContainsAny(text, words) { return words.some(function (w) { return text.indexOf(w) !== -1; }); }
+
+  function funnelFit(o) {
+    if (!funnelHasResearch(o)) return { result: FUNNEL_UNKNOWN };
+    var fail = false;
+    if (o.productType && o.productType !== 'IMPORTED') fail = true;
+    if ((o.disqualifiers || []).filter(Boolean).length) fail = true;
+    var econ = o.economicsPotential || {};
+    if (econ.freightDifficulty === 'High' && econ.damageRisk === 'High') fail = true;
+    var pb = o.priceBand || {};
+    if (typeof pb.low === 'number' && typeof pb.high === 'number' && !(pb.high >= 250 && pb.low <= 1200)) fail = true;
+    if (funnelContainsAny(funnelTextBlob(o), FUNNEL_COMMODITY_WORDS)) fail = true;
+    return { result: fail ? 'FAIL' : 'PASS' };
+  }
+
+  function funnelIsConsumerSeller(c) { return !funnelContainsAny(((c.name || '') + ' ' + (c.country || '')).toLowerCase(), FUNNEL_SOURCING_WORDS); }
+
+  function funnelDemand(o) {
+    if (!funnelHasResearch(o)) return { result: FUNNEL_UNKNOWN };
+    var competitors = o.competitors || [];
+    var consumerSellers = competitors.filter(funnelIsConsumerSeller);
+    var marketSet = {};
+    consumerSellers.forEach(function (c) { if (c.country) marketSet[c.country.trim()] = true; });
+    var distinctMarkets = Object.keys(marketSet).length;
+    var sellerDepthPass = consumerSellers.length >= 3 && distinctMarkets >= 2;
+    var hasBestsellerOrRepeat = consumerSellers.some(function (c) { return c.bestsellerFlag; });
+    var hasReviewVolume = consumerSellers.reduce(function (m, c) { return Math.max(m, c.reviewCount || 0); }, 0) >= 50;
+    var transactionNotNone = hasBestsellerOrRepeat || hasReviewVolume || (o.trendSignals || []).length > 0;
+    if (sellerDepthPass && (hasBestsellerOrRepeat || hasReviewVolume)) return { result: 'PASS' };
+    if (consumerSellers.length >= 1 && transactionNotNone) return { result: 'HOLD' };
+    return { result: 'FAIL' };
+  }
+
+  function funnelRepresentativeUnitPrice(supplier) {
+    var tiers = Array.isArray(supplier.pricingTiers) ? supplier.pricingTiers.filter(function (t) { return typeof (t && t.unitPrice) === 'number' && t.unitPrice > 0; }) : [];
+    if (!tiers.length) return null;
+    var closest = tiers.slice().sort(function (a, b) { return Math.abs((a.qty || 0) - 50) - Math.abs((b.qty || 0) - 50); });
+    return closest[0].unitPrice;
+  }
+
+  function funnelEconomics(o, suppliers) {
+    suppliers = suppliers || [];
+    var parsed = suppliers.filter(function (s) { return s.quoteParseStatus === 'PARSED'; });
+    if (!parsed.length) return { result: FUNNEL_UNKNOWN, credibleSupplierCount: suppliers.filter(function (s) { return !s.evidenceGap; }).length };
+    var priced = parsed.map(function (s) { return { s: s, price: funnelRepresentativeUnitPrice(s) }; }).filter(function (x) { return x.price !== null; }).sort(function (a, b) { return a.price - b.price; });
+    var best = priced[0];
+    if (!best) return { result: FUNNEL_UNKNOWN, credibleSupplierCount: suppliers.filter(function (s) { return !s.evidenceGap; }).length };
+    var freightPerUnit = typeof best.s.freightPerUnitEstimateUSD === 'number' ? best.s.freightPerUnitEstimateUSD : null;
+    var landedCost = freightPerUnit !== null ? best.price + freightPerUnit : null;
+    var targetRetail = typeof (o.priceBand && o.priceBand.low) === 'number' ? o.priceBand.low : null;
+    var landedCostPct = (landedCost !== null && targetRetail) ? (landedCost / targetRetail) * 100 : null;
+    var grossMarginPct = landedCostPct !== null ? 100 - landedCostPct : null;
+    var ready = landedCostPct !== null && landedCostPct <= 30 && grossMarginPct !== null && grossMarginPct >= 60;
+    return { result: landedCost === null ? FUNNEL_UNKNOWN : (ready ? 'READY' : 'NOT_READY'), credibleSupplierCount: suppliers.filter(function (s) { return !s.evidenceGap; }).length, bestSupplier: best.s, unitPrice: best.price, landedCost: landedCost, targetRetail: targetRetail, grossMarginPct: grossMarginPct };
+  }
+
+  function funnelDownside(econ) {
+    if (econ.result === FUNNEL_UNKNOWN || econ.landedCost == null) return { flag: FUNNEL_UNKNOWN };
+    var downsideLandedCost = econ.landedCost * 1.2;
+    var downsideMarginPct = econ.targetRetail ? (1 - downsideLandedCost / econ.targetRetail) * 100 : null;
+    return { flag: downsideMarginPct === null ? FUNNEL_UNKNOWN : (downsideMarginPct >= 50 ? 'ROBUST' : (downsideMarginPct >= 30 ? 'MARGINAL' : 'FRAGILE')) };
+  }
+
+  // Sample Gate: 10 tri-state conditions; rightToWin and validationPlan are always
+  // UNKNOWN (founder judgment calls this pass never fabricates).
+  function funnelSampleGate(demand, econ, downside) {
+    var met = 0, notMet = 0, unknown = 2; // rightToWin + validationPlan always unknown
+    function tally(state) { if (state === 'MET') met++; else if (state === 'NOT_MET') notMet++; else unknown++; }
+    tally(demand.result === 'PASS' ? 'MET' : (demand.result === FUNNEL_UNKNOWN ? FUNNEL_UNKNOWN : 'NOT_MET'));
+    tally(econ.credibleSupplierCount === 0 || econ.credibleSupplierCount === undefined ? FUNNEL_UNKNOWN : (econ.credibleSupplierCount >= 2 ? 'MET' : 'NOT_MET'));
+    tally(econ.result === FUNNEL_UNKNOWN ? FUNNEL_UNKNOWN : (econ.result === 'READY' ? 'MET' : 'NOT_MET'));
+    tally(downside.flag === FUNNEL_UNKNOWN ? FUNNEL_UNKNOWN : (downside.flag === 'ROBUST' ? 'MET' : 'NOT_MET'));
+    return { met: met, notMet: notMet, unknown: unknown, total: met + notMet + unknown };
+  }
+
+  function funnelFinalDecision(fit, demand, sampleGate) {
+    if (fit.result === 'FAIL') return { decision: 'KILL', why: 'Fails Prime Piece Fit.' };
+    if (demand.result === 'FAIL') return { decision: 'KILL', why: 'No credible demand evidence found.' };
+    if (sampleGate.notMet === 0 && sampleGate.unknown === 0) return { decision: 'SAMPLE', why: 'Every Sample Gate condition is met with real evidence.' };
+    return { decision: 'HOLD', why: (sampleGate.notMet + sampleGate.unknown) + ' of ' + sampleGate.total + ' Sample Gate condition(s) not yet proven.' };
+  }
+
+  function computeFunnelSummary(radar, suppliers) {
+    var suppliersByOpportunity = {};
+    (suppliers || []).forEach(function (s) { if (s.opportunityId) (suppliersByOpportunity[s.opportunityId] = suppliersByOpportunity[s.opportunityId] || []).push(s); });
+    var importable = (radar || []).filter(isImportEligible);
+    var evaluations = importable.map(function (o) {
+      var fit = funnelFit(o);
+      var demand = funnelDemand(o);
+      var econ = funnelEconomics(o, suppliersByOpportunity[o.id] || []);
+      var downside = funnelDownside(econ);
+      var sampleGate = funnelSampleGate(demand, econ, downside);
+      var finalDecision = funnelFinalDecision(fit, demand, sampleGate);
+      return { o: o, fit: fit, demand: demand, econ: econ, sampleGate: sampleGate, finalDecision: finalDecision };
+    });
+    var fitPassCount = evaluations.filter(function (e) { return e.fit.result === 'PASS'; }).length;
+    var demandPassCount = evaluations.filter(function (e) { return e.demand.result === 'PASS'; }).length;
+    var economicsReadyCount = evaluations.filter(function (e) { return e.econ.result === 'READY'; }).length;
+    var kill = evaluations.filter(function (e) { return e.finalDecision.decision === 'KILL'; });
+    var eligible = evaluations.filter(function (e) { return e.finalDecision.decision !== 'KILL'; });
+    var rankKey = function (e) {
+      var demandRank = e.demand.result === 'PASS' ? 2 : e.demand.result === 'HOLD' ? 1 : 0;
+      return [demandRank, e.sampleGate.met, e.o.opportunityScore || 0];
+    };
+    eligible.sort(function (a, b) {
+      var ra = rankKey(a), rb = rankKey(b);
+      for (var i = 0; i < ra.length; i++) if (ra[i] !== rb[i]) return rb[i] - ra[i];
+      return 0;
+    });
+    var sampleReady = eligible.filter(function (e) { return e.finalDecision.decision === 'SAMPLE'; });
+    var watchlist = eligible.filter(function (e) { return e.finalDecision.decision === 'HOLD'; });
+    return {
+      totalEvaluated: importable.length, fitPassCount: fitPassCount, demandPassCount: demandPassCount,
+      economicsReadyCount: economicsReadyCount, sampleReadyCount: sampleReady.length,
+      top3: eligible.slice(0, 3), watchlistCount: watchlist.length, killCount: kill.length,
+    };
+  }
+
+  function renderFunnel(radar, suppliers) {
+    var el = document.getElementById('funnelBody');
+    var importable = (radar || []).filter(isImportEligible);
+    if (!importable.length) { el.innerHTML = '<p class="empty-note">No importable opportunities on Market Radar yet.</p>'; return; }
+    var summary = computeFunnelSummary(radar, suppliers);
+    var tiles = [
+      statTile('Evaluated', summary.totalEvaluated),
+      statTile('Passed Fit', summary.fitPassCount),
+      statTile('Passed Demand Proof', summary.demandPassCount),
+      statTile('Economics-ready', summary.economicsReadyCount),
+      statTile('Fully Sample-ready', summary.sampleReadyCount),
+      statTile('Watchlist (HOLD)', summary.watchlistCount),
+      statTile('Kill', summary.killCount),
+    ].join('');
+    var top3Html = summary.top3.length
+      ? '<div class="mini-table-wrap" style="margin-top:12px;"><table class="mini"><thead><tr><th>Product</th><th>Funnel</th><th>Why</th></tr></thead><tbody>' +
+        summary.top3.map(function (e) {
+          return '<tr><td>' + escapeText(e.o.product) + (e.o.variant ? ' — ' + escapeText(e.o.variant) : '') + '</td><td><span class="funnel-pill funnel-' + e.finalDecision.decision + '">' + e.finalDecision.decision + '</span></td><td>' + escapeText(e.finalDecision.why) + '</td></tr>';
+        }).join('') + '</tbody></table></div>'
+      : '<p class="empty-note" style="margin-top:8px;">Only ' + summary.totalEvaluated + ' opportunity(ies) evaluated and none currently qualify for Top 3 — not manufacturing a Top 3 just because the UI expects one.</p>';
+    el.innerHTML = '<div class="stat-grid">' + tiles + '</div>' + top3Html +
+      '<div class="funnel-caveat">"Top 3" means currently most investment-ready based on available evidence, not a guarantee these will sell. Opportunity Score alone can never pass this funnel — see each opportunity\\'s expanded row in Market Radar for the full Fit / Demand / Economics / Sample Gate breakdown.</div>';
   }
 
   function stagePill(status) {
@@ -535,7 +697,7 @@ export const DASHBOARD_SCRIPT = `
       }).join('') + '</tbody></table></div>';
   }
 
-  function renderAll(products, radar, pulse) {
+  function renderAll(products, radar, pulse, suppliers) {
     renderFreshness(pulse);
     renderCoreWarning(products);
     renderPulse(pulse);
@@ -543,6 +705,7 @@ export const DASHBOARD_SCRIPT = `
     renderNextCandidate(products, radar);
     renderNextThousand(pulse);
     renderMoves(pulse);
+    renderFunnel(radar, suppliers);
     renderTopGlobal(radar, products);
     renderMovers(radar);
     renderIgnore(products, radar);
@@ -569,9 +732,10 @@ export const DASHBOARD_SCRIPT = `
       var products = results[0].products || [];
       var radar = results[1].opportunities || [];
       var pulse = results[1].pulse || null;
+      var suppliers = results[1].suppliers || [];
       document.getElementById('loadingState').style.display = 'none';
       document.getElementById('dashContent').style.display = 'block';
-      renderAll(products, radar, pulse);
+      renderAll(products, radar, pulse, suppliers);
     })
     .catch(function (err) {
       document.getElementById('loadingState').style.display = 'none';

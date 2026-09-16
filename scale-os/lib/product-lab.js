@@ -106,6 +106,7 @@ export const PRODUCT_LAB_BODY = `
 
       <h4>Prime Opportunity Score — 8 areas</h4>
       <p>Unit Economics, Market Demand Evidence, Differentiation, Content Potential, Freight Risk, Damage Risk, Trade Potential, and Competition/Saturation. The score is the average of whichever areas actually have data — shown as e.g. "64 · 6/8 areas" — never presented as complete when it isn't. Confidence (Low/Medium/High) is shown alongside the score, not blended into it, so you can judge for yourself how much to trust it.</p>
+      <p><strong>This score measures market interest, not investment readiness.</strong> A high score means "investigate this before something scoring lower" — it is never, by itself, a reason to spend on suppliers or samples. See Market Radar's Commercial Funnel section (Prime Piece Fit → Demand Proof → Economics Readiness → Sample Gate) for the hard commercial gates a product must actually clear before a SAMPLE decision.</p>
       <p><strong>Unit Economics</strong> is derived automatically from Contribution Margin %: below 0% → 1, 0–14% → 2, 15–29% → 3, 30–44% → 4, 45%+ → 5. <strong>Market Demand Evidence</strong> comes from "Apparent market demand" in that product's Market Evidence panel below — there's no separate demand field in the main table anymore.</p>
       <p>For imported CORE products, aim for landed cost ≤25–30% of retail price and 65%+ gross margin — check "Gross margin %" and "Total landed cost" against "Selling price" against that target.</p>
 

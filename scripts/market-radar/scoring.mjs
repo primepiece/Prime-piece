@@ -237,3 +237,425 @@ export function trendDirectionFromHistory(history = []) {
   if (Math.abs(delta) < 3) return 'Stable';
   return delta > 0 ? 'Rising' : 'Declining';
 }
+
+// --- Commercial Funnel: Investment Readiness (plain code, zero new LLM calls) ------
+// RADAR -> FIT -> DEMAND PROOF -> ECONOMICS READINESS -> SAMPLE GATE -> TOP 3/WATCH/KILL
+//
+// opportunityScore/confidenceScore above are an ATTENTION-ranking only — "investigate
+// this before something scoring lower," never "this is more likely to make money."
+// Everything below turns that attention ranking into an investment-readiness read,
+// entirely from fields enrichCandidate/findSuppliers already produce. Nothing here
+// changes SCORE_WEIGHTS, adds a new evidence field, or makes a new Claude/Tavily call.
+//
+// Hard rule throughout: a criterion with no supporting evidence is reported UNKNOWN /
+// NOT YET PROVEN. It is never silently treated as a pass, a fail, or a zero — the same
+// principle rankSuppliers/computeOutreachFitScore already apply to supplier evidence,
+// extended here to the product-opportunity funnel.
+export const UNKNOWN = 'UNKNOWN';
+
+function hasBeenResearched(o) {
+  return Boolean(o.scoreBreakdown || (o.sources && o.sources.length) || o.demandSignal);
+}
+
+// Reused across Fit/Demand/NZ-gap: a plain keyword heuristic over evidence text
+// actually gathered (disqualifiers/operatingRisks/marketGap), same "evidence honesty"
+// spirit as computeOutreachFitScore's negation-aware matching above — not a model
+// judgment call.
+const SOURCING_PLATFORM_WORDS = ['alibaba', 'made-in-china', 'global sources', 'manufacturer', 'wholesale supplier', 'trade directory', 'factory direct'];
+const COMMODITY_WORDS = ['commodity', 'saturated', 'big-box', 'big box', 'generic', 'race-to-the-bottom', 'race to the bottom'];
+const INSTALL_WORDS = ['installation', 'professional install', 'plumber', 'tradesperson required', 'built-in', 'permanent fixture'];
+
+function textBlob(o) {
+  return [...(o.disqualifiers || []), ...(o.operatingRisks || []), o.marketGap?.description || ''].join(' . ').toLowerCase();
+}
+function containsAny(text, words) {
+  return words.some((w) => text.includes(w));
+}
+
+// --- STAGE 2: PRIME PIECE FIT -------------------------------------------------------
+// Hard disqualifiers only ever come from evidence already gathered (productType,
+// the existing disqualifiers[] list, freight+damage both High together, or a price
+// band that plainly does not overlap Core AOV). Everything else the spec asks about —
+// brand fit, installation complexity, variant/collection potential, and whether
+// genuine stone is truly integral to the value proposition — has no supporting field
+// in current evidence, so it is reported as an explicit unknown rather than assumed.
+export function computeFitGate(o) {
+  if (!hasBeenResearched(o)) {
+    return { result: UNKNOWN, reasons: ['Not yet researched — no Enrich evidence recorded.'], unknowns: ['All Fit criteria — nothing researched yet.'] };
+  }
+
+  const reasons = [];
+  const unknowns = [];
+  let fail = false;
+
+  if (o.productType && o.productType !== 'IMPORTED') {
+    fail = true;
+    reasons.push(`productType=${o.productType} — not a repeatable/importable SKU.`);
+  }
+  const disq = (o.disqualifiers || []).filter(Boolean);
+  if (disq.length) {
+    fail = true;
+    reasons.push(`Existing disqualifier(s): ${disq.join('; ')}`);
+  }
+
+  const freight = o.economicsPotential?.freightDifficulty;
+  const damage = o.economicsPotential?.damageRisk;
+  if (freight === 'High' && damage === 'High') {
+    fail = true;
+    reasons.push('Freight difficulty AND damage risk are both High — freight/breakage not manageable.');
+  } else {
+    if (!freight) unknowns.push('Freight difficulty not assessed.');
+    if (!damage) unknowns.push('Damage risk not assessed.');
+  }
+
+  const low = o.priceBand?.low, high = o.priceBand?.high;
+  if (typeof low === 'number' && typeof high === 'number') {
+    const overlapsCore = high >= 250 && low <= 1200;
+    if (!overlapsCore) {
+      fail = true;
+      reasons.push(`Price band ${o.priceBand.currency || ''}${low}-${high} does not overlap the Core AOV target (NZ$250-1,200).`);
+    }
+  } else {
+    unknowns.push('Price band not established — Core AOV fit not verified.');
+  }
+
+  if (containsAny(textBlob(o), COMMODITY_WORDS)) {
+    fail = true;
+    reasons.push('Evidence flags this as commodity/saturated/big-box-dominated.');
+  }
+
+  if (containsAny(textBlob(o), INSTALL_WORDS)) {
+    unknowns.push('Evidence text mentions installation-related language — installation complexity not confirmed manageable.');
+  } else {
+    unknowns.push('Installation complexity not assessed.');
+  }
+  unknowns.push('Variant / future-collection potential not assessed.');
+  unknowns.push('Prime Piece brand fit not assessed — this is a founder judgment call, not something evidence alone can answer.');
+  unknowns.push('Not independently reverified that genuine stone is integral to this item\'s value proposition (assumed true by Hunter/Enrich research scope, which only searches for natural-stone products).');
+
+  if (!reasons.length) reasons.push('No structural disqualifier found in current evidence.');
+
+  return { result: fail ? 'FAIL' : 'PASS', reasons, unknowns };
+}
+
+// --- STAGE 3: DEMAND PROOF -----------------------------------------------------------
+// Evidence hierarchy per spec: real sales/orders > reviews/repeat stocking > sold-out/
+// restock > multiple retailers > search demand > social > editorial > trend articles >
+// AI interpretation. Current evidence never directly records "actual sales," so the
+// strongest signal available today is bestseller/repeat-stocking flags and review
+// volume (tier 2-4); Fact/Proxy-tagged trend signals sit below that; Estimate/
+// Assumption-tagged or editorial-sounding signals sit at the bottom — never above
+// reviews/bestseller evidence, per the spec's explicit hierarchy.
+function isConsumerSeller(c) {
+  const blob = `${c.name || ''} ${c.country || ''}`.toLowerCase();
+  return !containsAny(blob, SOURCING_PLATFORM_WORDS);
+}
+
+export function computeDemandProofGate(o) {
+  if (!hasBeenResearched(o)) {
+    return { result: UNKNOWN, confidence: 'LOW', reasons: ['Not yet researched.'], unknowns: ['All Demand Proof criteria — nothing researched yet.'], sellerDepthCount: 0, distinctMarkets: 0, comparablesCount: 0, transactionTier: UNKNOWN };
+  }
+
+  const competitors = o.competitors || [];
+  const consumerSellers = competitors.filter(isConsumerSeller);
+  const distinctMarkets = new Set(consumerSellers.map((c) => (c.country || '').trim()).filter(Boolean));
+  const sellerDepthPass = consumerSellers.length >= 3 && distinctMarkets.size >= 2;
+
+  const hasBestsellerOrRepeat = consumerSellers.some((c) => c.bestsellerFlag);
+  const maxReviews = consumerSellers.reduce((m, c) => Math.max(m, c.reviewCount || 0), 0);
+  const hasReviewVolume = maxReviews >= 50;
+  const trendSignals = o.trendSignals || [];
+  const factOrProxySignals = trendSignals.filter((t) => t.type === 'Fact' || t.type === 'Proxy / Signal');
+  const estimateOrAssumptionOnly = trendSignals.length > 0 && factOrProxySignals.length === 0;
+
+  let transactionTier;
+  if (hasBestsellerOrRepeat) transactionTier = 'STRONG (bestseller / repeat-stocking signal)';
+  else if (hasReviewVolume) transactionTier = 'MODERATE (meaningful review volume)';
+  else if (factOrProxySignals.length) transactionTier = 'WEAK (Fact/Proxy trend signal only — no sales/review evidence)';
+  else if (estimateOrAssumptionOnly) transactionTier = 'VERY WEAK (Estimate/Assumption or editorial-only signal)';
+  else transactionTier = 'NONE';
+
+  const comparablesWithPrice = competitors.filter((c) => typeof c.priceLow === 'number' || typeof c.priceHigh === 'number');
+
+  let result, confidence;
+  if (sellerDepthPass && (hasBestsellerOrRepeat || hasReviewVolume)) {
+    result = 'PASS'; confidence = 'HIGH';
+  } else if (consumerSellers.length >= 1 && transactionTier !== 'NONE') {
+    result = 'HOLD'; confidence = factOrProxySignals.length ? 'MEDIUM' : 'LOW';
+  } else {
+    result = 'FAIL'; confidence = 'LOW';
+  }
+
+  const reasons = [
+    `Seller depth: ${consumerSellers.length} credible consumer seller(s) across ${distinctMarkets.size} market(s) (target: 3+ across 2+ markets; Alibaba/manufacturer-style listings excluded).`,
+    `Transaction signal: ${transactionTier}.`,
+    `Price comparables: ${comparablesWithPrice.length} of ${competitors.length} competitor(s) have pricing data (target: 5+).`,
+  ];
+  const unknowns = [];
+  if (!competitors.length) unknowns.push('No competitor evidence recorded at all — this cannot distinguish "no real demand" from "not researched deeply enough."');
+  if (competitors.length && competitors.some((c) => !c.country)) unknowns.push('Some competitors have no recorded country — market count may be understated.');
+
+  return { result, confidence, reasons, unknowns, sellerDepthCount: consumerSellers.length, distinctMarkets: distinctMarkets.size, comparablesCount: comparablesWithPrice.length, transactionTier };
+}
+
+// --- STAGE 3C: PRICE VALIDATION ------------------------------------------------------
+// Low/median/upper/outlier over whatever real competitor pricing exists — the spec is
+// explicit that the highest listing must never be read as "normal market price," so an
+// outlier is called out separately rather than folded into the range silently.
+export function computePriceValidation(o) {
+  const competitors = o.competitors || [];
+  const prices = competitors
+    .map((c) => {
+      if (typeof c.priceLow === 'number' && typeof c.priceHigh === 'number') return (c.priceLow + c.priceHigh) / 2;
+      return typeof c.priceLow === 'number' ? c.priceLow : (typeof c.priceHigh === 'number' ? c.priceHigh : null);
+    })
+    .filter((p) => p !== null)
+    .sort((a, b) => a - b);
+
+  if (!prices.length) {
+    return { result: UNKNOWN, comparablesCount: 0, low: null, median: null, upper: null, outlier: null, reasons: ['No competitor pricing recorded.'] };
+  }
+
+  const low = prices[0];
+  const high = prices[prices.length - 1];
+  const mid = Math.floor(prices.length / 2);
+  const median = prices.length % 2 ? prices[mid] : (prices[mid - 1] + prices[mid]) / 2;
+  const outlier = high > median * 1.75 ? high : null;
+  const result = prices.length >= 5 ? 'PASS' : (prices.length >= 2 ? 'HOLD' : UNKNOWN);
+
+  return {
+    result, comparablesCount: prices.length, low, median, upper: high, outlier,
+    reasons: [`${prices.length} price comparable(s) recorded (target: 5+). Low ${low}, median ${median}, upper ${high}${outlier ? `. ${outlier} is flagged as an outlier, not treated as typical market price` : ''}.`],
+  };
+}
+
+// --- STAGE 3D: NZ COMPETITIVE GAP -----------------------------------------------------
+// The spec is explicit: no competition is NOT automatically good — an empty market can
+// mean no demand rather than a gap. Current evidence has no dedicated NZ-competitor
+// research step, so this almost always returns UNKNOWN rather than guessing which of
+// "genuine gap" or "no real demand" a silent market actually is.
+export function computeNzGap(o) {
+  if (!hasBeenResearched(o)) return { classification: UNKNOWN, reasons: ['Not yet researched.'] };
+
+  const blob = textBlob(o);
+  const nzCompetitors = (o.competitors || []).filter((c) => /new zealand|\bnz\b/i.test(c.country || ''));
+
+  if (containsAny(blob, COMMODITY_WORDS)) {
+    return { classification: 'BIG_BOX_COMMODITY', reasons: ['Evidence flags commodity/saturated/big-box competition.'] };
+  }
+  if (nzCompetitors.length >= 3) {
+    return { classification: 'STRONG_COMPETITION', reasons: [`${nzCompetitors.length} NZ competitor(s) explicitly recorded.`] };
+  }
+  if (nzCompetitors.length >= 1) {
+    return { classification: 'FRAGMENTED_COMPETITION', reasons: [`${nzCompetitors.length} NZ competitor(s) explicitly recorded — not clearly dominant.`] };
+  }
+  return {
+    classification: UNKNOWN,
+    reasons: ['No NZ-specific competitor evidence recorded. An empty market cannot be assumed low-competition — per the funnel spec it may equally mean no demand. This axis needs dedicated NZ-market research, not yet performed for this opportunity.'],
+  };
+}
+
+// --- STAGE 5: ECONOMICS READINESS -----------------------------------------------------
+// Requires a real, PARSED supplier quote — before that, landed cost/margin is genuinely
+// unknown, never a placeholder. Deliberately does not duplicate run.mjs's
+// estimateLandedEconomics (which also needs Product Lab's own contribution-margin
+// inputs); this is the earlier, Radar-stage readiness check, before promotion.
+export function computeEconomicsReadiness(o, suppliersForOpportunity) {
+  const suppliers = suppliersForOpportunity || [];
+  const credibleSuppliers = suppliers.filter((s) => !s.evidenceGap);
+  const parsedSuppliers = suppliers.filter((s) => s.quoteParseStatus === 'PARSED');
+
+  if (!suppliers.length) {
+    return { result: UNKNOWN, supplierCount: 0, credibleSupplierCount: 0, bestSupplier: null, reasons: ['No supplier research has been run for this opportunity yet.'] };
+  }
+  if (!parsedSuppliers.length) {
+    return {
+      result: UNKNOWN, supplierCount: suppliers.length, credibleSupplierCount: credibleSuppliers.length, bestSupplier: null,
+      reasons: [`${suppliers.length} supplier(s) discovered (${credibleSuppliers.length} credible), but no real quote has been parsed yet — landed cost/margin cannot be computed from discovery-stage data alone.`],
+    };
+  }
+
+  const priced = parsedSuppliers
+    .map((s) => ({ s, price: representativeUnitPrice(s) }))
+    .filter((x) => x.price !== null)
+    .sort((a, b) => a.price - b.price);
+  const best = priced[0];
+
+  if (!best) {
+    return { result: UNKNOWN, supplierCount: suppliers.length, credibleSupplierCount: credibleSuppliers.length, bestSupplier: parsedSuppliers[0] || null, reasons: ['A quote was parsed but no usable unit pricing was stated.'] };
+  }
+
+  const unitPrice = best.price;
+  const freightPerUnit = typeof best.s.freightPerUnitEstimateUSD === 'number' ? best.s.freightPerUnitEstimateUSD : null;
+  const landedCost = freightPerUnit !== null ? unitPrice + freightPerUnit : null;
+  const targetRetail = typeof o.priceBand?.low === 'number' ? o.priceBand.low : null;
+  const landedCostPct = (landedCost !== null && targetRetail) ? Math.round((landedCost / targetRetail) * 1000) / 10 : null;
+  const grossMarginPct = landedCostPct !== null ? Math.round((100 - landedCostPct) * 10) / 10 : null;
+  const readinessOk = landedCostPct !== null && landedCostPct <= 30 && grossMarginPct !== null && grossMarginPct >= 60;
+
+  return {
+    result: landedCost === null ? UNKNOWN : (readinessOk ? 'READY' : 'NOT_READY'),
+    supplierCount: suppliers.length, credibleSupplierCount: credibleSuppliers.length, bestSupplier: best.s,
+    unitPrice, freightPerUnit, landedCost, targetRetail, landedCostPct, grossMarginPct,
+    reasons: [
+      landedCost === null
+        ? 'Unit price is known but no per-unit freight figure was recorded — landed cost is incomplete, not assumed.'
+        : `Landed cost ${landedCostPct}% of target retail (target ≤25-30%), gross margin ${grossMarginPct}% (target ≥60-70%).`,
+    ],
+  };
+}
+
+// --- STAGE 6: DOWNSIDE STRESS TEST -----------------------------------------------------
+export function computeDownsideStressTest(economicsReadiness) {
+  if (economicsReadiness.result === UNKNOWN || economicsReadiness.landedCost == null) {
+    return { flag: UNKNOWN, baseMarginPct: null, downsideLandedCost: null, downsideMarginPct: null, reasons: ['Economics not established yet — cannot stress test.'] };
+  }
+  const { landedCost, targetRetail, grossMarginPct } = economicsReadiness;
+  const downsideLandedCost = Math.round(landedCost * 1.2 * 100) / 100;
+  const downsideMarginPct = targetRetail ? Math.round((1 - downsideLandedCost / targetRetail) * 1000) / 10 : null;
+
+  let flag;
+  if (downsideMarginPct === null) flag = UNKNOWN;
+  else if (downsideMarginPct >= 50) flag = 'ROBUST';
+  else if (downsideMarginPct >= 30) flag = 'MARGINAL';
+  else flag = 'FRAGILE';
+
+  return {
+    flag, baseMarginPct: grossMarginPct, downsideLandedCost, downsideMarginPct,
+    reasons: [`Base-case gross margin ${grossMarginPct}%. Downside case (landed cost +20%) gross margin ${downsideMarginPct}%.`],
+  };
+}
+
+// --- STAGE 7: SAMPLE GATE --------------------------------------------------------------
+// A tri-state per condition (MET / NOT_MET / UNKNOWN) — "not enough evidence gathered
+// yet" is never collapsed into "failed." Right-to-win and validation-plan are explicit
+// founder judgment calls with no evidence source at all yet, so they are always
+// UNKNOWN here rather than auto-generated — recording them is deliberately left as a
+// manual step outside this pass.
+// A generous but explicit assumption (documented in the reason text, never hidden):
+// an initial commercial order of MOQ x unit price under US$2,000 is treated as "small
+// enough that being wrong is not financially painful."
+const MOQ_CAPITAL_EXPOSURE_CAP_USD = 2000;
+
+export function computeSampleGate({ demand, priceValidation, nzGap, economics, downside }) {
+  function state(v) {
+    if (v === null || v === undefined) return UNKNOWN;
+    return v ? 'MET' : 'NOT_MET';
+  }
+
+  const bestSupplier = economics.bestSupplier;
+  const hasParsedQuote = economics.result !== UNKNOWN || economics.landedCost != null; // a quote was actually parsed, even if numbers were incomplete
+  const cartonKnown = bestSupplier ? Boolean(bestSupplier.cartonSpec?.size && bestSupplier.cartonSpec?.weightKg && bestSupplier.packagingMethod) : null;
+  const moqKnown = bestSupplier ? typeof bestSupplier.moq === 'number' : null;
+  const moqSmallEnough = moqKnown && typeof economics.unitPrice === 'number' ? (bestSupplier.moq * economics.unitPrice <= MOQ_CAPITAL_EXPOSURE_CAP_USD) : null;
+
+  const checks = [
+    { id: 'demand', label: '3+ credible sellers across 2+ markets with a real transaction signal', state: demand.result === 'PASS' ? 'MET' : (demand.result === UNKNOWN ? UNKNOWN : 'NOT_MET') },
+    { id: 'priceValidation', label: '5+ genuine retail comparables', state: priceValidation.result === 'PASS' ? 'MET' : (priceValidation.result === UNKNOWN ? UNKNOWN : 'NOT_MET') },
+    { id: 'nzOpportunity', label: 'NZ competitive gap actually understood (not just absence of data)', state: (nzGap.classification === 'FRAGMENTED_COMPETITION') ? 'MET' : (nzGap.classification === UNKNOWN ? UNKNOWN : 'NOT_MET') },
+    { id: 'suppliers', label: '2+ credible supplier options', state: economics.supplierCount === 0 ? UNKNOWN : state(economics.credibleSupplierCount >= 2) },
+    { id: 'economics', label: 'Landed cost ≤30% of retail, gross margin ≥60%', state: economics.result === UNKNOWN ? UNKNOWN : state(economics.result === 'READY') },
+    { id: 'downside', label: 'Margin stays robust if landed cost comes in ~20% worse', state: downside.flag === UNKNOWN ? UNKNOWN : state(downside.flag === 'ROBUST') },
+    { id: 'logistics', label: 'Packed dimensions, weight and packaging method known — not guessed', state: !hasParsedQuote ? UNKNOWN : state(cartonKnown) },
+    { id: 'moq', label: `Initial order small enough that being wrong is not financially painful (assumed cap: US$${MOQ_CAPITAL_EXPOSURE_CAP_USD} exposure)`, state: !moqKnown ? UNKNOWN : state(moqSmallEnough) },
+    { id: 'rightToWin', label: 'A specific, non-generic reason Prime Piece wins this over existing alternatives', state: UNKNOWN },
+    { id: 'validationPlan', label: 'A recorded plan for testing the sample once received', state: UNKNOWN },
+  ];
+
+  const summary = {
+    met: checks.filter((c) => c.state === 'MET').length,
+    notMet: checks.filter((c) => c.state === 'NOT_MET').length,
+    unknown: checks.filter((c) => c.state === UNKNOWN).length,
+    total: checks.length,
+  };
+
+  return { checks, summary };
+}
+
+// --- STAGE 8: FINAL DECISION -----------------------------------------------------------
+// KILL only ever fires on a structural problem already proven by real evidence (Fit
+// FAIL or Demand FAIL) — never on missing evidence, which is HOLD's job. SAMPLE only
+// fires when every Sample Gate condition is genuinely MET, not merely not-yet-unknown.
+export function computeFinalDecision({ fit, demand, sampleGate }) {
+  if (fit.result === 'FAIL') {
+    return {
+      decision: 'KILL',
+      why: 'Fails Prime Piece Fit: ' + fit.reasons.join(' '),
+      criticalEvidence: fit.reasons,
+      mainRisk: 'Structural mismatch with Prime Piece\'s scalable-import ecommerce model.',
+      whatWouldChange: 'A material change to the product itself (different variant, material, or positioning) — not more research on this one.',
+      nextAction: 'Do not pursue further. Leave on Market Radar as Kill.',
+    };
+  }
+  if (demand.result === 'FAIL') {
+    return {
+      decision: 'KILL',
+      why: 'No credible demand evidence found despite research.',
+      criticalEvidence: demand.reasons,
+      mainRisk: 'This may simply not be a real market, not just an under-researched one.',
+      whatWouldChange: 'New, currently-unavailable evidence of genuine consumer demand.',
+      nextAction: 'Do not pursue further research on this opportunity at this time.',
+    };
+  }
+
+  const { checks, summary } = sampleGate;
+  if (summary.notMet === 0 && summary.unknown === 0) {
+    return {
+      decision: 'SAMPLE',
+      why: 'Every Sample Gate condition is met with real evidence.',
+      criticalEvidence: checks.filter((c) => c.state === 'MET').map((c) => c.label),
+      mainRisk: 'Residual execution risk only (supplier reliability, real-world sell-through) — not evidence risk.',
+      whatWouldChange: 'N/A — ready to proceed.',
+      nextAction: 'Bring to James for a physical sample-order decision.',
+    };
+  }
+
+  const missing = checks.filter((c) => c.state !== 'MET').map((c) => c.label);
+  const nextAction = checks.some((c) => c.id === 'suppliers' && c.state !== 'MET')
+    ? 'Run supplier discovery for this opportunity before anything else.'
+    : checks.some((c) => c.id === 'economics' && c.state !== 'MET')
+      ? 'Get a real supplier quote parsed so landed cost/margin can be computed.'
+      : 'Gather the specific missing evidence listed below before considering a sample.';
+
+  return {
+    decision: 'HOLD',
+    why: `Interesting candidate, but ${summary.notMet + summary.unknown} of ${summary.total} Sample Gate condition(s) are not yet proven (${summary.met} met, ${summary.notMet} checked-and-not-met, ${summary.unknown} unknown).`,
+    criticalEvidence: checks.filter((c) => c.state === 'MET').map((c) => c.label),
+    mainRisk: 'Committing money or attention before ' + (missing[0] || 'key evidence') + ' is actually known.',
+    whatWouldChange: 'Missing: ' + missing.join('; '),
+    nextAction,
+  };
+}
+
+// --- STAGE 9: TOP 3 / WATCHLIST / KILL --------------------------------------------------
+// opportunityScore is used ONLY as the final tiebreaker (3rd sort key) — a high Radar
+// score alone can never outrank real demand/readiness evidence, per the funnel's
+// central rule. "Top 3" here means "currently most investment-ready based on available
+// evidence," not "will definitely sell" — sampleReadyCount tells you honestly how many
+// of them have actually cleared every Sample Gate condition.
+export function rankInvestmentReadiness(evaluations) {
+  const kill = evaluations.filter((e) => e.finalDecision.decision === 'KILL');
+  const eligible = evaluations.filter((e) => e.finalDecision.decision !== 'KILL');
+
+  const rankKey = (e) => {
+    const demandRank = e.demand.result === 'PASS' ? 2 : e.demand.result === 'HOLD' ? 1 : 0;
+    return [demandRank, e.sampleGate.summary.met, e.opportunityScore || 0];
+  };
+  const sorted = eligible.slice().sort((a, b) => {
+    const ra = rankKey(a), rb = rankKey(b);
+    for (let i = 0; i < ra.length; i++) if (ra[i] !== rb[i]) return rb[i] - ra[i];
+    return 0;
+  });
+
+  const sampleReady = sorted.filter((e) => e.finalDecision.decision === 'SAMPLE');
+  const watchlist = sorted.filter((e) => e.finalDecision.decision === 'HOLD');
+  const top10 = sorted.slice(0, 10);
+  const top3 = sorted.slice(0, 3);
+
+  return {
+    top10, top3,
+    top3IsFullyQualified: sampleReady.length >= 3,
+    sampleReadyCount: sampleReady.length,
+    watchlist, kill,
+  };
+}
