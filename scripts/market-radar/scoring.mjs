@@ -308,15 +308,24 @@ export function computeFitGate(o) {
     if (!damage) unknowns.push('Damage risk not assessed.');
   }
 
+  // Two lanes, not one: Prime Piece's ENTRY ($99-299, acquisition/gifting) and CORE
+  // ($299-1,200, repeatable/importable scaling layer) are both legitimate homes for an
+  // investment-ready imported product — a single Core-only gate wrongly killed ENTRY-
+  // priced items (e.g. a $135 candidate) that never had a real chance to overlap a
+  // $250+ floor. Overlapping either lane is sufficient; HALO ($1,500+, NZ-made one-of-
+  // one, not importable) is out of scope for this gate entirely.
   const low = o.priceBand?.low, high = o.priceBand?.high;
   if (typeof low === 'number' && typeof high === 'number') {
-    const overlapsCore = high >= 250 && low <= 1200;
-    if (!overlapsCore) {
+    const overlapsEntry = high >= 99 && low <= 299;
+    const overlapsCore = high >= 299 && low <= 1200;
+    if (!overlapsEntry && !overlapsCore) {
       fail = true;
-      reasons.push(`Price band ${o.priceBand.currency || ''}${low}-${high} does not overlap the Core AOV target (NZ$250-1,200).`);
+      reasons.push(`Price band ${o.priceBand.currency || ''}${low}-${high} does not overlap either Prime Piece lane (ENTRY $99-299 or CORE $299-1,200).`);
+    } else {
+      reasons.push(`Price band ${o.priceBand.currency || ''}${low}-${high} overlaps the ${overlapsCore ? 'CORE ($299-1,200)' : 'ENTRY ($99-299)'} lane.`);
     }
   } else {
-    unknowns.push('Price band not established — Core AOV fit not verified.');
+    unknowns.push('Price band not established — ENTRY/CORE lane fit not verified.');
   }
 
   if (containsAny(textBlob(o), COMMODITY_WORDS)) {
@@ -357,6 +366,25 @@ export function computeDemandProofGate(o) {
   }
 
   const competitors = o.competitors || [];
+
+  // Missing competitor/review evidence is not the same thing as evidence of no
+  // demand — it means a real consumer-market research pass (as opposed to Enrich's
+  // original, often thin, web-search sweep) hasn't been run yet. A hard FAIL below
+  // requires either actual negative evidence or a completed search (competitors[]
+  // genuinely populated) that still falls short of the minimum criteria — never a
+  // bare absence of data. This was previously misclassified as FAIL, which is
+  // exactly the false-negative the funnel's real production run surfaced: 47 of 49
+  // opportunities failed Demand Proof, almost entirely because they'd never had a
+  // dedicated consumer-market search, not because real evidence showed no demand.
+  if (!competitors.length) {
+    return {
+      result: UNKNOWN, confidence: 'LOW',
+      reasons: ['No competitor/review evidence recorded yet — this opportunity has not been through a dedicated consumer-market demand research pass. A hard FAIL requires actual negative evidence or a completed search that falls short of the minimum criteria, neither of which exists yet.'],
+      unknowns: ['Seller depth, transaction signal and price comparables all require a real consumer-market research pass that has not yet been run for this opportunity.'],
+      sellerDepthCount: 0, distinctMarkets: 0, comparablesCount: 0, transactionTier: UNKNOWN,
+    };
+  }
+
   const consumerSellers = competitors.filter(isConsumerSeller);
   const distinctMarkets = new Set(consumerSellers.map((c) => (c.country || '').trim()).filter(Boolean));
   const sellerDepthPass = consumerSellers.length >= 3 && distinctMarkets.size >= 2;
@@ -392,8 +420,7 @@ export function computeDemandProofGate(o) {
     `Price comparables: ${comparablesWithPrice.length} of ${competitors.length} competitor(s) have pricing data (target: 5+).`,
   ];
   const unknowns = [];
-  if (!competitors.length) unknowns.push('No competitor evidence recorded at all — this cannot distinguish "no real demand" from "not researched deeply enough."');
-  if (competitors.length && competitors.some((c) => !c.country)) unknowns.push('Some competitors have no recorded country — market count may be understated.');
+  if (competitors.some((c) => !c.country)) unknowns.push('Some competitors have no recorded country — market count may be understated.');
 
   return { result, confidence, reasons, unknowns, sellerDepthCount: consumerSellers.length, distinctMarkets: distinctMarkets.size, comparablesCount: comparablesWithPrice.length, transactionTier };
 }
