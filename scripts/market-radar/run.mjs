@@ -26,7 +26,7 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest } from '../../scale-os/lib/store.js';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals } from '../../scale-os/lib/store.js';
 import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
@@ -760,10 +760,18 @@ async function runSupplierMode() {
 // log-line-per-item rather than one pretty-printed blob, so it stays parseable however
 // many items the radar has grown to.
 async function runListMode() {
-  const radar = await getRadarOpportunities();
+  const [radar, suppliers, approvals] = await Promise.all([getRadarOpportunities(), getSuppliers(), getApprovals()]);
   log(`${radar.length} opportunity(ies) in Market Radar:`);
   for (const o of radar) {
     log(JSON.stringify(o));
+  }
+  log(`${suppliers.length} supplier(s) on record:`);
+  for (const s of suppliers) {
+    log(JSON.stringify(s));
+  }
+  log(`${approvals.length} approval request(s) on record:`);
+  for (const a of approvals) {
+    log(JSON.stringify(a));
   }
 }
 
