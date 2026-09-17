@@ -251,7 +251,7 @@
   nav.scrolled .nav-shop-link { border-color: var(--sage) !important; color: var(--sage) !important; background: transparent !important; }
   nav.scrolled .nav-shop-link:hover { background: var(--sage) !important; color: var(--cream) !important; }
 
-  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.png') center/cover no-repeat; }
+  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.jpg') center/cover no-repeat; }
   .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(18,15,12,0.30) 0%, rgba(18,15,12,0.18) 40%, rgba(18,15,12,0.82) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: 720px; }
   .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage-soft); margin-bottom: 22px; font-weight: 500; display: flex; align-items: center; gap: 14px; }
@@ -393,6 +393,21 @@
   .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+  .footer-newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .footer-newsletter-text { font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 420px; }
+  .footer-newsletter-text strong { color: var(--ink); font-weight: 500; }
+  .footer-newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-newsletter-input { padding: 12px 16px; border: 1px solid var(--line); background: var(--cream); font-family: var(--body); font-size: 13px; color: var(--ink); min-width: 240px; border-radius: 1px; outline: none; }
+  .footer-newsletter-input:focus { border-color: var(--sage); }
+  .footer-newsletter-btn { padding: 12px 22px; background: var(--sage); color: #fff; border: none; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; cursor: pointer; border-radius: 1px; transition: background 0.2s; white-space: nowrap; }
+  .footer-newsletter-btn:hover { background: var(--sage-deep); }
+  .footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .footer-newsletter-msg { font-size: 12px; margin-top: 10px; display: none; }
+  @media (max-width: 768px) {
+    .footer-newsletter { flex-direction: column; align-items: flex-start; }
+    .footer-newsletter-form { width: 100%; }
+    .footer-newsletter-input { flex: 1; min-width: 0; }
+  }
 
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -586,7 +601,7 @@
       </div>
     </a>
     <a href="boards.html?p=board-white-haven" class="featured-card">
-      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="board-white-haven.png" alt="White Haven marble serving board, Auckland"></div>
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="board-white-haven-web.jpg" alt="White Haven marble serving board, Auckland"></div>
       <div class="featured-card-info">
         <div class="featured-card-name">White Haven</div>
         <div class="featured-card-material">White Marble — Grey Veining</div>
@@ -618,7 +633,7 @@
       </div>
     </a>
     <a href="boards.html?p=board-teal-tide" class="featured-card">
-      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="board-teal-tide.png" alt="Teal Tide marble serving board, Auckland"></div>
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="board-teal-tide-web.jpg" alt="Teal Tide marble serving board, Auckland"></div>
       <div class="featured-card-info">
         <div class="featured-card-name">Teal Tide</div>
         <div class="featured-card-material">Teal Marble — Gold Veining</div>
@@ -638,7 +653,7 @@
 
 <section class="founder-section" id="story">
   <div class="founder-img-col">
-    <img loading="lazy" class="founder-img" src="james-hopwood-2.jpg (2).png" alt="James Hopwood — Founder, Prime Piece">
+    <img loading="lazy" class="founder-img" src="james-hopwood-founder.jpg" alt="James Hopwood — Founder, Prime Piece">
   </div>
   <div class="founder-copy-col reveal">
     <div class="founder-eyebrow">The Maker</div>
@@ -756,6 +771,16 @@
 </section>
 
 <footer>
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div>
+      <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
+        <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
+        <button type="submit" class="footer-newsletter-btn">Subscribe →</button>
+      </form>
+      <div class="footer-newsletter-msg"></div>
+    </div>
+  </div>
   <div class="footer-grid">
     <div>
       <div class="footer-brand">PRIME PIECE</div>
@@ -928,6 +953,45 @@ async function submitEnquire() {
       ham2.classList.remove('open'); mob2.classList.remove('open'); document.body.style.overflow = '';
     }));
   }
+</script>
+
+<script>
+async function footerSubscribe(event, form) {
+  event.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('.footer-newsletter-btn');
+  const msg = form.parentElement.querySelector('.footer-newsletter-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    return false;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.style.color = 'var(--sage-deep)';
+      msg.style.display = 'block';
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
+    } else {
+      msg.textContent = 'Something went wrong — please try again.';
+      msg.style.color = '#c0392b';
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Subscribe →';
+    }
+  } catch (e) {
+    msg.textContent = 'Network error — please try again.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Subscribe →';
+  }
+  return false;
+}
 </script>
 
 </body>

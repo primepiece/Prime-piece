@@ -344,6 +344,14 @@
 
   .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 24px 0; font-style: italic; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 24px; }
+  .modal-crosssell { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(44,42,38,0.1); }
+  .modal-crosssell-title { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); font-weight: 600; margin-bottom: 12px; }
+  .modal-crosssell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .modal-crosssell-item { text-decoration: none; display: block; }
+  .modal-crosssell-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 2px; display: block; margin-bottom: 6px; transition: opacity 0.2s; }
+  .modal-crosssell-item:hover .modal-crosssell-img { opacity: 0.82; }
+  .modal-crosssell-name { font-size: 11.5px; color: var(--ink); font-weight: 500; line-height: 1.3; }
+  .modal-crosssell-price { font-size: 10.5px; color: var(--stone); margin-top: 1px; }
 
   .modal-btn-primary {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -396,6 +404,21 @@
   .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 9px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+  .footer-newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .footer-newsletter-text { font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 420px; }
+  .footer-newsletter-text strong { color: var(--ink); font-weight: 500; }
+  .footer-newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-newsletter-input { padding: 12px 16px; border: 1px solid var(--line); background: var(--cream); font-family: var(--body); font-size: 13px; color: var(--ink); min-width: 240px; border-radius: 1px; outline: none; }
+  .footer-newsletter-input:focus { border-color: var(--sage); }
+  .footer-newsletter-btn { padding: 12px 22px; background: var(--sage); color: #fff; border: none; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; cursor: pointer; border-radius: 1px; transition: background 0.2s; white-space: nowrap; }
+  .footer-newsletter-btn:hover { background: var(--sage-deep); }
+  .footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .footer-newsletter-msg { font-size: 12px; margin-top: 10px; display: none; }
+  @media (max-width: 768px) {
+    .footer-newsletter { flex-direction: column; align-items: flex-start; }
+    .footer-newsletter-form { width: 100%; }
+    .footer-newsletter-input { flex: 1; min-width: 0; }
+  }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -449,13 +472,11 @@
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="basins.html">Stone Basins</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="sale.html" style="color:#b8800a !important;border:1px solid rgba(184,128,10,0.5);padding:6px 14px;">Sale →</a></li>
     <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="sale.html" style="color:#b8800a;">Sale ↓</a>
   <a href="/">Home</a>
   <a href="plinths.html">Plinths</a>
   <a href="tables.html">Tables</a>
@@ -531,10 +552,10 @@
   </div>
 
   <!-- Indian Green Marble Plinth $1,499 -->
-  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Indian Green Marble Plinth','Indian Green Marble','plinth-indian-green-2.jpg.png','H: 800mm × W: 300mm × D: 300mm','Plinth',1499,'plinth-indian-green-2')">
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Indian Green Marble Plinth','Indian Green Marble','plinth-indian-green-2.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth',1499,'plinth-indian-green-2')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
-      <img class="plinth-img" src="plinth-indian-green-2.jpg.png" alt="Indian Green marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy">
+      <img class="plinth-img" src="plinth-indian-green-2.jpg" alt="Indian Green marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="plinth-info">
@@ -545,7 +566,7 @@
       <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Plinth</span>
-        <button class="enquire-btn pp-add-btn" data-id="plinth-indian-green-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-indian-green-2',name:'Indian Green Marble Plinth',type:'Plinth',image:'plinth-indian-green-2.jpg.png',price:1499})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-indian-green-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-indian-green-2',name:'Indian Green Marble Plinth',type:'Plinth',image:'plinth-indian-green-2.jpg',price:1499})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -806,6 +827,16 @@
 </section>
 
 <footer>
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div>
+      <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
+        <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
+        <button type="submit" class="footer-newsletter-btn">Subscribe →</button>
+      </form>
+      <div class="footer-newsletter-msg"></div>
+    </div>
+  </div>
   <div class="footer-grid">
     <div>
       <div class="footer-brand">PRIME PIECE</div>
@@ -886,6 +917,26 @@
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
+      </div>
+      <div class="modal-crosssell">
+        <div class="modal-crosssell-title">Pairs Well With</div>
+        <div class="modal-crosssell-grid">
+          <a href="tables.html?p=table-pietra-noir#cat-coffee" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir Coffee Table">
+            <div class="modal-crosssell-name">Pietra Noir Table</div>
+            <div class="modal-crosssell-price">NZD $270</div>
+          </a>
+          <a href="boards.html?p=board-teal-tide" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="board-teal-tide-web.jpg" alt="Teal Tide Serving Board">
+            <div class="modal-crosssell-name">Teal Tide Board</div>
+            <div class="modal-crosssell-price">NZD $99</div>
+          </a>
+          <a href="basins.html?p=carrara-vessel" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="white-carrara-vessel.jpg" alt="White Carrara Vessel Basin">
+            <div class="modal-crosssell-name">White Carrara Basin</div>
+            <div class="modal-crosssell-price">NZD $1,190</div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1188,6 +1239,46 @@ async function submitEnquire() {
   var el = document.querySelector('[data-product-id="' + id + '"]');
   if (el) { el.scrollIntoView({ block: 'center' }); setTimeout(function() { el.click(); }, 50); }
 })();
+</script>
+
+
+<script>
+async function footerSubscribe(event, form) {
+  event.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('.footer-newsletter-btn');
+  const msg = form.parentElement.querySelector('.footer-newsletter-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    return false;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.style.color = 'var(--sage-deep)';
+      msg.style.display = 'block';
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
+    } else {
+      msg.textContent = 'Something went wrong — please try again.';
+      msg.style.color = '#c0392b';
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Subscribe →';
+    }
+  } catch (e) {
+    msg.textContent = 'Network error — please try again.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Subscribe →';
+  }
+  return false;
+}
 </script>
 
 </body>
