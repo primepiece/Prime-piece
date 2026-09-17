@@ -1047,6 +1047,13 @@
 })();
 </script>
 
+<script>
+(function() {
+  var id = new URLSearchParams(location.search).get('p');
+  if (id && typeof openBasinModal === 'function') openBasinModal(id);
+})();
+</script>
+
 <script src="cart.js"></script>
 </body>
 </html>

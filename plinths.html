@@ -594,7 +594,7 @@
   </div>
 
   <!-- 4. Navarro Marble $3,499 -->
-  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Navarro Marble Plinth','Navarro Marble','plinth-14.jpg','H: 550mm × W: 300mm × D: 300mm','Plinth',3499,'plinth-navarro')">
+  <div class="plinth-card reveal" data-tags="marble dark" data-product-id="plinth-navarro" onclick="openModal('Navarro Marble Plinth','Navarro Marble','plinth-14.jpg','H: 550mm × W: 300mm × D: 300mm','Plinth',3499,'plinth-navarro')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-14.jpg" alt="Navarro marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy">
@@ -653,7 +653,7 @@
   </div>
 
   <!-- 7. Rosso Levanto $1,999 -->
-  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Levanto Marble Plinth','Rosso Levanto Marble','plinth-4.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth',1400,'plinth-rosso-levanto-plinth')">
+  <div class="plinth-card reveal" data-tags="marble dark" data-product-id="plinth-rosso-levanto-plinth" onclick="openModal('Rosso Levanto Marble Plinth','Rosso Levanto Marble','plinth-4.jpg','H: 800mm × W: 300mm × D: 300mm','Plinth',1400,'plinth-rosso-levanto-plinth')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-4.jpg" alt="Rosso Levanto marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy">
@@ -1178,6 +1178,15 @@ async function submitEnquire() {
     if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
   });
   document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
+})();
+</script>
+
+<script>
+(function() {
+  var id = new URLSearchParams(location.search).get('p');
+  if (!id) return;
+  var el = document.querySelector('[data-product-id="' + id + '"]');
+  if (el) { el.scrollIntoView({ block: 'center' }); setTimeout(function() { el.click(); }, 50); }
 })();
 </script>
 
