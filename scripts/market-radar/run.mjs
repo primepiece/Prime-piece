@@ -1659,9 +1659,14 @@ export async function fastTrackSupplierSearch({ category, supplierUrl }) {
   const knownBlock = knownExtract.extracted[0]?.content ? `\n\nThe founder's own named/known supplier (${supplierUrl}) — evaluate this one through the EXACT same scoring as every other candidate below; do not assume it is best:\n${knownExtract.extracted[0].content.slice(0, 2000)}` : '';
 
   const system = 'You are the supplier-sourcing step of Prime Piece Pulse\'s Fast Track workflow. Extract REAL manufacturer facts strictly from the evidence given — never invent a price, MOQ, or capability. Score each of the 8 sub-scores (0-100) only where the evidence actually supports a judgment; leave a sub-score null rather than guessing. A founder-named/known supplier must be scored by the same standard as every other candidate, never given an automatic high score just for being named.';
-  const prompt = `Category: "${category}".\n\nSearch evidence:\n${evidenceBlock || '(none found)'}${knownBlock}\n\nIdentify real manufacturer candidates prioritising companies already producing cups/mugs/espresso cups/stone tableware/stone arts/small carved natural-stone products. For each, score the 8 sub-scores from evidence only, and list specific questions to ask to fill any real gap.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE}`;
+  const prompt = `Category: "${category}".\n\nSearch evidence:\n${evidenceBlock || '(none found)'}${knownBlock}\n\nIdentify UP TO 4 real manufacturer candidates (fewer if fewer are well-supported by the evidence) prioritising companies already producing cups/mugs/espresso cups/stone tableware/stone arts/small carved natural-stone products. For each, score the 8 sub-scores from evidence only, and list at most 3 specific questions to ask to fill any real gap.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE}`;
 
-  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 4500, responseFormat: FAST_TRACK_SUPPLIER_RESPONSE_FORMAT });
+  // Original 4500 truncated mid-JSON in production (2026-09-16) — the schema's per-
+  // candidate payload (8 sub-scores + notes + sources + supplierQuestions) is heavier
+  // than findSuppliers' plainer shape above, and the prompt didn't cap candidate count.
+  // Raised to 6500 and the prompt above now explicitly caps candidates at 4, mirroring
+  // findSuppliers' "up to 3" pattern rather than leaving the count unbounded.
+  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 6500, responseFormat: FAST_TRACK_SUPPLIER_RESPONSE_FORMAT });
   if (stopReason === 'max_tokens') throw new Error('Fast Track supplier search response was truncated (stop_reason=max_tokens).');
   const parsed = extractJson(text);
   const candidates = Array.isArray(parsed) ? parsed : parsed?.candidates;
