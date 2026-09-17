@@ -344,6 +344,14 @@
 
   .modal-note { font-size: 12px; color: var(--stone); line-height: 1.7; margin: 24px 0; font-style: italic; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 24px; }
+  .modal-crosssell { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(44,42,38,0.1); }
+  .modal-crosssell-title { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); font-weight: 600; margin-bottom: 12px; }
+  .modal-crosssell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .modal-crosssell-item { text-decoration: none; display: block; }
+  .modal-crosssell-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 2px; display: block; margin-bottom: 6px; transition: opacity 0.2s; }
+  .modal-crosssell-item:hover .modal-crosssell-img { opacity: 0.82; }
+  .modal-crosssell-name { font-size: 11.5px; color: var(--ink); font-weight: 500; line-height: 1.3; }
+  .modal-crosssell-price { font-size: 10.5px; color: var(--stone); margin-top: 1px; }
 
   .modal-btn-primary {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -884,6 +892,26 @@
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
         <a class="modal-btn-ghost" href="/#render">Try AI Room Render →</a>
+      </div>
+      <div class="modal-crosssell">
+        <div class="modal-crosssell-title">Pairs Well With</div>
+        <div class="modal-crosssell-grid">
+          <a href="tables.html?p=table-pietra-noir#cat-coffee" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir Coffee Table">
+            <div class="modal-crosssell-name">Pietra Noir Table</div>
+            <div class="modal-crosssell-price">NZD $270</div>
+          </a>
+          <a href="boards.html?p=board-teal-tide" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="board-teal-tide-web.jpg" alt="Teal Tide Serving Board">
+            <div class="modal-crosssell-name">Teal Tide Board</div>
+            <div class="modal-crosssell-price">NZD $99</div>
+          </a>
+          <a href="basins.html?p=carrara-vessel" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="white-carrara-vessel.jpg" alt="White Carrara Vessel Basin">
+            <div class="modal-crosssell-name">White Carrara Basin</div>
+            <div class="modal-crosssell-price">NZD $1,190</div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
