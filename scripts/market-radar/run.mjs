@@ -1513,9 +1513,14 @@ export async function fastTrackMarketValidation({ category, searchVariants, comp
   const competitorBlock = competitorExtract.extracted.map((e, i) => `[Named competitor ${i + 1}] URL: ${e.url}\n${(e.content || '').slice(0, 1200)}`).join('\n\n');
 
   const system = 'You are the market-validation step of Prime Piece Pulse\'s Fast Track workflow. Extract REAL competitor/retailer facts strictly from the evidence given — never invent a company, price, review count, or country. Distinguish genuine transactional/repeat-stocking demand from evidence that is merely aesthetic or social-media attention: demandCharacter must be GENUINE only if real sales/review/repeat-stocking signals exist, not because the product looks attractive.';
-  const prompt = `Category: "${category}".\n\nSearch evidence:\n${searchBlock || '(none found)'}\n\n${competitorBlock ? `Named competitor/supplier URLs the founder specifically flagged:\n${competitorBlock}\n\n` : ''}From ONLY the evidence above, identify real competitors/retailers (NZ, AU, US, UK and any other market with real evidence), classify competition/market maturity/demand character, and note any genuine NZ whitespace — remembering that no competition found does not automatically mean an opportunity; it may mean no real demand either.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_MARKET_SCHEMA_EXAMPLE}`;
+  const prompt = `Category: "${category}".\n\nSearch evidence:\n${searchBlock || '(none found)'}\n\n${competitorBlock ? `Named competitor/supplier URLs the founder specifically flagged:\n${competitorBlock}\n\n` : ''}From ONLY the evidence above, identify UP TO 8 real comparables/retailers (fewer if fewer are well-supported), prioritising the strongest evidence across NZ, AU, US, UK and any other market — always include every named competitor URL above — then classify competition/market maturity/demand character, and note any genuine NZ whitespace — remembering that no competition found does not automatically mean an opportunity; it may mean no real demand either.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_MARKET_SCHEMA_EXAMPLE}`;
 
-  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 4500, responseFormat: FAST_TRACK_MARKET_RESPONSE_FORMAT });
+  // Original 4500 truncated mid-JSON in production (2026-09-17) — 15 evidence items
+  // (MARKET_EVIDENCE_LIMIT) with an uncapped comparables array of 12-field objects let
+  // the model try to enumerate more comparables than the budget could hold, the same
+  // failure class already fixed once for fastTrackSupplierSearch above. Same two-part
+  // fix: cap comparables at 8 in the prompt, raise maxTokens for headroom.
+  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 6500, responseFormat: FAST_TRACK_MARKET_RESPONSE_FORMAT });
   if (stopReason === 'max_tokens') throw new Error('Fast Track market validation response was truncated (stop_reason=max_tokens).');
   const parsed = extractJson(text);
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Fast Track market validation did not return a JSON object.');
