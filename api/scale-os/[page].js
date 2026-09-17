@@ -1,42 +1,27 @@
-// Single dynamic handler for every authenticated Scale OS page except login/logout.
-// Consolidated into one function (rather than one file per page) to stay under the
-// Vercel Hobby plan's 12-serverless-function-per-deployment limit alongside the
-// existing storefront api/*.js functions.
+// Single dynamic handler for every authenticated Prime Piece Pulse page except
+// login/logout. Consolidated into one function (rather than one file per page) to
+// stay under the Vercel Hobby plan's 12-serverless-function-per-deployment limit
+// alongside the existing storefront api/*.js functions. (Internally still routed at
+// /scale-os and stored under scale-os/ — renaming the URL path would force every
+// session to log in again for no user-visible benefit; only the product's name and
+// on-page branding changed to Prime Piece Pulse.)
 import { requireAuth, isAuthenticated } from '../../scale-os/lib/auth.js';
 import { renderShell, renderComingSoon } from '../../scale-os/lib/layout.js';
+import { DASHBOARD_STYLE, DASHBOARD_BODY, DASHBOARD_SCRIPT } from '../../scale-os/lib/dashboard.js';
 import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../scale-os/lib/product-lab.js';
 import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
-import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, isStoreConfigured } from '../../scale-os/lib/store.js';
-
-const STAGES = ['Find Winner', 'Validate', 'Scale', 'Systemise', 'Expand'];
-const CURRENT_STAGE = 'Find Winner';
+import { SUPPLIERS_STYLE, SUPPLIERS_BODY, SUPPLIERS_SCRIPT } from '../../scale-os/lib/suppliers.js';
+import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, recordRawQuoteReply, isStoreConfigured, getFastTrackAnalyses, createFastTrackRequest } from '../../scale-os/lib/store.js';
+import { FAST_TRACK_STYLE, FAST_TRACK_BODY, FAST_TRACK_SCRIPT } from '../../scale-os/lib/fast-track.js';
 
 function renderDashboard() {
-  const stageHtml = STAGES.map((s) => {
-    const active = s === CURRENT_STAGE ? ' stage-step--active' : '';
-    return `<div class="stage-step${active}">${s}</div>`;
-  }).join('');
-
-  const body = `
-    <h1>Dashboard</h1>
-    <p class="page-sub">Not fully built yet — Product Lab comes first. This shows where Prime Piece is right now.</p>
-
-    <div class="card">
-      <div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Current stage</div>
-      <div class="stage-track">${stageHtml}</div>
-    </div>
-
-    <div class="card" style="margin-top:16px;">
-      <p style="margin:0 0 10px;font-size:14px;line-height:1.6;">
-        Revenue, orders, margin, sessions, conversion, ad spend, CAC and ROAS will appear here once
-        Prime Piece has connected data sources (Shopify, ad accounts) and enough test activity to report on.
-        Until then, work happens in <a href="/scale-os/product-lab" style="color:var(--teal-dark);text-decoration:underline;">Product Lab</a> —
-        finding and validating the first winning SKU.
-      </p>
-    </div>
-  `;
-
-  return renderShell({ title: 'Dashboard', activeKey: 'dashboard', bodyHtml: body });
+  return renderShell({
+    title: 'Dashboard',
+    activeKey: 'dashboard',
+    bodyHtml: DASHBOARD_BODY,
+    extraStyle: DASHBOARD_STYLE,
+    extraScript: DASHBOARD_SCRIPT,
+  });
 }
 
 function renderProductLab() {
@@ -56,6 +41,26 @@ function renderMarketRadar() {
     bodyHtml: MARKET_RADAR_BODY,
     extraStyle: MARKET_RADAR_STYLE,
     extraScript: MARKET_RADAR_SCRIPT,
+  });
+}
+
+function renderSuppliers() {
+  return renderShell({
+    title: 'Suppliers',
+    activeKey: 'suppliers',
+    bodyHtml: SUPPLIERS_BODY,
+    extraStyle: SUPPLIERS_STYLE,
+    extraScript: SUPPLIERS_SCRIPT,
+  });
+}
+
+function renderFastTrack() {
+  return renderShell({
+    title: 'Fast Track',
+    activeKey: 'fast-track',
+    bodyHtml: FAST_TRACK_BODY,
+    extraStyle: FAST_TRACK_STYLE,
+    extraScript: FAST_TRACK_SCRIPT,
   });
 }
 
@@ -119,6 +124,9 @@ async function handleProducts(req, res) {
 
 // JSON data API for Market Radar (GET only for V1 — written by the GitHub Actions
 // research worker directly via the same Redis REST API, not through this endpoint).
+// Also carries the daily Pulse brief (same worker, 'daily' mode) so the Dashboard
+// can render Today's Pulse / Next $1,000 / Today's 3 Moves from one fetch, without
+// a second API route.
 async function handleRadarData(req, res) {
   if (!isStoreConfigured()) {
     return res.status(500).json({
@@ -130,10 +138,57 @@ async function handleRadarData(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   try {
-    const opportunities = await getRadarOpportunities();
-    return res.status(200).json({ opportunities });
+    const [opportunities, pulse, suppliers, approvals] = await Promise.all([
+      getRadarOpportunities(), getPulseBrief(), getSuppliers(), getApprovals(),
+    ]);
+    return res.status(200).json({ opportunities, pulse, suppliers, approvals });
   } catch (err) {
     return res.status(500).json({ error: err.message });
+  }
+}
+
+// Records a human decision (approve/reject) on one Approval Queue request. Never
+// performs any action beyond recording the decision — no email integration exists
+// yet, so approving SUPPLIER_OUTREACH does not send anything.
+async function handleApprovalsDecide(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { id, decision, notes } = req.body || {};
+  if (!id || !decision) return res.status(400).json({ error: 'Expected { id, decision: "APPROVED"|"REJECTED", notes? }' });
+  try {
+    const request = await decideApproval(id, decision, notes);
+    return res.status(200).json({ success: true, request });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+}
+
+// Records a supplier's raw reply text, pasted by hand from whichever email client James
+// actually sent from — there is no email integration, so this is the only way a real
+// reply enters the system. Parsing it into structured fields happens later, in the
+// GitHub Actions worker's 'quote-capture' mode (real Claude call, run manually) — this
+// endpoint only ever stores the raw text and marks it pending; it never calls Claude
+// itself, so pasting a reply never costs anything by itself.
+async function handleQuoteReply(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { supplierId, rawText } = req.body || {};
+  if (!supplierId || !rawText) return res.status(400).json({ error: 'Expected { supplierId, rawText }' });
+  try {
+    const supplier = await recordRawQuoteReply(supplierId, rawText);
+    return res.status(200).json({ success: true, supplier });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
   }
 }
 
@@ -156,6 +211,47 @@ async function handleRadarPromote(req, res) {
   }
 }
 
+// Read-only list of every Fast Track analysis (pending/running/complete/failed) plus
+// the Market Radar opportunities, so the Fast Track page can pre-fill from a radar
+// item's own sources[] without a second round trip.
+async function handleFastTrackData(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  try {
+    const [analyses, opportunities] = await Promise.all([getFastTrackAnalyses(), getRadarOpportunities()]);
+    return res.status(200).json({ analyses, opportunities });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// Creates one PENDING Fast Track request — zero cost, no API call. The actual
+// research (real Tavily + Claude calls) only ever runs via the GitHub Actions
+// worker's manually-triggered 'fast-track' mode, same convention as supplier/
+// quote-capture: nothing here is ever spent just because a form was submitted.
+async function handleFastTrackSubmit(req, res) {
+  if (!isStoreConfigured()) {
+    return res.status(500).json({ error: 'No database connected yet.' });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { productUrl, supplierUrl, competitorUrls, notes, imageBase64, sourceRadarId } = req.body || {};
+  if (!productUrl) return res.status(400).json({ error: 'Expected { productUrl, supplierUrl?, competitorUrls?, notes?, imageBase64?, sourceRadarId? }' });
+  try {
+    const request = await createFastTrackRequest({ productUrl, supplierUrl, competitorUrls, notes, imageBase64, sourceRadarId });
+    return res.status(200).json({ success: true, request });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+}
+
 export default async function handler(req, res) {
   const page = req.query?.page;
 
@@ -171,6 +267,22 @@ export default async function handler(req, res) {
     if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
     return handleRadarPromote(req, res);
   }
+  if (page === 'approvals-decide') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleApprovalsDecide(req, res);
+  }
+  if (page === 'quote-reply') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleQuoteReply(req, res);
+  }
+  if (page === 'fast-track-data') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleFastTrackData(req, res);
+  }
+  if (page === 'fast-track-submit') {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return handleFastTrackSubmit(req, res);
+  }
 
   if (!requireAuth(req, res)) return;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -178,6 +290,8 @@ export default async function handler(req, res) {
   if (page === 'dashboard') return res.status(200).send(renderDashboard());
   if (page === 'product-lab') return res.status(200).send(renderProductLab());
   if (page === 'radar') return res.status(200).send(renderMarketRadar());
+  if (page === 'fast-track') return res.status(200).send(renderFastTrack());
+  if (page === 'suppliers') return res.status(200).send(renderSuppliers());
   if (page && COMING_SOON[page]) {
     return res.status(200).send(renderComingSoon({ activeKey: page, ...COMING_SOON[page] }));
   }
@@ -185,6 +299,6 @@ export default async function handler(req, res) {
   return res.status(404).send(renderShell({
     title: 'Not found',
     activeKey: '',
-    bodyHtml: '<h1>Not found</h1><p class="page-sub">That Scale OS page does not exist.</p>',
+    bodyHtml: '<h1>Not found</h1><p class="page-sub">That Prime Piece Pulse page does not exist.</p>',
   }));
 }

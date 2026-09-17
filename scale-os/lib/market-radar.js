@@ -72,6 +72,16 @@ export const MARKET_RADAR_STYLE = `
   .next-action-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; background: var(--black); color: var(--white); }
   .promote-btn { margin-top: 4px; }
   .promoted-note { font-size: 11.5px; color: #2E7D4F; margin-top: 8px; }
+
+  .funnel-pill { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.03em; }
+  .funnel-SAMPLE { background: #DCEAE0; color: #2E7D4F; }
+  .funnel-HOLD { background: #E9E2CC; color: #8A6A2A; }
+  .funnel-KILL { background: #F1E4DF; color: #A05B44; }
+  .funnel-UNKNOWN { background: #EEECE6; color: #8A8577; }
+  .funnel-EXISTING_OPTIMISE { background: #E3ECEC; color: #4E7376; }
+  .funnel-gate-row { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; font-size: 12px; }
+  .funnel-gate-row .funnel-gate-label { color: var(--muted); }
+  .funnel-caveat { font-size: 11px; color: #B69B6B; font-style: italic; margin-top: 8px; }
 `;
 
 export const MARKET_RADAR_BODY = `
@@ -118,6 +128,233 @@ export const MARKET_RADAR_SCRIPT = `
 (function () {
   var EVIDENCE_CLASS = { 'Fact': 'evidence-tag-sm', 'Proxy / Signal': 'evidence-tag-sm', 'Estimate': 'evidence-tag-sm', 'Founder Assumption': 'evidence-tag-sm' };
 
+  // --- Commercial Funnel / Investment Readiness ---------------------------------
+  // Mirrors scripts/market-radar/scoring.mjs (same file/function-per-page convention
+  // as dashboard.js/product-lab.js — no shared client module loading in this app).
+  // Read-only presentation layer: never triggers supplier research or sample spend.
+  var UNKNOWN = 'UNKNOWN';
+  var SOURCING_PLATFORM_WORDS = ['alibaba', 'made-in-china', 'global sources', 'manufacturer', 'wholesale supplier', 'trade directory', 'factory direct'];
+  var COMMODITY_WORDS = ['commodity', 'saturated', 'big-box', 'big box', 'generic', 'race-to-the-bottom', 'race to the bottom'];
+  var INSTALL_WORDS = ['installation', 'professional install', 'plumber', 'tradesperson required', 'built-in', 'permanent fixture'];
+  // Portfolio + Logistics Sanity Gate word lists — same "plain keyword heuristic over
+  // evidence actually gathered" philosophy as the lists above.
+  var NOT_GENUINE_STONE_WORDS = ['not real stone', 'marble-look', 'stone-look', 'faux marble', 'faux stone', 'printed canvas', 'graphic panel', 'mdf', 'engineered look'];
+  var PHYSICAL_RISK_WORDS = ['pallet', 'built to measure', 'trade/tile product', 'not a retail ecommerce sku', 'wall-anchoring', 'oversized', 'freight class', 'requires professional installation'];
+  var EXISTING_PORTFOLIO_SIGNAL_WORDS = ['overlaps heavily with', "prime piece's existing", 'overlaps existing', 'not a new product', 'repositioning play', 'already sell', 'already part of the range'];
+  var DECLARED_EXISTING_CATEGORIES = ['cheese board', 'cheese/serving board', 'serving board', 'chopping board', 'serving platter'];
+
+  function hasBeenResearched(o) { return !!(o.scoreBreakdown || (o.sources && o.sources.length) || o.demandSignal); }
+  function textBlob(o) { return [].concat(o.disqualifiers || [], o.operatingRisks || [], [(o.marketGap && o.marketGap.description) || '']).join(' . ').toLowerCase(); }
+  function extendedTextBlob(o) { return (textBlob(o) + ' . ' + (o.product || '') + ' ' + (o.variant || '') + ' ' + (o.category || '')).toLowerCase(); }
+  function containsAny(text, words) { return words.some(function (w) { return text.indexOf(w) !== -1; }); }
+
+  function computeFitGate(o) {
+    if (!hasBeenResearched(o)) return { result: UNKNOWN, reasons: ['Not yet researched — no Enrich evidence recorded.'], unknowns: ['All Fit criteria — nothing researched yet.'] };
+    var reasons = [], unknowns = [], fail = false;
+    if (o.productType && o.productType !== 'IMPORTED') { fail = true; reasons.push('productType=' + o.productType + ' — not a repeatable/importable SKU.'); }
+    var disq = (o.disqualifiers || []).filter(Boolean);
+    if (disq.length) { fail = true; reasons.push('Existing disqualifier(s): ' + disq.join('; ')); }
+    var econ = o.economicsPotential || {};
+    if (econ.freightDifficulty === 'High' || econ.damageRisk === 'High' || econ.packagingDifficulty === 'High') {
+      fail = true; reasons.push('Physical scalability risk — freight/damage/packaging includes at least one High rating.');
+    } else {
+      if (!econ.freightDifficulty) unknowns.push('Freight difficulty not assessed.');
+      if (!econ.damageRisk) unknowns.push('Damage risk not assessed.');
+      if (!econ.packagingDifficulty) unknowns.push('Packaging difficulty not assessed.');
+    }
+    if (containsAny(extendedTextBlob(o), PHYSICAL_RISK_WORDS) || containsAny(extendedTextBlob(o), INSTALL_WORDS)) {
+      fail = true; reasons.push('Evidence indicates this is difficult to hold/reorder as normal parcel-shipped ecommerce inventory.');
+    }
+    if (containsAny(extendedTextBlob(o), NOT_GENUINE_STONE_WORDS)) {
+      fail = true; reasons.push('Evidence indicates this is not genuine natural stone (a "look"/faux/printed material).');
+    }
+    var pb = o.priceBand || {};
+    if (typeof pb.low === 'number' && typeof pb.high === 'number') {
+      var overlapsEntry = pb.high >= 99 && pb.low <= 299;
+      var overlapsCore = pb.high >= 299 && pb.low <= 1200;
+      if (!overlapsEntry && !overlapsCore) { fail = true; reasons.push('Price band does not overlap either Prime Piece lane (ENTRY $99-299 or CORE $299-1,200).'); }
+      else { reasons.push('Price band overlaps the ' + (overlapsCore ? 'CORE ($299-1,200)' : 'ENTRY ($99-299)') + ' lane.'); }
+    } else { unknowns.push('Price band not established.'); }
+    if (containsAny(textBlob(o), COMMODITY_WORDS)) { fail = true; reasons.push('Evidence flags commodity/saturated/big-box-dominated.'); }
+    if (!containsAny(extendedTextBlob(o), INSTALL_WORDS) && !containsAny(extendedTextBlob(o), PHYSICAL_RISK_WORDS)) unknowns.push('Installation complexity not assessed.');
+    unknowns.push('Variant / future-collection potential not assessed.');
+    unknowns.push('Prime Piece brand fit not assessed — founder judgment call.');
+    if (!reasons.length) reasons.push('No structural disqualifier found in current evidence.');
+    return { result: fail ? 'FAIL' : 'PASS', reasons: reasons, unknowns: unknowns };
+  }
+
+  // Portfolio check (Portfolio + Logistics Sanity Gate, check 1) — orthogonal to Fit:
+  // a product can pass Fit/Demand and still not be a genuinely new inventory bet if
+  // Prime Piece already sells it. See scoring.mjs's computePortfolioCheck for the
+  // full rationale (declared-facts list + evidence-driven marketGap phrase match).
+  function computePortfolioCheck(o) {
+    var productText = ((o.product || '') + ' ' + (o.variant || '') + ' ' + (o.category || '')).toLowerCase();
+    var declaredMatch = DECLARED_EXISTING_CATEGORIES.filter(function (k) { return productText.indexOf(k) !== -1; })[0];
+    if (declaredMatch) return { classification: 'EXISTING_OPTIMISE', reasons: ['Matches a declared existing Prime Piece category ("' + declaredMatch + '").'] };
+    var evidenceMatch = EXISTING_PORTFOLIO_SIGNAL_WORDS.filter(function (w) { return textBlob(o).indexOf(w) !== -1; })[0];
+    if (evidenceMatch) return { classification: 'EXISTING_OPTIMISE', reasons: ['Evidence explicitly states an overlap with Prime Piece\\'s existing range ("' + evidenceMatch + '").'] };
+    return { classification: 'NEW', reasons: ['No evidence or declared overlap with an existing Prime Piece product/category found.'] };
+  }
+
+  function isConsumerSeller(c) { return !containsAny(((c.name || '') + ' ' + (c.country || '')).toLowerCase(), SOURCING_PLATFORM_WORDS); }
+
+  function computeDemandProofGate(o) {
+    if (!hasBeenResearched(o)) return { result: UNKNOWN, confidence: 'LOW', reasons: ['Not yet researched.'], sellerDepthCount: 0, distinctMarkets: 0, transactionTier: UNKNOWN };
+    var competitors = o.competitors || [];
+    // Missing competitor evidence means "not yet researched for demand," not "proven
+    // no demand" — a hard FAIL requires a completed search (competitors populated)
+    // that still falls short, never a bare absence of data.
+    if (!competitors.length) {
+      return { result: UNKNOWN, confidence: 'LOW', reasons: ['No competitor/review evidence recorded yet — this opportunity has not been through a dedicated consumer-market demand research pass.'], sellerDepthCount: 0, distinctMarkets: 0, transactionTier: UNKNOWN };
+    }
+    var consumerSellers = competitors.filter(isConsumerSeller);
+    var marketSet = {};
+    consumerSellers.forEach(function (c) { if (c.country) marketSet[c.country.trim()] = true; });
+    var distinctMarkets = Object.keys(marketSet).length;
+    var sellerDepthPass = consumerSellers.length >= 3 && distinctMarkets >= 2;
+    var hasBestsellerOrRepeat = consumerSellers.some(function (c) { return c.bestsellerFlag; });
+    var maxReviews = consumerSellers.reduce(function (m, c) { return Math.max(m, c.reviewCount || 0); }, 0);
+    var hasReviewVolume = maxReviews >= 50;
+    var trendSignals = o.trendSignals || [];
+    var factOrProxy = trendSignals.filter(function (t) { return t.type === 'Fact' || t.type === 'Proxy / Signal'; });
+    var transactionTier;
+    if (hasBestsellerOrRepeat) transactionTier = 'STRONG (bestseller / repeat-stocking)';
+    else if (hasReviewVolume) transactionTier = 'MODERATE (review volume)';
+    else if (factOrProxy.length) transactionTier = 'WEAK (Fact/Proxy signal only)';
+    else if (trendSignals.length) transactionTier = 'VERY WEAK (Estimate/Assumption only)';
+    else transactionTier = 'NONE';
+    var result, confidence;
+    if (sellerDepthPass && (hasBestsellerOrRepeat || hasReviewVolume)) { result = 'PASS'; confidence = 'HIGH'; }
+    else if (consumerSellers.length >= 1 && transactionTier !== 'NONE') { result = 'HOLD'; confidence = factOrProxy.length ? 'MEDIUM' : 'LOW'; }
+    else { result = 'FAIL'; confidence = 'LOW'; }
+    return {
+      result: result, confidence: confidence, sellerDepthCount: consumerSellers.length, distinctMarkets: distinctMarkets, transactionTier: transactionTier,
+      reasons: [
+        'Seller depth: ' + consumerSellers.length + ' credible consumer seller(s) across ' + distinctMarkets + ' market(s) (target 3+/2+; Alibaba/manufacturer listings excluded).',
+        'Transaction signal: ' + transactionTier + '.',
+      ],
+    };
+  }
+
+  function computePriceValidation(o) {
+    var competitors = o.competitors || [];
+    var prices = competitors.map(function (c) {
+      if (typeof c.priceLow === 'number' && typeof c.priceHigh === 'number') return (c.priceLow + c.priceHigh) / 2;
+      return typeof c.priceLow === 'number' ? c.priceLow : (typeof c.priceHigh === 'number' ? c.priceHigh : null);
+    }).filter(function (p) { return p !== null; }).sort(function (a, b) { return a - b; });
+    if (!prices.length) return { result: UNKNOWN, comparablesCount: 0, reasons: ['No competitor pricing recorded.'] };
+    var low = prices[0], high = prices[prices.length - 1];
+    var mid = Math.floor(prices.length / 2);
+    var median = prices.length % 2 ? prices[mid] : (prices[mid - 1] + prices[mid]) / 2;
+    var outlier = high > median * 1.75 ? high : null;
+    var result = prices.length >= 5 ? 'PASS' : (prices.length >= 2 ? 'HOLD' : UNKNOWN);
+    return {
+      result: result, comparablesCount: prices.length, low: low, median: median, upper: high, outlier: outlier,
+      reasons: [prices.length + ' price comparable(s) (target 5+). Low ' + low + ', median ' + median + ', upper ' + high + (outlier ? '. ' + outlier + ' flagged as outlier, not typical price.' : '.')],
+    };
+  }
+
+  function computeNzGap(o) {
+    if (!hasBeenResearched(o)) return { classification: UNKNOWN, reasons: ['Not yet researched.'] };
+    var blob = textBlob(o);
+    var nzCompetitors = (o.competitors || []).filter(function (c) { return /new zealand|\bnz\b/i.test(c.country || ''); });
+    if (containsAny(blob, COMMODITY_WORDS)) return { classification: 'BIG_BOX_COMMODITY', reasons: ['Evidence flags commodity/saturated/big-box competition.'] };
+    if (nzCompetitors.length >= 3) return { classification: 'STRONG_COMPETITION', reasons: [nzCompetitors.length + ' NZ competitor(s) recorded.'] };
+    if (nzCompetitors.length >= 1) return { classification: 'FRAGMENTED_COMPETITION', reasons: [nzCompetitors.length + ' NZ competitor(s) recorded — not clearly dominant.'] };
+    return { classification: UNKNOWN, reasons: ['No NZ-specific competitor evidence. No competition ≠ automatically good — may equally mean no demand.'] };
+  }
+
+  function representativeUnitPrice(supplier) {
+    var tiers = Array.isArray(supplier.pricingTiers) ? supplier.pricingTiers.filter(function (t) { return typeof (t && t.unitPrice) === 'number' && t.unitPrice > 0; }) : [];
+    if (!tiers.length) return null;
+    var target = 50;
+    var closest = tiers.slice().sort(function (a, b) { return Math.abs((a.qty || 0) - target) - Math.abs((b.qty || 0) - target); });
+    return closest[0].unitPrice;
+  }
+
+  function computeEconomicsReadiness(o, suppliers) {
+    suppliers = suppliers || [];
+    var credible = suppliers.filter(function (s) { return !s.evidenceGap; });
+    var parsed = suppliers.filter(function (s) { return s.quoteParseStatus === 'PARSED'; });
+    if (!suppliers.length) return { result: UNKNOWN, supplierCount: 0, credibleSupplierCount: 0, bestSupplier: null, reasons: ['No supplier research has been run for this opportunity yet.'] };
+    if (!parsed.length) return { result: UNKNOWN, supplierCount: suppliers.length, credibleSupplierCount: credible.length, bestSupplier: null, reasons: [suppliers.length + ' supplier(s) discovered (' + credible.length + ' credible), but no real quote parsed yet.'] };
+    var priced = parsed.map(function (s) { return { s: s, price: representativeUnitPrice(s) }; }).filter(function (x) { return x.price !== null; }).sort(function (a, b) { return a.price - b.price; });
+    var best = priced[0];
+    if (!best) return { result: UNKNOWN, supplierCount: suppliers.length, credibleSupplierCount: credible.length, bestSupplier: parsed[0] || null, reasons: ['A quote was parsed but no usable unit pricing was stated.'] };
+    var unitPrice = best.price;
+    var freightPerUnit = typeof best.s.freightPerUnitEstimateUSD === 'number' ? best.s.freightPerUnitEstimateUSD : null;
+    var landedCost = freightPerUnit !== null ? unitPrice + freightPerUnit : null;
+    var targetRetail = typeof (o.priceBand && o.priceBand.low) === 'number' ? o.priceBand.low : null;
+    var landedCostPct = (landedCost !== null && targetRetail) ? Math.round((landedCost / targetRetail) * 1000) / 10 : null;
+    var grossMarginPct = landedCostPct !== null ? Math.round((100 - landedCostPct) * 10) / 10 : null;
+    var readinessOk = landedCostPct !== null && landedCostPct <= 30 && grossMarginPct !== null && grossMarginPct >= 60;
+    return {
+      result: landedCost === null ? UNKNOWN : (readinessOk ? 'READY' : 'NOT_READY'),
+      supplierCount: suppliers.length, credibleSupplierCount: credible.length, bestSupplier: best.s,
+      unitPrice: unitPrice, freightPerUnit: freightPerUnit, landedCost: landedCost, targetRetail: targetRetail, landedCostPct: landedCostPct, grossMarginPct: grossMarginPct,
+      reasons: [landedCost === null ? 'Unit price known but no per-unit freight recorded — landed cost incomplete.' : ('Landed cost ' + landedCostPct + '% of target retail (target ≤25-30%), gross margin ' + grossMarginPct + '% (target ≥60-70%).')],
+    };
+  }
+
+  function computeDownsideStressTest(econ) {
+    if (econ.result === UNKNOWN || econ.landedCost == null) return { flag: UNKNOWN, reasons: ['Economics not established yet — cannot stress test.'] };
+    var downsideLandedCost = Math.round(econ.landedCost * 1.2 * 100) / 100;
+    var downsideMarginPct = econ.targetRetail ? Math.round((1 - downsideLandedCost / econ.targetRetail) * 1000) / 10 : null;
+    var flag = downsideMarginPct === null ? UNKNOWN : (downsideMarginPct >= 50 ? 'ROBUST' : (downsideMarginPct >= 30 ? 'MARGINAL' : 'FRAGILE'));
+    return { flag: flag, downsideMarginPct: downsideMarginPct, reasons: ['Base-case margin ' + econ.grossMarginPct + '%. Downside (landed cost +20%) margin ' + downsideMarginPct + '%.'] };
+  }
+
+  var MOQ_CAPITAL_EXPOSURE_CAP_USD = 2000;
+  function computeSampleGate(g) {
+    function state(v) { if (v === null || v === undefined) return UNKNOWN; return v ? 'MET' : 'NOT_MET'; }
+    var econ = g.economics, bestSupplier = econ.bestSupplier;
+    var hasParsedQuote = econ.result !== UNKNOWN || econ.landedCost != null;
+    var cartonKnown = bestSupplier ? !!(bestSupplier.cartonSpec && bestSupplier.cartonSpec.size && bestSupplier.cartonSpec.weightKg && bestSupplier.packagingMethod) : null;
+    var moqKnown = bestSupplier ? typeof bestSupplier.moq === 'number' : null;
+    var moqSmallEnough = moqKnown && typeof econ.unitPrice === 'number' ? (bestSupplier.moq * econ.unitPrice <= MOQ_CAPITAL_EXPOSURE_CAP_USD) : null;
+    var checks = [
+      { id: 'demand', label: '3+ credible sellers, 2+ markets, real transaction signal', state: g.demand.result === 'PASS' ? 'MET' : (g.demand.result === UNKNOWN ? UNKNOWN : 'NOT_MET') },
+      { id: 'priceValidation', label: '5+ genuine retail comparables', state: g.priceValidation.result === 'PASS' ? 'MET' : (g.priceValidation.result === UNKNOWN ? UNKNOWN : 'NOT_MET') },
+      { id: 'nzOpportunity', label: 'NZ competitive gap actually understood', state: g.nzGap.classification === 'FRAGMENTED_COMPETITION' ? 'MET' : (g.nzGap.classification === UNKNOWN ? UNKNOWN : 'NOT_MET') },
+      { id: 'suppliers', label: '2+ credible supplier options', state: econ.supplierCount === 0 ? UNKNOWN : state(econ.credibleSupplierCount >= 2) },
+      { id: 'economics', label: 'Landed cost ≤30%, gross margin ≥60%', state: econ.result === UNKNOWN ? UNKNOWN : state(econ.result === 'READY') },
+      { id: 'downside', label: 'Margin robust if landed cost ~20% worse', state: g.downside.flag === UNKNOWN ? UNKNOWN : state(g.downside.flag === 'ROBUST') },
+      { id: 'logistics', label: 'Packed dimensions/weight/packaging known', state: !hasParsedQuote ? UNKNOWN : state(cartonKnown) },
+      { id: 'moq', label: 'Initial order capital exposure small enough (≤US$' + MOQ_CAPITAL_EXPOSURE_CAP_USD + ')', state: !moqKnown ? UNKNOWN : state(moqSmallEnough) },
+      { id: 'rightToWin', label: 'Specific, non-generic reason Prime Piece wins this', state: UNKNOWN },
+      { id: 'validationPlan', label: 'Recorded plan for testing the sample', state: UNKNOWN },
+    ];
+    var met = checks.filter(function (c) { return c.state === 'MET'; }).length;
+    var notMet = checks.filter(function (c) { return c.state === 'NOT_MET'; }).length;
+    var unk = checks.filter(function (c) { return c.state === UNKNOWN; }).length;
+    return { checks: checks, summary: { met: met, notMet: notMet, unknown: unk, total: checks.length } };
+  }
+
+  function computeFinalDecision(f) {
+    if (f.portfolio && f.portfolio.classification === 'EXISTING_OPTIMISE') {
+      return { decision: 'EXISTING_OPTIMISE', why: 'Prime Piece already sells this or a meaningfully similar product/category: ' + f.portfolio.reasons.join(' '), nextAction: 'Route to existing-product optimisation — not new-product evaluation.' };
+    }
+    if (f.fit.result === 'FAIL') return { decision: 'KILL', why: 'Fails Prime Piece Fit: ' + f.fit.reasons.join(' '), nextAction: 'Do not pursue further.' };
+    if (f.demand.result === 'FAIL') return { decision: 'KILL', why: 'No credible demand evidence found despite research.', nextAction: 'Do not pursue further research at this time.' };
+    var s = f.sampleGate.summary;
+    if (s.notMet === 0 && s.unknown === 0) return { decision: 'SAMPLE', why: 'Every Sample Gate condition is met with real evidence.', nextAction: 'Bring to James for a physical sample-order decision.' };
+    var missing = f.sampleGate.checks.filter(function (c) { return c.state !== 'MET'; }).map(function (c) { return c.label; });
+    return { decision: 'HOLD', why: (s.notMet + s.unknown) + ' of ' + s.total + ' Sample Gate condition(s) not yet proven (' + s.met + ' met, ' + s.notMet + ' not met, ' + s.unknown + ' unknown).', nextAction: 'Missing: ' + missing.join('; ') };
+  }
+
+  function computeFunnel(o, suppliersByOpportunity) {
+    var fit = computeFitGate(o);
+    var demand = computeDemandProofGate(o);
+    var priceValidation = computePriceValidation(o);
+    var nzGap = computeNzGap(o);
+    var economics = computeEconomicsReadiness(o, (suppliersByOpportunity && suppliersByOpportunity[o.id]) || []);
+    var downside = computeDownsideStressTest(economics);
+    var portfolio = computePortfolioCheck(o);
+    var sampleGate = computeSampleGate({ demand: demand, priceValidation: priceValidation, nzGap: nzGap, economics: economics, downside: downside });
+    var finalDecision = computeFinalDecision({ fit: fit, demand: demand, sampleGate: sampleGate, portfolio: portfolio });
+    return { fit: fit, demand: demand, priceValidation: priceValidation, nzGap: nzGap, economics: economics, downside: downside, portfolio: portfolio, sampleGate: sampleGate, finalDecision: finalDecision };
+  }
+
   var COLUMNS = [
     { id: '__rank', label: '#', width: 36 },
     { id: 'product', label: 'Product', sticky: 1, width: 220 },
@@ -127,6 +364,7 @@ export const MARKET_RADAR_SCRIPT = `
     { id: 'opportunityScore', label: 'Opportunity Score', width: 90, sortKey: 'opportunityScore' },
     { id: 'confidenceScore', label: 'Confidence', width: 80, sortKey: 'confidenceScore' },
     { id: 'tier', label: 'Tier', width: 70 },
+    { id: 'funnelDecision', label: 'Investment Funnel', width: 130 },
     { id: 'trendDirection', label: 'Trend', width: 90 },
     { id: 'mainMarket', label: 'Main Market', width: 90 },
     { id: 'priceBand', label: 'Price Band', width: 140 },
@@ -194,6 +432,10 @@ export const MARKET_RADAR_SCRIPT = `
     if (col.id === 'opportunityScore') return item.opportunityScore != null ? item.opportunityScore : '—';
     if (col.id === 'confidenceScore') return item.confidenceScore != null ? item.confidenceScore : '—';
     if (col.id === 'tier') return '<span class="tier-pill tier-' + item.tier + '">' + item.tier + '</span>';
+    if (col.id === 'funnelDecision') {
+      var fd = item.funnel && item.funnel.finalDecision ? item.funnel.finalDecision.decision : UNKNOWN;
+      return '<span class="funnel-pill funnel-' + fd + '">' + fd + '</span>';
+    }
     if (col.id === 'trendDirection') {
       var cls = (item.trendDirection || '').indexOf('Rising') === 0 ? 'trend-Rising' : (item.trendDirection || '').indexOf('Declining') === 0 ? 'trend-Declining' : (item.trendDirection || '').indexOf('New') === 0 ? 'trend-New' : 'trend-Stable';
       return '<span class="trend-badge ' + cls + '">' + escapeText(item.trendDirection || '—') + '</span>';
@@ -288,9 +530,40 @@ export const MARKET_RADAR_SCRIPT = `
       (econ.crossSellPotential ? '<div><strong>Cross-sell potential:</strong> ' + escapeText(econ.crossSellPotential) + '</div>' : '') +
       '<div class="source-unavailable" style="margin-top:6px;">All figures are estimates until real supplier quotes exist — never treated as confirmed economics.</div></div>';
 
+    var funnel = item.funnel;
+    var funnelHtml = '';
+    if (funnel) {
+      var fd = funnel.finalDecision;
+      var gateRow = function (label, value, tag) {
+        return '<div class="funnel-gate-row"><span class="funnel-gate-label">' + label + '</span><span>' + escapeText(value) + (tag ? ' <span class="evidence-tag-sm">' + escapeText(tag) + '</span>' : '') + '</span></div>';
+      };
+      funnelHtml =
+        '<div class="detail-section" style="grid-column:1/-1;"><div class="detail-section-title">Commercial Funnel — Investment Readiness</div><div class="detail-section-body">' +
+        '<div style="margin-bottom:8px;"><span class="funnel-pill funnel-' + fd.decision + '">' + fd.decision + '</span> — ' + escapeText(fd.why) + '</div>' +
+        gateRow('Portfolio', funnel.portfolio.classification) +
+        gateRow('Prime Piece Fit', funnel.fit.result) +
+        gateRow('Demand Proof', funnel.demand.result, funnel.demand.confidence) +
+        gateRow('Price Validation', funnel.priceValidation.result, funnel.priceValidation.comparablesCount + ' comparable(s)') +
+        gateRow('NZ Competitive Gap', funnel.nzGap.classification) +
+        gateRow('Economics Readiness', funnel.economics.result) +
+        gateRow('Downside Stress Test', funnel.downside.flag) +
+        gateRow('Sample Gate', funnel.sampleGate.summary.met + ' met / ' + funnel.sampleGate.summary.notMet + ' not met / ' + funnel.sampleGate.summary.unknown + ' unknown (of ' + funnel.sampleGate.summary.total + ')') +
+        '<div style="margin-top:6px;"><strong>Next action:</strong> ' + escapeText(fd.nextAction) + '</div>' +
+        '<div class="funnel-caveat">This is an attention-ranking based on available evidence, not a guarantee this product will sell. UNKNOWN means not yet proven — never treated as a pass or fail. A high Opportunity Score alone cannot pass this funnel.</div>' +
+        '</div></div>';
+    }
+
     var promoteSection = item.promotedToProductLab
       ? '<div class="promoted-note">✓ Promoted to Product Lab</div>'
       : '<button class="btn btn--teal btn--small promote-btn" data-promote="' + item.id + '">Promote to Product Lab</button>';
+
+    // Pre-fills the Fast Track form from this opportunity's own first recorded source
+    // URL (if any) plus its product/category/why-it-matters as notes — never submits
+    // anything itself, James still reviews and clicks Submit on the Fast Track page.
+    var firstSourceUrl = (item.sources && item.sources.length && item.sources[0].url) || '';
+    var fastTrackNotes = (item.product || '') + (item.variant ? ' — ' + item.variant : '') + (item.category ? ' (' + item.category + ')' : '') + (item.marketGap && item.marketGap.description ? '. ' + item.marketGap.description : '');
+    var fastTrackHref = '/scale-os/fast-track?productUrl=' + encodeURIComponent(firstSourceUrl) + '&notes=' + encodeURIComponent(fastTrackNotes);
+    var fastTrackSection = '<a class="btn btn--ghost btn--small" href="' + fastTrackHref + '" style="margin-left:8px;">Fast Track Analysis</a>';
 
     var colspan = COLUMNS.length;
     return '<tr class="detail-row" data-detail-row="' + item.id + '"><td colspan="' + colspan + '">' +
@@ -315,8 +588,9 @@ export const MARKET_RADAR_SCRIPT = `
         '<div class="detail-section"><div class="detail-section-title">Sources</div><div class="detail-section-body">' + sourcesHtml + '</div></div>' +
         '<div class="detail-section" style="grid-column:1/-1;"><div class="detail-section-title">Opportunity score breakdown</div><div class="detail-section-body">' + breakdownHtml + '</div></div>' +
         '<div class="detail-section" style="grid-column:1/-1;"><div class="detail-section-title">Research history</div><div class="detail-section-body">' + historyHtml + '</div></div>' +
+        funnelHtml +
       '</div>' +
-      promoteSection +
+      promoteSection + fastTrackSection +
       '</div></td></tr>';
   }
 
@@ -444,10 +718,16 @@ export const MARKET_RADAR_SCRIPT = `
     }
     return res.json().then(function (data) {
       if (!res.ok) throw new Error(data.error || ('Failed to load (status ' + res.status + ')'));
-      return data.opportunities || [];
+      return { opportunities: data.opportunities || [], suppliers: data.suppliers || [] };
     });
-  }).then(function (opportunities) {
-    state = opportunities;
+  }).then(function (data) {
+    var suppliersByOpportunity = {};
+    data.suppliers.forEach(function (s) {
+      if (!s.opportunityId) return;
+      (suppliersByOpportunity[s.opportunityId] = suppliersByOpportunity[s.opportunityId] || []).push(s);
+    });
+    state = data.opportunities;
+    state.forEach(function (o) { o.funnel = computeFunnel(o, suppliersByOpportunity); });
     document.getElementById('loadingState').style.display = 'none';
     document.getElementById('radarContent').style.display = 'block';
     populateFilterOptions();
