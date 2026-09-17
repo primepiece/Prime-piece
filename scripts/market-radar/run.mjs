@@ -26,7 +26,7 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote, getFastTrackAnalyses, saveFastTrackAnalyses } from '../../scale-os/lib/store.js';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote, getFastTrackAnalyses, saveFastTrackAnalyses, createFastTrackRequest } from '../../scale-os/lib/store.js';
 import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice, computeFitGate, rankFastTrackSuppliers, computeFastTrackEconomics, computeFastTrackDecision } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
