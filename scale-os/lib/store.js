@@ -573,3 +573,55 @@ export async function createFastTrackRequest({ productUrl, supplierUrl, competit
   await saveFastTrackAnalyses(analyses);
   return request;
 }
+
+// --- Anthropic spend guard (2026-09-18 cost/architecture audit) -------------------
+// One JSON blob, same convention as everything else in this file: {daily: {"YYYY-MM-DD":
+// {totalEstimatedUSD, callCount}}, monthly: {"YYYY-MM": {...}}}. run.mjs computes each
+// call's estimated cost from Anthropic's own `usage` response and calls
+// recordAnthropicSpend after every real call; it calls getAnthropicSpend before every
+// real call to refuse to proceed once a configured daily/monthly ceiling is hit. This
+// is the only backstop that survives across separate GitHub Actions runs (an in-process
+// counter like MAX_ANTHROPIC_CALLS_PER_RUN only protects a single run).
+const ANTHROPIC_SPEND_KEY = 'scale_os:anthropic_spend:v1';
+const SPEND_HISTORY_DAYS = 45;
+const SPEND_HISTORY_MONTHS = 3;
+
+export async function getAnthropicSpend() {
+  const raw = await redisCommand(['GET', ANTHROPIC_SPEND_KEY]);
+  if (raw === null || raw === undefined) return { daily: {}, monthly: {} };
+  try {
+    const parsed = JSON.parse(raw);
+    return { daily: parsed.daily || {}, monthly: parsed.monthly || {} };
+  } catch {
+    return { daily: {}, monthly: {} };
+  }
+}
+
+// dayKey "YYYY-MM-DD", monthKey "YYYY-MM" — the caller derives both from the same
+// timestamp so a single call's spend always lands in a matching day+month pair.
+export async function recordAnthropicSpend({ dayKey, monthKey, addUSD, addCalls }) {
+  const spend = await getAnthropicSpend();
+
+  const day = spend.daily[dayKey] || { totalEstimatedUSD: 0, callCount: 0 };
+  day.totalEstimatedUSD = Math.round((day.totalEstimatedUSD + (addUSD || 0)) * 1e6) / 1e6;
+  day.callCount += addCalls || 0;
+  spend.daily[dayKey] = day;
+
+  const month = spend.monthly[monthKey] || { totalEstimatedUSD: 0, callCount: 0 };
+  month.totalEstimatedUSD = Math.round((month.totalEstimatedUSD + (addUSD || 0)) * 1e6) / 1e6;
+  month.callCount += addCalls || 0;
+  spend.monthly[monthKey] = month;
+
+  // Self-pruning so this blob never grows unbounded across months/years of use.
+  const dayKeys = Object.keys(spend.daily).sort();
+  if (dayKeys.length > SPEND_HISTORY_DAYS) {
+    for (const k of dayKeys.slice(0, dayKeys.length - SPEND_HISTORY_DAYS)) delete spend.daily[k];
+  }
+  const monthKeys = Object.keys(spend.monthly).sort();
+  if (monthKeys.length > SPEND_HISTORY_MONTHS) {
+    for (const k of monthKeys.slice(0, monthKeys.length - SPEND_HISTORY_MONTHS)) delete spend.monthly[k];
+  }
+
+  await redisCommand(['SET', ANTHROPIC_SPEND_KEY, JSON.stringify(spend)]);
+  return { day, month };
+}
