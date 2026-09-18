@@ -923,7 +923,14 @@ export function computeFastTrackEconomics(inputs) {
 // a landed-cost-vs-target-margin fit) are all real and positive; everything else is
 // HOLD, with the decision card saying exactly what's missing rather than rounding up
 // to looking more confident than the evidence supports.
-export function computeFastTrackDecision({ marketValidation, designIntelligence, supplierRanking, economics, risk }) {
+// supplierSearchFailed: true when the supplier-search stage itself errored (e.g. a
+// truncated/malformed model response) rather than genuinely completing its research
+// and finding zero candidates. Without this distinction, an empty supplierRanking
+// array reads identically for "we looked and found nothing" and "we never actually
+// looked" — the pillar label below says so explicitly so a HOLD is never mistaken
+// for a complete assessment when supplier data is simply missing due to a technical
+// failure. Defaults to false so every existing caller/fixture is unaffected.
+export function computeFastTrackDecision({ marketValidation, designIntelligence, supplierRanking, economics, risk, supplierSearchFailed = false }) {
   const reasons = [];
   let structuralKill = null;
 
@@ -947,7 +954,7 @@ export function computeFastTrackDecision({ marketValidation, designIntelligence,
   const pillars = [
     { id: 'demand', label: 'Genuine (not purely aesthetic/social) demand evidence', met: demandGenuine },
     { id: 'comparables', label: '3+ real retail comparables found', met: hasComparables },
-    { id: 'supplier', label: 'At least one viable supplier candidate identified', met: hasSupplier },
+    { id: 'supplier', label: supplierSearchFailed ? 'Supplier search failed (technical error) — not yet researched, not confirmed absent' : 'At least one viable supplier candidate identified', met: hasSupplier },
     { id: 'economics', label: 'Landed cost modelled and meets ≥60% margin target', met: hasEconomics && marginTargetMet },
   ];
   const metCount = pillars.filter((p) => p.met).length;

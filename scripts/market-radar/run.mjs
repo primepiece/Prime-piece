@@ -1601,14 +1601,27 @@ function buildFastTrackSupplierQueries(category) {
   ];
 }
 
+// Fast Track's supplier schema is deliberately smaller/stricter than it looks —
+// this stage truncated mid-JSON in real production twice (2026-09-16 espresso cup,
+// 2026-09-17 cabinet knobs), on two entirely different product categories, which
+// means the earlier "raise maxTokens" fix only patched one symptom. The real fix is
+// to shrink the maximum possible output at the schema level (maxItems/maxLength are
+// standard JSON Schema keywords that constrain structured-output decoding, not just
+// prompt suggestions the model can ignore) rather than keep raising the token budget.
+const FAST_TRACK_SUPPLIER_MAX_CANDIDATES = 3; // matches findSuppliers' proven "up to 3" cap above
+const FAST_TRACK_SUPPLIER_NOTES_MAX_CHARS = 200; // one concise sentence, not a paragraph
+const FAST_TRACK_SUPPLIER_QUESTION_MAX_CHARS = 120;
+const FAST_TRACK_SUPPLIER_MAX_QUESTIONS = 2;
+const FAST_TRACK_SUPPLIER_MAX_SOURCES = 2;
+
 const FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE = `{"candidates": [{
   "name": "string — real company name", "country": "string", "website": "string or null", "sourcePlatform": "string",
   "isKnownSupplier": "boolean — true only for the founder's own named supplier URL, if one was given",
   "subScores": {"quality": number|null, "unitEconomics": number|null, "moq": number|null, "customisation": number|null, "leadTime": number|null, "shipping": number|null, "communication": number|null, "evidence": number|null},
   "factoryPriceUSD": number|null, "moq": number|null,
-  "notes": "string — the real signals behind the sub-scores above",
+  "notes": "string — ONE concise sentence (max ~30 words) on the real signals behind the sub-scores above",
   "sources": [{"url": "string", "title": "string"}],
-  "supplierQuestions": ["string — a specific question to ask this supplier to fill a real gap in the evidence"]
+  "supplierQuestions": ["string — a short, specific question to ask this supplier to fill a real gap in the evidence (max 2)"]
 }]}`;
 const FAST_TRACK_SUPPLIER_RESPONSE_FORMAT = {
   type: 'json_schema',
@@ -1617,6 +1630,7 @@ const FAST_TRACK_SUPPLIER_RESPONSE_FORMAT = {
     properties: {
       candidates: {
         type: 'array',
+        maxItems: FAST_TRACK_SUPPLIER_MAX_CANDIDATES,
         items: {
           type: 'object',
           properties: {
@@ -1626,9 +1640,9 @@ const FAST_TRACK_SUPPLIER_RESPONSE_FORMAT = {
               properties: { quality: nullableNum(), unitEconomics: nullableNum(), moq: nullableNum(), customisation: nullableNum(), leadTime: nullableNum(), shipping: nullableNum(), communication: nullableNum(), evidence: nullableNum() },
               required: ['quality', 'unitEconomics', 'moq', 'customisation', 'leadTime', 'shipping', 'communication', 'evidence'], additionalProperties: false,
             },
-            factoryPriceUSD: nullableNum(), moq: nullableNum(), notes: { type: 'string' },
-            sources: { type: 'array', items: { type: 'object', properties: { url: { type: 'string' }, title: { type: 'string' } }, required: ['url', 'title'], additionalProperties: false } },
-            supplierQuestions: { type: 'array', items: { type: 'string' } },
+            factoryPriceUSD: nullableNum(), moq: nullableNum(), notes: { type: 'string', maxLength: FAST_TRACK_SUPPLIER_NOTES_MAX_CHARS },
+            sources: { type: 'array', maxItems: FAST_TRACK_SUPPLIER_MAX_SOURCES, items: { type: 'object', properties: { url: { type: 'string' }, title: { type: 'string', maxLength: 150 } }, required: ['url', 'title'], additionalProperties: false } },
+            supplierQuestions: { type: 'array', maxItems: FAST_TRACK_SUPPLIER_MAX_QUESTIONS, items: { type: 'string', maxLength: FAST_TRACK_SUPPLIER_QUESTION_MAX_CHARS } },
           },
           required: ['name', 'country', 'website', 'sourcePlatform', 'isKnownSupplier', 'subScores', 'factoryPriceUSD', 'moq', 'notes', 'sources', 'supplierQuestions'],
           additionalProperties: false,
@@ -1639,6 +1653,15 @@ const FAST_TRACK_SUPPLIER_RESPONSE_FORMAT = {
     additionalProperties: false,
   },
 };
+
+// Deliberately separate from (smaller than) SUPPLIER_EVIDENCE_LIMIT/SNIPPET_CHARS
+// above, which belong to the older mode=supplier pipeline and are left untouched.
+// Fast Track's per-candidate schema is heavier (8 sub-scores + notes + sources +
+// questions), so it needs a smaller evidence budget to leave the same output headroom.
+const FAST_TRACK_SUPPLIER_EVIDENCE_LIMIT = 6;
+const FAST_TRACK_SUPPLIER_SNIPPET_CHARS = 350;
+const FAST_TRACK_KNOWN_SUPPLIER_CHARS = 1200;
+const FAST_TRACK_SUPPLIER_MAX_TOKENS = 6500; // held constant, not raised — see fix note below
 
 export async function fastTrackSupplierSearch({ category, supplierUrl }) {
   if (DRY_RUN) {
@@ -1657,26 +1680,50 @@ export async function fastTrackSupplierSearch({ category, supplierUrl }) {
     if (result.status === 'rejected') { log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`); return; }
     for (const item of result.value) { if (!item.url || seen.has(item.url)) continue; seen.add(item.url); evidence.push(item); }
   });
-  const topEvidence = evidence.sort((a, b) => b.score - a.score).slice(0, SUPPLIER_EVIDENCE_LIMIT);
+  const topEvidence = evidence.sort((a, b) => b.score - a.score).slice(0, FAST_TRACK_SUPPLIER_EVIDENCE_LIMIT);
   log(`Fast Track supplier search: gathered ${topEvidence.length} search result(s)${supplierUrl ? `, extracted the named supplier URL (${knownExtract.extracted.length ? 'success' : 'failed'})` : ''}.`);
 
-  const evidenceBlock = topEvidence.map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, SUPPLIER_EVIDENCE_SNIPPET_CHARS)}`).join('\n\n');
-  const knownBlock = knownExtract.extracted[0]?.content ? `\n\nThe founder's own named/known supplier (${supplierUrl}) — evaluate this one through the EXACT same scoring as every other candidate below; do not assume it is best:\n${knownExtract.extracted[0].content.slice(0, 2000)}` : '';
+  const knownContent = knownExtract.extracted[0]?.content
+    ? `\n\nThe founder's own named/known supplier (${supplierUrl}) — evaluate this one through the EXACT same scoring as every other candidate below; do not assume it is best:\n${knownExtract.extracted[0].content.slice(0, FAST_TRACK_KNOWN_SUPPLIER_CHARS)}`
+    : '';
 
-  const system = 'You are the supplier-sourcing step of Prime Piece Pulse\'s Fast Track workflow. Extract REAL manufacturer facts strictly from the evidence given — never invent a price, MOQ, or capability. Score each of the 8 sub-scores (0-100) only where the evidence actually supports a judgment; leave a sub-score null rather than guessing. A founder-named/known supplier must be scored by the same standard as every other candidate, never given an automatic high score just for being named.';
-  const prompt = `Category: "${category}".\n\nSearch evidence:\n${evidenceBlock || '(none found)'}${knownBlock}\n\nIdentify UP TO 4 real manufacturer candidates (fewer if fewer are well-supported by the evidence) prioritising companies already producing cups/mugs/espresso cups/stone tableware/stone arts/small carved natural-stone products. For each, score the 8 sub-scores from evidence only, and list at most 3 specific questions to ask to fill any real gap.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE}`;
+  const system = 'You are the supplier-sourcing step of Prime Piece Pulse\'s Fast Track workflow. Extract REAL manufacturer facts strictly from the evidence given — never invent a price, MOQ, or capability. Score each of the 8 sub-scores (0-100) only where the evidence actually supports a judgment; leave a sub-score null rather than guessing. A founder-named/known supplier must be scored by the same standard as every other candidate, never given an automatic high score just for being named. Be concise: this is a data-extraction task, not a written report.';
 
-  // Original 4500 truncated mid-JSON in production (2026-09-16) — the schema's per-
-  // candidate payload (8 sub-scores + notes + sources + supplierQuestions) is heavier
-  // than findSuppliers' plainer shape above, and the prompt didn't cap candidate count.
-  // Raised to 6500 and the prompt above now explicitly caps candidates at 4, mirroring
-  // findSuppliers' "up to 3" pattern rather than leaving the count unbounded.
-  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 6500, responseFormat: FAST_TRACK_SUPPLIER_RESPONSE_FORMAT });
-  if (stopReason === 'max_tokens') throw new Error('Fast Track supplier search response was truncated (stop_reason=max_tokens).');
-  const parsed = extractJson(text);
-  const candidates = Array.isArray(parsed) ? parsed : parsed?.candidates;
-  if (!Array.isArray(candidates)) throw new Error('Fast Track supplier search did not return a JSON array.');
-  return candidates;
+  // Builds the prompt against however many evidence items the current attempt is
+  // allowed — the one controlled retry below calls this again with a smaller slice,
+  // never with a larger token budget.
+  const buildPrompt = (evidenceLimit) => {
+    const limited = topEvidence.slice(0, evidenceLimit);
+    const evidenceBlock = limited.map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, FAST_TRACK_SUPPLIER_SNIPPET_CHARS)}`).join('\n\n');
+    return `Category: "${category}".\n\nSearch evidence:\n${evidenceBlock || '(none found)'}${knownContent}\n\nIdentify UP TO ${FAST_TRACK_SUPPLIER_MAX_CANDIDATES} real manufacturer candidates genuinely relevant to this specific category (fewer if fewer are well-supported by the evidence — never pad to reach ${FAST_TRACK_SUPPLIER_MAX_CANDIDATES}). For each, score the 8 sub-scores from evidence only. Keep "notes" to ONE concise sentence and list at most ${FAST_TRACK_SUPPLIER_MAX_QUESTIONS} short supplierQuestions — brevity matters more than completeness here.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_SUPPLIER_SCHEMA_EXAMPLE}`;
+  };
+
+  // This stage truncated mid-JSON in real production twice (2026-09-16 espresso cups,
+  // 2026-09-17 cabinet knobs) on two unrelated categories — raising maxTokens the first
+  // time only patched one symptom. The real fix is smaller expected output (schema
+  // maxItems/maxLength above, a smaller evidence budget, an explicit brevity
+  // instruction) plus ONE controlled retry with even less evidence if that still isn't
+  // enough — never a growing token budget. stop_reason is checked explicitly on every
+  // attempt: a max_tokens stop is truncation, not malformed JSON, and is never handed
+  // to extractJson (which would just produce a confusing "Unterminated JSON" message
+  // for the same underlying cause).
+  const evidenceBudgets = [FAST_TRACK_SUPPLIER_EVIDENCE_LIMIT, Math.min(3, FAST_TRACK_SUPPLIER_EVIDENCE_LIMIT)];
+  for (let attempt = 1; attempt <= evidenceBudgets.length; attempt++) {
+    const prompt = buildPrompt(evidenceBudgets[attempt - 1]);
+    const { text, stopReason } = await callClaude({ system, prompt, maxTokens: FAST_TRACK_SUPPLIER_MAX_TOKENS, responseFormat: FAST_TRACK_SUPPLIER_RESPONSE_FORMAT });
+    if (stopReason === 'max_tokens') {
+      log(`Fast Track supplier search attempt ${attempt}/${evidenceBudgets.length} truncated (stop_reason=max_tokens)${attempt < evidenceBudgets.length ? ' — retrying once with less evidence, not a larger token budget' : ''}.`);
+      continue;
+    }
+    const parsed = extractJson(text);
+    const candidates = Array.isArray(parsed) ? parsed : parsed?.candidates;
+    if (!Array.isArray(candidates)) throw new Error('Fast Track supplier search did not return a JSON array.');
+    return candidates;
+  }
+  // Both attempts truncated: fail this stage clearly rather than silently returning an
+  // empty candidate list, which the decision step could otherwise mistake for "genuinely
+  // researched, no supplier found" instead of "not actually researched."
+  throw new Error('Fast Track supplier search response was truncated (stop_reason=max_tokens) on every attempt — supplier data for this run is incomplete, not absent.');
 }
 
 // --- Stage 6: Risk assessment --------------------------------------------------------
@@ -1755,9 +1802,11 @@ async function runOneFastTrackAnalysis(request) {
     log(`Fast Track [${request.id}] design intelligence FAILED: ${err.message}`);
   }
 
+  let supplierSearchFailed = false;
   try {
     stages.supplierSearch = await fastTrackSupplierSearch({ category, supplierUrl: input.supplierUrl });
   } catch (err) {
+    supplierSearchFailed = true;
     errors.push(`Supplier search: ${err.message}`);
     log(`Fast Track [${request.id}] supplier search FAILED: ${err.message}`);
   }
@@ -1795,6 +1844,7 @@ async function runOneFastTrackAnalysis(request) {
   const decision = computeFastTrackDecision({
     marketValidation: stages.marketValidation, designIntelligence: stages.designIntelligence,
     supplierRanking: rankedSuppliers, economics: stages.economics, risk: stages.risk,
+    supplierSearchFailed,
   });
 
   return { stages: { ...stages, supplierSearch: rankedSuppliers }, decision, errors };
