@@ -123,6 +123,21 @@
   .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 9px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+  .footer-newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .footer-newsletter-text { font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 420px; }
+  .footer-newsletter-text strong { color: var(--ink); font-weight: 500; }
+  .footer-newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-newsletter-input { padding: 12px 16px; border: 1px solid var(--line); background: var(--cream); font-family: var(--body); font-size: 13px; color: var(--ink); min-width: 240px; border-radius: 1px; outline: none; }
+  .footer-newsletter-input:focus { border-color: var(--sage); }
+  .footer-newsletter-btn { padding: 12px 22px; background: var(--sage); color: #fff; border: none; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; cursor: pointer; border-radius: 1px; transition: background 0.2s; white-space: nowrap; }
+  .footer-newsletter-btn:hover { background: var(--sage-deep); }
+  .footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .footer-newsletter-msg { font-size: 12px; margin-top: 10px; display: none; }
+  @media (max-width: 768px) {
+    .footer-newsletter { flex-direction: column; align-items: flex-start; }
+    .footer-newsletter-form { width: 100%; }
+    .footer-newsletter-input { flex: 1; min-width: 0; }
+  }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -512,7 +527,7 @@
 
   <!-- BOARDS -->
   <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide Board" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-teal-tide.png" alt="Teal Tide marble serving board Auckland" loading="lazy">
+    <img src="board-teal-tide-web.jpg" alt="Teal Tide marble serving board Auckland" loading="lazy">
     <div class="gallery-overlay">
       <span class="gallery-overlay-tag">Available</span>
       <div class="gallery-overlay-name">Teal Tide</div>
@@ -521,7 +536,7 @@
   </div>
 
   <div class="gallery-item" data-cat="board" data-status="available" data-name="Emerald Vein Board" data-stone="Dark Green Marble — White Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-emerald-vein.png" alt="Emerald Vein green marble serving board Auckland" loading="lazy">
+    <img src="board-emerald-vein-web.jpg" alt="Emerald Vein green marble serving board Auckland" loading="lazy">
     <div class="gallery-overlay">
       <span class="gallery-overlay-tag">Available</span>
       <div class="gallery-overlay-name">Emerald Vein</div>
@@ -530,7 +545,7 @@
   </div>
 
   <div class="gallery-item" data-cat="board" data-status="available" data-name="Pink Storm Board" data-stone="Pink Onyx Marble" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-pink-storm.png" alt="Pink Storm pink onyx marble serving board Auckland" loading="lazy">
+    <img src="board-pink-storm-web.jpg" alt="Pink Storm pink onyx marble serving board Auckland" loading="lazy">
     <div class="gallery-overlay">
       <span class="gallery-overlay-tag">Available</span>
       <div class="gallery-overlay-name">Pink Storm</div>
@@ -539,7 +554,7 @@
   </div>
 
   <div class="gallery-item" data-cat="board" data-status="available" data-name="White Haven Board" data-stone="White Marble — Grey Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-white-haven.png" alt="White Haven white marble serving board Auckland" loading="lazy">
+    <img src="board-white-haven-web.jpg" alt="White Haven white marble serving board Auckland" loading="lazy">
     <div class="gallery-overlay">
       <span class="gallery-overlay-tag">Available</span>
       <div class="gallery-overlay-name">White Haven</div>
@@ -548,7 +563,7 @@
   </div>
 
   <div class="gallery-item" data-cat="board" data-status="available" data-name="Volcanic Ash Board" data-stone="Dark Marble — Red & Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-volcanic-ash.png" alt="Volcanic Ash dark marble serving board Auckland" loading="lazy">
+    <img src="board-volcanic-ash-web.jpg" alt="Volcanic Ash dark marble serving board Auckland" loading="lazy">
     <div class="gallery-overlay">
       <span class="gallery-overlay-tag">Available</span>
       <div class="gallery-overlay-name">Volcanic Ash</div>
@@ -566,7 +581,7 @@
   </div>
 
   <div class="gallery-item" data-cat="board" data-status="sold" data-name="Golden Dune Board" data-stone="Golden Quartzite" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="Sold" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-golden-dune.png" alt="Golden Dune quartzite serving board Auckland" loading="lazy">
+    <img src="board-golden-dune-web.jpg" alt="Golden Dune quartzite serving board Auckland" loading="lazy">
     <div class="gallery-overlay">
       <span class="gallery-overlay-tag sold">Sold</span>
       <div class="gallery-overlay-name">Golden Dune</div>
@@ -585,6 +600,16 @@
 </div>
 
 <footer>
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div>
+      <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
+        <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
+        <button type="submit" class="footer-newsletter-btn">Subscribe →</button>
+      </form>
+      <div class="footer-newsletter-msg"></div>
+    </div>
+  </div>
   <div class="footer-grid">
     <div>
       <div class="footer-brand">PRIME PIECE</div>
@@ -886,6 +911,46 @@ async function submitEnquire() {
   });
   document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
 })();
+</script>
+
+
+<script>
+async function footerSubscribe(event, form) {
+  event.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('.footer-newsletter-btn');
+  const msg = form.parentElement.querySelector('.footer-newsletter-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    return false;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.style.color = 'var(--sage-deep)';
+      msg.style.display = 'block';
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
+    } else {
+      msg.textContent = 'Something went wrong — please try again.';
+      msg.style.color = '#c0392b';
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Subscribe →';
+    }
+  } catch (e) {
+    msg.textContent = 'Network error — please try again.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Subscribe →';
+  }
+  return false;
+}
 </script>
 
 </body>

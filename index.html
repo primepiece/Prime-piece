@@ -251,7 +251,7 @@
   nav.scrolled .nav-shop-link { border-color: var(--sage) !important; color: var(--sage) !important; background: transparent !important; }
   nav.scrolled .nav-shop-link:hover { background: var(--sage) !important; color: var(--cream) !important; }
 
-  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.png') center/cover no-repeat; }
+  .hero { height: 100vh; min-height: 680px; position: relative; display: flex; align-items: flex-end; padding: 0 56px 88px; background: url('hero.jpg') center/cover no-repeat; }
   .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(18,15,12,0.30) 0%, rgba(18,15,12,0.18) 40%, rgba(18,15,12,0.82) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: 720px; }
   .eyebrow { font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage-soft); margin-bottom: 22px; font-weight: 500; display: flex; align-items: center; gap: 14px; }
@@ -326,19 +326,23 @@
   .collection-card:hover .collection-card-arrow { transform: translate(4px,-4px); color: #fff; }
 
   /* Featured Pieces */
-  .featured-section { background: var(--cream); border-top: 1px solid var(--line); }
-  .featured-header { padding: 88px 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); gap: 32px; }
-  .featured-desc { font-size: 14px; color: var(--ink-soft); max-width: 360px; line-height: 1.75; text-align: right; }
-  .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
-  .featured-card { position: relative; display: block; overflow: hidden; text-decoration: none; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .featured-card:nth-child(2n) { border-right: none; }
-  .featured-card-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-  .featured-card:hover .featured-card-img { transform: scale(1.04); }
-  .featured-card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 80px 32px 28px; background: linear-gradient(to top, rgba(18,15,12,0.75) 0%, transparent 100%); display: flex; justify-content: space-between; align-items: flex-end; }
-  .featured-card-name { font-family: var(--display); font-size: 30px; font-weight: 300; color: #fff; line-height: 1.1; }
-  .featured-card-arrow { font-size: 16px; color: rgba(255,255,255,0.5); transition: transform 0.4s, color 0.4s; line-height: 1; }
-  .featured-card:hover .featured-card-arrow { transform: translate(4px,-4px); color: #fff; }
-  .featured-footer { padding: 36px 56px; border-top: 1px solid var(--line); text-align: center; }
+  .featured-section { background: var(--cream); border-top: 1px solid var(--line); padding: 104px 56px 96px; }
+  .featured-header { max-width: 560px; margin: 0 auto 72px; text-align: center; }
+  .featured-header .section-label { display: block; margin-bottom: 18px; }
+  .featured-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.75; margin-top: 18px; }
+  .featured-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px 40px; max-width: 1320px; margin: 0 auto; }
+  .featured-card { display: block; text-decoration: none; color: inherit; }
+  .featured-card-img-wrap { width: 100%; aspect-ratio: 4/5; overflow: hidden; background: var(--cream-soft); border-radius: 2px; }
+  .featured-card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .featured-card:hover .featured-card-img { transform: scale(1.035); }
+  .featured-card-info { padding-top: 22px; }
+  .featured-card-name { font-family: var(--display); font-size: 21px; font-weight: 400; color: var(--ink); line-height: 1.25; margin-bottom: 5px; }
+  .featured-card-material { font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--stone); margin-bottom: 18px; }
+  .featured-card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line); }
+  .featured-card-price { font-size: 13px; color: var(--ink-soft); font-family: var(--body); }
+  .featured-card-arrow { font-size: 14px; color: var(--sage); transition: transform 0.35s ease; line-height: 1; }
+  .featured-card:hover .featured-card-arrow { transform: translateX(5px); }
+  .featured-footer { padding: 72px 56px 0; text-align: center; }
 
   /* Brand Statement */
   .brand-statement { position: relative; min-height: 56vh; display: flex; align-items: center; justify-content: center; background: url('process-2.jpg') center/cover no-repeat; padding: 96px 32px; }
@@ -346,21 +350,6 @@
   .brand-statement-inner { position: relative; z-index: 2; max-width: 700px; text-align: center; }
   .brand-statement-eyebrow { font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--sage-soft); font-weight: 500; margin-bottom: 26px; }
   .brand-statement p { font-family: var(--display); font-size: clamp(24px, 3vw, 36px); font-weight: 300; line-height: 1.45; color: #fff; letter-spacing: -0.01em; }
-
-  /* Simone Anderson editorial collaboration */
-  .collab-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 620px; border-top: 1px solid var(--line); background: var(--cream); }
-  .collab-img-col { position: relative; overflow: hidden; background: var(--cream-deep); }
-  .collab-img-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .collab-copy-col { padding: 96px 80px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
-  .collab-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border: 1px solid var(--sage); border-radius: 100px; color: var(--sage-deep); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 28px; width: fit-content; }
-  .collab-badge strong { color: var(--ink); font-weight: 600; letter-spacing: 0.02em; text-transform: none; }
-  .collab-name { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .collab-stone { font-size: 12px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
-  .collab-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.85; margin-bottom: 32px; max-width: 440px; }
-  .collab-specs { display: flex; gap: 32px; margin-bottom: 36px; flex-wrap: wrap; }
-  .collab-spec span { display: block; }
-  .collab-spec span:first-child { color: var(--stone); text-transform: uppercase; letter-spacing: 0.14em; font-size: 10px; margin-bottom: 6px; }
-  .collab-spec span:last-child { color: var(--ink-soft); font-family: 'Cormorant Garamond', serif; font-size: 17px; }
 
   /* FAQ */
   .faq-section { background: var(--cream); border-top: 1px solid var(--line); padding: 96px 56px; }
@@ -404,6 +393,21 @@
   .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 10px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+  .footer-newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .footer-newsletter-text { font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 420px; }
+  .footer-newsletter-text strong { color: var(--ink); font-weight: 500; }
+  .footer-newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-newsletter-input { padding: 12px 16px; border: 1px solid var(--line); background: var(--cream); font-family: var(--body); font-size: 13px; color: var(--ink); min-width: 240px; border-radius: 1px; outline: none; }
+  .footer-newsletter-input:focus { border-color: var(--sage); }
+  .footer-newsletter-btn { padding: 12px 22px; background: var(--sage); color: #fff; border: none; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; cursor: pointer; border-radius: 1px; transition: background 0.2s; white-space: nowrap; }
+  .footer-newsletter-btn:hover { background: var(--sage-deep); }
+  .footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .footer-newsletter-msg { font-size: 12px; margin-top: 10px; display: none; }
+  @media (max-width: 768px) {
+    .footer-newsletter { flex-direction: column; align-items: flex-start; }
+    .footer-newsletter-form { width: 100%; }
+    .footer-newsletter-input { flex: 1; min-width: 0; }
+  }
 
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -428,10 +432,7 @@
     .founder-copy-col { border-left: none; border-top: 1px solid var(--line); }
     .showroom-section { grid-template-columns: 1fr; }
     .showroom-img-col { min-height: 460px; }
-    .collab-section { grid-template-columns: 1fr; }
-    .collab-img-col { min-height: 460px; }
-    .collab-copy-col { border-left: none; border-top: 1px solid var(--line); }
-    .featured-desc { text-align: left; }
+    .featured-grid { grid-template-columns: repeat(2, 1fr); gap: 44px 32px; }
   }
   /* Hamburger */
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
@@ -459,13 +460,11 @@
     .collection-grid { grid-template-columns: repeat(2, 1fr); }
     .collection-card { border-right: none; border-bottom: 1px solid var(--line); }
     .collection-card:nth-child(odd) { border-right: 1px solid var(--line); }
-    .featured-header { padding: 64px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
-    .featured-grid { grid-template-columns: 1fr; }
-    .featured-card:nth-child(2n) { border-right: none; }
-    .featured-footer { padding: 28px 24px; }
+    .featured-section { padding: 64px 24px 72px; }
+    .featured-header { margin: 0 auto 44px; }
+    .featured-grid { grid-template-columns: 1fr; gap: 40px; padding: 0; }
+    .featured-footer { padding: 44px 24px 0; }
     .brand-statement { padding: 64px 24px; min-height: 46vh; }
-    .collab-copy-col { padding: 64px 24px; }
-    .collab-name { font-size: 40px; }
     .founder-section { grid-template-columns: 1fr; }
     .showroom-copy-col { padding: 64px 24px; }
     .faq-section { padding: 72px 24px; }
@@ -573,28 +572,73 @@
 
 <section class="featured-section reveal">
   <div class="featured-header">
-    <div>
-      <span class="section-label">Featured Pieces</span>
-      <h2>A closer <em>look</em>.</h2>
-    </div>
-    <p class="featured-desc">Four pieces from the current collection — each cut once from natural stone, never recreated.</p>
+    <span class="section-label">Featured Pieces</span>
+    <h2>Selected <em>works</em>.</h2>
   </div>
   <div class="featured-grid">
-    <a href="plinths.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="plinth-14.jpg" alt="Navarro Marble plinth in a living room, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Navarro Marble</span><span class="featured-card-arrow">↗</span></div>
+    <a href="plinths.html?p=plinth-navarro" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="plinth-14.jpg" alt="Navarro Marble plinth in a living room, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">Navarro Marble Plinth</div>
+        <div class="featured-card-material">Navarro Marble</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $3,499</span><span class="featured-card-arrow">→</span></div>
+      </div>
     </a>
-    <a href="tables.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="lounge-1.jpg" alt="Jade Horizon Mystique Green Marble lounge table, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Jade Horizon</span><span class="featured-card-arrow">↗</span></div>
+    <a href="tables.html?p=table-jade-horizon#cat-lounge" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="lounge-1.jpg" alt="Jade Horizon Mystique Green Marble lounge table, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">Jade Horizon</div>
+        <div class="featured-card-material">Mitered Mystique Green Marble</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $2,100</span><span class="featured-card-arrow">→</span></div>
+      </div>
     </a>
-    <a href="tables.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir black marble coffee table, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">Pietra Noir</span><span class="featured-card-arrow">↗</span></div>
+    <a href="tables.html?p=table-pietra-noir#cat-coffee" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir black marble coffee table, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">Pietra Noir</div>
+        <div class="featured-card-material">Pietra Grey Marble</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $270</span><span class="featured-card-arrow">→</span></div>
+      </div>
     </a>
-    <a href="boards.html" class="featured-card">
-      <img loading="lazy" class="featured-card-img" src="board-white-haven.png" alt="White Haven marble serving board, Auckland">
-      <div class="featured-card-label"><span class="featured-card-name">White Haven</span><span class="featured-card-arrow">↗</span></div>
+    <a href="boards.html?p=board-white-haven" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="board-white-haven-web.jpg" alt="White Haven marble serving board, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">White Haven</div>
+        <div class="featured-card-material">White Marble — Grey Veining</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $99</span><span class="featured-card-arrow">→</span></div>
+      </div>
+    </a>
+    <a href="basins.html?p=carrara-vessel" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="white-carrara-vessel.jpg" alt="White Carrara marble vessel basin, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">White Carrara Basin</div>
+        <div class="featured-card-material">Carrara Marble — Vessel Basin</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $1,190</span><span class="featured-card-arrow">→</span></div>
+      </div>
+    </a>
+    <a href="tables.html?p=table-twin-jade-single#cat-side" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="side-1.jpg" alt="Twin Jade mystique green marble side table, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">Twin Jade</div>
+        <div class="featured-card-material">Mystique Green Marble</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $1,199</span><span class="featured-card-arrow">→</span></div>
+      </div>
+    </a>
+    <a href="plinths.html?p=plinth-rosso-levanto-plinth" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="plinth-4.jpg" alt="Rosso Levanto marble plinth in a living room, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">Rosso Levanto Marble</div>
+        <div class="featured-card-material">Rosso Levanto Marble — Plinth</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $1,400</span><span class="featured-card-arrow">→</span></div>
+      </div>
+    </a>
+    <a href="boards.html?p=board-teal-tide" class="featured-card">
+      <div class="featured-card-img-wrap"><img loading="lazy" class="featured-card-img" src="board-teal-tide-web.jpg" alt="Teal Tide marble serving board, Auckland"></div>
+      <div class="featured-card-info">
+        <div class="featured-card-name">Teal Tide</div>
+        <div class="featured-card-material">Teal Marble — Gold Veining</div>
+        <div class="featured-card-foot"><span class="featured-card-price">NZD $99</span><span class="featured-card-arrow">→</span></div>
+      </div>
     </a>
   </div>
   <div class="featured-footer"><a href="tables.html" style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-weight:500;font-family:var(--body);">View Full Collection →</a></div>
@@ -607,27 +651,9 @@
   </div>
 </section>
 
-<section class="collab-section">
-  <div class="collab-img-col">
-    <img loading="lazy" src="side-3-lifestyle.jpg" alt="Lunar River marble bedside table, styled by Simone Anderson">
-  </div>
-  <div class="collab-copy-col reveal">
-    <div class="collab-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>As Featured With <strong>@simone_anderson</strong></div>
-    <div class="collab-name">Lunar River</div>
-    <div class="collab-stone">Lunar River Marble — Bedside Table</div>
-    <p class="collab-desc">Styled by interior stylist Simone Anderson for her own home, the Lunar River pairs soft, warm marble movement with an open shelf for easy bedside styling — the exact piece from our collaboration.</p>
-    <div class="collab-specs">
-      <div class="collab-spec"><span>Size</span><span>550 × 600 × 550mm</span></div>
-      <div class="collab-spec"><span>Material</span><span>30mm Solid Marble</span></div>
-      <div class="collab-spec"><span>Edition</span><span>One of one</span></div>
-    </div>
-    <a href="tables.html#cat-bedside" class="btn btn-primary">View The Piece <span class="btn-arrow">→</span></a>
-  </div>
-</section>
-
 <section class="founder-section" id="story">
   <div class="founder-img-col">
-    <img loading="lazy" class="founder-img" src="james-hopwood-2.jpg (2).png" alt="James Hopwood — Founder, Prime Piece">
+    <img loading="lazy" class="founder-img" src="james-hopwood-founder.jpg" alt="James Hopwood — Founder, Prime Piece">
   </div>
   <div class="founder-copy-col reveal">
     <div class="founder-eyebrow">The Maker</div>
@@ -745,6 +771,16 @@
 </section>
 
 <footer>
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div>
+      <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
+        <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
+        <button type="submit" class="footer-newsletter-btn">Subscribe →</button>
+      </form>
+      <div class="footer-newsletter-msg"></div>
+    </div>
+  </div>
   <div class="footer-grid">
     <div>
       <div class="footer-brand">PRIME PIECE</div>
@@ -917,6 +953,45 @@ async function submitEnquire() {
       ham2.classList.remove('open'); mob2.classList.remove('open'); document.body.style.overflow = '';
     }));
   }
+</script>
+
+<script>
+async function footerSubscribe(event, form) {
+  event.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('.footer-newsletter-btn');
+  const msg = form.parentElement.querySelector('.footer-newsletter-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    return false;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.style.color = 'var(--sage-deep)';
+      msg.style.display = 'block';
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
+    } else {
+      msg.textContent = 'Something went wrong — please try again.';
+      msg.style.color = '#c0392b';
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Subscribe →';
+    }
+  } catch (e) {
+    msg.textContent = 'Network error — please try again.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Subscribe →';
+  }
+  return false;
+}
 </script>
 
 </body>

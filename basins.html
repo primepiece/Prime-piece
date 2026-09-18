@@ -230,6 +230,14 @@
   .modal-arriving-box svg { flex-shrink: 0; margin-top: 2px; }
   .modal-arriving-box strong { display: block; font-weight: 600; margin-bottom: 3px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6d5119; }
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .modal-crosssell { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(44,42,38,0.1); }
+  .modal-crosssell-title { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); font-weight: 600; margin-bottom: 12px; }
+  .modal-crosssell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .modal-crosssell-item { text-decoration: none; display: block; }
+  .modal-crosssell-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 2px; display: block; margin-bottom: 6px; transition: opacity 0.2s; }
+  .modal-crosssell-item:hover .modal-crosssell-img { opacity: 0.82; }
+  .modal-crosssell-name { font-size: 11.5px; color: var(--ink); font-weight: 500; line-height: 1.3; }
+  .modal-crosssell-price { font-size: 10.5px; color: var(--stone); margin-top: 1px; }
   .modal-btn-primary { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 18px; background: var(--ink); color: white; border: none; border-radius: 1px; font-family: 'Inter Tight', sans-serif; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; width: 100%; }
   .modal-btn-primary:hover { background: #000; }
   .modal-btn-primary.added { background: #2a6b42; }
@@ -277,6 +285,21 @@
   .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 9px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+  .footer-newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .footer-newsletter-text { font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 420px; }
+  .footer-newsletter-text strong { color: var(--ink); font-weight: 500; }
+  .footer-newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-newsletter-input { padding: 12px 16px; border: 1px solid var(--line); background: var(--cream); font-family: var(--body); font-size: 13px; color: var(--ink); min-width: 240px; border-radius: 1px; outline: none; }
+  .footer-newsletter-input:focus { border-color: var(--sage); }
+  .footer-newsletter-btn { padding: 12px 22px; background: var(--sage); color: #fff; border: none; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; cursor: pointer; border-radius: 1px; transition: background 0.2s; white-space: nowrap; }
+  .footer-newsletter-btn:hover { background: var(--sage-deep); }
+  .footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .footer-newsletter-msg { font-size: 12px; margin-top: 10px; display: none; }
+  @media (max-width: 768px) {
+    .footer-newsletter { flex-direction: column; align-items: flex-start; }
+    .footer-newsletter-form { width: 100%; }
+    .footer-newsletter-input { flex: 1; min-width: 0; }
+  }
 
   /* MOBILE */
   @media (max-width: 900px) {
@@ -328,7 +351,6 @@
     <li><a href="boards.html">Boards</a></li>
     <li><a href="basins.html" class="nav-active">Stone Basins</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="sale.html" style="color:#b8800a !important;border:1px solid rgba(184,128,10,0.5);padding:6px 14px;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;font-weight:500;text-decoration:none;">Sale →</a></li>
   </ul>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -336,7 +358,6 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="sale.html" style="color:#b8800a;">Sale ↓</a>
   <a href="/">Home</a>
   <a href="plinths.html">Plinths</a>
   <a href="tables.html">Tables</a>
@@ -682,6 +703,16 @@
 </div>
 
 <footer>
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div>
+      <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
+        <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
+        <button type="submit" class="footer-newsletter-btn">Subscribe →</button>
+      </form>
+      <div class="footer-newsletter-msg"></div>
+    </div>
+  </div>
   <div class="footer-grid">
     <div>
       <div class="footer-brand">PRIME PIECE</div>
@@ -745,6 +776,26 @@
         <div class="modal-trust-item">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l3 6-9 12L3 9l3-6z"/><path d="M3 9h18M9 3l3 6 3-6M12 9v12"/></svg>
           <div><strong>Timeless Design</strong>Built to Last</div>
+        </div>
+      </div>
+      <div class="modal-crosssell">
+        <div class="modal-crosssell-title">Pairs Well With</div>
+        <div class="modal-crosssell-grid">
+          <a href="tables.html?p=table-pietra-noir#cat-coffee" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir Coffee Table">
+            <div class="modal-crosssell-name">Pietra Noir Table</div>
+            <div class="modal-crosssell-price">NZD $270</div>
+          </a>
+          <a href="plinths.html?p=plinth-navarro" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="plinth-14.jpg" alt="Navarro Marble Plinth">
+            <div class="modal-crosssell-name">Navarro Marble Plinth</div>
+            <div class="modal-crosssell-price">NZD $3,499</div>
+          </a>
+          <a href="boards.html?p=board-white-haven" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="board-white-haven-web.jpg" alt="White Haven Serving Board">
+            <div class="modal-crosssell-name">White Haven Board</div>
+            <div class="modal-crosssell-price">NZD $99</div>
+          </a>
         </div>
       </div>
     </div>
@@ -1047,6 +1098,53 @@
 })();
 </script>
 
+<script>
+(function() {
+  var id = new URLSearchParams(location.search).get('p');
+  if (id && typeof openBasinModal === 'function') openBasinModal(id);
+})();
+</script>
+
 <script src="cart.js"></script>
+
+<script>
+async function footerSubscribe(event, form) {
+  event.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('.footer-newsletter-btn');
+  const msg = form.parentElement.querySelector('.footer-newsletter-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    return false;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.style.color = 'var(--sage-deep)';
+      msg.style.display = 'block';
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
+    } else {
+      msg.textContent = 'Something went wrong — please try again.';
+      msg.style.color = '#c0392b';
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Subscribe →';
+    }
+  } catch (e) {
+    msg.textContent = 'Network error — please try again.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Subscribe →';
+  }
+  return false;
+}
+</script>
+
 </body>
 </html>

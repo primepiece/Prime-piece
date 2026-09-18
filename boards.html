@@ -19,13 +19,13 @@
 <meta property="og:url" content="https://www.primepiece.co.nz/boards.html">
 <meta property="og:title" content="Marble Serving Boards NZ | Natural Stone Boards Auckland — Prime Piece">
 <meta property="og:description" content="Handcrafted marble and natural stone serving boards made in Auckland, NZ. One-of-one pieces with carved handles. From NZD $99.">
-<meta property="og:image" content="https://www.primepiece.co.nz/board-teal-tide.png">
+<meta property="og:image" content="https://www.primepiece.co.nz/board-teal-tide-web.jpg">
 <meta property="og:site_name" content="Prime Piece">
 <meta property="og:locale" content="en_NZ">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Marble Serving Boards NZ | Natural Stone Boards Auckland — Prime Piece">
 <meta name="twitter:description" content="Handcrafted one-of-one marble serving boards made in Auckland, NZ. Natural stone, carved handles. From NZD $99.">
-<meta name="twitter:image" content="https://www.primepiece.co.nz/board-teal-tide.png">
+<meta name="twitter:image" content="https://www.primepiece.co.nz/board-teal-tide-web.jpg">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -365,6 +365,14 @@
   }
 
   .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 24px; }
+  .modal-crosssell { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(44,42,38,0.1); }
+  .modal-crosssell-title { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); font-weight: 600; margin-bottom: 12px; }
+  .modal-crosssell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .modal-crosssell-item { text-decoration: none; display: block; }
+  .modal-crosssell-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 2px; display: block; margin-bottom: 6px; transition: opacity 0.2s; }
+  .modal-crosssell-item:hover .modal-crosssell-img { opacity: 0.82; }
+  .modal-crosssell-name { font-size: 11.5px; color: var(--ink); font-weight: 500; line-height: 1.3; }
+  .modal-crosssell-price { font-size: 10.5px; color: var(--stone); margin-top: 1px; }
 
   .modal-btn-primary {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -425,6 +433,21 @@
   .footer-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 13px; margin-bottom: 9px; transition: color 0.2s; }
   .footer-col a:hover { color: var(--sage); }
   .footer-bottom { padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--stone); letter-spacing: 0.1em; }
+  .footer-newsletter { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .footer-newsletter-text { font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 420px; }
+  .footer-newsletter-text strong { color: var(--ink); font-weight: 500; }
+  .footer-newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-newsletter-input { padding: 12px 16px; border: 1px solid var(--line); background: var(--cream); font-family: var(--body); font-size: 13px; color: var(--ink); min-width: 240px; border-radius: 1px; outline: none; }
+  .footer-newsletter-input:focus { border-color: var(--sage); }
+  .footer-newsletter-btn { padding: 12px 22px; background: var(--sage); color: #fff; border: none; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; cursor: pointer; border-radius: 1px; transition: background 0.2s; white-space: nowrap; }
+  .footer-newsletter-btn:hover { background: var(--sage-deep); }
+  .footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .footer-newsletter-msg { font-size: 12px; margin-top: 10px; display: none; }
+  @media (max-width: 768px) {
+    .footer-newsletter { flex-direction: column; align-items: flex-start; }
+    .footer-newsletter-form { width: 100%; }
+    .footer-newsletter-input { flex: 1; min-width: 0; }
+  }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -476,13 +499,11 @@
     <li><a href="boards.html" class="nav-active">Boards</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="sale.html" style="color:#b8800a !important;border:1px solid rgba(184,128,10,0.5);padding:6px 14px;">Sale →</a></li>
     <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobile-menu">
-  <a href="sale.html" style="color:#b8800a;">Sale ↓</a>
   <a href="/">Home</a>
   <a href="plinths.html">Plinths</a>
   <a href="tables.html">Tables</a>
@@ -515,11 +536,11 @@
 
 <div class="boards-grid" id="boards-grid">
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Jade Cloud','Green Marble Onyx','board-green-onyx.png','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
+  <div class="board-card reveal" data-tags="green" onclick="openModal('Jade Cloud','Green Marble Onyx','board-green-onyx.jpg','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-green-onyx.png" alt="Jade Cloud — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-green-onyx.jpg" alt="Jade Cloud — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -529,16 +550,16 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-green-onyx" onclick="event.stopPropagation(); Cart.add({id:'board-green-onyx',name:'Jade Cloud',type:'Serving Board',image:'board-green-onyx.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-green-onyx" onclick="event.stopPropagation(); Cart.add({id:'board-green-onyx',name:'Jade Cloud',type:'Serving Board',image:'board-green-onyx.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" onclick="openModal('White Haven','White Marble — Grey Veining','board-white-haven.png','L: 300mm × W: 200mm × D: 20mm','Classic white marble with bold grey and charcoal veining')">
+  <div class="board-card reveal" data-tags="light" data-product-id="board-white-haven" onclick="openModal('White Haven','White Marble — Grey Veining','board-white-haven-web.jpg','L: 300mm × W: 200mm × D: 20mm','Classic white marble with bold grey and charcoal veining')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-white-haven.png" alt="White Haven — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-white-haven-web.jpg" alt="White Haven — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -548,15 +569,15 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-white-haven" onclick="event.stopPropagation(); Cart.add({id:'board-white-haven',name:'White Haven',type:'Serving Board',image:'board-white-haven.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-white-haven" onclick="event.stopPropagation(); Cart.add({id:'board-white-haven',name:'White Haven',type:'Serving Board',image:'board-white-haven-web.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide','Teal Marble — Gold Veining','board-teal-tide.png','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it')">
+  <div class="board-card reveal" data-tags="green" data-product-id="board-teal-tide" onclick="openModal('Teal Tide','Teal Marble — Gold Veining','board-teal-tide-web.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it')">
     <div class="board-img-wrap">
       <span class="board-badge" style="background:#555">Sold</span>
-      <img class="board-img" src="board-teal-tide.png" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-teal-tide-web.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -571,11 +592,11 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide II','Teal Marble — Gold Veining','board-teal-tide-2.png','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
+  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide II','Teal Marble — Gold Veining','board-teal-tide-2.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-teal-tide-2.png" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-teal-tide-2.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -585,15 +606,15 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-2" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-2',name:'Teal Tide II',type:'Serving Board',image:'board-teal-tide-2.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-2" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-2',name:'Teal Tide II',type:'Serving Board',image:'board-teal-tide-2.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide III','Teal Marble — Gold Veining','board-teal-tide-3.png','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
+  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide III','Teal Marble — Gold Veining','board-teal-tide-3.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge sold-out">Sold Out</span>
-      <img class="board-img" src="board-teal-tide-3.png" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-teal-tide-3.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -607,11 +628,11 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide IV','Teal Marble — Gold Veining','board-teal-tide-4.png','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
+  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide IV','Teal Marble — Gold Veining','board-teal-tide-4.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-teal-tide-4.png" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-teal-tide-4.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -621,7 +642,7 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-4" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-4',name:'Teal Tide IV',type:'Serving Board',image:'board-teal-tide-4.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-4" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-4',name:'Teal Tide IV',type:'Serving Board',image:'board-teal-tide-4.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -643,10 +664,10 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" onclick="openModal('Golden Dune','Golden Quartzite','board-golden-dune.png','L: 300mm × W: 200mm × D: 20mm','Golden quartzite with warm amber tones and intricate natural patterning')">
+  <div class="board-card reveal" data-tags="light" onclick="openModal('Golden Dune','Golden Quartzite','board-golden-dune-web.jpg','L: 300mm × W: 200mm × D: 20mm','Golden quartzite with warm amber tones and intricate natural patterning')">
     <div class="board-img-wrap">
       <span class="board-badge" style="background:#555">Sold</span>
-      <img class="board-img" src="board-golden-dune.png" alt="Golden Dune — golden quartzite marble serving board handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-golden-dune-web.jpg" alt="Golden Dune — golden quartzite marble serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -660,11 +681,11 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green dark" onclick="openModal('Emerald Vein','Dark Green Marble — White Veining','board-emerald-vein.png','L: 300mm × W: 200mm × D: 20mm','Deep forest green marble with bold white veining throughout')">
+  <div class="board-card reveal" data-tags="green dark" onclick="openModal('Emerald Vein','Dark Green Marble — White Veining','board-emerald-vein-web.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green marble with bold white veining throughout')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-emerald-vein.png" alt="Emerald Vein — dark green marble serving board white veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-emerald-vein-web.jpg" alt="Emerald Vein — dark green marble serving board white veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -674,16 +695,16 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-emerald-vein" onclick="event.stopPropagation(); Cart.add({id:'board-emerald-vein',name:'Emerald Vein',type:'Serving Board',image:'board-emerald-vein.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-emerald-vein" onclick="event.stopPropagation(); Cart.add({id:'board-emerald-vein',name:'Emerald Vein',type:'Serving Board',image:'board-emerald-vein-web.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" onclick="openModal('Pink Storm','Pink Onyx Marble','board-pink-storm.png','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
+  <div class="board-card reveal" data-tags="light" onclick="openModal('Pink Storm','Pink Onyx Marble','board-pink-storm-web.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-pink-storm.png" alt="Pink Storm — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-pink-storm-web.jpg" alt="Pink Storm — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -693,16 +714,16 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-pink-storm" onclick="event.stopPropagation(); Cart.add({id:'board-pink-storm',name:'Pink Storm',type:'Serving Board',image:'board-pink-storm.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-pink-storm" onclick="event.stopPropagation(); Cart.add({id:'board-pink-storm',name:'Pink Storm',type:'Serving Board',image:'board-pink-storm-web.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green dark" onclick="openModal('Forest Stone','India Green Marble','board-india-green.png','L: 300mm × W: 200mm × D: 20mm','Deep forest green with dramatic dark veining and a rich, earthy texture — India Green Marble from Rajasthan. Bold, grounded and completely one of one')">
+  <div class="board-card reveal" data-tags="green dark" onclick="openModal('Forest Stone','India Green Marble','board-india-green.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green with dramatic dark veining and a rich, earthy texture — India Green Marble from Rajasthan. Bold, grounded and completely one of one')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-india-green.png" alt="Forest Stone — India Green Marble serving board handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-india-green.jpg" alt="Forest Stone — India Green Marble serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -712,16 +733,16 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-india-green" onclick="event.stopPropagation(); Cart.add({id:'board-india-green',name:'Forest Stone',type:'Serving Board',image:'board-india-green.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-india-green" onclick="event.stopPropagation(); Cart.add({id:'board-india-green',name:'Forest Stone',type:'Serving Board',image:'board-india-green.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="dark" onclick="openModal('Volcanic Ash','Dark Marble — Red & Gold Veining','board-volcanic-ash.png','L: 300mm × W: 200mm × D: 20mm','Dramatic dark marble with striking red and gold veining')">
+  <div class="board-card reveal" data-tags="dark" onclick="openModal('Volcanic Ash','Dark Marble — Red & Gold Veining','board-volcanic-ash-web.jpg','L: 300mm × W: 200mm × D: 20mm','Dramatic dark marble with striking red and gold veining')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <span class="sale-tag">20% OFF</span>
-      <img class="board-img" src="board-volcanic-ash.png" alt="Volcanic Ash — dark marble serving board red gold veining handcrafted Auckland New Zealand" loading="lazy">
+      <img class="board-img" src="board-volcanic-ash-web.jpg" alt="Volcanic Ash — dark marble serving board red gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
     <div class="board-info">
@@ -731,7 +752,7 @@
       <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-volcanic-ash" onclick="event.stopPropagation(); Cart.add({id:'board-volcanic-ash',name:'Volcanic Ash',type:'Serving Board',image:'board-volcanic-ash.png',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-volcanic-ash" onclick="event.stopPropagation(); Cart.add({id:'board-volcanic-ash',name:'Volcanic Ash',type:'Serving Board',image:'board-volcanic-ash-web.jpg',price:99})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -813,6 +834,16 @@
 </section>
 
 <footer>
+  <div class="footer-newsletter">
+    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div>
+      <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
+        <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
+        <button type="submit" class="footer-newsletter-btn">Subscribe →</button>
+      </form>
+      <div class="footer-newsletter-msg"></div>
+    </div>
+  </div>
   <div class="footer-grid">
     <div>
       <div class="footer-brand">PRIME PIECE</div>
@@ -898,6 +929,26 @@
         <span style="font-size:11px;color:#8A8275;">🔒 14-day returns · Fully insured delivery</span>
         <span style="font-size:11px;color:#8A8275;">Afterpay &amp; Laybuy available</span>
       </div>
+      <div class="modal-crosssell">
+        <div class="modal-crosssell-title">Pairs Well With</div>
+        <div class="modal-crosssell-grid">
+          <a href="tables.html?p=table-jade-horizon#cat-lounge" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="lounge-1.jpg" alt="Jade Horizon Lounge Table">
+            <div class="modal-crosssell-name">Jade Horizon Table</div>
+            <div class="modal-crosssell-price">NZD $2,100</div>
+          </a>
+          <a href="plinths.html?p=plinth-rosso-levanto-plinth" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="plinth-4-web.jpg" alt="Rosso Levanto Marble Plinth">
+            <div class="modal-crosssell-name">Rosso Levanto Plinth</div>
+            <div class="modal-crosssell-price">NZD $1,400</div>
+          </a>
+          <a href="basins.html?p=carrara-vessel" class="modal-crosssell-item" onclick="event.stopPropagation()">
+            <img class="modal-crosssell-img" src="white-carrara-vessel.jpg" alt="White Carrara Vessel Basin">
+            <div class="modal-crosssell-name">White Carrara Basin</div>
+            <div class="modal-crosssell-price">NZD $1,190</div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -919,12 +970,12 @@
 
   const BOARD_PRICES = {
     'board-lava-vein.jpg':    { price: 150, id: 'board-lava-vein',    sold: true },
-    'board-golden-dune.png':  { price: 150, id: 'board-golden-dune',  sold: true },
-    'board-teal-tide.png':    { price: 99,  id: 'board-teal-tide' },
-    'board-emerald-vein.png': { price: 99,  id: 'board-emerald-vein' },
-    'board-pink-storm.png':   { price: 99,  id: 'board-pink-storm' },
-    'board-white-haven.png':  { price: 99,  id: 'board-white-haven' },
-    'board-volcanic-ash.png': { price: 99,  id: 'board-volcanic-ash' },
+    'board-golden-dune-web.jpg':  { price: 150, id: 'board-golden-dune',  sold: true },
+    'board-teal-tide-web.jpg':    { price: 99,  id: 'board-teal-tide' },
+    'board-emerald-vein-web.jpg': { price: 99,  id: 'board-emerald-vein' },
+    'board-pink-storm-web.jpg':   { price: 99,  id: 'board-pink-storm' },
+    'board-white-haven-web.jpg':  { price: 99,  id: 'board-white-haven' },
+    'board-volcanic-ash-web.jpg': { price: 99,  id: 'board-volcanic-ash' },
   };
 
   let _modalItem = null;
@@ -1267,6 +1318,55 @@ async function submitEnquire() {
   });
   document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
 })();
+</script>
+
+<script>
+(function() {
+  var id = new URLSearchParams(location.search).get('p');
+  if (!id) return;
+  var el = document.querySelector('[data-product-id="' + id + '"]');
+  if (el) { el.scrollIntoView({ block: 'center' }); setTimeout(function() { el.click(); }, 50); }
+})();
+</script>
+
+
+<script>
+async function footerSubscribe(event, form) {
+  event.preventDefault();
+  const email = form.email.value.trim();
+  const btn = form.querySelector('.footer-newsletter-btn');
+  const msg = form.parentElement.querySelector('.footer-newsletter-msg');
+  if (!email || !email.includes('@')) {
+    msg.textContent = 'Please enter a valid email.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    return false;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.style.color = 'var(--sage-deep)';
+      msg.style.display = 'block';
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
+    } else {
+      msg.textContent = 'Something went wrong — please try again.';
+      msg.style.color = '#c0392b';
+      msg.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Subscribe →';
+    }
+  } catch (e) {
+    msg.textContent = 'Network error — please try again.';
+    msg.style.color = '#c0392b';
+    msg.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Subscribe →';
+  }
+  return false;
+}
 </script>
 
 </body>
