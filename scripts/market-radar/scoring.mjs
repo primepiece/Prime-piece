@@ -1003,3 +1003,111 @@ export function computeFastTrackDecision({ marketValidation, designIntelligence,
     })[0] || null,
   };
 }
+
+// --- Stage 6: Risk assessment — deterministic, not an Anthropic call ---------------
+// Moved off Claude in the 2026-09-18 cost/architecture audit: the original prompt for
+// this stage explicitly disabled web search ("No web search here — this is a
+// materials/food-safety/logistics judgment ... not something a fresh web search
+// resolves better") and reasoned only over the product's own extracted fields plus
+// general natural-stone material-science knowledge — a fixed 12-item checklist over a
+// small, well-understood domain (natural stone homeware/kitchenware), which is exactly
+// the shape of problem a static rules table handles as well as a model call, for
+// zero marginal cost and zero risk of truncation/retry. Every check still gets an
+// honest evidenceType — everything here is INFERENCE (reasoned from material
+// properties) or CONFIRMED-as-a-structural-fact, never fabricated as FACT, matching
+// the original prompt's own admission that "most will be INFERENCE or ESTIMATE ...
+// not FACT."
+export const FAST_TRACK_RISK_ITEMS = ['Food-contact safety', 'Sealing', 'Heat resistance', 'Thermal shock', 'Staining', 'Acids', 'Cracking', 'Dishwasher suitability', 'Weight', 'Shipping breakage', 'Customer expectations', 'IP / design-copy risk'];
+
+const POROUS_STONE_PATTERN = /marble|travertine|limestone|onyx|alabaster/i;
+const LOW_POROSITY_STONE_PATTERN = /granite|quartzite|basalt|slate/i;
+const FOOD_CONTACT_PATTERN = /\b(cup|mug|bowl|plate|board|tray|utensil|rolling pin|mortar|pestle|dish|glass|goblet|coaster|espresso|coffee|tea|wine|drink|jug|carafe)\b/i;
+const THIN_OR_ATTACHED_FEATURE_PATTERN = /\b(handle|leg|spout|rim|lip|hinge|knob|pull|foot|stem|neck)\b/i;
+const SEALED_PATTERN = /seal|coat|food.safe|food safe|lacquer|wax/i;
+const DERIVATIVE_SIGNAL_PATTERN = /resembl|similar to|derivative|mirrors|closely follows/i;
+
+function riskTextBlob(...parts) {
+  return parts.filter(Boolean).join(' ').toLowerCase();
+}
+
+export function computeFastTrackRiskAssessment(extractedProduct, designIntelligence) {
+  const p = extractedProduct || {};
+  const materialsText = riskTextBlob(p.materials, p.category, p.designForm);
+  const isFoodContact = FOOD_CONTACT_PATTERN.test(riskTextBlob(p.category, p.designForm, p.materials));
+  const isPorous = POROUS_STONE_PATTERN.test(materialsText);
+  const isLowPorosity = !isPorous && LOW_POROSITY_STONE_PATTERN.test(materialsText);
+  const hasThinOrAttachedFeature = THIN_OR_ATTACHED_FEATURE_PATTERN.test(riskTextBlob(p.designForm, p.constructionMethod, p.accessories));
+  const explicitlySealed = SEALED_PATTERN.test(riskTextBlob(p.careInstructions, p.foodSafetyClaims, p.materials));
+
+  const recommendedDir = designIntelligence?.directions?.[designIntelligence?.recommendedDirection];
+  const derivativeFlagged = DERIVATIVE_SIGNAL_PATTERN.test(riskTextBlob(...(recommendedDir?.risks || [])));
+
+  const checks = [];
+  const push = (item, severity, status, note, evidenceType) => checks.push({ item, severity, status, note, evidenceType });
+
+  if (isFoodContact) {
+    push('Food-contact safety', 'HIGH', explicitlySealed ? 'CONFIRMED' : 'LIKELY',
+      explicitlySealed ? 'Extraction states a food-safe seal or coating.' : 'Natural stone is porous and food-contact items typically require a food-safe sealant; extraction found no explicit statement either way.',
+      explicitlySealed ? 'FACT' : 'INFERENCE');
+  } else {
+    push('Food-contact safety', 'LOW', 'UNKNOWN', 'Extracted category/materials do not indicate direct food or drink contact.', 'INFERENCE');
+  }
+
+  if (isFoodContact && isPorous) {
+    push('Sealing', 'HIGH', explicitlySealed ? 'CONFIRMED' : 'LIKELY',
+      explicitlySealed ? 'A food-safe seal/coating is explicitly stated.' : 'Porous stone (marble/travertine/onyx family) in food contact typically needs sealing; no explicit statement found either way.',
+      explicitlySealed ? 'FACT' : 'INFERENCE');
+  } else if (isFoodContact && isLowPorosity) {
+    push('Sealing', 'LOW', 'LIKELY', 'Lower-porosity stone (granite/quartzite/slate family) needs sealing far less often than marble/travertine.', 'INFERENCE');
+  } else {
+    push('Sealing', 'LOW', 'UNKNOWN', 'Not a food-contact item, or stone type not identified from extraction.', 'INFERENCE');
+  }
+
+  if (isFoodContact) {
+    push('Heat resistance', 'MEDIUM', 'LIKELY', 'Natural stone generally tolerates hot food/drink temperatures structurally.', 'INFERENCE');
+  } else {
+    push('Heat resistance', 'LOW', 'UNKNOWN', 'Not an item with expected hot-contents/hot-surface use.', 'INFERENCE');
+  }
+
+  push('Thermal shock', hasThinOrAttachedFeature ? 'MEDIUM' : 'LOW', 'LIKELY',
+    hasThinOrAttachedFeature ? 'A separately-attached feature (handle/leg/spout/etc.) is a stress point where differing expansion rates can crack under rapid heat change.' : 'No separately-attached feature identified that would concentrate thermal stress.',
+    'INFERENCE');
+
+  if (isFoodContact && isPorous) {
+    push('Staining', 'HIGH', 'LIKELY', 'Porous stone absorbs oils/tannins from food and drink unless the seal remains fully intact.', 'INFERENCE');
+  } else if (isFoodContact) {
+    push('Staining', 'MEDIUM', 'LIKELY', 'Some staining risk is generic to natural stone in food contact even at lower porosity.', 'INFERENCE');
+  } else {
+    push('Staining', 'LOW', 'UNKNOWN', 'Not a food-contact item.', 'INFERENCE');
+  }
+
+  if (isFoodContact && isPorous) {
+    push('Acids', 'MEDIUM', 'LIKELY', 'Marble/travertine/onyx are calcium carbonate and can etch or dull on contact with acidic food/drink if the seal is compromised.', 'INFERENCE');
+  } else {
+    push('Acids', 'LOW', 'UNKNOWN', 'Lower-porosity stone or non-food-contact item — acid etching is a smaller concern.', 'INFERENCE');
+  }
+
+  push('Cracking', hasThinOrAttachedFeature ? 'HIGH' : 'MEDIUM', 'LIKELY',
+    hasThinOrAttachedFeature ? 'A thin or separately-attached feature is a specific stress point vulnerable to impact/thermal cracking beyond natural stone\'s general brittleness.' : 'Natural stone is intrinsically brittle; no specific added stress point was identified beyond that baseline.',
+    'INFERENCE');
+
+  if (isFoodContact) {
+    push('Dishwasher suitability', 'HIGH', 'LIKELY', 'Sealed natural stone is typically not dishwasher-safe — heat, detergent and water jets degrade a sealant faster than hand-washing.', 'INFERENCE');
+  } else {
+    push('Dishwasher suitability', 'LOW', 'UNKNOWN', 'Not an item normally put through a dishwasher.', 'INFERENCE');
+  }
+
+  push('Weight', 'MEDIUM', 'CONFIRMED', 'Solid natural stone is inherently denser/heavier than the equivalent item in ceramic, wood, or metal.', 'INFERENCE');
+
+  push('Shipping breakage', hasThinOrAttachedFeature ? 'HIGH' : 'MEDIUM', 'LIKELY',
+    hasThinOrAttachedFeature ? 'A protruding or separately-attached feature is a specific impact-damage point in transit, in addition to stone\'s general breakage risk.' : 'Natural stone carries a baseline breakage/chip risk in freight and handling even without an identified protruding feature.',
+    'INFERENCE');
+
+  push('Customer expectations', 'MEDIUM', 'LIKELY', 'Buyers used to low-maintenance materials may not expect natural stone\'s hand-wash/resealing/careful-handling requirements.', 'INFERENCE');
+
+  push('IP / design-copy risk', 'LOW', derivativeFlagged ? 'LIKELY' : 'UNKNOWN',
+    derivativeFlagged ? 'The recommended design direction\'s own risk notes already flag it as resembling existing comparables.' : 'No derivative-design signal was flagged in the recommended direction\'s own risk notes.',
+    'INFERENCE');
+
+  return { checks };
+}

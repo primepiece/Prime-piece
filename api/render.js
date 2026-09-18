@@ -5,6 +5,17 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
+  // Disabled as of the 2026-09-18 cost/architecture audit: this endpoint is not linked
+  // from any current page (grep found zero references to /api/render or render.html
+  // anywhere else in the site) but is still deployed and reachable by direct URL, with
+  // no auth and no rate limiting, calling a premium model (claude-opus-4-5) with a full
+  // image on every request plus a Replicate image-generation call — an unmetered,
+  // unauthenticated spend surface. Set RENDER_FEATURE_ENABLED=true only once real
+  // auth/rate-limiting exists.
+  if (process.env.RENDER_FEATURE_ENABLED !== 'true') {
+    return res.status(503).json({ error: 'This feature is temporarily disabled.' });
+  }
+
   const { imageBase64, imageMime, stone, piece } = req.body;
 
   if (!imageBase64 || !stone || !piece) {

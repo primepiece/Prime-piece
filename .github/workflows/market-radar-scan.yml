@@ -1,16 +1,23 @@
 name: Market Radar scan
 
-# Runs automatically every day (see `schedule` below) so Prime Piece Pulse gets
-# smarter without anyone touching it, and stays available for manual runs via
-# workflow_dispatch (diagnostics, one-off candidate research, or re-running 'daily'
-# by hand). A scheduled run always uses RADAR_MODE=daily — `inputs.mode` is only
-# populated for workflow_dispatch, so `inputs.mode || 'daily'` below falls through
-# to 'daily' on a cron-triggered run.
+# The nightly `schedule` trigger is TEMPORARILY DISABLED (see the comment on `on:`
+# below) — this workflow currently only runs when someone manually triggers it via
+# workflow_dispatch. If/when the schedule is re-enabled, a cron-triggered run always
+# uses RADAR_MODE=daily — `inputs.mode` is only populated for workflow_dispatch, so
+# `inputs.mode || 'daily'` below falls through to 'daily' on a cron-triggered run.
 on:
-  schedule:
-    # 15:00 UTC = ~3am NZST / ~4am NZDT — comfortably before any normal NZ workday
-    # starts, with a wide buffer either side of the NZ daylight-saving switchover.
-    - cron: "0 15 * * *"
+  # Scheduled nightly 'daily' run TEMPORARILY DISABLED as of the 2026-09-18 cost/
+  # architecture audit — an unattended cron job spending real Anthropic credits every
+  # night with no per-run review was one of the two biggest "unexpected spend" risks
+  # found (the other was demand-evidence's uncapped fan-out, now capped below). Re-
+  # enable by uncommenting the block below only once the Redis daily/monthly budget
+  # guard (scale-os/lib/store.js getAnthropicSpend/recordAnthropicSpend, enforced in
+  # scripts/market-radar/run.mjs) has been observed working correctly for a few real
+  # manual runs.
+  # schedule:
+  #   # 15:00 UTC = ~3am NZST / ~4am NZDT — comfortably before any normal NZ workday
+  #   # starts, with a wide buffer either side of the NZ daylight-saving switchover.
+  #   - cron: "0 15 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -54,7 +61,7 @@ on:
         type: string
         default: "3"
       search_budget:
-        description: "Max web searches per Claude call (2-10). Higher = more thorough, more cost."
+        description: "Unused as of the 2026-09-18 cost audit — hunt/refresh/candidate/daily no longer use Anthropic's agentic web_search (converted to Tavily retrieval, like every other mode). Kept only so old saved run configs don't break; has no effect."
         required: false
         type: string
         default: "6"
@@ -104,6 +111,35 @@ jobs:
           RADAR_SEARCH_BUDGET: ${{ inputs.search_budget || '6' }}
           RADAR_DRY_RUN: ${{ inputs.dry_run }}
           DIAG_MODE: ${{ inputs.mode == 'diag-basic' && 'basic' || (inputs.mode == 'diag-search' && 'search' || '') }}
+          # --- Cost guardrails (2026-09-18 audit) — operational safety knobs, not a
+          # research feature, so these are plain hardcoded env vars here rather than
+          # workflow_dispatch inputs. Edit these values directly (and via a PR, like any
+          # other code change) rather than exposing them on the dispatch form.
+          # A single run.mjs process refuses to make more than this many real Anthropic
+          # calls total, counting every retry — see run.mjs's assertBudgetAvailable/
+          # MAX_ANTHROPIC_CALLS_PER_RUN. 30 comfortably covers the worst-case legitimate
+          # 'daily' run (hunt + up to 5 refreshed + up to 5 newly-hunted enrichments,
+          # each up to 2 attempts, plus 1 synthesis call = 23) with headroom, while still
+          # being a real ceiling far below what an uncapped bug could run up.
+          MAX_ANTHROPIC_CALLS_PER_RUN: "30"
+          # Placeholder per-1K-token USD rates used only to ESTIMATE spend for the budget
+          # guard below — set these to the account's actual contracted rate for an
+          # accurate dollar figure; the guard itself (refusing further calls once the
+          # estimate crosses the budget) works regardless of how accurate the rate is.
+          ANTHROPIC_PRICE_PER_1K_INPUT_USD: "0.003"
+          ANTHROPIC_PRICE_PER_1K_OUTPUT_USD: "0.015"
+          # Hard refusal thresholds, checked before every real Anthropic call against a
+          # running total kept in Redis (scale_os:anthropic_spend:v1) — once either is
+          # reached, every mode except 'list' refuses to make another paid call until the
+          # next UTC day/month. Tune to the account's real budget.
+          ANTHROPIC_DAILY_BUDGET_USD: "5"
+          ANTHROPIC_MONTHLY_BUDGET_USD: "50"
+          # Caps the fan-out of demand-evidence (previously: every Fit-passing
+          # opportunity, unbounded — 19 in one real run this week), fast-track
+          # (previously: every PENDING request in one run, unbounded), and quote-capture
+          # (previously: every pending supplier reply, unbounded) to this many targets
+          # per run. Re-run to cover whatever's left over the cap.
+          RADAR_MAX_TARGETS_PER_RUN: "5"
         run: |
           if [[ "${{ inputs.mode }}" == diag-* ]]; then
             node scripts/market-radar/diag.mjs

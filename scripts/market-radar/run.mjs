@@ -26,8 +26,8 @@
 // separately on top of tokens) — that's why hunting and search-per-candidate are both
 // capped by env vars, and why RADAR_DRY_RUN exists to exercise the merge/audit/rank code
 // paths for free before ever touching the real API.
-import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote, getFastTrackAnalyses, saveFastTrackAnalyses, createFastTrackRequest } from '../../scale-os/lib/store.js';
-import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice, computeFitGate, rankFastTrackSuppliers, computeFastTrackEconomics, computeFastTrackDecision } from './scoring.mjs';
+import { getRadarOpportunities, saveRadarOpportunities, getProducts, savePulseBrief, saveSupplierBatch, createApprovalRequest, getSuppliers, getApprovals, applyParsedQuote, getFastTrackAnalyses, saveFastTrackAnalyses, createFastTrackRequest, getAnthropicSpend, recordAnthropicSpend } from '../../scale-os/lib/store.js';
+import { computeOpportunityScore, computeConfidenceScore, trendDirectionFromHistory, SCORE_WEIGHTS, rankSuppliers, selectOutreachBatch, representativeUnitPrice, computeFitGate, rankFastTrackSuppliers, computeFastTrackEconomics, computeFastTrackDecision, computeFastTrackRiskAssessment } from './scoring.mjs';
 
 // Sonnet 5, not Opus 5: this is structured research synthesis over web-search results,
 // not deep multi-step reasoning, and the brief was explicit about running this
@@ -44,12 +44,20 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const MODE = process.env.RADAR_MODE || 'hunt'; // 'hunt' | 'candidate' | 'refresh' | 'daily' | 'supplier' | 'quote-capture' | 'demand-evidence' | 'fast-track' | 'list'
 const HUNT_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_HUNT_COUNT) || 3));
 const REFRESH_COUNT = Math.max(1, Math.min(5, Number(process.env.RADAR_REFRESH_COUNT) || 3));
-const SEARCH_BUDGET = Math.max(2, Math.min(10, Number(process.env.RADAR_SEARCH_BUDGET) || 6));
-// Fallback budget for a research call's one retry after its full-budget attempt times
-// out — fewer searches means a shorter server-side tool loop, so the retry has a real
-// chance of finishing inside REQUEST_TIMEOUT_MS instead of repeating the same timeout.
-const RETRY_SEARCH_BUDGET = Math.max(2, Math.floor(SEARCH_BUDGET / 2));
+// RADAR_SEARCH_BUDGET / a SEARCH_BUDGET constant used to control how many internal
+// web_search rounds huntCandidates/enrichCandidate's agentic Claude call could make.
+// Removed in the 2026-09-18 cost/architecture audit along with that agentic call
+// itself (both are now Tavily-retrieval + one plain Claude call, like every other
+// research stage in this file) — RADAR_SEARCH_BUDGET is still accepted as a
+// workflow_dispatch input for backward compatibility but no longer does anything.
 const DRY_RUN = process.env.RADAR_DRY_RUN === '1' || process.env.RADAR_DRY_RUN === 'true';
+
+// Caps the fan-out of demand-evidence/fast-track/quote-capture, all of which used to
+// process EVERY eligible target in one run with no limit — demand-evidence alone hit
+// 19 targets (up to 38 Claude calls) in one real run this week. Re-run to cover
+// whatever's left over the cap; nothing here changes which targets are eligible, only
+// how many get processed per run.
+const MAX_TARGETS_PER_RUN = Math.max(1, Math.min(50, Number(process.env.RADAR_MAX_TARGETS_PER_RUN) || 5));
 
 // findSuppliers() no longer uses Anthropic's web_search tool at all (see the Supplier
 // research section below) — two real production runs on 2026-09-16 timed out at the
@@ -140,12 +148,72 @@ async function fetchWithRetry(url, options, label) {
   throw lastErr;
 }
 
+// --- Cost guardrails (2026-09-18 cost/architecture audit) --------------------------
+// Two independent backstops, both enforced inside callClaude() so nothing that calls
+// it can bypass them: (1) a per-process call counter that dies with this run and (2) a
+// cross-run Redis-backed daily/monthly spend estimate. Neither replaces the per-mode
+// caps above (HUNT_COUNT/REFRESH_COUNT/MAX_TARGETS_PER_RUN) — those bound WHAT a run
+// tries to do; these bound what happens if a cap is misconfigured, a retry loop
+// misbehaves, or a future change adds a call site without thinking about cost.
+
+// A single run.mjs process is one GitHub Actions job. This counter lives for exactly
+// one run, and counts every real Anthropic HTTP attempt — including a function's own
+// logical retries (huntCandidates/enrichCandidate/findSuppliers/Fast Track supplier
+// search each retry up to once) — a retry that costs money still counts toward this
+// ceiling, it never gets its own separate budget.
+const MAX_ANTHROPIC_CALLS_PER_RUN = Math.max(1, Number(process.env.MAX_ANTHROPIC_CALLS_PER_RUN) || 30);
+let anthropicCallsThisRun = 0;
+
+// Placeholder per-1K-token USD rates, used ONLY to estimate spend for the budget guard
+// below — set ANTHROPIC_PRICE_PER_1K_INPUT_USD / ANTHROPIC_PRICE_PER_1K_OUTPUT_USD
+// (workflow env, see market-radar-scan.yml) to the account's actual contracted rate
+// for an accurate dollar figure. The guard's *behavior* (refusing further calls once
+// the estimate crosses the budget) is correct and real either way; only the precision
+// of the dollar amount depends on these two numbers being kept up to date.
+const PRICE_PER_1K_INPUT_USD = Number(process.env.ANTHROPIC_PRICE_PER_1K_INPUT_USD) || 0.003;
+const PRICE_PER_1K_OUTPUT_USD = Number(process.env.ANTHROPIC_PRICE_PER_1K_OUTPUT_USD) || 0.015;
+const DAILY_BUDGET_USD = Number(process.env.ANTHROPIC_DAILY_BUDGET_USD) || 5;
+const MONTHLY_BUDGET_USD = Number(process.env.ANTHROPIC_MONTHLY_BUDGET_USD) || 50;
+const THIS_MONTH = TODAY.slice(0, 7);
+
+function estimateCallCostUSD(usage) {
+  if (!usage) return 0;
+  const inputTokens = (usage.input_tokens || 0) + (usage.cache_creation_input_tokens || 0) + (usage.cache_read_input_tokens || 0);
+  const outputTokens = usage.output_tokens || 0;
+  return (inputTokens / 1000) * PRICE_PER_1K_INPUT_USD + (outputTokens / 1000) * PRICE_PER_1K_OUTPUT_USD;
+}
+
+// Checked once at the top of main() (fail fast before spending anything on Tavily
+// retrieval too) AND inside callClaude() itself before every single real call (spend
+// accumulates DURING a long run, e.g. 'daily' — a run that started under budget can
+// still cross it partway through). DRY_RUN never reaches here at all (every DRY_RUN
+// branch returns a fixture before calling callClaude), so dry runs are never blocked
+// by, or able to trip, this guard.
+async function assertBudgetAvailable() {
+  const spend = await getAnthropicSpend();
+  const dayTotal = spend.daily[TODAY]?.totalEstimatedUSD || 0;
+  const monthTotal = spend.monthly[THIS_MONTH]?.totalEstimatedUSD || 0;
+  if (dayTotal >= DAILY_BUDGET_USD) {
+    throw new Error(`Anthropic DAILY budget guard tripped: est. $${dayTotal.toFixed(2)} spent today (${TODAY}) >= $${DAILY_BUDGET_USD} budget (ANTHROPIC_DAILY_BUDGET_USD). Refusing to make any further paid calls until tomorrow (UTC).`);
+  }
+  if (monthTotal >= MONTHLY_BUDGET_USD) {
+    throw new Error(`Anthropic MONTHLY budget guard tripped: est. $${monthTotal.toFixed(2)} spent this month (${THIS_MONTH}) >= $${MONTHLY_BUDGET_USD} budget (ANTHROPIC_MONTHLY_BUDGET_USD). Refusing to make any further paid calls until next month (UTC).`);
+  }
+}
+
 // maxSearches omitted (undefined) -> no web_search tool attached at all, for calls
 // that only need to reason over data already given to them (the Pulse synthesis
 // call) rather than research the web — cheaper and keeps that call's intent honest.
 async function callClaude({ system, prompt, maxSearches, maxTokens, responseFormat }) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not set — required for anything other than RADAR_DRY_RUN=1.');
+
+  await assertBudgetAvailable();
+  if (anthropicCallsThisRun >= MAX_ANTHROPIC_CALLS_PER_RUN) {
+    throw new Error(`MAX_ANTHROPIC_CALLS_PER_RUN (${MAX_ANTHROPIC_CALLS_PER_RUN}) reached for this run — refusing to make another Anthropic call. A retry counts toward this limit, it does not get its own budget.`);
+  }
+  anthropicCallsThisRun++;
+  log(`Anthropic call ${anthropicCallsThisRun}/${MAX_ANTHROPIC_CALLS_PER_RUN} this run.`);
 
   const body = {
     model: MODEL,
@@ -188,7 +256,22 @@ async function callClaude({ system, prompt, maxSearches, maxTokens, responseForm
     .join('\n');
   const searchesUsed = (data.content || []).filter((block) => block.type === 'server_tool_use' && block.name === 'web_search').length;
 
-  return { text, searchesUsed, usage: data.usage, stopReason: data.stop_reason };
+  const estimatedCostUSD = estimateCallCostUSD(data.usage);
+  if (estimatedCostUSD > 0) {
+    // Fail OPEN on the recording side (a Redis hiccup must never discard a research
+    // result that already succeeded) — assertBudgetAvailable above is where this
+    // system fails closed, on the CHECKING side, consistent with every other Redis
+    // dependency in this codebase (no other function here has a Redis-down fallback
+    // either).
+    try {
+      await recordAnthropicSpend({ dayKey: TODAY, monthKey: THIS_MONTH, addUSD: estimatedCostUSD, addCalls: 1 });
+    } catch (err) {
+      log(`Warning: failed to record Anthropic spend to Redis (budget guard may undercount): ${err.message}`);
+    }
+  }
+  log(`Anthropic call cost estimate: $${estimatedCostUSD.toFixed(4)} (usage: ${JSON.stringify(data.usage)}).`);
+
+  return { text, searchesUsed, usage: data.usage, stopReason: data.stop_reason, estimatedCostUSD };
 }
 
 // Pulls the first well-formed JSON value out of a model's free-text response —
@@ -222,6 +305,62 @@ function extractJson(text) {
 }
 
 // --- Agent 1: Opportunity Hunter ---------------------------------------------------
+// Converted off Anthropic's agentic web_search tool in the 2026-09-18 cost/
+// architecture audit: an open-ended "use web search" call with no explicit maxTokens
+// (silently defaulting to 8000) and up to SEARCH_BUDGET (default 6, max 10) internal
+// search rounds was the single least predictable cost surface in the whole system, and
+// the most frequently run. Now the same two-stage "Tavily retrieval, then one plain
+// non-tool Claude extraction call" pattern already proven by findSuppliers/
+// findDemandEvidence/Fast Track's market-validation & supplier-search stages below:
+// deterministic, capped, no server-side tool loop to run long or unpredictably.
+const HUNTER_EVIDENCE_LIMIT = 10;
+const HUNTER_EVIDENCE_SNIPPET_CHARS = 400;
+const HUNTER_MAX_TOKENS = 2000; // small, fixed-shape output (<= HUNT_COUNT short objects)
+
+function buildHunterSearchQueries() {
+  return [
+    'new natural stone marble travertine homeware product launch 2026',
+    'marble bathroom accessory new product trend',
+    'travertine kitchenware OR tableware new product',
+    'natural stone furniture decor design press feature',
+    'marble homeware trending product Instagram OR retailer',
+  ];
+}
+
+async function gatherHunterEvidence() {
+  if (!process.env.TAVILY_API_KEY) throw new Error('TAVILY_API_KEY is not set — required for Hunter (Stage 1 web retrieval).');
+  const queries = buildHunterSearchQueries();
+  const settled = await Promise.allSettled(queries.map((q) => tavilySearch(q, 5)));
+  const seen = new Set();
+  const evidence = [];
+  settled.forEach((result, i) => {
+    if (result.status === 'rejected') { log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`); return; }
+    for (const item of result.value) { if (!item.url || seen.has(item.url)) continue; seen.add(item.url); evidence.push(item); }
+  });
+  return evidence.sort((a, b) => b.score - a.score).slice(0, HUNTER_EVIDENCE_LIMIT);
+}
+
+const HUNTER_SCHEMA_EXAMPLE = `{"candidates": [{"product": "string", "variant": "string or empty", "category": "string", "rationale": "one sentence, cite what the evidence below actually shows"}]}`;
+const HUNTER_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      candidates: {
+        type: 'array',
+        maxItems: HUNT_COUNT,
+        items: {
+          type: 'object',
+          properties: {
+            product: { type: 'string' }, variant: { type: 'string' }, category: { type: 'string' }, rationale: { type: 'string', maxLength: 220 },
+          },
+          required: ['product', 'variant', 'category', 'rationale'], additionalProperties: false,
+        },
+      },
+    },
+    required: ['candidates'], additionalProperties: false,
+  },
+};
 
 export async function huntCandidates(excludeNames) {
   if (DRY_RUN) {
@@ -229,51 +368,51 @@ export async function huntCandidates(excludeNames) {
     return [{ product: 'Stone Soap Dispenser', variant: '', category: 'Bathroom Accessory', rationale: 'Dry-run fixture, not real research.' }];
   }
 
-  const system = 'You are the Opportunity Hunter for Prime Piece Pulse, the operating system for Prime Piece\'s scalable IMPORTED natural-stone (marble/travertine) ecommerce product business (Auckland, NZ). Your central question is: what scalable product should Prime Piece import, test, reorder, scale, hold or kill next? You use web search to find real, evidenced candidate product ideas — never invent products, prices, or competitors.';
-  const prompt = `Prime Piece already sells or has researched these products (do NOT suggest anything on this list, or an obvious near-duplicate of it):
+  const evidence = await gatherHunterEvidence();
+  log(`Hunter: gathered ${evidence.length} search result(s).`);
+
+  const system = 'You are the Opportunity Hunter for Prime Piece Pulse, the operating system for Prime Piece\'s scalable IMPORTED natural-stone (marble/travertine) ecommerce product business (Auckland, NZ). Extract REAL, evidenced candidate product ideas strictly from the search evidence given below — you have no web access of your own. Never invent a product, price, or competitor not supported by the evidence.';
+
+  const buildPrompt = (evidenceLimit) => {
+    const limited = evidence.slice(0, evidenceLimit);
+    const evidenceBlock = limited.map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, HUNTER_EVIDENCE_SNIPPET_CHARS)}`).join('\n\n');
+    return `Prime Piece already sells or has researched these products (do NOT suggest anything on this list, or an obvious near-duplicate of it):
 ${excludeNames.map((n) => `- ${n}`).join('\n')}
 
-Use web search to find ${HUNT_COUNT} NEW candidate natural-stone / marble / travertine homeware, bathroom, furniture, or decor products that show some real market signal (a retailer stocking it, a design-press trend mention, marketplace listings, etc.) — not just something that sounds nice. Prefer AU/NZ/UK/US/EU markets.
+Search evidence:
+${evidenceBlock || '(none found)'}
 
-Every candidate must be realistically importable at scale from an overseas manufacturer — this is a sourcing/import business, not a bespoke fabrication one. Strongly favour candidates that look:
-- repeatable/importable (a factory could produce many identical units, not a one-off commission)
-- premium-looking but compact relative to its value (ships economically, doesn't dominate freight cost)
-- high perceived value for its likely landed cost — ideally landed cost could plausibly be ≤30% of retail
-- capable of 60-70%+ gross margin at a premium retail price
-- visually strong (photographs/films well)
-- relatively low breakage/damage risk in freight and handling
-- differentiated in the NZ market, not already saturated
-- reorderable (not a novelty/one-time purchase)
-- capable of meaningful ecommerce scale (broad appeal, not a narrow niche)
+From ONLY the evidence above, identify UP TO ${HUNT_COUNT} NEW candidate natural-stone / marble / travertine homeware, bathroom, furniture, or decor products that show some real market signal — not just something that sounds nice. Fewer than ${HUNT_COUNT} is fine if fewer are well-supported; never pad to reach ${HUNT_COUNT}.
 
-Do NOT suggest anything that is:
-- bespoke-only, made-to-order, or requires NZ-based custom fabrication/one-off craftsmanship (Prime Piece Pulse explicitly excludes this — it belongs elsewhere in the business, not here)
-- bulky or low-value relative to its size/weight (poor freight economics)
-- a generic, undifferentiated commodity product
-- reliant on a large speculative minimum order quantity to be viable
-- in a category you can already tell is highly saturated in NZ with little realistic differentiation
+Every candidate must be realistically importable at scale from an overseas manufacturer — this is a sourcing/import business, not a bespoke fabrication one. Strongly favour candidates that look repeatable/importable, premium-looking but compact relative to value, high perceived value for likely landed cost, capable of 60-70%+ gross margin, visually strong, low breakage risk, differentiated in NZ, reorderable, and capable of meaningful ecommerce scale.
 
-Respond with ONLY a JSON array (no markdown fences, no prose) of exactly ${HUNT_COUNT} objects shaped like:
-[{"product": "string", "variant": "string or empty", "category": "string", "rationale": "one sentence, cite what you actually found"}]`;
+Do NOT suggest anything that is bespoke-only/custom-fabrication, bulky/low-value for its size, a generic undifferentiated commodity, reliant on a large speculative MOQ, or in a category the evidence shows is already saturated in NZ with little differentiation.
 
-  // Max 2 attempts total: full search budget, then — only if that timed out — one
-  // retry at a reduced budget. A third identical attempt would just repeat the same
-  // failure (see the AbortError comment in fetchWithRetry), so we don't make one.
-  const budgets = [SEARCH_BUDGET, RETRY_SEARCH_BUDGET];
-  let lastErr;
-  for (let i = 0; i < budgets.length; i++) {
+Respond with ONLY a JSON object in exactly this shape:
+${HUNTER_SCHEMA_EXAMPLE}`;
+  };
+
+  // One controlled retry only, with less evidence, if the first attempt truncates —
+  // never a larger token budget (mirrors the proven Fast Track supplier-search fix).
+  const evidenceBudgets = [HUNTER_EVIDENCE_LIMIT, Math.min(5, HUNTER_EVIDENCE_LIMIT)];
+  for (let attempt = 1; attempt <= evidenceBudgets.length; attempt++) {
     try {
-      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i] });
-      log(`Hunter used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      const prompt = buildPrompt(evidenceBudgets[attempt - 1]);
+      const { text, stopReason } = await callClaude({ system, prompt, maxTokens: HUNTER_MAX_TOKENS, responseFormat: HUNTER_RESPONSE_FORMAT });
+      if (stopReason === 'max_tokens') {
+        log(`Hunter attempt ${attempt}/${evidenceBudgets.length} truncated (stop_reason=max_tokens)${attempt < evidenceBudgets.length ? ' — retrying once with less evidence' : ''}.`);
+        continue;
+      }
       const parsed = extractJson(text);
-      if (!Array.isArray(parsed)) throw new Error('Hunter did not return a JSON array.');
-      return parsed;
+      const candidates = Array.isArray(parsed) ? parsed : parsed?.candidates;
+      if (!Array.isArray(candidates)) throw new Error('Hunter did not return a JSON array.');
+      return candidates;
     } catch (err) {
-      lastErr = err;
-      log(`Hunter attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
+      log(`Hunter attempt ${attempt}/${evidenceBudgets.length} failed: ${err.message}`);
+      if (attempt === evidenceBudgets.length) throw err;
     }
   }
-  throw lastErr;
+  throw new Error('Hunter response was truncated on every attempt — evidence for this run is incomplete, not absent.');
 }
 
 // --- Refresh: pick the N stalest existing opportunities to re-research ------------
@@ -294,6 +433,42 @@ export function pickStaleForRefresh(radar, count) {
 
 // --- Agents 2-6 (combined): Competitor Scout / Trend Scanner / Review Miner /
 //     Market Gap Finder / Economics Potential ------------------------------------
+// Converted off Anthropic's agentic web_search tool in the 2026-09-18 cost/
+// architecture audit, for the same reason as huntCandidates above — this was the
+// other call with no explicit maxTokens (defaulting to 8000) and up to 10 internal
+// search rounds, run once per candidate (up to 10 times in one 'daily' run). Same
+// Tavily-retrieval + one plain structured-output Claude call pattern; the schema
+// itself is unchanged (still the same fields scoring.mjs's rankAudited/auditRaw
+// expect), just now with maxItems/maxLength caps on every array/long-text field so a
+// well-evidenced product can't blow the token budget the way Fast Track's supplier
+// search and market validation both once did.
+const ENRICH_EVIDENCE_LIMIT = 8;
+const ENRICH_EVIDENCE_SNIPPET_CHARS = 400;
+const ENRICH_MAX_TOKENS = 6500;
+
+function buildEnrichSearchQueries({ product, variant, category }) {
+  const productLine = variant ? `${product} (${variant})` : product;
+  return [
+    `${productLine} price buy`,
+    `${productLine} reviews`,
+    `${productLine} ${category || ''} competitors`.replace(/\s+/g, ' ').trim(),
+    `${productLine} New Zealand OR Australia retailer`,
+    `${productLine} manufacturer wholesale supplier`,
+  ];
+}
+
+async function gatherEnrichEvidence({ product, variant, category }) {
+  if (!process.env.TAVILY_API_KEY) throw new Error('TAVILY_API_KEY is not set — required for Enrich (Stage 1 web retrieval).');
+  const queries = buildEnrichSearchQueries({ product, variant, category });
+  const settled = await Promise.allSettled(queries.map((q) => tavilySearch(q, 5)));
+  const seen = new Set();
+  const evidence = [];
+  settled.forEach((result, i) => {
+    if (result.status === 'rejected') { log(`Tavily search failed for query "${queries[i]}": ${result.reason?.message || result.reason}`); return; }
+    for (const item of result.value) { if (!item.url || seen.has(item.url)) continue; seen.add(item.url); evidence.push(item); }
+  });
+  return evidence.sort((a, b) => b.score - a.score).slice(0, ENRICH_EVIDENCE_LIMIT);
+}
 
 const ENRICH_SCHEMA_EXAMPLE = `{
   "product": "string",
@@ -315,7 +490,7 @@ const ENRICH_SCHEMA_EXAMPLE = `{
   "designerTradeSignals": ["string"],
   "disqualifiers": ["string — reasons this should never be a Prime Piece SKU regardless of score, e.g. not genuine stone, requires unrelated fabrication skill, bespoke trade-only install. Empty array if none."],
   "recommendedNextAction": "GET_SUPPLIER_PRICE | SAMPLE | MONITOR | IGNORE",
-  "sources": [{"url": "a real URL you actually retrieved via web search this session", "title": "string"}],
+  "sources": [{"url": "a real URL from the search evidence given", "title": "string"}],
   "scoreBreakdown": {
     "demandEvidence": {"score": 0-100, "why": "one line, grounded in evidence above"},
     "contributionProfit": {"score": 0-100, "why": "string"},
@@ -329,6 +504,95 @@ const ENRICH_SCHEMA_EXAMPLE = `{
     "crossSell": {"score": 0-100, "why": "string"}
   }
 }`;
+
+// A capped array of {score, why} pairs — used 10 times below (once per dimension) so
+// the maxLength on "why" is defined once rather than repeated 10 times.
+function scoreDimensionSchema() {
+  return {
+    type: 'object',
+    properties: { score: { type: 'number' }, why: { type: 'string', maxLength: 200 } },
+    required: ['score', 'why'], additionalProperties: false,
+  };
+}
+
+const ENRICH_RESPONSE_FORMAT = {
+  type: 'json_schema',
+  schema: {
+    type: 'object',
+    properties: {
+      product: { type: 'string' }, variant: { type: 'string' }, category: { type: 'string' },
+      productType: { type: 'string' }, mainMarket: { type: 'string' },
+      auPotential: { type: 'string' }, nzPotential: { type: 'string' }, tradePotential: { type: 'string' },
+      priceBand: {
+        type: 'object',
+        properties: { low: nullableNum(), high: nullableNum(), currency: { type: 'string' } },
+        required: ['low', 'high', 'currency'], additionalProperties: false,
+      },
+      demandSignal: {
+        type: 'object',
+        properties: { level: { type: 'string' }, type: { type: 'string' }, description: { type: 'string', maxLength: 300 } },
+        required: ['level', 'type', 'description'], additionalProperties: false,
+      },
+      competitors: {
+        type: 'array', maxItems: 6,
+        items: {
+          type: 'object',
+          properties: { name: { type: 'string' }, country: { type: 'string' }, priceLow: nullableNum(), priceHigh: nullableNum(), reviewCount: nullableNum(), bestsellerFlag: { type: 'boolean' } },
+          required: ['name', 'country', 'priceLow', 'priceHigh', 'reviewCount', 'bestsellerFlag'], additionalProperties: false,
+        },
+      },
+      reviews: {
+        type: 'object',
+        properties: {
+          positiveThemes: { type: 'array', maxItems: 5, items: { type: 'string', maxLength: 150 } },
+          complaints: { type: 'array', maxItems: 5, items: { type: 'string', maxLength: 150 } },
+          purchaseMotivations: { type: 'array', maxItems: 5, items: { type: 'string', maxLength: 150 } },
+        },
+        required: ['positiveThemes', 'complaints', 'purchaseMotivations'], additionalProperties: false,
+      },
+      trendSignals: {
+        type: 'array', maxItems: 5,
+        items: {
+          type: 'object',
+          properties: { signal: { type: 'string', maxLength: 200 }, type: { type: 'string' }, source: { type: 'string' } },
+          required: ['signal', 'type', 'source'], additionalProperties: false,
+        },
+      },
+      marketGap: {
+        type: 'object',
+        properties: { description: { type: 'string', maxLength: 400 }, gapScore: { type: 'number' } },
+        required: ['description', 'gapScore'], additionalProperties: false,
+      },
+      economicsPotential: {
+        type: 'object',
+        properties: {
+          retailPriceRangeEstimate: { type: 'string' }, aovBand: { type: 'string' }, paidAcquisitionSuitability: { type: 'string', maxLength: 200 },
+          grossMarginPotentialCategory: { type: 'string', maxLength: 200 }, freightDifficulty: { type: 'string' }, packagingDifficulty: { type: 'string' },
+          damageRisk: { type: 'string' }, crossSellPotential: { type: 'string', maxLength: 200 },
+        },
+        required: ['retailPriceRangeEstimate', 'aovBand', 'paidAcquisitionSuitability', 'grossMarginPotentialCategory', 'freightDifficulty', 'packagingDifficulty', 'damageRisk', 'crossSellPotential'],
+        additionalProperties: false,
+      },
+      operatingRisks: { type: 'array', maxItems: 5, items: { type: 'string', maxLength: 200 } },
+      designerTradeSignals: { type: 'array', maxItems: 5, items: { type: 'string', maxLength: 200 } },
+      disqualifiers: { type: 'array', maxItems: 5, items: { type: 'string', maxLength: 200 } },
+      recommendedNextAction: { type: 'string' },
+      sources: { type: 'array', maxItems: 6, items: { type: 'object', properties: { url: { type: 'string' }, title: { type: 'string', maxLength: 150 } }, required: ['url', 'title'], additionalProperties: false } },
+      scoreBreakdown: {
+        type: 'object',
+        properties: {
+          demandEvidence: scoreDimensionSchema(), contributionProfit: scoreDimensionSchema(), aovCac: scoreDimensionSchema(),
+          differentiation: scoreDimensionSchema(), adContent: scoreDimensionSchema(), auScale: scoreDimensionSchema(),
+          designerTrade: scoreDimensionSchema(), sourcing: scoreDimensionSchema(), operationalRisk: scoreDimensionSchema(), crossSell: scoreDimensionSchema(),
+        },
+        required: ['demandEvidence', 'contributionProfit', 'aovCac', 'differentiation', 'adContent', 'auScale', 'designerTrade', 'sourcing', 'operationalRisk', 'crossSell'],
+        additionalProperties: false,
+      },
+    },
+    required: ['product', 'variant', 'category', 'productType', 'mainMarket', 'auPotential', 'nzPotential', 'tradePotential', 'priceBand', 'demandSignal', 'competitors', 'reviews', 'trendSignals', 'marketGap', 'economicsPotential', 'operatingRisks', 'designerTradeSignals', 'disqualifiers', 'recommendedNextAction', 'sources', 'scoreBreakdown'],
+    additionalProperties: false,
+  },
+};
 
 export async function enrichCandidate({ product, variant, category }) {
   if (DRY_RUN) {
@@ -348,35 +612,50 @@ export async function enrichCandidate({ product, variant, category }) {
     };
   }
 
-  const system = 'You are the research/enrichment step of Prime Piece Pulse, the operating system for Prime Piece\'s scalable IMPORTED natural-stone ecommerce product business. You use web search and report ONLY what you actually find. Never invent a competitor, a price, a review count, or a URL. If you find nothing for a field, use null/empty/"Not found" rather than guessing, and reflect that honestly in demandSignal.type and confidence-relevant fields.';
-  const prompt = `Research this candidate product for Prime Piece (premium natural-stone ecommerce, Auckland NZ) using web search: "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
+  const evidence = await gatherEnrichEvidence({ product, variant, category });
+  log(`Enrich("${product}"): gathered ${evidence.length} search result(s).`);
 
-Find: real competitors and their prices, review counts/themes if visible, trend/design-press signals, the size of any pricing/market gap, and qualitative economics (retail price band, AOV, freight/damage difficulty, cross-sell fit). Score all 10 dimensions below 0-100 based only on what you found. Classify productType honestly — most candidates should be IMPORTED; only use BESPOKE_LOCAL if this genuinely cannot be manufactured overseas and imported at scale.
+  const system = 'You are the research/enrichment step of Prime Piece Pulse, the operating system for Prime Piece\'s scalable IMPORTED natural-stone ecommerce product business. Extract REAL facts strictly from the search evidence given below — you have no web access of your own. Never invent a competitor, a price, a review count, or a URL. If you find nothing for a field, use null/empty/"Not found" rather than guessing, and reflect that honestly in demandSignal.type and confidence-relevant fields.';
 
-Prime Piece Pulse's central question is what should be imported, tested, reordered, scaled, held or killed next — so flag disqualifiers honestly and put real weight on: bespoke-only or custom-fabrication-only products, bulky/low-value-for-size items with poor freight economics, generic commodity products with no differentiation, products that only make sense at a large speculative minimum order quantity, high compliance/import burden, and categories you can tell are already highly saturated in NZ. Any of these is a valid, useful disqualifier — a low score or a Kill-worthy disqualifier is a genuinely useful result, not a failure.
+  const buildPrompt = (evidenceLimit) => {
+    const limited = evidence.slice(0, evidenceLimit);
+    const evidenceBlock = limited.map((e, i) => `[${i + 1}] ${e.title || '(no title)'}\nURL: ${e.url}\n${(e.content || '').slice(0, ENRICH_EVIDENCE_SNIPPET_CHARS)}`).join('\n\n');
+    return `Research this candidate product for Prime Piece (premium natural-stone ecommerce, Auckland NZ): "${product}"${variant ? ` (variant: ${variant})` : ''}${category ? `, category: ${category}` : ''}.
 
-Respond with ONLY a JSON object (no markdown fences, no prose) in exactly this shape:
+Search evidence:
+${evidenceBlock || '(none found)'}
+
+From ONLY the evidence above, find: real competitors and their prices, review counts/themes if visible, trend/design-press signals, the size of any pricing/market gap, and qualitative economics (retail price band, AOV, freight/damage difficulty, cross-sell fit). Score all 10 dimensions below 0-100 based only on what you found. Classify productType honestly — most candidates should be IMPORTED; only use BESPOKE_LOCAL if this genuinely cannot be manufactured overseas and imported at scale.
+
+Prime Piece Pulse's central question is what should be imported, tested, reordered, scaled, held or killed next — so flag disqualifiers honestly and put real weight on: bespoke-only or custom-fabrication-only products, bulky/low-value-for-size items with poor freight economics, generic commodity products with no differentiation, products that only make sense at a large speculative minimum order quantity, high compliance/import burden, and categories the evidence shows are already highly saturated in NZ. Any of these is a valid, useful disqualifier — a low score or a Kill-worthy disqualifier is a genuinely useful result, not a failure.
+
+Respond with ONLY a JSON object in exactly this shape:
 ${ENRICH_SCHEMA_EXAMPLE}`;
+  };
 
-  // Max 2 attempts total: full search budget, then — only if that timed out — one
-  // retry at a reduced budget. If both fail, the caller (main()'s per-candidate try/
+  // One controlled retry only, with less evidence, if the first attempt truncates —
+  // never a larger token budget (same proven pattern as Fast Track's supplier search
+  // and huntCandidates above). If both fail, the caller (main()'s per-candidate try/
   // catch) marks this candidate failed and moves on; it never blocks the other
   // candidates or the Pulse synthesis step that follows them.
-  const budgets = [SEARCH_BUDGET, RETRY_SEARCH_BUDGET];
-  let lastErr;
-  for (let i = 0; i < budgets.length; i++) {
+  const evidenceBudgets = [ENRICH_EVIDENCE_LIMIT, Math.min(4, ENRICH_EVIDENCE_LIMIT)];
+  for (let attempt = 1; attempt <= evidenceBudgets.length; attempt++) {
     try {
-      const { text, searchesUsed } = await callClaude({ system, prompt, maxSearches: budgets[i] });
-      log(`Enrich("${product}") used ${searchesUsed} searches${i > 0 ? ` (retry at reduced budget ${budgets[i]})` : ''}.`);
+      const prompt = buildPrompt(evidenceBudgets[attempt - 1]);
+      const { text, stopReason } = await callClaude({ system, prompt, maxTokens: ENRICH_MAX_TOKENS, responseFormat: ENRICH_RESPONSE_FORMAT });
+      if (stopReason === 'max_tokens') {
+        log(`Enrich("${product}") attempt ${attempt}/${evidenceBudgets.length} truncated (stop_reason=max_tokens)${attempt < evidenceBudgets.length ? ' — retrying once with less evidence' : ''}.`);
+        continue;
+      }
       const parsed = extractJson(text);
       if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error(`Enrich("${product}") did not return a JSON object.`);
       return parsed;
     } catch (err) {
-      lastErr = err;
-      log(`Enrich("${product}") attempt ${i + 1}/${budgets.length} failed: ${err.message}`);
+      log(`Enrich("${product}") attempt ${attempt}/${evidenceBudgets.length} failed: ${err.message}`);
+      if (attempt === evidenceBudgets.length) throw err;
     }
   }
-  throw lastErr;
+  throw new Error(`Enrich("${product}") response was truncated on every attempt — evidence for this run is incomplete, not absent.`);
 }
 
 // --- Supplier research (Phase 2 — Supplier + Approval Engine, manual trigger only) --
@@ -1305,10 +1584,14 @@ export function mergeDemandEvidence(opportunity, evidence) {
   };
 }
 
-async function runDemandEvidenceMode() {
+export async function runDemandEvidenceMode() {
   const radar = await getRadarOpportunities();
-  const targets = radar.filter((o) => computeFitGate(o).result === 'PASS');
-  log(`Demand-evidence pass targeting ${targets.length} opportunity(ies) that currently PASS Prime Piece Fit: ${targets.map((o) => o.id).join(', ') || '(none)'}`);
+  const allTargets = radar.filter((o) => computeFitGate(o).result === 'PASS');
+  const targets = allTargets.slice(0, MAX_TARGETS_PER_RUN);
+  log(`Demand-evidence pass targeting ${targets.length} of ${allTargets.length} opportunity(ies) that currently PASS Prime Piece Fit: ${targets.map((o) => o.id).join(', ') || '(none)'}`);
+  if (allTargets.length > MAX_TARGETS_PER_RUN) {
+    log(`Capping this run to MAX_TARGETS_PER_RUN=${MAX_TARGETS_PER_RUN} (previously uncapped — this exact gate hit 19 targets in one real run on 2026-09-17). Re-run demand-evidence to cover the remaining ${allTargets.length - MAX_TARGETS_PER_RUN}.`);
+  }
   if (!targets.length) {
     log('Nothing to enrich — no opportunity currently passes Fit.');
     return;
@@ -1341,14 +1624,15 @@ async function runDemandEvidenceMode() {
 // FAST TRACK PRODUCT ANALYSIS (manual trigger only, RADAR_MODE=fast-track)
 // James pastes a product URL (+ optional supplier/competitor URLs, notes, image) into
 // Pulse; that creates a PENDING record in Redis (scale_os:fasttrack:v1) at zero cost.
-// This mode processes every PENDING record in one run — same "process everything
-// waiting" convention as quote-capture — through 6 real-evidence stages (Tavily
-// Extract for the pasted URLs, Tavily Search + a plain non-tool Claude call for
-// market/design/supplier research, one more plain Claude call for risk) plus one
-// deterministic stage (economics) and a deterministic decision assembly
-// (computeFastTrackDecision in scoring.mjs). Never runs automatically; never orders
-// anything; a KILL/HOLD/SAMPLE here is a recommendation for James, same as every
-// other decision this system produces.
+// This mode processes up to MAX_TARGETS_PER_RUN PENDING records in one run (see the
+// 2026-09-18 cost/architecture audit — this used to process every PENDING record with
+// no limit) through 4 real-evidence Claude-calling stages (Tavily Extract for the
+// pasted URLs, Tavily Search + a plain non-tool Claude call for market/design/supplier
+// research) plus two fully deterministic stages (economics, and — as of the same audit
+// — risk, computeFastTrackRiskAssessment in scoring.mjs) and a deterministic decision
+// assembly (computeFastTrackDecision, also scoring.mjs). Never runs automatically;
+// never orders anything; a KILL/HOLD/SAMPLE here is a recommendation for James, same
+// as every other decision this system produces.
 // =====================================================================================
 
 function nullableStr() { return nullable({ type: 'string' }); }
@@ -1727,47 +2011,13 @@ export async function fastTrackSupplierSearch({ category, supplierUrl }) {
 }
 
 // --- Stage 6: Risk assessment --------------------------------------------------------
-const FAST_TRACK_RISK_SCHEMA_EXAMPLE = `{"checks": [
-  {"item": "Food-contact safety", "severity": "HIGH | MEDIUM | LOW", "status": "CONFIRMED | LIKELY | UNKNOWN", "note": "string", "evidenceType": "FACT | ESTIMATE | INFERENCE | UNKNOWN"}
-]}`;
-const FAST_TRACK_RISK_ITEMS = ['Food-contact safety', 'Sealing', 'Heat resistance', 'Thermal shock', 'Staining', 'Acids', 'Cracking', 'Dishwasher suitability', 'Weight', 'Shipping breakage', 'Customer expectations', 'IP / design-copy risk'];
-const FAST_TRACK_RISK_RESPONSE_FORMAT = {
-  type: 'json_schema',
-  schema: {
-    type: 'object',
-    properties: {
-      checks: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: { item: { type: 'string' }, severity: { type: 'string' }, status: { type: 'string' }, note: { type: 'string' }, evidenceType: { type: 'string' } },
-          required: ['item', 'severity', 'status', 'note', 'evidenceType'], additionalProperties: false,
-        },
-      },
-    },
-    required: ['checks'], additionalProperties: false,
-  },
-};
-
-export async function fastTrackRiskAssessment({ extractedProduct, designIntelligence }) {
-  if (DRY_RUN) {
-    log('DRY RUN — skipping real Fast Track risk assessment, using a fixture.');
-    return { checks: FAST_TRACK_RISK_ITEMS.map((item) => ({ item, severity: 'LOW', status: 'UNKNOWN', note: 'Dry-run fixture.', evidenceType: 'UNKNOWN' })) };
-  }
-
-  // No web search here — this is a materials/food-safety/logistics judgment from the
-  // product's own extracted facts plus general natural-stone-material knowledge, not
-  // something a fresh web search resolves better. Every item still gets an honest
-  // evidenceType — most will be INFERENCE or ESTIMATE from material properties, not FACT.
-  const system = 'You are the risk-assessment step of Prime Piece Pulse\'s Fast Track workflow, evaluating a natural-stone product for real manufacturing/logistics/customer risks. Base every judgment on the product facts given plus genuine material-science/logistics knowledge — never claim FACT unless the extracted evidence itself stated it; use INFERENCE for a reasoned judgment from material properties, ESTIMATE for a rough quantitative guess, UNKNOWN when you genuinely cannot judge it.';
-  const prompt = `Product: ${JSON.stringify(extractedProduct)}.\nRecommended design direction: ${JSON.stringify(designIntelligence?.directions?.[designIntelligence?.recommendedDirection] || {})}.\n\nAssess EXACTLY these ${FAST_TRACK_RISK_ITEMS.length} risk items: ${FAST_TRACK_RISK_ITEMS.join(', ')}.\n\nRespond with ONLY a JSON object in exactly this shape:\n${FAST_TRACK_RISK_SCHEMA_EXAMPLE}`;
-
-  const { text, stopReason } = await callClaude({ system, prompt, maxTokens: 3000, responseFormat: FAST_TRACK_RISK_RESPONSE_FORMAT });
-  if (stopReason === 'max_tokens') throw new Error('Fast Track risk assessment response was truncated (stop_reason=max_tokens).');
-  const parsed = extractJson(text);
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Fast Track risk assessment did not return a JSON object.');
-  return parsed;
-}
+// Moved to deterministic JS (computeFastTrackRiskAssessment, scoring.mjs) in the
+// 2026-09-18 cost/architecture audit — this stage never used web search anyway (see
+// the removed prompt's own note that it was "a materials/food-safety/logistics
+// judgment ... not something a fresh web search resolves better"), so it was already
+// closer to a static lookup over a fixed 12-item checklist than a research task. Zero
+// marginal cost, zero truncation/retry risk, same output shape every downstream
+// consumer (computeFastTrackDecision, the Fast Track page) already expects.
 
 // --- Orchestrator ---------------------------------------------------------------------
 // Every stage is wrapped individually — one stage failing (e.g. a dead product URL, a
@@ -1834,8 +2084,11 @@ async function runOneFastTrackAnalysis(request) {
     fxRateAssumptionNote: 'USD→NZD FX rate (1.6) is a documented planning assumption, not a live rate.',
   };
 
+  // Deterministic — no Anthropic call, no DRY_RUN branch needed (it's already free
+  // and instant in every case). Still wrapped in try/catch: a malformed extraction
+  // shape should show up as an unmet pillar, never crash the whole analysis.
   try {
-    stages.risk = await fastTrackRiskAssessment({ extractedProduct: stages.extraction || {}, designIntelligence: stages.designIntelligence });
+    stages.risk = computeFastTrackRiskAssessment(stages.extraction || {}, stages.designIntelligence);
   } catch (err) {
     errors.push(`Risk assessment: ${err.message}`);
     log(`Fast Track [${request.id}] risk assessment FAILED: ${err.message}`);
@@ -1850,7 +2103,7 @@ async function runOneFastTrackAnalysis(request) {
   return { stages: { ...stages, supplierSearch: rankedSuppliers }, decision, errors };
 }
 
-async function runFastTrackMode() {
+export async function runFastTrackMode() {
   // Optional ad-hoc seed for a manual GitHub Actions run — same pattern as
   // RADAR_CANDIDATE for mode=candidate — so a request can be created and processed
   // in one run without needing the Fast Track page's own form submission first
@@ -1866,8 +2119,12 @@ async function runFastTrackMode() {
   }
 
   const analyses = await getFastTrackAnalyses();
-  const pending = analyses.filter((a) => a.status === 'PENDING');
-  log(`Fast Track: ${pending.length} pending request(s) to process.`);
+  const allPending = analyses.filter((a) => a.status === 'PENDING');
+  const pending = allPending.slice(0, MAX_TARGETS_PER_RUN);
+  log(`Fast Track: processing ${pending.length} of ${allPending.length} pending request(s).`);
+  if (allPending.length > MAX_TARGETS_PER_RUN) {
+    log(`Capping this run to MAX_TARGETS_PER_RUN=${MAX_TARGETS_PER_RUN} (previously uncapped). Re-run fast-track to process the remaining ${allPending.length - MAX_TARGETS_PER_RUN}.`);
+  }
   if (!pending.length) { log('Nothing to process.'); return; }
 
   let succeeded = 0, failed = 0;
@@ -1894,9 +2151,13 @@ async function runFastTrackMode() {
 // affected opportunity — recalculates real commercial ranking and landed economics and
 // creates one SAMPLE_ORDER approval. Never orders anything; the approval only records
 // a recommendation for James to accept or reject.
-async function runQuoteCaptureMode() {
+export async function runQuoteCaptureMode() {
   const suppliers = await getSuppliers();
-  const pending = suppliers.filter((s) => s.quoteParseStatus === 'PENDING');
+  const allPending = suppliers.filter((s) => s.quoteParseStatus === 'PENDING');
+  const pending = allPending.slice(0, MAX_TARGETS_PER_RUN);
+  if (allPending.length > MAX_TARGETS_PER_RUN) {
+    log(`${allPending.length} pending quote replies found — capping this run to MAX_TARGETS_PER_RUN=${MAX_TARGETS_PER_RUN}. Re-run quote-capture to parse the remaining ${allPending.length - MAX_TARGETS_PER_RUN}.`);
+  }
   if (!pending.length) {
     log('No pending supplier quote replies to parse.');
     return;
@@ -1996,6 +2257,15 @@ async function main() {
   if (MODE === 'list') {
     await runListMode();
     return;
+  }
+
+  // Fail fast, before spending anything on Tavily retrieval either, if the daily/
+  // monthly Anthropic budget is already exhausted — callClaude() checks this again
+  // before every individual call (spend accumulates DURING a run), this is just the
+  // earliest possible exit for every mode except 'list' (which never calls Anthropic)
+  // and DRY_RUN (which never calls Anthropic either, so has nothing to guard against).
+  if (!DRY_RUN) {
+    await assertBudgetAvailable();
   }
 
   if (MODE === 'supplier') {
