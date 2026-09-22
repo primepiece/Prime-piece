@@ -7,7 +7,7 @@
     { "source": "/contact", "destination": "/#contact", "permanent": true },
     { "source": "/contact-us", "destination": "/#contact", "permanent": true },
     { "source": "/marble-coffee-tables", "destination": "/#collection", "permanent": true },
-    { "source": "/coffee-tables", "destination": "/tables", "permanent": true },
+    { "source": "/coffee-tables", "destination": "/tables.html", "permanent": true },
     { "source": "/shop", "destination": "/#collection", "permanent": true },
     { "source": "/giveaway", "destination": "/", "permanent": true },
     { "source": "/500", "destination": "/", "permanent": true },

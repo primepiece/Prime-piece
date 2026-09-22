@@ -29,7 +29,7 @@ const CATALOG = {
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
   'plinth-grey-porcelain-450':       { name: 'Grey Porcelain Side Plinth',        price: 700  },
   'plinth-grey-porcelain-800':       { name: 'Grey Porcelain Plinth',             price: 1499 },
-  'plinth-indian-green-2':           { name: 'Indian Green Marble Plinth',        price: 1499 },
+  'plinth-indian-green-2':           { name: 'Indian Green Marble Plinth',        price: 3490 },
   'plinth-navarro':                  { name: 'Navarro Marble Plinth',             price: 3499 },
   'plinth-rosso-africano-plinth':    { name: 'Rosso Africano Marble Plinth',      price: 3800 },
   'plinth-rosso-africano-table-2':   { name: 'Rosso Africano Marble Table', price: 5800 },
