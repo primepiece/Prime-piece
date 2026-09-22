@@ -287,7 +287,7 @@
     max-width: 900px; width: 100%;
     border-radius: 2px; overflow: hidden;
     position: relative; max-height: 92vh;
-    display: grid; grid-template-columns: 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr);
   }
 
   .modal-img-col {
@@ -315,6 +315,7 @@
     padding: 40px 36px;
     display: flex; flex-direction: column;
     overflow-y: auto;
+    min-height: 0;
     border-left: 1px solid var(--line);
   }
 
@@ -964,11 +965,16 @@
   const BOARD_PRICES = {
     'board-lava-vein.jpg':    { price: 150, id: 'board-lava-vein',    sold: true },
     'board-golden-dune-web.jpg':  { price: 150, id: 'board-golden-dune',  sold: true },
-    'board-teal-tide-web.jpg':    { price: 99,  id: 'board-teal-tide' },
-    'board-emerald-vein-web.jpg': { price: 99,  id: 'board-emerald-vein' },
-    'board-pink-storm-web.jpg':   { price: 99,  id: 'board-pink-storm' },
-    'board-white-haven-web.jpg':  { price: 99,  id: 'board-white-haven' },
-    'board-volcanic-ash-web.jpg': { price: 99,  id: 'board-volcanic-ash' },
+    'board-teal-tide-web.jpg':    { price: 99,  id: 'board-teal-tide', sold: true },
+    'board-teal-tide-2.jpg':      { price: 160, id: 'board-teal-tide-2' },
+    'board-teal-tide-3.jpg':      { price: 99,  id: 'board-teal-tide-3', sold: true },
+    'board-teal-tide-4.jpg':      { price: 160, id: 'board-teal-tide-4' },
+    'board-emerald-vein-web.jpg': { price: 160, id: 'board-emerald-vein' },
+    'board-pink-storm-web.jpg':   { price: 190, id: 'board-pink-storm' },
+    'board-white-haven-web.jpg':  { price: 160, id: 'board-white-haven' },
+    'board-volcanic-ash-web.jpg': { price: 160, id: 'board-volcanic-ash' },
+    'board-green-onyx.jpg':       { price: 190, id: 'board-green-onyx' },
+    'board-india-green.jpg':      { price: 160, id: 'board-india-green' },
   };
 
   let _modalItem = null;
@@ -984,7 +990,14 @@
 
     const info = BOARD_PRICES[img];
     const btn = document.getElementById('modal-add-cart');
-    if (info) {
+    if (!info) {
+      _modalItem = null;
+      btn.onclick = null;
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'default';
+      btn.textContent = 'Currently Unavailable';
+    } else {
       if (info.sold) {
         _modalItem = null;
         btn.textContent = `NZD $${info.price} — Sold Out`;
