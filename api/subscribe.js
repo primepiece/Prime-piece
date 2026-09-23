@@ -10,80 +10,98 @@ export default async function handler(req, res) {
 
   const klaviyoKey = process.env.KLAVIYO_API_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
-
-  if (!klaviyoKey || !listId) {
-    console.error('Klaviyo env vars missing');
-    return res.status(500).json({ success: false, error: 'Configuration error' });
-  }
-
-  try {
-    // Step 1: Create or update profile
-    const profileRes = await fetch('https://a.klaviyo.com/api/profiles/', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
-        'Content-Type': 'application/json',
-        'revision': '2023-12-15',
-      },
-      body: JSON.stringify({
-        data: {
-          type: 'profile',
-          attributes: {
-            email,
-            first_name: name || '',
-            properties: { source },
-          },
-        },
-      }),
-    });
-
-    let profileId;
-    if (profileRes.status === 201) {
-      const profileData = await profileRes.json();
-      profileId = profileData.data.id;
-    } else if (profileRes.status === 409) {
-      const profileData = await profileRes.json();
-      profileId = profileData.errors?.[0]?.meta?.duplicate_profile_id;
-    } else {
-      const err = await profileRes.json().catch(() => ({}));
-      console.error('Klaviyo profile error:', JSON.stringify(err));
-      return res.status(500).json({ success: false, error: 'Klaviyo profile error' });
-    }
-
-    if (!profileId) {
-      console.error('Klaviyo profile ID missing after 409');
-      return res.status(500).json({ success: false, error: 'Klaviyo profile ID missing' });
-    }
-
-    // Step 2: Add profile to list
-    const listRes = await fetch(`https://a.klaviyo.com/api/lists/${listId}/relationships/profiles/`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
-        'Content-Type': 'application/json',
-        'revision': '2023-12-15',
-      },
-      body: JSON.stringify({
-        data: [{ type: 'profile', id: profileId }],
-      }),
-    });
-    // 204 = already on list (idempotent success), 2xx = added
-    if (!listRes.ok && listRes.status !== 204) {
-      const err = await listRes.json().catch(() => ({}));
-      console.error('Klaviyo list error:', JSON.stringify(err));
-      return res.status(500).json({ success: false, error: 'Klaviyo list error' });
-    }
-  } catch (err) {
-    console.error('Subscribe error:', err);
-    return res.status(500).json({ success: false, error: 'Unexpected error' });
-  }
-
-  // Send confirmation email — basin waitlist gets a launch confirmation, others get PRIME10
   const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey && email) {
-    const firstName = (name || '').split(' ')[0] || 'there';
-    const isBasinWaitlist = source === 'basin-collection-teaser';
+  const firstName = (name || '').split(' ')[0] || 'there';
+  const isBasinWaitlist = source === 'basin-collection-teaser';
 
+  // Klaviyo is best-effort — a Klaviyo outage or misconfiguration must never
+  // cause a lead to be lost. James's notification email below is the
+  // guaranteed capture path.
+  let klaviyoOk = false;
+  if (klaviyoKey && listId) {
+    try {
+      const profileRes = await fetch('https://a.klaviyo.com/api/profiles/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
+          'Content-Type': 'application/json',
+          'revision': '2023-12-15',
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'profile',
+            attributes: { email, first_name: name || '', properties: { source } },
+          },
+        }),
+      });
+
+      let profileId;
+      if (profileRes.status === 201) {
+        profileId = (await profileRes.json()).data.id;
+      } else if (profileRes.status === 409) {
+        const profileData = await profileRes.json();
+        profileId = profileData.errors?.[0]?.meta?.duplicate_profile_id;
+      } else {
+        console.error('Klaviyo profile error:', JSON.stringify(await profileRes.json().catch(() => ({}))));
+      }
+
+      if (profileId) {
+        const listRes = await fetch(`https://a.klaviyo.com/api/lists/${listId}/relationships/profiles/`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
+            'Content-Type': 'application/json',
+            'revision': '2023-12-15',
+          },
+          body: JSON.stringify({ data: [{ type: 'profile', id: profileId }] }),
+        });
+        // 204 = already on list (idempotent success), 2xx = added
+        klaviyoOk = listRes.ok || listRes.status === 204;
+        if (!klaviyoOk) console.error('Klaviyo list error:', JSON.stringify(await listRes.json().catch(() => ({}))));
+      }
+    } catch (err) {
+      console.error('Klaviyo error:', err);
+    }
+  } else {
+    console.error('Klaviyo env vars missing');
+  }
+
+  // Instant notification to James — this is the guaranteed capture path.
+  // Runs regardless of whether Klaviyo succeeded, so a subscriber is never
+  // silently lost.
+  let notifyOk = false;
+  if (resendKey) {
+    try {
+      const notifyRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
+        body: JSON.stringify({
+          from: 'Prime Piece <james@primepiece.co.nz>',
+          to: ['james@primepiece.co.nz'],
+          reply_to: email,
+          subject: `New subscriber — ${email}${isBasinWaitlist ? ' · Basin Waitlist' : ''}`,
+          html: `
+            <div style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;max-width:480px;">
+              <div style="background:#2c2a26;padding:20px 28px;margin-bottom:24px;">
+                <div style="color:#C9A96E;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece — New Subscriber</div>
+                <div style="color:#fff;font-size:18px;font-weight:300;">${email}</div>
+              </div>
+              <table style="font-size:14px;line-height:2;color:#444;width:100%;">
+                <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
+                ${name ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Name</td><td>${name}</td></tr>` : ''}
+                <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Source</td><td>${source}</td></tr>
+                <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Klaviyo</td><td>${klaviyoOk ? 'Added ✓' : 'Not added — check KLAVIYO_API_KEY / KLAVIYO_LIST_ID'}</td></tr>
+              </table>
+            </div>`,
+        }),
+      });
+      notifyOk = notifyRes.ok;
+      if (!notifyOk) console.error('Notify email error:', JSON.stringify(await notifyRes.json().catch(() => ({}))));
+    } catch (err) {
+      console.error('Notify email error:', err);
+    }
+
+    // Customer-facing confirmation email — fire and forget.
     const emailPayload = isBasinWaitlist ? {
       from: 'James at Prime Piece <james@primepiece.co.nz>',
       to: [email],
@@ -130,6 +148,13 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
       body: JSON.stringify(emailPayload),
     }).catch(err => console.error('Confirmation email error:', err));
+  } else {
+    console.error('Resend env var missing — no notification or confirmation email sent');
+  }
+
+  if (!klaviyoOk && !notifyOk) {
+    // Both capture paths failed — this lead genuinely was not recorded anywhere.
+    return res.status(500).json({ success: false, error: 'Subscription failed — please try again or contact us directly' });
   }
 
   return res.status(200).json({ success: true });
