@@ -291,7 +291,7 @@
     max-width: 900px; width: 100%;
     border-radius: 2px; overflow: hidden;
     position: relative; max-height: 92vh;
-    display: grid; grid-template-columns: 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr);
   }
 
   .modal-img-col {
@@ -317,6 +317,7 @@
     padding: 40px 36px;
     display: flex; flex-direction: column;
     overflow-y: auto;
+    min-height: 0;
     border-left: 1px solid var(--line);
   }
 
@@ -529,7 +530,7 @@
   </div>
 
   <!-- 2. Rosso Africano Table $4,900 -->
-  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Africano Marble Table','Rosso Africano Marble','plinth-7.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',4900,'plinth-rosso-africano-table-2')">
+  <div class="plinth-card reveal" data-tags="marble dark" onclick="openModal('Rosso Africano Marble Table','Rosso Africano Marble','plinth-7.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',5800,'plinth-rosso-africano-table-2')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-7.jpg" alt="Rosso Africano marble coffee table plinth 950x760mm handcrafted Auckland New Zealand" loading="lazy">
@@ -539,14 +540,14 @@
       <div class="plinth-name">Rosso Africano Marble</div>
       <div class="plinth-stone">Rosso Africano Marble</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
-      <div class="plinth-price">NZD $4,900</div>
+      <div class="plinth-price">NZD $5,800</div>
       <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot" style="flex-direction:column;gap:8px;align-items:stretch;">
         <div style="display:flex;gap:8px;">
           <span class="plinth-type">Coffee Table Plinth</span>
-          <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-table-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-table-2',name:'Rosso Africano Marble Table',type:'Coffee Table Plinth',image:'plinth-7.jpg',price:4900})">Add to Cart →</button>
+          <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-table-2" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-table-2',name:'Rosso Africano Marble Table',type:'Coffee Table Plinth',image:'plinth-7.jpg',price:5800})">Add to Cart →</button>
         </div>
-        <button class="enquire-btn" style="background:var(--sage);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;border-radius:1px;font-family:'Inter Tight',sans-serif;font-weight:500;" onclick="event.stopPropagation(); Cart.remove('plinth-rosso-africano-table-2'); Cart.remove('plinth-rosso-africano-plinth'); Cart.remove('rosso-bundle'); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-7.jpg',price:7000})">Buy Both for NZD $7,000 →</button>
+        <button class="enquire-btn" style="background:var(--sage);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;border-radius:1px;font-family:'Inter Tight',sans-serif;font-weight:500;" onclick="event.stopPropagation(); Cart.remove('plinth-rosso-africano-table-2'); Cart.remove('plinth-rosso-africano-plinth'); Cart.remove('rosso-bundle'); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-7.jpg',price:7750})">Buy Both for NZD $7,750 →</button>
       </div>
     </div>
   </div>
@@ -589,13 +590,13 @@
           <span class="plinth-type">Plinth</span>
           <button class="enquire-btn pp-add-btn" data-id="plinth-rosso-africano-plinth" onclick="event.stopPropagation(); Cart.add({id:'plinth-rosso-africano-plinth',name:'Rosso Africano Marble',type:'Plinth',image:'plinth-3.jpg',price:3800})">Add to Cart →</button>
         </div>
-        <button class="enquire-btn" style="background:var(--sage);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;border-radius:1px;font-family:'Inter Tight',sans-serif;font-weight:500;" onclick="event.stopPropagation(); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-3.jpg',price:7000})">Buy Both for NZD $7,000 →</button>
+        <button class="enquire-btn" style="background:var(--sage);color:white;border:none;font-size:11px;letter-spacing:0.2em;padding:10px 14px;cursor:pointer;border-radius:1px;font-family:'Inter Tight',sans-serif;font-weight:500;" onclick="event.stopPropagation(); Cart.add({id:'rosso-bundle',name:'Rosso Africano Bundle — Table + Plinth',type:'Bundle',image:'plinth-3.jpg',price:7750})">Buy Both for NZD $7,750 →</button>
       </div>
     </div>
   </div>
 
   <!-- 3. Verde Apli Table $4,000 -->
-  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Verde Apli Marble Table','Verde Apli Marble','plinth-9.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',4000,'plinth-verde-apli-table')">
+  <div class="plinth-card reveal" data-tags="marble green" onclick="openModal('Verde Apli Marble Table','Verde Apli Marble','plinth-9.jpg','L: 950mm × W: 760mm × H: 300mm','Coffee Table Plinth',5200,'plinth-verde-apli-table')">
     <div class="plinth-img-wrap">
       <span class="plinth-badge">Available</span>
       <img class="plinth-img" src="plinth-9.jpg" alt="Verde Apli marble coffee table plinth green stone handcrafted Auckland New Zealand" loading="lazy">
@@ -605,11 +606,11 @@
       <div class="plinth-name">Verde Apli Marble</div>
       <div class="plinth-stone">Verde Apli Marble</div>
       <div class="plinth-dims">L: 950mm × W: 760mm × H: 300mm</div>
-      <div class="plinth-price">NZD $4,000</div>
+      <div class="plinth-price">NZD $5,200</div>
       <div class="stock-warn">⚡ Only 1 available</div>
       <div class="plinth-foot">
         <span class="plinth-type">Coffee Table Plinth</span>
-        <button class="enquire-btn pp-add-btn" data-id="plinth-verde-apli-table" onclick="event.stopPropagation(); Cart.add({id:'plinth-verde-apli-table',name:'Verde Apli Marble Table',type:'Coffee Table Plinth',image:'plinth-9.jpg',price:4000})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="plinth-verde-apli-table" onclick="event.stopPropagation(); Cart.add({id:'plinth-verde-apli-table',name:'Verde Apli Marble Table',type:'Coffee Table Plinth',image:'plinth-9.jpg',price:5200})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -849,7 +850,7 @@
       <a href="tables.html">Tables</a>
       <a href="boards.html">Boards</a>
       <a href="gallery.html">Gallery</a>
-      <a href="/#made-to-order">Made To Order</a>
+      <a href="basins.html">Stone Basins</a>
     </div>
     <div class="footer-col">
       <h4>Brand</h4>
@@ -864,6 +865,7 @@
       <a href="tel:0211466990">021 146 6990</a>
       <a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a>
       <a href="privacy.html">Privacy Policy</a>
+      <a href="returns.html">Returns</a>
     </div>
     <div class="footer-col">
       <h4>Journal</h4>
@@ -913,6 +915,7 @@
         <span class="detail-val">One of one — never repeated</span>
       </div>
       <p class="modal-note">Natural stone colour and veining varies — every piece is completely unique.</p>
+      <p id="modal-care-note" style="display:none;font-size:12px;color:var(--stone);line-height:1.6;margin:0 0 12px;font-style:italic;">Marble may etch with acidic spills (lemon, wine, vinegar) — a full care guide is included with every piece.</p>
       <div id="modal-afterpay" style="display:none;text-align:center;font-size:11px;color:var(--stone);margin-bottom:2px;">or 4 payments of <strong id="modal-ap-amount" style="color:var(--ink);"></strong> with <strong style="color:var(--ink);">Afterpay</strong> <span style="font-size:10px;opacity:0.6;">ⓘ</span></div>
       <div class="modal-actions">
         <button class="modal-btn-primary" id="modal-add-cart" onclick="addModalToCart()">Add to Cart →</button>
@@ -924,7 +927,7 @@
           <a href="tables.html?p=table-pietra-noir#cat-coffee" class="modal-crosssell-item" onclick="event.stopPropagation()">
             <img class="modal-crosssell-img" src="pietra-noir-side-table.jpg" alt="Pietra Noir Coffee Table">
             <div class="modal-crosssell-name">Pietra Noir Table</div>
-            <div class="modal-crosssell-price">NZD $270</div>
+            <div class="modal-crosssell-price">NZD $480</div>
           </a>
           <a href="boards.html?p=board-teal-tide" class="modal-crosssell-item" onclick="event.stopPropagation()">
             <img class="modal-crosssell-img" src="board-teal-tide-web.jpg" alt="Teal Tide Serving Board">
@@ -934,7 +937,7 @@
           <a href="basins.html?p=carrara-vessel" class="modal-crosssell-item" onclick="event.stopPropagation()">
             <img class="modal-crosssell-img" src="white-carrara-vessel.jpg" alt="White Carrara Vessel Basin">
             <div class="modal-crosssell-name">White Carrara Basin</div>
-            <div class="modal-crosssell-price">NZD $1,190</div>
+            <div class="modal-crosssell-price">NZD $1,350</div>
           </a>
         </div>
       </div>
@@ -981,6 +984,8 @@
       if (price <= 2000) { apEl.style.display = 'block'; apAmt.textContent = '$' + Math.ceil(price / 4).toLocaleString('en-NZ'); }
       else { apEl.style.display = 'none'; }
     }
+    const careNote = document.getElementById('modal-care-note');
+    if (careNote) careNote.style.display = /marble/i.test(stone) ? 'block' : 'none';
     document.getElementById('modal-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
     const itemValue = enquireOnly ? 0 : price;

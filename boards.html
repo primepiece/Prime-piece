@@ -287,7 +287,7 @@
     max-width: 900px; width: 100%;
     border-radius: 2px; overflow: hidden;
     position: relative; max-height: 92vh;
-    display: grid; grid-template-columns: 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr);
   }
 
   .modal-img-col {
@@ -315,6 +315,7 @@
     padding: 40px 36px;
     display: flex; flex-direction: column;
     overflow-y: auto;
+    min-height: 0;
     border-left: 1px solid var(--line);
   }
 
@@ -539,7 +540,6 @@
   <div class="board-card reveal" data-tags="green" data-product-id="board-green-onyx" onclick="openModal('Jade Cloud','Green Marble Onyx','board-green-onyx.jpg','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-green-onyx.jpg" alt="Jade Cloud — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -547,10 +547,10 @@
       <div class="board-name">Jade Cloud</div>
       <div class="board-stone">Green Marble Onyx</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $190</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-green-onyx" onclick="event.stopPropagation(); Cart.add({id:'board-green-onyx',name:'Jade Cloud',type:'Serving Board',image:'board-green-onyx.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-green-onyx" onclick="event.stopPropagation(); Cart.add({id:'board-green-onyx',name:'Jade Cloud',type:'Serving Board',image:'board-green-onyx.jpg',price:190})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -558,7 +558,6 @@
   <div class="board-card reveal" data-tags="light" data-product-id="board-white-haven" onclick="openModal('White Haven','White Marble — Grey Veining','board-white-haven-web.jpg','L: 300mm × W: 200mm × D: 20mm','Classic white marble with bold grey and charcoal veining')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-white-haven-web.jpg" alt="White Haven — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -566,10 +565,10 @@
       <div class="board-name">White Haven</div>
       <div class="board-stone">White Marble — Grey Veining</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $160</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-white-haven" onclick="event.stopPropagation(); Cart.add({id:'board-white-haven',name:'White Haven',type:'Serving Board',image:'board-white-haven-web.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-white-haven" onclick="event.stopPropagation(); Cart.add({id:'board-white-haven',name:'White Haven',type:'Serving Board',image:'board-white-haven-web.jpg',price:160})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -595,7 +594,6 @@
   <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide II','Teal Marble — Gold Veining','board-teal-tide-2.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-teal-tide-2.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -603,10 +601,10 @@
       <div class="board-name">Teal Tide II</div>
       <div class="board-stone">Teal Marble — Gold Veining</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $160</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-2" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-2',name:'Teal Tide II',type:'Serving Board',image:'board-teal-tide-2.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-2" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-2',name:'Teal Tide II',type:'Serving Board',image:'board-teal-tide-2.jpg',price:160})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -631,7 +629,6 @@
   <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide IV','Teal Marble — Gold Veining','board-teal-tide-4.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-teal-tide-4.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -639,10 +636,10 @@
       <div class="board-name">Teal Tide IV</div>
       <div class="board-stone">Teal Marble — Gold Veining</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $160</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-4" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-4',name:'Teal Tide IV',type:'Serving Board',image:'board-teal-tide-4.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-teal-tide-4" onclick="event.stopPropagation(); Cart.add({id:'board-teal-tide-4',name:'Teal Tide IV',type:'Serving Board',image:'board-teal-tide-4.jpg',price:160})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -684,7 +681,6 @@
   <div class="board-card reveal" data-tags="green dark" onclick="openModal('Emerald Vein','Dark Green Marble — White Veining','board-emerald-vein-web.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green marble with bold white veining throughout')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-emerald-vein-web.jpg" alt="Emerald Vein — dark green marble serving board white veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -692,10 +688,10 @@
       <div class="board-name">Emerald Vein</div>
       <div class="board-stone">Dark Green Marble — White Veining</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $160</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-emerald-vein" onclick="event.stopPropagation(); Cart.add({id:'board-emerald-vein',name:'Emerald Vein',type:'Serving Board',image:'board-emerald-vein-web.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-emerald-vein" onclick="event.stopPropagation(); Cart.add({id:'board-emerald-vein',name:'Emerald Vein',type:'Serving Board',image:'board-emerald-vein-web.jpg',price:160})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -703,7 +699,6 @@
   <div class="board-card reveal" data-tags="light" data-product-id="board-pink-storm" onclick="openModal('Pink Storm','Pink Onyx Marble','board-pink-storm-web.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-pink-storm-web.jpg" alt="Pink Storm — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -711,10 +706,10 @@
       <div class="board-name">Pink Storm</div>
       <div class="board-stone">Pink Onyx Marble</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $190</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-pink-storm" onclick="event.stopPropagation(); Cart.add({id:'board-pink-storm',name:'Pink Storm',type:'Serving Board',image:'board-pink-storm-web.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-pink-storm" onclick="event.stopPropagation(); Cart.add({id:'board-pink-storm',name:'Pink Storm',type:'Serving Board',image:'board-pink-storm-web.jpg',price:190})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -722,7 +717,6 @@
   <div class="board-card reveal" data-tags="green dark" onclick="openModal('Forest Stone','India Green Marble','board-india-green.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green with dramatic dark veining and a rich, earthy texture — India Green Marble from Rajasthan. Bold, grounded and completely one of one')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-india-green.jpg" alt="Forest Stone — India Green Marble serving board handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -730,10 +724,10 @@
       <div class="board-name">Forest Stone</div>
       <div class="board-stone">India Green Marble</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $160</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-india-green" onclick="event.stopPropagation(); Cart.add({id:'board-india-green',name:'Forest Stone',type:'Serving Board',image:'board-india-green.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-india-green" onclick="event.stopPropagation(); Cart.add({id:'board-india-green',name:'Forest Stone',type:'Serving Board',image:'board-india-green.jpg',price:160})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -741,7 +735,6 @@
   <div class="board-card reveal" data-tags="dark" onclick="openModal('Volcanic Ash','Dark Marble — Red & Gold Veining','board-volcanic-ash-web.jpg','L: 300mm × W: 200mm × D: 20mm','Dramatic dark marble with striking red and gold veining')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
-      <span class="sale-tag">20% OFF</span>
       <img class="board-img" src="board-volcanic-ash-web.jpg" alt="Volcanic Ash — dark marble serving board red gold veining handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -749,10 +742,10 @@
       <div class="board-name">Volcanic Ash</div>
       <div class="board-stone">Dark Marble — Red & Gold Veining</div>
       <div class="board-dims">L: 300mm × W: 200mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price"><s>NZD $124</s> NZD $99 <span class="save-pill">Save $25</span></div>
+      <div class="board-price">NZD $160</div>
       <div class="board-foot">
         <span class="board-type">Serving Board</span>
-        <button class="enquire-btn pp-add-btn" data-id="board-volcanic-ash" onclick="event.stopPropagation(); Cart.add({id:'board-volcanic-ash',name:'Volcanic Ash',type:'Serving Board',image:'board-volcanic-ash-web.jpg',price:99})">Add to Cart →</button>
+        <button class="enquire-btn pp-add-btn" data-id="board-volcanic-ash" onclick="event.stopPropagation(); Cart.add({id:'board-volcanic-ash',name:'Volcanic Ash',type:'Serving Board',image:'board-volcanic-ash-web.jpg',price:160})">Add to Cart →</button>
       </div>
     </div>
   </div>
@@ -856,7 +849,7 @@
       <a href="tables.html">Tables</a>
       <a href="boards.html">Boards</a>
       <a href="gallery.html">Gallery</a>
-      <a href="/#made-to-order">Made To Order</a>
+      <a href="basins.html">Stone Basins</a>
     </div>
     <div class="footer-col">
       <h4>Brand</h4>
@@ -871,6 +864,7 @@
       <a href="tel:0211466990">021 146 6990</a>
       <a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a>
       <a href="privacy.html">Privacy Policy</a>
+      <a href="returns.html">Returns</a>
     </div>
     <div class="footer-col">
       <h4>Journal</h4>
@@ -935,7 +929,7 @@
           <a href="tables.html?p=table-jade-horizon#cat-lounge" class="modal-crosssell-item" onclick="event.stopPropagation()">
             <img class="modal-crosssell-img" src="lounge-1.jpg" alt="Jade Horizon Lounge Table">
             <div class="modal-crosssell-name">Jade Horizon Table</div>
-            <div class="modal-crosssell-price">NZD $2,100</div>
+            <div class="modal-crosssell-price">NZD $2,750</div>
           </a>
           <a href="plinths.html?p=plinth-rosso-levanto-plinth" class="modal-crosssell-item" onclick="event.stopPropagation()">
             <img class="modal-crosssell-img" src="plinth-4-web.jpg" alt="Rosso Levanto Marble Plinth">
@@ -945,7 +939,7 @@
           <a href="basins.html?p=carrara-vessel" class="modal-crosssell-item" onclick="event.stopPropagation()">
             <img class="modal-crosssell-img" src="white-carrara-vessel.jpg" alt="White Carrara Vessel Basin">
             <div class="modal-crosssell-name">White Carrara Basin</div>
-            <div class="modal-crosssell-price">NZD $1,190</div>
+            <div class="modal-crosssell-price">NZD $1,350</div>
           </a>
         </div>
       </div>
@@ -971,11 +965,16 @@
   const BOARD_PRICES = {
     'board-lava-vein.jpg':    { price: 150, id: 'board-lava-vein',    sold: true },
     'board-golden-dune-web.jpg':  { price: 150, id: 'board-golden-dune',  sold: true },
-    'board-teal-tide-web.jpg':    { price: 99,  id: 'board-teal-tide' },
-    'board-emerald-vein-web.jpg': { price: 99,  id: 'board-emerald-vein' },
-    'board-pink-storm-web.jpg':   { price: 99,  id: 'board-pink-storm' },
-    'board-white-haven-web.jpg':  { price: 99,  id: 'board-white-haven' },
-    'board-volcanic-ash-web.jpg': { price: 99,  id: 'board-volcanic-ash' },
+    'board-teal-tide-web.jpg':    { price: 99,  id: 'board-teal-tide', sold: true },
+    'board-teal-tide-2.jpg':      { price: 160, id: 'board-teal-tide-2' },
+    'board-teal-tide-3.jpg':      { price: 99,  id: 'board-teal-tide-3', sold: true },
+    'board-teal-tide-4.jpg':      { price: 160, id: 'board-teal-tide-4' },
+    'board-emerald-vein-web.jpg': { price: 160, id: 'board-emerald-vein' },
+    'board-pink-storm-web.jpg':   { price: 190, id: 'board-pink-storm' },
+    'board-white-haven-web.jpg':  { price: 160, id: 'board-white-haven' },
+    'board-volcanic-ash-web.jpg': { price: 160, id: 'board-volcanic-ash' },
+    'board-green-onyx.jpg':       { price: 190, id: 'board-green-onyx' },
+    'board-india-green.jpg':      { price: 160, id: 'board-india-green' },
   };
 
   let _modalItem = null;
@@ -991,7 +990,14 @@
 
     const info = BOARD_PRICES[img];
     const btn = document.getElementById('modal-add-cart');
-    if (info) {
+    if (!info) {
+      _modalItem = null;
+      btn.onclick = null;
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'default';
+      btn.textContent = 'Currently Unavailable';
+    } else {
       if (info.sold) {
         _modalItem = null;
         btn.textContent = `NZD $${info.price} — Sold Out`;
