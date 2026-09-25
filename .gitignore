@@ -1,1 +1,5 @@
 node_modules/
+
+# Never commit customer data or bulk exports to the web root
+*.csv
+*.zip

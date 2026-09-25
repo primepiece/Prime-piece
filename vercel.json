@@ -15,7 +15,17 @@
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true },
     { "source": "/made-to-order", "destination": "/basins.html", "permanent": true },
-    { "source": "/made-to-order.html", "destination": "/basins.html", "permanent": true }
+    { "source": "/made-to-order.html", "destination": "/basins.html", "permanent": true },
+    { "source": "/klaviyo_import.csv", "destination": "/", "permanent": false },
+    { "source": "/index.backup-pre-redesign-2026-09-14.html", "destination": "/", "permanent": false },
+    { "source": "/plinths-ready.zip", "destination": "/", "permanent": false },
+    { "source": "/google1234abc.html", "destination": "/", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/(outreach-emails|email-lounge-clearance|render|ten|lookbook|lookbook-dark).html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ],
   "rewrites": [
     { "source": "/scale-os", "destination": "/api/scale-os/dashboard" },
