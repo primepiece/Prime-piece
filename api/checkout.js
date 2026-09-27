@@ -34,7 +34,7 @@ const CATALOG = {
   'plinth-rosso-africano-plinth':    { name: 'Rosso Africano Marble Plinth',      price: 3800 },
   'plinth-rosso-africano-table-2':   { name: 'Rosso Africano Marble Table', price: 4900 },
   'plinth-rosso-levanto-plinth':     { name: 'Rosso Levanto Marble Plinth',       price: 1400 },
-  'plinth-verde-apli-table':         { name: 'Verde Apli Marble Table', price: 5200 },
+  'plinth-verde-apli-table':         { name: 'Verde Apli Marble Table', price: 4000 },
   // Tables — coffee & side
   'table-amazon-vein-2':    { name: 'Amazon Vein II', price: 520 },
   'table-arctic-vein':      { name: 'Arctic Vein', price: 520 },
