@@ -32,7 +32,7 @@ const CATALOG = {
   'plinth-indian-green-2':           { name: 'Indian Green Marble Plinth',        price: 3490 },
   'plinth-navarro':                  { name: 'Navarro Marble Plinth',             price: 3499 },
   'plinth-rosso-africano-plinth':    { name: 'Rosso Africano Marble Plinth',      price: 3800 },
-  'plinth-rosso-africano-table-2':   { name: 'Rosso Africano Marble Table', price: 5800 },
+  'plinth-rosso-africano-table-2':   { name: 'Rosso Africano Marble Table', price: 4900 },
   'plinth-rosso-levanto-plinth':     { name: 'Rosso Levanto Marble Plinth',       price: 1400 },
   'plinth-verde-apli-table':         { name: 'Verde Apli Marble Table', price: 5200 },
   // Tables — coffee & side
