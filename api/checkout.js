@@ -60,8 +60,8 @@ const CATALOG = {
   'table-sage-plateau':     { name: 'Sage Plateau', price: 1950 },
   'table-serpentine-storm': { name: 'Serpentine Storm', price: 490 },
   'table-sunset-stone':     { name: 'Sunset Stone', price: 470 },
-  'table-twin-jade':        { name: 'Twin Jade (Set of 2)', price: 2850 },
-  'table-twin-jade-single': { name: 'Twin Jade (Single)', price: 1550 },
+  'table-twin-jade':        { name: 'Twin Jade (Set of 2)', price: 1700 },
+  'table-twin-jade-single': { name: 'Twin Jade (Single)', price: 950 },
   'table-white-haven':      { name: 'White Haven', price: 480 },
   'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 1950 },
   // Bundles
