@@ -8,8 +8,8 @@
 <meta name="description" content="Prime Piece trade accounts for interior designers, architects and builders. Specification support, trade pricing, and priority access to new stone collections.">
 <meta property="og:title" content="Trade & Designer Program — Prime Piece">
 <meta property="og:description" content="Specification support, trade pricing and priority access for interior designers, architects and builders.">
-<meta property="og:url" content="https://www.primepiece.co.nz/trade">
-<meta name="robots" content="noindex">
+<meta property="og:url" content="https://www.primepiece.co.nz/trade.html">
+<link rel="canonical" href="https://www.primepiece.co.nz/trade.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -319,8 +319,8 @@ document.getElementById('trade-enquiry-form').addEventListener('submit', async f
     name: this.name.value,
     email: this.email.value,
     phone: this.phone.value,
-    message: `Trade account application\n\nBusiness: ${this.business.value}\nRole: ${this.role.value}\n\nProject:\n${this.project.value}`,
-    source: 'trade-application'
+    piece: 'Trade Account Application',
+    notes: `Business: ${this.business.value}\nRole: ${this.role.value}\n\nProject:\n${this.project.value}`
   };
 
   try {
