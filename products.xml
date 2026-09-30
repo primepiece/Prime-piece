@@ -6,37 +6,16 @@
     <description>Handcrafted one-of-one stone furniture made in Auckland, New Zealand. Marble tables, plinths, serving boards and stone basins.</description>
 
     <!-- ═══════════════════════════════════════════
-         COFFEE TABLES — ROUND (side tables)
+         COFFEE TABLES — FINAL 5 (One of One Collection)
     ═══════════════════════════════════════════ -->
 
     <item>
-      <g:id>table-amazon-vein-2</g:id>
-      <title>Amazon Vein II — Rainforest Marble Coffee Table | Prime Piece NZ</title>
-      <description>Deep forest green Rainforest marble with dramatic rust-red and white veining. Mounted on a black steel frame. One-of-one, handcrafted in Auckland. H 480mm × Ø 500mm. 50% off — now NZD $300.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/side-amazon-vein-2.jpg</g:image_link>
-      <g:price>300.00 NZD</g:price>
-      <g:sale_price>300.00 NZD</g:sale_price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Prime Piece</g:brand>
-      <g:google_product_category>Furniture &gt; Living Room Furniture &gt; Coffee &amp; Accent Tables</g:google_product_category>
-      <g:product_type>Coffee Tables &gt; Round Stone Coffee Tables</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping>
-        <g:country>NZ</g:country>
-        <g:service>Standard</g:service>
-        <g:price>0.00 NZD</g:price>
-      </g:shipping>
-    </item>
-
-    <item>
-      <g:id>table-pink-storm</g:id>
-      <title>Pink Storm — Monica Marble Coffee Table | Prime Piece NZ</title>
-      <description>Soft pink Monica marble with delicate grey veining. One-of-one, handcrafted in Auckland. H 450mm × Ø 500mm. Black steel frame. Was NZD $499, now $299.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/table-1.jpg</g:image_link>
-      <g:price>299.00 NZD</g:price>
+      <g:id>table-jade-rain</g:id>
+      <title>Jade Rain — Green Calacatta Marble Coffee Table | Prime Piece NZ</title>
+      <description>White Calacatta marble with dramatic streaks of deep green and black running through — like rain falling through a jade forest. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $520.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-jade-rain#cat-coffee</link>
+      <g:image_link>https://www.primepiece.co.nz/table-green-calacatta%20%283%29.jpg</g:image_link>
+      <g:price>520.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -49,42 +28,10 @@
     <item>
       <g:id>table-jade-jewel</g:id>
       <title>Jade Jewel — Green Marble Onyx Coffee Table | Prime Piece NZ</title>
-      <description>Rich green marble onyx with swirling white and gold veining. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $499, now $319.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
+      <description>Translucent jade green with glowing crystal formations — the rarest piece in the collection. Green onyx catches light like no other stone. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $520.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-jade-jewel#cat-coffee</link>
       <g:image_link>https://www.primepiece.co.nz/table-3.jpg</g:image_link>
-      <g:price>319.00 NZD</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Prime Piece</g:brand>
-      <g:google_product_category>Furniture &gt; Living Room Furniture &gt; Coffee &amp; Accent Tables</g:google_product_category>
-      <g:product_type>Coffee Tables &gt; Round Stone Coffee Tables</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
-    </item>
-
-    <item>
-      <g:id>table-amazon-vein</g:id>
-      <title>Amazon Vein — Rainforest Marble Coffee Table | Prime Piece NZ</title>
-      <description>Forest green Rainforest marble coffee table with rust and white veining. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $499, now $279.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/table-2.jpg</g:image_link>
-      <g:price>279.00 NZD</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Prime Piece</g:brand>
-      <g:google_product_category>Furniture &gt; Living Room Furniture &gt; Coffee &amp; Accent Tables</g:google_product_category>
-      <g:product_type>Coffee Tables &gt; Round Stone Coffee Tables</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
-    </item>
-
-    <item>
-      <g:id>table-midnight-wave</g:id>
-      <title>Midnight Wave — Verde Apli Marble Coffee Table | Prime Piece NZ</title>
-      <description>Deep green Verde Apli marble with dramatic white wave veining. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $499, now $309.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/table-4.jpg</g:image_link>
-      <g:price>309.00 NZD</g:price>
+      <g:price>520.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -97,10 +44,10 @@
     <item>
       <g:id>table-sunset-stone</g:id>
       <title>Sunset Stone — Macael Marble Coffee Table | Prime Piece NZ</title>
-      <description>Warm cream Macael marble with golden veining. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $399, now $239.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
+      <description>Warm amber and gold tones fractured with dark veining — like the last light hitting the horizon. Macael marble from the mountains of Spain. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $470.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-sunset-stone#cat-coffee</link>
       <g:image_link>https://www.primepiece.co.nz/table-5.jpg</g:image_link>
-      <g:price>239.00 NZD</g:price>
+      <g:price>470.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -111,12 +58,12 @@
     </item>
 
     <item>
-      <g:id>table-desert-drift</g:id>
-      <title>Desert Drift — Kangaroo Quartzite Coffee Table | Prime Piece NZ</title>
-      <description>Warm sandy Kangaroo quartzite with natural earth-tone movement. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $379, now $290.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/table-12.jpg</g:image_link>
-      <g:price>290.00 NZD</g:price>
+      <g:id>table-serpentine-storm</g:id>
+      <title>Serpentine Storm — Verde Imperiale Marble Coffee Table | Prime Piece NZ</title>
+      <description>Deep forest green with explosive white veining bursting through the surface like waves crashing over dark rock — Verde Imperiale Marble at its most dramatic. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $490.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-serpentine-storm#cat-coffee</link>
+      <g:image_link>https://www.primepiece.co.nz/serpentine-storm-table.jpg</g:image_link>
+      <g:price>490.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -127,28 +74,12 @@
     </item>
 
     <item>
-      <g:id>table-mountain-breeze</g:id>
-      <title>Mountain Breeze — Super White Marble Coffee Table | Prime Piece NZ</title>
-      <description>Clean Super White marble with subtle grey cloud veining. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $349, now $199.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/table-16.jpg</g:image_link>
-      <g:price>199.00 NZD</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Prime Piece</g:brand>
-      <g:google_product_category>Furniture &gt; Living Room Furniture &gt; Coffee &amp; Accent Tables</g:google_product_category>
-      <g:product_type>Coffee Tables &gt; Round Stone Coffee Tables</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
-    </item>
-
-    <item>
-      <g:id>table-white-haven</g:id>
-      <title>White Haven — Carrara Marble Coffee Table | Prime Piece NZ</title>
-      <description>Classic white Carrara marble with fine grey veining. One-of-one, handcrafted in Auckland. Black steel frame. Was NZD $429, now $249.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/table-14.jpg</g:image_link>
-      <g:price>249.00 NZD</g:price>
+      <g:id>table-dark-current</g:id>
+      <title>Dark Current — Laurent Black Marble Coffee Table | Prime Piece NZ</title>
+      <description>Jet black with a dramatic sweep of white and gold veining tearing across the surface — Laurent Black Marble at its most striking. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Matte black steel frame. NZD $510.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-dark-current#cat-coffee</link>
+      <g:image_link>https://www.primepiece.co.nz/dark-current-table.jpg</g:image_link>
+      <g:price>510.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -163,12 +94,12 @@
     ═══════════════════════════════════════════ -->
 
     <item>
-      <g:id>table-obsidian-storm</g:id>
-      <title>Obsidian Storm — Titanium Black Granite Lounge Table | Prime Piece NZ</title>
-      <description>Dramatic Titanium Black granite lounge table with gold and silver mineral flash. Mitered slab top on a solid granite base. One-of-one, handcrafted in Auckland. Was NZD $3,399, now $1,699.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/lounge-2.jpg</g:image_link>
-      <g:price>1699.00 NZD</g:price>
+      <g:id>table-jade-horizon</g:id>
+      <title>Jade Horizon — Mystique Green Marble Lounge Table | Prime Piece NZ</title>
+      <description>A sweeping slab of mitered Mystique Green — cool jade tones and golden fault lines with a refined bevelled edge finish. Built for outdoor terraces and open-plan living. One-of-one, handcrafted in Auckland. H 400mm × 1200mm × 600mm. NZD $2,750.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-jade-horizon#cat-lounge</link>
+      <g:image_link>https://www.primepiece.co.nz/lounge-1.jpg</g:image_link>
+      <g:price>2750.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -179,12 +110,12 @@
     </item>
 
     <item>
-      <g:id>table-jade-horizon</g:id>
-      <title>Jade Horizon — Green Marble Lounge Table | Prime Piece NZ</title>
-      <description>Mitered Mystique Green marble lounge table with rich emerald veining. Slab top on solid marble base. One-of-one, handcrafted in Auckland. Was NZD $2,999, now $1,499.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/lounge-1.jpg</g:image_link>
-      <g:price>1499.00 NZD</g:price>
+      <g:id>table-obsidian-storm</g:id>
+      <title>Obsidian Storm — Titanium Black Granite Lounge Table | Prime Piece NZ</title>
+      <description>Pure geological drama. Titanium Black granite with explosive silver and white mineral formations across a deep black field — like a storm frozen in stone. One-of-one, handcrafted in Auckland. H 400mm × 1200mm × 600mm. NZD $2,650.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-obsidian-storm#cat-lounge</link>
+      <g:image_link>https://www.primepiece.co.nz/lounge-2.jpg</g:image_link>
+      <g:price>2650.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -196,11 +127,11 @@
 
     <item>
       <g:id>table-sage-plateau</g:id>
-      <title>Sage Plateau — Green Marble Lounge Table | Prime Piece NZ</title>
-      <description>Soft sage-green Mystique Green marble lounge table. Slab top on solid stone base. One-of-one, handcrafted in Auckland. Was NZD $2,999, now $1,499.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
+      <title>Sage Plateau — Mystique Green Marble Lounge Table | Prime Piece NZ</title>
+      <description>The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges, copper fault lines across a sage and teal field. One-of-one, handcrafted in Auckland. H 400mm × 1200mm × 600mm. NZD $1,950.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-sage-plateau#cat-lounge</link>
       <g:image_link>https://www.primepiece.co.nz/lounge-3.jpg</g:image_link>
-      <g:price>1499.00 NZD</g:price>
+      <g:price>1950.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -213,10 +144,10 @@
     <item>
       <g:id>table-desert-crown</g:id>
       <title>Desert Crown — Taj Mahal Quartzite Lounge Table | Prime Piece NZ</title>
-      <description>Warm golden Taj Mahal quartzite lounge table with soft cream and taupe movement. Slab top on stone base. One-of-one, handcrafted in Auckland. Was NZD $3,599, now $1,799.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
+      <description>Taj Mahal quartzite — warm cream and soft gold tones with the finest veining, sourced from Brazil. This stone has graced the world's most exclusive interiors. One-of-one, handcrafted in Auckland. H 400mm × 1200mm × 650mm. NZD $2,600.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-desert-crown#cat-lounge</link>
       <g:image_link>https://www.primepiece.co.nz/lounge-4.jpg</g:image_link>
-      <g:price>1799.00 NZD</g:price>
+      <g:price>2600.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -227,12 +158,12 @@
     </item>
 
     <item>
-      <g:id>table-black-gold</g:id>
-      <title>Black Gold — Gold &amp; Black Titanium Granite Lounge Table | Prime Piece NZ</title>
-      <description>Stunning Gold and Black Titanium granite lounge table — deep black with brilliant gold flash throughout. One-of-one, handcrafted in Auckland. Was NZD $3,799, now $1,899.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/lounge-5.jpg</g:image_link>
-      <g:price>1899.00 NZD</g:price>
+      <g:id>table-midnight-moon</g:id>
+      <title>Midnight Moon — Titanium Black Granite Lounge Table | Prime Piece NZ</title>
+      <description>Deep, near-black titanium granite with subtle crystalline movement through the slab — a piece that commands a room without competing with it. One-of-one, handcrafted in Auckland. H 400mm × 1200mm × 600mm. NZD $2,800.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-midnight-moon#cat-lounge</link>
+      <g:image_link>https://www.primepiece.co.nz/midnight-moon-table.jpg</g:image_link>
+      <g:price>2800.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -245,10 +176,10 @@
     <item>
       <g:id>table-white-haven-lounge</g:id>
       <title>White Haven — Carrara Marble Lounge Table | Prime Piece NZ</title>
-      <description>Classic white Carrara marble lounge table with fine grey veining. Slab top on stone base. One-of-one, handcrafted in Auckland. Was NZD $1,999, now $999.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
+      <description>Classic Carrara white with elegant grey veining and a hand-finished bull nose edge — timeless, clean and endlessly beautiful. One-of-one, handcrafted in Auckland. H 500mm × Ø 700mm. NZD $1,950.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-white-haven-lounge#cat-lounge</link>
       <g:image_link>https://www.primepiece.co.nz/lounge-8.jpg</g:image_link>
-      <g:price>999.00 NZD</g:price>
+      <g:price>1950.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -264,27 +195,11 @@
 
     <item>
       <g:id>table-lunar-river</g:id>
-      <title>Lunar River — Marble Side Table | Prime Piece NZ</title>
-      <description>Lunar River marble side table with dramatic movement. One-of-one, handcrafted in Auckland. Was NZD $1,875, now $1,500.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
+      <title>Lunar River — Lunar River Marble Bedside Table | Prime Piece NZ</title>
+      <description>Soft, warm neutral tones with natural movement across a timeless 30mm solid marble — finished with an open shelf for effortless bedside styling. One-of-one, handcrafted in Auckland. H 550mm × W 600mm × D 550mm. NZD $1,499.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-lunar-river#cat-bedside</link>
       <g:image_link>https://www.primepiece.co.nz/side-3.jpg</g:image_link>
-      <g:price>1500.00 NZD</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Prime Piece</g:brand>
-      <g:google_product_category>Furniture &gt; Living Room Furniture &gt; Coffee &amp; Accent Tables</g:google_product_category>
-      <g:product_type>Side Tables &gt; Stone Side Tables</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
-    </item>
-
-    <item>
-      <g:id>table-twin-jade</g:id>
-      <title>Twin Jade — Mystique Green Marble Bedside Tables (Pair) | Prime Piece NZ</title>
-      <description>Matching pair of Mystique Green marble bedside tables. Rich emerald green stone, one-of-one pair handcrafted in Auckland. NZD $2,199 as a pair, $1,199 each.</description>
-      <link>https://www.primepiece.co.nz/tables.html</link>
-      <g:image_link>https://www.primepiece.co.nz/side-1.jpg</g:image_link>
-      <g:price>2199.00 NZD</g:price>
+      <g:price>1499.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -294,15 +209,63 @@
       <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
     </item>
 
+    <item>
+      <g:id>table-twin-jade-single</g:id>
+      <title>Twin Jade (Single) — Mystique Green Marble Side Table | Prime Piece NZ</title>
+      <description>One sculptural jade green stone top on a bold black X-frame. Cool teal tones with golden veining that shifts with the light. One-of-one, handcrafted in Auckland. H 450mm × 600mm × 600mm. NZD $950 each — or $1,700 as a set of 2.</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-twin-jade-single#cat-side</link>
+      <g:image_link>https://www.primepiece.co.nz/side-1.jpg</g:image_link>
+      <g:price>950.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Bedroom Furniture &gt; Nightstands</g:google_product_category>
+      <g:product_type>Side Tables &gt; Stone Side Tables</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>table-twin-jade</g:id>
+      <title>Twin Jade (Set of 2) — Mystique Green Marble Side Tables | Prime Piece NZ</title>
+      <description>Matching pair of sculptural jade green stone tops on bold black X-frames — designed to sit together or apart. A rare pairing, never repeated. One-of-one pair, handcrafted in Auckland. NZD $1,700 as a set (save $200 vs buying individually).</description>
+      <link>https://www.primepiece.co.nz/tables.html?p=table-twin-jade-single#cat-side</link>
+      <g:image_link>https://www.primepiece.co.nz/side-1.jpg</g:image_link>
+      <g:price>1700.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Bedroom Furniture &gt; Nightstands</g:google_product_category>
+      <g:product_type>Side Tables &gt; Stone Side Tables</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
     <!-- ═══════════════════════════════════════════
          PLINTHS
     ═══════════════════════════════════════════ -->
 
     <item>
-      <g:id>plinth-rosso-africano</g:id>
+      <g:id>plinth-rosso-africano-table-2</g:id>
+      <title>Rosso Africano Marble Table Plinth | Prime Piece NZ</title>
+      <description>Dramatic deep burgundy-red Rosso Africano marble coffee table plinth. One-of-one, handcrafted in Auckland. L 950mm × W 760mm × H 300mm. Only 1 available. NZD $4,900.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-rosso-africano-table-2</link>
+      <g:image_link>https://www.primepiece.co.nz/plinth-7.jpg</g:image_link>
+      <g:price>4900.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Accent Furniture</g:google_product_category>
+      <g:product_type>Plinths &gt; Marble Plinths</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>plinth-rosso-africano-plinth</g:id>
       <title>Rosso Africano Marble Plinth | Prime Piece NZ</title>
-      <description>Dramatic deep burgundy-red Rosso Africano marble plinth with white veining. H 800mm × W 300mm × D 300mm. One-of-one, handcrafted in Auckland. NZD $3,800.</description>
-      <link>https://www.primepiece.co.nz/plinths.html</link>
+      <description>Dramatic deep burgundy-red Rosso Africano marble plinth with white veining. One-of-one, handcrafted in Auckland. H 800mm × W 300mm × D 300mm. Only 1 available. NZD $3,800.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-rosso-africano-plinth</link>
       <g:image_link>https://www.primepiece.co.nz/plinth-3.jpg</g:image_link>
       <g:price>3800.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -315,12 +278,28 @@
     </item>
 
     <item>
-      <g:id>plinth-rosso-levanto</g:id>
-      <title>Rosso Levanto Marble Plinth | Prime Piece NZ</title>
-      <description>Rich rusty-red Rosso Levanto marble plinth with fine white veining. H 800mm × W 300mm × D 300mm. One-of-one, handcrafted in Auckland. NZD $1,400.</description>
-      <link>https://www.primepiece.co.nz/plinths.html</link>
-      <g:image_link>https://www.primepiece.co.nz/plinth-4.jpg</g:image_link>
-      <g:price>1400.00 NZD</g:price>
+      <g:id>plinth-verde-apli-table</g:id>
+      <title>Verde Apli Marble Table Plinth | Prime Piece NZ</title>
+      <description>Verde Apli marble coffee table plinth — deep green stone with natural white movement. One-of-one, handcrafted in Auckland. L 950mm × W 760mm × H 300mm. Only 1 available. NZD $4,000.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-verde-apli-table</link>
+      <g:image_link>https://www.primepiece.co.nz/plinth-9.jpg</g:image_link>
+      <g:price>4000.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Accent Furniture</g:google_product_category>
+      <g:product_type>Plinths &gt; Marble Plinths</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>plinth-indian-green-2</g:id>
+      <title>Indian Green Marble Plinth | Prime Piece NZ</title>
+      <description>Bold Indian Green marble plinth — deep green with natural white movement. One-of-one, handcrafted in Auckland. H 800mm × W 300mm × D 300mm. Only 1 available. NZD $3,490.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-indian-green-2</link>
+      <g:image_link>https://www.primepiece.co.nz/plinth-indian-green-2.jpg</g:image_link>
+      <g:price>3490.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Prime Piece</g:brand>
@@ -333,8 +312,8 @@
     <item>
       <g:id>plinth-navarro</g:id>
       <title>Navarro Marble Plinth | Prime Piece NZ</title>
-      <description>Soft cream-beige Navarro marble plinth with subtle grey movement. H 550mm × W 300mm × D 300mm. One-of-one, handcrafted in Auckland. NZD $3,499.</description>
-      <link>https://www.primepiece.co.nz/plinths.html</link>
+      <description>Soft cream-beige Navarro marble plinth with subtle grey movement. One-of-one, handcrafted in Auckland. H 550mm × W 300mm × D 300mm. Only 1 available. NZD $3,499.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-navarro</link>
       <g:image_link>https://www.primepiece.co.nz/plinth-14.jpg</g:image_link>
       <g:price>3499.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -347,10 +326,58 @@
     </item>
 
     <item>
-      <g:id>plinth-grey-porcelain</g:id>
+      <g:id>plinth-florim</g:id>
+      <title>Florim Stone Plinth | Prime Piece NZ</title>
+      <description>Florim stone plinth — sculptural pedestal in a soft neutral tone. One-of-one, handcrafted in Auckland. H 600mm × W 300mm × D 300mm. Only 1 available. NZD $3,200.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-florim</link>
+      <g:image_link>https://www.primepiece.co.nz/plinth-5.jpg</g:image_link>
+      <g:price>3200.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Accent Furniture</g:google_product_category>
+      <g:product_type>Plinths &gt; Stone Plinths</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>plinth-rosso-levanto-plinth</g:id>
+      <title>Rosso Levanto Marble Plinth | Prime Piece NZ</title>
+      <description>Rich rusty-red Rosso Levanto marble plinth with fine white veining. One-of-one, handcrafted in Auckland. H 800mm × W 300mm × D 300mm. Only 1 available. NZD $1,400.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-rosso-levanto-plinth</link>
+      <g:image_link>https://www.primepiece.co.nz/plinth-4.jpg</g:image_link>
+      <g:price>1400.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Accent Furniture</g:google_product_category>
+      <g:product_type>Plinths &gt; Marble Plinths</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>plinth-dekton-sirius-side</g:id>
+      <title>Dekton Sirius Side Plinth | Prime Piece NZ</title>
+      <description>Dekton Sirius side plinth — dark grey, sleek and versatile as a plant stand or display pedestal. One-of-one, handcrafted in Auckland. H 400mm × W 300mm × D 300mm. Only 1 available. NZD $1,500.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-dekton-sirius-side</link>
+      <g:image_link>https://www.primepiece.co.nz/plinth-6.jpg</g:image_link>
+      <g:price>1500.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Furniture &gt; Accent Furniture</g:google_product_category>
+      <g:product_type>Plinths &gt; Stone Plinths</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>plinth-grey-porcelain-800</g:id>
       <title>Grey Porcelain Plinth | Prime Piece NZ</title>
-      <description>Sleek grey porcelain plinth — clean, modern and versatile. H 800mm × W 300mm × D 300mm. One-of-one, handcrafted in Auckland. NZD $1,499.</description>
-      <link>https://www.primepiece.co.nz/plinths.html</link>
+      <description>Sleek grey porcelain plinth — clean, modern and versatile. One-of-one, handcrafted in Auckland. H 800mm × W 300mm × D 300mm. Only 1 available. NZD $1,499. Also available as a matching pair with the side plinth for $1,500.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-grey-porcelain-800</link>
       <g:image_link>https://www.primepiece.co.nz/plinth-1.jpg</g:image_link>
       <g:price>1499.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -363,10 +390,10 @@
     </item>
 
     <item>
-      <g:id>plinth-grey-porcelain-side</g:id>
+      <g:id>plinth-grey-porcelain-450</g:id>
       <title>Grey Porcelain Side Plinth | Prime Piece NZ</title>
-      <description>Compact grey porcelain side plinth — ideal as a plant stand or display pedestal. One-of-one, handcrafted in Auckland. NZD $700.</description>
-      <link>https://www.primepiece.co.nz/plinths.html</link>
+      <description>Compact grey porcelain side plinth — ideal as a plant stand or display pedestal. One-of-one, handcrafted in Auckland. H 450mm × W 300mm × D 300mm. Only 1 available. NZD $700. Or buy both plinths together for $1,500.</description>
+      <link>https://www.primepiece.co.nz/plinths.html?p=plinth-grey-porcelain-450</link>
       <g:image_link>https://www.primepiece.co.nz/plinth-2.jpg</g:image_link>
       <g:price>700.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -378,31 +405,15 @@
       <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
     </item>
 
-    <item>
-      <g:id>plinth-indian-green</g:id>
-      <title>Indian Green Marble Plinth | Prime Piece NZ</title>
-      <description>Bold Indian Green marble plinth — deep green with natural white movement. One-of-one, handcrafted in Auckland. NZD $3,490.</description>
-      <link>https://www.primepiece.co.nz/plinths.html</link>
-      <g:image_link>https://www.primepiece.co.nz/plinth-indian-green-2.jpg</g:image_link>
-      <g:price>3490.00 NZD</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Prime Piece</g:brand>
-      <g:google_product_category>Furniture &gt; Accent Furniture</g:google_product_category>
-      <g:product_type>Plinths &gt; Marble Plinths</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
-    </item>
-
     <!-- ═══════════════════════════════════════════
          MARBLE SERVING BOARDS
     ═══════════════════════════════════════════ -->
 
     <item>
-      <g:id>board-jade-cloud</g:id>
-      <title>Jade Cloud — Green Onyx Marble Serving Board | Prime Piece NZ</title>
-      <description>Striking green onyx marble serving board with carved stone handle. Food safe, naturally cool surface — ideal for cheese and charcuterie. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <g:id>board-green-onyx</g:id>
+      <title>Jade Cloud — Green Marble Onyx Serving Board | Prime Piece NZ</title>
+      <description>Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality. Carved stone handle, food safe, naturally cool surface. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-green-onyx</link>
       <g:image_link>https://www.primepiece.co.nz/board-green-onyx.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -416,9 +427,9 @@
 
     <item>
       <g:id>board-white-haven</g:id>
-      <title>White Haven — Carrara Marble Serving Board | Prime Piece NZ</title>
-      <description>Classic white Carrara marble serving board with carved stone handle. Food safe, naturally cool. Perfect for cheese boards and entertaining. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <title>White Haven — White Marble Serving Board | Prime Piece NZ</title>
+      <description>Classic white marble with bold grey and charcoal veining. Carved stone handle, food safe, naturally cool. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-white-haven</link>
       <g:image_link>https://www.primepiece.co.nz/board-white-haven-web.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -433,8 +444,8 @@
     <item>
       <g:id>board-teal-tide-2</g:id>
       <title>Teal Tide II — Teal Marble Serving Board | Prime Piece NZ</title>
-      <description>Striking teal-grey marble serving board with dramatic white veining and carved stone handle. Food safe, naturally cool. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <description>Teal and sage marble with warm gold veining running through it. Carved stone handle, food safe, naturally cool. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-teal-tide-2</link>
       <g:image_link>https://www.primepiece.co.nz/board-teal-tide-2.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -449,8 +460,8 @@
     <item>
       <g:id>board-teal-tide-4</g:id>
       <title>Teal Tide IV — Teal Marble Serving Board | Prime Piece NZ</title>
-      <description>Deep teal marble serving board with white and grey veining, carved stone handle. Food safe, naturally cool. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <description>Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining varies slightly. Carved stone handle, food safe. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-teal-tide-4</link>
       <g:image_link>https://www.primepiece.co.nz/board-teal-tide-4.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -465,8 +476,8 @@
     <item>
       <g:id>board-emerald-vein</g:id>
       <title>Emerald Vein — Dark Green Marble Serving Board | Prime Piece NZ</title>
-      <description>Rich dark green marble serving board with carved stone handle. Food safe, naturally cool surface. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <description>Deep forest green marble with bold white veining throughout. Carved stone handle, food safe, naturally cool surface. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-emerald-vein</link>
       <g:image_link>https://www.primepiece.co.nz/board-emerald-vein-web.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -480,9 +491,9 @@
 
     <item>
       <g:id>board-pink-storm</g:id>
-      <title>Pink Storm — Pink Marble Serving Board | Prime Piece NZ</title>
-      <description>Soft pink marble serving board with carved stone handle — a gift favourite. Food safe, naturally cool. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <title>Pink Storm — Pink Onyx Marble Serving Board | Prime Piece NZ</title>
+      <description>Soft pink and white onyx marble with swirling warm tones — a gift favourite. Carved stone handle, food safe, naturally cool. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-pink-storm</link>
       <g:image_link>https://www.primepiece.co.nz/board-pink-storm-web.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -495,10 +506,10 @@
     </item>
 
     <item>
-      <g:id>board-forest-stone</g:id>
+      <g:id>board-india-green</g:id>
       <title>Forest Stone — India Green Marble Serving Board | Prime Piece NZ</title>
-      <description>Bold India Green marble serving board with carved stone handle. Food safe, naturally cool. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <description>Deep forest green with dramatic dark veining and a rich, earthy texture — India Green Marble from Rajasthan. Carved stone handle, food safe. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-india-green</link>
       <g:image_link>https://www.primepiece.co.nz/board-india-green.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -513,8 +524,8 @@
     <item>
       <g:id>board-volcanic-ash</g:id>
       <title>Volcanic Ash — Dark Marble Serving Board | Prime Piece NZ</title>
-      <description>Dark volcanic ash marble serving board with carved stone handle. Dramatic and striking. Food safe, naturally cool. One-of-one, handcrafted in Auckland. NZD $99.</description>
-      <link>https://www.primepiece.co.nz/boards.html</link>
+      <description>Dramatic dark marble with striking red and gold veining. Carved stone handle, food safe, naturally cool. One-of-one, handcrafted in Auckland. L 300mm × W 200mm × D 20mm. NZD $99.</description>
+      <link>https://www.primepiece.co.nz/boards.html?p=board-volcanic-ash</link>
       <g:image_link>https://www.primepiece.co.nz/board-volcanic-ash-web.jpg</g:image_link>
       <g:price>99.00 NZD</g:price>
       <g:availability>in_stock</g:availability>
@@ -522,6 +533,42 @@
       <g:brand>Prime Piece</g:brand>
       <g:google_product_category>Kitchen &amp; Dining &gt; Tabletop &gt; Serving Platters &amp; Trays</g:google_product_category>
       <g:product_type>Serving Boards &gt; Marble Serving Boards</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <!-- ═══════════════════════════════════════════
+         STONE VESSEL BASINS
+    ═══════════════════════════════════════════ -->
+
+    <item>
+      <g:id>basin-carrara</g:id>
+      <title>White Carrara — Carrara Marble Vessel Basin | Prime Piece NZ</title>
+      <description>Carrara marble has defined luxury stone for centuries. Pale white, veined with soft grey that moves like ink through water — refined, timeless, unmistakably classic. Ø 430mm × H 135mm. NZD $1,350.</description>
+      <link>https://www.primepiece.co.nz/basins.html?p=carrara-vessel</link>
+      <g:image_link>https://www.primepiece.co.nz/white-carrara-vessel.jpg</g:image_link>
+      <g:price>1350.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Bathroom Sinks</g:google_product_category>
+      <g:product_type>Vessel Basins &gt; Stone Vessel Basins</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>basin-beige</g:id>
+      <title>Beige Travertine Vessel Basin | Prime Piece NZ</title>
+      <description>Warm, natural and timeless. Formed over millions of years, Beige Travertine features soft sandy tones, natural pitting and subtle texture, creating a basin that brings an organic, earthy feel to any space. Ø 430mm × H 135mm. NZD $1,100.</description>
+      <link>https://www.primepiece.co.nz/basins.html?p=beige-vessel</link>
+      <g:image_link>https://www.primepiece.co.nz/warm-beige-vessel.jpg</g:image_link>
+      <g:price>1100.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Bathroom Sinks</g:google_product_category>
+      <g:product_type>Vessel Basins &gt; Stone Vessel Basins</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
     </item>
