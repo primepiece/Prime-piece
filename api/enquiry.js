@@ -78,8 +78,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to send notification' });
     }
 
-    // Auto-reply — fire and forget
-    fetch('https://api.resend.com/emails', {
+    // Auto-reply — awaited so Vercel doesn't freeze the function before it sends
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
       body: JSON.stringify({
@@ -122,7 +122,7 @@ export default async function handler(req, res) {
       }
 
       if (profileId) {
-        fetch('https://a.klaviyo.com/api/events/', {
+        await fetch('https://a.klaviyo.com/api/events/', {
           method: 'POST',
           headers: {
             'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
