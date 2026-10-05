@@ -73,8 +73,9 @@ export default async function handler(req, res) {
       </div>
     `;
 
-    // Send auto-reply (fire and forget — don't fail the main request if this errors)
-    fetch('https://api.resend.com/emails', {
+    // Send auto-reply (awaited so Vercel doesn't freeze the function before it sends;
+    // .catch keeps a failure here from failing the main request)
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
       body: JSON.stringify({

@@ -101,7 +101,10 @@ export default async function handler(req, res) {
       console.error('Notify email error:', err);
     }
 
-    // Customer-facing confirmation email — fire and forget.
+    // Customer-facing confirmation email. Must be awaited: Vercel freezes the
+    // function as soon as the response is sent, which silently dropped this
+    // email when it was fire-and-forget. A failure here is logged but never
+    // fails the signup — the lead is already captured above.
     const emailPayload = isBasinWaitlist ? {
       from: 'James at Prime Piece <james@primepiece.co.nz>',
       to: [email],
@@ -143,11 +146,16 @@ export default async function handler(req, res) {
       `,
     };
 
-    fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
-      body: JSON.stringify(emailPayload),
-    }).catch(err => console.error('Confirmation email error:', err));
+    try {
+      const confirmRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
+        body: JSON.stringify(emailPayload),
+      });
+      if (!confirmRes.ok) console.error('Confirmation email error:', JSON.stringify(await confirmRes.json().catch(() => ({}))));
+    } catch (err) {
+      console.error('Confirmation email error:', err);
+    }
   } else {
     console.error('Resend env var missing — no notification or confirmation email sent');
   }
