@@ -20,6 +20,7 @@ const CATALOG = {
   'board-india-green':   { name: 'Forest Stone', price: 99 },
   'board-pink-storm':    { name: 'Pink Storm', price: 99 },
   'board-pink-storm-2':  { name: 'Pink Storm II', price: 99 },
+  'board-pink-storm-3':  { name: 'Pink Storm III', price: 99 },
   'board-teal-tide':     { name: 'Teal Tide',       price: 99 },
   'board-teal-tide-2':   { name: 'Teal Tide II', price: 99 },
   'board-teal-tide-4':   { name: 'Teal Tide IV', price: 99 },
