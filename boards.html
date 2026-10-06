@@ -535,7 +535,7 @@
     <p class="hero-desc">Each board is cut from a single slab of natural stone — one of one, never repeated. Functional sculpture for the kitchen, dining table, or counter.</p>
   </div>
   <div class="hero-right reveal">
-    <div class="hero-stat">20</div>
+    <div class="hero-stat">21</div>
     <div class="hero-stat-label">Pieces available</div>
   </div>
 </section>
@@ -922,6 +922,24 @@
     </div>
   </div>
 
+  <div class="board-card reveal" data-type="platter" data-tags="light" data-product-id="platter-dune" onclick="openModal('Dune — Entertaining Platter','Travertine Marble — Grey Veining','platter-dune.jpg','L: 600mm × W: 400mm × D: 20mm','Sandy travertine marble with soft layered banding and grey veining, cut as a generous entertaining platter for cheese, antipasti and tables worth gathering around — one of one, never repeated')">
+    <div class="board-img-wrap">
+      <span class="board-badge">Available</span>
+      <img class="board-img" src="platter-dune.jpg" alt="Dune — travertine marble entertaining platter handcrafted Auckland New Zealand" loading="lazy">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="board-info">
+      <div class="board-name">Dune — Entertaining Platter</div>
+      <div class="board-stone">Travertine Marble — Grey Veining</div>
+      <div class="board-dims">L: 600mm × W: 400mm × D: 20mm<br>With carved handle</div>
+      <div class="board-price">NZD $189</div>
+      <div class="board-foot">
+        <span class="board-type">Entertaining Platter</span>
+        <button class="enquire-btn pp-add-btn" data-id="platter-dune" onclick="event.stopPropagation(); Cart.add({id:'platter-dune',name:'Dune — Entertaining Platter',type:'Entertaining Platter',image:'platter-dune.jpg',price:189})">Add to Cart →</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="cta-strip">
@@ -1172,6 +1190,7 @@
     'platter-rosa-cloud.jpg':     { price: 189, id: 'platter-rosa-cloud' },
     'platter-teal-tide.jpg':      { price: 189, id: 'platter-teal-tide' },
     'platter-teal-tide-2.jpg':    { price: 189, id: 'platter-teal-tide-2' },
+    'platter-dune.jpg':            { price: 189, id: 'platter-dune' },
   };
 
   let _modalItem = null;
