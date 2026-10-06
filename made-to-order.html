@@ -1005,6 +1005,7 @@ async function footerSubscribe(event, form) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';

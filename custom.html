@@ -282,6 +282,7 @@
   .float-enquire-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; font-weight: 500; font-family: var(--body); white-space: nowrap; padding-right: 20px; opacity: 0; transition: opacity 0.2s 0.1s; }
   .float-enquire:hover .float-enquire-label { opacity: 1; }
   .float-enquire.hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
+  .float-enquire.near-cta { opacity: 0; pointer-events: none; transform: translateY(12px); }
 
   .nav-ig { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; flex-shrink: 0; }
   .nav-ig:hover { border-color: rgba(255,255,255,0.7); color: #fff; background: rgba(255,255,255,0.07); }
@@ -403,6 +404,8 @@
 
     .render-section { padding: 64px 24px; row-gap: 28px; }
     .render-section .btn { width: 100%; justify-content: center; }
+    .render-note span { display: block; }
+    .render-note .render-note-sep { display: none; }
 
     .showroom-copy-col { order: -1; }
     .showroom-img-col { min-height: 240px; }
@@ -503,6 +506,12 @@
     .cp-craft-copy { padding: 64px 24px; }
     .cp-final { padding: 72px 24px; }
     .cp-final .btn { width: 100%; justify-content: center; }
+  }
+  /* Enquiry form on phones: stack name/email; 16px fields stop iOS zooming on focus */
+  @media (max-width: 480px) {
+    #enq-form-wrap { padding: 22px 20px 24px !important; }
+    #enq-form-wrap > div:first-child { grid-template-columns: 1fr !important; }
+    #enq-overlay input, #enq-overlay textarea { font-size: 16px !important; }
   }
 </style>
 
@@ -621,7 +630,7 @@
   </figure>
   <div class="render-cta reveal">
     <button onclick="openEnquireModal('Complimentary Render Request', 'render')" class="btn btn-primary" style="cursor:pointer;">Request a Complimentary Render <span class="btn-arrow">→</span></button>
-    <p class="render-note">Typically within 1–2 business days · No obligation to proceed</p>
+    <p class="render-note"><span>Typically within 1–2 business days</span><span class="render-note-sep"> · </span><span>No obligation to proceed</span></p>
   </div>
 </section>
 
@@ -756,6 +765,15 @@
   const heroEl = document.querySelector('.hero');
   if (floatBtn && heroEl) {
     new IntersectionObserver(entries => entries.forEach(e => floatBtn.classList.toggle('in-hero', e.isIntersecting)), { threshold: 0.25 }).observe(heroEl);
+  }
+  // Mobile: step the floating button aside while a full-width CTA passes beneath it.
+  if (floatBtn && window.matchMedia('(max-width: 768px)').matches) {
+    const ctaZone = new Set();
+    const ctaObs = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting ? ctaZone.add(e.target) : ctaZone.delete(e.target));
+      floatBtn.classList.toggle('near-cta', ctaZone.size > 0);
+    }, { rootMargin: '-70% 0px 0px 0px' });
+    document.querySelectorAll('.render-cta .btn, .process-cta .btn, .featured-footer .btn, .cp-final .btn').forEach(el => ctaObs.observe(el));
   }
   if (floatBtn && contactSection) {
     const floatObserver = new IntersectionObserver(entries => entries.forEach(e => { floatBtn.classList.toggle('hidden', e.isIntersecting); }), { threshold: 0.2 });
@@ -927,6 +945,7 @@ async function footerSubscribe(event, form, source) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: source || 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';

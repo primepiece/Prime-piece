@@ -69,9 +69,18 @@
   .filter-btn.active { background: var(--sage); border-color: var(--sage); color: white; }
 
   /* Collection grid — grouped by category, captions always visible */
-  .filter-bar { position: sticky; top: 71px; z-index: 50; }
+  .filter-bar { position: sticky; top: 71px; z-index: 50; padding: 0 56px; display: block; background: rgba(245,241,234,0.97); backdrop-filter: blur(16px); }
+  .filter-track { display: flex; gap: 36px; }
+  .filter-bar .filter-btn { position: relative; padding: 20px 0 18px; border: none; border-radius: 0; background: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; color: var(--stone); white-space: nowrap; }
+  .filter-bar .filter-btn:hover { color: var(--ink); background: none; }
+  .filter-bar .filter-btn.active { color: var(--ink); background: none; }
+  .filter-bar .filter-btn.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--ink); }
+  .filter-bar .filter-btn-archive { margin-left: auto; }
+  .gal-archive-note { font-size: 12px; color: var(--stone); }
+  .gal-archive-note a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--sage); }
   .gal-group { padding: 72px 56px 8px; }
   .gal-group + .gal-group { border-top: 1px solid var(--line); margin-top: 56px; }
+  #gallery-grid.is-filtered .gal-group { border-top: none; margin-top: 0; }
   .gal-group-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; }
   .gal-group-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(30px, 3vw, 44px); line-height: 1; color: var(--ink); letter-spacing: -0.01em; }
   .gal-group-head h2 em { font-style: italic; color: var(--sage); }
@@ -92,9 +101,12 @@
   .gal-archive .gi-img img { filter: saturate(0.85); }
   @media (max-width: 1100px) { .gal-grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 768px) {
-    .filter-bar { top: 61px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-    .filter-bar::-webkit-scrollbar { display: none; }
-    .filter-btn { flex-shrink: 0; }
+    .filter-bar { top: 61px; padding: 0; }
+    .filter-track { gap: 26px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); }
+    .filter-track::-webkit-scrollbar { display: none; }
+    .filter-track::after { content: ''; flex: 0 0 24px; }
+    .filter-bar .filter-btn { flex-shrink: 0; padding: 17px 0 15px; }
+    .filter-bar .filter-btn-archive { margin-left: 0; }
     .gal-group { padding: 48px 20px 0; }
     .gal-group + .gal-group { margin-top: 40px; }
     .gal-group-head { margin-bottom: 24px; }
@@ -180,12 +192,17 @@
     .nav-hamburger { display: flex; }
     .page-hero { padding: 104px 20px 36px; flex-direction: column; align-items: flex-start; }
     .hero-right { display: none; }
-    .filter-bar { padding: 14px 20px; }
     .cta-strip { padding: 56px 24px; flex-direction: column; align-items: flex-start; }
     footer { padding: 48px 24px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
     .lightbox-nav { display: none; }
+  }
+  /* Enquiry form on phones: stack name/email; 16px fields stop iOS zooming on focus */
+  @media (max-width: 480px) {
+    #enq-form-wrap { padding: 22px 20px 24px !important; }
+    #enq-form-wrap > div:first-child { grid-template-columns: 1fr !important; }
+    #enq-overlay input, #enq-overlay textarea { font-size: 16px !important; }
   }
 </style>
 </head>
@@ -232,13 +249,16 @@
   </div>
 </section>
 
-<div class="filter-bar" id="filter-bar">
-  <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
-  <button class="filter-btn" onclick="filterGallery('table',this)">Tables</button>
-  <button class="filter-btn" onclick="filterGallery('plinth',this)">Plinths</button>
-  <button class="filter-btn" onclick="filterGallery('basin',this)">Basins</button>
-  <button class="filter-btn" onclick="filterGallery('board',this)">Boards &amp; Platters</button>
-</div>
+<nav class="filter-bar" id="filter-bar" aria-label="Collection categories">
+  <div class="filter-track">
+    <button class="filter-btn active" aria-pressed="true" onclick="filterGallery('all',this)">All</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('table',this)">Tables</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('plinth',this)">Plinths</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('basin',this)">Basins</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('board',this)">Boards &amp; Platters</button>
+    <button class="filter-btn filter-btn-archive" aria-pressed="false" onclick="filterGallery('archive',this)">Archive</button>
+  </div>
+</nav>
 
 <div id="gallery-grid">
 <section class="gal-group" data-group="table">
@@ -487,7 +507,8 @@
 
 <section class="gal-group gal-archive" data-group="archive">
   <div class="gal-group-head">
-    <div><h2>The <em>Archive</em></h2><p>One-of-one pieces that have found their homes.</p></div>
+    <div><h2>The <em>Archive</em></h2><p>One-of-one pieces that have found their homes. These are sold and no longer available.</p></div>
+    <a href="custom.html" class="gal-group-link">Commission something similar →</a>
   </div>
   <div class="gal-grid">
   <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Green Calacatta Marble" data-stone="Green Calacatta Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 280mm" data-price="Sold" data-link="plinths.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
@@ -663,17 +684,19 @@
   let _currentIdx = 0;
 
   function filterGallery(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    // All = every group (Archive last). A category = its available pieces only.
+    // Archive = sold pieces only, kept apart so nothing reads as purchasable.
+    document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     btn.classList.add('active');
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
-    });
+    btn.setAttribute('aria-pressed', 'true');
+    btn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    document.getElementById('gallery-grid').classList.toggle('is-filtered', cat !== 'all');
     document.querySelectorAll('.gal-group').forEach(g => {
-      const any = Array.from(g.querySelectorAll('.gallery-item')).some(i => i.style.display !== 'none');
-      g.style.display = any ? '' : 'none';
+      g.style.display = (cat === 'all' || g.dataset.group === cat) ? '' : 'none';
     });
     const grid = document.getElementById('gallery-grid');
-    if (window.scrollY > grid.offsetTop) window.scrollTo({ top: grid.offsetTop - 120 });
+    const top = grid.getBoundingClientRect().top + window.scrollY - document.getElementById('filter-bar').offsetHeight - 70;
+    if (window.scrollY > top) window.scrollTo({ top });
   }
 
   function getVisibleItems() {
@@ -848,69 +871,6 @@ async function submitEnquire() {
   }
 }
 </script>
-<div id="pp-popup-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.55);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;">
-  <div id="pp-popup-box" style="background:var(--cream);max-width:440px;width:100%;padding:3rem 2.5rem 2.5rem;position:relative;text-align:center;border:1px solid var(--line);">
-    <button id="pp-popup-close" aria-label="Close" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--stone);line-height:1;">&times;</button>
-    <div id="pp-step-teaser">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Welcome to Prime Piece</p>
-      <h2 style="font-family:var(--display);font-size:2rem;font-weight:400;color:var(--ink);margin:0 0 0.75rem;line-height:1.2;">You have a<br><em>secret offer</em></h2>
-      <p style="font-family:var(--body);font-size:0.85rem;color:var(--stone);margin:0 0 2rem;line-height:1.6;">Handcrafted stone, made once.<br>Unlock an exclusive discount — just for visiting today :)</p>
-      <button id="pp-btn-claim" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;font-weight:600;">Reveal My Offer</button>
-    </div>
-    <div id="pp-step-form" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Almost there</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.6rem;">Where shall we send it?</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.75rem;">Enter your details and we'll reveal your discount code instantly.</p>
-      <input id="pp-name" type="text" placeholder="Your name" autocomplete="given-name" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.75rem;outline:none;">
-      <input id="pp-email" type="email" placeholder="Email address" autocomplete="email" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.25rem;outline:none;">
-      <p id="pp-form-error" style="font-size:0.78rem;color:#c0392b;margin:0.4rem 0 1rem;display:none;"></p>
-      <button id="pp-btn-submit" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;margin-top:0.5rem;font-weight:600;">Unlock Discount</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:1rem 0 0;line-height:1.5;">No spam. One email with your code, that's it.<br>Unsubscribe any time.</p>
-    </div>
-    <div id="pp-step-reveal" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Your exclusive offer</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.5rem;">10% off your order</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.5rem;">Use this code at checkout:</p>
-      <div style="background:var(--cream-deep);border:1.5px dashed var(--sage);padding:1rem 1.5rem;margin-bottom:1.75rem;display:inline-block;min-width:180px;"><span id="pp-code" style="font-family:var(--display);font-size:1.6rem;letter-spacing:0.2em;color:var(--ink);font-weight:500;">PRIME10</span></div><br>
-      <button id="pp-btn-shop" style="width:100%;padding:0.9rem 1.5rem;background:var(--ink);color:var(--cream);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;">Shop the Collection</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:0.85rem 0 0;">Code sent to your inbox too.</p>
-    </div>
-  </div>
-</div>
-<script>
-(function() {
-  if (localStorage.getItem('pp_popup_seen')) return;
-  var overlay = document.getElementById('pp-popup-overlay');
-  var stepTeaser = document.getElementById('pp-step-teaser');
-  var stepForm = document.getElementById('pp-step-form');
-  var stepReveal = document.getElementById('pp-step-reveal');
-  function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
-  function hide() { overlay.style.display = 'none'; }
-  var shown = false;
-  function tryShow() { if (!shown) { shown = true; show(); } }
-  document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
-  setTimeout(tryShow, 7000);
-  document.getElementById('pp-popup-close').addEventListener('click', hide);
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
-  document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
-  document.getElementById('pp-btn-submit').addEventListener('click', async function() {
-    var name = document.getElementById('pp-name').value.trim();
-    var email = document.getElementById('pp-email').value.trim();
-    var errEl = document.getElementById('pp-form-error');
-    errEl.style.display = 'none';
-    if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
-    var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
-    try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
-    stepForm.style.display = 'none'; stepReveal.style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-    if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
-  });
-  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
-})();
-</script>
-
-
 <script>
 async function footerSubscribe(event, form) {
   event.preventDefault();
@@ -929,6 +889,7 @@ async function footerSubscribe(event, form) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';

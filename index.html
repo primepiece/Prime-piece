@@ -449,6 +449,7 @@
   .float-enquire-label { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; font-weight: 500; font-family: var(--body); white-space: nowrap; padding-right: 20px; opacity: 0; transition: opacity 0.2s 0.1s; }
   .float-enquire:hover .float-enquire-label { opacity: 1; }
   .float-enquire.hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
+  .float-enquire.near-cta { opacity: 0; pointer-events: none; transform: translateY(12px); }
 
   .nav-ig { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; flex-shrink: 0; }
   .nav-ig:hover { border-color: rgba(255,255,255,0.7); color: #fff; background: rgba(255,255,255,0.07); }
@@ -570,10 +571,51 @@
 
     .render-section { padding: 64px 24px; row-gap: 28px; }
     .render-section .btn { width: 100%; justify-content: center; }
+    .render-note span { display: block; }
+    .render-note .render-note-sep { display: none; }
 
     .showroom-copy-col { order: -1; }
     .showroom-img-col { min-height: 240px; }
     .showroom-map { min-height: 240px; height: 240px; }
+  }
+  /* Welcome offer */
+  .welcome { position: fixed; inset: 0; z-index: 9990; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(44,42,38,0); transition: background 0.35s ease; }
+  .welcome[hidden] { display: none; }
+  .welcome.is-open { background: rgba(44,42,38,0.45); }
+  .welcome-card { position: relative; display: grid; grid-template-columns: 300px 1fr; width: 100%; max-width: 760px; background: var(--cream); border: 1px solid var(--line); box-shadow: 0 32px 80px rgba(44,42,38,0.22); opacity: 0; transform: translateY(14px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .welcome.is-open .welcome-card { opacity: 1; transform: none; }
+  .welcome-img { background: var(--cream-deep); min-height: 100%; }
+  .welcome-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .welcome-body { padding: 52px 48px 40px; }
+  .welcome-body h2 { font-size: clamp(32px, 3.2vw, 42px); margin-bottom: 18px; }
+  .welcome-copy { font-size: 14px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 28px; max-width: 340px; }
+  .welcome-form { display: flex; flex-direction: column; gap: 10px; }
+  .welcome-form input { width: 100%; padding: 14px 16px; border: 1px solid var(--line); background: var(--cream-soft); font-family: var(--body); font-size: 14px; color: var(--ink); border-radius: 1px; outline: none; }
+  .welcome-form input:focus { border-color: var(--sage); }
+  .welcome-form .btn, #welcome-step-done .btn { justify-content: center; width: 100%; padding: 15px 24px; }
+  .welcome-error { font-size: 12px; color: #a94435; margin-top: 10px; }
+  .welcome-fine { font-size: 11px; color: var(--stone); margin-top: 14px; line-height: 1.6; }
+  .welcome-decline { display: inline-block; margin-top: 18px; background: none; border: none; padding: 0 0 2px; border-bottom: 1px solid var(--line); font-family: var(--body); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); cursor: pointer; }
+  .welcome-decline:hover { color: var(--ink); border-color: var(--ink); }
+  .welcome-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: none; font-size: 24px; line-height: 1; color: var(--stone); cursor: pointer; z-index: 2; }
+  .welcome-close:hover { color: var(--ink); }
+  .welcome-code { font-family: var(--body); font-variant-numeric: lining-nums; font-weight: 400; font-size: 22px; letter-spacing: 0.34em; color: var(--ink); text-align: center; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+  @media (max-width: 768px) {
+    /* Compact bottom sheet — never full screen */
+    .welcome { align-items: flex-end; padding: 0; }
+    .welcome-card { grid-template-columns: 1fr; max-width: none; border: none; border-top: 1px solid var(--line); transform: translateY(24px); }
+    .welcome-img { display: none; }
+    .welcome-body { padding: 36px 24px calc(24px + env(safe-area-inset-bottom)); }
+    .welcome-body h2 { font-size: 32px; margin-bottom: 12px; }
+    .welcome-copy { font-size: 13.5px; margin-bottom: 20px; }
+    .welcome-form input { font-size: 16px; }
+    .welcome-decline { margin-top: 14px; }
+  }
+  /* Enquiry form on phones: stack name/email; 16px fields stop iOS zooming on focus */
+  @media (max-width: 480px) {
+    #enq-form-wrap { padding: 22px 20px 24px !important; }
+    #enq-form-wrap > div:first-child { grid-template-columns: 1fr !important; }
+    #enq-overlay input, #enq-overlay textarea { font-size: 16px !important; }
   }
 </style>
 </head>
@@ -774,7 +816,7 @@
   </figure>
   <div class="render-cta reveal">
     <button onclick="openEnquireModal('Complimentary Render Request', 'render')" class="btn btn-primary" style="cursor:pointer;">Request a Complimentary Render <span class="btn-arrow">→</span></button>
-    <p class="render-note">Typically within 1–2 business days · No obligation to proceed</p>
+    <p class="render-note"><span>Typically within 1–2 business days</span><span class="render-note-sep"> · </span><span>No obligation to proceed</span></p>
   </div>
 </section>
 
@@ -954,6 +996,15 @@
   if (floatBtn && heroEl) {
     new IntersectionObserver(entries => entries.forEach(e => floatBtn.classList.toggle('in-hero', e.isIntersecting)), { threshold: 0.25 }).observe(heroEl);
   }
+  // Mobile: step the floating button aside while a full-width CTA passes beneath it.
+  if (floatBtn && window.matchMedia('(max-width: 768px)').matches) {
+    const ctaZone = new Set();
+    const ctaObs = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting ? ctaZone.add(e.target) : ctaZone.delete(e.target));
+      floatBtn.classList.toggle('near-cta', ctaZone.size > 0);
+    }, { rootMargin: '-70% 0px 0px 0px' });
+    document.querySelectorAll('.render-cta .btn, .process-cta .btn, .featured-footer .btn, .cp-final .btn').forEach(el => ctaObs.observe(el));
+  }
   if (floatBtn && contactSection) {
     const floatObserver = new IntersectionObserver(entries => entries.forEach(e => { floatBtn.classList.toggle('hidden', e.isIntersecting); }), { threshold: 0.2 });
     floatObserver.observe(contactSection);
@@ -1124,6 +1175,7 @@ async function footerSubscribe(event, form, source) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: source || 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';
@@ -1143,6 +1195,99 @@ async function footerSubscribe(event, form, source) {
   }
   return false;
 }
+</script>
+
+<!-- Welcome offer — homepage only. Reuses /api/subscribe (which emails the PRIME10 code). -->
+<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title" hidden>
+  <div class="welcome-card">
+    <button type="button" class="welcome-close" aria-label="Close" data-welcome-close>&times;</button>
+    <div class="welcome-img"><img src="plinth-indian-green-2.jpg" alt="" decoding="async" fetchpriority="low"></div>
+    <div class="welcome-body">
+      <div id="welcome-step-form">
+        <span class="section-label">Prime Piece</span>
+        <h2 id="welcome-title">A welcome from<br><em>Prime Piece</em>.</h2>
+        <p class="welcome-copy">Receive 10% off your first piece, along with occasional new releases, one-of-one pieces and studio updates.</p>
+        <form class="welcome-form" id="welcome-form" novalidate>
+          <input type="email" name="email" id="welcome-email" placeholder="Your email address" autocomplete="email" required aria-label="Email address">
+          <button type="submit" class="btn btn-primary" id="welcome-submit">Receive 10% <span class="btn-arrow">→</span></button>
+        </form>
+        <p class="welcome-error" id="welcome-error" hidden></p>
+        <p class="welcome-fine">For new customers, on your first order. Unsubscribe at any time.</p>
+        <button type="button" class="welcome-decline" data-welcome-close>No thank you</button>
+      </div>
+      <div id="welcome-step-done" hidden>
+        <span class="section-label">Welcome</span>
+        <h2>Thank you<br><em>for joining us</em>.</h2>
+        <p class="welcome-copy">Your code for 10% off your first piece — we've also sent it to your inbox.</p>
+        <div class="welcome-code">PRIME10</div>
+        <button type="button" class="btn btn-primary" data-welcome-close>Continue Browsing <span class="btn-arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  // Dismissed → hidden for 14 days (and for the rest of this browsing session).
+  // Subscribed (here or via any footer form) → never shown again on this device.
+  var KEY = 'pp_welcome', DISMISS_DAYS = 14, DELAY_MS = 3000;
+  var el = document.getElementById('welcome');
+  if (!el) return;
+  function read() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (_) { return {}; } }
+  function write(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (_) {} }
+  function sessionSeen() { try { return sessionStorage.getItem(KEY) === 'seen'; } catch (_) { return false; } }
+  var saved = read();
+  if (saved.state === 'subscribed' || (saved.until && saved.until > Date.now()) || sessionSeen()) return;
+
+  var lastFocus = null;
+  function busy() {
+    // Never interrupt someone mid-task: enquiry form or mobile menu open.
+    var enq = document.getElementById('enq-overlay');
+    var menu = document.getElementById('mobile-menu');
+    return (enq && enq.style.display === 'flex') || (menu && menu.classList.contains('open'));
+  }
+  function open() {
+    if (busy()) { setTimeout(open, 2000); return; }
+    try { sessionStorage.setItem(KEY, 'seen'); } catch (_) {}
+    lastFocus = document.activeElement;
+    el.hidden = false;
+    requestAnimationFrame(function () { el.classList.add('is-open'); });
+    document.addEventListener('keydown', onKey);
+  }
+  function close() {
+    if (read().state !== 'subscribed') write({ state: 'dismissed', until: Date.now() + DISMISS_DAYS * 864e5 });
+    el.classList.remove('is-open');
+    document.removeEventListener('keydown', onKey);
+    setTimeout(function () { el.hidden = true; }, 350);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+  el.addEventListener('click', function (e) { if (e.target === el || e.target.closest('[data-welcome-close]')) close(); });
+
+  document.getElementById('welcome-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var email = document.getElementById('welcome-email').value.trim();
+    var err = document.getElementById('welcome-error');
+    var btn = document.getElementById('welcome-submit');
+    err.hidden = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; err.hidden = false; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      var res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'Homepage Welcome' }) });
+      var data = await res.json().catch(function () { return {}; });
+      if (!res.ok || !data.success) throw new Error('subscribe failed');
+      write({ state: 'subscribed' });
+      document.getElementById('welcome-step-form').hidden = true;
+      document.getElementById('welcome-step-done').hidden = false;
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'welcome', event_category: 'email_list' });
+    } catch (_) {
+      err.textContent = 'Something went wrong — please try again.'; err.hidden = false;
+      btn.disabled = false; btn.innerHTML = 'Receive 10% <span class="btn-arrow">→</span>';
+    }
+  });
+
+  setTimeout(open, DELAY_MS);
+})();
 </script>
 
 </body>
