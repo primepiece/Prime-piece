@@ -14,7 +14,9 @@
     { "source": "/gallery", "destination": "/gallery.html", "permanent": true },
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true },
-    { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": true }
+    { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": true },
+    { "source": "/drop", "destination": "/basins.html", "permanent": true },
+    { "source": "/drop.html", "destination": "/basins.html", "permanent": true }
   ],
   "rewrites": [
     { "source": "/scale-os", "destination": "/api/scale-os/dashboard" },
