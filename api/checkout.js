@@ -31,6 +31,7 @@ const CATALOG = {
   // Entertaining platters
   'platter-rosa-cloud':  { name: 'Rosa Cloud — Entertaining Platter', price: 189 },
   'platter-teal-tide':   { name: 'Teal Tide — Entertaining Platter', price: 189 },
+  'platter-teal-tide-2': { name: 'Teal Tide II — Entertaining Platter', price: 189 },
   // Plinths
   'plinth-dekton-sirius-large':      { name: 'Dekton Sirius Plinth',               price: 2400 },
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Side Plinth',         price: 1500 },
