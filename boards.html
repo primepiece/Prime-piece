@@ -201,6 +201,9 @@
   .filter-btn:hover { border-color: var(--sage); color: var(--sage); }
   .filter-btn.active { background: var(--sage); border-color: var(--sage); color: white; }
 
+  .type-filter-bar { border-bottom: none; padding-bottom: 12px; }
+  .type-filter-bar .filter-btn { font-weight: 500; }
+
   .boards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -537,7 +540,14 @@
   </div>
 </section>
 
-<div class="filter-bar">
+<div class="filter-bar type-filter-bar" id="type-filter-bar">
+  <span class="filter-label">Shop</span>
+  <button class="filter-btn active" onclick="filterType('all', this)">All</button>
+  <button class="filter-btn" onclick="filterType('board', this)">Serving Boards</button>
+  <button class="filter-btn" onclick="filterType('platter', this)">Entertaining Platters</button>
+</div>
+
+<div class="filter-bar" id="stone-filter-bar">
   <span class="filter-label">Filter</span>
   <button class="filter-btn active" onclick="filterBoards('all', this)">All</button>
   <button class="filter-btn" onclick="filterBoards('dark', this)">Dark Stone</button>
@@ -549,7 +559,7 @@
 
 <div class="boards-grid" id="boards-grid">
 
-  <div class="board-card reveal" data-tags="green" data-product-id="board-green-onyx" onclick="openModal('Jade Cloud','Green Marble Onyx','board-green-onyx.jpg','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
+  <div class="board-card reveal" data-type="board" data-tags="green" data-product-id="board-green-onyx" onclick="openModal('Jade Cloud','Green Marble Onyx','board-green-onyx.jpg','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-green-onyx.jpg" alt="Jade Cloud — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -567,7 +577,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" data-product-id="board-green-onyx-2" onclick="openModal('Jade Cloud II','Green Marble Onyx','board-green-onyx-2.jpg','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
+  <div class="board-card reveal" data-type="board" data-tags="green" data-product-id="board-green-onyx-2" onclick="openModal('Jade Cloud II','Green Marble Onyx','board-green-onyx-2.jpg','L: 300mm × W: 200mm × D: 20mm','Translucent jade green onyx with soft cloud-like formations and a glowing luminous quality — one of the rarest and most beautiful stones in the collection')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-green-onyx-2.jpg" alt="Jade Cloud II — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -585,7 +595,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" data-product-id="board-white-haven" onclick="openModal('White Haven','White Marble — Grey Veining','board-white-haven-web.jpg','L: 300mm × W: 200mm × D: 20mm','Classic white marble with bold grey and charcoal veining')">
+  <div class="board-card reveal" data-type="board" data-tags="light" data-product-id="board-white-haven" onclick="openModal('White Haven','White Marble — Grey Veining','board-white-haven-web.jpg','L: 300mm × W: 200mm × D: 20mm','Classic white marble with bold grey and charcoal veining')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-white-haven-web.jpg" alt="White Haven — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy">
@@ -603,7 +613,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" data-product-id="board-teal-tide" onclick="openModal('Teal Tide','Teal Marble — Gold Veining','board-teal-tide-web.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it')">
+  <div class="board-card reveal" data-type="board" data-tags="green" data-product-id="board-teal-tide" onclick="openModal('Teal Tide','Teal Marble — Gold Veining','board-teal-tide-web.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it')">
     <div class="board-img-wrap">
       <span class="board-badge" style="background:#555">Sold</span>
       <img class="board-img" src="board-teal-tide-web.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
@@ -621,7 +631,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide II','Teal Marble — Gold Veining','board-teal-tide-2.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
+  <div class="board-card reveal" data-type="board" data-tags="green" onclick="openModal('Teal Tide II','Teal Marble — Gold Veining','board-teal-tide-2.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-teal-tide-2.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
@@ -639,7 +649,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide III','Teal Marble — Gold Veining','board-teal-tide-3.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
+  <div class="board-card reveal" data-type="board" data-tags="green" onclick="openModal('Teal Tide III','Teal Marble — Gold Veining','board-teal-tide-3.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge sold-out">Sold Out</span>
       <img class="board-img" src="board-teal-tide-3.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
@@ -656,7 +666,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green" onclick="openModal('Teal Tide IV','Teal Marble — Gold Veining','board-teal-tide-4.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
+  <div class="board-card reveal" data-type="board" data-tags="green" onclick="openModal('Teal Tide IV','Teal Marble — Gold Veining','board-teal-tide-4.jpg','L: 300mm × W: 200mm × D: 20mm','Teal and sage marble with warm gold veining running through it — every piece is cut from the same slab so the colour and veining will vary slightly, making it entirely yours.')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-teal-tide-4.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
@@ -674,7 +684,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="dark" onclick="openModal('Lava Vein','Black Marble — Gold Veining','board-lava-vein.jpg','L: 300mm × W: 200mm × D: 20mm','Black marble with dramatic gold and silver veining')">
+  <div class="board-card reveal" data-type="board" data-tags="dark" onclick="openModal('Lava Vein','Black Marble — Gold Veining','board-lava-vein.jpg','L: 300mm × W: 200mm × D: 20mm','Black marble with dramatic gold and silver veining')">
     <div class="board-img-wrap">
       <span class="board-badge" style="background:#555">Sold</span>
       <img class="board-img" src="board-lava-vein.jpg" alt="Lava Vein — black marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy">
@@ -691,7 +701,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" onclick="openModal('Golden Dune','Golden Quartzite','board-golden-dune-web.jpg','L: 300mm × W: 200mm × D: 20mm','Golden quartzite with warm amber tones and intricate natural patterning')">
+  <div class="board-card reveal" data-type="board" data-tags="light" onclick="openModal('Golden Dune','Golden Quartzite','board-golden-dune-web.jpg','L: 300mm × W: 200mm × D: 20mm','Golden quartzite with warm amber tones and intricate natural patterning')">
     <div class="board-img-wrap">
       <span class="board-badge" style="background:#555">Sold</span>
       <img class="board-img" src="board-golden-dune-web.jpg" alt="Golden Dune — golden quartzite marble serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -708,7 +718,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green dark" onclick="openModal('Emerald Vein','Dark Green Marble — White Veining','board-emerald-vein-web.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green marble with bold white veining throughout')">
+  <div class="board-card reveal" data-type="board" data-tags="green dark" onclick="openModal('Emerald Vein','Dark Green Marble — White Veining','board-emerald-vein-web.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green marble with bold white veining throughout')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-emerald-vein-web.jpg" alt="Emerald Vein — dark green marble serving board white veining handcrafted Auckland New Zealand" loading="lazy">
@@ -726,7 +736,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" data-product-id="board-pink-storm" onclick="openModal('Pink Storm','Pink Onyx Marble','board-pink-storm-web.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
+  <div class="board-card reveal" data-type="board" data-tags="light" data-product-id="board-pink-storm" onclick="openModal('Pink Storm','Pink Onyx Marble','board-pink-storm-web.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-pink-storm-web.jpg" alt="Pink Storm — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -744,7 +754,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" data-product-id="board-pink-storm-2" onclick="openModal('Pink Storm II','Pink Onyx Marble','board-pink-storm-2.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
+  <div class="board-card reveal" data-type="board" data-tags="light" data-product-id="board-pink-storm-2" onclick="openModal('Pink Storm II','Pink Onyx Marble','board-pink-storm-2.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-pink-storm-2.jpg" alt="Pink Storm II — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -762,7 +772,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" data-product-id="board-pink-storm-3" onclick="openModal('Pink Storm III','Pink Onyx Marble','board-pink-storm-3.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
+  <div class="board-card reveal" data-type="board" data-tags="light" data-product-id="board-pink-storm-3" onclick="openModal('Pink Storm III','Pink Onyx Marble','board-pink-storm-3.jpg','L: 300mm × W: 200mm × D: 20mm','Soft pink and white onyx marble with swirling warm tones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-pink-storm-3.jpg" alt="Pink Storm III — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -780,7 +790,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="green dark" onclick="openModal('Forest Stone','India Green Marble','board-india-green.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green with dramatic dark veining and a rich, earthy texture — India Green Marble from Rajasthan. Bold, grounded and completely one of one')">
+  <div class="board-card reveal" data-type="board" data-tags="green dark" onclick="openModal('Forest Stone','India Green Marble','board-india-green.jpg','L: 300mm × W: 200mm × D: 20mm','Deep forest green with dramatic dark veining and a rich, earthy texture — India Green Marble from Rajasthan. Bold, grounded and completely one of one')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-india-green.jpg" alt="Forest Stone — India Green Marble serving board handcrafted Auckland New Zealand" loading="lazy">
@@ -798,7 +808,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="dark" onclick="openModal('Volcanic Ash','Dark Marble — Red & Gold Veining','board-volcanic-ash-web.jpg','L: 300mm × W: 200mm × D: 20mm','Dramatic dark marble with striking red and gold veining')">
+  <div class="board-card reveal" data-type="board" data-tags="dark" onclick="openModal('Volcanic Ash','Dark Marble — Red & Gold Veining','board-volcanic-ash-web.jpg','L: 300mm × W: 200mm × D: 20mm','Dramatic dark marble with striking red and gold veining')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-volcanic-ash-web.jpg" alt="Volcanic Ash — dark marble serving board red gold veining handcrafted Auckland New Zealand" loading="lazy">
@@ -816,7 +826,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" data-product-id="board-silver-drift" onclick="openModal('Silver Drift','White Marble — Grey Veining','board-silver-drift.jpg','L: 300mm × W: 200mm × D: 20mm','Soft white marble with flowing silver-grey veining and warm undertones')">
+  <div class="board-card reveal" data-type="board" data-tags="light" data-product-id="board-silver-drift" onclick="openModal('Silver Drift','White Marble — Grey Veining','board-silver-drift.jpg','L: 300mm × W: 200mm × D: 20mm','Soft white marble with flowing silver-grey veining and warm undertones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-silver-drift.jpg" alt="Silver Drift — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy">
@@ -834,7 +844,7 @@
     </div>
   </div>
 
-  <div class="board-card reveal" data-tags="light" data-product-id="board-silver-drift-2" onclick="openModal('Silver Drift II','White Marble — Grey Veining','board-silver-drift-2.jpg','L: 300mm × W: 200mm × D: 20mm','Soft white marble with flowing silver-grey veining and warm undertones')">
+  <div class="board-card reveal" data-type="board" data-tags="light" data-product-id="board-silver-drift-2" onclick="openModal('Silver Drift II','White Marble — Grey Veining','board-silver-drift-2.jpg','L: 300mm × W: 200mm × D: 20mm','Soft white marble with flowing silver-grey veining and warm undertones')">
     <div class="board-img-wrap">
       <span class="board-badge">Available</span>
       <img class="board-img" src="board-silver-drift-2.jpg" alt="Silver Drift II — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy">
@@ -851,6 +861,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Entertaining Platters go here. Each card: data-type="platter" (alongside
+       the usual data-tags stone colour), board-name "[Piece name] — Entertaining
+       Platter", board-type footer label "Entertaining Platter". Also add the
+       matching entry to BOARD_PRICES below, api/checkout.js CATALOG, and
+       products.xml. -->
 
 </div>
 
@@ -1056,12 +1072,29 @@
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function filterBoards(tag, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+  let currentType = 'all';
+  let currentStone = 'all';
+
+  function applyBoardFilters() {
     document.querySelectorAll('.board-card').forEach(card => {
-      card.style.display = (tag === 'all' || card.dataset.tags.includes(tag)) ? 'flex' : 'none';
+      const typeMatch = currentType === 'all' || card.dataset.type === currentType;
+      const stoneMatch = currentStone === 'all' || card.dataset.tags.includes(currentStone);
+      card.style.display = (typeMatch && stoneMatch) ? 'flex' : 'none';
     });
+  }
+
+  function filterType(type, btn) {
+    currentType = type;
+    document.querySelectorAll('#type-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyBoardFilters();
+  }
+
+  function filterBoards(tag, btn) {
+    currentStone = tag;
+    document.querySelectorAll('#stone-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyBoardFilters();
   }
 
   const BOARD_PRICES = {
