@@ -16,6 +16,7 @@ const CATALOG = {
   // Serving boards
   'board-emerald-vein':  { name: 'Emerald Vein', price: 99 },
   'board-green-onyx':    { name: 'Jade Cloud', price: 99 },
+  'board-green-onyx-2':  { name: 'Jade Cloud II', price: 99 },
   'board-india-green':   { name: 'Forest Stone', price: 99 },
   'board-pink-storm':    { name: 'Pink Storm', price: 99 },
   'board-teal-tide':     { name: 'Teal Tide',       price: 99 },
