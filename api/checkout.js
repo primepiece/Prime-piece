@@ -80,6 +80,11 @@ const CATALOG = {
 
 const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 
+// NZ-wide delivery: flat rate, free over the threshold. Showroom pickup is
+// always free and isn't affected by this.
+const DELIVERY_FLAT_FEE = 49;
+const FREE_DELIVERY_THRESHOLD = 500;
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -110,10 +115,14 @@ export default async function handler(req, res) {
 
   const subtotal = resolved.reduce((sum, p) => sum + p.price, 0);
 
+  // Delivery fee computed server-side, same as pricing — never trust the client.
+  const deliveryMode = customer.delivery || 'pickup';
+  const deliveryFee = (deliveryMode === 'delivery' && subtotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+
   // Promo applied server-side — client value is display-only
   const code = (promoCode || '').toUpperCase().trim();
   const discountRate = PROMO_CODES[code] || 0;
-  const totalCents = Math.round(subtotal * 100 * (1 - discountRate));
+  const totalCents = Math.round(subtotal * 100 * (1 - discountRate)) + deliveryFee * 100;
 
   const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).join(' | ');
   const description = resolved.map(p => p.name).join(', ');
@@ -127,7 +136,8 @@ export default async function handler(req, res) {
     'metadata[customer_name]': customer.name,
     'metadata[customer_email]': customer.email,
     'metadata[customer_phone]': customer.phone || '',
-    'metadata[delivery]': customer.delivery || 'pickup',
+    'metadata[delivery]': deliveryMode,
+    'metadata[delivery_fee]': deliveryFee.toString(),
     'metadata[notes]': customer.notes || '',
     'metadata[items]': itemsLabel,
     'metadata[promo]': discountRate > 0 ? code : '',
