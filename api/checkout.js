@@ -28,6 +28,8 @@ const CATALOG = {
   'board-teal-tide-4':   { name: 'Teal Tide IV', price: 99 },
   'board-volcanic-ash':  { name: 'Volcanic Ash', price: 99 },
   'board-white-haven':   { name: 'White Haven', price: 99 },
+  // Entertaining platters
+  'platter-rosa-cloud':  { name: 'Rosa Cloud — Entertaining Platter', price: 189 },
   // Plinths
   'plinth-dekton-sirius-large':      { name: 'Dekton Sirius Plinth',               price: 2400 },
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Side Plinth',         price: 1500 },

@@ -535,7 +535,7 @@
     <p class="hero-desc">Each board is cut from a single slab of natural stone — one of one, never repeated. Functional sculpture for the kitchen, dining table, or counter.</p>
   </div>
   <div class="hero-right reveal">
-    <div class="hero-stat">17</div>
+    <div class="hero-stat">18</div>
     <div class="hero-stat-label">Pieces available</div>
   </div>
 </section>
@@ -868,6 +868,24 @@
        matching entry to BOARD_PRICES below, api/checkout.js CATALOG, and
        products.xml. -->
 
+  <div class="board-card reveal" data-type="platter" data-tags="light" data-product-id="platter-rosa-cloud" onclick="openModal('Rosa Cloud — Entertaining Platter','Pink Onyx Marble','platter-rosa-cloud.jpg','L: 600mm × W: 400mm × D: 20mm','Soft pink onyx marble with flowing rose-gold veining, cut as a generous entertaining platter — one of one, never repeated')">
+    <div class="board-img-wrap">
+      <span class="board-badge">Available</span>
+      <img class="board-img" src="platter-rosa-cloud.jpg" alt="Rosa Cloud — pink onyx marble entertaining platter handcrafted Auckland New Zealand" loading="lazy">
+      <div class="view-btn">View Piece →</div>
+    </div>
+    <div class="board-info">
+      <div class="board-name">Rosa Cloud — Entertaining Platter</div>
+      <div class="board-stone">Pink Onyx Marble</div>
+      <div class="board-dims">L: 600mm × W: 400mm × D: 20mm<br>With carved handle</div>
+      <div class="board-price">NZD $189</div>
+      <div class="board-foot">
+        <span class="board-type">Entertaining Platter</span>
+        <button class="enquire-btn pp-add-btn" data-id="platter-rosa-cloud" onclick="event.stopPropagation(); Cart.add({id:'platter-rosa-cloud',name:'Rosa Cloud — Entertaining Platter',type:'Entertaining Platter',image:'platter-rosa-cloud.jpg',price:189})">Add to Cart →</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="cta-strip">
@@ -1008,7 +1026,7 @@
       <img id="modal-img" src="" alt="">
     </div>
     <div class="modal-info-col">
-      <div class="modal-eyebrow">Prime Piece — Serving Board</div>
+      <div class="modal-eyebrow" id="modal-eyebrow">Prime Piece — Serving Board</div>
       <div class="modal-name" id="modal-name"></div>
       <div class="modal-stone" id="modal-stone-desc"></div>
       <div class="modal-divider"></div>
@@ -1115,16 +1133,18 @@
     'board-india-green.jpg':      { price: 99, id: 'board-india-green' },
     'board-silver-drift.jpg':     { price: 99, id: 'board-silver-drift' },
     'board-silver-drift-2.jpg':   { price: 99, id: 'board-silver-drift-2' },
+    'platter-rosa-cloud.jpg':     { price: 189, id: 'platter-rosa-cloud' },
   };
 
   let _modalItem = null;
 
   function openModal(name, stone, img, dims, note) {
+    document.getElementById('modal-eyebrow').textContent = img.startsWith('platter-') ? 'Prime Piece — Entertaining Platter' : 'Prime Piece — Serving Board';
     document.getElementById('modal-name').textContent = name;
     document.getElementById('modal-stone-tag').textContent = stone;
     document.getElementById('modal-stone-desc').textContent = note;
     document.getElementById('modal-img').src = img;
-    document.getElementById('modal-img').alt = name + ' — ' + stone + ' marble serving board handcrafted in Auckland NZ';
+    document.getElementById('modal-img').alt = name + ' — ' + stone + ' marble ' + (img.startsWith('platter-') ? 'entertaining platter' : 'serving board') + ' handcrafted in Auckland NZ';
     document.getElementById('modal-dims').textContent = dims;
     document.getElementById('modal-note').textContent = 'Natural stone colour and veining varies — the piece you receive will be one of one.';
 
