@@ -314,7 +314,7 @@
           </div>
           <div>
             <div class="delivery-opt-title">NZ-Wide Delivery</div>
-            <div class="delivery-opt-desc">Auckland, Wellington, Christchurch & beyond. We'll confirm cost &amp; timing with you personally after purchase.</div>
+            <div class="delivery-opt-desc">Auckland, Wellington, Christchurch &amp; beyond. $49 flat rate, free on orders $500+. We'll confirm timing with you personally after purchase.</div>
           </div>
         </div>
       </label>
@@ -429,7 +429,12 @@
   })();
 
   const cart = getCart();
-  const total = cart.reduce((s, i) => s + i.price, 0);
+  const subtotal = cart.reduce((s, i) => s + i.price, 0);
+
+  // Keep in sync with DELIVERY_FLAT_FEE / FREE_DELIVERY_THRESHOLD in api/checkout.js —
+  // this is display-only, the server computes the real charge.
+  const DELIVERY_FLAT_FEE = 49;
+  const FREE_DELIVERY_THRESHOLD = 500;
 
   // ── Render order summary ────────────────────────────────
   const summaryItems = document.getElementById('summary-items');
@@ -453,14 +458,23 @@
       </div>
     `).join('');
 
-    document.getElementById('summary-subtotal').textContent = fmt(total);
-    document.getElementById('summary-total').textContent = fmt(total);
+    document.getElementById('summary-subtotal').textContent = fmt(subtotal);
     summaryTotals.style.display = 'block';
     updateDeliveryLabel();
   }
 
-  // ── Delivery toggle ─────────────────────────────────────
+  // ── Delivery + totals ────────────────────────────────────
   let deliveryMode = 'pickup';
+  let discountRate = 0;
+
+  function deliveryFee() {
+    return (deliveryMode === 'delivery' && subtotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+  }
+  function grandTotal() {
+    return subtotal - Math.round(subtotal * discountRate) + deliveryFee();
+  }
+
+  let discountedTotal = grandTotal();
 
   renderSummary();
 
@@ -471,11 +485,23 @@
     document.getElementById('address-field').style.display = mode === 'delivery' ? 'flex' : 'none';
     document.getElementById('address-field').style.flexDirection = 'column';
     updateDeliveryLabel();
+    // The charge amount just changed — the already-created PaymentIntent (if
+    // any) is now stale for the new total, so force a fresh one next time
+    // payment is set up (same pattern applyPromo() uses below). Guarded in
+    // case Stripe.js hasn't finished loading yet (elements still in its TDZ).
+    try { elements = null; } catch (_) {}
   }
 
   function updateDeliveryLabel() {
+    const fee = deliveryFee();
+    discountedTotal = grandTotal();
     const el = document.getElementById('summary-delivery');
-    if (el) el.textContent = deliveryMode === 'pickup' ? 'Free — Showroom pickup' : 'TBC — confirmed after purchase';
+    if (el) {
+      el.textContent = deliveryMode === 'pickup'
+        ? 'Free — Showroom pickup'
+        : (fee === 0 ? 'Free — orders $500+' : fmt(fee) + ' flat rate');
+    }
+    document.getElementById('summary-total').textContent = fmt(discountedTotal);
   }
 
   // ── Stripe setup ────────────────────────────────────────
@@ -619,7 +645,7 @@
     if (error) {
       showError(error.message);
       document.getElementById('pay-btn').disabled = false;
-      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(total) + ' NZD →';
+      document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(discountedTotal) + ' NZD →';
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
       window.location.href = returnUrl;
     } else {
@@ -640,8 +666,6 @@
   function fmt(n) { return '$' + n.toLocaleString('en-NZ'); }
 
   const PROMO_CODES = { 'SAMPLEWORKSHOP': 0.10, 'PRIME10': 0.10, 'SIMONE10': 0.10 };
-  let discountRate = 0;
-  let discountedTotal = total;
 
   function applyPromo() {
     const code = document.getElementById('promo-code').value.trim().toUpperCase();
@@ -649,8 +673,8 @@
     msg.style.display = 'block';
     if (PROMO_CODES[code]) {
       discountRate = PROMO_CODES[code];
-      const discount = Math.round(total * discountRate);
-      discountedTotal = total - discount;
+      const discount = Math.round(subtotal * discountRate);
+      discountedTotal = grandTotal();
       document.getElementById('discount-row').style.display = 'flex';
       document.getElementById('summary-discount').textContent = '-' + fmt(discount);
       document.getElementById('summary-total').textContent = fmt(discountedTotal);
