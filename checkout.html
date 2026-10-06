@@ -413,6 +413,21 @@
     catch { return []; }
   }
 
+  // Resume a specific cart from a link (e.g. the abandoned-checkout email),
+  // which carries the cart as a URL param — this is what lets "Complete your
+  // order" work from a different device/browser than the one the cart was
+  // built on, where localStorage would otherwise be empty.
+  (function restoreCartFromUrl() {
+    try {
+      const raw = new URLSearchParams(location.search).get('cart');
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        localStorage.setItem(KEY, JSON.stringify(parsed));
+      }
+    } catch (_) { /* malformed/missing — fall back to whatever's already in localStorage */ }
+  })();
+
   const cart = getCart();
   const total = cart.reduce((s, i) => s + i.price, 0);
 
@@ -555,7 +570,7 @@
             currency: 'NZD',
             item_count: cart.length,
             items: cartItems,
-            checkout_url: 'https://primepiece.co.nz/checkout.html',
+            checkout_url: 'https://primepiece.co.nz/checkout.html?cart=' + encodeURIComponent(JSON.stringify(cart)),
             url: window.location.href,
           },
         }),
