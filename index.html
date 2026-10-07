@@ -119,7 +119,7 @@
           "name": "How much does a custom stone piece cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pricing depends on stone type, size and complexity. Stone plinths start from $700 NZD, coffee tables from $490 NZD, and custom benchtops are quoted per job. Contact us for a free quote."
+            "text": "Every custom piece is individually quoted based on the stone, dimensions, design and fabrication requirements. Share your idea with us and we'll provide a tailored quote."
           }
         },
         {
@@ -617,6 +617,10 @@
     #enq-form-wrap > div:first-child { grid-template-columns: 1fr !important; }
     #enq-overlay input, #enq-overlay textarea { font-size: 16px !important; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </head>
 <body>
@@ -686,7 +690,7 @@
     <a href="plinths.html" class="collection-card">
       <img loading="lazy" class="collection-card-img" src="product-1.jpg" alt="Stone Plinths Auckland">
       <div class="collection-card-label">
-        <div><span class="collection-card-name">Plinths</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">From NZD $700</div></div>
+        <div><span class="collection-card-name">Plinths</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">Custom &amp; ready-made</div></div>
         <span class="collection-card-arrow">↗</span>
       </div>
     </a>
@@ -931,7 +935,7 @@
     </div>
     <div class="faq-item reveal">
       <button class="faq-question">How much does a custom stone piece cost? <span class="faq-icon">+</span></button>
-      <div class="faq-answer">Pricing depends on stone type, size and complexity. Stone plinths start from $700 NZD, coffee tables from $490 NZD, and custom benchtops are quoted per job. <a href="mailto:james@primepiece.co.nz">Contact us</a> for a free quote.</div>
+      <div class="faq-answer">Every custom piece is individually quoted based on the stone, dimensions, design and fabrication requirements. Share your idea with us and we'll provide a tailored quote.</div>
     </div>
     <div class="faq-item reveal">
       <button class="faq-question">Do you deliver across New Zealand? <span class="faq-icon">+</span></button>
@@ -1212,7 +1216,7 @@ async function footerSubscribe(event, form, source) {
           <button type="submit" class="btn btn-primary" id="welcome-submit">Receive 10% <span class="btn-arrow">→</span></button>
         </form>
         <p class="welcome-error" id="welcome-error" hidden></p>
-        <p class="welcome-fine">For new customers, on your first order. Unsubscribe at any time.</p>
+        <p class="welcome-fine">For new customers on their first ready-made piece. Excludes custom commissions and trade orders.</p>
         <button type="button" class="welcome-decline" data-welcome-close>No thank you</button>
       </div>
       <div id="welcome-step-done" hidden>

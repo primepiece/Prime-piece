@@ -513,6 +513,10 @@
     #enq-form-wrap > div:first-child { grid-template-columns: 1fr !important; }
     #enq-overlay input, #enq-overlay textarea { font-size: 16px !important; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 
 </head>
@@ -580,7 +584,7 @@
   </div>
   <div class="cp-make-grid">
     <a href="tables.html" class="collection-card"><img loading="lazy" class="collection-card-img" src="lounge-9.jpg" alt="Silver travertine lounge table on a custom timber base"><div class="collection-card-label"><div><span class="collection-card-name">Tables</span><div class="cp-card-sub">Coffee, side, lounge &amp; dining</div></div><span class="collection-card-arrow">↗</span></div></a>
-    <a href="plinths.html" class="collection-card"><img loading="lazy" class="collection-card-img" src="plinth-9.jpg" alt="Verde Apli marble coffee table plinth"><div class="collection-card-label"><div><span class="collection-card-name">Plinths</span><div class="cp-card-sub">Pedestals &amp; solid stone blocks</div></div><span class="collection-card-arrow">↗</span></div></a>
+    <a href="plinths.html" class="collection-card"><img loading="lazy" class="collection-card-img" src="plinth-9.jpg" alt="Verde Alpi marble coffee table plinth"><div class="collection-card-label"><div><span class="collection-card-name">Plinths</span><div class="cp-card-sub">Pedestals &amp; solid stone blocks</div></div><span class="collection-card-arrow">↗</span></div></a>
     <a href="basins.html" class="collection-card"><img loading="lazy" class="collection-card-img" src="nero-marquina-vessel.jpg" alt="Nero Marquina marble vessel basin" style="object-position:center;"><div class="collection-card-label"><div><span class="collection-card-name">Basins</span><div class="cp-card-sub">Vessel basins in natural stone</div></div><span class="collection-card-arrow">↗</span></div></a>
     <a href="#" onclick="event.preventDefault();openEnquireModal('Bespoke Piece Enquiry')" class="collection-card"><img loading="lazy" class="collection-card-img" src="showroom.jpg" alt="Natural stone slabs and pieces in the Prime Piece Wairau Valley showroom"><div class="collection-card-label"><div><span class="collection-card-name">Bespoke</span><div class="cp-card-sub">Something not in the collection</div></div><span class="collection-card-arrow">↗</span></div></a>
   </div>

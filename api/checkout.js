@@ -23,7 +23,6 @@ const CATALOG = {
   'board-pink-storm-3':  { name: 'Pink Storm III', price: 99 },
   'board-silver-drift':  { name: 'Silver Drift', price: 99 },
   'board-silver-drift-2':{ name: 'Silver Drift II', price: 99 },
-  'board-teal-tide':     { name: 'Teal Tide',       price: 99 },
   'board-teal-tide-2':   { name: 'Teal Tide II', price: 99 },
   'board-teal-tide-4':   { name: 'Teal Tide IV', price: 99 },
   'board-volcanic-ash':  { name: 'Volcanic Ash', price: 99 },
@@ -35,7 +34,6 @@ const CATALOG = {
   'platter-dune':        { name: 'Dune — Entertaining Platter', price: 189 },
   'platter-silver-mist': { name: 'Silver Mist — Entertaining Platter', price: 189 },
   // Plinths
-  'plinth-dekton-sirius-large':      { name: 'Dekton Sirius Plinth',               price: 2400 },
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Side Plinth',         price: 1500 },
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
   'plinth-grey-porcelain-450':       { name: 'Grey Porcelain Side Plinth',        price: 700  },
@@ -45,7 +43,7 @@ const CATALOG = {
   'plinth-rosso-africano-plinth':    { name: 'Rosso Africano Marble Plinth',      price: 3800 },
   'plinth-rosso-africano-table-2':   { name: 'Rosso Africano Marble Table', price: 4900 },
   'plinth-rosso-levanto-plinth':     { name: 'Rosso Levanto Marble Plinth',       price: 1400 },
-  'plinth-verde-apli-table':         { name: 'Verde Apli Marble Table', price: 4000 },
+  'plinth-verde-apli-table':         { name: 'Verde Alpi Marble Table', price: 4000 },
   // Tables — coffee & side
   'table-amazon-vein-2':    { name: 'Amazon Vein II', price: 520 },
   'table-arctic-vein':      { name: 'Arctic Vein', price: 520 },
