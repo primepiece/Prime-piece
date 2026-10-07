@@ -1003,12 +1003,33 @@ let enqImageBase64 = null, enqImageMime = 'image/jpeg';
 function enqHandlePhoto(input) {
   const file = input.files[0];
   if (!file) return;
-  enqImageMime = file.type || 'image/jpeg';
+  document.getElementById('enq-photo-text').textContent = 'Processing photo…';
   const reader = new FileReader();
   reader.onload = ev => {
-    enqImageBase64 = ev.target.result.split(',')[1];
-    document.getElementById('enq-photo-text').textContent = '✓ ' + file.name;
-    document.getElementById('enq-photo-label').style.borderColor = 'var(--sage)';
+    const img = new Image();
+    img.onload = () => {
+      // Resize to a sane max dimension and re-compress as JPEG — phone
+      // photos can be 5-10MB raw, which silently blew past our server-side
+      // attachment size cutoff (and Vercel's function body limit) with no
+      // feedback. This guarantees a small payload regardless of source size.
+      const maxDim = 1600;
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+        else { width = Math.round(width * maxDim / height); height = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      enqImageMime = 'image/jpeg';
+      enqImageBase64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+      document.getElementById('enq-photo-text').textContent = '✓ ' + file.name;
+      document.getElementById('enq-photo-label').style.borderColor = 'var(--sage)';
+    };
+    img.onerror = () => {
+      document.getElementById('enq-photo-text').textContent = 'Could not read photo — try a different file';
+    };
+    img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
 }
