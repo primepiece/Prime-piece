@@ -638,7 +638,7 @@
 
 <footer>
   <div class="footer-newsletter">
-    <div class="footer-newsletter-text"><strong>Get 10% off your first piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div class="footer-newsletter-text"><strong>Get 10% off your first ready-made piece.</strong> Join the list for new arrivals and studio news.</div>
     <div>
       <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
         <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
@@ -942,7 +942,7 @@ async function footerSubscribe(event, form) {
     if (res.ok && data.success) {
       try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
-      msg.textContent = "You're on the list — check your inbox for 10% off.";
+      msg.textContent = "You're on the list — check your inbox for 10% off your first ready-made piece.";
       msg.style.color = 'var(--sage-deep)';
       msg.style.display = 'block';
       if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
