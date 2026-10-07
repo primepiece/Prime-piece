@@ -101,46 +101,79 @@ export default async function handler(req, res) {
       console.error('Notify email error:', err);
     }
 
-    // Customer-facing confirmation email — fire and forget.
+    // Customer-facing confirmation email — fire and forget. Styled to match
+    // the Klaviyo abandoned-checkout email's template (same cream page,
+    // same eyebrow/serif-headline/footer system) so every automated email
+    // a customer gets from us feels like one consistent brand.
+    const emailHeader = `
+      <tr>
+        <td style="padding-bottom:40px;border-bottom:1px solid rgba(44,42,38,0.12);">
+          <p style="margin:0;font-size:11px;letter-spacing:0.32em;text-transform:uppercase;font-weight:500;color:#2C2A26;">PRIME PIECE</p>
+          <p style="margin:4px 0 0;font-size:10px;letter-spacing:0.15em;color:#8A8275;font-style:italic;">one of one.</p>
+        </td>
+      </tr>`;
+    const emailFooter = `
+      <tr>
+        <td style="padding-top:32px;">
+          <p style="margin:0 0 4px;font-size:11px;color:#8A8275;line-height:1.7;">Prime Piece, Auckland</p>
+          <p style="margin:0;font-size:11px;color:#8A8275;line-height:1.7;"><a href="https://primepiece.co.nz" style="color:#8A8275;text-decoration:none;">primepiece.co.nz</a></p>
+        </td>
+      </tr>`;
+
     const emailPayload = isBasinWaitlist ? {
       from: 'James at Prime Piece <james@primepiece.co.nz>',
       to: [email],
       subject: "You're on the list — Prime Piece Stone Basins",
-      html: `
-        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;color:#2c2a26;">
-          <div style="background:#0A0908;padding:28px 32px;margin-bottom:24px;">
-            <div style="color:#C9A86E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
-            <div style="color:#E8E3DC;font-size:22px;font-weight:300;letter-spacing:0.04em;">You're on the list, ${firstName}.</div>
-          </div>
-          <div style="padding:0 32px 32px;">
-            <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Our natural stone vessel basin collection launches on <strong>14 September 2026</strong>. You'll hear from us first — before anyone else gets access.</p>
-            <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Each basin is handcrafted in Auckland from a unique piece of natural stone — marble, onyx and travertine. Made to order, 6–8 week lead time.</p>
-            <p style="font-size:12px;color:#bbb;margin-top:28px;padding-top:20px;border-top:1px solid #eee;">Prime Piece · Wairau Valley, Auckland NZ · <a href="https://www.primepiece.co.nz" style="color:#bbb;">primepiece.co.nz</a></p>
-          </div>
-        </div>
-      `,
+      html: `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>You're on the list</title></head>
+<body style="margin:0;padding:0;background:#F5F1EA;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" style="background:#F5F1EA;" width="100%"><tr><td align="center" style="padding:40px 16px;">
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;" width="560">
+${emailHeader}
+<tr><td style="padding:40px 0 24px;">
+  <p style="margin:0 0 12px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#7BA5A8;font-weight:500;">Basin waitlist</p>
+  <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:#2C2A26;line-height:1.2;">You're on the list, ${firstName}.</h1>
+  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Our natural stone vessel basin collection launches on <strong>14 September 2026</strong>. You'll hear from us first — before anyone else gets access.</p>
+</td></tr>
+<tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(44,42,38,0.12);">
+  <p style="margin:0;font-size:13px;line-height:1.9;color:#554F45;">Each basin is handcrafted in Auckland from a unique piece of natural stone — marble, onyx and travertine. Made to order, 6–8 week lead time. Questions before launch? Reply to this email or call James directly on <a href="tel:0211466990" style="color:#7BA5A8;text-decoration:none;">021 146 6990</a>.</p>
+</td></tr>
+${emailFooter}
+</table>
+</td></tr></table>
+</body></html>`,
     } : {
       from: 'James at Prime Piece <james@primepiece.co.nz>',
       to: [email],
       subject: 'Your welcome credit — Prime Piece',
-      html: `
-        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;color:#2c2a26;">
-          <div style="background:#2c2a26;padding:28px 32px;margin-bottom:24px;">
-            <div style="color:#C9A96E;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;">Prime Piece</div>
-            <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Here's your credit, ${firstName}.</div>
-          </div>
-          <div style="padding:0 32px 32px;">
-            <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Thanks for joining the list. You've got 10% credit to put toward your first piece — just enter the code below at checkout:</p>
-            <div style="background:#EBE5DA;border:1.5px dashed #7BA5A8;padding:18px 24px;text-align:center;margin-bottom:24px;">
-              <div style="font-size:28px;letter-spacing:0.24em;color:#2c2a26;font-weight:500;">PRIME10</div>
-              <div style="font-size:11px;color:#8A8275;margin-top:6px;letter-spacing:0.1em;text-transform:uppercase;">10% credit toward your order</div>
-            </div>
-            <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Each piece is made once from natural stone — when it's gone, it's gone. Browse the full collection and find yours:</p>
-            <a href="https://www.primepiece.co.nz/tables.html" style="display:inline-block;padding:12px 28px;background:#7BA5A8;color:#fff;text-decoration:none;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">View the Collection →</a>
-            <p style="font-size:12px;color:#bbb;margin-top:28px;padding-top:20px;border-top:1px solid #eee;">Prime Piece · Wairau Valley, Auckland NZ · <a href="https://www.primepiece.co.nz" style="color:#bbb;">primepiece.co.nz</a></p>
-          </div>
-        </div>
-      `,
+      html: `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Your welcome credit</title></head>
+<body style="margin:0;padding:0;background:#F5F1EA;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" style="background:#F5F1EA;" width="100%"><tr><td align="center" style="padding:40px 16px;">
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;" width="560">
+${emailHeader}
+<tr><td style="padding:40px 0 24px;">
+  <p style="margin:0 0 12px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#7BA5A8;font-weight:500;">Welcome</p>
+  <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:#2C2A26;line-height:1.2;">You're part of something rare.</h1>
+  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Thanks for joining the list, ${firstName}. Every Prime Piece is cut from a single slab of natural stone, so there is only ever one. As a welcome gift, here's 10% credit toward your first piece.</p>
+</td></tr>
+<tr><td style="padding-bottom:32px;">
+  <table border="0" cellpadding="0" cellspacing="0" style="background:#EBE5DA;border-radius:2px;" width="100%"><tr><td style="padding:24px;text-align:center;">
+    <p style="margin:0 0 4px;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#8A8275;">Your code</p>
+    <p style="margin:0;font-size:28px;letter-spacing:0.24em;color:#2C2A26;font-weight:500;">PRIME10</p>
+    <p style="margin:6px 0 0;font-size:11px;color:#8A8275;letter-spacing:0.1em;text-transform:uppercase;">10% credit toward your order</p>
+  </td></tr></table>
+</td></tr>
+<tr><td style="padding-bottom:40px;">
+  <table border="0" cellpadding="0" cellspacing="0"><tr><td style="background:#7BA5A8;border-radius:1px;"><a href="https://www.primepiece.co.nz/tables.html" style="display:block;padding:16px 36px;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;font-weight:500;color:#F5F1EA;text-decoration:none;">View the Collection →</a></td></tr></table>
+</td></tr>
+<tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(44,42,38,0.12);">
+  <p style="margin:0;font-size:13px;line-height:1.9;color:#554F45;">Each piece is made once from natural stone — when it's gone, it's gone. Have a question first, or want something made to order? Reply to this email or call James directly on <a href="tel:0211466990" style="color:#7BA5A8;text-decoration:none;">021 146 6990</a>.</p>
+</td></tr>
+${emailFooter}
+</table>
+</td></tr></table>
+</body></html>`,
     };
 
     fetch('https://api.resend.com/emails', {
