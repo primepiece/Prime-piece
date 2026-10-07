@@ -27,15 +27,19 @@ export default async function handler(req, res) {
     });
   }
 
+  // Oversize photos never get this far (rejected with 413 above), so the email's Photo row
+  // simply reflects whether the photo is actually attached.
+  const photoStatus = attachments.length ? 'Attached ✓' : 'Not uploaded';
+
   const html = `
     <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry</h2>
     <table style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;">
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Name</td><td>${name}</td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${piece}</td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>
+      ${stone ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>` : ''}
       ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Notes</td><td>${notes}</td></tr>` : ''}
-      ${attachments.length ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : '<tr><td style="color:#7BA5A8;font-weight:600;">Photo</td><td>Not uploaded</td></tr>'}
+      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>${photoStatus}</td></tr>
     </table>
     <p style="font-family:sans-serif;font-size:12px;color:#999;margin-top:24px;">Reply directly to this email to respond to ${name}.</p>
   `;
