@@ -11,7 +11,17 @@ export default async function handler(req, res) {
     first_name, last_name, name,
     email, phone, city, message,
     product, source = 'Basin Enquiry',
+    imageBase64, imageMime,
   } = req.body || {};
+
+  // Optional photo (basin advice form), resized in the browser by photo-upload.js.
+  const MAX_IMAGE_B64 = 3000000;
+  if (imageBase64 && (typeof imageBase64 !== 'string' || imageBase64.length >= MAX_IMAGE_B64)) {
+    return res.status(413).json({ error: 'Photo too large' });
+  }
+  const attachments = imageBase64
+    ? [{ filename: /png/i.test(imageMime || '') ? 'space.png' : 'space.jpg', content: imageBase64 }]
+    : [];
 
   const fullName = name || [first_name, last_name].filter(Boolean).join(' ');
   if (!fullName || !email) {
@@ -39,6 +49,7 @@ export default async function handler(req, res) {
         ${city ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">City</td><td>${city}</td></tr>` : ''}
         <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Product</td><td>${productLine}</td></tr>
         <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Source</td><td>${sourceLine}</td></tr>
+        ${attachments.length ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Photo</td><td>Attached ✓</td></tr>` : ''}
         ${message ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;vertical-align:top;">Message</td><td style="white-space:pre-wrap;">${message}</td></tr>` : ''}
       </table>
       <p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:16px;">Reply directly to this email to respond to ${fullName}.</p>
@@ -69,6 +80,7 @@ export default async function handler(req, res) {
         reply_to: email,
         subject: `Basin Enquiry — ${fullName} · ${productLine}`,
         html: notifyHtml,
+        attachments,
       }),
     });
 

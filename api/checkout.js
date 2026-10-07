@@ -78,6 +78,36 @@ const CATALOG = {
 
 const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 
+// PRIME10 is the welcome offer: "new customers, first ready-made piece; excludes custom
+// commissions and trade orders". What the server can enforce:
+//  - ready-made only: it only ever discounts items in CATALOG above (custom commissions are
+//    quoted and invoiced directly and never reach this endpoint);
+//  - first order only: refused if this email already has a successful payment in Stripe;
+//  - per-product exclusions: any catalogue ID listed here is never discounted by PRIME10.
+// Trade orders can't be told apart at checkout (there are no trade accounts), so that part of
+// the terms is enforced by trade pricing being invoiced, not by this code.
+const WELCOME_CODE = 'PRIME10';
+const WELCOME_EXCLUDED_IDS = new Set([
+  // e.g. 'rosso-bundle' — add catalogue IDs PRIME10 must never discount
+]);
+
+// Has this email already paid for an order? Uses Stripe's PaymentIntent search on the
+// customer_email metadata this endpoint stores on every order. Throws if Stripe can't answer.
+async function hasPreviousOrder(email, secretKey) {
+  const forms = [...new Set([email.trim(), email.trim().toLowerCase()])];
+  for (const form of forms) {
+    const value = form.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const query = `status:'succeeded' AND metadata['customer_email']:'${value}'`;
+    const r = await fetch('https://api.stripe.com/v1/payment_intents/search?' + new URLSearchParams({ query, limit: '1' }), {
+      headers: { 'Authorization': `Bearer ${secretKey}` },
+    });
+    const data = await r.json();
+    if (!r.ok || data.error) throw new Error((data.error && data.error.message) || `Stripe search failed (${r.status})`);
+    if (data.data && data.data.length) return true;
+  }
+  return false;
+}
+
 // NZ-wide delivery: flat rate, free over the threshold. Showroom pickup is
 // always free and isn't affected by this.
 const DELIVERY_FLAT_FEE = 49;
@@ -117,10 +147,33 @@ export default async function handler(req, res) {
   const deliveryMode = customer.delivery || 'pickup';
   const deliveryFee = (deliveryMode === 'delivery' && subtotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
 
-  // Promo applied server-side — client value is display-only
+  // Promo applied server-side — client value is display-only. The discount is rounded to whole
+  // dollars, matching what the checkout page shows.
   const code = (promoCode || '').toUpperCase().trim();
-  const discountRate = PROMO_CODES[code] || 0;
-  const totalCents = Math.round(subtotal * 100 * (1 - discountRate)) + deliveryFee * 100;
+  let discountRate = PROMO_CODES[code] || 0;
+  let eligibleSubtotal = subtotal;
+  let promoMessage = '';
+  if (discountRate > 0 && code === WELCOME_CODE) {
+    eligibleSubtotal = items.reduce((sum, item, i) => sum + (WELCOME_EXCLUDED_IDS.has(item.id) ? 0 : resolved[i].price), 0);
+    if (eligibleSubtotal === 0) {
+      discountRate = 0;
+      promoMessage = `${WELCOME_CODE} applies to ready-made pieces only.`;
+    } else {
+      try {
+        if (await hasPreviousOrder(customer.email, secretKey)) {
+          discountRate = 0;
+          promoMessage = `${WELCOME_CODE} is for your first order — this email has already ordered with us.`;
+        }
+      } catch (err) {
+        // Fail closed: the code is only honoured when we can confirm it's a first order.
+        console.error('PRIME10 first-order check failed:', err);
+        discountRate = 0;
+        promoMessage = `We couldn't verify ${WELCOME_CODE} just now — please try again in a moment.`;
+      }
+    }
+  }
+  const discount = discountRate > 0 ? Math.round(eligibleSubtotal * discountRate) : 0;
+  const totalCents = (subtotal - discount + deliveryFee) * 100;
 
   const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).join(' | ');
   const description = resolved.map(p => p.name).join(', ');
@@ -138,7 +191,8 @@ export default async function handler(req, res) {
     'metadata[delivery_fee]': deliveryFee.toString(),
     'metadata[notes]': customer.notes || '',
     'metadata[items]': itemsLabel,
-    'metadata[promo]': discountRate > 0 ? code : '',
+    'metadata[promo]': discount > 0 ? code : '',
+    'metadata[discount]': discount.toString(),
   });
 
   try {
@@ -158,7 +212,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: data.error.message });
     }
 
-    return res.status(200).json({ clientSecret: data.client_secret, amount: totalCents / 100 });
+    return res.status(200).json({
+      clientSecret: data.client_secret,
+      amount: totalCents / 100,
+      promo: { code, applied: discount > 0, discount, message: promoMessage },
+    });
 
   } catch (err) {
     console.error('Checkout error:', err);

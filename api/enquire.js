@@ -12,10 +12,17 @@ export default async function handler(req, res) {
   const resendKey = process.env.RESEND_API_KEY;
   if (!resendKey) return res.status(500).json({ error: 'Email not configured' });
 
+  // Photos arrive already resized in the browser (photo-upload.js). Anything still over the
+  // attachment cap is rejected outright rather than silently dropped, so the customer sees an
+  // error instead of a "sent" message for a photo that never reached us.
+  const MAX_IMAGE_B64 = 3000000;
+  if (imageBase64 && (typeof imageBase64 !== 'string' || imageBase64.length >= MAX_IMAGE_B64)) {
+    return res.status(413).json({ error: 'Photo too large' });
+  }
   const attachments = [];
-  if (imageBase64 && imageBase64.length < 3000000) {
+  if (imageBase64) {
     attachments.push({
-      filename: 'room.jpg',
+      filename: /png/i.test(imageMime || '') ? 'room.png' : 'room.jpg',
       content: imageBase64,
     });
   }
@@ -28,7 +35,7 @@ export default async function handler(req, res) {
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${piece}</td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>
       ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Notes</td><td>${notes}</td></tr>` : ''}
-      ${imageBase64 ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : '<tr><td style="color:#7BA5A8;font-weight:600;">Photo</td><td>Not uploaded</td></tr>'}
+      ${attachments.length ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : '<tr><td style="color:#7BA5A8;font-weight:600;">Photo</td><td>Not uploaded</td></tr>'}
     </table>
     <p style="font-family:sans-serif;font-size:12px;color:#999;margin-top:24px;">Reply directly to this email to respond to ${name}.</p>
   `;

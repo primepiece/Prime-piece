@@ -690,7 +690,7 @@
           <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px dashed var(--line);background:white;cursor:pointer;font-size:12px;color:var(--stone);border-radius:1px;">
             <span style="font-size:18px;">📎</span>
             <span id="basin-advice-filename">Attach a photo of your space</span>
-            <input type="file" name="photo" accept="image/*" style="display:none;" onchange="document.getElementById('basin-advice-filename').textContent=this.files[0]?this.files[0].name:'Attach a photo of your space'">
+            <input type="file" name="photo" accept="image/*" style="display:none;" onchange="basinAdvicePhoto(this)">
           </label>
         </div>
         <input type="hidden" name="product" value="Vessel Basin Advice">
@@ -883,19 +883,71 @@
   function closeBasinAdviceOutside(e) {
     if (e.target === document.getElementById('basin-advice-overlay')) closeBasinAdvice();
   }
+  // Inline error under a form, shown only when sending actually fails.
+  function formError(form, msg) {
+    let el = form.querySelector('.form-error');
+    if (!el) {
+      el = document.createElement('p');
+      el.className = 'form-error';
+      el.setAttribute('role', 'alert');
+      el.style.cssText = 'font-size:12px;color:#a94435;margin:0 0 12px;';
+      const btn = form.querySelector('button[type="submit"]');
+      btn.parentNode.insertBefore(el, btn);
+    }
+    el.textContent = msg || '';
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  // Basin advice photo: resized/compressed in the browser (photo-upload.js) and sent with the enquiry.
+  let basinAdviceImg = null, basinAdvicePending = null, basinAdviceFailed = false;
+  function basinAdvicePhoto(input) {
+    const label = document.getElementById('basin-advice-filename');
+    const file = input.files[0];
+    basinAdviceImg = null; basinAdviceFailed = false;
+    label.style.color = '';
+    if (!file) { basinAdvicePending = null; label.textContent = 'Attach a photo of your space'; return; }
+    label.textContent = 'Preparing photo…';
+    const pending = (window.PPPhoto ? PPPhoto.prepare(file) : Promise.reject(new Error('unavailable')))
+      .then(p => { if (basinAdvicePending !== pending) return; basinAdviceImg = p; label.textContent = '✓ ' + file.name; })
+      .catch(err => {
+        if (basinAdvicePending !== pending) return;
+        basinAdviceFailed = true; input.value = '';
+        label.textContent = window.PPPhoto ? PPPhoto.message(err) : "We couldn't prepare that photo — please try another.";
+        label.style.color = '#a94435';
+      })
+      .finally(() => { if (basinAdvicePending === pending) basinAdvicePending = null; });
+    basinAdvicePending = pending;
+  }
+
   async function submitBasinAdvice(e) {
     e.preventDefault();
     const form = e.target;
     const btn = document.getElementById('basin-advice-submit');
+    formError(form, '');
     btn.textContent = 'Sending…'; btn.disabled = true;
+    if (basinAdvicePending) await basinAdvicePending;
+    if (basinAdviceFailed) {
+      basinAdviceFailed = false;
+      formError(form, "Your photo couldn't be attached — choose another, or press send again to continue without it.");
+      btn.textContent = 'Send Message →'; btn.disabled = false;
+      return;
+    }
     const data = Object.fromEntries(new FormData(form));
+    delete data.photo; // the File object can't be sent as JSON; the prepared image is sent instead
+    if (basinAdviceImg) { data.imageBase64 = basinAdviceImg.base64; data.imageMime = basinAdviceImg.mime; }
     try {
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({...data, source: 'basins-cta', to: 'james@primepiece.co.nz'})
       });
-    } catch(_) {}
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || out.success === false) throw new Error('send failed');
+    } catch(_) {
+      formError(form, 'Something went wrong — please try again or text James on 021 146 6990.');
+      btn.textContent = 'Send Message →'; btn.disabled = false;
+      return;
+    }
     document.getElementById('basin-advice-form-wrap').style.display = 'none';
     document.getElementById('basin-advice-success').style.display = 'block';
   }
@@ -904,13 +956,24 @@
     e.preventDefault();
     const form = e.target;
     const data = Object.fromEntries(new FormData(form));
+    const btn = form.querySelector('button[type="submit"]');
+    const btnText = btn.textContent;
+    formError(form, '');
+    btn.textContent = 'Sending…'; btn.disabled = true;
     try {
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({...data, source: 'basins', to: 'james@primepiece.co.nz'})
       });
-    } catch(_) {}
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || out.success === false) throw new Error('send failed');
+    } catch(_) {
+      formError(form, 'Something went wrong — please try again or text James on 021 146 6990.');
+      btn.textContent = btnText; btn.disabled = false;
+      return;
+    }
+    btn.textContent = btnText; btn.disabled = false;
     document.getElementById('enq-form-wrap').style.display = 'none';
     document.getElementById('enq-success').style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Lead', {content_name: data.product});
@@ -958,5 +1021,6 @@
 </script>
 <script src="cart.js"></script>
 <script src="site-nav.js" defer></script>
+<script src="photo-upload.js" defer></script>
 </body>
 </html>

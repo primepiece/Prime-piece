@@ -914,13 +914,31 @@
     e.preventDefault();
     const form = e.target;
     const data = Object.fromEntries(new FormData(form));
+    const btn = form.querySelector('button[type="submit"]');
+    const btnText = btn ? btn.textContent : '';
+    let errEl = form.querySelector('.form-error');
+    if (!errEl && btn) {
+      errEl = document.createElement('p');
+      errEl.className = 'form-error'; errEl.setAttribute('role', 'alert');
+      errEl.style.cssText = 'font-size:12px;color:#a94435;margin:0 0 12px;display:none;';
+      btn.parentNode.insertBefore(errEl, btn);
+    }
+    if (errEl) errEl.style.display = 'none';
+    if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
     try {
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({...data, source: 'made-to-order', to: 'james@primepiece.co.nz'})
       });
-    } catch(_) {}
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || out.success === false) throw new Error('send failed');
+    } catch(_) {
+      if (errEl) { errEl.textContent = 'Something went wrong — please try again or text James on 021 146 6990.'; errEl.style.display = 'block'; }
+      if (btn) { btn.textContent = btnText; btn.disabled = false; }
+      return;
+    }
+    if (btn) { btn.textContent = btnText; btn.disabled = false; }
     document.getElementById('enq-form-wrap').style.display = 'none';
     document.getElementById('enq-success').style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Lead', {content_name: data.product});

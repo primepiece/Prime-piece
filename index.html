@@ -1033,18 +1033,38 @@
   </div>
 </div>
 <script>
-let enqImageBase64 = null, enqImageMime = 'image/jpeg';
+let enqImageBase64 = null, enqImageMime = 'image/jpeg', enqPhotoPending = null, enqPhotoFailed = false;
+function enqPhotoShow(text, state) {
+  const t = document.getElementById('enq-photo-text'), l = document.getElementById('enq-photo-label');
+  t.textContent = text;
+  t.style.color = state === 'error' ? '#a94435' : 'var(--stone)';
+  l.style.borderColor = state === 'ok' ? 'var(--sage)' : state === 'error' ? '#a94435' : 'var(--line)';
+}
+function enqPhotoReset(text) {
+  enqImageBase64 = null; enqImageMime = 'image/jpeg'; enqPhotoPending = null; enqPhotoFailed = false;
+  const input = document.getElementById('enq-photo'); if (input) input.value = '';
+  enqPhotoShow(text || 'Attach a photo of your room (optional)', 'idle');
+}
+// Photos are resized and compressed in the browser (photo-upload.js) so they always fit the
+// email attachment limit. The filename only shows once the photo is actually ready to send.
 function enqHandlePhoto(input) {
   const file = input.files[0];
-  if (!file) return;
-  enqImageMime = file.type || 'image/jpeg';
-  const reader = new FileReader();
-  reader.onload = ev => {
-    enqImageBase64 = ev.target.result.split(',')[1];
-    document.getElementById('enq-photo-text').textContent = '✓ ' + file.name;
-    document.getElementById('enq-photo-label').style.borderColor = 'var(--sage)';
-  };
-  reader.readAsDataURL(file);
+  enqImageBase64 = null; enqImageMime = 'image/jpeg'; enqPhotoFailed = false;
+  if (!file) { enqPhotoPending = null; return; }
+  enqPhotoShow('Preparing photo…', 'busy');
+  const pending = (window.PPPhoto ? PPPhoto.prepare(file) : Promise.reject(new Error('unavailable')))
+    .then(p => {
+      if (enqPhotoPending !== pending) return;
+      enqImageBase64 = p.base64; enqImageMime = p.mime;
+      enqPhotoShow('✓ ' + file.name, 'ok');
+    })
+    .catch(e => {
+      if (enqPhotoPending !== pending) return;
+      enqPhotoFailed = true; input.value = '';
+      enqPhotoShow(window.PPPhoto ? PPPhoto.message(e) : "We couldn't prepare that photo — please try another.", 'error');
+    })
+    .finally(() => { if (enqPhotoPending === pending) enqPhotoPending = null; });
+  enqPhotoPending = pending;
 }
 function openEnquireModal(subject, mode) {
   const isRender = mode === 'render';
@@ -1056,7 +1076,7 @@ function openEnquireModal(subject, mode) {
   document.getElementById('enq-sending').style.display = 'none';
   document.getElementById('enq-success').style.display = 'none';
   document.getElementById('enq-error').style.display = 'none';
-  enqImageBase64 = null; enqImageMime = 'image/jpeg';
+  enqPhotoReset();
   document.getElementById('enq-photo').value = '';
   document.getElementById('enq-photo-text').textContent = isRender ? 'Attach a photo of your space — taken from where you\'d like to see the piece' : 'Attach a photo of your room (optional)';
   document.getElementById('enq-photo-label').style.borderColor = isRender ? 'var(--sage)' : 'var(--line)';
@@ -1073,6 +1093,13 @@ async function submitEnquire() {
   errEl.style.display = 'none';
   if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
+  if (enqPhotoPending) await enqPhotoPending;
+  if (enqPhotoFailed) {
+    enqPhotoFailed = false;
+    errEl.textContent = "Your photo couldn't be attached — choose another, or press send again to continue without it.";
+    errEl.style.display = 'block';
+    return;
+  }
   document.getElementById('enq-form-wrap').style.display = 'none';
   document.getElementById('enq-sending').style.display = 'block';
   try {
@@ -1233,5 +1260,6 @@ async function footerSubscribe(event, form, source) {
 </script>
 
 <script src="site-nav.js" defer></script>
+<script src="photo-upload.js" defer></script>
 </body>
 </html>
