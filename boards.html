@@ -488,7 +488,9 @@
     .page-hero { padding: 110px 24px 60px; flex-direction: column; align-items: flex-start; }
     .filter-bar { padding: 16px 24px; }
     .seo-blurb { padding: 28px 24px; }
-    .boards-grid { grid-template-columns: 1fr 1fr; }
+    .boards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .board-foot { flex-direction: column; align-items: stretch; gap: 10px; }
+    .board-foot .enquire-btn { width: 100%; text-align: center; }
     .board-card:nth-child(3n) { border-right: 1px solid var(--line); }
     .board-card:nth-child(2n) { border-right: none; }
     .view-btn { opacity: 1; transform: translateY(0); }
@@ -498,34 +500,49 @@
     .footer-bottom { flex-direction: column; gap: 6px; }
   }
 </style>
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo-wrap">
+<nav id="nav" class="site-nav site-nav--solid" aria-label="Main">
+  <a href="/" class="logo-wrap" aria-label="Prime Piece — home">
     <div class="logo">PRIME PIECE</div>
     <div class="logo-sub">one of one</div>
   </a>
   <ul class="nav-links">
-    <li><a href="/#collection">Collection</a></li>
-    <li><a href="plinths.html">Plinths</a></li>
-    <li><a href="tables.html">Tables</a></li>
-    <li><a href="boards.html" class="nav-active">Boards</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="gallery.html">Shop</a></li>
+    <li class="nav-dd is-current">
+      <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-controls="nav-dd-menu">Collections <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+      <ul class="nav-dd-menu" id="nav-dd-menu">
+        <li><a href="tables.html">Tables</a></li>
+        <li><a href="plinths.html">Plinths</a></li>
+        <li><a href="boards.html" class="is-current" aria-current="page">Boards</a></li>
+        <li><a href="basins.html">Basins</a></li>
+      </ul>
+    </li>
+    <li><a href="custom.html">Custom</a></li>
+    <li><a href="/#story">About</a></li>
     <li><a href="trade.html">Trade</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/">Home</a>
-  <a href="plinths.html">Plinths</a>
-  <a href="tables.html">Tables</a>
-  <a href="boards.html">Boards</a>
-  <a href="gallery.html">Gallery</a>
+
+<div class="mobile-menu site-mobile-menu" id="mobile-menu">
+  <a href="gallery.html">Shop</a>
+  <div class="mm-group">
+    <span class="mm-label">Collections</span>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html" class="is-current" aria-current="page">Boards</a><a href="basins.html">Basins</a></div>
+  </div>
+  <a href="custom.html">Custom</a>
+  <a href="/#story">About</a>
   <a href="trade.html">Trade</a>
-  <a href="/#contact" class="mobile-shop-btn">Enquire Now</a>
+  <a href="/#contact">Contact</a>
+  <a href="/#contact" class="mobile-shop-btn" data-enquire>Enquire Now</a>
+  <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
 </div>
 
 <section class="page-hero">
@@ -1063,7 +1080,7 @@
     <div class="footer-col">
       <h4>Brand</h4>
       <a href="/#story">About</a>
-      <a href="/#process">Process</a>
+      <a href="custom.html#process">Process</a>
       <a href="/#collection">Collection</a>
       <a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a>
     </div>
@@ -1437,12 +1454,6 @@ async function submitEnquire() {
   }
 }
 </script>
-<script>
-  const ham = document.getElementById('nav-hamburger');
-  const mob = document.getElementById('mobile-menu');
-  ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : ''; });
-  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = ''; }));
-</script>
 
 
 <!-- FAQ SECTION -->
@@ -1550,5 +1561,6 @@ async function footerSubscribe(event, form) {
 }
 </script>
 
+<script src="site-nav.js" defer></script>
 </body>
 </html>
