@@ -78,18 +78,37 @@ const CATALOG = {
 
 const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 
+// Catalogue entries kept on record (names and prices stay valid for past orders and reporting)
+// but NOT sold through online checkout — none has a live Add to Cart anywhere on the site, so a
+// request for one can only come from an old cart or a hand-crafted API call. Remove an ID from
+// this list to make it purchasable online again.
+const NOT_SOLD_ONLINE = new Set([
+  // Made-to-order / arriving-soon basins: sold by enquiry (quote + deposit), not checkout.
+  'basin-nero', 'basin-green', 'basin-white-onyx', 'basin-statuario', 'basin-pietra',
+  'basin-pink-purple', 'basin-tiger', 'basin-pink-shell', 'basin-yellow',
+  // Coffee tables taken off the live grid in the "final 5" redesign (#57, 2026-09-29) without
+  // being marked sold. Held back pending confirmation of their status.
+  'table-amazon-vein-2', 'table-arctic-vein', 'table-blue-slate', 'table-desert-drift',
+  'table-desert-drift-2', 'table-desert-drift-ii', 'table-gold-rush', 'table-golden-hour',
+  'table-midnight-river', 'table-midnight-wave', 'table-mountain-breeze',
+  'table-patagonia-platinum', 'table-pietra-noir', 'table-white-haven',
+]);
+
 // PRIME10 is the welcome offer: "new customers, first ready-made piece; excludes custom
 // commissions and trade orders". What the server can enforce:
-//  - ready-made only: it only ever discounts items in CATALOG above (custom commissions are
-//    quoted and invoiced directly and never reach this endpoint);
+//  - visible, ready-made, full-price pieces only: items in CATALOG that are sold online (not in
+//    NOT_SOLD_ONLINE) and not already discounted as a bundle or set (WELCOME_EXCLUDED_IDS).
+//    Custom commissions are quoted and invoiced directly and never reach this endpoint;
 //  - first order only: refused if this email already has a successful payment in Stripe;
 //  - per-product exclusions: any catalogue ID listed here is never discounted by PRIME10.
 // Trade orders can't be told apart at checkout (there are no trade accounts), so that part of
 // the terms is enforced by trade pricing being invoiced, not by this code.
 const WELCOME_CODE = 'PRIME10';
 const WELCOME_EXCLUDED_IDS = new Set([
-  // e.g. 'rosso-bundle' — add catalogue IDs PRIME10 must never discount
+  'rosso-bundle',   // Rosso Africano table + plinth — already priced below the two pieces
+  'table-twin-jade', // Twin Jade set of 2 — already includes the set saving
 ]);
+const isWelcomeEligible = id => !!CATALOG[id] && !NOT_SOLD_ONLINE.has(id) && !WELCOME_EXCLUDED_IDS.has(id);
 
 // Has this email already paid for an order? Uses Stripe's PaymentIntent search on the
 // customer_email metadata this endpoint stores on every order. Throws if Stripe can't answer.
@@ -138,6 +157,10 @@ export default async function handler(req, res) {
       console.error('Unknown product id:', item.id);
       return res.status(400).json({ error: `Unknown product: ${item.id}` });
     }
+    if (NOT_SOLD_ONLINE.has(item.id)) {
+      console.error('Product not sold online:', item.id);
+      return res.status(400).json({ error: `${product.name} isn't available to buy online — please get in touch and we'll help.` });
+    }
     resolved.push(product);
   }
 
@@ -154,7 +177,7 @@ export default async function handler(req, res) {
   let eligibleSubtotal = subtotal;
   let promoMessage = '';
   if (discountRate > 0 && code === WELCOME_CODE) {
-    eligibleSubtotal = items.reduce((sum, item, i) => sum + (WELCOME_EXCLUDED_IDS.has(item.id) ? 0 : resolved[i].price), 0);
+    eligibleSubtotal = items.reduce((sum, item, i) => sum + (isWelcomeEligible(item.id) ? resolved[i].price : 0), 0);
     if (eligibleSubtotal === 0) {
       discountRate = 0;
       promoMessage = `${WELCOME_CODE} applies to ready-made pieces only.`;
