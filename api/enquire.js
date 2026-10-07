@@ -12,13 +12,30 @@ export default async function handler(req, res) {
   const resendKey = process.env.RESEND_API_KEY;
   if (!resendKey) return res.status(500).json({ error: 'Email not configured' });
 
+  // Photos are resized/compressed client-side before this runs, so they
+  // should always be well under this — it's a safety net, not the main
+  // guard. Compute attachment status once so the email text never claims
+  // "Attached" when it actually wasn't (that mismatch was the original bug:
+  // the text was driven by imageBase64 being present, not by whether it
+  // actually made it into attachments[]).
+  const MAX_ATTACHMENT_CHARS = 6000000; // ~4.5MB raw
+  const photoTooLarge = !!imageBase64 && imageBase64.length >= MAX_ATTACHMENT_CHARS;
+  const photoAttached = !!imageBase64 && !photoTooLarge;
+
   const attachments = [];
-  if (imageBase64 && imageBase64.length < 3000000) {
+  if (photoAttached) {
+    const ext = (imageMime || 'image/jpeg').split('/')[1]?.split('+')[0] || 'jpg';
     attachments.push({
-      filename: 'room.jpg',
+      filename: `room.${ext}`,
       content: imageBase64,
     });
   }
+
+  const photoStatus = photoAttached
+    ? 'Attached ✓'
+    : photoTooLarge
+      ? 'Too large to attach — ask them to resend a smaller photo'
+      : 'Not uploaded';
 
   const html = `
     <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry</h2>
@@ -26,9 +43,9 @@ export default async function handler(req, res) {
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Name</td><td>${name}</td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
       <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Piece</td><td>${piece}</td></tr>
-      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>
+      ${stone ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Stone</td><td>${stone}</td></tr>` : ''}
       ${notes ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Notes</td><td>${notes}</td></tr>` : ''}
-      ${imageBase64 ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>Attached ✓</td></tr>` : '<tr><td style="color:#7BA5A8;font-weight:600;">Photo</td><td>Not uploaded</td></tr>'}
+      <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;">Photo</td><td>${photoStatus}</td></tr>
     </table>
     <p style="font-family:sans-serif;font-size:12px;color:#999;margin-top:24px;">Reply directly to this email to respond to ${name}.</p>
   `;
