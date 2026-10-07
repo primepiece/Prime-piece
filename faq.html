@@ -25,13 +25,13 @@
     { "@type": "Question", "name": "Can you make a custom marble kitchen benchtop?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We fabricate custom marble and natural stone benchtops for kitchens, islands and butler's pantries across Auckland. We work from your measurements and help you choose the right stone, finish and edge profile. Enquire via james@primepiece.co.nz or call 021 146 6990." } },
     { "@type": "Question", "name": "Do you make stone bathroom vanities?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We fabricate custom stone vanity tops and bathroom surfaces in marble, travertine, granite and other natural stone. Each piece is made to your exact dimensions from our Wairau Valley, Auckland workshop." } },
     { "@type": "Question", "name": "What types of stone pieces do you make?", "acceptedAnswer": { "@type": "Answer", "text": "We make stone plinths, coffee tables, side tables, console tables, dining tables, kitchen benchtops, bathroom vanities, fireplace hearths, outdoor stone tables, shelving, boards and fully custom stone pieces. If you can imagine it in stone, get in touch." } },
-    { "@type": "Question", "name": "How much does a custom stone piece cost?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on stone type, size and complexity. Stone plinths start from around $800 NZD, coffee tables from $1,200 NZD, and custom benchtops are quoted per job. Contact us for a free quote." } },
+    { "@type": "Question", "name": "How much does a custom stone piece cost?", "acceptedAnswer": { "@type": "Answer", "text": "Every custom piece is individually quoted based on the stone, dimensions, design and fabrication requirements. Share your idea with us and we'll provide a tailored quote." } },
     { "@type": "Question", "name": "Do you deliver across New Zealand?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We deliver across Auckland and can arrange freight to other parts of New Zealand. Local Auckland delivery is arranged personally with every order." } },
     { "@type": "Question", "name": "Where is the Prime Piece showroom?", "acceptedAnswer": { "@type": "Answer", "text": "Our showroom is at 209B Archers Road, Wairau Valley, Auckland. Open Monday to Friday 8am–5pm. Walk-ins are welcome, or call 021 146 6990 to arrange a time." } },
     { "@type": "Question", "name": "What natural stones do you work with?", "acceptedAnswer": { "@type": "Answer", "text": "We work with Italian and Spanish marble, travertine, granite, basalt, quartzite and more. We can source specific stones on request. Visit our Wairau Valley showroom to see the full range in person." } },
     { "@type": "Question", "name": "Can I choose my own stone?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You're welcome to visit our Wairau Valley showroom to see slabs in person before committing. For custom commissions we can also source specific stones on request. Contact James to discuss what you have in mind." } },
     { "@type": "Question", "name": "Can you make stone furniture to custom dimensions?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most pieces can be made to custom sizes, and we take fully bespoke commissions for stone furniture not currently in the collection. Get in touch with your dimensions and we'll work from there." } },
-    { "@type": "Question", "name": "How long does a custom stone piece take?", "acceptedAnswer": { "@type": "Answer", "text": "Lead times vary depending on complexity and stone availability. Most custom pieces take 3–6 weeks from confirmed order. We'll give you a specific timeframe when you enquire." } },
+    { "@type": "Question", "name": "How long does a custom stone piece take?", "acceptedAnswer": { "@type": "Answer", "text": "Lead times vary depending on complexity and stone availability. Most custom pieces are handcrafted within 2–3 weeks from confirmed order. We'll give you a specific timeframe when you enquire." } },
     { "@type": "Question", "name": "What is the difference between marble, granite and quartzite?", "acceptedAnswer": { "@type": "Answer", "text": "Marble is prized for its veining and warmth — it can etch with acidic liquids over time but remains the most visually distinctive choice. Granite is harder and more resistant to staining. Quartzite looks similar to marble but is significantly harder and more durable in daily use. For lounge and coffee tables with regular use, quartzite and granite are more forgiving; for sheer visual impact, marble is hard to beat." } },
     { "@type": "Question", "name": "How do I care for a marble or stone furniture piece?", "acceptedAnswer": { "@type": "Answer", "text": "Use a soft cloth and pH-neutral cleaner — avoid acidic products such as vinegar or citrus-based sprays. Seal marble annually with a quality stone sealer and wipe spills promptly, especially red wine, coffee and citrus juice. Granite and quartzite are more forgiving but the same principles apply. We include care instructions with every piece." } }
   ]
@@ -139,22 +139,50 @@
     .footer-bottom { flex-direction: column; gap: 8px; }
   }
 </style>
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
 
-<nav id="nav">
-  <a href="/" class="logo-wrap">
+<nav id="nav" class="site-nav site-nav--solid" aria-label="Main">
+  <a href="/" class="logo-wrap" aria-label="Prime Piece — home">
     <div class="logo">PRIME PIECE</div>
     <div class="logo-sub">one of one</div>
   </a>
   <ul class="nav-links">
-    <li><a href="/#collection">Collection</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="gallery.html">Shop</a></li>
+    <li class="nav-dd">
+      <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-controls="nav-dd-menu">Collections <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+      <ul class="nav-dd-menu" id="nav-dd-menu">
+        <li><a href="tables.html">Tables</a></li>
+        <li><a href="plinths.html">Plinths</a></li>
+        <li><a href="boards.html">Boards</a></li>
+        <li><a href="basins.html">Basins</a></li>
+      </ul>
+    </li>
+    <li><a href="custom.html">Custom</a></li>
+    <li><a href="/#story">About</a></li>
+    <li><a href="trade.html">Trade</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="basins.html">Stone Basins</a></li>
-    <li><a href="tables.html" class="nav-shop-link">Shop Now →</a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu site-mobile-menu" id="mobile-menu">
+  <a href="gallery.html">Shop</a>
+  <div class="mm-group">
+    <span class="mm-label">Collections</span>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a></div>
+  </div>
+  <a href="custom.html">Custom</a>
+  <a href="/#story">About</a>
+  <a href="trade.html">Trade</a>
+  <a href="/#contact">Contact</a>
+  <a href="/#contact" class="mobile-shop-btn" data-enquire>Enquire Now</a>
+  <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
+</div>
 
 <div class="faq-hero">
   <span class="section-label">FAQ</span>
@@ -178,7 +206,7 @@
     </div>
     <div class="faq-item">
       <button class="faq-question">How much does a custom stone piece cost? <span class="faq-icon">+</span></button>
-      <div class="faq-answer">Pricing depends on stone type, size and complexity. Stone plinths start from around $800 NZD, coffee tables from $1,200 NZD, and custom benchtops are quoted per job. <a href="mailto:james@primepiece.co.nz">Contact us</a> for a free quote.</div>
+      <div class="faq-answer">Every custom piece is individually quoted based on the stone, dimensions, design and fabrication requirements. Share your idea with us and we'll provide a tailored quote.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">Do you deliver across New Zealand? <span class="faq-icon">+</span></button>
@@ -202,7 +230,7 @@
     </div>
     <div class="faq-item">
       <button class="faq-question">How long does a custom stone piece take? <span class="faq-icon">+</span></button>
-      <div class="faq-answer">Lead times vary depending on complexity and stone availability. Most custom pieces take 3–6 weeks from confirmed order. We'll give you a specific timeframe when you enquire.</div>
+      <div class="faq-answer">Lead times vary depending on complexity and stone availability. Most custom pieces are handcrafted within 2–3 weeks from confirmed order. We'll give you a specific timeframe when you enquire.</div>
     </div>
     <div class="faq-item">
       <button class="faq-question">What is the difference between marble, granite and quartzite? <span class="faq-icon">+</span></button>
@@ -279,6 +307,7 @@ async function footerSubscribe(event, form) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';
@@ -300,5 +329,6 @@ async function footerSubscribe(event, form) {
 }
 </script>
 
+<script src="site-nav.js" defer></script>
 </body>
 </html>

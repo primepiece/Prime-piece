@@ -544,6 +544,28 @@
       if (data.error) throw new Error(data.error);
       clientSecret = data.clientSecret;
 
+      // Show what the server will actually charge — it can decline a promo code
+      // (e.g. PRIME10 on a repeat order) or apply it to eligible pieces only.
+      if (appliedPromo) {
+        const msg = document.getElementById('promo-msg');
+        msg.style.display = 'block';
+        if (data.promo && data.promo.applied) {
+          document.getElementById('discount-row').style.display = 'flex';
+          document.getElementById('summary-discount').textContent = '-' + fmt(data.promo.discount);
+          msg.style.color = '#5a8a5a';
+          msg.textContent = '✓ Code applied';
+        } else {
+          discountRate = 0;
+          document.getElementById('discount-row').style.display = 'none';
+          msg.style.color = '#7a3020';
+          msg.textContent = (data.promo && data.promo.message) || 'This code can\'t be applied to this order.';
+        }
+      }
+      if (typeof data.amount === 'number') {
+        discountedTotal = data.amount;
+        document.getElementById('summary-total').textContent = fmt(discountedTotal);
+      }
+
       // Applying a promo code after the payment form already mounted (elements
       // reset to null) re-runs this — unmount the stale Element first so we
       // don't stack a second Stripe iframe into the same container.
@@ -681,6 +703,8 @@
       msg.style.color = '#5a8a5a';
       msg.textContent = '✓ Code applied — 10% off';
       elements = null;
+      // Confirm with the server straight away when the details are already filled in.
+      if (document.getElementById('email').value.includes('@')) initStripe();
     } else {
       msg.style.color = '#7a3020';
       msg.textContent = 'Invalid promo code.';

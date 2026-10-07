@@ -116,13 +116,50 @@
     footer { flex-direction: column; gap: 8px; text-align: center; }
   }
 </style>
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">Prime Piece</a>
-  <a href="plinths.html" style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);text-decoration:none;font-weight:500;">Continue Shopping →</a>
+<nav id="nav" class="site-nav site-nav--solid site-nav--inflow" aria-label="Main">
+  <a href="/" class="logo-wrap" aria-label="Prime Piece — home">
+    <div class="logo">PRIME PIECE</div>
+    <div class="logo-sub">one of one</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="gallery.html">Shop</a></li>
+    <li class="nav-dd">
+      <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-controls="nav-dd-menu">Collections <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+      <ul class="nav-dd-menu" id="nav-dd-menu">
+        <li><a href="tables.html">Tables</a></li>
+        <li><a href="plinths.html">Plinths</a></li>
+        <li><a href="boards.html">Boards</a></li>
+        <li><a href="basins.html">Basins</a></li>
+      </ul>
+    </li>
+    <li><a href="custom.html">Custom</a></li>
+    <li><a href="/#story">About</a></li>
+    <li><a href="trade.html">Trade</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
+  </ul>
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu site-mobile-menu" id="mobile-menu">
+  <a href="gallery.html">Shop</a>
+  <div class="mm-group">
+    <span class="mm-label">Collections</span>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a></div>
+  </div>
+  <a href="custom.html">Custom</a>
+  <a href="/#story">About</a>
+  <a href="trade.html">Trade</a>
+  <a href="/#contact">Contact</a>
+  <a href="/#contact" class="mobile-shop-btn" data-enquire>Enquire Now</a>
+  <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
+</div>
 
 <div class="success-wrap">
   <div class="success-card">
@@ -169,5 +206,6 @@
   <a href="index.html">primepiece.co.nz</a>
 </footer>
 
+<script src="site-nav.js" defer></script>
 </body>
 </html>

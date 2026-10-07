@@ -12,30 +12,24 @@ export default async function handler(req, res) {
   const resendKey = process.env.RESEND_API_KEY;
   if (!resendKey) return res.status(500).json({ error: 'Email not configured' });
 
-  // Photos are resized/compressed client-side before this runs, so they
-  // should always be well under this — it's a safety net, not the main
-  // guard. Compute attachment status once so the email text never claims
-  // "Attached" when it actually wasn't (that mismatch was the original bug:
-  // the text was driven by imageBase64 being present, not by whether it
-  // actually made it into attachments[]).
-  const MAX_ATTACHMENT_CHARS = 6000000; // ~4.5MB raw
-  const photoTooLarge = !!imageBase64 && imageBase64.length >= MAX_ATTACHMENT_CHARS;
-  const photoAttached = !!imageBase64 && !photoTooLarge;
-
+  // Photos arrive already resized in the browser (photo-upload.js). Anything still over the
+  // attachment cap is rejected outright rather than silently dropped, so the customer sees an
+  // error instead of a "sent" message for a photo that never reached us.
+  const MAX_IMAGE_B64 = 3000000;
+  if (imageBase64 && (typeof imageBase64 !== 'string' || imageBase64.length >= MAX_IMAGE_B64)) {
+    return res.status(413).json({ error: 'Photo too large' });
+  }
   const attachments = [];
-  if (photoAttached) {
-    const ext = (imageMime || 'image/jpeg').split('/')[1]?.split('+')[0] || 'jpg';
+  if (imageBase64) {
     attachments.push({
-      filename: `room.${ext}`,
+      filename: /png/i.test(imageMime || '') ? 'room.png' : 'room.jpg',
       content: imageBase64,
     });
   }
 
-  const photoStatus = photoAttached
-    ? 'Attached ✓'
-    : photoTooLarge
-      ? 'Too large to attach — ask them to resend a smaller photo'
-      : 'Not uploaded';
+  // Oversize photos never get this far (rejected with 413 above), so the email's Photo row
+  // simply reflects whether the photo is actually attached.
+  const photoStatus = attachments.length ? 'Attached ✓' : 'Not uploaded';
 
   const html = `
     <h2 style="font-family:sans-serif;color:#2c2a26;">New Enquiry</h2>

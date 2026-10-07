@@ -23,7 +23,6 @@ const CATALOG = {
   'board-pink-storm-3':  { name: 'Pink Storm III', price: 99 },
   'board-silver-drift':  { name: 'Silver Drift', price: 99 },
   'board-silver-drift-2':{ name: 'Silver Drift II', price: 99 },
-  'board-teal-tide':     { name: 'Teal Tide',       price: 99 },
   'board-teal-tide-2':   { name: 'Teal Tide II', price: 99 },
   'board-teal-tide-4':   { name: 'Teal Tide IV', price: 99 },
   'board-volcanic-ash':  { name: 'Volcanic Ash', price: 99 },
@@ -35,7 +34,6 @@ const CATALOG = {
   'platter-dune':        { name: 'Dune — Entertaining Platter', price: 189 },
   'platter-silver-mist': { name: 'Silver Mist — Entertaining Platter', price: 189 },
   // Plinths
-  'plinth-dekton-sirius-large':      { name: 'Dekton Sirius Plinth',               price: 2400 },
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Side Plinth',         price: 1500 },
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
   'plinth-grey-porcelain-450':       { name: 'Grey Porcelain Side Plinth',        price: 700  },
@@ -45,7 +43,7 @@ const CATALOG = {
   'plinth-rosso-africano-plinth':    { name: 'Rosso Africano Marble Plinth',      price: 3800 },
   'plinth-rosso-africano-table-2':   { name: 'Rosso Africano Marble Table', price: 4900 },
   'plinth-rosso-levanto-plinth':     { name: 'Rosso Levanto Marble Plinth',       price: 1400 },
-  'plinth-verde-apli-table':         { name: 'Verde Apli Marble Table', price: 4000 },
+  'plinth-verde-apli-table':         { name: 'Verde Alpi Marble Table', price: 4000 },
   // Tables — coffee & side
   'table-amazon-vein-2':    { name: 'Amazon Vein II', price: 520 },
   'table-arctic-vein':      { name: 'Arctic Vein', price: 520 },
@@ -80,6 +78,55 @@ const CATALOG = {
 
 const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 
+// Catalogue entries kept on record (names and prices stay valid for past orders and reporting)
+// but NOT sold through online checkout — none has a live Add to Cart anywhere on the site, so a
+// request for one can only come from an old cart or a hand-crafted API call. Remove an ID from
+// this list to make it purchasable online again.
+const NOT_SOLD_ONLINE = new Set([
+  // Made-to-order / arriving-soon basins: sold by enquiry (quote + deposit), not checkout.
+  'basin-nero', 'basin-green', 'basin-white-onyx', 'basin-statuario', 'basin-pietra',
+  'basin-pink-purple', 'basin-tiger', 'basin-pink-shell', 'basin-yellow',
+  // Coffee tables taken off the live grid in the "final 5" redesign (#57, 2026-09-29) without
+  // being marked sold. Held back pending confirmation of their status.
+  'table-amazon-vein-2', 'table-arctic-vein', 'table-blue-slate', 'table-desert-drift',
+  'table-desert-drift-2', 'table-desert-drift-ii', 'table-gold-rush', 'table-golden-hour',
+  'table-midnight-river', 'table-midnight-wave', 'table-mountain-breeze',
+  'table-patagonia-platinum', 'table-pietra-noir', 'table-white-haven',
+]);
+
+// PRIME10 is the welcome offer: "new customers, first ready-made piece; excludes custom
+// commissions and trade orders". What the server can enforce:
+//  - visible, ready-made, full-price pieces only: items in CATALOG that are sold online (not in
+//    NOT_SOLD_ONLINE) and not already discounted as a bundle or set (WELCOME_EXCLUDED_IDS).
+//    Custom commissions are quoted and invoiced directly and never reach this endpoint;
+//  - first order only: refused if this email already has a successful payment in Stripe;
+//  - per-product exclusions: any catalogue ID listed here is never discounted by PRIME10.
+// Trade orders can't be told apart at checkout (there are no trade accounts), so that part of
+// the terms is enforced by trade pricing being invoiced, not by this code.
+const WELCOME_CODE = 'PRIME10';
+const WELCOME_EXCLUDED_IDS = new Set([
+  'rosso-bundle',   // Rosso Africano table + plinth — already priced below the two pieces
+  'table-twin-jade', // Twin Jade set of 2 — already includes the set saving
+]);
+const isWelcomeEligible = id => !!CATALOG[id] && !NOT_SOLD_ONLINE.has(id) && !WELCOME_EXCLUDED_IDS.has(id);
+
+// Has this email already paid for an order? Uses Stripe's PaymentIntent search on the
+// customer_email metadata this endpoint stores on every order. Throws if Stripe can't answer.
+async function hasPreviousOrder(email, secretKey) {
+  const forms = [...new Set([email.trim(), email.trim().toLowerCase()])];
+  for (const form of forms) {
+    const value = form.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const query = `status:'succeeded' AND metadata['customer_email']:'${value}'`;
+    const r = await fetch('https://api.stripe.com/v1/payment_intents/search?' + new URLSearchParams({ query, limit: '1' }), {
+      headers: { 'Authorization': `Bearer ${secretKey}` },
+    });
+    const data = await r.json();
+    if (!r.ok || data.error) throw new Error((data.error && data.error.message) || `Stripe search failed (${r.status})`);
+    if (data.data && data.data.length) return true;
+  }
+  return false;
+}
+
 // NZ-wide delivery: flat rate, free over the threshold. Showroom pickup is
 // always free and isn't affected by this.
 const DELIVERY_FLAT_FEE = 49;
@@ -110,6 +157,10 @@ export default async function handler(req, res) {
       console.error('Unknown product id:', item.id);
       return res.status(400).json({ error: `Unknown product: ${item.id}` });
     }
+    if (NOT_SOLD_ONLINE.has(item.id)) {
+      console.error('Product not sold online:', item.id);
+      return res.status(400).json({ error: `${product.name} isn't available to buy online — please get in touch and we'll help.` });
+    }
     resolved.push(product);
   }
 
@@ -119,10 +170,33 @@ export default async function handler(req, res) {
   const deliveryMode = customer.delivery || 'pickup';
   const deliveryFee = (deliveryMode === 'delivery' && subtotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
 
-  // Promo applied server-side — client value is display-only
+  // Promo applied server-side — client value is display-only. The discount is rounded to whole
+  // dollars, matching what the checkout page shows.
   const code = (promoCode || '').toUpperCase().trim();
-  const discountRate = PROMO_CODES[code] || 0;
-  const totalCents = Math.round(subtotal * 100 * (1 - discountRate)) + deliveryFee * 100;
+  let discountRate = PROMO_CODES[code] || 0;
+  let eligibleSubtotal = subtotal;
+  let promoMessage = '';
+  if (discountRate > 0 && code === WELCOME_CODE) {
+    eligibleSubtotal = items.reduce((sum, item, i) => sum + (isWelcomeEligible(item.id) ? resolved[i].price : 0), 0);
+    if (eligibleSubtotal === 0) {
+      discountRate = 0;
+      promoMessage = `${WELCOME_CODE} applies to ready-made pieces only.`;
+    } else {
+      try {
+        if (await hasPreviousOrder(customer.email, secretKey)) {
+          discountRate = 0;
+          promoMessage = `${WELCOME_CODE} is for your first order — this email has already ordered with us.`;
+        }
+      } catch (err) {
+        // Fail closed: the code is only honoured when we can confirm it's a first order.
+        console.error('PRIME10 first-order check failed:', err);
+        discountRate = 0;
+        promoMessage = `We couldn't verify ${WELCOME_CODE} just now — please try again in a moment.`;
+      }
+    }
+  }
+  const discount = discountRate > 0 ? Math.round(eligibleSubtotal * discountRate) : 0;
+  const totalCents = (subtotal - discount + deliveryFee) * 100;
 
   const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).join(' | ');
   const description = resolved.map(p => p.name).join(', ');
@@ -140,7 +214,8 @@ export default async function handler(req, res) {
     'metadata[delivery_fee]': deliveryFee.toString(),
     'metadata[notes]': customer.notes || '',
     'metadata[items]': itemsLabel,
-    'metadata[promo]': discountRate > 0 ? code : '',
+    'metadata[promo]': discount > 0 ? code : '',
+    'metadata[discount]': discount.toString(),
   });
 
   try {
@@ -160,7 +235,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: data.error.message });
     }
 
-    return res.status(200).json({ clientSecret: data.client_secret, amount: totalCents / 100 });
+    return res.status(200).json({
+      clientSecret: data.client_secret,
+      amount: totalCents / 100,
+      promo: { code, applied: discount > 0, discount, message: promoMessage },
+    });
 
   } catch (err) {
     console.error('Checkout error:', err);

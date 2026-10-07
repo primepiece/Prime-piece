@@ -343,37 +343,51 @@
     .hero-trust { gap: 20px; }
   }
 </style>
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo-wrap">
+<nav id="nav" class="site-nav site-nav--solid" aria-label="Main">
+  <a href="/" class="logo-wrap" aria-label="Prime Piece — home">
     <div class="logo">PRIME PIECE</div>
     <div class="logo-sub">one of one</div>
   </a>
   <ul class="nav-links">
-    <li><a href="/#collection">Collection</a></li>
-    <li><a href="plinths.html">Plinths</a></li>
-    <li><a href="tables.html">Tables</a></li>
-    <li><a href="boards.html">Boards</a></li>
-    <li><a href="basins.html" class="nav-active">Stone Basins</a></li>
+    <li><a href="gallery.html">Shop</a></li>
+    <li class="nav-dd is-current">
+      <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-controls="nav-dd-menu">Collections <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+      <ul class="nav-dd-menu" id="nav-dd-menu">
+        <li><a href="tables.html">Tables</a></li>
+        <li><a href="plinths.html">Plinths</a></li>
+        <li><a href="boards.html">Boards</a></li>
+        <li><a href="basins.html" class="is-current" aria-current="page">Basins</a></li>
+      </ul>
+    </li>
+    <li><a href="custom.html">Custom</a></li>
+    <li><a href="/#story">About</a></li>
     <li><a href="trade.html">Trade</a></li>
     <li><a href="/#contact">Contact</a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/">Home</a>
-  <a href="plinths.html">Plinths</a>
-  <a href="tables.html">Tables</a>
-  <a href="boards.html">Boards</a>
-  <a href="basins.html">Stone Basins</a>
+<div class="mobile-menu site-mobile-menu" id="mobile-menu">
+  <a href="gallery.html">Shop</a>
+  <div class="mm-group">
+    <span class="mm-label">Collections</span>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html" class="is-current" aria-current="page">Basins</a></div>
+  </div>
+  <a href="custom.html">Custom</a>
+  <a href="/#story">About</a>
   <a href="trade.html">Trade</a>
-  <a href="#" onclick="document.getElementById('mobile-menu').classList.remove('open'); openEnquiry('Basin Enquiry');" class="mobile-shop-btn">Enquire Now</a>
+  <a href="/#contact">Contact</a>
+  <a href="/#contact" class="mobile-shop-btn" data-enquire>Enquire Now</a>
+  <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
 </div>
+
 
 <!-- HERO -->
 <section class="page-hero">
@@ -754,7 +768,7 @@
           <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px dashed var(--line);background:white;cursor:pointer;font-size:12px;color:var(--stone);border-radius:1px;">
             <span style="font-size:18px;">📎</span>
             <span id="basin-advice-filename">Attach a photo of your space</span>
-            <input type="file" name="photo" accept="image/*" style="display:none;" onchange="document.getElementById('basin-advice-filename').textContent=this.files[0]?this.files[0].name:'Attach a photo of your space'">
+            <input type="file" name="photo" accept="image/*" style="display:none;" onchange="basinAdvicePhoto(this)">
           </label>
         </div>
         <input type="hidden" name="product" value="Vessel Basin Advice">
@@ -789,7 +803,7 @@
       <p class="footer-brand-desc">Sculptural stone furniture and natural stone basins. Sourced direct, delivered to your door anywhere in New Zealand.</p>
     </div>
     <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="basins.html">Stone Basins</a></div>
-    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="/#process">Process</a><a href="/#collection">Collection</a></div>
+    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="custom.html#process">Process</a><a href="/#collection">Collection</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a><a href="privacy.html">Privacy Policy</a><a href="returns.html">Returns</a></div>
     <div class="footer-col"><h4>Journal</h4><a href="blog-vessel-basin-nz.html">Choosing a Vessel Basin NZ</a><a href="blog-marble-coffee-table-nz.html">Styling a Marble Table NZ</a><a href="blog-stone-plinth-nz.html">Stone Plinths NZ Guide</a><a href="blog-marble-serving-board-nz.html">Marble Serving Boards NZ</a></div>
   </div>
@@ -903,10 +917,6 @@
 </div>
 
 <script>
-  const ham = document.getElementById('nav-hamburger');
-  const mob = document.getElementById('mobile-menu');
-  ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); });
-  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
 
   const AVAILABILITY = {
     'In Stock': { title: 'In Stock — Ready to Ship', text: 'Enquire now — NZ-wide delivery, fully insured door to door.' },
@@ -1032,19 +1042,71 @@
   function closeBasinAdviceOutside(e) {
     if (e.target === document.getElementById('basin-advice-overlay')) closeBasinAdvice();
   }
+  // Inline error under a form, shown only when sending actually fails.
+  function formError(form, msg) {
+    let el = form.querySelector('.form-error');
+    if (!el) {
+      el = document.createElement('p');
+      el.className = 'form-error';
+      el.setAttribute('role', 'alert');
+      el.style.cssText = 'font-size:12px;color:#a94435;margin:0 0 12px;';
+      const btn = form.querySelector('button[type="submit"]');
+      btn.parentNode.insertBefore(el, btn);
+    }
+    el.textContent = msg || '';
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  // Basin advice photo: resized/compressed in the browser (photo-upload.js) and sent with the enquiry.
+  let basinAdviceImg = null, basinAdvicePending = null, basinAdviceFailed = false;
+  function basinAdvicePhoto(input) {
+    const label = document.getElementById('basin-advice-filename');
+    const file = input.files[0];
+    basinAdviceImg = null; basinAdviceFailed = false;
+    label.style.color = '';
+    if (!file) { basinAdvicePending = null; label.textContent = 'Attach a photo of your space'; return; }
+    label.textContent = 'Preparing photo…';
+    const pending = (window.PPPhoto ? PPPhoto.prepare(file) : Promise.reject(new Error('unavailable')))
+      .then(p => { if (basinAdvicePending !== pending) return; basinAdviceImg = p; label.textContent = '✓ ' + file.name; })
+      .catch(err => {
+        if (basinAdvicePending !== pending) return;
+        basinAdviceFailed = true; input.value = '';
+        label.textContent = window.PPPhoto ? PPPhoto.message(err) : "We couldn't prepare that photo — please try another.";
+        label.style.color = '#a94435';
+      })
+      .finally(() => { if (basinAdvicePending === pending) basinAdvicePending = null; });
+    basinAdvicePending = pending;
+  }
+
   async function submitBasinAdvice(e) {
     e.preventDefault();
     const form = e.target;
     const btn = document.getElementById('basin-advice-submit');
+    formError(form, '');
     btn.textContent = 'Sending…'; btn.disabled = true;
+    if (basinAdvicePending) await basinAdvicePending;
+    if (basinAdviceFailed) {
+      basinAdviceFailed = false;
+      formError(form, "Your photo couldn't be attached — choose another, or press send again to continue without it.");
+      btn.textContent = 'Send Message →'; btn.disabled = false;
+      return;
+    }
     const data = Object.fromEntries(new FormData(form));
+    delete data.photo; // the File object can't be sent as JSON; the prepared image is sent instead
+    if (basinAdviceImg) { data.imageBase64 = basinAdviceImg.base64; data.imageMime = basinAdviceImg.mime; }
     try {
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({...data, source: 'basins-cta', to: 'james@primepiece.co.nz'})
       });
-    } catch(_) {}
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || out.success === false) throw new Error('send failed');
+    } catch(_) {
+      formError(form, 'Something went wrong — please try again or text James on 021 146 6990.');
+      btn.textContent = 'Send Message →'; btn.disabled = false;
+      return;
+    }
     document.getElementById('basin-advice-form-wrap').style.display = 'none';
     document.getElementById('basin-advice-success').style.display = 'block';
   }
@@ -1053,13 +1115,24 @@
     e.preventDefault();
     const form = e.target;
     const data = Object.fromEntries(new FormData(form));
+    const btn = form.querySelector('button[type="submit"]');
+    const btnText = btn.textContent;
+    formError(form, '');
+    btn.textContent = 'Sending…'; btn.disabled = true;
     try {
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({...data, source: 'basins', to: 'james@primepiece.co.nz'})
       });
-    } catch(_) {}
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || out.success === false) throw new Error('send failed');
+    } catch(_) {
+      formError(form, 'Something went wrong — please try again or text James on 021 146 6990.');
+      btn.textContent = btnText; btn.disabled = false;
+      return;
+    }
+    btn.textContent = btnText; btn.disabled = false;
     document.getElementById('enq-form-wrap').style.display = 'none';
     document.getElementById('enq-success').style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Lead', {content_name: data.product});
@@ -1105,68 +1178,6 @@
     }, 2000);
   }
 </script>
-<div id="pp-popup-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.55);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;">
-  <div id="pp-popup-box" style="background:var(--cream);max-width:440px;width:100%;padding:3rem 2.5rem 2.5rem;position:relative;text-align:center;border:1px solid var(--line);">
-    <button id="pp-popup-close" aria-label="Close" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--stone);line-height:1;">&times;</button>
-    <div id="pp-step-teaser">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Welcome to Prime Piece</p>
-      <h2 style="font-family:var(--display);font-size:2rem;font-weight:400;color:var(--ink);margin:0 0 0.75rem;line-height:1.2;">You have a<br><em>secret offer</em></h2>
-      <p style="font-family:var(--body);font-size:0.85rem;color:var(--stone);margin:0 0 2rem;line-height:1.6;">Natural stone, one of one.<br>Unlock an exclusive discount — just for visiting today :)</p>
-      <button id="pp-btn-claim" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;font-weight:600;">Reveal My Offer</button>
-    </div>
-    <div id="pp-step-form" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Almost there</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.6rem;">Where shall we send it?</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.75rem;">Enter your details and we'll reveal your discount code instantly.</p>
-      <input id="pp-name" type="text" placeholder="Your name" autocomplete="given-name" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.75rem;outline:none;">
-      <input id="pp-email" type="email" placeholder="Email address" autocomplete="email" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.25rem;outline:none;">
-      <p id="pp-form-error" style="font-size:0.78rem;color:#c0392b;margin:0.4rem 0 1rem;display:none;"></p>
-      <button id="pp-btn-submit" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;margin-top:0.5rem;font-weight:600;">Unlock Discount</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:1rem 0 0;line-height:1.5;">No spam. One email with your code, that's it.<br>Unsubscribe any time.</p>
-    </div>
-    <div id="pp-step-reveal" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Your exclusive offer</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.5rem;">10% off your order</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.5rem;">Use this code at checkout:</p>
-      <div style="background:var(--cream-deep);border:1.5px dashed var(--sage);padding:1rem 1.5rem;margin-bottom:1.75rem;display:inline-block;min-width:180px;"><span id="pp-code" style="font-family:var(--display);font-size:1.6rem;letter-spacing:0.2em;color:var(--ink);font-weight:500;">PRIME10</span></div><br>
-      <button id="pp-btn-shop" style="width:100%;padding:0.9rem 1.5rem;background:var(--ink);color:var(--cream);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;">Shop the Collection</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:0.85rem 0 0;">Code sent to your inbox too.</p>
-    </div>
-  </div>
-</div>
-<script>
-(function() {
-  if (localStorage.getItem('pp_popup_seen')) return;
-  var overlay = document.getElementById('pp-popup-overlay');
-  var stepTeaser = document.getElementById('pp-step-teaser');
-  var stepForm = document.getElementById('pp-step-form');
-  var stepReveal = document.getElementById('pp-step-reveal');
-  function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
-  function hide() { overlay.style.display = 'none'; }
-  var shown = false;
-  function tryShow() { if (!shown) { shown = true; show(); } }
-  document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
-  setTimeout(tryShow, 7000);
-  document.getElementById('pp-popup-close').addEventListener('click', hide);
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
-  document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
-  document.getElementById('pp-btn-submit').addEventListener('click', async function() {
-    var name = document.getElementById('pp-name').value.trim();
-    var email = document.getElementById('pp-email').value.trim();
-    var errEl = document.getElementById('pp-form-error');
-    errEl.style.display = 'none';
-    if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
-    var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
-    try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
-    stepForm.style.display = 'none'; stepReveal.style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-    if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
-  });
-  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
-})();
-</script>
-
 <script>
 (function() {
   var id = new URLSearchParams(location.search).get('p');
@@ -1194,6 +1205,7 @@ async function footerSubscribe(event, form) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';
@@ -1215,5 +1227,7 @@ async function footerSubscribe(event, form) {
 }
 </script>
 
+<script src="site-nav.js" defer></script>
+<script src="photo-upload.js" defer></script>
 </body>
 </html>

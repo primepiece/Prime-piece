@@ -155,13 +155,14 @@ ${emailHeader}
 <tr><td style="padding:40px 0 24px;">
   <p style="margin:0 0 12px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#7BA5A8;font-weight:500;">Welcome</p>
   <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:#2C2A26;line-height:1.2;">You're part of something rare.</h1>
-  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Thanks for joining the list, ${firstName}. Every Prime Piece is cut from a single slab of natural stone, so there is only ever one. As a welcome gift, here's 10% credit toward your first piece.</p>
+  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Thanks for joining the list, ${firstName}. Every Prime Piece is cut from a single slab of natural stone, so there is only ever one. As a welcome gift, here's 10% off your first ready-made piece.</p>
 </td></tr>
 <tr><td style="padding-bottom:32px;">
   <table border="0" cellpadding="0" cellspacing="0" style="background:#EBE5DA;border-radius:2px;" width="100%"><tr><td style="padding:24px;text-align:center;">
     <p style="margin:0 0 4px;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#8A8275;">Your code</p>
     <p style="margin:0;font-size:28px;letter-spacing:0.24em;color:#2C2A26;font-weight:500;">PRIME10</p>
-    <p style="margin:6px 0 0;font-size:11px;color:#8A8275;letter-spacing:0.1em;text-transform:uppercase;">10% credit toward your order</p>
+    <p style="margin:6px 0 0;font-size:11px;color:#8A8275;letter-spacing:0.1em;text-transform:uppercase;">10% off your first ready-made piece</p>
+    <p style="margin:8px 0 0;font-size:11px;color:#8A8275;">Excludes custom commissions and trade orders.</p>
   </td></tr></table>
 </td></tr>
 <tr><td style="padding-bottom:40px;">

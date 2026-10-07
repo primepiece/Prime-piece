@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.primepiece.co.nz/gallery.html">
 <meta property="og:title" content="Gallery | Stone Furniture Auckland — Prime Piece">
-<meta property="og:description" content="Handcrafted stone furniture gallery. Marble plinths, tables and boards made in Auckland, NZ.">
+<meta property="og:description" content="The full Prime Piece collection. Marble tables, plinths, stone basins and boards made in Auckland, NZ.">
 <meta property="og:image" content="https://www.primepiece.co.nz/plinth-3.jpg">
 <meta property="og:site_name" content="Prime Piece">
 <meta name="twitter:card" content="summary_large_image">
@@ -47,7 +47,7 @@
   .logo-wrap { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
   .logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.35em; color: var(--sage); }
   .logo-sub { font-family: 'Dancing Script', cursive; font-size: 11px; color: var(--sage); margin-top: 2px; }
-  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
   .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover, .nav-links .nav-active { color: var(--sage); }
 
@@ -68,21 +68,54 @@
   .filter-btn:hover { border-color: var(--sage); color: var(--sage); }
   .filter-btn.active { background: var(--sage); border-color: var(--sage); color: white; }
 
-  /* Masonry grid */
-  .gallery-grid { columns: 3; column-gap: 0; line-height: 0; }
-  .gallery-item { position: relative; display: block; overflow: hidden; break-inside: avoid; border: 1px solid var(--cream-soft); cursor: pointer; line-height: 0; }
-  .gallery-item img { width: 100%; height: auto; display: block; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-overlay { position: absolute; inset: 0; background: rgba(14,13,11,0); display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 20px; transition: background 0.4s; }
-  .gallery-item:hover .gallery-overlay { background: rgba(14,13,11,0.52); }
-  .gallery-overlay-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: #fff; line-height: 1; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; }
-  .gallery-overlay-type { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-top: 4px; opacity: 0; transform: translateY(8px); transition: opacity 0.3s 0.05s, transform 0.3s 0.05s; font-weight: 500; }
-  .gallery-overlay-tag { position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: var(--sage); color: #fff; font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; border-radius: 1px; opacity: 0; transition: opacity 0.3s; }
-  .gallery-overlay-tag.sold { background: var(--stone); }
-  .gallery-item:hover .gallery-overlay-name,
-  .gallery-item:hover .gallery-overlay-type,
-  .gallery-item:hover .gallery-overlay-tag { opacity: 1; transform: translateY(0); }
-
+  /* Collection grid — grouped by category, captions always visible */
+  .filter-bar { position: sticky; top: 71px; z-index: 50; padding: 0 56px; display: block; background: rgba(245,241,234,0.97); backdrop-filter: blur(16px); }
+  .filter-track { display: flex; gap: 36px; }
+  .filter-bar .filter-btn { position: relative; padding: 20px 0 18px; border: none; border-radius: 0; background: none; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500; color: var(--stone); white-space: nowrap; }
+  .filter-bar .filter-btn:hover { color: var(--ink); background: none; }
+  .filter-bar .filter-btn.active { color: var(--ink); background: none; }
+  .filter-bar .filter-btn.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--ink); }
+  .filter-bar .filter-btn-archive { margin-left: auto; }
+  .gal-archive-note { font-size: 12px; color: var(--stone); }
+  .gal-archive-note a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--sage); }
+  .gal-group { padding: 72px 56px 8px; }
+  .gal-group + .gal-group { border-top: 1px solid var(--line); margin-top: 56px; }
+  #gallery-grid.is-filtered .gal-group { border-top: none; margin-top: 0; }
+  .gal-group-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; }
+  .gal-group-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(30px, 3vw, 44px); line-height: 1; color: var(--ink); letter-spacing: -0.01em; }
+  .gal-group-head h2 em { font-style: italic; color: var(--sage); }
+  .gal-group-head p { font-size: 13px; color: var(--stone); margin-top: 10px; }
+  .gal-group-link { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--sage); text-decoration: none; font-weight: 500; white-space: nowrap; border-bottom: 1px solid var(--sage); padding-bottom: 2px; }
+  .gal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px 28px; }
+  .gallery-item { cursor: pointer; outline: none; }
+  .gallery-item:focus-visible .gi-img { outline: 1px solid var(--sage); outline-offset: 3px; }
+  .gi-img { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--cream-soft); border-radius: 2px; }
+  .gi-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .gallery-item:hover .gi-img img { transform: scale(1.035); }
+  .gi-tag { position: absolute; top: 12px; left: 12px; padding: 4px 10px; background: rgba(245,241,234,0.92); color: var(--ink-soft); font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; border-radius: 1px; }
+  .gi-info { padding-top: 16px; }
+  .gi-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--ink); line-height: 1.2; margin-bottom: 8px; }
+  .gi-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+  .gi-type { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); }
+  .gi-price { font-size: 12px; color: var(--ink-soft); text-align: right; }
+  .gal-archive .gi-img img { filter: saturate(0.85); }
+  @media (max-width: 1100px) { .gal-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px) {
+    .filter-bar { top: 61px; padding: 0; }
+    .filter-track { gap: 26px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); }
+    .filter-track::-webkit-scrollbar { display: none; }
+    .filter-track::after { content: ''; flex: 0 0 24px; }
+    .filter-bar .filter-btn { flex-shrink: 0; padding: 17px 0 15px; }
+    .filter-bar .filter-btn-archive { margin-left: 0; }
+    .gal-group { padding: 48px 20px 0; }
+    .gal-group + .gal-group { margin-top: 40px; }
+    .gal-group-head { margin-bottom: 24px; }
+    .gal-group-head p { display: none; }
+    .gal-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 14px; }
+    .gi-name { font-size: 17px; margin-bottom: 6px; }
+    .gi-meta { flex-direction: column; gap: 3px; padding-top: 8px; }
+    .gi-price { text-align: left; }
+  }
   /* Lightbox */
   .lightbox { position: fixed; inset: 0; background: rgba(14,13,11,0.94); z-index: 300; display: none; align-items: center; justify-content: center; padding: 20px; }
   .lightbox.open { display: flex; }
@@ -144,44 +177,88 @@
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
+  .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 90; flex-direction: column; align-items: center; justify-content: center; gap: 22px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--ink); text-decoration: none; }
   @media (max-width: 900px) { .lightbox-inner { grid-template-columns: 1fr; } .lightbox-img-col { min-height: 300px; } }
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
-    .page-hero { padding: 110px 24px 56px; flex-direction: column; align-items: flex-start; }
-    .filter-bar { padding: 14px 24px; }
-    .gallery-grid { columns: 2; }
+    .nav-hamburger { display: flex; }
+    .page-hero { padding: 104px 20px 36px; flex-direction: column; align-items: flex-start; }
+    .hero-right { display: none; }
     .cta-strip { padding: 56px 24px; flex-direction: column; align-items: flex-start; }
     footer { padding: 48px 24px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
     .lightbox-nav { display: none; }
   }
+  /* Enquiry form on phones: stack name/email; 16px fields stop iOS zooming on focus */
+  @media (max-width: 480px) {
+    #enq-form-wrap { padding: 22px 20px 24px !important; }
+    #enq-form-wrap > div:first-child { grid-template-columns: 1fr !important; }
+    #enq-overlay input, #enq-overlay textarea { font-size: 16px !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo-wrap">
+<nav id="nav" class="site-nav site-nav--solid" aria-label="Main">
+  <a href="/" class="logo-wrap" aria-label="Prime Piece — home">
     <div class="logo">PRIME PIECE</div>
     <div class="logo-sub">one of one</div>
   </a>
   <ul class="nav-links">
-    <li><a href="/#collection">Collection</a></li>
-    <li><a href="plinths.html">Plinths</a></li>
-    <li><a href="tables.html">Tables</a></li>
-    <li><a href="boards.html">Boards</a></li>
-    <li><a href="gallery.html" class="nav-active">Gallery</a></li>
+    <li><a href="gallery.html" class="is-current" aria-current="page">Shop</a></li>
+    <li class="nav-dd">
+      <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-controls="nav-dd-menu">Collections <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+      <ul class="nav-dd-menu" id="nav-dd-menu">
+        <li><a href="tables.html">Tables</a></li>
+        <li><a href="plinths.html">Plinths</a></li>
+        <li><a href="boards.html">Boards</a></li>
+        <li><a href="basins.html">Basins</a></li>
+      </ul>
+    </li>
+    <li><a href="custom.html">Custom</a></li>
+    <li><a href="/#story">About</a></li>
     <li><a href="trade.html">Trade</a></li>
     <li><a href="/#contact">Contact</a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu site-mobile-menu" id="mobile-menu">
+  <a href="gallery.html">Shop</a>
+  <div class="mm-group">
+    <span class="mm-label">Collections</span>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a></div>
+  </div>
+  <a href="custom.html">Custom</a>
+  <a href="/#story">About</a>
+  <a href="trade.html">Trade</a>
+  <a href="/#contact">Contact</a>
+  <a href="/#contact" class="mobile-shop-btn" data-enquire>Enquire Now</a>
+  <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
+</div>
 
 <section class="page-hero">
   <div class="hero-left reveal">
     <div class="eyebrow">The Collection</div>
     <h1>Every piece,<br><em>in one place</em>.</h1>
-    <p class="hero-desc">Plinths, tables and boards — handcrafted in Auckland from natural stone. One of one, never repeated. Click any piece to explore.</p>
+    <p class="hero-desc">Tables, plinths, basins and boards — handcrafted in Auckland from natural stone. Select any piece to explore.</p>
   </div>
   <div class="hero-right reveal">
     <div class="hero-stat">50+</div>
@@ -189,417 +266,374 @@
   </div>
 </section>
 
-<div class="filter-bar">
-  <span class="filter-label">Filter</span>
-  <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
-  <button class="filter-btn" onclick="filterGallery('plinth',this)">Plinths</button>
-  <button class="filter-btn" onclick="filterGallery('table',this)">Tables</button>
-  <button class="filter-btn" onclick="filterGallery('board',this)">Boards</button>
-  <button class="filter-btn" onclick="filterGallery('available',this)">Available</button>
-</div>
-
-<div class="gallery-grid" id="gallery-grid">
-
-  <!-- PLINTHS -->
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Africano Table" data-stone="Rosso Africano Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 300mm" data-price="NZD $5,800" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-7.jpg" alt="Rosso Africano marble coffee table plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Rosso Africano</div>
-      <div class="gallery-overlay-type">Coffee Table Plinth</div>
-    </div>
+<nav class="filter-bar" id="filter-bar" aria-label="Collection categories">
+  <div class="filter-track">
+    <button class="filter-btn active" aria-pressed="true" onclick="filterGallery('all',this)">All</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('table',this)">Tables</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('plinth',this)">Plinths</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('basin',this)">Basins</button>
+    <button class="filter-btn" aria-pressed="false" onclick="filterGallery('board',this)">Boards &amp; Platters</button>
+    <button class="filter-btn filter-btn-archive" aria-pressed="false" onclick="filterGallery('archive',this)">Archive</button>
   </div>
+</nav>
 
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Africano Plinth" data-stone="Rosso Africano Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $3,800" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-3.jpg" alt="Rosso Africano marble plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Rosso Africano</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+<div id="gallery-grid">
+<section class="gal-group" data-group="table">
+  <div class="gal-group-head">
+    <div><h2>Tables</h2><p>Coffee, side, lounge and dining tables.</p></div>
+    <a href="tables.html" class="gal-group-link">Shop tables →</a>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Verde Apli Marble Table" data-stone="Verde Apli Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 300mm" data-price="NZD $4,000" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-9.jpg" alt="Verde Apli marble table plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Verde Apli</div>
-      <div class="gallery-overlay-type">Coffee Table Plinth</div>
-    </div>
+  <div class="gal-grid">
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Midnight Moon" data-stone="Titanium Black Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm · Hand-welded steel frame" data-price="NZD $2,800" data-link="tables.html?p=table-midnight-moon#lounge" data-cart-id="table-midnight-moon" data-cart-price="2800" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="midnight-moon-table.jpg" alt="Midnight Moon — Titanium Black Granite luxury lounge table Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Midnight Moon</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">NZD $2,800</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Navarro Marble Plinth" data-stone="Navarro Marble" data-type="Plinth" data-dims="H: 550mm × W: 300mm × D: 300mm" data-price="NZD $3,499" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-14.jpg" alt="Navarro marble plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Navarro Marble</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Horizon" data-stone="Mitered Mystique Green Marble" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm · Hand-welded steel frame" data-price="NZD $2,750" data-link="tables.html?p=table-jade-horizon#lounge" data-cart-id="table-jade-horizon" data-cart-price="2750" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-1.jpg" alt="Jade Horizon — Mystique Green Marble lounge table handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Jade Horizon</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">NZD $2,750</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Florim Plinth" data-stone="Florim" data-type="Plinth" data-dims="H: 600mm × W: 300mm × D: 300mm" data-price="NZD $3,200" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-5.jpg" alt="Florim stone plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Florim</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Obsidian Storm" data-stone="Titanium Black Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm · Hand-welded steel frame" data-price="NZD $2,650" data-link="tables.html?p=table-obsidian-storm#lounge" data-cart-id="table-obsidian-storm" data-cart-price="2650" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-2.jpg" alt="Obsidian Storm — Titanium Black Granite lounge table Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Obsidian Storm</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">NZD $2,650</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Dekton Sirius Plinth" data-stone="Dekton Sirius — Dark Grey" data-type="Plinth" data-dims="H: 520mm × W: 350mm × D: 350mm" data-price="NZD $2,400" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-10.jpg" alt="Dekton Sirius dark stone plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Dekton Sirius</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Desert Crown" data-stone="Taj Mahal Quartzite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 650mm · Hand-welded steel frame" data-price="NZD $2,600" data-link="tables.html?p=table-desert-crown#lounge" data-cart-id="table-desert-crown" data-cart-price="2600" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-4.jpg" alt="Desert Crown — Taj Mahal Quartzite lounge table Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Desert Crown</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">NZD $2,600</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Levanto Plinth" data-stone="Rosso Levanto Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $1,400" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-4.jpg" alt="Rosso Levanto marble plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Rosso Levanto</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Sage Plateau" data-stone="Mystique Green Marble" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm · Hand-welded steel frame" data-price="NZD $1,950" data-link="tables.html?p=table-sage-plateau#lounge" data-cart-id="table-sage-plateau" data-cart-price="1950" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-3.jpg" alt="Sage Plateau — Mystique Green Marble natural stone lounge table Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Sage Plateau</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">NZD $1,950</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Dekton Sirius Side Plinth" data-stone="Dekton Sirius — Dark Grey" data-type="Side Plinth" data-dims="H: 400mm × W: 300mm × D: 300mm" data-price="NZD $1,500" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-6.jpg" alt="Dekton Sirius side plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Dekton Sirius</div>
-      <div class="gallery-overlay-type">Side Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="White Haven" data-stone="Carrara Marble" data-type="Lounge Table" data-dims="H: 500mm × Ø: 700mm · Bull nose edge · Hand-welded steel frame" data-price="NZD $1,950" data-link="tables.html?p=table-white-haven-lounge#lounge" data-cart-id="table-white-haven-lounge" data-cart-price="1950" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-8.jpg" alt="White Haven — Carrara Marble round lounge table bull nose edge Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">White Haven</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">NZD $1,950</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Grey Porcelain Plinth" data-stone="Grey Porcelain" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $1,499" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-1.jpg" alt="Grey Porcelain plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Grey Porcelain</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Twin Jade" data-stone="Mystique Green Marble" data-type="Side Table — Set of 2" data-dims="H: 450mm × 600mm × 600mm · Black steel X-frame" data-price="NZD $950 each" data-link="tables.html?p=table-twin-jade-single#side" data-cart-id="table-twin-jade-single" data-cart-price="950" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="side-1.jpg" alt="Twin Jade — Mystique Green Marble stone side tables set of 2 Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Twin Jade</div><div class="gi-meta"><span class="gi-type">Side Table — Set of 2</span><span class="gi-price">NZD $950 each</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Grey Porcelain Side Plinth" data-stone="Grey Porcelain" data-type="Side Plinth" data-dims="H: 450mm × W: 300mm × D: 300mm" data-price="NZD $700" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-2.jpg" alt="Grey Porcelain side plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Grey Porcelain</div>
-      <div class="gallery-overlay-type">Side Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Rain" data-stone="Green Calacatta Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm · Black steel frame" data-price="NZD $520" data-link="tables.html?p=table-jade-rain#coffee" data-cart-id="table-jade-rain" data-cart-price="520" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-green-calacatta (3).jpg" alt="Jade Rain — Green Calacatta Marble coffee table handcrafted in Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Jade Rain</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">NZD $520</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Green Calacatta Table" data-stone="Green Calacatta Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 280mm" data-price="Sold" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-8.jpg" alt="Green Calacatta marble table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Green Calacatta</div>
-      <div class="gallery-overlay-type">Coffee Table Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Jewel" data-stone="Green Marble Onyx" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm · Black steel frame" data-price="NZD $520" data-link="tables.html?p=table-jade-jewel#coffee" data-cart-id="table-jade-jewel" data-cart-price="520" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-3.jpg" alt="Jade Jewel — Green Marble Onyx coffee table handcrafted in Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Jade Jewel</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">NZD $520</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Natural Travertine Plinth" data-stone="Natural Travertine" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="Sold" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-15.jpg" alt="Natural Travertine plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Natural Travertine</div>
-      <div class="gallery-overlay-type">Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Dark Current" data-stone="Laurent Black Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm · Matte black steel frame" data-price="NZD $510" data-link="tables.html?p=table-dark-current#coffee" data-cart-id="table-dark-current" data-cart-price="510" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="dark-current-table.jpg" alt="Dark Current — Laurent Black Marble coffee table Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Dark Current</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">NZD $510</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Dekton Sirius II" data-stone="Dekton Sirius — Dark Grey" data-type="Side Plinth" data-dims="H: 450mm × W: 300mm × D: 300mm" data-price="Sold" data-link="plinths.html" onclick="openLightbox(this)">
-    <img src="plinth-13.jpg" alt="Dekton Sirius II side plinth Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Dekton Sirius II</div>
-      <div class="gallery-overlay-type">Side Plinth</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="available" data-name="Serpentine Storm" data-stone="Verde Imperiale Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm · Black steel frame" data-price="NZD $490" data-link="tables.html?p=table-serpentine-storm#coffee" data-cart-id="table-serpentine-storm" data-cart-price="490" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="serpentine-storm-table.jpg" alt="Serpentine Storm — Verde Imperiale Marble coffee table Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Serpentine Storm</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">NZD $490</span></div></div>
   </div>
-
-  <!-- COFFEE TABLES -->
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Pink Storm" data-stone="Monica Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $299 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-1.jpg" alt="Pink Storm Monica Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Pink Storm</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="order" data-name="Silver Mist" data-stone="Silver Travertine" data-type="Lounge Table" data-dims="H: 200mm × Ø: 650mm · Custom wooden base" data-price="By commission" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-9.jpg" alt="Silver Mist — Silver Travertine low lounge table custom wooden base Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-order">Made to order</span></div>
+    <div class="gi-info"><div class="gi-name">Silver Mist</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">By commission</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Amazon Vein" data-stone="Rainforest Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $279 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-2.jpg" alt="Amazon Vein Rainforest Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Amazon Vein</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="order" data-name="Jade Runner" data-stone="Green Marble Onyx" data-type="Lounge Table" data-dims="H: 200mm × 1000mm (L) × 100mm (W) · Custom steel base" data-price="By commission" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-11.jpg" alt="Jade Runner — Green Marble Onyx low runner table Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-order">Made to order</span></div>
+    <div class="gi-info"><div class="gi-name">Jade Runner</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">By commission</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Jewel" data-stone="Green Marble Onyx" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $319 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-3.jpg" alt="Jade Jewel Green Onyx coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Jade Jewel</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="table" data-status="order" data-name="Arabesque" data-stone="Arabescato Marble" data-type="Dining Table" data-dims="H: 900mm × 1500mm (L) × 500mm (W) · Custom pedestal base" data-price="By commission" data-link="tables.html?p=table-arabesque#dining" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-10.jpg" alt="Arabesque — Arabescato Marble dining table custom teal pedestals Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-order">Made to order</span></div>
+    <div class="gi-info"><div class="gi-name">Arabesque</div><div class="gi-meta"><span class="gi-type">Dining Table</span><span class="gi-price">By commission</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Midnight Wave" data-stone="Verde Apli Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $309 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-4.jpg" alt="Midnight Wave Verde Apli coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Midnight Wave</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
   </div>
+</section>
 
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Sunset Stone" data-stone="Macael Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-5.jpg" alt="Sunset Stone Macael Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Sunset Stone</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+<section class="gal-group" data-group="plinth">
+  <div class="gal-group-head">
+    <div><h2>Plinths</h2><p>Sculptural plinths and coffee-table blocks.</p></div>
+    <a href="plinths.html" class="gal-group-link">Shop plinths →</a>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Solar Eclipse" data-stone="Titanium Black Granite" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $289 (was $499)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-6.jpg" alt="Solar Eclipse Titanium Black Granite coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Solar Eclipse</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gal-grid">
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Africano Marble" data-stone="Rosso Africano Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 300mm" data-price="NZD $4,900" data-link="plinths.html?p=plinth-rosso-africano-table-2" data-cart-id="plinth-rosso-africano-table-2" data-cart-price="4900" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-7.jpg" alt="Rosso Africano marble coffee table plinth 950x760mm handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Rosso Africano Marble</div><div class="gi-meta"><span class="gi-type">Coffee Table Plinth</span><span class="gi-price">NZD $4,900</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Desert Drift" data-stone="Kangaroo Quartzite" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $290 (was $379)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-12.jpg" alt="Desert Drift Kangaroo Quartzite coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Desert Drift</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Verde Alpi Marble" data-stone="Verde Alpi Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 300mm" data-price="NZD $4,000" data-link="plinths.html?p=plinth-verde-apli-table" data-cart-id="plinth-verde-apli-table" data-cart-price="4000" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-9.jpg" alt="Verde Alpi marble coffee table plinth green stone handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Verde Alpi Marble</div><div class="gi-meta"><span class="gi-type">Coffee Table Plinth</span><span class="gi-price">NZD $4,000</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Mountain Breeze" data-stone="Super White Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $199 (was $349)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-16.jpg" alt="Mountain Breeze Super White Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Mountain Breeze</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Africano Marble" data-stone="Rosso Africano Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $3,800" data-link="plinths.html?p=plinth-rosso-africano-plinth" data-cart-id="plinth-rosso-africano-plinth" data-cart-price="3800" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-3.jpg" alt="Rosso Africano marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Rosso Africano Marble</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">NZD $3,800</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="White Haven" data-stone="Carrara Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="NZD $249 (was $429)" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-14.jpg" alt="White Haven Carrara Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">White Haven</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Navarro Marble" data-stone="Navarro Marble" data-type="Plinth" data-dims="H: 550mm × W: 300mm × D: 300mm" data-price="NZD $3,499" data-link="plinths.html?p=plinth-navarro" data-cart-id="plinth-navarro" data-cart-price="3499" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-14.jpg" alt="Navarro marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Navarro Marble</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">NZD $3,499</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Fire Flow" data-stone="Azul Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-10.jpg" alt="Fire Flow Azul Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Fire Flow</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Indian Green Marble" data-stone="Indian Green Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $3,490" data-link="plinths.html?p=plinth-indian-green-2" data-cart-id="plinth-indian-green-2" data-cart-price="3490" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-indian-green-2.jpg" alt="Indian Green marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Indian Green Marble</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">NZD $3,490</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Lava Vein" data-stone="Sahara Noir Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-7.jpg" alt="Lava Vein Sahara Noir coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Lava Vein</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Florim" data-stone="Florim" data-type="Plinth" data-dims="H: 600mm × W: 300mm × D: 300mm" data-price="NZD $3,200" data-link="plinths.html?p=plinth-florim" data-cart-id="plinth-florim" data-cart-price="3200" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-5.jpg" alt="Florim stone plinth sculptural pedestal handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Florim</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">NZD $3,200</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Cloud Vein" data-stone="Grey Marble" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-8.jpg" alt="Cloud Vein Grey Marble coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Cloud Vein</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Dekton Sirius" data-stone="Dekton Sirius — Dark Grey" data-type="Side Plinth" data-dims="H: 400mm × W: 300mm × D: 300mm" data-price="NZD $1,500" data-link="plinths.html?p=plinth-dekton-sirius-side" data-cart-id="plinth-dekton-sirius-side" data-cart-price="1500" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-6.jpg" alt="Dekton Sirius dark grey stone plinth handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Dekton Sirius</div><div class="gi-meta"><span class="gi-type">Side Plinth</span><span class="gi-price">NZD $1,500</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Teal Tide" data-stone="Mystique Green" data-type="Coffee Table" data-dims="H: 500mm × Ø: 450mm" data-price="Sold" data-link="tables.html" onclick="openLightbox(this)">
-    <img src="table-11.jpg" alt="Teal Tide Mystique Green coffee table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Teal Tide</div>
-      <div class="gallery-overlay-type">Coffee Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Grey Porcelain" data-stone="Grey Porcelain" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $1,499" data-link="plinths.html?p=plinth-grey-porcelain-800" data-cart-id="plinth-grey-porcelain-800" data-cart-price="1499" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-1.jpg" alt="Grey Porcelain marble plinth 800mm handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Grey Porcelain</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">NZD $1,499</span></div></div>
   </div>
-
-  <!-- SIDE TABLES -->
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Twin Jade" data-stone="Mystique Green Marble" data-type="Side Table (Set of 2)" data-dims="H: 450mm × 600mm × 600mm" data-price="NZD $2,199 set / $1,199 each" data-link="tables.html#side" onclick="openLightbox(this)">
-    <img src="side-1.jpg" alt="Twin Jade Mystique Green side tables Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Twin Jade</div>
-      <div class="gallery-overlay-type">Side Tables</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Rosso Levanto Marble" data-stone="Rosso Levanto Marble" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="NZD $1,400" data-link="plinths.html?p=plinth-rosso-levanto-plinth" data-cart-id="plinth-rosso-levanto-plinth" data-cart-price="1400" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-4.jpg" alt="Rosso Levanto marble plinth natural stone pedestal handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Rosso Levanto Marble</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">NZD $1,400</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Jade Bedside" data-stone="Green Marble Onyx" data-type="Bedside Table" data-dims="H: 600mm × W: 450mm" data-price="Sold" data-link="tables.html#side" onclick="openLightbox(this)">
-    <img src="side-2.jpg" alt="Jade Bedside Green Onyx bedside table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Jade Bedside</div>
-      <div class="gallery-overlay-type">Bedside Table</div>
-    </div>
+  <div class="gallery-item" data-cat="plinth" data-status="available" data-name="Grey Porcelain" data-stone="Grey Porcelain" data-type="Side Plinth" data-dims="H: 450mm × W: 300mm × D: 300mm" data-price="NZD $700" data-link="plinths.html?p=plinth-grey-porcelain-450" data-cart-id="plinth-grey-porcelain-450" data-cart-price="700" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-2.jpg" alt="Grey Porcelain side plinth 450mm handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Grey Porcelain</div><div class="gi-meta"><span class="gi-type">Side Plinth</span><span class="gi-price">NZD $700</span></div></div>
   </div>
-
-  <!-- LOUNGE TABLES -->
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Jade Horizon" data-stone="Mitered Mystique Green" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $2,999 (was $3,800)" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-1.jpg" alt="Jade Horizon Mystique Green lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Jade Horizon</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
   </div>
+</section>
 
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Obsidian Storm" data-stone="Titanium Black Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $3,299 (was $4,200)" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-2.jpg" alt="Obsidian Storm Titanium Black lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Obsidian Storm</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+<section class="gal-group" data-group="basin">
+  <div class="gal-group-head">
+    <div><h2>Basins</h2><p>Natural stone vessel basins.</p></div>
+    <a href="basins.html" class="gal-group-link">Shop basins →</a>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Sage Plateau" data-stone="Mystique Green Marble" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $2,999 (was $3,800)" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-3.jpg" alt="Sage Plateau Mystique Green lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Sage Plateau</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+  <div class="gal-grid">
+  <div class="gallery-item" data-cat="basin" data-status="available" data-name="White Carrara" data-stone="Carrara Marble" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,350" data-link="basins.html?p=carrara-vessel" data-cart-id="basin-carrara" data-cart-price="1350" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="white-carrara-vessel.jpg" alt="White Carrara Marble Vessel Basin NZ" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">White Carrara</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,350</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Desert Crown" data-stone="Taj Mahal Quartzite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 650mm" data-price="NZD $3,599 (was $4,500)" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-4.jpg" alt="Desert Crown Taj Mahal Quartzite lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Desert Crown</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="available" data-name="Beige Travertine" data-stone="Beige Travertine" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,100" data-link="basins.html?p=beige-vessel" data-cart-id="basin-beige" data-cart-price="1100" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="warm-beige-vessel.jpg" alt="Beige Travertine Travertine Vessel Basin NZ" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Beige Travertine</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,100</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="Black Gold" data-stone="Gold & Black Titanium Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm" data-price="NZD $3,799 (was $4,800)" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-5.jpg" alt="Black Gold Titanium Granite lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Black Gold</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="order" data-name="Nero Marquina" data-stone="Black Marble" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,200 · Made to order" data-link="basins.html?p=nero-vessel" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="nero-marquina-vessel.jpg" alt="Nero Marquina Black Marble Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-order">Made to order</span></div>
+    <div class="gi-info"><div class="gi-name">Nero Marquina</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,200 · Made to order</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="available" data-name="White Haven Lounge" data-stone="Carrara Marble" data-type="Lounge Table" data-dims="H: 500mm × Ø: 700mm" data-price="NZD $1,999 (was $2,499)" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-8.jpg" alt="White Haven Carrara Marble lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">White Haven</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="order" data-name="Emerald Green Marble" data-stone="Emerald Green Marble" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,220 · Made to order" data-link="basins.html?p=onyx-vessel" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="emerald-green-basin.jpg" alt="Emerald Green Marble Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-order">Made to order</span></div>
+    <div class="gi-info"><div class="gi-name">Emerald Green Marble</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,220 · Made to order</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Ocean Ember" data-stone="Blue Marble" data-type="Lounge Table" data-dims="H: 500mm × Ø: 700mm" data-price="Sold" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-6.jpg" alt="Ocean Ember Blue Marble lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Ocean Ember</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="order" data-name="White Onyx" data-stone="White Onyx" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,550 · Made to order" data-link="basins.html?p=white-onyx-vessel" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="white-onyx-vessel.jpg" alt="White Onyx Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-order">Made to order</span></div>
+    <div class="gi-info"><div class="gi-name">White Onyx</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,550 · Made to order</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Desert Drift Lounge" data-stone="Kangaroo Quartzite" data-type="Lounge Table" data-dims="H: 300mm × Ø: 800mm" data-price="Sold" data-link="tables.html#lounge" onclick="openLightbox(this)">
-    <img src="lounge-7.jpg" alt="Desert Drift Kangaroo Quartzite round lounge table Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Desert Drift</div>
-      <div class="gallery-overlay-type">Lounge Table</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="arriving" data-name="Tiger Onyx" data-stone="Tiger Onyx" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,650 · Arriving soon" data-link="basins.html?p=tiger-onyx" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="basin-tiger-onyx-1.jpg" alt="Tiger Onyx Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-arriving">Arriving soon</span></div>
+    <div class="gi-info"><div class="gi-name">Tiger Onyx</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,650 · Arriving soon</span></div></div>
   </div>
-
-  <!-- BOARDS -->
-  <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide Board" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-teal-tide-web.jpg" alt="Teal Tide marble serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Teal Tide</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="arriving" data-name="Pietra Grey" data-stone="Pietra Grey Marble" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,500 · Arriving soon" data-link="basins.html?p=pietra-grey" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="basin-pietra-grey-1.jpg" alt="Pietra Grey Marble Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-arriving">Arriving soon</span></div>
+    <div class="gi-info"><div class="gi-name">Pietra Grey</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,500 · Arriving soon</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="board" data-status="available" data-name="Emerald Vein Board" data-stone="Dark Green Marble — White Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-emerald-vein-web.jpg" alt="Emerald Vein green marble serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Emerald Vein</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="arriving" data-name="Ocean Blue Marble" data-stone="Ocean Blue Marble" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,450 · Arriving soon" data-link="basins.html?p=ocean-blue-vessel" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="ocean-blue-basin.jpg" alt="Ocean Blue Marble Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-arriving">Arriving soon</span></div>
+    <div class="gi-info"><div class="gi-name">Ocean Blue Marble</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,450 · Arriving soon</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="board" data-status="available" data-name="Pink Storm Board" data-stone="Pink Onyx Marble" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-pink-storm-web.jpg" alt="Pink Storm pink onyx marble serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Pink Storm</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="arriving" data-name="Pink Onyx" data-stone="Pink Onyx" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $2,300 · Arriving soon" data-link="basins.html?p=pink-purple-onyx" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="basin-pink-purple-onyx-1.jpg" alt="Pink Onyx Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-arriving">Arriving soon</span></div>
+    <div class="gi-info"><div class="gi-name">Pink Onyx</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $2,300 · Arriving soon</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="board" data-status="available" data-name="White Haven Board" data-stone="White Marble — Grey Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-white-haven-web.jpg" alt="White Haven white marble serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">White Haven</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
+  <div class="gallery-item" data-cat="basin" data-status="arriving" data-name="Rosso Levanto" data-stone="Rosso Levanto Marble" data-type="Vessel Basin" data-dims="Ø 430mm × H 135mm" data-price="From NZD $1,500 · Arriving soon" data-link="basins.html?p=rosso-levanto" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="rosso-levanto-basin.jpg" alt="Rosso Levanto Marble Vessel Basin NZ" loading="lazy"><span class="gi-tag gi-tag-arriving">Arriving soon</span></div>
+    <div class="gi-info"><div class="gi-name">Rosso Levanto</div><div class="gi-meta"><span class="gi-type">Vessel Basin</span><span class="gi-price">From NZD $1,500 · Arriving soon</span></div></div>
   </div>
-
-  <div class="gallery-item" data-cat="board" data-status="available" data-name="Volcanic Ash Board" data-stone="Dark Marble — Red & Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="NZD $99" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-volcanic-ash-web.jpg" alt="Volcanic Ash dark marble serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag">Available</span>
-      <div class="gallery-overlay-name">Volcanic Ash</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
   </div>
+</section>
 
-  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Lava Vein Board" data-stone="Black Marble — Gold Veining" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="Sold" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-lava-vein.jpg" alt="Lava Vein black marble serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Lava Vein</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
+<section class="gal-group" data-group="board">
+  <div class="gal-group-head">
+    <div><h2>Boards &amp; Platters</h2><p>Serving boards and entertaining platters.</p></div>
+    <a href="boards.html" class="gal-group-link">Shop boards →</a>
   </div>
-
-  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Golden Dune Board" data-stone="Golden Quartzite" data-type="Serving Board" data-dims="L: 380mm × W: 280mm × D: 20mm" data-price="Sold" data-link="boards.html" onclick="openLightbox(this)">
-    <img src="board-golden-dune-web.jpg" alt="Golden Dune quartzite serving board Auckland" loading="lazy">
-    <div class="gallery-overlay">
-      <span class="gallery-overlay-tag sold">Sold</span>
-      <div class="gallery-overlay-name">Golden Dune</div>
-      <div class="gallery-overlay-type">Serving Board</div>
-    </div>
+  <div class="gal-grid">
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Rosa Cloud — Entertaining Platter" data-stone="Pink Onyx Marble" data-type="Entertaining Platter" data-dims="L: 600mm × W: 400mm × D: 20mmWith carved handle" data-price="NZD $189" data-link="boards.html?p=platter-rosa-cloud" data-cart-id="platter-rosa-cloud" data-cart-price="189" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="platter-rosa-cloud.jpg" alt="Rosa Cloud — pink onyx marble entertaining platter handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Rosa Cloud — Entertaining Platter</div><div class="gi-meta"><span class="gi-type">Entertaining Platter</span><span class="gi-price">NZD $189</span></div></div>
   </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide — Entertaining Platter" data-stone="Teal Marble — Cream Veining" data-type="Entertaining Platter" data-dims="L: 600mm × W: 400mm × D: 20mmWith carved handle" data-price="NZD $189" data-link="boards.html?p=platter-teal-tide" data-cart-id="platter-teal-tide" data-cart-price="189" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="platter-teal-tide.jpg" alt="Teal Tide — teal marble entertaining platter handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide — Entertaining Platter</div><div class="gi-meta"><span class="gi-type">Entertaining Platter</span><span class="gi-price">NZD $189</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide II — Entertaining Platter" data-stone="Teal Marble — Cream Veining" data-type="Entertaining Platter" data-dims="L: 600mm × W: 400mm × D: 20mmWith carved handle" data-price="NZD $189" data-link="boards.html?p=platter-teal-tide-2" data-cart-id="platter-teal-tide-2" data-cart-price="189" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="platter-teal-tide-2.jpg" alt="Teal Tide II — teal marble entertaining platter handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide II — Entertaining Platter</div><div class="gi-meta"><span class="gi-type">Entertaining Platter</span><span class="gi-price">NZD $189</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Dune — Entertaining Platter" data-stone="Travertine Marble — Grey Veining" data-type="Entertaining Platter" data-dims="L: 600mm × W: 400mm × D: 20mmWith carved handle" data-price="NZD $189" data-link="boards.html?p=platter-dune" data-cart-id="platter-dune" data-cart-price="189" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="platter-dune.jpg" alt="Dune — travertine marble entertaining platter handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Dune — Entertaining Platter</div><div class="gi-meta"><span class="gi-type">Entertaining Platter</span><span class="gi-price">NZD $189</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Silver Mist — Entertaining Platter" data-stone="Grey Marble — White Veining" data-type="Entertaining Platter" data-dims="L: 600mm × W: 400mm × D: 20mmWith carved handle" data-price="NZD $189" data-link="boards.html?p=platter-silver-mist" data-cart-id="platter-silver-mist" data-cart-price="189" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="platter-silver-mist.jpg" alt="Silver Mist — grey marble entertaining platter handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Silver Mist — Entertaining Platter</div><div class="gi-meta"><span class="gi-type">Entertaining Platter</span><span class="gi-price">NZD $189</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Jade Cloud" data-stone="Green Marble Onyx" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-green-onyx" data-cart-id="board-green-onyx" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-green-onyx.jpg" alt="Jade Cloud — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Jade Cloud</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Jade Cloud II" data-stone="Green Marble Onyx" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-green-onyx-2" data-cart-id="board-green-onyx-2" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-green-onyx-2.jpg" alt="Jade Cloud II — Green Marble Onyx serving board handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Jade Cloud II</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="White Haven" data-stone="White Marble — Grey Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-white-haven" data-cart-id="board-white-haven" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-white-haven-web.jpg" alt="White Haven — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">White Haven</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide II" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-teal-tide-2" data-cart-id="board-teal-tide-2" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-teal-tide-2.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide II</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Teal Tide IV" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-teal-tide-4" data-cart-id="board-teal-tide-4" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-teal-tide-4.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide IV</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Emerald Vein" data-stone="Dark Green Marble — White Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-emerald-vein" data-cart-id="board-emerald-vein" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-emerald-vein-web.jpg" alt="Emerald Vein — dark green marble serving board white veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Emerald Vein</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Pink Storm" data-stone="Pink Onyx Marble" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-pink-storm" data-cart-id="board-pink-storm" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-pink-storm-web.jpg" alt="Pink Storm — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Pink Storm</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Pink Storm II" data-stone="Pink Onyx Marble" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-pink-storm-2" data-cart-id="board-pink-storm-2" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-pink-storm-2.jpg" alt="Pink Storm II — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Pink Storm II</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Pink Storm III" data-stone="Pink Onyx Marble" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-pink-storm-3" data-cart-id="board-pink-storm-3" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-pink-storm-3.jpg" alt="Pink Storm III — pink onyx marble serving board handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Pink Storm III</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Forest Stone" data-stone="India Green Marble" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-india-green" data-cart-id="board-india-green" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-india-green.jpg" alt="Forest Stone — India Green Marble serving board handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Forest Stone</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Volcanic Ash" data-stone="Dark Marble — Red &amp; Gold Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-volcanic-ash" data-cart-id="board-volcanic-ash" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-volcanic-ash-web.jpg" alt="Volcanic Ash — dark marble serving board red gold veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Volcanic Ash</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Silver Drift" data-stone="White Marble — Grey Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-silver-drift" data-cart-id="board-silver-drift" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-silver-drift.jpg" alt="Silver Drift — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Silver Drift</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="available" data-name="Silver Drift II" data-stone="White Marble — Grey Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="NZD $99" data-link="boards.html?p=board-silver-drift-2" data-cart-id="board-silver-drift-2" data-cart-price="99" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-silver-drift-2.jpg" alt="Silver Drift II — white marble serving board grey veining handcrafted Auckland New Zealand" loading="lazy"></div>
+    <div class="gi-info"><div class="gi-name">Silver Drift II</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">NZD $99</span></div></div>
+  </div>
+  </div>
+</section>
 
+<section class="gal-group gal-archive" data-group="archive">
+  <div class="gal-group-head">
+    <div><h2>The <em>Archive</em></h2><p>One-of-one pieces that have found their homes. These are sold and no longer available.</p></div>
+    <a href="custom.html" class="gal-group-link">Commission something similar →</a>
+  </div>
+  <div class="gal-grid">
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Green Calacatta Marble" data-stone="Green Calacatta Marble" data-type="Coffee Table Plinth" data-dims="L: 950mm × W: 760mm × H: 280mm" data-price="Sold" data-link="plinths.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-8.jpg" alt="Green Calacatta marble coffee table plinth Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Green Calacatta Marble</div><div class="gi-meta"><span class="gi-type">Coffee Table Plinth</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Dekton Sirius" data-stone="Dekton Sirius — Dark Grey" data-type="Plinth" data-dims="H: 520mm × W: 350mm × D: 350mm" data-price="Sold" data-link="plinths.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-10.jpg" alt="Dekton Sirius dark grey stone plinth handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Dekton Sirius</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Natural Travertine" data-stone="Natural Travertine" data-type="Plinth" data-dims="H: 800mm × W: 300mm × D: 300mm" data-price="Sold" data-link="plinths.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-15.jpg" alt="Natural Travertine marble plinth stone pedestal handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Natural Travertine</div><div class="gi-meta"><span class="gi-type">Plinth</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="plinth" data-status="sold" data-name="Dekton Sirius II" data-stone="Dekton Sirius — Dark Grey" data-type="Side Plinth" data-dims="H: 450mm × W: 300mm × D: 300mm" data-price="Sold" data-link="plinths.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="plinth-13.jpg" alt="Dekton Sirius dark stone side plinth handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Dekton Sirius II</div><div class="gi-meta"><span class="gi-type">Side Plinth</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Jade Bedside" data-stone="Green Marble Onyx" data-type="Bedside Table" data-dims="H: 600mm × W: 450mm · Black steel C-frame" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="side-2.jpg" alt="Jade Bedside — Green Marble Onyx bedside table Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Jade Bedside</div><div class="gi-meta"><span class="gi-type">Bedside Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Midnight Gold" data-stone="Gold &amp; Black Titanium Granite" data-type="Lounge Table" data-dims="H: 400mm × 1200mm × 600mm · Hand-welded steel frame" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-5.jpg" alt="Midnight Gold — Titanium Granite luxury lounge table Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Midnight Gold</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Ocean Ember" data-stone="Blue Marble" data-type="Lounge Table" data-dims="H: 500mm × Ø: 700mm · Black steel frame" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-6.jpg" alt="Ocean Ember — Blue Marble round lounge table Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Ocean Ember</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Desert Drift" data-stone="Kangaroo Quartzite" data-type="Lounge Table" data-dims="H: 300mm × Ø: 800mm · Hand-welded steel frame" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="lounge-7.jpg" alt="Desert Drift — Kangaroo Quartzite round stone lounge table Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Desert Drift</div><div class="gi-meta"><span class="gi-type">Lounge Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Black Void" data-stone="Nero Marquina Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-17.jpg" alt="Black Void — Nero Marquina Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Black Void</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Blood Moon" data-stone="Rosso Levanto Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-23.jpg" alt="Blood Moon — Rosso Levanto Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Blood Moon</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Deep Ocean" data-stone="Azurite Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-20.jpg" alt="Deep Ocean — Azurite Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Deep Ocean</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Blushing Rose" data-stone="Rose Quartz Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-22.jpg" alt="Blushing Rose — Rose Quartz Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Blushing Rose</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Forest Floor" data-stone="India Green Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-33.jpg" alt="Forest Floor — India Green Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Forest Floor</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Ivory Coast" data-stone="Crema Marfil Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-21.jpg" alt="Ivory Coast — Crema Marfil Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Ivory Coast</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Sunset Stone" data-stone="Macael Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-5.jpg" alt="Sunset Stone — Macael Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Sunset Stone</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Lava Vein" data-stone="Sahara Noir Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-7.jpg" alt="Lava Vein — Sahara Noir Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Lava Vein</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Lunar Eclipse" data-stone="Diesel Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-9.jpg" alt="Lunar Eclipse — Diesel Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Lunar Eclipse</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Fire Flow" data-stone="Azul Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-10.jpg" alt="Fire Flow — Azul Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Fire Flow</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Cloud Vein" data-stone="Grey Marble" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-8.jpg" alt="Cloud Vein — Grey Marble coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Cloud Vein</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="table" data-status="sold" data-name="Teal Tide" data-stone="Mystique Green" data-type="Coffee Table" data-dims="" data-price="Sold" data-link="tables.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="table-11.jpg" alt="Teal Tide — Mystique Green coffee table, sold" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide</div><div class="gi-meta"><span class="gi-type">Coffee Table</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Teal Tide" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="Sold" data-link="boards.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-teal-tide-web.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Teal Tide III" data-stone="Teal Marble — Gold Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="Sold" data-link="boards.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-teal-tide-3.jpg" alt="Teal Tide — teal marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Teal Tide III</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Lava Vein" data-stone="Black Marble — Gold Veining" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="Sold" data-link="boards.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-lava-vein.jpg" alt="Lava Vein — black marble serving board with gold veining handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Lava Vein</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  <div class="gallery-item" data-cat="board" data-status="sold" data-name="Golden Dune" data-stone="Golden Quartzite" data-type="Serving Board" data-dims="L: 300mm × W: 200mm × D: 20mmWith carved handle" data-price="Sold" data-link="boards.html" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter')openLightbox(this)">
+    <div class="gi-img"><img src="board-golden-dune-web.jpg" alt="Golden Dune — golden quartzite marble serving board handcrafted Auckland New Zealand" loading="lazy"><span class="gi-tag gi-tag-sold">Sold</span></div>
+    <div class="gi-info"><div class="gi-name">Golden Dune</div><div class="gi-meta"><span class="gi-type">Serving Board</span><span class="gi-price">Sold</span></div></div>
+  </div>
+  </div>
+</section>
 </div>
 
 <div class="cta-strip">
   <div>
     <h2>Don't see what<br>you're looking <em>for?</em></h2>
-    <p>Every piece can be made to order — any stone, any size, any finish. Fabricated from our Auckland workshop.</p>
+    <p>Most pieces can be commissioned in the stone and size that suit your space — with a complimentary render before you commit.</p>
   </div>
-  <a href="mailto:james@primepiece.co.nz?subject=Commission Enquiry" class="cta-btn">Start a Conversation →</a>
+  <a href="custom.html" class="cta-btn">Start a Custom Piece →</a>
 </div>
 
 <footer>
@@ -617,10 +651,10 @@
     <div>
       <div class="footer-brand">PRIME PIECE</div>
       <div class="footer-brand-sub">one of one</div>
-      <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. One of one, carved in Auckland from Italian and Spanish stone.</p>
+      <p class="footer-brand-desc">Handcrafted natural stone tables, plinths, basins and boards. One of one, carved in Auckland from Italian and Spanish stone.</p>
     </div>
-    <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="gallery.html">Gallery</a><a href="/#made-to-order">Made To Order</a></div>
-    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="/#process">Process</a><a href="/#collection">Collection</a><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a></div>
+    <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a><a href="gallery.html">Full Collection</a><a href="custom.html">Custom Pieces</a></div>
+    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="custom.html">Custom Process</a><a href="/#collection">Collection</a><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a><a href="privacy.html">Privacy Policy</a></div>
   </div>
   <div class="footer-bottom">
@@ -650,7 +684,7 @@
       <div class="lightbox-actions">
         <button id="lb-btn-cart" onclick="addLightboxToCart()" class="lb-btn-primary" style="cursor:pointer;border:none;font-family:inherit;width:100%;text-align:center;">Add to Cart →</button>
         <a id="lb-btn-view" href="#" class="lb-btn-ghost">View Full Details →</a>
-        <button onclick="openEnquireModal('Piece Enquiry')" class="lb-btn-ghost" style="cursor:pointer;border:none;font-family:inherit;width:100%;text-align:center;margin-top:0;">Enquire About This Piece →</button>
+        <button id="lb-btn-enquire" onclick="openEnquireModal(_items[_currentIdx] && _items[_currentIdx].dataset.status === 'sold' ? 'Commission Enquiry' : 'Piece Enquiry')" class="lb-btn-ghost" style="cursor:pointer;font-family:inherit;width:100%;text-align:center;margin-top:0;">Enquire About This Piece →</button>
       </div>
     </div>
   </div>
@@ -667,17 +701,23 @@
   let _currentIdx = 0;
 
   function filterGallery(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    // All = every group (Archive last). A category = its available pieces only.
+    // Archive = sold pieces only, kept apart so nothing reads as purchasable.
+    document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     btn.classList.add('active');
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      const matchCat = cat === 'all' || item.dataset.cat === cat;
-      const matchAvail = cat !== 'available' || item.dataset.status === 'available';
-      item.style.display = (matchCat && matchAvail) ? 'block' : 'none';
+    btn.setAttribute('aria-pressed', 'true');
+    btn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    document.getElementById('gallery-grid').classList.toggle('is-filtered', cat !== 'all');
+    document.querySelectorAll('.gal-group').forEach(g => {
+      g.style.display = (cat === 'all' || g.dataset.group === cat) ? '' : 'none';
     });
+    const grid = document.getElementById('gallery-grid');
+    const top = grid.getBoundingClientRect().top + window.scrollY - document.getElementById('filter-bar').offsetHeight - 70;
+    if (window.scrollY > top) window.scrollTo({ top });
   }
 
   function getVisibleItems() {
-    return Array.from(document.querySelectorAll('.gallery-item')).filter(el => el.style.display !== 'none');
+    return Array.from(document.querySelectorAll('.gallery-item')).filter(el => el.offsetParent !== null);
   }
 
   function openLightbox(el) {
@@ -698,31 +738,25 @@
     document.getElementById('lb-dims').textContent = el.dataset.dims;
     document.getElementById('lb-price').textContent = el.dataset.price;
     document.getElementById('lb-btn-view').href = el.dataset.link;
+    // Only pieces with a real checkout ID can be bought here; sold, made-to-order
+    // and arriving-soon pieces become an enquiry instead.
     const cartBtn = document.getElementById('lb-btn-cart');
-    const isSold = el.dataset.status === 'sold' || el.dataset.price === 'Sold';
-    if (isSold) {
-      cartBtn.textContent = 'Sold Out';
-      cartBtn.disabled = true;
-      cartBtn.style.opacity = '0.45';
-      cartBtn.style.cursor = 'default';
-    } else {
-      cartBtn.disabled = false;
-      cartBtn.style.opacity = '1';
-      cartBtn.style.cursor = 'pointer';
-      cartBtn.textContent = 'Add to Cart →';
-    }
+    const enqBtn = document.getElementById('lb-btn-enquire');
+    const buyable = !!el.dataset.cartId;
+    const sold = el.dataset.status === 'sold';
+    cartBtn.style.display = buyable ? '' : 'none';
+    cartBtn.textContent = 'Add to Cart →';
+    enqBtn.className = buyable ? 'lb-btn-ghost' : 'lb-btn-primary';
+    enqBtn.textContent = sold ? 'Commission Something Similar →' : 'Enquire About This Piece →';
+    document.getElementById('lb-btn-view').style.display = sold ? 'none' : '';
   }
 
   function addLightboxToCart() {
     const el = _items[_currentIdx];
-    if (!el || el.dataset.status === 'sold') return;
-    const priceStr = el.dataset.price.replace(/[^0-9.]/g, '');
-    const price = parseFloat(priceStr);
-    const id = 'gallery-' + el.dataset.name.toLowerCase().replace(/\s+/g, '-');
-    const img = el.querySelector('img').src.split('/').pop();
-    Cart.add({ id, name: el.dataset.name, type: el.dataset.type, image: img, price });
-    const btn = document.getElementById('lb-btn-cart');
-    btn.textContent = 'In Cart ✓';
+    if (!el || !el.dataset.cartId) return;
+    const img = el.querySelector('img').getAttribute('src');
+    Cart.add({ id: el.dataset.cartId, name: el.dataset.name, type: el.dataset.type, image: img, price: Number(el.dataset.cartPrice) });
+    document.getElementById('lb-btn-cart').textContent = 'In Cart ✓';
   }
 
   function navLightbox(dir) {
@@ -800,49 +834,48 @@
   </div>
 </div>
 <script>
-let enqImageBase64 = null, enqImageMime = "image/jpeg";
+let enqImageBase64 = null, enqImageMime = 'image/jpeg', enqPhotoPending = null, enqPhotoFailed = false;
+function enqPhotoShow(text, state) {
+  const t = document.getElementById('enq-photo-text'), l = document.getElementById('enq-photo-label');
+  t.textContent = text;
+  t.style.color = state === 'error' ? '#a94435' : 'var(--stone)';
+  l.style.borderColor = state === 'ok' ? 'var(--sage)' : state === 'error' ? '#a94435' : 'var(--line)';
+}
+function enqPhotoReset(text) {
+  enqImageBase64 = null; enqImageMime = 'image/jpeg'; enqPhotoPending = null; enqPhotoFailed = false;
+  const input = document.getElementById('enq-photo'); if (input) input.value = '';
+  enqPhotoShow(text || 'Attach a photo of your room (optional)', 'idle');
+}
+// Photos are resized and compressed in the browser (photo-upload.js) so they always fit the
+// email attachment limit. The filename only shows once the photo is actually ready to send.
 function enqHandlePhoto(input) {
   const file = input.files[0];
-  if (!file) return;
-  document.getElementById("enq-photo-text").textContent = "Processing photo…";
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const img = new Image();
-    img.onload = () => {
-      // Resize to a sane max dimension and re-compress as JPEG — phone
-      // photos can be 5-10MB raw, which silently blew past our server-side
-      // attachment size cutoff (and Vercel's function body limit) with no
-      // feedback. This guarantees a small payload regardless of source size.
-      const maxDim = 1600;
-      let { width, height } = img;
-      if (width > maxDim || height > maxDim) {
-        if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
-        else { width = Math.round(width * maxDim / height); height = maxDim; }
-      }
-      const canvas = document.createElement("canvas");
-      canvas.width = width; canvas.height = height;
-      canvas.getContext("2d").drawImage(img, 0, 0, width, height);
-      enqImageMime = "image/jpeg";
-      enqImageBase64 = canvas.toDataURL("image/jpeg", 0.8).split(",")[1];
-      document.getElementById("enq-photo-text").textContent = "✓ " + file.name;
-      document.getElementById("enq-photo-label").style.borderColor = "var(--sage)";
-    };
-    img.onerror = () => {
-      document.getElementById("enq-photo-text").textContent = "Could not read photo — try a different file";
-    };
-    img.src = ev.target.result;
-  };
-  reader.readAsDataURL(file);
+  enqImageBase64 = null; enqImageMime = 'image/jpeg'; enqPhotoFailed = false;
+  if (!file) { enqPhotoPending = null; return; }
+  enqPhotoShow('Preparing photo…', 'busy');
+  const pending = (window.PPPhoto ? PPPhoto.prepare(file) : Promise.reject(new Error('unavailable')))
+    .then(p => {
+      if (enqPhotoPending !== pending) return;
+      enqImageBase64 = p.base64; enqImageMime = p.mime;
+      enqPhotoShow('✓ ' + file.name, 'ok');
+    })
+    .catch(e => {
+      if (enqPhotoPending !== pending) return;
+      enqPhotoFailed = true; input.value = '';
+      enqPhotoShow(window.PPPhoto ? PPPhoto.message(e) : "We couldn't prepare that photo — please try another.", 'error');
+    })
+    .finally(() => { if (enqPhotoPending === pending) enqPhotoPending = null; });
+  enqPhotoPending = pending;
 }
 function openEnquireModal(subject) {
-  const el = _items[_currentIdx];
+  const el = document.getElementById('lightbox').classList.contains('open') ? _items[_currentIdx] : null;
   const title = el ? (subject + ' — ' + el.dataset.name) : (subject || 'Get in touch');
   document.getElementById('enq-title').textContent = title;
   document.getElementById('enq-form-wrap').style.display = 'block';
   document.getElementById('enq-sending').style.display = 'none';
   document.getElementById('enq-success').style.display = 'none';
   document.getElementById('enq-error').style.display = 'none';
-  enqImageBase64 = null; enqImageMime = 'image/jpeg';
+  enqPhotoReset();
   document.getElementById('enq-photo').value = '';
   document.getElementById('enq-photo-text').textContent = 'Attach a photo of your room (optional)';
   document.getElementById('enq-photo-label').style.borderColor = 'var(--line)';
@@ -859,12 +892,26 @@ async function submitEnquire() {
   errEl.style.display = 'none';
   if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
+  if (enqPhotoPending) await enqPhotoPending;
+  if (enqPhotoFailed) {
+    enqPhotoFailed = false;
+    errEl.textContent = "Your photo couldn't be attached — choose another, or press send again to continue without it.";
+    errEl.style.display = 'block';
+    return;
+  }
   document.getElementById('enq-form-wrap').style.display = 'none';
   document.getElementById('enq-sending').style.display = 'block';
   try {
     const subject = document.getElementById('enq-title').textContent;
-    await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
+    const res = await fetch('/api/enquire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, email, phone, notes: message, piece: subject, imageBase64: enqImageBase64, imageMime: enqImageMime }) });
+    const data = await res.json().catch(() => ({}));
     document.getElementById('enq-sending').style.display = 'none';
+    if (!res.ok || data.success === false) {
+      document.getElementById('enq-form-wrap').style.display = 'block';
+      errEl.textContent = 'Something went wrong — please try again or text James on 021 146 6990.';
+      errEl.style.display = 'block';
+      return;
+    }
     document.getElementById('enq-success').style.display = 'block';
     if (typeof fbq !== 'undefined') fbq('track', 'Contact');
   } catch(e) {
@@ -875,69 +922,6 @@ async function submitEnquire() {
   }
 }
 </script>
-<div id="pp-popup-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.55);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;">
-  <div id="pp-popup-box" style="background:var(--cream);max-width:440px;width:100%;padding:3rem 2.5rem 2.5rem;position:relative;text-align:center;border:1px solid var(--line);">
-    <button id="pp-popup-close" aria-label="Close" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--stone);line-height:1;">&times;</button>
-    <div id="pp-step-teaser">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Welcome to Prime Piece</p>
-      <h2 style="font-family:var(--display);font-size:2rem;font-weight:400;color:var(--ink);margin:0 0 0.75rem;line-height:1.2;">You have a<br><em>secret offer</em></h2>
-      <p style="font-family:var(--body);font-size:0.85rem;color:var(--stone);margin:0 0 2rem;line-height:1.6;">Handcrafted stone, made once.<br>Unlock an exclusive discount — just for visiting today :)</p>
-      <button id="pp-btn-claim" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;font-weight:600;">Reveal My Offer</button>
-    </div>
-    <div id="pp-step-form" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Almost there</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.6rem;">Where shall we send it?</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.75rem;">Enter your details and we'll reveal your discount code instantly.</p>
-      <input id="pp-name" type="text" placeholder="Your name" autocomplete="given-name" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.75rem;outline:none;">
-      <input id="pp-email" type="email" placeholder="Email address" autocomplete="email" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.25rem;outline:none;">
-      <p id="pp-form-error" style="font-size:0.78rem;color:#c0392b;margin:0.4rem 0 1rem;display:none;"></p>
-      <button id="pp-btn-submit" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;margin-top:0.5rem;font-weight:600;">Unlock Discount</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:1rem 0 0;line-height:1.5;">No spam. One email with your code, that's it.<br>Unsubscribe any time.</p>
-    </div>
-    <div id="pp-step-reveal" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Your exclusive offer</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.5rem;">10% off your order</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.5rem;">Use this code at checkout:</p>
-      <div style="background:var(--cream-deep);border:1.5px dashed var(--sage);padding:1rem 1.5rem;margin-bottom:1.75rem;display:inline-block;min-width:180px;"><span id="pp-code" style="font-family:var(--display);font-size:1.6rem;letter-spacing:0.2em;color:var(--ink);font-weight:500;">PRIME10</span></div><br>
-      <button id="pp-btn-shop" style="width:100%;padding:0.9rem 1.5rem;background:var(--ink);color:var(--cream);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;">Shop the Collection</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:0.85rem 0 0;">Code sent to your inbox too.</p>
-    </div>
-  </div>
-</div>
-<script>
-(function() {
-  if (localStorage.getItem('pp_popup_seen')) return;
-  var overlay = document.getElementById('pp-popup-overlay');
-  var stepTeaser = document.getElementById('pp-step-teaser');
-  var stepForm = document.getElementById('pp-step-form');
-  var stepReveal = document.getElementById('pp-step-reveal');
-  function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
-  function hide() { overlay.style.display = 'none'; }
-  var shown = false;
-  function tryShow() { if (!shown) { shown = true; show(); } }
-  document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
-  setTimeout(tryShow, 7000);
-  document.getElementById('pp-popup-close').addEventListener('click', hide);
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
-  document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
-  document.getElementById('pp-btn-submit').addEventListener('click', async function() {
-    var name = document.getElementById('pp-name').value.trim();
-    var email = document.getElementById('pp-email').value.trim();
-    var errEl = document.getElementById('pp-form-error');
-    errEl.style.display = 'none';
-    if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
-    var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
-    try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
-    stepForm.style.display = 'none'; stepReveal.style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-    if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
-  });
-  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
-})();
-</script>
-
-
 <script>
 async function footerSubscribe(event, form) {
   event.preventDefault();
@@ -956,6 +940,7 @@ async function footerSubscribe(event, form) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';
@@ -977,5 +962,7 @@ async function footerSubscribe(event, form) {
 }
 </script>
 
+<script src="site-nav.js" defer></script>
+<script src="photo-upload.js" defer></script>
 </body>
 </html>

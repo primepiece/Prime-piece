@@ -532,42 +532,52 @@
     .sale-badge { font-size: 9px; padding: 5px 10px; }
   }
 </style>
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
 
 
-<nav>
-  <a href="/" class="logo-wrap">
+<nav id="nav" class="site-nav site-nav--solid" aria-label="Main">
+  <a href="/" class="logo-wrap" aria-label="Prime Piece — home">
     <div class="logo">PRIME PIECE</div>
     <div class="logo-sub">one of one</div>
   </a>
   <ul class="nav-links">
-    <li><a href="/#collection">Collection</a></li>
-    <li><a href="plinths.html">Plinths</a></li>
-    <li><a href="tables.html" class="nav-active">Tables</a></li>
-    <li><a href="boards.html">Boards</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="basins.html">Stone Basins</a></li>
+    <li><a href="gallery.html">Shop</a></li>
+    <li class="nav-dd is-current">
+      <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-controls="nav-dd-menu">Collections <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg></button>
+      <ul class="nav-dd-menu" id="nav-dd-menu">
+        <li><a href="tables.html" class="is-current" aria-current="page">Tables</a></li>
+        <li><a href="plinths.html">Plinths</a></li>
+        <li><a href="boards.html">Boards</a></li>
+        <li><a href="basins.html">Basins</a></li>
+      </ul>
+    </li>
+    <li><a href="custom.html">Custom</a></li>
+    <li><a href="/#story">About</a></li>
     <li><a href="trade.html">Trade</a></li>
     <li><a href="/#contact">Contact</a></li>
-    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
+    <li><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/></svg></a></li>
   </ul>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+  <button type="button" class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/">Home</a>
-  <a href="plinths.html">Plinths</a>
-  <a href="tables.html">Tables</a>
-  <a href="boards.html">Boards</a>
-  <a href="/#showroom">Showroom</a>
-  <a href="basins.html">Stone Basins</a>
+<div class="mobile-menu site-mobile-menu" id="mobile-menu">
+  <a href="gallery.html">Shop</a>
+  <div class="mm-group">
+    <span class="mm-label">Collections</span>
+    <div class="mm-sub"><a href="tables.html" class="is-current" aria-current="page">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a></div>
+  </div>
+  <a href="custom.html">Custom</a>
+  <a href="/#story">About</a>
   <a href="trade.html">Trade</a>
-  <a href="/#contact" class="mobile-shop-btn">Enquire Now</a>
+  <a href="/#contact">Contact</a>
+  <a href="/#contact" class="mobile-shop-btn" data-enquire>Enquire Now</a>
+  <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
 </div>
+
 
 
 <section class="page-hero">
@@ -779,22 +789,22 @@
       <div class="table-info"><div class="table-name">Jade Horizon</div><div class="table-stone">Mitered Mystique Green Marble</div><div class="table-desc">A sweeping mitered slab — cool jade tones and golden fault lines with a refined bevelled edge finish.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price">NZD $2,750</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-jade-horizon" onclick="event.stopPropagation(); Cart.add({id:'table-jade-horizon',name:'Jade Horizon',type:'Lounge Table',image:'lounge-1.jpg',price:2750})">Add to Cart →</button></div></div>
     </div>
 
-    <div class="table-card" onclick="openModal('Obsidian Storm','Titanium Black Granite','lounge-2.jpg','Pure geological drama. Titanium Black granite with explosive silver and white mineral formations across a deep black field — like a storm frozen in stone. A statement piece for those who want to own a room.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+    <div class="table-card" data-product-id="table-obsidian-storm" onclick="openModal('Obsidian Storm','Titanium Black Granite','lounge-2.jpg','Pure geological drama. Titanium Black granite with explosive silver and white mineral formations across a deep black field — like a storm frozen in stone. A statement piece for those who want to own a room.','400mm (H) × 1200mm × 600mm','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-2.jpg" alt="Obsidian Storm — Titanium Black Granite lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Obsidian Storm</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Explosive silver and white mineral formations across a deep black field — like a storm frozen in stone.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price">NZD $2,650</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-obsidian-storm" onclick="event.stopPropagation(); Cart.add({id:'table-obsidian-storm',name:'Obsidian Storm',type:'Lounge Table',image:'lounge-2.jpg',price:2650})">Add to Cart →</button></div></div>
     </div>
 
-    <div class="table-card" onclick="openModal('Sage Plateau','Mystique Green Marble','lounge-3.jpg','The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges that let the stone speak for itself. Copper fault lines run across a sage and teal field.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+    <div class="table-card" data-product-id="table-sage-plateau" onclick="openModal('Sage Plateau','Mystique Green Marble','lounge-3.jpg','The straight-edge counterpart to Jade Horizon — same rare Mystique Green stone, clean sharp edges that let the stone speak for itself. Copper fault lines run across a sage and teal field.','400mm (H) × 1200mm × 600mm','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-3.jpg" alt="Sage Plateau — Mystique Green Marble natural stone lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Sage Plateau</div><div class="table-stone">Mystique Green Marble</div><div class="table-desc">Clean straight edges on rare Mystique Green — copper fault lines across a sage and teal field.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price">NZD $1,950</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-sage-plateau" onclick="event.stopPropagation(); Cart.add({id:'table-sage-plateau',name:'Sage Plateau',type:'Lounge Table',image:'lounge-3.jpg',price:1950})">Add to Cart →</button></div></div>
     </div>
 
-    <div class="table-card" onclick="openModal('Desert Crown','Taj Mahal Quartzite','lounge-4.jpg','Taj Mahal quartzite — warm cream and soft gold tones with the finest veining, sourced from Brazil. This stone has graced the world\'s most exclusive interiors. At this scale, it is something else entirely.','400mm (H) × 1200mm × 650mm','Lounge Table')">
+    <div class="table-card" data-product-id="table-desert-crown" onclick="openModal('Desert Crown','Taj Mahal Quartzite','lounge-4.jpg','Taj Mahal quartzite — warm cream and soft gold tones with the finest veining, sourced from Brazil. This stone has graced the world\'s most exclusive interiors. At this scale, it is something else entirely.','400mm (H) × 1200mm × 650mm','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-4.jpg" alt="Desert Crown — Taj Mahal Quartzite lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Desert Crown</div><div class="table-stone">Taj Mahal Quartzite</div><div class="table-desc">Warm cream and soft gold tones with the finest veining — Taj Mahal quartzite at its most commanding.</div><div class="table-dims">H: 400mm × 1200mm × 650mm · Hand-welded steel frame</div><div class="table-price">NZD $2,600</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-desert-crown" onclick="event.stopPropagation(); Cart.add({id:'table-desert-crown',name:'Desert Crown',type:'Lounge Table',image:'lounge-4.jpg',price:2600})">Add to Cart →</button></div></div>
     </div>
 
-    <div class="table-card" onclick="openModal('Midnight Moon','Titanium Black Granite','midnight-moon-table.jpg','Deep, near-black titanium granite with subtle crystalline movement through the slab — a piece that commands a room without competing with it. One of one.','400mm (H) × 1200mm × 600mm','Lounge Table')">
+    <div class="table-card" data-product-id="table-midnight-moon" onclick="openModal('Midnight Moon','Titanium Black Granite','midnight-moon-table.jpg','Deep, near-black titanium granite with subtle crystalline movement through the slab — a piece that commands a room without competing with it. One of one.','400mm (H) × 1200mm × 600mm','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="midnight-moon-table.jpg" alt="Midnight Moon — Titanium Black Granite luxury lounge table Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">Midnight Moon</div><div class="table-stone">Titanium Black Granite</div><div class="table-desc">Deep, near-black titanium granite with subtle crystalline movement — commands a room without competing with it.</div><div class="table-dims">H: 400mm × 1200mm × 600mm · Hand-welded steel frame</div><div class="table-price">NZD $2,800</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-midnight-moon" onclick="event.stopPropagation(); Cart.add({id:'table-midnight-moon',name:'Midnight Moon',type:'Lounge Table',image:'midnight-moon-table.jpg',price:2800})">Add to Cart →</button></div></div>
     </div>
@@ -814,7 +824,7 @@
       <div class="table-info"><div class="table-name">Desert Drift</div><div class="table-stone">Kangaroo Quartzite</div><div class="table-desc">Rich earthy tones of terracotta and copper — the Australian outback at this scale is extraordinary.</div><div class="table-dims">H: 300mm × Ø: 800mm · Hand-welded steel frame</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn" onclick="event.stopPropagation(); openEnquireModal('Desert Drift Lounge Table')">Enquire →</button></div></div>
     </div>
 
-    <div class="table-card" onclick="openModal('White Haven','Carrara Marble','lounge-8.jpg','Classic Carrara white with elegant grey veining and a hand-finished bull nose edge — timeless, clean and endlessly beautiful.','500mm (H) × 700mm (Dia)','Lounge Table')">
+    <div class="table-card" data-product-id="table-white-haven-lounge" onclick="openModal('White Haven','Carrara Marble','lounge-8.jpg','Classic Carrara white with elegant grey veining and a hand-finished bull nose edge — timeless, clean and endlessly beautiful.','500mm (H) × 700mm (Dia)','Lounge Table')">
       <div class="table-img-wrap"><span class="table-badge">Available</span><img class="table-img" src="lounge-8.jpg" alt="White Haven — Carrara Marble round lounge table bull nose edge Auckland New Zealand" loading="lazy"><div class="view-btn">View Piece →</div></div>
       <div class="table-info"><div class="table-name">White Haven</div><div class="table-stone">Carrara Marble</div><div class="table-desc">Classic Carrara white with bull nose edge — timeless and endlessly beautiful in a round lounge form.</div><div class="table-dims">H: 500mm × Ø: 700mm · Bull nose edge · Hand-welded steel frame</div><div class="table-price">NZD $1,950</div><div class="table-foot"><span class="table-type">Lounge Table</span><button class="enquire-btn pp-add-btn" data-id="table-white-haven-lounge" onclick="event.stopPropagation(); Cart.add({id:'table-white-haven-lounge',name:'White Haven Carrara Lounge Table',type:'Lounge Table',image:'lounge-8.jpg',price:1950})">Add to Cart →</button></div></div>
     </div>
@@ -859,7 +869,7 @@
 
 
 <section class="seo-blurb" aria-label="About Prime Piece stone tables">
-  <p>Prime Piece creates handcrafted marble coffee tables, stone coffee tables and natural stone furniture in Auckland, New Zealand. Each piece is cut from a single slab of natural stone — sourced from Italy, Spain and beyond — and finished by hand in our Wairau Valley workshop. Our collection of stone tables includes coffee tables, side tables, large-format lounge tables and custom dining tables. Whether you're looking for a marble coffee table or a stone coffee table in NZ, every piece is one of one — once sold, it is gone forever. Stones include Rosso Africano, Carrara, Mystique Green, Verde Apli, Travertine, Kangaroo Quartzite, Sahara Noir and more. Custom stone furniture is available to commission in any stone, any size. We deliver across Auckland and New Zealand.</p>
+  <p>Prime Piece creates handcrafted marble coffee tables, stone coffee tables and natural stone furniture in Auckland, New Zealand. Each piece is cut from a single slab of natural stone — sourced from Italy, Spain and beyond — and finished by hand in our Wairau Valley workshop. Our collection of stone tables includes coffee tables, side tables, large-format lounge tables and custom dining tables. Whether you're looking for a marble coffee table or a stone coffee table in NZ, every piece is one of one — once sold, it is gone forever. Stones include Rosso Africano, Carrara, Mystique Green, Verde Alpi, Travertine, Kangaroo Quartzite, Sahara Noir and more. Custom stone furniture is available to commission in any stone, any size. We deliver across Auckland and New Zealand.</p>
 </section>
 
 
@@ -881,7 +891,7 @@
       <p class="footer-brand-desc">Handcrafted sculptural stone plinths, tables and boards. One of one, carved in Auckland from natural stone.</p>
     </div>
     <div class="footer-col"><h4>Shop</h4><a href="plinths.html">Plinths</a><a href="tables.html">Tables</a><a href="boards.html">Boards</a><a href="gallery.html">Gallery</a><a href="basins.html">Stone Basins</a></div>
-    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="/#process">Process</a><a href="/#collection">Collection</a><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a></div>
+    <div class="footer-col"><h4>Brand</h4><a href="/#story">About</a><a href="custom.html#process">Process</a><a href="/#collection">Collection</a><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a><a href="privacy.html">Privacy Policy</a><a href="returns.html">Returns</a></div>
     <div class="footer-col"><h4>Journal</h4><a href="blog-marble-coffee-table-nz.html">Styling a Marble Table NZ</a><a href="blog-vessel-basin-nz.html">Choosing a Vessel Basin NZ</a><a href="blog-stone-plinth-nz.html">Stone Plinths NZ Guide</a><a href="blog-marble-serving-board-nz.html">Marble Serving Boards NZ</a></div>
   </div>
@@ -1281,18 +1291,6 @@
   }
 </script>
 <script src="cart.js"></script>
-<script>
-  const ham = document.getElementById('nav-hamburger');
-  const mob = document.getElementById('mobile-menu');
-  ham.addEventListener('click', () => {
-    ham.classList.toggle('open');
-    mob.classList.toggle('open');
-    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
-  });
-  mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    ham.classList.remove('open'); mob.classList.remove('open'); document.body.style.overflow = '';
-  }));
-</script>
 <!-- Enquire Modal -->
 <div id="enq-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.6);z-index:9998;align-items:center;justify-content:center;padding:1.5rem;" onclick="if(event.target===this)closeEnquireModal()">
   <div style="background:var(--cream);max-width:460px;width:100%;position:relative;border:1px solid var(--line);box-shadow:0 32px 80px rgba(44,42,38,0.22);">
@@ -1346,18 +1344,38 @@
   </div>
 </div>
 <script>
-let enqImageBase64 = null, enqImageMime = "image/jpeg";
+let enqImageBase64 = null, enqImageMime = 'image/jpeg', enqPhotoPending = null, enqPhotoFailed = false;
+function enqPhotoShow(text, state) {
+  const t = document.getElementById('enq-photo-text'), l = document.getElementById('enq-photo-label');
+  t.textContent = text;
+  t.style.color = state === 'error' ? '#a94435' : 'var(--stone)';
+  l.style.borderColor = state === 'ok' ? 'var(--sage)' : state === 'error' ? '#a94435' : 'var(--line)';
+}
+function enqPhotoReset(text) {
+  enqImageBase64 = null; enqImageMime = 'image/jpeg'; enqPhotoPending = null; enqPhotoFailed = false;
+  const input = document.getElementById('enq-photo'); if (input) input.value = '';
+  enqPhotoShow(text || 'Attach a photo of your room (optional)', 'idle');
+}
+// Photos are resized and compressed in the browser (photo-upload.js) so they always fit the
+// email attachment limit. The filename only shows once the photo is actually ready to send.
 function enqHandlePhoto(input) {
   const file = input.files[0];
-  if (!file) return;
-  enqImageMime = file.type || "image/jpeg";
-  const reader = new FileReader();
-  reader.onload = ev => {
-    enqImageBase64 = ev.target.result.split(",")[1];
-    document.getElementById("enq-photo-text").textContent = "✓ " + file.name;
-    document.getElementById("enq-photo-label").style.borderColor = "var(--sage)";
-  };
-  reader.readAsDataURL(file);
+  enqImageBase64 = null; enqImageMime = 'image/jpeg'; enqPhotoFailed = false;
+  if (!file) { enqPhotoPending = null; return; }
+  enqPhotoShow('Preparing photo…', 'busy');
+  const pending = (window.PPPhoto ? PPPhoto.prepare(file) : Promise.reject(new Error('unavailable')))
+    .then(p => {
+      if (enqPhotoPending !== pending) return;
+      enqImageBase64 = p.base64; enqImageMime = p.mime;
+      enqPhotoShow('✓ ' + file.name, 'ok');
+    })
+    .catch(e => {
+      if (enqPhotoPending !== pending) return;
+      enqPhotoFailed = true; input.value = '';
+      enqPhotoShow(window.PPPhoto ? PPPhoto.message(e) : "We couldn't prepare that photo — please try another.", 'error');
+    })
+    .finally(() => { if (enqPhotoPending === pending) enqPhotoPending = null; });
+  enqPhotoPending = pending;
 }
 function openEnquireModal(subject) {
   document.getElementById('enq-title').textContent = subject || 'Get in touch';
@@ -1365,7 +1383,7 @@ function openEnquireModal(subject) {
   document.getElementById('enq-sending').style.display = 'none';
   document.getElementById('enq-success').style.display = 'none';
   document.getElementById('enq-error').style.display = 'none';
-  enqImageBase64 = null; enqImageMime = 'image/jpeg';
+  enqPhotoReset();
   document.getElementById('enq-photo').value = '';
   document.getElementById('enq-photo-text').textContent = 'Attach a photo of your room (optional)';
   document.getElementById('enq-photo-label').style.borderColor = 'var(--line)';
@@ -1382,6 +1400,13 @@ async function submitEnquire() {
   errEl.style.display = 'none';
   if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
+  if (enqPhotoPending) await enqPhotoPending;
+  if (enqPhotoFailed) {
+    enqPhotoFailed = false;
+    errEl.textContent = "Your photo couldn't be attached — choose another, or press send again to continue without it.";
+    errEl.style.display = 'block';
+    return;
+  }
   document.getElementById('enq-form-wrap').style.display = 'none';
   document.getElementById('enq-sending').style.display = 'block';
   try {
@@ -1443,7 +1468,7 @@ async function submitEnquire() {
           Can I get a custom size?
           <span style="font-size:22px;font-weight:300;color:var(--sage);flex-shrink:0;margin-left:16px;">+</span>
         </summary>
-        <p style="margin-top:14px;font-size:14px;color:var(--ink-soft);line-height:1.8;">Yes. We can commission custom pieces in different sizes, stone types and frame finishes. Lead time is typically 3–6 weeks depending on the stone. Enquire via the button below or send us a WhatsApp and we'll work through the details with you.</p>
+        <p style="margin-top:14px;font-size:14px;color:var(--ink-soft);line-height:1.8;">Yes. We can commission custom pieces in different sizes, stone types and frame finishes. Lead time is typically 2–3 weeks depending on the stone. Enquire via the button below or send us a WhatsApp and we'll work through the details with you.</p>
       </details>
 
       <details style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;cursor:pointer;">
@@ -1555,72 +1580,10 @@ async function submitEnquire() {
     {"@type":"Question","name":"Are your marble tables one of one?","acceptedAnswer":{"@type":"Answer","text":"Yes — every table at Prime Piece is cut from a unique slab of natural stone. No two pieces of marble, quartzite or granite are the same. Once it sells, it's gone."}},
     {"@type":"Question","name":"Do you deliver marble tables across New Zealand?","acceptedAnswer":{"@type":"Answer","text":"Yes, we ship nationwide. Auckland orders can also be collected from our Wairau Valley showroom. Delivery is quoted based on your location and the weight of the piece."}},
     {"@type":"Question","name":"What is the difference between marble, quartzite and granite?","acceptedAnswer":{"@type":"Answer","text":"Marble is elegant with classic veining, slightly softer, best for decorative use. Quartzite is incredibly durable and heat resistant. Granite is the hardest — dense, heavy and practically indestructible."}},
-    {"@type":"Question","name":"Can I get a custom size marble table?","acceptedAnswer":{"@type":"Answer","text":"Yes. We can commission custom pieces in different sizes, stone types and frame finishes. Lead time is typically 3–6 weeks depending on the stone."}},
+    {"@type":"Question","name":"Can I get a custom size marble table?","acceptedAnswer":{"@type":"Answer","text":"Yes. We can commission custom pieces in different sizes, stone types and frame finishes. Lead time is typically 2–3 weeks depending on the stone."}},
     {"@type":"Question","name":"How do I care for a marble coffee table?","acceptedAnswer":{"@type":"Answer","text":"Wipe with a damp cloth and mild soap. Avoid acidic cleaners. Seal marble annually with a stone sealer. Quartzite and granite require much less maintenance."}}
   ]
 }
-</script>
-
-<div id="pp-popup-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.55);z-index:9999;align-items:center;justify-content:center;padding:1.5rem;">
-  <div id="pp-popup-box" style="background:var(--cream);max-width:440px;width:100%;padding:3rem 2.5rem 2.5rem;position:relative;text-align:center;border:1px solid var(--line);">
-    <button id="pp-popup-close" aria-label="Close" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--stone);line-height:1;">&times;</button>
-    <div id="pp-step-teaser">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Welcome to Prime Piece</p>
-      <h2 style="font-family:var(--display);font-size:2rem;font-weight:400;color:var(--ink);margin:0 0 0.75rem;line-height:1.2;">You have a<br><em>secret offer</em></h2>
-      <p style="font-family:var(--body);font-size:0.85rem;color:var(--stone);margin:0 0 2rem;line-height:1.6;">Handcrafted stone, made once.<br>Unlock an exclusive discount — just for visiting today :)</p>
-      <button id="pp-btn-claim" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;font-weight:600;">Reveal My Offer</button>
-    </div>
-    <div id="pp-step-form" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Almost there</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.6rem;">Where shall we send it?</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.75rem;">Enter your details and we'll reveal your discount code instantly.</p>
-      <input id="pp-name" type="text" placeholder="Your name" autocomplete="given-name" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.75rem;outline:none;">
-      <input id="pp-email" type="email" placeholder="Email address" autocomplete="email" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border:1px solid var(--line);background:var(--cream-soft);font-size:0.88rem;color:var(--ink);margin-bottom:0.25rem;outline:none;">
-      <p id="pp-form-error" style="font-size:0.78rem;color:#c0392b;margin:0.4rem 0 1rem;display:none;"></p>
-      <button id="pp-btn-submit" style="width:100%;padding:1rem 1.5rem;background:var(--sage);color:#fff;font-family:var(--body);font-size:1rem;letter-spacing:0.04em;border:none;cursor:pointer;margin-top:0.5rem;font-weight:600;">Unlock Discount</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:1rem 0 0;line-height:1.5;">No spam. One email with your code, that's it.<br>Unsubscribe any time.</p>
-    </div>
-    <div id="pp-step-reveal" style="display:none;">
-      <p style="font-family:var(--display);font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin:0 0 1rem;">Your exclusive offer</p>
-      <h2 style="font-family:var(--display);font-size:1.85rem;font-weight:400;color:var(--ink);margin:0 0 0.5rem;">10% off your order</h2>
-      <p style="font-size:0.82rem;color:var(--stone);margin:0 0 1.5rem;">Use this code at checkout:</p>
-      <div style="background:var(--cream-deep);border:1.5px dashed var(--sage);padding:1rem 1.5rem;margin-bottom:1.75rem;display:inline-block;min-width:180px;"><span id="pp-code" style="font-family:var(--display);font-size:1.6rem;letter-spacing:0.2em;color:var(--ink);font-weight:500;">PRIME10</span></div><br>
-      <button id="pp-btn-shop" style="width:100%;padding:0.9rem 1.5rem;background:var(--ink);color:var(--cream);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;">Shop the Collection</button>
-      <p style="font-size:0.72rem;color:var(--stone);margin:0.85rem 0 0;">Code sent to your inbox too.</p>
-    </div>
-  </div>
-</div>
-<script>
-(function() {
-  if (localStorage.getItem('pp_popup_seen')) return;
-  var overlay = document.getElementById('pp-popup-overlay');
-  var stepTeaser = document.getElementById('pp-step-teaser');
-  var stepForm = document.getElementById('pp-step-form');
-  var stepReveal = document.getElementById('pp-step-reveal');
-  function show() { overlay.style.display = 'flex'; localStorage.setItem('pp_popup_seen', '1'); }
-  function hide() { overlay.style.display = 'none'; }
-  var shown = false;
-  function tryShow() { if (!shown) { shown = true; show(); } }
-  document.addEventListener('mouseleave', function(e) { if (e.clientY <= 0) tryShow(); });
-  setTimeout(tryShow, 7000);
-  document.getElementById('pp-popup-close').addEventListener('click', hide);
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) hide(); });
-  document.getElementById('pp-btn-claim').addEventListener('click', function() { stepTeaser.style.display = 'none'; stepForm.style.display = 'block'; document.getElementById('pp-name').focus(); });
-  document.getElementById('pp-btn-submit').addEventListener('click', async function() {
-    var name = document.getElementById('pp-name').value.trim();
-    var email = document.getElementById('pp-email').value.trim();
-    var errEl = document.getElementById('pp-form-error');
-    errEl.style.display = 'none';
-    if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
-    var btn = this; btn.textContent = 'Sending…'; btn.disabled = true;
-    try { await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, source: 'PRIME10 Popup' }) }); } catch(e) {}
-    stepForm.style.display = 'none'; stepReveal.style.display = 'block';
-    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-    if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'popup', event_category: 'email_list' });
-  });
-  document.getElementById('pp-btn-shop').addEventListener('click', function() { hide(); });
-})();
 </script>
 
 <script>
@@ -1651,6 +1614,7 @@ async function footerSubscribe(event, form) {
     const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'Footer Signup' }) });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success) {
+      try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
       msg.textContent = "You're on the list — check your inbox for 10% off.";
       msg.style.color = 'var(--sage-deep)';
@@ -1672,5 +1636,7 @@ async function footerSubscribe(event, form) {
 }
 </script>
 
+<script src="site-nav.js" defer></script>
+<script src="photo-upload.js" defer></script>
 </body>
 </html>
