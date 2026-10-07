@@ -130,11 +130,12 @@ export default async function handler(req, res) {
             <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:0.04em;">Here's your credit, ${firstName}.</div>
           </div>
           <div style="padding:0 32px 32px;">
-            <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Thanks for joining the list. You've got 10% credit to put toward your first piece — just enter the code below at checkout:</p>
+            <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Thanks for joining the list. Here's 10% off your first ready-made piece — just enter the code below at checkout:</p>
             <div style="background:#EBE5DA;border:1.5px dashed #7BA5A8;padding:18px 24px;text-align:center;margin-bottom:24px;">
               <div style="font-size:28px;letter-spacing:0.24em;color:#2c2a26;font-weight:500;">PRIME10</div>
-              <div style="font-size:11px;color:#8A8275;margin-top:6px;letter-spacing:0.1em;text-transform:uppercase;">10% credit toward your order</div>
+              <div style="font-size:11px;color:#8A8275;margin-top:6px;letter-spacing:0.1em;text-transform:uppercase;">10% off your first ready-made piece</div>
             </div>
+            <p style="font-size:12px;line-height:1.6;color:#8A8275;margin:-12px 0 20px;">Excludes custom commissions and trade orders.</p>
             <p style="font-size:14px;line-height:1.75;color:#444;margin-bottom:20px;">Each piece is made once from natural stone — when it's gone, it's gone. Browse the full collection and find yours:</p>
             <a href="https://www.primepiece.co.nz/tables.html" style="display:inline-block;padding:12px 28px;background:#7BA5A8;color:#fff;text-decoration:none;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;">View the Collection →</a>
             <p style="font-size:12px;color:#bbb;margin-top:28px;padding-top:20px;border-top:1px solid #eee;">Prime Piece · Wairau Valley, Auckland NZ · <a href="https://www.primepiece.co.nz" style="color:#bbb;">primepiece.co.nz</a></p>
