@@ -12,7 +12,7 @@ const CATALOG = {
   'basin-pink-purple':{ name: 'Pink Purple Onyx Vessel Basin', price: 2300 },
   'basin-tiger':      { name: 'Tiger Onyx Vessel Basin', price: 1650 },
   'basin-pink-shell': { name: 'Pink Onyx Shell Vessel Basin',      price: 1590 },
-  'basin-yellow':     { name: 'Yellow Onyx Vessel Basin',          price: 1390 },
+  'basin-yellow':     { name: 'Yellow Onyx Vessel Basin',          price: 1450 },
   // Serving boards
   'board-emerald-vein':  { name: 'Emerald Vein', price: 99 },
   'board-green-onyx':    { name: 'Jade Cloud', price: 99 },
