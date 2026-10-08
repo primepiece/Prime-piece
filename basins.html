@@ -159,17 +159,17 @@
   /* PRODUCT GRID */
   .products-section { padding: 0; }
   /* BESPOKE CTA — made to order */
-  .bespoke-cta { padding: 112px 56px; border-top: 1px solid var(--line); text-align: center; }
+  .bespoke-cta { padding: 72px 56px; border-bottom: 1px solid var(--line); text-align: center; }
   .bespoke-inner { max-width: 640px; margin: 0 auto; }
   .bespoke-eyebrow { display: inline-flex; align-items: center; gap: 14px; font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 24px; }
   .bespoke-eyebrow::before, .bespoke-eyebrow::after { content: ''; width: 24px; height: 1px; background: var(--sage); }
-  .bespoke-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4.6vw, 60px); font-weight: 300; color: var(--ink); line-height: 1.05; margin-bottom: 24px; }
+  .bespoke-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4.6vw, 60px); font-weight: 300; color: var(--ink); line-height: 1.05; margin-bottom: 20px; }
   .bespoke-cta h2 em { font-style: italic; color: var(--sage-deep); }
-  .bespoke-cta p { font-size: 15px; color: var(--ink-soft); line-height: 1.85; max-width: 520px; margin: 0 auto 40px; }
+  .bespoke-cta p { font-size: 15px; color: var(--ink-soft); line-height: 1.85; max-width: 520px; margin: 0 auto 32px; }
   .bespoke-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 40px; background: var(--sage-deep); border: 1px solid var(--sage-deep); color: #fff; font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: background 0.3s, border-color 0.3s; }
   .bespoke-btn:hover, .bespoke-btn:focus-visible { background: var(--ink); border-color: var(--ink); }
   @media (max-width: 768px) {
-    .bespoke-cta { padding: 80px 24px; }
+    .bespoke-cta { padding: 56px 24px; }
     .bespoke-btn { display: flex; width: 100%; padding: 18px 24px; }
   }
   .products-header { padding: 64px 56px 40px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
@@ -494,6 +494,16 @@
     </div>
   </div>
 
+  <!-- BESPOKE CTA — made to order -->
+  <div class="bespoke-cta" role="region" aria-labelledby="bespoke-heading">
+    <div class="bespoke-inner">
+      <span class="bespoke-eyebrow">Bespoke by Prime Piece</span>
+      <h2 id="bespoke-heading">Your vision. <em>Our stone.</em></h2>
+      <p>Looking for something truly your own? Discover our made-to-order process, from selecting your stone to creating a piece designed for your space.</p>
+      <a href="made-to-order.html" class="bespoke-btn">Explore Made to Order →</a>
+    </div>
+  </div>
+
   <div class="basins-grid" id="basins-grid">
 
     <!-- White Carrara — classic Italian white, delicate grey veins -->
@@ -689,15 +699,6 @@
   </div>
 </section>
 
-<!-- BESPOKE CTA — made to order -->
-<section class="bespoke-cta" aria-labelledby="bespoke-heading">
-  <div class="bespoke-inner">
-    <span class="bespoke-eyebrow">Bespoke by Prime Piece</span>
-    <h2 id="bespoke-heading">Your vision. <em>Our stone.</em></h2>
-    <p>Looking for something truly your own? Discover our made-to-order process, from selecting your stone to creating a piece designed for your space.</p>
-    <a href="made-to-order.html" class="bespoke-btn">Explore Made to Order →</a>
-  </div>
-</section>
 
 <!-- FAQ SECTION -->
 <section style="background:var(--cream-soft);border-top:1px solid var(--line);padding:72px 56px;">
