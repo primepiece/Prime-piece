@@ -86,8 +86,8 @@ const NOT_SOLD_ONLINE = new Set([
   // Made-to-order / arriving-soon basins: sold by enquiry (quote + deposit), not checkout.
   'basin-nero', 'basin-green', 'basin-white-onyx', 'basin-statuario', 'basin-pietra',
   'basin-pink-purple', 'basin-tiger', 'basin-pink-shell', 'basin-yellow',
-  // Coffee tables taken off the live grid in the "final 5" redesign (#57, 2026-09-29) without
-  // being marked sold. Held back pending confirmation of their status.
+  // Coffee tables taken off the live grid in the "final 5" redesign (#57, 2026-09-29) — confirmed
+  // sold, one-of-one pieces that won't be remade. Kept in CATALOG for past-order records only.
   'table-amazon-vein-2', 'table-arctic-vein', 'table-blue-slate', 'table-desert-drift',
   'table-desert-drift-2', 'table-desert-drift-ii', 'table-gold-rush', 'table-golden-hour',
   'table-midnight-river', 'table-midnight-wave', 'table-mountain-breeze',
