@@ -2,6 +2,13 @@
 (function () {
   const KEY = 'pp_cart_v2';
 
+  // Board pair offer: any two serving boards for $179. Display-only — keep in sync with
+  // BOARD_PAIR_SAVING in api/checkout.js, which computes the real charge.
+  const BOARD_PAIR_SAVING = 19;
+  function boardCount(items) { return items.filter(i => i.id.startsWith('board-')).length; }
+  function pairSaving(items) { return Math.floor(boardCount(items) / 2) * BOARD_PAIR_SAVING; }
+  function cartTotal(items) { return items.reduce((s, i) => s + i.price, 0) - pairSaving(items); }
+
   function getItems() {
     try { return JSON.parse(localStorage.getItem(KEY)) || []; }
     catch { return []; }
@@ -135,6 +142,19 @@
         font-family: 'Cormorant Garamond', serif;
         font-size: 30px; font-weight: 300; color: #2C2A26; letter-spacing: -0.02em;
       }
+      .cart-pair-row {
+        display: none; justify-content: space-between; align-items: baseline;
+        margin-bottom: 10px; font-family: 'Inter Tight', sans-serif;
+        font-size: 12px; color: #5a8a5a;
+      }
+      .cart-pair-row.visible { display: flex; }
+      .cart-pair-nudge {
+        display: none; margin-bottom: 14px; padding: 10px 12px;
+        background: #EBE5DA; border-radius: 1px; text-align: center;
+        font-family: 'Inter Tight', sans-serif; font-size: 12px; color: #554F45; line-height: 1.5;
+      }
+      .cart-pair-nudge.visible { display: block; }
+      .cart-pair-nudge a { color: #5D8588; }
       .cart-checkout-btn {
         display: flex; align-items: center; justify-content: center; gap: 10px;
         width: 100%; padding: 16px; text-decoration: none;
@@ -188,6 +208,13 @@
         </div>
         <div id="cart-items"></div>
         <div class="cart-footer">
+          <div class="cart-pair-nudge" id="cart-pair-nudge">
+            Add another serving board and get the pair for $179. <a href="boards.html">Browse boards →</a>
+          </div>
+          <div class="cart-pair-row" id="cart-pair-row">
+            <span>Board pair saving</span>
+            <span id="cart-pair-saving">−$0</span>
+          </div>
           <div class="cart-subtotal-row">
             <span class="cart-subtotal-label">Total (NZD incl. GST)</span>
             <span class="cart-subtotal-val" id="cart-total">$0</span>
@@ -228,9 +255,15 @@
     const el = document.getElementById('cart-items');
     if (!el) return;
 
-    const total = items.reduce((s, i) => s + i.price, 0);
+    const total = cartTotal(items);
     const totalEl = document.getElementById('cart-total');
     if (totalEl) totalEl.textContent = '$' + total.toLocaleString('en-NZ');
+
+    const saving = pairSaving(items);
+    document.getElementById('cart-pair-row')?.classList.toggle('visible', saving > 0);
+    const savingEl = document.getElementById('cart-pair-saving');
+    if (savingEl) savingEl.textContent = '−$' + saving;
+    document.getElementById('cart-pair-nudge')?.classList.toggle('visible', boardCount(items) % 2 === 1);
 
     if (items.length === 0) {
       el.innerHTML = `
@@ -285,7 +318,7 @@
       if (items.length > 0) {
         track('view_cart', {
           currency: 'NZD',
-          value: items.reduce((s, i) => s + i.price, 0),
+          value: cartTotal(items),
           items: items.map(i => ({ item_id: i.id, item_name: i.name, item_category: i.type, price: i.price, quantity: 1 })),
         });
       }
@@ -351,7 +384,7 @@
     },
     beginCheckout() {
       const items = getItems();
-      const value = items.reduce((s, i) => s + i.price, 0);
+      const value = cartTotal(items);
       track(
         'begin_checkout',
         { currency: 'NZD', value, items: items.map(i => ({ item_id: i.id, item_name: i.name, item_category: i.type, price: i.price, quantity: 1 })) },
@@ -360,7 +393,8 @@
       );
     },
     getItems,
-    getTotal() { return getItems().reduce((s, i) => s + i.price, 0); },
+    getTotal() { return cartTotal(getItems()); },
+    pairSaving,
   };
 
   inject();

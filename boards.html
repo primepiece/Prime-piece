@@ -268,6 +268,11 @@
     color: var(--stone); font-weight: 500; margin-bottom: 10px;
   }
   .board-dims { font-size: 12px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.6; }
+  .pair-offer { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 14px 56px 0; padding: 14px 18px; background: var(--cream-soft, #EBE5DA); border: 1px solid var(--line); border-radius: 1px; }
+  .pair-offer-tag { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; color: white; background: var(--sage); padding: 4px 10px; border-radius: 99px; }
+  .pair-offer-text { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+  .pair-offer-text strong { color: var(--ink); font-weight: 600; }
+  @media (max-width: 768px) { .pair-offer { margin: 12px 16px 0; } }
   .board-price { font-size: 15px; color: var(--sage-deep); font-weight: 400; margin-bottom: 16px; }
   .board-price s { color: var(--stone); font-size: 12px; margin-right: 6px; }
   .board-price .save-pill { display: inline-block; background: #fff3d6; color: #b8800a; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
@@ -570,6 +575,11 @@
   <button class="filter-btn" onclick="filterBoards('dark', this)">Dark Stone</button>
   <button class="filter-btn" onclick="filterBoards('light', this)">Light Stone</button>
   <button class="filter-btn" onclick="filterBoards('green', this)">Green</button>
+</div>
+
+<div class="pair-offer" role="note">
+  <span class="pair-offer-tag">Pair Offer</span>
+  <span class="pair-offer-text">Any two serving boards for <strong>NZD $179</strong>, saving $19. Applied automatically at checkout.</span>
 </div>
 
 <p style="margin:0;padding:10px 56px 18px;font-size:12px;color:var(--ink-soft);font-style:italic;font-family:var(--body);line-height:1.6;">Every piece is cut from natural stone — colour, veining and character will vary slightly from the photos, making each one entirely unique.</p>
