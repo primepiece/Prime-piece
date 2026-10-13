@@ -76,6 +76,12 @@ const CATALOG = {
   'rosso-bundle': { name: 'Rosso Africano Bundle — Table + Plinth', price: 7750 },
 };
 
+// Board pair offer: any two serving boards for $179 ($19 off each pair). Applies automatically
+// per complete pair; an odd board out pays full price. Paired boards are already discounted, so
+// promo codes don't stack on them. Keep in sync with BOARD_PAIR_* in cart.js and checkout.html.
+const BOARD_PAIR_SAVING = 19;
+const isBoard = id => id.startsWith('board-');
+
 const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 
 // Catalogue entries kept on record (names and prices stay valid for past orders and reporting)
@@ -148,25 +154,33 @@ export default async function handler(req, res) {
 
   const subtotal = resolved.reduce((sum, p) => sum + p.price, 0);
 
+  // Board pairs: the first 2 × floor(boards / 2) boards in the cart are paired.
+  const boardIdx = items.map((item, i) => isBoard(item.id) ? i : -1).filter(i => i >= 0);
+  const pairCount = Math.floor(boardIdx.length / 2);
+  const pairedIdx = new Set(boardIdx.slice(0, pairCount * 2));
+  const pairSaving = pairCount * BOARD_PAIR_SAVING;
+  const goodsTotal = subtotal - pairSaving;
+
   // Delivery fee computed server-side, same as pricing — never trust the client.
   const deliveryMode = customer.delivery || 'pickup';
-  const deliveryFee = (deliveryMode === 'delivery' && subtotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+  const deliveryFee = (deliveryMode === 'delivery' && goodsTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
 
   // Promo applied server-side — client value is display-only. The discount is rounded to whole
   // dollars, matching what the checkout page shows.
   const code = (promoCode || '').toUpperCase().trim();
   let discountRate = PROMO_CODES[code] || 0;
-  let eligibleSubtotal = subtotal;
+  const isWelcome = code === WELCOME_CODE;
+  const eligibleSubtotal = items.reduce((sum, item, i) =>
+    sum + (!pairedIdx.has(i) && (!isWelcome || isWelcomeEligible(item.id)) ? resolved[i].price : 0), 0);
   let promoMessage = '';
-  if (discountRate > 0 && code === WELCOME_CODE) {
-    eligibleSubtotal = items.reduce((sum, item, i) => sum + (isWelcomeEligible(item.id) ? resolved[i].price : 0), 0);
-    if (eligibleSubtotal === 0) {
-      discountRate = 0;
-      promoMessage = `${WELCOME_CODE} applies to ready-made pieces only.`;
-    }
+  if (discountRate > 0 && eligibleSubtotal === 0) {
+    discountRate = 0;
+    promoMessage = pairCount > 0
+      ? 'Your boards already have the pair saving — codes don\'t stack with it.'
+      : `${WELCOME_CODE} applies to ready-made pieces only.`;
   }
   const discount = discountRate > 0 ? Math.round(eligibleSubtotal * discountRate) : 0;
-  const totalCents = (subtotal - discount + deliveryFee) * 100;
+  const totalCents = (goodsTotal - discount + deliveryFee) * 100;
 
   const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).join(' | ');
   const description = resolved.map(p => p.name).join(', ');
@@ -186,6 +200,7 @@ export default async function handler(req, res) {
     'metadata[items]': itemsLabel,
     'metadata[promo]': discount > 0 ? code : '',
     'metadata[discount]': discount.toString(),
+    'metadata[board_pair_saving]': pairSaving.toString(),
   });
 
   try {
@@ -208,6 +223,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       clientSecret: data.client_secret,
       amount: totalCents / 100,
+      pairSaving,
       promo: { code, applied: discount > 0, discount, message: promoMessage },
     });
 

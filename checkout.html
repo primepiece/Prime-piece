@@ -388,6 +388,10 @@
         <span class="summary-row-val" id="summary-subtotal">$0</span>
       </div>
 
+      <div class="summary-row" id="pair-row" style="display:none;">
+        <span class="summary-row-label" style="color:#5a8a5a;">Board pair saving</span>
+        <span class="summary-row-val" id="summary-pair" style="color:#5a8a5a;">-$0</span>
+      </div>
       <div class="summary-row">
         <span class="summary-row-label">Delivery</span>
         <span class="summary-row-val" id="summary-delivery">Free — Showroom pickup</span>
@@ -431,6 +435,16 @@
   const cart = getCart();
   const subtotal = cart.reduce((s, i) => s + i.price, 0);
 
+  // Board pair offer, mirroring api/checkout.js: the first two boards of each pair get $19 off
+  // together, and promo codes don't apply to paired boards. Display-only.
+  const BOARD_PAIR_SAVING = 19;
+  const boardIdx = cart.map((item, i) => item.id.startsWith('board-') ? i : -1).filter(i => i >= 0);
+  const pairCount = Math.floor(boardIdx.length / 2);
+  const pairedIdx = new Set(boardIdx.slice(0, pairCount * 2));
+  const pairSaving = pairCount * BOARD_PAIR_SAVING;
+  const goodsTotal = subtotal - pairSaving;
+  const promoBase = cart.reduce((s, item, i) => s + (pairedIdx.has(i) ? 0 : item.price), 0);
+
   // Keep in sync with DELIVERY_FLAT_FEE / FREE_DELIVERY_THRESHOLD in api/checkout.js —
   // this is display-only, the server computes the real charge.
   const DELIVERY_FLAT_FEE = 49;
@@ -459,6 +473,10 @@
     `).join('');
 
     document.getElementById('summary-subtotal').textContent = fmt(subtotal);
+    if (pairSaving > 0) {
+      document.getElementById('pair-row').style.display = 'flex';
+      document.getElementById('summary-pair').textContent = '-' + fmt(pairSaving);
+    }
     summaryTotals.style.display = 'block';
     updateDeliveryLabel();
   }
@@ -468,10 +486,10 @@
   let discountRate = 0;
 
   function deliveryFee() {
-    return (deliveryMode === 'delivery' && subtotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+    return (deliveryMode === 'delivery' && goodsTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
   }
   function grandTotal() {
-    return subtotal - Math.round(subtotal * discountRate) + deliveryFee();
+    return goodsTotal - Math.round(promoBase * discountRate) + deliveryFee();
   }
 
   let discountedTotal = grandTotal();
@@ -695,7 +713,7 @@
     msg.style.display = 'block';
     if (PROMO_CODES[code]) {
       discountRate = PROMO_CODES[code];
-      const discount = Math.round(subtotal * discountRate);
+      const discount = Math.round(promoBase * discountRate);
       discountedTotal = grandTotal();
       document.getElementById('discount-row').style.display = 'flex';
       document.getElementById('summary-discount').textContent = '-' + fmt(discount);
