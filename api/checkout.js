@@ -100,12 +100,11 @@ const NOT_SOLD_ONLINE = new Set([
   'table-patagonia-platinum', 'table-pietra-noir', 'table-white-haven',
 ]);
 
-// PRIME10 is the welcome offer: "new customers, first ready-made piece; excludes custom
-// commissions and trade orders". What the server can enforce:
+// PRIME10 is the sign-up offer: 10% off a ready-made piece for anyone who signs up, no
+// first-order restriction. What the server still enforces:
 //  - visible, ready-made, full-price pieces only: items in CATALOG that are sold online (not in
 //    NOT_SOLD_ONLINE) and not already discounted as a bundle or set (WELCOME_EXCLUDED_IDS).
 //    Custom commissions are quoted and invoiced directly and never reach this endpoint;
-//  - first order only: refused if this email already has a successful payment in Stripe;
 //  - per-product exclusions: any catalogue ID listed here is never discounted by PRIME10.
 // Trade orders can't be told apart at checkout (there are no trade accounts), so that part of
 // the terms is enforced by trade pricing being invoiced, not by this code.
@@ -115,23 +114,6 @@ const WELCOME_EXCLUDED_IDS = new Set([
   'table-twin-jade', // Twin Jade set of 2 — already includes the set saving
 ]);
 const isWelcomeEligible = id => !!CATALOG[id] && !NOT_SOLD_ONLINE.has(id) && !WELCOME_EXCLUDED_IDS.has(id);
-
-// Has this email already paid for an order? Uses Stripe's PaymentIntent search on the
-// customer_email metadata this endpoint stores on every order. Throws if Stripe can't answer.
-async function hasPreviousOrder(email, secretKey) {
-  const forms = [...new Set([email.trim(), email.trim().toLowerCase()])];
-  for (const form of forms) {
-    const value = form.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-    const query = `status:'succeeded' AND metadata['customer_email']:'${value}'`;
-    const r = await fetch('https://api.stripe.com/v1/payment_intents/search?' + new URLSearchParams({ query, limit: '1' }), {
-      headers: { 'Authorization': `Bearer ${secretKey}` },
-    });
-    const data = await r.json();
-    if (!r.ok || data.error) throw new Error((data.error && data.error.message) || `Stripe search failed (${r.status})`);
-    if (data.data && data.data.length) return true;
-  }
-  return false;
-}
 
 // NZ-wide delivery: flat rate, free over the threshold. Showroom pickup is
 // always free and isn't affected by this.
@@ -196,18 +178,6 @@ export default async function handler(req, res) {
     promoMessage = pairCount > 0
       ? 'Your boards already have the pair saving — codes don\'t stack with it.'
       : `${WELCOME_CODE} applies to ready-made pieces only.`;
-  } else if (discountRate > 0 && isWelcome) {
-    try {
-      if (await hasPreviousOrder(customer.email, secretKey)) {
-        discountRate = 0;
-        promoMessage = `${WELCOME_CODE} is for your first order — this email has already ordered with us.`;
-      }
-    } catch (err) {
-      // Fail closed: the code is only honoured when we can confirm it's a first order.
-      console.error('PRIME10 first-order check failed:', err);
-      discountRate = 0;
-      promoMessage = `We couldn't verify ${WELCOME_CODE} just now — please try again in a moment.`;
-    }
   }
   const discount = discountRate > 0 ? Math.round(eligibleSubtotal * discountRate) : 0;
   const totalCents = (goodsTotal - discount + deliveryFee) * 100;

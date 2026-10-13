@@ -563,7 +563,7 @@
       clientSecret = data.clientSecret;
 
       // Show what the server will actually charge — it can decline a promo code
-      // (e.g. PRIME10 on a repeat order) or apply it to eligible pieces only.
+      // entirely or apply it to eligible pieces only.
       if (appliedPromo) {
         const msg = document.getElementById('promo-msg');
         msg.style.display = 'block';

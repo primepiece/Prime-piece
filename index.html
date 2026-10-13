@@ -915,7 +915,7 @@
 
 <footer>
   <div class="footer-newsletter">
-    <div class="footer-newsletter-text"><strong>Get 10% off your first ready-made piece.</strong> Join the list for new arrivals and studio news.</div>
+    <div class="footer-newsletter-text"><strong>Get 10% off a ready-made piece.</strong> Join the list for new arrivals and studio news.</div>
     <div>
       <form class="footer-newsletter-form" onsubmit="return footerSubscribe(event, this)">
         <input type="email" name="email" placeholder="Your email address" required class="footer-newsletter-input">
@@ -1151,7 +1151,7 @@ async function footerSubscribe(event, form, source) {
     if (res.ok && data.success) {
       try { localStorage.setItem('pp_welcome', JSON.stringify({ state: 'subscribed' })); } catch (_) {}
       form.style.display = 'none';
-      msg.textContent = "You're on the list — check your inbox for 10% off your first ready-made piece.";
+      msg.textContent = "You're on the list — check your inbox for your 10% code.";
       msg.style.color = 'var(--sage-deep)';
       msg.style.display = 'block';
       if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'footer', event_category: 'email_list' });
@@ -1179,20 +1179,20 @@ async function footerSubscribe(event, form, source) {
     <div class="welcome-body">
       <div id="welcome-step-form">
         <span class="section-label">Prime Piece</span>
-        <h2 id="welcome-title">A welcome from<br><em>Prime Piece</em>.</h2>
-        <p class="welcome-copy">Receive 10% off your first ready-made piece, along with occasional new releases, one-of-one pieces and studio updates.</p>
+        <h2 id="welcome-title">Get 10% off.</h2>
+        <p class="welcome-copy">Sign up for new releases and studio updates.</p>
         <form class="welcome-form" id="welcome-form" novalidate>
           <input type="email" name="email" id="welcome-email" placeholder="Your email address" autocomplete="email" required aria-label="Email address">
           <button type="submit" class="btn btn-primary" id="welcome-submit">Receive 10% <span class="btn-arrow">→</span></button>
         </form>
         <p class="welcome-error" id="welcome-error" hidden></p>
-        <p class="welcome-fine">For new customers on their first ready-made piece. Excludes custom commissions and trade orders.</p>
+        <p class="welcome-fine">Excludes custom commissions and trade orders.</p>
         <button type="button" class="welcome-decline" data-welcome-close>No thank you</button>
       </div>
       <div id="welcome-step-done" hidden>
         <span class="section-label">Welcome</span>
         <h2>Thank you<br><em>for joining us</em>.</h2>
-        <p class="welcome-copy">Your code for 10% off your first ready-made piece — we've also sent it to your inbox.</p>
+        <p class="welcome-copy">Your 10% code — we've also sent it to your inbox.</p>
         <div class="welcome-code">PRIME10</div>
         <button type="button" class="btn btn-primary" data-welcome-close>Continue Browsing <span class="btn-arrow">→</span></button>
       </div>
