@@ -49,6 +49,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://www.primepiece.co.nz/commissions.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.primepiece.co.nz/trust.html</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
