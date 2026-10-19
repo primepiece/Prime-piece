@@ -143,45 +143,37 @@ ${emailFooter}
 </td></tr></table>
 </body></html>`,
     } : {
-      from: 'James at Prime Piece <james@primepiece.co.nz>',
+      from: 'Prime Piece <james@primepiece.co.nz>',
       to: [email],
-      subject: 'Your welcome credit — Prime Piece',
-      html: `<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Your welcome credit</title></head>
-<body style="margin:0;padding:0;background:#F5F1EA;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
-<table border="0" cellpadding="0" cellspacing="0" style="background:#F5F1EA;" width="100%"><tr><td align="center" style="padding:40px 16px;">
-<table border="0" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;" width="560">
-${emailHeader}
-<tr><td style="padding:40px 0 24px;">
-  <p style="margin:0 0 12px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#7BA5A8;font-weight:500;">Welcome</p>
-  <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:#2C2A26;line-height:1.2;">You're part of something rare.</h1>
-  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Thanks for joining the list, ${firstName}. Every Prime Piece is cut from a single slab of natural stone, so there is only ever one. As a welcome gift, here's 10% off a ready-made piece.</p>
-</td></tr>
-<tr><td style="padding-bottom:32px;">
-  <table border="0" cellpadding="0" cellspacing="0" style="background:#EBE5DA;border-radius:2px;" width="100%"><tr><td style="padding:24px;text-align:center;">
-    <p style="margin:0 0 4px;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#8A8275;">Your code</p>
-    <p style="margin:0;font-size:28px;letter-spacing:0.24em;color:#2C2A26;font-weight:500;">PRIME10</p>
-    <p style="margin:6px 0 0;font-size:11px;color:#8A8275;letter-spacing:0.1em;text-transform:uppercase;">10% off a ready-made piece</p>
-    <p style="margin:8px 0 0;font-size:11px;color:#8A8275;">Excludes custom commissions and trade orders.</p>
-  </td></tr></table>
-</td></tr>
-<tr><td style="padding-bottom:40px;">
-  <table border="0" cellpadding="0" cellspacing="0"><tr><td style="background:#7BA5A8;border-radius:1px;"><a href="https://www.primepiece.co.nz/tables.html" style="display:block;padding:16px 36px;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;font-weight:500;color:#F5F1EA;text-decoration:none;">View the Collection →</a></td></tr></table>
-</td></tr>
-<tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(44,42,38,0.12);">
-  <p style="margin:0;font-size:13px;line-height:1.9;color:#554F45;">Each piece is made once from natural stone — when it's gone, it's gone. Have a question first, or want something made to order? Reply to this email or call James directly on <a href="tel:0211466990" style="color:#7BA5A8;text-decoration:none;">021 146 6990</a>.</p>
-</td></tr>
-${emailFooter}
-</table>
-</td></tr></table>
-</body></html>`,
+      bcc: ['james@primepiece.co.nz'],
+      subject: 'Your 10% off — Prime Piece',
+      html: `
+<div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2C2A26;background:#F5F1EA;padding:40px 32px;">
+  <p style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7BA5A8;margin:0 0 16px;">Prime Piece</p>
+  <h1 style="font-size:28px;font-weight:400;margin:0 0 12px;line-height:1.2;">${name ? `Hi ${firstName}, here's your code` : "Here's your code"}</h1>
+  <p style="font-size:15px;color:#554F45;margin:0 0 24px;line-height:1.7;">Thanks for joining the list. Use the code below for <strong>10% off</strong> any ready-made piece in the collection.</p>
+  <div style="background:#E0D9CA;border:1.5px dashed #7BA5A8;padding:16px 24px;text-align:center;margin-bottom:8px;display:inline-block;min-width:200px;">
+    <span style="font-size:26px;letter-spacing:0.2em;font-weight:500;">PRIME10</span>
+  </div>
+  <p style="font-size:11px;color:#8A8275;margin:0 0 24px;">Excludes custom commissions and trade orders.</p>
+  <p style="font-size:14px;color:#554F45;margin:0 0 32px;line-height:1.7;">Each piece is handcrafted, one of one. Once it's gone, it's gone.</p>
+  <a href="https://www.primepiece.co.nz/tables.html" style="background:#2C2A26;color:#F5F1EA;padding:14px 32px;text-decoration:none;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;font-family:sans-serif;">Shop the Collection</a>
+  <p style="font-size:11px;color:#8A8275;margin-top:40px;">Prime Piece &middot; Auckland, New Zealand &middot; primepiece.co.nz</p>
+</div>`,
     };
 
-    fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
-      body: JSON.stringify(emailPayload),
-    }).catch(err => console.error('Confirmation email error:', err));
+    // Awaited, not fire-and-forget: on Vercel the function can be frozen as
+    // soon as the response is sent, which silently dropped this email.
+    try {
+      const confirmRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
+        body: JSON.stringify(emailPayload),
+      });
+      if (!confirmRes.ok) console.error('Confirmation email error:', JSON.stringify(await confirmRes.json().catch(() => ({}))));
+    } catch (err) {
+      console.error('Confirmation email error:', err);
+    }
   } else {
     console.error('Resend env var missing — no notification or confirmation email sent');
   }
