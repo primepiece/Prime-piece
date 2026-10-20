@@ -36,7 +36,8 @@
 
     if (total > 0) {
       gtag('event','purchase',{
-        transaction_id: 'pp-' + Date.now(),
+        // Stripe appends payment_intent to the return URL; a stable ID lets GA4 drop duplicate purchases on reload
+        transaction_id: p.get('payment_intent') || ('pp-' + Date.now()),
         value: total,
         currency: 'NZD',
         items: gaItems,
