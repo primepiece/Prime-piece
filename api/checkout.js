@@ -120,12 +120,56 @@ const isWelcomeEligible = id => !!CATALOG[id] && !NOT_SOLD_ONLINE.has(id) && !WE
 const DELIVERY_FLAT_FEE = 49;
 const FREE_DELIVERY_THRESHOLD = 500;
 
+// Stripe caps each metadata value at 500 characters.
+const meta = v => String(v || '').slice(0, 500);
+const detailsMetadata = d => ({
+  'metadata[delivery_address]': meta(d.address),
+  'metadata[notes]': meta(d.notes),
+  'metadata[gift_wrap]': d.giftWrap ? 'yes' : '',
+  'metadata[gift_message]': d.giftWrap ? meta(d.giftMessage) : '',
+});
+
+// Address, notes and gift details are typed after the PaymentIntent is created (it's set up
+// once the email is entered), so checkout.html re-sends them just before confirming payment.
+// Only metadata changes here, never the amount, and only for an unpaid PaymentIntent whose
+// client secret the caller holds.
+async function updateDetails(req, res, secretKey) {
+  const { clientSecret, details } = req.body;
+  const id = typeof clientSecret === 'string' ? clientSecret.split('_secret_')[0] : '';
+  if (!/^pi_[A-Za-z0-9]+$/.test(id) || !details) return res.status(400).json({ error: 'Invalid request' });
+
+  const auth = { 'Authorization': `Bearer ${secretKey}` };
+  try {
+    const pi = await (await fetch(`https://api.stripe.com/v1/payment_intents/${id}`, { headers: auth })).json();
+    if (pi.error || pi.client_secret !== clientSecret) return res.status(403).json({ error: 'Not allowed' });
+    if (!['requires_payment_method', 'requires_confirmation', 'requires_action'].includes(pi.status)) {
+      return res.status(409).json({ error: 'Payment already processed' });
+    }
+    const data = await (await fetch(`https://api.stripe.com/v1/payment_intents/${id}`, {
+      method: 'POST',
+      headers: { ...auth, 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(detailsMetadata(details)).toString(),
+    })).json();
+    if (data.error) return res.status(400).json({ error: data.error.message });
+    return res.status(200).json({ ok: true });
+  } catch (err) {
+    console.error('Checkout details update error:', err);
+    return res.status(500).json({ error: 'Update failed' });
+  }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  if (req.body?.action === 'details') {
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) return res.status(500).json({ error: 'Stripe not configured' });
+    return updateDetails(req, res, key);
+  }
 
   const { items, customer, promoCode } = req.body;
 
@@ -196,7 +240,7 @@ export default async function handler(req, res) {
     'metadata[customer_phone]': customer.phone || '',
     'metadata[delivery]': deliveryMode,
     'metadata[delivery_fee]': deliveryFee.toString(),
-    'metadata[notes]': customer.notes || '',
+    ...detailsMetadata(customer),
     'metadata[items]': itemsLabel,
     'metadata[promo]': discount > 0 ? code : '',
     'metadata[discount]': discount.toString(),

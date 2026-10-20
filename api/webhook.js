@@ -48,6 +48,12 @@ export default async function handler(req, res) {
   const itemsStr = meta.items || '';
   const delivery = meta.delivery || 'pickup';
   const notes = meta.notes || '';
+  const phone = meta.customer_phone || '';
+  const address = meta.delivery_address || '';
+  const giftWrap = meta.gift_wrap === 'yes';
+  const giftMessage = meta.gift_message || '';
+  // Customer-typed text going into James's HTML email.
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const promo = meta.promo || '';
   const amountPaid = pi.amount / 100; // Stripe stores in cents
 
@@ -110,6 +116,8 @@ export default async function handler(req, res) {
                   items: itemsStr,
                   promo_code: promo,
                   notes: notes,
+                  delivery_address: address,
+                  gift_wrap: giftWrap,
                   url: 'https://www.primepiece.co.nz/basins.html',
                 },
               },
@@ -130,7 +138,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: 'Prime Piece <james@primepiece.co.nz>',
         to: ['james@primepiece.co.nz'],
-        subject: `💳 Order received — NZD $${amountPaid.toLocaleString('en-NZ')} from ${name || email}`,
+        subject: `${giftWrap ? '🎁 Gift order' : '💳 Order'} received — NZD $${amountPaid.toLocaleString('en-NZ')} from ${name || email}`,
         html: `
           <div style="font-family:sans-serif;max-width:520px;color:#2c2a26;">
             <div style="background:#2c2a26;padding:20px 28px;margin-bottom:24px;">
@@ -140,9 +148,12 @@ export default async function handler(req, res) {
             <table style="font-size:14px;line-height:2;color:#444;width:100%;">
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Customer</td><td>${name || '—'}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
+              ${phone ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Phone</td><td><a href="tel:${esc(phone)}">${esc(phone)}</a></td></tr>` : ''}
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Items</td><td>${itemsStr || '—'}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Total Paid</td><td>NZD $${amountPaid.toLocaleString('en-NZ')}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Delivery</td><td>${delivery}</td></tr>
+              ${address ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;white-space:nowrap;">Address</td><td>${esc(address)}</td></tr>` : ''}
+              ${giftWrap ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;white-space:nowrap;">Gift</td><td><strong>Gift wrap — no prices in the box.</strong>${giftMessage ? `<br>Card: “${esc(giftMessage)}”` : ''}</td></tr>` : ''}
               ${promo ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Promo</td><td>${promo}</td></tr>` : ''}
               ${notes ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Notes</td><td>${notes}</td></tr>` : ''}
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Stripe ID</td><td style="font-size:12px;color:#888;">${pi.id}</td></tr>

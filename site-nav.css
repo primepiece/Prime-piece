@@ -118,9 +118,16 @@ div.site-mobile-menu > a.mm-phone { font-family: 'Inter Tight', -apple-system, s
   nav.site-nav .nav-links { gap: 30px; }
   nav.site-nav, nav.site-nav.scrolled, nav.site-nav.site-nav--solid, body.site-nav-open nav.site-nav { padding-left: 40px; padding-right: 40px; }
 }
-@media (max-width: 900px) {
-  nav.site-nav .nav-links { gap: 22px; }
+@media (max-width: 1000px) {
+  nav.site-nav, nav.site-nav.scrolled, nav.site-nav.site-nav--solid, body.site-nav-open nav.site-nav { padding-left: 28px; padding-right: 28px; }
+  nav.site-nav .nav-links { gap: 20px; }
   nav.site-nav .nav-links a, nav.site-nav .nav-dd-toggle { letter-spacing: 0.2em; }
+  /* Instagram stays in the footer; drop it here so the cart fits */
+  nav.site-nav .nav-links > li:has(.nav-ig) { display: none; }
+}
+@media (max-width: 900px) {
+  nav.site-nav .nav-links { gap: 14px; }
+  nav.site-nav .nav-links a, nav.site-nav .nav-dd-toggle { letter-spacing: 0.14em; }
 }
 
 /* Mobile: hamburger, plus the bag (only on pages with a cart) */
