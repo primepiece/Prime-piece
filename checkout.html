@@ -687,7 +687,8 @@
       document.getElementById('pay-btn').disabled = false;
       document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(discountedTotal) + ' NZD →';
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      window.location.href = returnUrl;
+      // Match the 3D Secure path, where Stripe appends payment_intent itself
+      window.location.href = returnUrl + '&payment_intent=' + encodeURIComponent(paymentIntent.id);
     } else {
       // requires_action (e.g. 3D Secure) or another non-final state — Stripe
       // has already taken over the page for the required verification step.
