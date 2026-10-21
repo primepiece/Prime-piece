@@ -1262,7 +1262,17 @@ async function footerSubscribe(event, form, source) {
     }
   });
 
-  setTimeout(open, DELAY_MS);
+  // Let visitors see the furniture first: wait until they've scrolled past the hero
+  // (and been on the page at least DELAY_MS) before offering the discount.
+  var ready = false, shown = false;
+  function maybeOpen() {
+    if (shown || !ready || window.scrollY < window.innerHeight * 0.6) return;
+    shown = true;
+    window.removeEventListener('scroll', maybeOpen);
+    open();
+  }
+  setTimeout(function () { ready = true; maybeOpen(); }, DELAY_MS);
+  window.addEventListener('scroll', maybeOpen, { passive: true });
 })();
 </script>
 
