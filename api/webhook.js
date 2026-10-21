@@ -124,7 +124,7 @@ export default async function handler(req, res) {
 
   // Notify James of the sale (belt-and-suspenders alongside Stripe dashboard)
   if (resendKey) {
-    fetch('https://api.resend.com/emails', {
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
       body: JSON.stringify({
