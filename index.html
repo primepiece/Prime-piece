@@ -75,7 +75,7 @@
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "5.0",
-        "reviewCount": "21",
+        "reviewCount": "22",
         "bestRating": "5",
         "worstRating": "1"
       }
@@ -201,6 +201,8 @@
   ]
 }
 </script>
+<link rel="preload" as="image" href="hero-mobile.jpg" media="(max-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="hero.jpg" media="(min-width: 769px)" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter+Tight:wght@300;400;500;600&family=Dancing+Script:wght@400;500&display=swap">
@@ -484,7 +486,7 @@
     nav.scrolled { padding: 14px 20px; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .hero { padding: 0 24px 64px; }
+    .hero { padding: 0 24px 64px; background-image: url('hero-mobile.jpg'); }
     .founder-img-col { min-height: 400px; }
     .founder-copy-col { padding: 64px 24px; }
     .founder-detail { gap: 28px; }
@@ -801,8 +803,8 @@
 
 <section class="reviews-section">
   <div class="reviews-header reveal">
-    <div><span class="section-label">Google Reviews</span><h2>21 five-star<br><em>reviews</em>.</h2></div>
-    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">21 reviews · Google Maps</div><a href="https://www.google.com/search?q=Prime+Piece+Auckland+reviews" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-family:var(--body);font-weight:500;border-bottom:1px solid var(--sage);padding-bottom:1px;">Read on Google →</a></div></div>
+    <div><span class="section-label">Google Reviews</span><h2>22 five-star<br><em>reviews</em>.</h2></div>
+    <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">22 reviews · Google Maps</div><a href="https://www.google.com/search?q=Prime+Piece+Auckland+reviews" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-family:var(--body);font-weight:500;border-bottom:1px solid var(--sage);padding-bottom:1px;">Read on Google →</a></div></div>
   </div>
   <div class="reviews-grid" id="reviews-marquee"></div>
   <div style="text-align:center;padding:32px 56px 0;">
@@ -1260,7 +1262,17 @@ async function footerSubscribe(event, form, source) {
     }
   });
 
-  setTimeout(open, DELAY_MS);
+  // Let visitors see the furniture first: wait until they've scrolled past the hero
+  // (and been on the page at least DELAY_MS) before offering the discount.
+  var ready = false, shown = false;
+  function maybeOpen() {
+    if (shown || !ready || window.scrollY < window.innerHeight * 0.6) return;
+    shown = true;
+    window.removeEventListener('scroll', maybeOpen);
+    open();
+  }
+  setTimeout(function () { ready = true; maybeOpen(); }, DELAY_MS);
+  window.addEventListener('scroll', maybeOpen, { passive: true });
 })();
 </script>
 
