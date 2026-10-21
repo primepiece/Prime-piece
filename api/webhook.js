@@ -1,3 +1,6 @@
+import { createHmac } from 'node:crypto';
+import { issueVoucher, spendVoucher, voucherEmailHtml, sendEmail } from '../lib/vouchers.js';
+
 // Stripe webhook handler — receives payment_intent.succeeded events.
 // Sends a reliable "Placed Order" event to Klaviyo using the metadata
 // stored on the PaymentIntent at checkout time (customer email, name, items).
@@ -122,6 +125,46 @@ export default async function handler(req, res) {
     }
   }
 
+  // Gift vouchers: issue and email any that were bought, and mark a voucher used to pay as
+  // spent (sending any change as a new voucher). Codes are derived from the PaymentIntent id,
+  // so a retried webhook finds the same vouchers rather than issuing new ones.
+  const firstName = name ? name.split(' ')[0] : '';
+  const voucherRows = [];
+  const bought = (meta.vouchers_purchased || '').split(',').map(Number).filter(n => n > 0);
+  if (bought.length) {
+    try {
+      const issued = [];
+      for (let i = 0; i < bought.length; i++) {
+        issued.push(await issueVoucher(bought[i], `${pi.id}-${i}`, { source: 'purchase', order: pi.id }));
+      }
+      await sendEmail({ to: email, subject: issued.length > 1 ? 'Your Prime Piece gift vouchers' : 'Your Prime Piece gift voucher',
+        html: voucherEmailHtml(firstName, issued, issued.length > 1 ? 'here are your gift vouchers.' : 'here\'s your gift voucher.') });
+      issued.forEach(v => voucherRows.push(`Issued ${v.code} ($${v.amount}) — emailed to customer`));
+    } catch (err) {
+      console.error('Voucher issue error:', err);
+      voucherRows.push(`⚠️ Voucher purchase ($${bought.join(', $')}) could NOT be issued automatically — create it by hand in Stripe and email the customer`);
+    }
+  }
+  if (meta.voucher_promo) {
+    const applied = Number(meta.voucher_applied || 0);
+    const remaining = Number(meta.voucher_balance || 0) - applied;
+    try {
+      const spent = await spendVoucher(meta.voucher_promo, pi.id);
+      voucherRows.push(spent
+        ? `Redeemed ${meta.voucher_code}: $${applied} used`
+        : `⚠️ ${meta.voucher_code} was ALREADY USED on another order — $${applied} was taken off this one. Check Stripe.`);
+      if (spent && remaining > 0) {
+        const change = await issueVoucher(remaining, `${pi.id}-change`, { source: 'change', order: pi.id });
+        await sendEmail({ to: email, subject: `Your $${remaining} Prime Piece voucher balance`,
+          html: voucherEmailHtml(firstName, [change], `here's the $${remaining} left on your voucher.`) });
+        voucherRows.push(`Change issued: ${change.code} ($${remaining}) — emailed to customer`);
+      }
+    } catch (err) {
+      console.error('Voucher redeem error:', err);
+      voucherRows.push(`⚠️ Couldn't mark ${meta.voucher_code} as used — deactivate it in Stripe by hand`);
+    }
+  }
+
   // Notify James of the sale (belt-and-suspenders alongside Stripe dashboard)
   if (resendKey) {
     await fetch('https://api.resend.com/emails', {
@@ -143,6 +186,8 @@ export default async function handler(req, res) {
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Items</td><td>${itemsStr || '—'}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Total Paid</td><td>NZD $${amountPaid.toLocaleString('en-NZ')}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Delivery</td><td>${delivery}</td></tr>
+              ${meta.address ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Address</td><td>${meta.address}</td></tr>` : ''}
+              ${voucherRows.length ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Vouchers</td><td>${voucherRows.join('<br>')}</td></tr>` : ''}
               ${promo ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Promo</td><td>${promo}</td></tr>` : ''}
               ${notes ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Notes</td><td>${notes}</td></tr>` : ''}
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Stripe ID</td><td style="font-size:12px;color:#888;">${pi.id}</td></tr>
@@ -170,8 +215,7 @@ function verifyStripeWebhook(payload, header, secret) {
 
   const signedPayload = `${timestamp}.${payload.toString()}`;
 
-  // HMAC-SHA256 — crypto is a Node built-in, no import needed
-  const { createHmac } = require('crypto');
+  // HMAC-SHA256 with Node's built-in crypto
   const expected = createHmac('sha256', secret).update(signedPayload).digest('hex');
 
   if (!timingSafeEqual(Buffer.from(expected), Buffer.from(signature))) {
