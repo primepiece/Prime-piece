@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   const resendKey = process.env.RESEND_API_KEY;
   const firstName = (name || '').split(' ')[0] || 'there';
   const isBasinWaitlist = source === 'basin-collection-teaser';
+  const isReleaseWaitlist = source === 'christmas-release';
 
   // Klaviyo is best-effort — a Klaviyo outage or misconfiguration must never
   // cause a lead to be lost. James's notification email below is the
@@ -79,7 +80,7 @@ export default async function handler(req, res) {
           from: 'Prime Piece <james@primepiece.co.nz>',
           to: ['james@primepiece.co.nz'],
           reply_to: email,
-          subject: `New subscriber — ${email}${isBasinWaitlist ? ' · Basin Waitlist' : ''}`,
+          subject: `New subscriber — ${email}${isBasinWaitlist ? ' · Basin Waitlist' : ''}${isReleaseWaitlist ? ' · Christmas Release first look' : ''}`,
           html: `
             <div style="font-family:sans-serif;font-size:14px;line-height:2;color:#444;max-width:480px;">
               <div style="background:#2c2a26;padding:20px 28px;margin-bottom:24px;">
@@ -120,7 +121,29 @@ export default async function handler(req, res) {
         </td>
       </tr>`;
 
-    const emailPayload = isBasinWaitlist ? {
+    const emailPayload = isReleaseWaitlist ? {
+      from: 'James at Prime Piece <james@primepiece.co.nz>',
+      to: [email],
+      subject: "You're on the first-look list — Christmas Release",
+      html: `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>You're on the first-look list</title></head>
+<body style="margin:0;padding:0;background:#F5F1EA;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" style="background:#F5F1EA;" width="100%"><tr><td align="center" style="padding:40px 16px;">
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;" width="560">
+${emailHeader}
+<tr><td style="padding:40px 0 24px;">
+  <p style="margin:0 0 12px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#7BA5A8;font-weight:500;">Christmas Release 2026</p>
+  <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:#2C2A26;line-height:1.2;">You're on the list, ${firstName}.</h1>
+  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Three natural stone grazing boards — burgundy red, deep green, and white with grey veining. One of each, never repeated. You'll get the photos and the link before they go anywhere else.</p>
+</td></tr>
+<tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(44,42,38,0.12);">
+  <p style="margin:0;font-size:13px;line-height:1.9;color:#554F45;">Each board is cut and finished by hand in our Wairau Valley workshop. Questions? Reply to this email or call James on <a href="tel:0211466990" style="color:#7BA5A8;text-decoration:none;">021 146 6990</a>.</p>
+</td></tr>
+${emailFooter}
+</table>
+</td></tr></table>
+</body></html>`,
+    } : isBasinWaitlist ? {
       from: 'James at Prime Piece <james@primepiece.co.nz>',
       to: [email],
       subject: "You're on the list — Prime Piece Stone Basins",

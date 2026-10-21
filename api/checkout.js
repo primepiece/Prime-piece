@@ -1,3 +1,4 @@
+import { RELEASE_LIVE, isRelease, RELEASE_ITEMS, soldItems, markSold } from '../lib/release.js';
 import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail } from '../lib/vouchers.js';
 
 // Authoritative server-side price catalogue.
@@ -76,6 +77,12 @@ const CATALOG = {
   'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 1950 },
   // Bundles
   'rosso-bundle': { name: 'Rosso Africano Bundle — Table + Plinth', price: 7750 },
+  // Christmas Release 2026 — one of each (lib/release.js). Names and prices to confirm before
+  // RELEASE_LIVE goes on; keep in sync with the RELEASE block in gifts.html.
+  'release-red':   { name: 'Christmas Release — Burgundy Red Grazing Board', price: 269 },
+  'release-green': { name: 'Christmas Release — Deep Green Grazing Board',   price: 269 },
+  'release-white': { name: 'Christmas Release — White & Grey Grazing Board', price: 269 },
+  'release-set':   { name: 'Christmas Release — Set of All Three',           price: 699 },
   // Gift vouchers — emailed as a code after payment (lib/vouchers.js)
   ...Object.fromEntries(Object.entries(VOUCHER_VALUES).map(([id, v]) => [id, { name: `Prime Piece Gift Voucher — $${v}`, price: v }])),
 };
@@ -126,9 +133,22 @@ const FREE_DELIVERY_THRESHOLD = 500;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  // GET /api/checkout?release — whether the Christmas Release is live and which boards have
+  // sold, for the gifts page. (Lives here rather than its own file: Hobby function limit.)
+  if (req.method === 'GET') {
+    res.setHeader('Cache-Control', 'no-store');
+    if (!RELEASE_LIVE) return res.status(200).json({ live: false, sold: {} });
+    try {
+      return res.status(200).json({ live: true, sold: await soldItems() });
+    } catch (err) {
+      console.error('Release sold check error:', err);
+      return res.status(200).json({ live: true, sold: {}, error: 'unavailable' });
+    }
+  }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { items, customer, promoCode } = req.body;
@@ -156,6 +176,25 @@ export default async function handler(req, res) {
     resolved.push(product);
   }
 
+  // Christmas Release: one of each, so check nothing has sold (or overlaps in the cart).
+  const releaseIds = items.map(item => item.id).filter(isRelease);
+  if (releaseIds.length) {
+    if (!RELEASE_LIVE) return res.status(400).json({ error: 'The Christmas Release isn\'t on sale yet.' });
+    const boards = releaseIds.flatMap(id => RELEASE_ITEMS[id]);
+    if (new Set(boards).size !== boards.length) {
+      return res.status(400).json({ error: 'The set already includes all three boards — remove the single board from your cart.' });
+    }
+    let sold;
+    try { sold = await soldItems(); } catch (err) {
+      console.error('Release sold check error:', err);
+      return res.status(503).json({ error: 'We couldn\'t confirm the Christmas Release boards are still available — please try again in a moment.' });
+    }
+    const gone = releaseIds.filter(id => sold[id]);
+    if (gone.length) {
+      return res.status(409).json({ error: `Sorry — ${gone.map(id => CATALOG[id].name.replace('Christmas Release — ', '')).join(' and ')} has just sold. Remove it from your cart to continue.` });
+    }
+  }
+
   const subtotal = resolved.reduce((sum, p) => sum + p.price, 0);
 
   // Board pairs: the first 2 × floor(boards / 2) boards in the cart are paired.
@@ -180,7 +219,7 @@ export default async function handler(req, res) {
   let discountRate = PROMO_CODES[code] || 0;
   const isWelcome = code === WELCOME_CODE;
   const eligibleSubtotal = items.reduce((sum, item, i) =>
-    sum + (!pairedIdx.has(i) && !isVoucher(item.id) && (!isWelcome || isWelcomeEligible(item.id)) ? resolved[i].price : 0), 0);
+    sum + (!pairedIdx.has(i) && !isVoucher(item.id) && !isRelease(item.id) && (!isWelcome || isWelcomeEligible(item.id)) ? resolved[i].price : 0), 0);
   let promoMessage = '';
   if (discountRate > 0 && eligibleSubtotal === 0) {
     discountRate = 0;
@@ -229,7 +268,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ clientSecret: null, amount: 0, pairSaving, voucherCoversAll: true, voucher: voucherInfo,
         promo: { code, applied: discount > 0, discount, message: promoMessage } });
     }
-    return placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount });
+    return placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount, releaseIds });
   }
 
   const body = new URLSearchParams({
@@ -254,6 +293,7 @@ export default async function handler(req, res) {
     'metadata[voucher_promo]': voucher ? voucher.id : '',
     'metadata[voucher_applied]': voucherApplied.toString(),
     'metadata[voucher_balance]': voucher ? voucher.balance.toString() : '0',
+    'metadata[release_items]': releaseIds.join(','),
   });
 
   try {
@@ -289,7 +329,7 @@ export default async function handler(req, res) {
 
 // An order paid in full by a gift voucher. Spends the voucher, sends any change as a new
 // voucher, and emails James and the customer — the same jobs the webhook does for a paid order.
-async function placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount }) {
+async function placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount, releaseIds }) {
   const ref = `voucher-${voucher.code}`;
   let spent;
   try {
@@ -299,6 +339,9 @@ async function placeVoucherOrder({ res, voucher, voucherApplied, customer, deliv
     return res.status(500).json({ error: 'We couldn\'t confirm your voucher just now — please try again.' });
   }
   if (!spent) return res.status(400).json({ error: 'This voucher has already been used.' });
+  if (releaseIds.length) {
+    try { await markSold(releaseIds, ref); } catch (err) { console.error('Release mark sold error:', err); }
+  }
 
   const firstName = (customer.name || '').split(' ')[0];
   const remaining = voucher.balance - voucherApplied;

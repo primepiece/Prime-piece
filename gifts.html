@@ -82,6 +82,38 @@
   .grid-status { padding: 40px 0; font-size: 14px; color: var(--stone); }
   .grid-status a { color: var(--sage-deep); }
 
+  .release { background: var(--ink); color: var(--cream); margin-top: 56px; }
+  .release-inner { max-width: 1200px; margin: 0 auto; padding: 64px 56px; }
+  .release .eyebrow { color: var(--sage-soft, #A8C3C5); }
+  .release .eyebrow::before { background: var(--sage-soft, #A8C3C5); }
+  .release h2 { color: var(--cream); font-size: clamp(32px, 4.4vw, 52px); }
+  .release h2 em { color: #A8C3C5; }
+  .release-sub { color: rgba(245,241,234,0.72); font-size: 15px; max-width: 620px; margin: 18px 0 40px; }
+  .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; }
+  .swatch { display: flex; flex-direction: column; gap: 4px; }
+  .swatch b { font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--cream); margin-top: 10px; }
+  .swatch small { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,241,234,0.5); }
+  .sw { display: block; aspect-ratio: 12 / 5; border-radius: 20px; box-shadow: 0 18px 40px rgba(0,0,0,0.35); }
+  .sw-red { background: linear-gradient(115deg, transparent 38%, rgba(240,200,190,0.35) 40%, transparent 43%), linear-gradient(160deg, transparent 62%, rgba(240,210,200,0.25) 63.5%, transparent 66%), linear-gradient(135deg, #5b151b, #8a2a2e 55%, #4a1015); }
+  .sw-green { background: linear-gradient(120deg, transparent 30%, rgba(225,240,230,0.35) 32%, transparent 35%), linear-gradient(150deg, transparent 66%, rgba(225,240,230,0.25) 67.5%, transparent 70%), linear-gradient(135deg, #132a20, #24493a 55%, #0e2018); }
+  .sw-white { background: linear-gradient(110deg, transparent 34%, rgba(110,110,115,0.45) 35.5%, transparent 38%), linear-gradient(165deg, transparent 58%, rgba(120,120,125,0.3) 59.5%, transparent 62%), linear-gradient(135deg, #f2efea, #e2ded8 55%, #f7f5f1); }
+  .release-form label { display: block; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,241,234,0.7); margin-bottom: 10px; }
+  .release-form-row { display: flex; gap: 10px; max-width: 520px; }
+  .release-form input { flex: 1; min-width: 0; font: 400 14px var(--body); padding: 12px 14px; border: 1px solid rgba(245,241,234,0.25); background: rgba(245,241,234,0.06); color: var(--cream); border-radius: 1px; }
+  .release-form input:focus { outline: none; border-color: #A8C3C5; }
+  .release-msg { font-size: 13px; margin-top: 12px; }
+  .release-grid { border-color: rgba(245,241,234,0.14); }
+  .release-grid[hidden], .release-teaser[hidden] { display: none; }
+  .release-grid .board-card { background: #34312c; border-color: rgba(245,241,234,0.14); color: var(--cream); }
+  .release-grid .board-info { border-top-color: rgba(245,241,234,0.14); }
+  .release-grid .board-name { color: var(--cream); }
+  .release-grid .board-stone, .release-grid .board-type { color: rgba(245,241,234,0.55); }
+  .release-grid .board-dims { color: rgba(245,241,234,0.72); }
+  .release-grid .board-price { color: #A8C3C5; }
+  .release-grid .board-card.is-sold .board-img { filter: grayscale(0.6) brightness(0.7); }
+  .release-grid .board-card.is-sold .board-badge { background: #555; }
+  .release-grid .enquire-btn[disabled] { opacity: 0.45; cursor: default; }
+  .release-grid .release-set .board-img-wrap { background: #2C2A26; }
   .gift-section-foot { font-size: 13px; color: var(--ink-soft); margin-top: 18px; max-width: 640px; }
   .voucher-card { cursor: default; }
   .corporate { padding-top: 80px; }
@@ -130,6 +162,9 @@
     .perk { border-right: none; border-bottom: 1px solid var(--line); padding: 16px 20px; }
     .perk:last-child { border-bottom: none; }
     .cf-row { grid-template-columns: 1fr; }
+    .release-inner { padding: 48px 16px; }
+    .swatches { grid-template-columns: 1fr; gap: 22px; }
+    .release-form-row { flex-direction: column; }
     .gift-section, .why, .faq { padding-left: 16px; padding-right: 16px; }
     .board-info { padding: 16px 14px 18px; }
     .board-name { font-size: 20px; }
@@ -195,6 +230,34 @@
   <div class="perk"><strong>$49 NZ-wide delivery</strong><span>Free on orders of $500 or more.</span></div>
   <div class="perk"><strong>Collect for free</strong><span>209B Archers Road, Wairau Valley. Mon–Fri 8am–5pm.</span></div>
 </div>
+
+<section class="release" id="christmas-release">
+  <div class="release-inner">
+    <div class="release-head">
+      <div class="eyebrow">Christmas Release 2026</div>
+      <h2>Three grazing boards.<br><em>One of each.</em></h2>
+      <p class="release-sub">Burgundy red, deep green, and white with grey veining. 600 × 250mm, rounded corners, polished edges, cut and finished by hand in our Wairau Valley workshop. Each is numbered and will never be made again.</p>
+    </div>
+
+    <div class="release-teaser" id="release-teaser">
+      <div class="swatches">
+        <div class="swatch"><span class="sw sw-red"></span><b>Burgundy red</b><small>No. 1 of 3</small></div>
+        <div class="swatch"><span class="sw sw-green"></span><b>Deep green</b><small>No. 2 of 3</small></div>
+        <div class="swatch"><span class="sw sw-white"></span><b>White &amp; grey</b><small>No. 3 of 3</small></div>
+      </div>
+      <form class="release-form" id="release-form" novalidate>
+        <label for="release-email">Get first look before they go public</label>
+        <div class="release-form-row">
+          <input id="release-email" type="email" placeholder="Your email" autocomplete="email" required>
+          <button type="submit" class="enquire-btn" id="release-submit">Notify Me →</button>
+        </div>
+        <p class="release-msg" id="release-msg" hidden></p>
+      </form>
+    </div>
+
+    <div class="boards-grid release-grid" id="release-grid" hidden></div>
+  </div>
+</section>
 
 <section class="gift-section" id="boards">
   <div class="gift-section-head">
@@ -362,6 +425,74 @@
       });
     } catch (_) {}
   }).catch(fail);
+})();
+</script>
+<script>
+// ── Christmas Release ─────────────────────────────────────────────────────────
+// Content for the three boards. Prices must match api/checkout.js. Goes live when
+// RELEASE_LIVE is switched on in lib/release.js; until then the teaser + first-look form shows.
+var RELEASE = {
+  boards: [
+    { id: 'release-red',   no: 1, name: 'Burgundy Red',   stone: 'Stone TBC', price: 269, image: 'release-red.jpg' },
+    { id: 'release-green', no: 2, name: 'Deep Green',     stone: 'Stone TBC', price: 269, image: 'release-green.jpg' },
+    { id: 'release-white', no: 3, name: 'White & Grey',   stone: 'Stone TBC', price: 269, image: 'release-white.jpg' }
+  ],
+  set: { id: 'release-set', name: 'Set of All Three', price: 699, image: 'release-set.jpg' },
+  dims: '600 × 250mm · rounded corners · polished edges'
+};
+(function () {
+  var esc = function (t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  function card(item, label, sold, extraClass) {
+    var cartItem = { id: item.id, name: 'Christmas Release — ' + item.name, type: 'Christmas Release', image: item.image, price: item.price };
+    return '<div class="board-card ' + (extraClass || '') + (sold ? ' is-sold' : '') + '">' +
+      '<div class="board-img-wrap"><span class="board-badge">' + (sold ? 'Sold' : label) + '</span>' +
+      '<img class="board-img" src="' + esc(item.image) + '" alt="' + esc(item.name) + ' natural stone grazing board, Prime Piece Christmas Release" loading="lazy"></div>' +
+      '<div class="board-info"><div class="board-name">' + esc(item.name) + '</div>' +
+      '<div class="board-stone">' + esc(item.stone || 'All three boards') + '</div>' +
+      '<div class="board-dims">' + esc(RELEASE.dims) + '</div>' +
+      '<div class="board-price">NZD $' + item.price.toLocaleString('en-NZ') + (sold ? ' — Sold' : '') + '</div>' +
+      '<div class="board-foot"><span class="board-type">' + esc(label) + '</span>' +
+      (sold ? '<button class="enquire-btn" disabled>Sold</button>'
+            : '<button class="enquire-btn pp-add-btn" data-id="' + item.id + '" onclick=\'Cart.add(' + esc(JSON.stringify(cartItem)) + ')\'>Add to Cart →</button>') +
+      '</div></div></div>';
+  }
+  fetch('/api/checkout?release=1', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.live) return;
+    var sold = d.sold || {};
+    var html = RELEASE.boards.map(function (b) { return card(b, 'No. ' + b.no + ' of 3', !!sold[b.id]); }).join('') +
+      card(RELEASE.set, 'Set of 3', !!sold[RELEASE.set.id], 'release-set');
+    var grid = document.getElementById('release-grid');
+    grid.innerHTML = html;
+    grid.hidden = false;
+    document.getElementById('release-teaser').hidden = true;
+    try {
+      var inCart = (JSON.parse(localStorage.getItem('pp_cart_v2')) || []).map(function (i) { return i.id; });
+      grid.querySelectorAll('.pp-add-btn[data-id]').forEach(function (btn) {
+        if (inCart.indexOf(btn.dataset.id) > -1) { btn.classList.add('in-cart'); btn.textContent = 'In Cart ✓'; }
+      });
+    } catch (_) {}
+  }).catch(function () {});
+
+  document.getElementById('release-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var input = document.getElementById('release-email'), msg = document.getElementById('release-msg'), btn = document.getElementById('release-submit');
+    var email = input.value.trim();
+    msg.hidden = false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.style.color = '#e8a598'; msg.textContent = 'Please enter a valid email.'; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      var r = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'christmas-release' }) });
+      var data = await r.json().catch(function () { return {}; });
+      if (!r.ok || !data.success) throw 0;
+      input.value = '';
+      msg.style.color = '#A8C3C5'; msg.textContent = "You're on the list. You'll see them before anyone else.";
+      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'christmas_release', event_category: 'email_list' });
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    } catch (_) {
+      msg.style.color = '#e8a598'; msg.textContent = 'Something went wrong — please try again.';
+    }
+    btn.disabled = false; btn.textContent = 'Notify Me →';
+  });
 })();
 </script>
 <script>

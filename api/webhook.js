@@ -1,4 +1,5 @@
 import { createHmac } from 'node:crypto';
+import { markSold } from '../lib/release.js';
 import { issueVoucher, spendVoucher, voucherEmailHtml, sendEmail } from '../lib/vouchers.js';
 
 // Stripe webhook handler — receives payment_intent.succeeded events.
@@ -165,6 +166,18 @@ export default async function handler(req, res) {
     }
   }
 
+  // Christmas Release: mark the boards sold so the gifts page and checkout stop selling them.
+  const releaseItems = (meta.release_items || '').split(',').filter(Boolean);
+  if (releaseItems.length) {
+    try {
+      const boards = await markSold(releaseItems, pi.id);
+      voucherRows.push(`Christmas Release sold: ${boards.join(', ')} — now showing Sold on the site`);
+    } catch (err) {
+      console.error('Release mark sold error:', err);
+      voucherRows.push('⚠️ Christmas Release board sold but could NOT be marked sold — it may still show as available. Tell Claude or mark it in Stripe.');
+    }
+  }
+
   // Notify James of the sale (belt-and-suspenders alongside Stripe dashboard)
   if (resendKey) {
     await fetch('https://api.resend.com/emails', {
@@ -187,7 +200,7 @@ export default async function handler(req, res) {
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Total Paid</td><td>NZD $${amountPaid.toLocaleString('en-NZ')}</td></tr>
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;">Delivery</td><td>${delivery}</td></tr>
               ${meta.address ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Address</td><td>${meta.address}</td></tr>` : ''}
-              ${voucherRows.length ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Vouchers</td><td>${voucherRows.join('<br>')}</td></tr>` : ''}
+              ${voucherRows.length ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Notes for James</td><td>${voucherRows.join('<br>')}</td></tr>` : ''}
               ${promo ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Promo</td><td>${promo}</td></tr>` : ''}
               ${notes ? `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;vertical-align:top;">Notes</td><td>${notes}</td></tr>` : ''}
               <tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;">Stripe ID</td><td style="font-size:12px;color:#888;">${pi.id}</td></tr>
