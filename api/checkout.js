@@ -1,3 +1,5 @@
+import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail } from '../lib/vouchers.js';
+
 // Authoritative server-side price catalogue.
 // Client sends only product IDs — prices and names always come from here.
 const CATALOG = {
@@ -74,6 +76,8 @@ const CATALOG = {
   'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 1950 },
   // Bundles
   'rosso-bundle': { name: 'Rosso Africano Bundle — Table + Plinth', price: 7750 },
+  // Gift vouchers — emailed as a code after payment (lib/vouchers.js)
+  ...Object.fromEntries(Object.entries(VOUCHER_VALUES).map(([id, v]) => [id, { name: `Prime Piece Gift Voucher — $${v}`, price: v }])),
 };
 
 // Board pair offer: any two serving boards for $179 ($19 off each pair). Applies automatically
@@ -161,9 +165,14 @@ export default async function handler(req, res) {
   const pairSaving = pairCount * BOARD_PAIR_SAVING;
   const goodsTotal = subtotal - pairSaving;
 
+  // Vouchers are emailed, so they don't need delivery or count toward free delivery, and
+  // neither promo codes nor another voucher can be used to pay for them.
+  const voucherItemsTotal = items.reduce((sum, item, i) => sum + (isVoucher(item.id) ? resolved[i].price : 0), 0);
+  const physicalTotal = goodsTotal - voucherItemsTotal;
+
   // Delivery fee computed server-side, same as pricing — never trust the client.
-  const deliveryMode = customer.delivery || 'pickup';
-  const deliveryFee = (deliveryMode === 'delivery' && goodsTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+  const deliveryMode = physicalTotal > 0 ? (customer.delivery || 'pickup') : 'email';
+  const deliveryFee = (deliveryMode === 'delivery' && physicalTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
 
   // Promo applied server-side — client value is display-only. The discount is rounded to whole
   // dollars, matching what the checkout page shows.
@@ -171,7 +180,7 @@ export default async function handler(req, res) {
   let discountRate = PROMO_CODES[code] || 0;
   const isWelcome = code === WELCOME_CODE;
   const eligibleSubtotal = items.reduce((sum, item, i) =>
-    sum + (!pairedIdx.has(i) && (!isWelcome || isWelcomeEligible(item.id)) ? resolved[i].price : 0), 0);
+    sum + (!pairedIdx.has(i) && !isVoucher(item.id) && (!isWelcome || isWelcomeEligible(item.id)) ? resolved[i].price : 0), 0);
   let promoMessage = '';
   if (discountRate > 0 && eligibleSubtotal === 0) {
     discountRate = 0;
@@ -180,10 +189,48 @@ export default async function handler(req, res) {
       : `${WELCOME_CODE} applies to ready-made pieces only.`;
   }
   const discount = discountRate > 0 ? Math.round(eligibleSubtotal * discountRate) : 0;
-  const totalCents = (goodsTotal - discount + deliveryFee) * 100;
+  const totalBeforeVoucher = goodsTotal - discount + deliveryFee;
+
+  // Gift voucher: checked against Stripe here, marked spent by the webhook once payment succeeds.
+  let voucher = null;
+  let voucherApplied = 0;
+  let voucherMessage = '';
+  if (req.body.voucherCode) {
+    try {
+      const found = await findVoucher(req.body.voucherCode);
+      voucher = found.voucher;
+      voucherMessage = found.reason;
+    } catch (err) {
+      console.error('Voucher lookup error:', err);
+      voucherMessage = 'We couldn\'t check that voucher just now — please try again.';
+    }
+    if (voucher) {
+      voucherApplied = Math.min(voucher.balance, totalBeforeVoucher - voucherItemsTotal);
+      // Stripe can't take a payment under $1, so a voucher that would leave a few cents
+      // owing leaves exactly $1 instead.
+      const left = totalBeforeVoucher - voucherApplied;
+      if (left > 0 && left < 1) voucherApplied = totalBeforeVoucher - 1;
+      if (voucherApplied <= 0) { voucherApplied = 0; voucherMessage = 'Gift vouchers can\'t be used to buy another voucher.'; voucher = null; }
+    }
+  }
+  const voucherInfo = voucher
+    ? { code: voucher.code, applied: voucherApplied, balance: voucher.balance, remaining: voucher.balance - voucherApplied }
+    : { code: '', applied: 0, message: voucherMessage };
+  const totalCents = (totalBeforeVoucher - voucherApplied) * 100;
 
   const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).join(' | ');
   const description = resolved.map(p => p.name).join(', ');
+  const vouchersPurchased = items.filter(item => isVoucher(item.id)).map(item => VOUCHER_VALUES[item.id]).join(',');
+
+  // Fully paid by a voucher: there's nothing to charge, so there's no PaymentIntent. The page
+  // shows "Place order" and calls back with placeVoucherOrder, which records the order here.
+  if (totalCents === 0 && voucher) {
+    if (!req.body.placeVoucherOrder) {
+      return res.status(200).json({ clientSecret: null, amount: 0, pairSaving, voucherCoversAll: true, voucher: voucherInfo,
+        promo: { code, applied: discount > 0, discount, message: promoMessage } });
+    }
+    return placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount });
+  }
 
   const body = new URLSearchParams({
     amount: totalCents.toString(),
@@ -201,6 +248,12 @@ export default async function handler(req, res) {
     'metadata[promo]': discount > 0 ? code : '',
     'metadata[discount]': discount.toString(),
     'metadata[board_pair_saving]': pairSaving.toString(),
+    'metadata[address]': (customer.address || '').slice(0, 450),
+    'metadata[vouchers_purchased]': vouchersPurchased,
+    'metadata[voucher_code]': voucher ? voucher.code : '',
+    'metadata[voucher_promo]': voucher ? voucher.id : '',
+    'metadata[voucher_applied]': voucherApplied.toString(),
+    'metadata[voucher_balance]': voucher ? voucher.balance.toString() : '0',
   });
 
   try {
@@ -224,6 +277,7 @@ export default async function handler(req, res) {
       clientSecret: data.client_secret,
       amount: totalCents / 100,
       pairSaving,
+      voucher: voucherInfo,
       promo: { code, applied: discount > 0, discount, message: promoMessage },
     });
 
@@ -231,4 +285,56 @@ export default async function handler(req, res) {
     console.error('Checkout error:', err);
     return res.status(500).json({ error: 'Payment setup failed' });
   }
+}
+
+// An order paid in full by a gift voucher. Spends the voucher, sends any change as a new
+// voucher, and emails James and the customer — the same jobs the webhook does for a paid order.
+async function placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount }) {
+  const ref = `voucher-${voucher.code}`;
+  let spent;
+  try {
+    spent = await spendVoucher(voucher.id, ref);
+  } catch (err) {
+    console.error('Voucher spend error:', err);
+    return res.status(500).json({ error: 'We couldn\'t confirm your voucher just now — please try again.' });
+  }
+  if (!spent) return res.status(400).json({ error: 'This voucher has already been used.' });
+
+  const firstName = (customer.name || '').split(' ')[0];
+  const remaining = voucher.balance - voucherApplied;
+  let change = null;
+  if (remaining > 0) {
+    try {
+      change = await issueVoucher(remaining, `${ref}-change`, { source: 'change', order: ref });
+      await sendEmail({ to: customer.email, subject: `Your $${remaining} Prime Piece voucher balance`,
+        html: voucherEmailHtml(firstName, [change], `here's the $${remaining} left on your voucher.`) });
+    } catch (err) {
+      console.error('Voucher change error:', err);
+    }
+  }
+
+  const row = (k, v) => `<tr><td style="color:#7BA5A8;font-weight:600;padding-right:16px;white-space:nowrap;vertical-align:top;">${k}</td><td>${v}</td></tr>`;
+  await sendEmail({
+    to: 'james@primepiece.co.nz',
+    subject: `🎁 Order paid by voucher — ${customer.name || customer.email}`,
+    html: `<div style="font-family:sans-serif;max-width:520px;color:#2c2a26;"><h2 style="font-weight:400;">Order paid in full by gift voucher</h2>
+      <table style="font-size:14px;line-height:2;color:#444;">
+        ${row('Customer', customer.name || '—')}${row('Email', `<a href="mailto:${customer.email}">${customer.email}</a>`)}
+        ${row('Phone', customer.phone || '—')}${row('Items', itemsLabel)}${row('Delivery', deliveryMode)}
+        ${customer.address ? row('Address', customer.address) : ''}
+        ${row('Voucher', `${voucher.code} — $${voucherApplied} used of $${voucher.balance}`)}
+        ${change ? row('Change issued', `${change.code} ($${remaining})`) : ''}
+        ${discount > 0 ? row('Promo', code) : ''}${customer.notes ? row('Notes', customer.notes) : ''}
+      </table><p style="font-size:12px;color:#999;">No card payment was taken. Reply to the customer to arrange delivery or pickup.</p></div>`,
+  });
+  await sendEmail({
+    to: customer.email,
+    subject: 'Your Prime Piece order',
+    html: `<div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#2C2A26;background:#F5F1EA;padding:36px 28px;">
+      <h1 style="font-size:26px;font-weight:400;margin:0 0 12px;">Thank you, ${firstName || 'there'}.</h1>
+      <p style="font-size:15px;color:#554F45;line-height:1.7;">Your order is confirmed and paid with gift voucher ${voucher.code}. James will be in touch within 24 hours to arrange ${deliveryMode === 'delivery' ? 'delivery' : 'pickup from the Wairau Valley showroom'}.</p>
+      <p style="font-size:14px;color:#554F45;line-height:1.7;">${itemsLabel}</p></div>`,
+  });
+
+  return res.status(200).json({ paidByVoucher: true, amount: 0, ref });
 }

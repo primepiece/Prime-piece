@@ -282,6 +282,7 @@
       <input type="tel" id="phone" placeholder="021 000 0000" autocomplete="tel">
     </div>
 
+    <div id="delivery-section">
     <div class="section-divider"></div>
     <span class="section-label-sm">Delivery Preference</span>
 
@@ -324,6 +325,8 @@
       <label for="address">Delivery Address</label>
       <input type="text" id="address" placeholder="123 Example St, Auckland" autocomplete="street-address">
     </div>
+    </div>
+    <p id="voucher-only-note" style="display:none;font-size:13px;color:var(--ink-soft);line-height:1.6;margin:20px 0 4px;">Gift vouchers are emailed to you straight after payment, ready to forward or print. No delivery needed.</p>
 
     <div class="field">
       <label for="notes">Order Notes (optional)</label>
@@ -339,6 +342,15 @@
       <button type="button" id="promo-btn" onclick="applyPromo()" style="padding:13px 20px;background:var(--sage);color:white;border:none;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;font-weight:500;cursor:pointer;border-radius:1px;white-space:nowrap;">Apply</button>
     </div>
     <div id="promo-msg" style="font-size:12px;margin-top:-8px;margin-bottom:12px;display:none;"></div>
+
+    <span class="section-label-sm">Gift Voucher</span>
+    <div class="field" style="flex-direction:row;gap:8px;align-items:flex-end;">
+      <div style="flex:1;">
+        <input type="text" id="voucher-code" placeholder="PP-XXXX-XXXX" style="text-transform:uppercase;" autocomplete="off">
+      </div>
+      <button type="button" id="voucher-btn" onclick="applyVoucher()" style="padding:13px 20px;background:var(--sage);color:white;border:none;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.24em;text-transform:uppercase;cursor:pointer;">Apply</button>
+    </div>
+    <div id="voucher-msg" style="font-size:12px;margin-top:-8px;margin-bottom:12px;display:none;"></div>
 
     <div class="section-divider"></div>
     <span class="section-label-sm">Payment</span>
@@ -400,6 +412,10 @@
         <span class="summary-row-label" style="color:#5a8a5a;">Discount (10%)</span>
         <span class="summary-row-val" id="summary-discount" style="color:#5a8a5a;">-$0</span>
       </div>
+      <div class="summary-row" id="voucher-row" style="display:none;">
+        <span class="summary-row-label" style="color:#5a8a5a;">Gift voucher</span>
+        <span class="summary-row-val" id="summary-voucher" style="color:#5a8a5a;">-$0</span>
+      </div>
       <div class="summary-total-row">
         <span class="summary-total-label">Total (NZD)</span>
         <span class="summary-total-val" id="summary-total">$0</span>
@@ -443,7 +459,11 @@
   const pairedIdx = new Set(boardIdx.slice(0, pairCount * 2));
   const pairSaving = pairCount * BOARD_PAIR_SAVING;
   const goodsTotal = subtotal - pairSaving;
-  const promoBase = cart.reduce((s, item, i) => s + (pairedIdx.has(i) ? 0 : item.price), 0);
+  // Gift vouchers are emailed: no delivery, don't count toward free delivery, no promo codes.
+  const isVoucherItem = item => item.id.startsWith('voucher-');
+  const voucherItemsTotal = cart.reduce((s, i) => s + (isVoucherItem(i) ? i.price : 0), 0);
+  const physicalTotal = goodsTotal - voucherItemsTotal;
+  const promoBase = cart.reduce((s, item, i) => s + (pairedIdx.has(i) || isVoucherItem(item) ? 0 : item.price), 0);
 
   // Keep in sync with DELIVERY_FLAT_FEE / FREE_DELIVERY_THRESHOLD in api/checkout.js —
   // this is display-only, the server computes the real charge.
@@ -486,15 +506,26 @@
   let discountRate = 0;
 
   function deliveryFee() {
-    return (deliveryMode === 'delivery' && goodsTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+    return (deliveryMode === 'delivery' && physicalTotal > 0 && physicalTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
   }
+  // Voucher value is only known once the server has checked the code; until then it's 0.
+  let voucherCode = '';
+  let voucherApplied = 0;
+  let voucherCoversAll = false;
   function grandTotal() {
-    return goodsTotal - Math.round(promoBase * discountRate) + deliveryFee();
+    return goodsTotal - Math.round(promoBase * discountRate) + deliveryFee() - voucherApplied;
   }
 
   let discountedTotal = grandTotal();
 
   renderSummary();
+
+  if (cart.length > 0 && physicalTotal === 0) {
+    deliveryMode = 'email';
+    document.getElementById('delivery-section').style.display = 'none';
+    document.getElementById('voucher-only-note').style.display = 'block';
+    updateDeliveryLabel();
+  }
 
   function selectDelivery(mode, el) {
     deliveryMode = mode;
@@ -515,7 +546,9 @@
     discountedTotal = grandTotal();
     const el = document.getElementById('summary-delivery');
     if (el) {
-      el.textContent = deliveryMode === 'pickup'
+      el.textContent = deliveryMode === 'email'
+        ? 'Emailed — free'
+        : deliveryMode === 'pickup'
         ? 'Free — Showroom pickup'
         : (fee === 0 ? 'Free — orders $500+' : fmt(fee) + ' flat rate');
     }
@@ -549,11 +582,13 @@
         body: JSON.stringify({
           items: cart,
           promoCode: appliedPromo,
+          voucherCode,
           customer: {
             name: firstName + ' ' + lastName,
             email,
             phone: document.getElementById('phone').value.trim(),
             delivery: deliveryMode,
+            address: deliveryMode === 'delivery' ? document.getElementById('address').value.trim() : '',
             notes: document.getElementById('notes').value.trim(),
           }
         })
@@ -561,6 +596,26 @@
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       clientSecret = data.clientSecret;
+
+      // Gift voucher as the server checked it.
+      if (voucherCode) {
+        const vmsg = document.getElementById('voucher-msg');
+        vmsg.style.display = 'block';
+        const v = data.voucher || {};
+        if (v.applied > 0) {
+          voucherApplied = v.applied;
+          document.getElementById('voucher-row').style.display = 'flex';
+          document.getElementById('summary-voucher').textContent = '-' + fmt(v.applied);
+          vmsg.style.color = '#5a8a5a';
+          vmsg.textContent = '✓ $' + v.applied + ' voucher applied' + (v.remaining > 0 ? ' — the $' + v.remaining + ' left will be emailed to you as a new voucher' : '');
+        } else {
+          voucherCode = ''; voucherApplied = 0;
+          document.getElementById('voucher-row').style.display = 'none';
+          vmsg.style.color = '#7a3020';
+          vmsg.textContent = v.message || 'This voucher can\'t be applied.';
+        }
+      }
+      voucherCoversAll = !!data.voucherCoversAll;
 
       // Show what the server will actually charge — it can decline a promo code
       // entirely or apply it to eligible pieces only.
@@ -587,7 +642,15 @@
       // Applying a promo code after the payment form already mounted (elements
       // reset to null) re-runs this — unmount the stale Element first so we
       // don't stack a second Stripe iframe into the same container.
-      if (paymentElement) { try { paymentElement.unmount(); } catch (_) {} }
+      if (paymentElement) { try { paymentElement.unmount(); } catch (_) {} paymentElement = null; }
+
+      // Voucher covers the whole order: no card needed.
+      if (voucherCoversAll) {
+        elements = 'voucher';
+        document.getElementById('pay-btn').disabled = false;
+        document.getElementById('pay-btn-text').textContent = 'Place Order — Paid by Voucher →';
+        return;
+      }
 
       elements = stripe.elements({ clientSecret, appearance: {
         theme: 'flat',
@@ -659,7 +722,9 @@
     document.getElementById('pay-btn').disabled = true;
     document.getElementById('pay-btn-text').textContent = 'Processing…';
 
-    const returnUrl = window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length);
+    if (voucherCoversAll) { placeVoucherOrder(firstName, lastName, email); return; }
+
+    const returnUrl = window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length) + (physicalTotal === 0 ? '&vouchers=1' : '');
 
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
@@ -693,6 +758,57 @@
       // has already taken over the page for the required verification step.
     }
   });
+
+  async function placeVoucherOrder(firstName, lastName, email) {
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: cart,
+          promoCode: discountRate > 0 ? document.getElementById('promo-code').value.trim().toUpperCase() : '',
+          voucherCode,
+          placeVoucherOrder: true,
+          customer: {
+            name: firstName + ' ' + lastName,
+            email,
+            phone: document.getElementById('phone').value.trim(),
+            delivery: deliveryMode,
+            address: deliveryMode === 'delivery' ? document.getElementById('address').value.trim() : '',
+            notes: document.getElementById('notes').value.trim(),
+          },
+        }),
+      });
+      const data = await res.json();
+      if (!data.paidByVoucher) throw new Error(data.error || 'We couldn\'t place your order — please try again.');
+      window.location.href = window.location.origin + '/success.html?total=0&items=' + encodeURIComponent(cart.length) + '&voucher=1';
+    } catch (err) {
+      showError(err.message);
+      document.getElementById('pay-btn').disabled = false;
+      document.getElementById('pay-btn-text').textContent = 'Place Order — Paid by Voucher →';
+    }
+  }
+
+  function applyVoucher() {
+    const code = document.getElementById('voucher-code').value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const msg = document.getElementById('voucher-msg');
+    msg.style.display = 'block';
+    if (!/^PP[A-Z0-9]{8}$/.test(code)) {
+      msg.style.color = '#7a3020';
+      msg.textContent = 'Voucher codes look like PP-XXXX-XXXX.';
+      return;
+    }
+    voucherCode = code;
+    elements = null;
+    if (document.getElementById('email').value.includes('@') && document.getElementById('first-name').value.trim() && document.getElementById('last-name').value.trim()) {
+      msg.style.color = 'var(--stone)';
+      msg.textContent = 'Checking voucher…';
+      initStripe();
+    } else {
+      msg.style.color = 'var(--stone)';
+      msg.textContent = 'Enter your name and email above and we\'ll apply it.';
+    }
+  }
 
   function showError(msg) {
     const el = document.getElementById('pay-error');

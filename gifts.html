@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gifts Under $200 NZ | Marble Serving Boards &amp; Platters — Prime Piece</title>
+<title>Gifts Under $200 NZ | Marble Boards, Platters &amp; Gift Vouchers — Prime Piece</title>
 <meta name="description" content="Stone gifts under $200, handcrafted in Auckland. Marble and onyx serving boards from $99, any two for $179, and entertaining platters at $189. Ships NZ-wide.">
 <link rel="canonical" href="https://www.primepiece.co.nz/gifts.html">
 <meta property="og:type" content="website">
@@ -81,6 +81,20 @@
   .grid-status { padding: 40px 0; font-size: 14px; color: var(--stone); }
   .grid-status a { color: var(--sage-deep); }
 
+  .gift-section-foot { font-size: 13px; color: var(--ink-soft); margin-top: 18px; max-width: 640px; }
+  .voucher-card { cursor: default; }
+  .corporate { padding-top: 80px; }
+  .corporate-inner { background: var(--cream-soft); border: 1px solid var(--line); padding: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+  .corporate p { font-size: 14px; color: var(--ink-soft); margin: 14px 0 16px; }
+  .corporate ul { list-style: none; }
+  .corporate li { font-size: 13px; color: var(--ink-soft); padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .corporate-form { display: flex; flex-direction: column; gap: 14px; }
+  .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .corporate-form label { display: flex; flex-direction: column; gap: 6px; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
+  .corporate-form input, .corporate-form textarea { font: 400 14px var(--body); color: var(--ink); background: var(--cream); border: 1px solid var(--line); padding: 11px 12px; border-radius: 1px; text-transform: none; letter-spacing: 0; width: 100%; }
+  .corporate-form input:focus, .corporate-form textarea:focus { outline: none; border-color: var(--sage); }
+  .corporate-form .enquire-btn { align-self: flex-start; }
+  .cf-msg { font-size: 13px; }
   .why { max-width: 1200px; margin: 0 auto; padding: 80px 56px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
   .why ul { list-style: none; }
   .why li { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); }
@@ -107,12 +121,14 @@
   @media (max-width: 900px) {
     .boards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .why { grid-template-columns: 1fr; gap: 32px; }
+    .corporate-inner { grid-template-columns: 1fr; padding: 28px 20px; gap: 28px; }
   }
   @media (max-width: 768px) {
     .gift-hero { padding: 110px 20px 40px; }
     .perks { grid-template-columns: 1fr; }
     .perk { border-right: none; border-bottom: 1px solid var(--line); padding: 16px 20px; }
     .perk:last-child { border-bottom: none; }
+    .cf-row { grid-template-columns: 1fr; }
     .gift-section, .why, .faq { padding-left: 16px; padding-right: 16px; }
     .board-info { padding: 16px 14px 18px; }
     .board-name { font-size: 20px; }
@@ -169,7 +185,7 @@
 <section class="gift-hero">
   <div class="eyebrow">Christmas Gifts</div>
   <h1>Stone gifts,<br><em>under $200.</em></h1>
-  <p class="gift-sub">Marble and onyx serving boards from $99 and entertaining platters at $189. Each one is cut from natural stone in our Auckland workshop, so no two are the same.</p>
+  <p class="gift-sub">Marble and onyx serving boards from $99, entertaining platters at $189, and gift vouchers emailed instantly. Every board is cut from natural stone in our Auckland workshop, so no two are the same.</p>
 </section>
 
 <div class="perks">
@@ -194,6 +210,78 @@
   <div class="boards-grid" id="grid-platter"><p class="grid-status">Loading platters… or <a href="boards.html">see them all here</a>.</p></div>
 </section>
 
+<section class="gift-section" id="vouchers">
+  <div class="gift-section-head">
+    <h2>Gift vouchers, <em>emailed instantly</em></h2>
+    <span class="gift-section-note">Works after the Christmas cut-off · valid 3 years</span>
+  </div>
+  <div class="boards-grid">
+    <div class="board-card voucher-card">
+      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-100.jpg" alt="Prime Piece $100 gift voucher" loading="lazy"></div>
+      <div class="board-info">
+        <div class="board-name">$100 Gift Voucher</div>
+        <div class="board-stone">Emailed instantly</div>
+        <div class="board-dims">A serving board, or most of a platter.</div>
+        <div class="board-price">NZD $100</div>
+        <div class="board-foot">
+          <span class="board-type">Gift Voucher</span>
+          <button class="enquire-btn pp-add-btn" data-id="voucher-100" onclick="Cart.add({id:'voucher-100',name:'Prime Piece Gift Voucher — $100',type:'Gift Voucher',image:'gift-voucher-100.jpg',price:100})">Add to Cart →</button>
+        </div>
+      </div>
+    </div>
+    <div class="board-card voucher-card">
+      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-200.jpg" alt="Prime Piece $200 gift voucher" loading="lazy"></div>
+      <div class="board-info">
+        <div class="board-name">$200 Gift Voucher</div>
+        <div class="board-stone">Emailed instantly</div>
+        <div class="board-dims">Covers any platter, or two serving boards with change.</div>
+        <div class="board-price">NZD $200</div>
+        <div class="board-foot">
+          <span class="board-type">Gift Voucher</span>
+          <button class="enquire-btn pp-add-btn" data-id="voucher-200" onclick="Cart.add({id:'voucher-200',name:'Prime Piece Gift Voucher — $200',type:'Gift Voucher',image:'gift-voucher-200.jpg',price:200})">Add to Cart →</button>
+        </div>
+      </div>
+    </div>
+    <div class="board-card voucher-card">
+      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-500.jpg" alt="Prime Piece $500 gift voucher" loading="lazy"></div>
+      <div class="board-info">
+        <div class="board-name">$500 Gift Voucher</div>
+        <div class="board-stone">Emailed instantly</div>
+        <div class="board-dims">A marble side table, or a big start on a vessel basin.</div>
+        <div class="board-price">NZD $500</div>
+        <div class="board-foot">
+          <span class="board-type">Gift Voucher</span>
+          <button class="enquire-btn pp-add-btn" data-id="voucher-500" onclick="Cart.add({id:'voucher-500',name:'Prime Piece Gift Voucher — $500',type:'Gift Voucher',image:'gift-voucher-500.jpg',price:500})">Add to Cart →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="gift-section-foot">Can't choose? Let them pick their own stone. The voucher code arrives by email the moment you pay, ready to forward or print. Use it online or at the showroom, and any change comes back as a new voucher.</p>
+</section>
+
+<section class="gift-section corporate" id="corporate">
+  <div class="corporate-inner">
+    <div>
+      <div class="eyebrow">Corporate Gifts</div>
+      <h2>Client gifts, <em>ten or more</em></h2>
+      <p>Thank your clients with something they'll actually keep. We put together serving boards, platters and vouchers for real estate agencies, architects, builders and other businesses, with pricing for 10 or more and delivery to your office.</p>
+      <ul>
+        <li>Every board is a different stone, so no two clients get the same gift</li>
+        <li>Mix boards, platters and vouchers to suit different clients</li>
+        <li>Order by late November for delivery before your end-of-year drop-offs</li>
+      </ul>
+    </div>
+    <form class="corporate-form" id="corporate-form" novalidate>
+      <div class="cf-row"><label>Your name<input name="name" required autocomplete="name"></label><label>Company<input name="company" autocomplete="organization"></label></div>
+      <div class="cf-row"><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Phone<input name="phone" type="tel" autocomplete="tel"></label></div>
+      <div class="cf-row"><label>How many gifts?<input name="quantity" inputmode="numeric" placeholder="e.g. 20"></label><label>Needed by<input name="date" placeholder="e.g. 5 December"></label></div>
+      <label>Anything else? (budget per gift, mix of items, logo or card ideas)<textarea name="details" rows="3"></textarea></label>
+      <button type="submit" class="enquire-btn" id="cf-submit">Get a Quote →</button>
+      <p class="cf-msg" id="cf-msg" hidden></p>
+    </form>
+  </div>
+</section>
+
 <section class="why">
   <div>
     <h2>Why stone <em>makes a good gift</em></h2>
@@ -216,6 +304,8 @@
   <p>Add any two serving boards to your cart and they come to $179 instead of $198. It's applied at checkout automatically, and works for every pair, so four boards are $358.</p>
   <h3>Will it arrive before Christmas?</h3>
   <p>Boards ship anywhere in New Zealand for $49, or free on orders of $500 or more. If it's for Christmas, order early in December, or collect from the showroom on a weekday. Not sure about timing? Call James on <a href="tel:0211466990">021 146 6990</a>.</p>
+  <h3>How do gift vouchers work?</h3>
+  <p>Pay online and the voucher code is emailed to you straight away, so there's nothing to ship and no Christmas cut-off. Forward the email or print it for a card. The code works at checkout or in the showroom for 3 years, and if they spend less than the voucher, the change comes back as a new voucher.</p>
   <h3>Can I pay with Afterpay?</h3>
   <p>Yes, Afterpay is available at checkout.</p>
   <h3>Will it look exactly like the photo?</h3>
@@ -271,6 +361,39 @@
     } catch (_) {}
   }).catch(fail);
 })();
+</script>
+<script>
+document.getElementById('corporate-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var f = e.target, msg = document.getElementById('cf-msg'), btn = document.getElementById('cf-submit');
+  var v = function (n) { return (f.elements[n].value || '').trim(); };
+  var esc = function (t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  msg.hidden = false;
+  if (!v('name') || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) {
+    msg.style.color = '#7a3020'; msg.textContent = 'Please add your name and a valid email.'; return;
+  }
+  btn.disabled = true; btn.textContent = 'Sending…';
+  var notes = [
+    '<strong>CORPORATE GIFT QUOTE</strong>',
+    'Company: ' + esc(v('company') || '—'),
+    'Phone: ' + esc(v('phone') || '—'),
+    'How many: ' + esc(v('quantity') || '—'),
+    'Needed by: ' + esc(v('date') || '—'),
+    v('details') ? 'Details: ' + esc(v('details')) : ''
+  ].filter(Boolean).join('<br>');
+  try {
+    var r = await fetch('/api/enquire', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: v('name'), email: v('email'), piece: 'Corporate gifts', notes: notes }) });
+    if (!r.ok) throw 0;
+    f.reset();
+    msg.style.color = '#5a8a5a'; msg.textContent = 'Thanks! James will be in touch within one business day with options and pricing.';
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { event_category: 'corporate_gifts' });
+    if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+  } catch (_) {
+    msg.style.color = '#7a3020'; msg.textContent = 'Something went wrong. Please email james@primepiece.co.nz or call 021 146 6990.';
+  }
+  btn.disabled = false; btn.textContent = 'Get a Quote →';
+});
 </script>
 <script src="site-nav.js" defer></script>
 </body>

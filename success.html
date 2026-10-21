@@ -196,6 +196,14 @@
       <a href="index.html" class="btn btn-outline">Back to Home</a>
     </div>
 
+    <script>
+      // Gift-voucher-only orders: nothing to deliver, the codes are emailed by the webhook.
+      if (new URLSearchParams(location.search).get('vouchers') === '1') {
+        document.querySelector('.success-p').textContent = 'Payment confirmed. Your gift voucher is on its way to your inbox now, ready to forward or print. If it hasn\'t arrived in 10 minutes, check your spam folder or call James on 021 146 6990.';
+        document.querySelectorAll('.success-details-val')[0].textContent = 'Voucher emailed to you now';
+        document.querySelectorAll('.success-details-val')[1].textContent = 'By email — nothing to ship';
+      }
+    </script>
     <p class="success-note">A receipt has been sent to your email. Questions? Call <a href="tel:0211466990">021 146 6990</a> or email <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a></p>
 
   </div>
