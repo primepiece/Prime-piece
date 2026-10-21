@@ -1,0 +1,6 @@
+src.mp4
+fonts/
+build/out/
+build/card_*.png
+build/card_*.npz
+__pycache__/
