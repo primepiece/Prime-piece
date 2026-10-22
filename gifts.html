@@ -114,6 +114,14 @@
   .release-grid .board-card.is-sold .board-badge { background: #555; }
   .release-grid .enquire-btn[disabled] { opacity: 0.45; cursor: default; }
   .release-grid .release-set .board-img-wrap { background: #2C2A26; }
+  .voucher-banner { display: grid; grid-template-columns: 340px 1fr; gap: 36px; align-items: center; background: var(--cream-soft); border: 1px solid var(--line); padding: 28px; text-decoration: none; color: inherit; transition: border-color 0.2s; }
+  .voucher-banner:hover { border-color: var(--sage); }
+  .voucher-banner img { width: 100%; display: block; box-shadow: 0 16px 34px rgba(44,42,38,0.18); transform: rotate(-3deg); }
+  .voucher-banner strong { display: block; font-family: var(--display); font-weight: 300; font-size: clamp(26px, 3vw, 36px); line-height: 1.15; margin-bottom: 10px; }
+  .voucher-banner strong em { color: var(--sage); }
+  .voucher-banner-sub { display: block; font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; }
+  .voucher-banner-link { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--sage-deep); font-weight: 500; }
+  @media (max-width: 768px) { .voucher-banner { grid-template-columns: 1fr; gap: 22px; padding: 22px 18px; } }
   .gift-section-foot { font-size: 13px; color: var(--ink-soft); margin-top: 18px; max-width: 640px; }
   .voucher-card { cursor: default; }
   .corporate { padding-top: 80px; }
@@ -191,6 +199,7 @@
         <li><a href="plinths.html">Plinths</a></li>
         <li><a href="boards.html">Boards</a></li>
         <li><a href="basins.html">Basins</a></li>
+        <li><a href="gift-vouchers.html">Gift Vouchers</a></li>
       </ul>
     </li>
     <li><a href="custom.html">Custom</a></li>
@@ -208,7 +217,7 @@
   <a href="gallery.html">Shop</a>
   <div class="mm-group">
     <span class="mm-label">Collections</span>
-    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a></div>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a><a href="gift-vouchers.html">Gift Vouchers</a></div>
   </div>
   <a href="custom.html">Custom</a>
   <a href="/#story">About</a>
@@ -221,7 +230,7 @@
 <section class="gift-hero">
   <div class="eyebrow">Christmas Gifts</div>
   <h1>Stone gifts,<br><em>under $200.</em></h1>
-  <p class="gift-sub">Marble and onyx serving boards from $99, entertaining platters at $189, and gift vouchers emailed instantly. Every board is cut from natural stone in our Auckland workshop, so no two are the same.</p>
+  <p class="gift-sub">Marble and onyx serving boards from $99, entertaining platters at $189, and <a href="gift-vouchers.html" style="color:var(--sage-deep);">gift vouchers</a> emailed instantly. Every board is cut from natural stone in our Auckland workshop, so no two are the same.</p>
   <p class="gift-deadline">Order by 15 December for Christmas delivery.</p>
 </section>
 
@@ -276,52 +285,15 @@
 </section>
 
 <section class="gift-section" id="vouchers">
-  <div class="gift-section-head">
-    <h2>Gift vouchers, <em>emailed instantly</em></h2>
-    <span class="gift-section-note">Works after the Christmas cut-off · valid 3 years</span>
-  </div>
-  <div class="boards-grid">
-    <div class="board-card voucher-card">
-      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-100.jpg" alt="Prime Piece $100 gift voucher" loading="lazy"></div>
-      <div class="board-info">
-        <div class="board-name">$100 Gift Voucher</div>
-        <div class="board-stone">Emailed instantly</div>
-        <div class="board-dims">A serving board, or most of a platter.</div>
-        <div class="board-price">NZD $100</div>
-        <div class="board-foot">
-          <span class="board-type">Gift Voucher</span>
-          <button class="enquire-btn pp-add-btn" data-id="voucher-100" onclick="Cart.add({id:'voucher-100',name:'Prime Piece Gift Voucher — $100',type:'Gift Voucher',image:'gift-voucher-100.jpg',price:100})">Add to Cart →</button>
-        </div>
-      </div>
-    </div>
-    <div class="board-card voucher-card">
-      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-200.jpg" alt="Prime Piece $200 gift voucher" loading="lazy"></div>
-      <div class="board-info">
-        <div class="board-name">$200 Gift Voucher</div>
-        <div class="board-stone">Emailed instantly</div>
-        <div class="board-dims">Covers any platter, or two serving boards with change.</div>
-        <div class="board-price">NZD $200</div>
-        <div class="board-foot">
-          <span class="board-type">Gift Voucher</span>
-          <button class="enquire-btn pp-add-btn" data-id="voucher-200" onclick="Cart.add({id:'voucher-200',name:'Prime Piece Gift Voucher — $200',type:'Gift Voucher',image:'gift-voucher-200.jpg',price:200})">Add to Cart →</button>
-        </div>
-      </div>
-    </div>
-    <div class="board-card voucher-card">
-      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-500.jpg" alt="Prime Piece $500 gift voucher" loading="lazy"></div>
-      <div class="board-info">
-        <div class="board-name">$500 Gift Voucher</div>
-        <div class="board-stone">Emailed instantly</div>
-        <div class="board-dims">A marble side table, or a big start on a vessel basin.</div>
-        <div class="board-price">NZD $500</div>
-        <div class="board-foot">
-          <span class="board-type">Gift Voucher</span>
-          <button class="enquire-btn pp-add-btn" data-id="voucher-500" onclick="Cart.add({id:'voucher-500',name:'Prime Piece Gift Voucher — $500',type:'Gift Voucher',image:'gift-voucher-500.jpg',price:500})">Add to Cart →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <p class="gift-section-foot">Can't choose? Let them pick their own stone. The voucher code arrives by email the moment you pay, ready to forward or print. Use it online or at the showroom, and any change comes back as a new voucher.</p>
+  <a class="voucher-banner" href="gift-vouchers.html">
+    <img src="voucher-card-200.jpg" alt="Prime Piece gift voucher" loading="lazy">
+    <span>
+      <span class="eyebrow">Gift Vouchers</span>
+      <strong>Can't choose? <em>Let them pick the stone.</em></strong>
+      <span class="voucher-banner-sub">$100, $200 or $500, emailed instantly and spendable on anything in the collection. No Christmas cut-off.</span>
+      <span class="voucher-banner-link">Shop Gift Vouchers →</span>
+    </span>
+  </a>
 </section>
 
 <section class="gift-section corporate" id="corporate">
@@ -370,7 +342,7 @@
   <h3>Will it arrive before Christmas?</h3>
   <p>Order by <strong>15 December</strong> for delivery before Christmas. Boards ship anywhere in New Zealand for $49, or free on orders of $500 or more. Missed the date? Collect from the showroom on a weekday. Questions? Call James on <a href="tel:0211466990">021 146 6990</a>.</p>
   <h3>How do gift vouchers work?</h3>
-  <p>Pay online and the voucher code is emailed to you straight away, so there's nothing to ship and no Christmas cut-off. Forward the email or print it for a card. The code works at checkout or in the showroom for 3 years, and if they spend less than the voucher, the change comes back as a new voucher.</p>
+  <p>Pay online and the voucher code is emailed to you straight away, so there's nothing to ship and no Christmas cut-off. Forward the email or print it for a card. The code works at checkout or in the showroom for 3 years, and if they spend less than the voucher, the change comes back as a new voucher. <a href="gift-vouchers.html">See gift vouchers →</a></p>
   <h3>Can I pay with Afterpay?</h3>
   <p>Yes, Afterpay is available at checkout.</p>
   <h3>Will it look exactly like the photo?</h3>

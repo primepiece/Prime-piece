@@ -304,6 +304,24 @@
   .founder-detail-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 5px; }
   .founder-detail-val { font-family: var(--display); font-size: 17px; color: var(--ink); font-weight: 300; letter-spacing: -0.01em; }
 
+  .voucher-section { background: var(--cream-soft); padding: 104px 80px; overflow: hidden; }
+  .voucher-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  .voucher-section h2 em { color: var(--sage); }
+  .voucher-desc { font-size: 15px; line-height: 1.75; color: var(--ink-soft); max-width: 460px; margin: 22px 0 22px; }
+  .voucher-points { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 32px; }
+  .voucher-points span { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); font-weight: 500; }
+  .voucher-fan { position: relative; display: block; height: 400px; }
+  .voucher-fan img { position: absolute; width: 64%; box-shadow: 0 26px 54px rgba(44,42,38,0.22); border-radius: 2px; transition: transform 0.5s ease; }
+  .voucher-fan img:nth-child(1) { left: 0; top: 60px; transform: rotate(-8deg); }
+  .voucher-fan img:nth-child(2) { left: 18%; top: 20px; transform: rotate(-1deg); z-index: 1; }
+  .voucher-fan img:nth-child(3) { left: 36%; top: 80px; transform: rotate(7deg); z-index: 2; }
+  .voucher-fan:hover img:nth-child(1) { transform: rotate(-11deg) translateX(-10px); }
+  .voucher-fan:hover img:nth-child(3) { transform: rotate(10deg) translateX(10px); }
+  @media (max-width: 900px) {
+    .voucher-section { padding: 72px 24px; }
+    .voucher-inner { grid-template-columns: 1fr; gap: 24px; }
+    .voucher-fan { height: 250px; }
+  }
   .trade-banner { background: var(--ink); padding: 96px 80px; }
   .trade-banner-inner { max-width: 1320px; margin: 0 auto; display: flex; justify-content: flex-start; align-items: center; gap: 100px; flex-wrap: wrap; }
   .trade-banner-copy { max-width: 560px; }
@@ -617,6 +635,7 @@
         <li><a href="plinths.html">Plinths</a></li>
         <li><a href="boards.html">Boards</a></li>
         <li><a href="basins.html">Basins</a></li>
+        <li><a href="gift-vouchers.html">Gift Vouchers</a></li>
       </ul>
     </li>
     <li><a href="custom.html">Custom</a></li>
@@ -634,7 +653,7 @@
   <a href="gallery.html">Shop</a>
   <div class="mm-group">
     <span class="mm-label">Collections</span>
-    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a></div>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a><a href="gift-vouchers.html">Gift Vouchers</a></div>
   </div>
   <a href="custom.html">Custom</a>
   <a href="#story">About</a>
@@ -841,6 +860,23 @@
 })();
 </script>
 
+<section class="voucher-section" id="gift-vouchers">
+  <div class="voucher-inner">
+    <div class="voucher-copy reveal">
+      <span class="section-label">Gift Vouchers</span>
+      <h2>Can't choose?<br><em>Let them pick the stone.</em></h2>
+      <p class="voucher-desc">Prime Piece gift vouchers for $100, $200 or $500, emailed the moment you pay. Spend them on anything in the collection, online or in the showroom, for up to 3 years.</p>
+      <div class="voucher-points"><span>Emailed instantly</span><span>No Christmas cut-off</span><span>Spend on anything</span></div>
+      <a href="gift-vouchers.html" class="btn btn-primary">Shop Gift Vouchers <span class="btn-arrow">→</span></a>
+    </div>
+    <a href="gift-vouchers.html" class="voucher-fan reveal" aria-label="Shop gift vouchers">
+      <img src="voucher-card-100.jpg" alt="Prime Piece $100 gift voucher, White Haven marble" loading="lazy">
+      <img src="voucher-card-200.jpg" alt="Prime Piece $200 gift voucher, Teal Tide marble" loading="lazy">
+      <img src="voucher-card-500.jpg" alt="Prime Piece $500 gift voucher, Emerald Vein marble" loading="lazy">
+    </a>
+  </div>
+</section>
+
 <section class="trade-banner" id="trade">
   <div class="trade-banner-inner">
     <div class="trade-banner-copy reveal">
@@ -932,7 +968,7 @@
       <div class="footer-brand-sub">one of one</div>
       <p class="footer-brand-desc">Custom stone furniture and handcrafted stone pieces made in Auckland, New Zealand. Marble tables, stone plinths, vessel basins and bespoke commissions — shipped throughout New Zealand.</p>
     </div>
-    <div class="footer-col"><h4>Shop</h4><a href="gallery.html">Full Collection</a><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="basins.html">Stone Basins</a><a href="boards.html">Boards</a><a href="gifts.html">Gifts Under $200</a><a href="custom.html">Custom Pieces</a><a href="made-to-order.html">Made to Order Basins</a></div>
+    <div class="footer-col"><h4>Shop</h4><a href="gallery.html">Full Collection</a><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="basins.html">Stone Basins</a><a href="boards.html">Boards</a><a href="gifts.html">Gifts Under $200</a><a href="gift-vouchers.html">Gift Vouchers</a><a href="custom.html">Custom Pieces</a><a href="made-to-order.html">Made to Order Basins</a></div>
     <div class="footer-col"><h4>Brand</h4><a href="#story">About</a><a href="#collection">Collection</a><a href="trade.html">Trade & Designers</a><a href="https://www.instagram.com/prime.piece" target="_blank" rel="noopener">Instagram</a><a href="trust.html">Why Prime Piece</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a><a href="tel:0211466990">021 146 6990</a><a href="https://maps.google.com/?q=209B+Archers+Road,+Wairau+Valley,+Auckland" target="_blank" rel="noopener">Wairau Valley, Auckland</a><a href="faq.html">FAQ</a><a href="privacy.html">Privacy Policy</a><a href="returns.html">Returns</a></div>
     <div class="footer-col"><h4>Journal</h4><a href="blog-marble-coffee-table-nz.html">Styling a Marble Table NZ</a><a href="blog-marble-side-table-nz.html">Marble Side Tables NZ</a><a href="blog-vessel-basin-nz.html">Choosing a Vessel Basin NZ</a><a href="blog-stone-plinth-nz.html">Stone Plinths NZ Guide</a><a href="blog-marble-serving-board-nz.html">Marble Serving Boards NZ</a></div>

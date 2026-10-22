@@ -20,8 +20,8 @@
     { "source": "/drop", "destination": "/basins.html", "permanent": true },
     { "source": "/drop.html", "destination": "/basins.html", "permanent": true },
     { "source": "/gifts", "destination": "/gifts.html", "permanent": false },
-    { "source": "/vouchers", "destination": "/gifts.html#vouchers", "permanent": false },
-    { "source": "/gift-vouchers", "destination": "/gifts.html#vouchers", "permanent": false },
+    { "source": "/vouchers", "destination": "/gift-vouchers.html", "permanent": false },
+    { "source": "/gift-vouchers", "destination": "/gift-vouchers.html", "permanent": false },
     { "source": "/voucher-100", "destination": "/checkout.html?cart=%5B%7B%22id%22%3A%22voucher-100%22%2C%22name%22%3A%22Prime%20Piece%20Gift%20Voucher%20%E2%80%94%20%24100%22%2C%22type%22%3A%22Gift%20Voucher%22%2C%22image%22%3A%22gift-voucher-100.jpg%22%2C%22price%22%3A100%7D%5D", "permanent": false },
     { "source": "/voucher-200", "destination": "/checkout.html?cart=%5B%7B%22id%22%3A%22voucher-200%22%2C%22name%22%3A%22Prime%20Piece%20Gift%20Voucher%20%E2%80%94%20%24200%22%2C%22type%22%3A%22Gift%20Voucher%22%2C%22image%22%3A%22gift-voucher-200.jpg%22%2C%22price%22%3A200%7D%5D", "permanent": false },
     { "source": "/voucher-500", "destination": "/checkout.html?cart=%5B%7B%22id%22%3A%22voucher-500%22%2C%22name%22%3A%22Prime%20Piece%20Gift%20Voucher%20%E2%80%94%20%24500%22%2C%22type%22%3A%22Gift%20Voucher%22%2C%22image%22%3A%22gift-voucher-500.jpg%22%2C%22price%22%3A500%7D%5D", "permanent": false }
