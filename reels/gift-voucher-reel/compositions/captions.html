@@ -1,0 +1,62 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter Tight";
+      font-weight: 500;
+      src: url("assets/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    /* Caption band: bottom of the Instagram-safe area, clear of the face (upper half) and the UI below 1330px. */
+    .c-group {
+      position: absolute;
+      left: 0;
+      top: 1186px;
+      width: 1080px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+    .c-pill {
+      display: inline-block;
+      padding: 16px 34px 18px;
+      border-radius: 999px;
+      background: rgba(28, 26, 23, 0.74);
+      color: #f5f1ea;
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 500;
+      font-size: 54px;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <!-- Phrase timings are placeholders: set each group's data-start/data-duration to the real recording. -->
+    <div id="c-1" class="clip c-group" data-start="0.2" data-duration="1.35" data-track-index="0"><span class="c-pill">She’d love Prime Piece…</span></div>
+    <div id="c-2" class="clip c-group" data-start="1.55" data-duration="1.4" data-track-index="0"><span class="c-pill">but what do I get her?</span></div>
+    <div id="c-3" class="clip c-group" data-start="3.05" data-duration="1.1" data-track-index="0"><span class="c-pill">A marble board?</span></div>
+    <div id="c-4" class="clip c-group" data-start="4.25" data-duration="1.1" data-track-index="0"><span class="c-pill">That coffee table?</span></div>
+    <div id="c-5" class="clip c-group" data-start="5.45" data-duration="0.75" data-track-index="0"><span class="c-pill">Wait…</span></div>
+    <div id="c-6" class="clip c-group" data-start="6.2" data-duration="1.55" data-track-index="0"><span class="c-pill">which colour?</span></div>
+    <div id="c-7" class="clip c-group" data-start="7.9" data-duration="0.9" data-track-index="0"><span class="c-pill">Actually…</span></div>
+    <div id="c-8" class="clip c-group" data-start="8.8" data-duration="1.05" data-track-index="0"><span class="c-pill">let her choose.</span></div>
+  </div>
+  <script>
+    // Each pill eases in at its group's start and out just before its end; the clip window does the hard kill.
+    const tl = gsap.timeline({ paused: true });
+    document.querySelectorAll(".c-group").forEach((group) => {
+      const start = parseFloat(group.dataset.start);
+      const end = start + parseFloat(group.dataset.duration);
+      const pill = group.querySelector(".c-pill");
+      tl.fromTo(pill, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.16, ease: "power3.out" }, start);
+      tl.to(pill, { opacity: 0, duration: 0.1, ease: "power2.in" }, end - 0.12);
+    });
+    window.__timelines["captions"] = tl;
+  </script>
+</template>

@@ -1,0 +1,280 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-weight: 300;
+      font-style: normal;
+      src: url("assets/fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-weight: 400;
+      font-style: normal;
+      src: url("assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-weight: 400;
+      font-style: italic;
+      src: url("assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Inter Tight";
+      font-weight: 400;
+      src: url("assets/fonts/inter-tight-latin-400-normal.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Inter Tight";
+      font-weight: 500;
+      src: url("assets/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Inter Tight";
+      font-weight: 600;
+      src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2");
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      --cream: #f5f1ea;
+      --ink: #2c2a26;
+      --ink-soft: #554f45;
+      --sage: #7ba5a8;
+      --sage-deep: #5d8588;
+    }
+    .v-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--cream);
+    }
+    .v-rule {
+      position: absolute;
+      left: 500px;
+      top: 598px;
+      width: 80px;
+      height: 3px;
+      background: var(--sage);
+      transform-origin: 50% 50%;
+    }
+    /* Voucher artwork is shown as supplied (1400×840, 5:3), scaled only. Base slot is centred on (540, 600). */
+    .v-card {
+      position: absolute;
+      left: 90px;
+      top: 330px;
+      width: 900px;
+      height: 540px;
+      box-shadow:
+        0 40px 70px -30px rgba(44, 42, 38, 0.45),
+        0 10px 22px rgba(44, 42, 38, 0.12);
+      opacity: 0;
+    }
+    .v-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #v-card-100 { z-index: 1; }
+    #v-card-200 { z-index: 2; }
+    #v-card-500 { z-index: 3; }
+    .v-copy {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+    }
+    .v-text {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      text-align: center;
+      color: var(--ink);
+    }
+    .v-mask {
+      display: block;
+      overflow: hidden;
+      padding: 0 0 0.12em;
+    }
+    .v-line {
+      display: block;
+    }
+    .v-head {
+      top: 790px;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: 120px;
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+    }
+    .v-kicker {
+      top: 1104px;
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 500;
+      font-size: 30px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .v-prices {
+      top: 1160px;
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 400;
+      font-size: 46px;
+      letter-spacing: 0.01em;
+    }
+    .v-close {
+      top: 770px;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400;
+      font-size: 108px;
+      line-height: 1.02;
+    }
+    .v-close em {
+      font-style: italic;
+      color: var(--sage-deep);
+    }
+    .v-cta-row {
+      top: 1046px;
+      display: flex;
+      justify-content: center;
+    }
+    .v-cta {
+      display: inline-block;
+      padding: 22px 48px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .v-url {
+      top: 1170px;
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 500;
+      font-size: 38px;
+      letter-spacing: 0.01em;
+      color: var(--ink-soft);
+    }
+  </style>
+  <div
+    id="root"
+    data-composition-id="vouchers"
+    data-width="1080"
+    data-height="1920"
+    data-composition-variables='[
+      {"id":"headline1","type":"string","label":"Headline line 1","default":"Their taste."},
+      {"id":"headline2","type":"string","label":"Headline line 2","default":"Their choice."},
+      {"id":"kicker","type":"string","label":"Product line","default":"Prime Piece digital gift vouchers"},
+      {"id":"prices","type":"string","label":"Values","default":"$100 / $200 / $500 NZD"},
+      {"id":"close1","type":"string","label":"Close line 1","default":"Give something"},
+      {"id":"close2","type":"string","label":"Close line 2 (italic)","default":"one of one."},
+      {"id":"cta","type":"string","label":"Button","default":"Shop gift vouchers"},
+      {"id":"url","type":"string","label":"URL","default":"primepiece.co.nz/gifts.html"}
+    ]'
+  >
+    <div id="v-scene" class="clip" data-start="0" data-duration="8.1" data-track-index="0">
+      <div class="v-bg"></div>
+      <div id="v-rule" class="v-rule"></div>
+
+      <div id="v-card-100" class="v-card"><img src="assets/vouchers/voucher-100.webp" alt="Prime Piece $100 gift voucher" /></div>
+      <div id="v-card-200" class="v-card"><img src="assets/vouchers/voucher-200.webp" alt="Prime Piece $200 gift voucher" /></div>
+      <div id="v-card-500" class="v-card"><img src="assets/vouchers/voucher-500.webp" alt="Prime Piece $500 gift voucher" /></div>
+
+      <!-- Headline block: 12.6 – 15.25 in the film -->
+      <div id="v-copy-head" class="clip v-copy" data-start="2.6" data-duration="2.75" data-track-index="1">
+        <div id="v-head" class="v-text v-head">
+          <span class="v-mask"><span id="v-head-1" class="v-line" data-var-text="headline1">Their taste.</span></span>
+          <span class="v-mask"><span id="v-head-2" class="v-line" data-var-text="headline2">Their choice.</span></span>
+        </div>
+        <div id="v-kicker" class="v-text v-kicker" data-var-text="kicker">Prime Piece digital gift vouchers</div>
+        <div id="v-prices" class="v-text v-prices" data-var-text="prices">$100 / $200 / $500 NZD</div>
+      </div>
+
+      <!-- Close block: 15.2 – 18.0 in the film -->
+      <div id="v-copy-close" class="clip v-copy" data-start="5.3" data-duration="2.8" data-track-index="2">
+        <div id="v-close" class="v-text v-close">
+          <span class="v-mask"><span id="v-close-1" class="v-line" data-var-text="close1">Give something</span></span>
+          <span class="v-mask"><em id="v-close-2" class="v-line" data-var-text="close2">one of one.</em></span>
+        </div>
+        <div id="v-cta-row" class="v-text v-cta-row"><span id="v-cta" class="v-cta" data-var-text="cta">Shop gift vouchers</span></div>
+        <div id="v-url" class="v-text v-url" data-var-text="url">primepiece.co.nz/gifts.html</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Scene clock starts at 9.9 s in the film. Card landings sit on the 100 BPM grid (0.6 s): 10.2, 10.8, 11.4, fan 12.0.
+    const T = {
+      rule: 0.0,
+      card100: 0.3,
+      card200: 0.9,
+      card500: 1.5,
+      fan: 2.1,
+      head: 2.7,
+      kicker: 3.7,
+      prices: 3.95,
+      close: 5.1,
+      closeLine: 5.3,
+      cta: 5.65,
+      url: 5.85,
+      end: 8.1,
+    };
+    // Fan: $500 left (on top), $200 centre, $100 right. Each card's overlap covers only the marble strip of
+    // the card to its right, so every value and logo stays visible.
+    const FAN_SCALE = 0.4667; // 420 px wide
+    const FAN = {
+      "#v-card-500": { x: -262, y: -42, rotation: -6 },
+      "#v-card-200": { x: 0, y: -70, rotation: 0 },
+      "#v-card-100": { x: 262, y: -42, rotation: 6 },
+    };
+    const tl = gsap.timeline({ paused: true });
+
+    // Breath before the reveal: a single sage hairline, as on the voucher.
+    tl.fromTo("#v-rule", { scaleX: 0, opacity: 1 }, { scaleX: 1, opacity: 1, duration: 0.24, ease: "power2.out" }, T.rule);
+    tl.to("#v-rule", { opacity: 0, duration: 0.08 }, T.card100 - 0.04);
+
+    // Each card drops onto the stack on its beat.
+    const land = (sel, t, rot) => {
+      tl.fromTo(
+        sel,
+        { opacity: 0, scale: 1.16, y: -40, rotation: rot * 2 },
+        { opacity: 1, scale: 1, y: 0, rotation: rot, duration: 0.22, ease: "power3.out" },
+        t,
+      );
+    };
+    land("#v-card-100", T.card100, -2);
+    land("#v-card-200", T.card200, 2);
+    land("#v-card-500", T.card500, 0);
+    // The cards underneath give a little as each one lands.
+    tl.to("#v-card-100", { scale: 0.975, duration: 0.18, ease: "power2.out" }, T.card200 + 0.04);
+    tl.to("#v-card-100", { scale: 0.955, duration: 0.18, ease: "power2.out" }, T.card500 + 0.04);
+    tl.to("#v-card-200", { scale: 0.975, duration: 0.18, ease: "power2.out" }, T.card500 + 0.04);
+
+    // Spread into the fan.
+    Object.entries(FAN).forEach(([sel, p]) => {
+      tl.to(sel, { x: p.x, y: p.y, rotation: p.rotation, scale: FAN_SCALE, duration: 0.6, ease: "power3.inOut" }, T.fan);
+    });
+
+    // Headline and product line.
+    tl.fromTo("#v-head-1", { yPercent: 105 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, T.head);
+    tl.fromTo("#v-head-2", { yPercent: 105 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, T.head + 0.22);
+    tl.fromTo("#v-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.kicker);
+    tl.fromTo("#v-prices", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.prices);
+
+    // Close: headline steps aside, fan lifts, call to action arrives.
+    tl.to(["#v-head", "#v-kicker", "#v-prices"], { opacity: 0, y: -18, duration: 0.25, ease: "power2.in" }, T.close);
+    Object.entries(FAN).forEach(([sel, p]) => {
+      tl.to(sel, { y: p.y - 50, scale: FAN_SCALE * 0.96, duration: 0.6, ease: "power3.inOut" }, T.close);
+    });
+    tl.fromTo("#v-close-1", { yPercent: 105 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, T.closeLine);
+    tl.fromTo("#v-close-2", { yPercent: 105 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, T.closeLine + 0.2);
+    tl.fromTo("#v-cta", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, T.cta);
+    tl.fromTo("#v-url", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.url);
+    // Gentle drift on the hold so the end card never freezes.
+    Object.entries(FAN).forEach(([sel, p]) => {
+      tl.to(sel, { y: p.y - 62, duration: T.end - (T.close + 0.6), ease: "none" }, T.close + 0.6);
+    });
+    window.__timelines["vouchers"] = tl;
+  </script>
+</template>
