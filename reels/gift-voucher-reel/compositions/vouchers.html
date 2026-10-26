@@ -121,6 +121,19 @@
       font-size: 46px;
       letter-spacing: 0.01em;
     }
+    .v-delivery {
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 500;
+      font-size: 30px;
+      letter-spacing: 0.02em;
+      color: var(--sage-deep);
+    }
+    .v-delivery-head {
+      top: 1232px;
+    }
+    .v-delivery-close {
+      top: 1234px;
+    }
     .v-close {
       top: 770px;
       font-family: "Cormorant Garamond", serif;
@@ -171,7 +184,8 @@
       {"id":"close1","type":"string","label":"Close line 1","default":"Give something"},
       {"id":"close2","type":"string","label":"Close line 2 (italic)","default":"one of one."},
       {"id":"cta","type":"string","label":"Button","default":"Shop gift vouchers"},
-      {"id":"url","type":"string","label":"URL","default":"primepiece.co.nz/gifts.html"}
+      {"id":"url","type":"string","label":"URL","default":"primepiece.co.nz/gifts.html"},
+      {"id":"delivery","type":"string","label":"Delivery line","default":"Delivered instantly by email"}
     ]'
   >
     <div id="v-scene" class="clip" data-start="0" data-duration="8.1" data-track-index="0">
@@ -182,7 +196,7 @@
       <div id="v-card-200" class="v-card"><img src="assets/vouchers/voucher-200.webp" alt="Prime Piece $200 gift voucher" /></div>
       <div id="v-card-500" class="v-card"><img src="assets/vouchers/voucher-500.webp" alt="Prime Piece $500 gift voucher" /></div>
 
-      <!-- Headline block: 12.6 – 15.25 in the film -->
+      <!-- Headline block: 8.45 – 11.2 in the film -->
       <div id="v-copy-head" class="clip v-copy" data-start="2.6" data-duration="2.75" data-track-index="1">
         <div id="v-head" class="v-text v-head">
           <span class="v-mask"><span id="v-head-1" class="v-line" data-var-text="headline1">Their taste.</span></span>
@@ -190,9 +204,10 @@
         </div>
         <div id="v-kicker" class="v-text v-kicker" data-var-text="kicker">Prime Piece digital gift vouchers</div>
         <div id="v-prices" class="v-text v-prices" data-var-text="prices">$100 / $200 / $500 NZD</div>
+        <div id="v-delivery-1" class="v-text v-delivery v-delivery-head" data-var-text="delivery">Delivered instantly by email</div>
       </div>
 
-      <!-- Close block: 15.2 – 18.0 in the film -->
+      <!-- Close block: 11.15 – 13.95 in the film -->
       <div id="v-copy-close" class="clip v-copy" data-start="5.3" data-duration="2.8" data-track-index="2">
         <div id="v-close" class="v-text v-close">
           <span class="v-mask"><span id="v-close-1" class="v-line" data-var-text="close1">Give something</span></span>
@@ -200,11 +215,12 @@
         </div>
         <div id="v-cta-row" class="v-text v-cta-row"><span id="v-cta" class="v-cta" data-var-text="cta">Shop gift vouchers</span></div>
         <div id="v-url" class="v-text v-url" data-var-text="url">primepiece.co.nz/gifts.html</div>
+        <div id="v-delivery-2" class="v-text v-delivery v-delivery-close" data-var-text="delivery">Delivered instantly by email</div>
       </div>
     </div>
   </div>
   <script>
-    // Scene clock starts at 9.9 s in the film. Card landings sit on the 100 BPM grid (0.6 s): 10.2, 10.8, 11.4, fan 12.0.
+    // Scene clock starts at 5.85 s in the film. Card landings sit on the 100 BPM grid (0.6 s): 6.15, 6.75, 7.35, fan 7.95.
     const T = {
       rule: 0.0,
       card100: 0.3,
@@ -212,12 +228,14 @@
       card500: 1.5,
       fan: 2.1,
       head: 2.7,
-      kicker: 3.7,
-      prices: 3.95,
+      kicker: 3.4,
+      prices: 3.6,
+      delivery: 3.75,
       close: 5.1,
       closeLine: 5.3,
       cta: 5.65,
       url: 5.85,
+      delivery2: 6.0,
       end: 8.1,
     };
     // Fan: $500 left (on top), $200 centre, $100 right. Each card's overlap covers only the marble strip of
@@ -261,9 +279,10 @@
     tl.fromTo("#v-head-2", { yPercent: 105 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, T.head + 0.22);
     tl.fromTo("#v-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.kicker);
     tl.fromTo("#v-prices", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.prices);
+    tl.fromTo("#v-delivery-1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.delivery);
 
     // Close: headline steps aside, fan lifts, call to action arrives.
-    tl.to(["#v-head", "#v-kicker", "#v-prices"], { opacity: 0, y: -18, duration: 0.25, ease: "power2.in" }, T.close);
+    tl.to(["#v-head", "#v-kicker", "#v-prices", "#v-delivery-1"], { opacity: 0, y: -18, duration: 0.25, ease: "power2.in" }, T.close);
     Object.entries(FAN).forEach(([sel, p]) => {
       tl.to(sel, { y: p.y - 50, scale: FAN_SCALE * 0.96, duration: 0.6, ease: "power3.inOut" }, T.close);
     });
@@ -271,6 +290,7 @@
     tl.fromTo("#v-close-2", { yPercent: 105 }, { yPercent: 0, duration: 0.55, ease: "power3.out" }, T.closeLine + 0.2);
     tl.fromTo("#v-cta", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, T.cta);
     tl.fromTo("#v-url", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.url);
+    tl.fromTo("#v-delivery-2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, T.delivery2);
     // Gentle drift on the hold so the end card never freezes.
     Object.entries(FAN).forEach(([sel, p]) => {
       tl.to(sel, { y: p.y - 62, duration: T.end - (T.close + 0.6), ease: "none" }, T.close + 0.6);
