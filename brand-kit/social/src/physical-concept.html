@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:"Cormorant Garamond";font-weight:300;src:url("../../02-Fonts/CormorantGaramond-Light.ttf")}
+@font-face{font-family:"Inter Tight";font-weight:400;src:url("../../02-Fonts/InterTight-Regular.ttf")}
+@font-face{font-family:"Inter Tight";font-weight:500;src:url("../../02-Fonts/InterTight-Medium.ttf")}
+@font-face{font-family:"Dancing Script";font-weight:500;src:url("../../02-Fonts/DancingScript-Medium.ttf")}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1600px;height:1200px;overflow:hidden}
+.table{position:relative;width:1600px;height:1200px;background:radial-gradient(ellipse at 40% 35%,#EFE9DF 0%,#E0D9CA 70%,#D6CEBD 100%);font-family:"Inter Tight",sans-serif;color:#2C2A26}
+.sh{box-shadow:0 40px 70px -30px rgba(44,42,38,.45),0 10px 22px rgba(44,42,38,.12)}
+/* envelope C6-ish, ivory with sage liner peeking */
+.env{position:absolute;left:120px;top:170px;width:700px;height:470px;background:#F5F1EA;transform:rotate(-6deg)}
+.env .liner{position:absolute;left:0;top:0;width:700px;height:120px;background:#5D8588;clip-path:polygon(0 0,100% 0,50% 100%)}
+.env .flap{position:absolute;left:0;top:0;width:700px;height:120px;background:#EBE5DA;clip-path:polygon(0 0,100% 0,50% 92%,0 0)}
+.env .band{position:absolute;left:0;top:300px;width:700px;height:86px;background:#2C2A26;display:flex;align-items:center;justify-content:center;gap:18px}
+.env .band .a{font-family:"Cormorant Garamond";font-weight:300;font-size:40px;color:#F5F1EA}
+.env .band .b{font-family:"Dancing Script";font-weight:500;font-size:44px;color:#A8C3C5}
+.env .to{position:absolute;left:60px;top:170px;font-size:18px;letter-spacing:.24em;text-transform:uppercase;color:#8A8275}
+.env .line{position:absolute;left:150px;top:190px;width:420px;height:1px;background:#CFC6B6}
+/* voucher card front: the exact artwork */
+.card{position:absolute;left:640px;top:330px;width:700px;height:420px;transform:rotate(4deg)}
+.card img{display:block;width:100%;height:100%}
+/* card back */
+.back{position:absolute;left:820px;top:760px;width:600px;height:360px;background:#F5F1EA;transform:rotate(-3deg);padding:40px 46px}
+.back .logo{width:190px}
+.back h3{font-family:"Cormorant Garamond";font-weight:300;font-size:40px;margin-top:22px;line-height:1.05}
+.back h3 em{font-family:"Dancing Script";font-style:normal;font-weight:500;color:#5D8588;font-size:38px}
+.back p{font-size:16px;line-height:1.55;color:#554F45;margin-top:14px;max-width:470px}
+.back .code{position:absolute;right:46px;bottom:40px;border:1.5px dashed #7BA5A8;padding:10px 18px;font-size:20px;letter-spacing:.18em}
+.label{position:absolute;left:120px;bottom:70px;font-size:20px;letter-spacing:.22em;text-transform:uppercase;color:#554F45}
+.label b{font-weight:500;color:#5D8588}
+</style></head><body><div class="table">
+<div class="env sh"><div class="liner"></div><div class="flap"></div><div class="to">For</div><div class="line"></div>
+  <div class="band"><span class="a">A gift,</span><span class="b">one of one</span></div></div>
+<div class="card sh"><img src="../assets/voucher-200.webp"></div>
+<div class="back sh"><img class="logo" src="../assets/prime-piece-logo-teal.png">
+  <h3>Choose your <em>one of one.</em></h3>
+  <p>Spend it on any handcrafted stone piece, online at primepiece.co.nz or at our Wairau Valley showroom. Valid for 3 years.</p>
+</div>
+<div class="label"><b>Concept mockup</b> · Prime Piece physical gift voucher</div>
+</div></body></html>
