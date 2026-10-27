@@ -1,0 +1,86 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter Tight";
+      font-weight: 500;
+      src: url("assets/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-weight: 400;
+      font-style: normal;
+      src: url("assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    /* Caption band: bottom of the Instagram-safe area, clear of the face (upper half) and the UI below 1330px. */
+    .c-group {
+      position: absolute;
+      left: 0;
+      top: 1186px;
+      width: 1080px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+    .c-pill {
+      display: inline-block;
+      padding: 16px 34px 18px;
+      border-radius: 999px;
+      background: rgba(28, 26, 23, 0.74);
+      color: #f5f1ea;
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 500;
+      font-size: 54px;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    /* Hook line over the opening shot, just under Instagram's top bar. */
+    .c-hook {
+      top: 200px;
+      height: 170px;
+    }
+    .c-hook-text {
+      display: inline-block;
+      color: #f5f1ea;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400;
+      font-size: 68px;
+      line-height: 1.05;
+      text-align: center;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <!--
+      The Runway stand-in already has these lines burned in, so the on-camera groups are hidden for now.
+      When the clean clips replace it, remove data-hidden from c-hook, c-1 and c-5.
+    -->
+    <div id="c-hook" class="clip c-group c-hook" data-start="0.1" data-duration="1.4" data-track-index="0" data-hidden>
+      <span class="c-hook-text">For the one with<br />very specific taste.</span>
+    </div>
+    <div id="c-1" class="clip c-group" data-start="0.15" data-duration="1.35" data-track-index="0" data-hidden><span class="c-pill">She’s impossible to buy for.</span></div>
+    <div id="c-2" class="clip c-group" data-start="1.55" data-duration="0.72" data-track-index="0"><span class="c-pill">The marble board?</span></div>
+    <div id="c-3" class="clip c-group" data-start="2.32" data-duration="0.9" data-track-index="0"><span class="c-pill">The table?</span></div>
+    <div id="c-4" class="clip c-group" data-start="3.35" data-duration="1.22" data-track-index="0"><span class="c-pill">Which colour?</span></div>
+    <div id="c-5" class="clip c-group" data-start="4.68" data-duration="1.1" data-track-index="0" data-hidden><span class="c-pill">I’ll let her choose.</span></div>
+  </div>
+  <script>
+    // Each line eases in at its group's start and out just before its end; the clip window does the hard kill.
+    const tl = gsap.timeline({ paused: true });
+    document.querySelectorAll(".c-group").forEach((group) => {
+      const start = parseFloat(group.dataset.start);
+      const end = start + parseFloat(group.dataset.duration);
+      const line = group.firstElementChild;
+      tl.fromTo(line, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.16, ease: "power3.out" }, start);
+      tl.to(line, { opacity: 0, duration: 0.1, ease: "power2.in" }, end - 0.12);
+    });
+    window.__timelines["captions"] = tl;
+  </script>
+</template>
