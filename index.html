@@ -1247,8 +1247,30 @@ async function footerSubscribe(event, form, source) {
   function read() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (_) { return {}; } }
   function write(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (_) {} }
   function sessionSeen() { try { return sessionStorage.getItem(KEY) === 'seen'; } catch (_) { return false; } }
+
+  // Headline A/B test. Each device is put in A or B once and stays there. Views go to GA4
+  // as welcome_view and sign-ups as sign_up, both with a welcome_variant parameter; the
+  // variant is also saved on the Klaviyo profile (welcome_variant) by /api/subscribe.
+  // Preview a version with ?welcome=a or ?welcome=b — it opens straight away and isn't counted.
+  var HEADLINES = { A: 'Your Prime Piece,<br>10% off.', B: '10% off your<br>first piece of stone.' };
+  var AB_KEY = 'pp_welcome_ab';
+  var forced = (new URLSearchParams(location.search).get('welcome') || '').toUpperCase();
+  var preview = !!HEADLINES[forced];
+  var variant = preview ? forced : (function () {
+    try { var v = localStorage.getItem(AB_KEY); if (HEADLINES[v]) return v; } catch (_) {}
+    var pick = Math.random() < 0.5 ? 'A' : 'B';
+    try { localStorage.setItem(AB_KEY, pick); } catch (_) {}
+    return pick;
+  })();
+  document.getElementById('welcome-title').innerHTML = HEADLINES[variant];
+  function track(name, params) {
+    if (preview || typeof gtag === 'undefined') return;
+    params.welcome_variant = variant;
+    gtag('event', name, params);
+  }
+
   var saved = read();
-  if (saved.state === 'subscribed' || (saved.until && saved.until > Date.now()) || sessionSeen()) return;
+  if (!preview && (saved.state === 'subscribed' || (saved.until && saved.until > Date.now()) || sessionSeen())) return;
 
   var lastFocus = null;
   function busy() {
@@ -1264,6 +1286,7 @@ async function footerSubscribe(event, form, source) {
     el.hidden = false;
     requestAnimationFrame(function () { el.classList.add('is-open'); });
     document.addEventListener('keydown', onKey);
+    track('welcome_view', {});
   }
   function close() {
     if (read().state !== 'subscribed') write({ state: 'dismissed', until: Date.now() + DISMISS_DAYS * 864e5 });
@@ -1284,14 +1307,14 @@ async function footerSubscribe(event, form, source) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; err.hidden = false; return; }
     btn.disabled = true; btn.textContent = 'Sending…';
     try {
-      var res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'Homepage Welcome' }) });
+      var res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'Homepage Welcome', welcomeVariant: preview ? undefined : variant }) });
       var data = await res.json().catch(function () { return {}; });
       if (!res.ok || !data.success) throw new Error('subscribe failed');
       write({ state: 'subscribed' });
       document.getElementById('welcome-step-form').hidden = true;
       document.getElementById('welcome-step-done').hidden = false;
       if (typeof fbq !== 'undefined') fbq('track', 'Lead');
-      if (typeof gtag !== 'undefined') gtag('event', 'sign_up', { method: 'welcome', event_category: 'email_list' });
+      track('sign_up', { method: 'welcome', event_category: 'email_list' });
     } catch (_) {
       err.textContent = 'Something went wrong — please try again.'; err.hidden = false;
       btn.disabled = false; btn.innerHTML = 'Get My 10% Off <span class="btn-arrow">→</span>';
@@ -1307,6 +1330,7 @@ async function footerSubscribe(event, form, source) {
     window.removeEventListener('scroll', maybeOpen);
     open();
   }
+  if (preview) { shown = true; open(); return; }
   setTimeout(function () { ready = true; maybeOpen(); }, DELAY_MS);
   window.addEventListener('scroll', maybeOpen, { passive: true });
 })();

@@ -7,6 +7,9 @@ export default async function handler(req, res) {
 
   const { email, name, source = 'Website Popup' } = req.body;
   if (!email) return res.status(400).json({ error: 'Email required' });
+  // Homepage welcome popup A/B test — which headline this person signed up from.
+  const welcomeVariant = ['A', 'B'].includes(req.body.welcomeVariant) ? req.body.welcomeVariant : null;
+  const properties = welcomeVariant ? { source, welcome_variant: welcomeVariant } : { source };
 
   const klaviyoKey = process.env.KLAVIYO_API_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           data: {
             type: 'profile',
-            attributes: { email, first_name: name || '', properties: { source } },
+            attributes: { email, first_name: name || '', properties },
           },
         }),
       });
@@ -42,6 +45,20 @@ export default async function handler(req, res) {
       } else if (profileRes.status === 409) {
         const profileData = await profileRes.json();
         profileId = profileData.errors?.[0]?.meta?.duplicate_profile_id;
+        // Already in Klaviyo (e.g. from an abandoned checkout): the create above didn't
+        // save anything, so record which popup headline they signed up from.
+        if (profileId && welcomeVariant) {
+          const patchRes = await fetch(`https://a.klaviyo.com/api/profiles/${profileId}/`, {
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Klaviyo-API-Key ${klaviyoKey}`,
+              'Content-Type': 'application/json',
+              'revision': '2023-12-15',
+            },
+            body: JSON.stringify({ data: { type: 'profile', id: profileId, attributes: { properties: { welcome_variant: welcomeVariant } } } }),
+          });
+          if (!patchRes.ok) console.error('Klaviyo variant update error:', JSON.stringify(await patchRes.json().catch(() => ({}))));
+        }
       } else {
         console.error('Klaviyo profile error:', JSON.stringify(await profileRes.json().catch(() => ({}))));
       }
@@ -90,7 +107,7 @@ export default async function handler(req, res) {
               <table style="font-size:14px;line-height:2;color:#444;width:100%;">
                 <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
                 ${name ? `<tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Name</td><td>${name}</td></tr>` : ''}
-                <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Source</td><td>${source}</td></tr>
+                <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Source</td><td>${source}${welcomeVariant ? ` (headline ${welcomeVariant})` : ''}</td></tr>
                 <tr><td style="padding-right:16px;color:#7BA5A8;font-weight:600;white-space:nowrap;">Klaviyo</td><td>${klaviyoOk ? 'Added ✓' : 'Not added — check KLAVIYO_API_KEY / KLAVIYO_LIST_ID'}</td></tr>
               </table>
             </div>`,
