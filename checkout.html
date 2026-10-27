@@ -348,8 +348,8 @@
       <label class="gc-toggle" id="gc-toggle">
         <input type="checkbox" id="gc-on" onchange="toggleGiftCard(this.checked)">
         <span>
-          <span class="gc-toggle-title" id="gc-title">Add a printed card, +$25</span>
-          <span class="gc-toggle-desc">Your voucher still arrives by email straight away. We'll also write its code on a printed stone card, add your message by hand, and post it in an envelope, postage included.</span>
+          <span class="gc-toggle-title">Add a printed card</span>
+          <span class="gc-toggle-desc">Your voucher still arrives by email straight away. We'll also write its code on a printed stone card, add your message by hand, and seal it in an envelope. <span id="gc-price">$25</span> posted, or free to collect from the showroom.</span>
           <span class="gc-toggle-date" id="gc-date"></span>
         </span>
       </label>
@@ -357,13 +357,13 @@
         <div class="delivery-options">
           <label class="delivery-opt selected" id="gc-opt-post" onclick="selectCardMode('post', this)">
             <div>
-              <div class="delivery-opt-title">Post it</div>
+              <div class="delivery-opt-title">Post it · <span id="gc-post-price">$25</span></div>
               <div class="delivery-opt-desc">To them, or to you to hand over. NZ-wide, within 2 working days.</div>
             </div>
           </label>
           <label class="delivery-opt" id="gc-opt-pickup" onclick="selectCardMode('pickup', this)">
             <div>
-              <div class="delivery-opt-title">Collect it</div>
+              <div class="delivery-opt-title">Collect it · Free</div>
               <div class="delivery-opt-desc">From the showroom, 209B Archers Rd, Wairau Valley. We'll email when it's ready.</div>
             </div>
           </label>
@@ -534,7 +534,7 @@
   const voucherCount = cart.filter(isVoucherItem).length;
   let giftCardOn = false;
   let giftCardMode = 'post';
-  function giftCardFee() { return giftCardOn ? GIFT_CARD_PRICE * voucherCount : 0; }
+  function giftCardFee() { return giftCardOn && giftCardMode === 'post' ? GIFT_CARD_PRICE * voucherCount : 0; }
   // What the current PaymentIntent was created with, so a change to the card details made after
   // payment was set up gets a fresh PaymentIntent before paying (see the pay button).
   let giftCardSent = '';
@@ -612,8 +612,9 @@
 
   if (GIFT_CARD_LIVE && voucherCount > 0) {
     document.getElementById('gift-card-section').style.display = 'block';
-    const each = voucherCount > 1 ? ' each' : '';
-    document.getElementById('gc-title').textContent = 'Add a printed card, +' + fmt(GIFT_CARD_PRICE) + each;
+    const price = fmt(GIFT_CARD_PRICE) + (voucherCount > 1 ? ' a card' : '');
+    document.getElementById('gc-price').textContent = price;
+    document.getElementById('gc-post-price').textContent = fmt(GIFT_CARD_PRICE);
     document.getElementById('gc-date').textContent = new Date() < GIFT_CARD_POST_BY_END
       ? 'Order by ' + GIFT_CARD_POST_BY + ' for Christmas delivery.'
       : 'Posted within 2 working days.';
@@ -626,7 +627,13 @@
     document.getElementById('voucher-only-note').style.display = (!on && physicalTotal === 0) ? 'block' : 'none';
     document.getElementById('gift-card-row').style.display = on ? 'flex' : 'none';
     document.getElementById('summary-gift-card-label').textContent = 'Printed gift card' + (voucherCount > 1 ? 's ×' + voucherCount : '');
-    document.getElementById('summary-gift-card').textContent = fmt(GIFT_CARD_PRICE * voucherCount);
+    updateGiftCardTotal();
+  }
+
+  // The card fee depends on post vs collect, so both change the total and need a fresh PaymentIntent.
+  function updateGiftCardTotal() {
+    const fee = giftCardFee();
+    document.getElementById('summary-gift-card').textContent = fee ? fmt(fee) : 'Free — collect';
     updateDeliveryLabel();
     try { elements = null; } catch (_) {}
   }
@@ -636,6 +643,7 @@
     document.querySelectorAll('#gc-fields .delivery-opt').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     document.getElementById('gc-address-field').style.display = mode === 'post' ? 'flex' : 'none';
+    updateGiftCardTotal();
   }
 
   function selectDelivery(mode, el) {

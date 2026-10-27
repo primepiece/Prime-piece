@@ -209,7 +209,8 @@ export default async function handler(req, res) {
   const voucherItemsTotal = items.reduce((sum, item, i) => sum + (isVoucher(item.id) ? resolved[i].price : 0), 0);
   const physicalTotal = goodsTotal - voucherItemsTotal;
 
-  // Printed gift card add-on: one card per voucher, posted or held for showroom pickup. Like the
+  // Printed gift card add-on: one card per voucher, posted ($25 each) or free to collect from the
+  // showroom. Like the
   // vouchers themselves, it doesn't count toward free delivery and can't be paid with a voucher.
   // The page checks the recipient and address before paying; the webhook emails James to print it.
   const voucherCount = items.filter(item => isVoucher(item.id)).length;
@@ -224,7 +225,7 @@ export default async function handler(req, res) {
       address: mode === 'post' ? String(gc.address || '').trim().slice(0, 300) : '',
       message: String(gc.message || '').trim().slice(0, 200),
       count: voucherCount,
-      fee: GIFT_CARD_PRICE * voucherCount,
+      fee: mode === 'post' ? GIFT_CARD_PRICE * voucherCount : 0,
     };
   }
   const giftCardFee = giftCard ? giftCard.fee : 0;
@@ -277,7 +278,7 @@ export default async function handler(req, res) {
     : { code: '', applied: 0, message: voucherMessage };
   const totalCents = (totalBeforeVoucher - voucherApplied) * 100;
 
-  const giftCardName = giftCard ? `Printed gift card${giftCard.count > 1 ? ` ×${giftCard.count}` : ''}` : '';
+  const giftCardName = giftCard ? `Printed gift card${giftCard.count > 1 ? ` ×${giftCard.count}` : ''}${giftCard.mode === 'pickup' ? ' (collect)' : ''}` : '';
   const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).concat(giftCard ? [`${giftCardName} ($${giftCard.fee})`] : []).join(' | ');
   const description = resolved.map(p => p.name).concat(giftCard ? [giftCardName] : []).join(', ');
   const vouchersPurchased = items.filter(item => isVoucher(item.id)).map(item => VOUCHER_VALUES[item.id]).join(',');
