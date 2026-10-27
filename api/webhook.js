@@ -200,8 +200,8 @@ export default async function handler(req, res) {
         </table>
         <ol style="font-size:13px;color:#554F45;line-height:1.7;padding-left:18px;margin-top:18px;">
           <li>Take the card with the matching stone on the front.</li>
-          <li>On the back, write the code and the valid-until date in the dashed panel, and the To / From.</li>
-          <li>Write the message, if there is one, and sign it from the buyer.</li>
+          <li>On the front, write the code in the dashed box, the date under Valid until, and the To / From (white gel pen on the dark $500 card).</li>
+          <li>On the back, write the message under A note for you, if there is one, and sign it from the buyer.</li>
           <li>Envelope and band${posted ? ', address it, and post it.' : ', then keep it at the counter.'}</li>
         </ol>
         <p style="font-size:12px;color:#999;">Stripe ID ${pi.id}</p></div>`,
