@@ -3,7 +3,7 @@
 Vertical 1080 × 1920, 30 fps, 13.95 s. **Status: work-in-progress, v2.** It uses the Runway version's
 script, with the Runway export standing in for the on-camera shots. The music bed has not been added yet.
 
-- Latest preview: `renders/prime-piece-gift-vouchers_WIP-preview_v2.mp4` (v1 = the original 18 s script)
+- Latest preview: `renders/prime-piece-gift-vouchers_WIP-preview_v3.mp4` (v2 = before the "Our pick" tag; v1 = the original 18 s script)
 - Open in Studio: `npx hyperframes preview` (from this folder)
 - Check: `npm run check` · Render: `npx hyperframes render -q high -o renders/<name>.mp4`
 
@@ -16,7 +16,7 @@ script, with the Runway export standing in for the on-camera shots. The music be
 | 4.6 – 5.85 | **VIDEO SLOT B**: "I'll let her choose." | `#slot-b` |
 | 5.85 – 6.15 | Breath, the musical pause | `compositions/vouchers.html` |
 | 6.15 / 6.75 / 7.35 | $100, $200 and $500 vouchers land, one per beat | `vouchers.html` → `T.card100/200/500` |
-| 7.95 | Cards spread into the fan | `T.fan` |
+| 7.95 | Cards spread into the fan; "Our pick" tag lands on the $200 (matches gift-vouchers.html) | `T.fan`, `#v-pick` |
 | 8.55 | "Their taste. Their choice.", the product line, the values, "Delivered instantly by email" | `T.head` … `T.delivery` |
 | 11.15 – 13.95 | Close: "Give something one of one.", Shop gift vouchers, `primepiece.co.nz/gifts.html`, delivery line | `T.close` … `T.delivery2` |
 

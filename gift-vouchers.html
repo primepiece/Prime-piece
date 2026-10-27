@@ -116,6 +116,8 @@
   .release-grid .release-set .board-img-wrap { background: #2C2A26; }
   .gift-section-foot { font-size: 13px; color: var(--ink-soft); margin-top: 18px; max-width: 640px; }
   .voucher-card { cursor: default; }
+  .voucher-card.is-pick { position: relative; z-index: 1; outline: 1px solid var(--sage); outline-offset: -1px; }
+  .voucher-card.is-pick .board-badge { background: var(--sage-deep); }
   .corporate { padding-top: 80px; }
   .corporate-inner { background: var(--cream-soft); border: 1px solid var(--line); padding: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
   .corporate p { font-size: 14px; color: var(--ink-soft); margin: 14px 0 16px; }
@@ -283,12 +285,12 @@
         </div>
       </div>
     </div>
-    <div class="board-card voucher-card">
-      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-200.jpg" alt="Prime Piece $200 gift voucher" loading="lazy"></div>
+    <div class="board-card voucher-card is-pick">
+      <div class="board-img-wrap"><img class="board-img" src="gift-voucher-200.jpg" alt="Prime Piece $200 gift voucher" loading="lazy"><span class="board-badge">Our pick</span></div>
       <div class="board-info">
         <div class="board-name">$200 Gift Voucher</div>
         <div class="board-stone">Emailed instantly</div>
-        <div class="board-dims">Cut from Teal Tide marble.</div>
+        <div class="board-dims">Cut from Teal Tide marble. Covers an entertaining platter.</div>
         <div class="board-price">NZD $200</div>
         <div class="board-foot">
           <span class="board-type">Gift Voucher</span>
