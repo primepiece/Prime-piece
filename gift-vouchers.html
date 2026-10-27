@@ -193,11 +193,19 @@
   .vc-buy li { font-size: 13px; color: var(--ink-soft); padding: 6px 0; border-top: 1px solid var(--line); }
   .vc-buy a { color: var(--sage-deep); }
   .vc-corp { margin-top: 18px; font-size: 14px; color: var(--ink-soft); }
+  .vc-card { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; background: var(--cream-soft); border: 1px solid var(--line); padding: 36px; }
+  .vc-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+  .vc-card ul { list-style: none; }
+  .vc-card li { font-size: 14px; color: var(--ink-soft); padding: 9px 0; border-top: 1px solid var(--line); }
+  .vc-card li:first-child { border-top: 0; }
+  .vc-card-price { font-family: var(--display); font-size: 34px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+  .vc-card-date { margin-top: 14px; font-size: 14px; color: var(--sage-deep); }
   .vc-corp a { color: var(--sage-deep); }
   @media (max-width: 900px) {
     .vc-hero { grid-template-columns: 1fr; gap: 12px; }
     .vc-hero-cards { height: 240px; }
-    .vc-steps, .vc-buys { grid-template-columns: 1fr; }
+    .vc-steps, .vc-buys, .vc-card { grid-template-columns: 1fr; }
+    .vc-card { gap: 16px; padding: 24px; }
   }
 </style>
 </head>
@@ -261,7 +269,7 @@
 </section>
 
 <div class="perks">
-  <div class="perk"><strong>Emailed instantly</strong><span>Ready to forward, or print for a card. No shipping, no cut-off.</span></div>
+  <div class="perk"><strong>Emailed instantly</strong><span>Ready to forward. Or add a printed card in the post for $25.</span></div>
   <div class="perk"><strong>Spend on anything</strong><span>Online or at the Wairau Valley showroom. Change comes back as a new voucher.</span></div>
   <div class="perk"><strong>Valid for 3 years</strong><span>Plenty of time to find the right piece.</span></div>
 </div>
@@ -315,11 +323,29 @@
   <p class="vc-corp">Buying for clients or staff? <a href="gifts.html#corporate">Get a quote for 10 or more →</a></p>
 </section>
 
+<!-- Printed gift card add-on. Price and order-by date: keep in sync with GIFT_CARD_* in lib/vouchers.js -->
+<section class="gift-section" id="printed-card">
+  <div class="gift-section-head"><h2>Something to <em>unwrap</em></h2></div>
+  <div class="vc-card">
+    <div>
+      <div class="vc-card-price">+$25</div>
+      <p>Add a printed card at checkout. Your voucher still arrives by email straight away. We also write its code on a card printed with the same stone, add your message by hand, and post it in an envelope, ready to go under the tree.</p>
+      <p class="vc-card-date" data-gc-xmas>Order by Tuesday 15 December for Christmas delivery.</p>
+    </div>
+    <ul>
+      <li>Heavy card, printed with the voucher's stone</li>
+      <li>Your message, written by hand</li>
+      <li>Posted NZ-wide within 2 working days, postage included</li>
+      <li>Or collect it from the Wairau Valley showroom</li>
+    </ul>
+  </div>
+</section>
+
 <section class="gift-section">
   <div class="gift-section-head"><h2>How it <em>works</em></h2></div>
   <div class="vc-steps">
     <div class="vc-step"><div class="vc-step-no">1</div><h3>Choose and pay</h3><p>Pick $100, $200 or $500 and pay securely online.</p></div>
-    <div class="vc-step"><div class="vc-step-no">2</div><h3>It lands in your inbox</h3><p>Your voucher and its code arrive by email within a minute. Forward it, or print it and pop it in a card.</p></div>
+    <div class="vc-step"><div class="vc-step-no">2</div><h3>It lands in your inbox</h3><p>Your voucher and its code arrive by email within a minute. Forward it, or add a printed card and we'll post it.</p></div>
     <div class="vc-step"><div class="vc-step-no">3</div><h3>They choose their piece</h3><p>They enter the code at checkout or bring it to the showroom. If they spend less, the change comes back as a new voucher.</p></div>
   </div>
 </section>
@@ -340,7 +366,9 @@
   <h3>What if they spend less than the voucher?</h3>
   <p>The change is emailed to them straight away as a new voucher code, so nothing is lost.</p>
   <h3>Is there a Christmas cut-off?</h3>
-  <p>No. Vouchers are emailed, so you can buy one right up to Christmas Eve and it arrives in a minute.</p>
+  <p>Not for the emailed voucher: buy one right up to Christmas Eve and it arrives in a minute.<span data-gc-xmas> For a printed card in the post, order by Tuesday 15 December.</span></p>
+  <h3>Can I give a physical card?</h3>
+  <p>Yes. Add a printed card at checkout for $25. We write the voucher code on a card printed with the same stone, add your message by hand, and post it to you or to them, or you can collect it from the showroom.</p>
   <h3>How long is it valid?</h3>
   <p>3 years from the day you buy it. The expiry date is printed on the voucher.</p>
   <h3>Can I buy one in the showroom?</h3>
@@ -361,6 +389,10 @@
 
 <script src="cart.js"></script>
 <script>
+  // After the Christmas order-by date, drop the Christmas promise (the card is still offered).
+  if (new Date() >= new Date('2026-12-16T00:00:00+13:00')) {
+    document.querySelectorAll('[data-gc-xmas]').forEach(function (el) { el.remove(); });
+  }
   try {
     var inCart = (JSON.parse(localStorage.getItem('pp_cart_v2')) || []).map(function (i) { return i.id; });
     document.querySelectorAll('.pp-add-btn[data-id]').forEach(function (btn) {

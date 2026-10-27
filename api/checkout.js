@@ -1,5 +1,5 @@
 import { RELEASE_LIVE, isRelease, RELEASE_ITEMS, soldItems, markSold } from '../lib/release.js';
-import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail } from '../lib/vouchers.js';
+import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail, GIFT_CARD_LIVE, GIFT_CARD_PRICE } from '../lib/vouchers.js';
 
 // Authoritative server-side price catalogue.
 // Client sends only product IDs — prices and names always come from here.
@@ -209,6 +209,26 @@ export default async function handler(req, res) {
   const voucherItemsTotal = items.reduce((sum, item, i) => sum + (isVoucher(item.id) ? resolved[i].price : 0), 0);
   const physicalTotal = goodsTotal - voucherItemsTotal;
 
+  // Printed gift card add-on: one card per voucher, posted or held for showroom pickup. Like the
+  // vouchers themselves, it doesn't count toward free delivery and can't be paid with a voucher.
+  // The page checks the recipient and address before paying; the webhook emails James to print it.
+  const voucherCount = items.filter(item => isVoucher(item.id)).length;
+  let giftCard = null;
+  if (req.body.giftCard && voucherCount > 0) {
+    if (!GIFT_CARD_LIVE) return res.status(400).json({ error: 'Printed gift cards aren\'t available right now. Untick the card and your voucher will still be emailed.' });
+    const gc = req.body.giftCard;
+    const mode = gc.mode === 'pickup' ? 'pickup' : 'post';
+    giftCard = {
+      mode,
+      to: String(gc.to || '').trim().slice(0, 80),
+      address: mode === 'post' ? String(gc.address || '').trim().slice(0, 300) : '',
+      message: String(gc.message || '').trim().slice(0, 200),
+      count: voucherCount,
+      fee: GIFT_CARD_PRICE * voucherCount,
+    };
+  }
+  const giftCardFee = giftCard ? giftCard.fee : 0;
+
   // Delivery fee computed server-side, same as pricing — never trust the client.
   const deliveryMode = physicalTotal > 0 ? (customer.delivery || 'pickup') : 'email';
   const deliveryFee = (deliveryMode === 'delivery' && physicalTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
@@ -228,7 +248,7 @@ export default async function handler(req, res) {
       : `${WELCOME_CODE} applies to ready-made pieces only.`;
   }
   const discount = discountRate > 0 ? Math.round(eligibleSubtotal * discountRate) : 0;
-  const totalBeforeVoucher = goodsTotal - discount + deliveryFee;
+  const totalBeforeVoucher = goodsTotal - discount + deliveryFee + giftCardFee;
 
   // Gift voucher: checked against Stripe here, marked spent by the webhook once payment succeeds.
   let voucher = null;
@@ -244,7 +264,7 @@ export default async function handler(req, res) {
       voucherMessage = 'We couldn\'t check that voucher just now — please try again.';
     }
     if (voucher) {
-      voucherApplied = Math.min(voucher.balance, totalBeforeVoucher - voucherItemsTotal);
+      voucherApplied = Math.min(voucher.balance, totalBeforeVoucher - voucherItemsTotal - giftCardFee);
       // Stripe can't take a payment under $1, so a voucher that would leave a few cents
       // owing leaves exactly $1 instead.
       const left = totalBeforeVoucher - voucherApplied;
@@ -257,8 +277,9 @@ export default async function handler(req, res) {
     : { code: '', applied: 0, message: voucherMessage };
   const totalCents = (totalBeforeVoucher - voucherApplied) * 100;
 
-  const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).join(' | ');
-  const description = resolved.map(p => p.name).join(', ');
+  const giftCardName = giftCard ? `Printed gift card${giftCard.count > 1 ? ` ×${giftCard.count}` : ''}` : '';
+  const itemsLabel = resolved.map(p => `${p.name} ($${p.price})`).concat(giftCard ? [`${giftCardName} ($${giftCard.fee})`] : []).join(' | ');
+  const description = resolved.map(p => p.name).concat(giftCard ? [giftCardName] : []).join(', ');
   const vouchersPurchased = items.filter(item => isVoucher(item.id)).map(item => VOUCHER_VALUES[item.id]).join(',');
 
   // Fully paid by a voucher: there's nothing to charge, so there's no PaymentIntent. The page
@@ -294,6 +315,11 @@ export default async function handler(req, res) {
     'metadata[voucher_applied]': voucherApplied.toString(),
     'metadata[voucher_balance]': voucher ? voucher.balance.toString() : '0',
     'metadata[release_items]': releaseIds.join(','),
+    'metadata[gift_card]': giftCard ? giftCard.mode : '',
+    'metadata[gift_card_fee]': giftCardFee.toString(),
+    'metadata[gift_card_to]': giftCard ? giftCard.to : '',
+    'metadata[gift_card_address]': giftCard ? giftCard.address : '',
+    'metadata[gift_card_message]': giftCard ? giftCard.message : '',
   });
 
   try {
@@ -317,6 +343,7 @@ export default async function handler(req, res) {
       clientSecret: data.client_secret,
       amount: totalCents / 100,
       pairSaving,
+      giftCardFee,
       voucher: voucherInfo,
       promo: { code, applied: discount > 0, discount, message: promoMessage },
     });

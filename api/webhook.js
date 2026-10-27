@@ -1,6 +1,6 @@
 import { createHmac } from 'node:crypto';
 import { markSold } from '../lib/release.js';
-import { issueVoucher, spendVoucher, voucherEmailHtml, sendEmail } from '../lib/vouchers.js';
+import { issueVoucher, spendVoucher, voucherEmailHtml, sendEmail, formatExpiry, escapeHtml, GIFT_CARD_POST_BY } from '../lib/vouchers.js';
 
 // Stripe webhook handler — receives payment_intent.succeeded events.
 // Sends a reliable "Placed Order" event to Klaviyo using the metadata
@@ -132,14 +132,20 @@ export default async function handler(req, res) {
   const firstName = name ? name.split(' ')[0] : '';
   const voucherRows = [];
   const bought = (meta.vouchers_purchased || '').split(',').map(Number).filter(n => n > 0);
+  const card = meta.gift_card; // 'post', 'pickup' or '' — the printed gift card add-on
+  const cardNote = card === 'post'
+    ? `Your printed card${bought.length > 1 ? 's' : ''} will be posted to ${escapeHtml(meta.gift_card_to || 'the address you gave')} within 2 working days.`
+    : card === 'pickup'
+    ? `Your printed card${bought.length > 1 ? 's' : ''} will be ready to collect from our Wairau Valley showroom within 2 working days. We'll email you when ${bought.length > 1 ? 'they\'re' : 'it\'s'} ready.`
+    : '';
+  const issued = [];
   if (bought.length) {
     try {
-      const issued = [];
       for (let i = 0; i < bought.length; i++) {
         issued.push(await issueVoucher(bought[i], `${pi.id}-${i}`, { source: 'purchase', order: pi.id }));
       }
       await sendEmail({ to: email, subject: issued.length > 1 ? 'Your Prime Piece gift vouchers' : 'Your Prime Piece gift voucher',
-        html: voucherEmailHtml(firstName, issued, issued.length > 1 ? 'here are your gift vouchers.' : 'here\'s your gift voucher.') });
+        html: voucherEmailHtml(firstName, issued, issued.length > 1 ? 'here are your gift vouchers.' : 'here\'s your gift voucher.', { note: cardNote }) });
       issued.forEach(v => voucherRows.push(`Issued ${v.code} ($${v.amount}) — emailed to customer`));
     } catch (err) {
       console.error('Voucher issue error:', err);
@@ -164,6 +170,42 @@ export default async function handler(req, res) {
       console.error('Voucher redeem error:', err);
       voucherRows.push(`⚠️ Couldn't mark ${meta.voucher_code} as used — deactivate it in Stripe by hand`);
     }
+  }
+
+  // Printed gift card: a separate to-do email for James with everything needed to print and send it.
+  if (card && bought.length) {
+    const posted = card === 'post';
+    const to = escapeHtml(meta.gift_card_to || '');
+    const stone = amount => amount >= 500 ? 'Emerald Vein' : amount >= 200 ? 'Teal Tide' : 'White Haven';
+    const row = (k, v) => `<tr><td style="color:#5D8588;font-weight:600;padding:4px 16px 4px 0;white-space:nowrap;vertical-align:top;">${k}</td><td style="padding:4px 0;">${v}</td></tr>`;
+    const cards = issued.length
+      ? issued.map(v => `<div style="border:2px dashed #54ABBB;padding:12px 18px;margin:0 0 10px;">
+          <div style="font-size:12px;color:#8A8275;text-transform:uppercase;letter-spacing:0.2em;">$${v.amount} card · ${stone(v.amount)}</div>
+          <div style="font-size:26px;letter-spacing:0.14em;font-weight:600;margin:4px 0;">${v.code}</div>
+          <div style="font-size:13px;color:#554F45;">Valid until ${formatExpiry(v.expiresAt)}</div></div>`).join('')
+      : `<p style="color:#7a3020;font-weight:600;">⚠️ The voucher codes weren't issued automatically ($${bought.join(', $')}). Create them by hand in Stripe first, then print the cards.</p>`;
+    voucherRows.push(posted ? `Printed card: post to ${to || '—'} — print & post email sent` : 'Printed card: showroom pickup — print email sent');
+    await sendEmail({
+      to: 'james@primepiece.co.nz',
+      subject: posted ? `✉️ Print & post: gift card for ${meta.gift_card_to || name || email}` : `🎁 Print for pickup: gift card for ${meta.gift_card_to || name || email}`,
+      html: `<div style="font-family:sans-serif;max-width:520px;color:#2C2A26;">
+        <h2 style="font-weight:400;margin:0 0 6px;">${posted ? 'Print and post' : 'Print for showroom pickup'}: ${bought.length > 1 ? `${bought.length} gift cards` : 'gift card'}</h2>
+        <p style="font-size:14px;color:#554F45;margin:0 0 18px;">The voucher${bought.length > 1 ? 's were' : ' was'} already emailed to the buyer. ${posted ? `Post within 2 working days. Orders before ${GIFT_CARD_POST_BY} are promised for Christmas.` : 'Have it ready within 2 working days, then email the buyer that it\'s ready to collect.'}</p>
+        ${cards}
+        <table style="font-size:14px;line-height:1.6;color:#444;margin-top:14px;">
+          ${row('Card for', to || '—')}
+          ${posted ? row('Post to', escapeHtml(meta.gift_card_address || '').replace(/\n/g, '<br>') || '<strong style="color:#7a3020;">No address given — email the buyer for it</strong>') : row('Pickup', 'Showroom, 209B Archers Road')}
+          ${row('Message', meta.gift_card_message ? `“${escapeHtml(meta.gift_card_message)}”` : '— (sign it from the buyer)')}
+          ${row('Bought by', `${escapeHtml(name || '—')} · <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>${meta.customer_phone ? ` · ${escapeHtml(meta.customer_phone)}` : ''}`)}
+        </table>
+        <ol style="font-size:13px;color:#554F45;line-height:1.7;padding-left:18px;margin-top:18px;">
+          <li>Take the card with the matching stone on the front.</li>
+          <li>On the back, write the code and the valid-until date in the dashed panel, and the To / From.</li>
+          <li>Write the message, if there is one, and sign it from the buyer.</li>
+          <li>Envelope and band${posted ? ', address it, and post it.' : ', then keep it at the counter.'}</li>
+        </ol>
+        <p style="font-size:12px;color:#999;">Stripe ID ${pi.id}</p></div>`,
+    });
   }
 
   // Christmas Release: mark the boards sold so the gifts page and checkout stop selling them.

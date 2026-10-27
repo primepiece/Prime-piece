@@ -129,6 +129,20 @@
   }
   .delivery-opt-desc { font-size: 11px; color: var(--stone); line-height: 1.5; }
 
+  /* Printed gift card add-on */
+  .gc-toggle {
+    display: flex; gap: 14px; align-items: flex-start; cursor: pointer;
+    border: 1.5px solid var(--line); border-radius: 2px; padding: 16px; margin-bottom: 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .gc-toggle:hover { border-color: var(--sage); }
+  .gc-toggle.selected { border-color: var(--sage); background: rgba(123,165,168,0.04); }
+  .gc-toggle { text-transform: none; letter-spacing: normal; }
+  .gc-toggle input { -webkit-appearance: checkbox; appearance: auto; width: 18px; height: 18px; padding: 0; margin: 3px 0 0; accent-color: var(--sage); flex-shrink: 0; }
+  .gc-toggle-title { display: block; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--ink); margin-bottom: 4px; }
+  .gc-toggle-desc { display: block; font-size: 13px; color: var(--stone); line-height: 1.6; }
+  .gc-toggle-date { display: block; margin-top: 8px; font-size: 13px; color: var(--sage-deep); }
+
   /* Stripe element */
   #payment-element {
     padding: 14px; border: 1px solid var(--line); border-radius: 1px; background: white;
@@ -328,6 +342,47 @@
     </div>
     <p id="voucher-only-note" style="display:none;font-size:13px;color:var(--ink-soft);line-height:1.6;margin:20px 0 4px;">Gift vouchers are emailed to you straight after payment, ready to forward or print. No delivery needed.</p>
 
+    <div id="gift-card-section" style="display:none">
+      <div class="section-divider"></div>
+      <span class="section-label-sm">Printed Gift Card</span>
+      <label class="gc-toggle" id="gc-toggle">
+        <input type="checkbox" id="gc-on" onchange="toggleGiftCard(this.checked)">
+        <span>
+          <span class="gc-toggle-title" id="gc-title">Add a printed card, +$25</span>
+          <span class="gc-toggle-desc">Your voucher still arrives by email straight away. We'll also write its code on a printed stone card, add your message by hand, and post it in an envelope, postage included.</span>
+          <span class="gc-toggle-date" id="gc-date"></span>
+        </span>
+      </label>
+      <div id="gc-fields" style="display:none">
+        <div class="delivery-options">
+          <label class="delivery-opt selected" id="gc-opt-post" onclick="selectCardMode('post', this)">
+            <div>
+              <div class="delivery-opt-title">Post it</div>
+              <div class="delivery-opt-desc">To them, or to you to hand over. NZ-wide, within 2 working days.</div>
+            </div>
+          </label>
+          <label class="delivery-opt" id="gc-opt-pickup" onclick="selectCardMode('pickup', this)">
+            <div>
+              <div class="delivery-opt-title">Collect it</div>
+              <div class="delivery-opt-desc">From the showroom, 209B Archers Rd, Wairau Valley. We'll email when it's ready.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field">
+          <label for="gc-to">Who's it for?</label>
+          <input type="text" id="gc-to" placeholder="Their name, as it goes on the envelope" maxlength="80" autocomplete="off">
+        </div>
+        <div class="field" id="gc-address-field">
+          <label for="gc-address">Post it to</label>
+          <textarea id="gc-address" placeholder="Name, street, suburb, city, postcode" maxlength="300" style="min-height:72px;"></textarea>
+        </div>
+        <div class="field">
+          <label for="gc-message">Message for the card (optional)</label>
+          <textarea id="gc-message" placeholder="Merry Christmas! Love, Sam" maxlength="200" style="min-height:64px;"></textarea>
+        </div>
+      </div>
+    </div>
+
     <div class="field">
       <label for="notes">Order Notes (optional)</label>
       <textarea id="notes" placeholder="Any special notes, access instructions, or requests..."></textarea>
@@ -408,6 +463,10 @@
         <span class="summary-row-label">Delivery</span>
         <span class="summary-row-val" id="summary-delivery">Free — Showroom pickup</span>
       </div>
+      <div class="summary-row" id="gift-card-row" style="display:none;">
+        <span class="summary-row-label" id="summary-gift-card-label">Printed gift card</span>
+        <span class="summary-row-val" id="summary-gift-card">$25</span>
+      </div>
       <div class="summary-row" id="discount-row" style="display:none;">
         <span class="summary-row-label" style="color:#5a8a5a;">Discount (10%)</span>
         <span class="summary-row-val" id="summary-discount" style="color:#5a8a5a;">-$0</span>
@@ -465,6 +524,30 @@
   const physicalTotal = goodsTotal - voucherItemsTotal;
   const promoBase = cart.reduce((s, item, i) => s + (pairedIdx.has(i) || isVoucherItem(item) ? 0 : item.price), 0);
 
+  // Printed gift card: one per voucher. Keep in sync with GIFT_CARD_* in lib/vouchers.js (the
+  // server prices it; this is display-only). After the order-by date the card is still offered,
+  // just without the Christmas promise.
+  const GIFT_CARD_LIVE = true;
+  const GIFT_CARD_PRICE = 25;
+  const GIFT_CARD_POST_BY = 'Tuesday 15 December';
+  const GIFT_CARD_POST_BY_END = new Date('2026-12-16T00:00:00+13:00');
+  const voucherCount = cart.filter(isVoucherItem).length;
+  let giftCardOn = false;
+  let giftCardMode = 'post';
+  function giftCardFee() { return giftCardOn ? GIFT_CARD_PRICE * voucherCount : 0; }
+  // What the current PaymentIntent was created with, so a change to the card details made after
+  // payment was set up gets a fresh PaymentIntent before paying (see the pay button).
+  let giftCardSent = '';
+  function giftCardPayload() {
+    if (!giftCardOn) return null;
+    return {
+      mode: giftCardMode,
+      to: document.getElementById('gc-to').value.trim(),
+      address: giftCardMode === 'post' ? document.getElementById('gc-address').value.trim() : '',
+      message: document.getElementById('gc-message').value.trim(),
+    };
+  }
+
   // Keep in sync with DELIVERY_FLAT_FEE / FREE_DELIVERY_THRESHOLD in api/checkout.js —
   // this is display-only, the server computes the real charge.
   const DELIVERY_FLAT_FEE = 49;
@@ -513,7 +596,7 @@
   let voucherApplied = 0;
   let voucherCoversAll = false;
   function grandTotal() {
-    return goodsTotal - Math.round(promoBase * discountRate) + deliveryFee() - voucherApplied;
+    return goodsTotal - Math.round(promoBase * discountRate) + deliveryFee() + giftCardFee() - voucherApplied;
   }
 
   let discountedTotal = grandTotal();
@@ -525,6 +608,34 @@
     document.getElementById('delivery-section').style.display = 'none';
     document.getElementById('voucher-only-note').style.display = 'block';
     updateDeliveryLabel();
+  }
+
+  if (GIFT_CARD_LIVE && voucherCount > 0) {
+    document.getElementById('gift-card-section').style.display = 'block';
+    const each = voucherCount > 1 ? ' each' : '';
+    document.getElementById('gc-title').textContent = 'Add a printed card, +' + fmt(GIFT_CARD_PRICE) + each;
+    document.getElementById('gc-date').textContent = new Date() < GIFT_CARD_POST_BY_END
+      ? 'Order by ' + GIFT_CARD_POST_BY + ' for Christmas delivery.'
+      : 'Posted within 2 working days.';
+  }
+
+  function toggleGiftCard(on) {
+    giftCardOn = on;
+    document.getElementById('gc-toggle').classList.toggle('selected', on);
+    document.getElementById('gc-fields').style.display = on ? 'block' : 'none';
+    document.getElementById('voucher-only-note').style.display = (!on && physicalTotal === 0) ? 'block' : 'none';
+    document.getElementById('gift-card-row').style.display = on ? 'flex' : 'none';
+    document.getElementById('summary-gift-card-label').textContent = 'Printed gift card' + (voucherCount > 1 ? 's ×' + voucherCount : '');
+    document.getElementById('summary-gift-card').textContent = fmt(GIFT_CARD_PRICE * voucherCount);
+    updateDeliveryLabel();
+    try { elements = null; } catch (_) {}
+  }
+
+  function selectCardMode(mode, el) {
+    giftCardMode = mode;
+    document.querySelectorAll('#gc-fields .delivery-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('gc-address-field').style.display = mode === 'post' ? 'flex' : 'none';
   }
 
   function selectDelivery(mode, el) {
@@ -583,6 +694,7 @@
           items: cart,
           promoCode: appliedPromo,
           voucherCode,
+          giftCard: giftCardPayload(),
           customer: {
             name: firstName + ' ' + lastName,
             email,
@@ -596,6 +708,7 @@
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       clientSecret = data.clientSecret;
+      giftCardSent = JSON.stringify(giftCardPayload());
 
       // Gift voucher as the server checked it.
       if (voucherCode) {
@@ -719,12 +832,18 @@
     if (!firstName || !lastName) { showError('Please enter your full name.'); return; }
     if (!email || !email.includes('@')) { showError('Please enter a valid email address.'); return; }
 
+    const card = giftCardPayload();
+    if (card && !card.to) { showError('Add who the printed card is for.'); return; }
+    if (card && card.mode === 'post' && card.address.length < 10) { showError('Add the full address to post the printed card to.'); return; }
+    // Card details changed after payment was set up: refresh it so they're saved with the order.
+    if (JSON.stringify(card) !== giftCardSent) { await initStripe(); return; }
+
     document.getElementById('pay-btn').disabled = true;
     document.getElementById('pay-btn-text').textContent = 'Processing…';
 
     if (voucherCoversAll) { placeVoucherOrder(firstName, lastName, email); return; }
 
-    const returnUrl = window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length) + (physicalTotal === 0 ? '&vouchers=1' : '');
+    const returnUrl = window.location.origin + '/success.html?total=' + encodeURIComponent(discountedTotal) + '&items=' + encodeURIComponent(cart.length) + (physicalTotal === 0 ? '&vouchers=1' : '') + (giftCardOn ? '&card=' + giftCardMode : '');
 
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
