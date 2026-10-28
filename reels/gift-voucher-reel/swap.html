@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Prime Piece — Gift Voucher Reel (stone-swap opening)</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      :root {
+        --cream: #f5f1ea;
+        --ink: #2c2a26;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ink);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: var(--ink);
+      }
+      #swap {
+        z-index: 2;
+      }
+      #vouchers {
+        z-index: 3;
+      }
+      #captions {
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      STONE-SWAP VERSION (A/B test against index.html). Render: npx hyperframes render -c swap.html -q high -o renders/<name>.mp4
+        0.0 – 3.3   the same side table changes stone on every cut; hooks "Which one would you pick?" →
+                    "Now pick for someone else."                                  (#swap)
+        3.3 – 7.65  vouchers slam in (3.3, 3.52, 3.74) · fan 4.1 · Our pick + headline 4.5 · CTA 5.45  (#vouchers)
+      No voice. Music is added in the Instagram app at upload.
+    -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="7.65" data-width="1080" data-height="1920">
+      <div id="swap" data-composition-id="swap-open" data-composition-src="compositions/swap-open.html" data-start="0" data-duration="3.3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="vouchers" data-composition-id="vouchers" data-composition-src="compositions/vouchers.html" data-start="3.3" data-duration="4.35" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+
+      <!-- SFX: one tick per stone swap, then the voucher hits (starts offset by each file's measured onset) -->
+      <audio id="sfx-tick-1" src="assets/sfx/click.mp3" data-start="0.538" data-volume="0.215" data-duration="0.3" data-track-index="8"></audio>
+      <audio id="sfx-tick-2" src="assets/sfx/click.mp3" data-start="0.988" data-volume="0.23" data-duration="0.3" data-track-index="9"></audio>
+      <audio id="sfx-tick-3" src="assets/sfx/click.mp3" data-start="1.388" data-volume="0.245" data-duration="0.3" data-track-index="10"></audio>
+      <audio id="sfx-tick-4" src="assets/sfx/click.mp3" data-start="1.738" data-volume="0.26" data-duration="0.3" data-track-index="8"></audio>
+      <audio id="sfx-tick-5" src="assets/sfx/click.mp3" data-start="2.038" data-volume="0.275" data-duration="0.3" data-track-index="9"></audio>
+      <audio id="sfx-tick-6" src="assets/sfx/click.mp3" data-start="2.308" data-volume="0.29" data-duration="0.3" data-track-index="10"></audio>
+      <audio id="sfx-tick-7" src="assets/sfx/click.mp3" data-start="2.548" data-volume="0.305" data-duration="0.3" data-track-index="8"></audio>
+      <audio id="sfx-reveal-hit" src="assets/sfx/impact-bass-1.mp3" data-start="3.288" data-volume="0.55" data-duration="2.116" data-track-index="11"></audio>
+      <audio id="sfx-card-200" src="assets/sfx/pop.mp3" data-start="3.443" data-volume="0.45" data-duration="0.72" data-track-index="12"></audio>
+      <audio id="sfx-card-500" src="assets/sfx/pop.mp3" data-start="3.663" data-volume="0.55" data-duration="0.72" data-track-index="13"></audio>
+      <audio id="sfx-fan" src="assets/sfx/whoosh.mp3" data-start="4.068" data-volume="0.25" data-duration="0.575" data-track-index="7"></audio>
+      <audio id="sfx-cta" src="assets/sfx/click.mp3" data-start="5.438" data-volume="0.25" data-duration="0.3" data-track-index="8"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

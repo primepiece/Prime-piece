@@ -29,6 +29,19 @@ sound effects) at about 100%, and set the music to about 25–35%. Choose a trac
 can line up with 5.85 s, where the vouchers slam in. On a business account, use the sounds Instagram offers
 for business accounts (they're cleared for commercial use).
 
+## Stone-swap version (A/B test)
+
+`swap.html` is a second cut, 7.65 s, with no presenter and no voice. It opens on the side table changing stone
+(0–3.3 s) under two hook lines, "Which one would you pick?" then "Now pick for someone else.", and cuts
+straight into the same voucher ending (`compositions/vouchers.html`).
+
+- Scene: `compositions/swap-open.html` (the hook lines are variables `hook1` and `hook2`)
+- Render: `npx hyperframes render -c swap.html -q high -o renders/<name>.mp4`
+- Latest: `renders/prime-piece-gift-vouchers_v4b-stone-swap.mp4`
+
+`npx hyperframes check` and `snapshot` read `index.html` only. To check this cut, run them on a copy of the
+project with `swap.html` as its `index.html`.
+
 ## The stand-in footage
 
 `assets/footage/runway-standin.mp4` is the Runway export (720p). Both slots and the montage voice are cut
