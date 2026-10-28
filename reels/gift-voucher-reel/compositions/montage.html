@@ -6,16 +6,7 @@
       background: #2c2a26;
       overflow: hidden;
     }
-    /* The product window fills the Instagram-safe band (y 170–1330). */
-    .m-window {
-      position: absolute;
-      left: 0;
-      top: 170px;
-      width: 1080px;
-      height: 1160px;
-      overflow: hidden;
-      background: #1f1d1a;
-    }
+    /* Every shot fills the 9:16 frame. */
     .m-shot {
       position: absolute;
       inset: 0;
@@ -25,72 +16,66 @@
       position: absolute;
       display: block;
     }
-    /* Placement per photo: each subject sits at the same spot and size so the colour cuts match. */
-    .m-board-white-haven { left: -52px; top: 0px; width: 1160px; height: 1160px; transform-origin: 51% 50.4%; }
-    .m-board-teal-tide { left: -71px; top: -14px; width: 1198px; height: 1198px; transform-origin: 51% 50%; }
-    .m-board-golden-dune { left: -206px; top: -109px; width: 1493px; height: 1493px; transform-origin: 50% 46.5%; }
-    .m-board-pink-storm { left: -59px; top: -38px; width: 1198px; height: 1198px; transform-origin: 50% 52%; }
-    .m-board-volcanic-ash { left: -72px; top: -27px; width: 1212px; height: 1212px; transform-origin: 50.5% 50.5%; }
-    .m-board-emerald-vein { left: -52px; top: -1px; width: 1184px; height: 1184px; transform-origin: 50% 49.5%; }
-    .m-table-jade-rain { left: -56px; top: -84px; width: 1140px; height: 1520px; transform-origin: 54% 30%; }
-    .m-table-serpentine { left: -91px; top: 0px; width: 1224px; height: 1224px; transform-origin: 51.5% 30%; }
-    .m-table-dark-current { left: -248px; top: -126px; width: 1395px; height: 1395px; transform-origin: 56.5% 37%; }
-    .m-table-jade-jewel { left: -112px; top: 0px; width: 1304px; height: 1304px; transform-origin: 50% 29.5%; }
+    .m-board { left: -560px; top: 0px; width: 2200px; height: 2200px; transform-origin: 50% 46%; } /* bottom edge (studio watermark) cropped off */
+    /* Side tables shot from the same angle in different stones. Each photo is placed so its tabletop lands
+       at the same spot and size (centre 548, 660; about 1010 px wide), so the cuts read as one table
+       changing stone. */
+    .m-t17 { left: -488px; top: -30px; width: 2046px; height: 2046px; }
+    .m-t18 { left: -491px; top: -17px; width: 2033px; height: 2033px; }
+    .m-t19 { left: -453px; top: -13px; width: 1959px; height: 1959px; }
+    .m-t20 { left: -506px; top: -34px; width: 2085px; height: 2085px; }
+    .m-t23 { left: -456px; top: -30px; width: 2007px; height: 2007px; }
+    .m-t22 { left: -370px; top: -254px; width: 1760px; height: 2199px; }
+    .m-t25 { left: -379px; top: -257px; width: 1772px; height: 2214px; }
+    .m-t28 { left: -418px; top: -205px; width: 1775px; height: 2366px; }
+    .m-swap img, #m-shot-table img { transform-origin: 548px 660px; }
   </style>
   <div id="root" data-composition-id="montage" data-width="1080" data-height="1920">
-    <div class="m-window" data-layout-allow-overflow>
-      <!-- "A marble board?" — White Haven board, slow push-in -->
-      <div id="m-shot-board" class="clip m-shot" data-start="0" data-duration="0.8" data-track-index="0" data-push="in">
-        <img class="m-board-white-haven" src="assets/products/board-white-haven-web.jpg" alt="White Haven marble board" />
-      </div>
-      <!-- "The table?" — Jade Rain coffee table, push-in -->
-      <div id="m-shot-table" class="clip m-shot" data-start="0.8" data-duration="0.95" data-track-index="0" data-push="in">
-        <img class="m-table-jade-rain" src="assets/products/table-jade-rain.jpg" alt="Jade Rain coffee table" />
-      </div>
-      <!-- "Which colour?" — matched cuts, accelerating: tables, then boards -->
-      <div id="m-cut-1" class="clip m-shot" data-start="1.75" data-duration="0.25" data-track-index="0" data-push="out">
-        <img class="m-table-serpentine" src="assets/products/serpentine-storm-table.jpg" alt="Serpentine Storm coffee table" />
-      </div>
-      <div id="m-cut-2" class="clip m-shot" data-start="2" data-duration="0.22" data-track-index="0" data-push="out">
-        <img class="m-table-dark-current" src="assets/products/dark-current-table.jpg" alt="Dark Current coffee table" />
-      </div>
-      <div id="m-cut-3" class="clip m-shot" data-start="2.22" data-duration="0.18" data-track-index="0" data-push="out">
-        <img class="m-table-jade-jewel" src="assets/products/table-3.jpg" alt="Jade Jewel coffee table" />
-      </div>
-      <div id="m-cut-4" class="clip m-shot" data-start="2.4" data-duration="0.16" data-track-index="0" data-push="out">
-        <img class="m-board-teal-tide" src="assets/products/board-teal-tide-web.jpg" alt="Teal Tide board" />
-      </div>
-      <div id="m-cut-5" class="clip m-shot" data-start="2.56" data-duration="0.14" data-track-index="0" data-push="out">
-        <img class="m-board-golden-dune" src="assets/products/board-golden-dune-web.jpg" alt="Golden Dune board" />
-      </div>
-      <div id="m-cut-6" class="clip m-shot" data-start="2.7" data-duration="0.12" data-track-index="0">
-        <img class="m-board-pink-storm" src="assets/products/board-pink-storm-web.jpg" alt="Pink Storm board" />
-      </div>
-      <div id="m-cut-7" class="clip m-shot" data-start="2.82" data-duration="0.1" data-track-index="0">
-        <img class="m-board-volcanic-ash" src="assets/products/board-volcanic-ash-web.jpg" alt="Volcanic Ash board" />
-      </div>
-      <div id="m-cut-8" class="clip m-shot" data-start="2.92" data-duration="0.09" data-track-index="0">
-        <img class="m-board-white-haven" src="assets/products/board-white-haven-web.jpg" alt="White Haven board" />
-      </div>
-      <div id="m-cut-9" class="clip m-shot" data-start="3.01" data-duration="0.09" data-track-index="0">
-        <img class="m-board-emerald-vein" src="assets/products/board-emerald-vein-web.jpg" alt="Emerald Vein board" />
-      </div>
+    <!-- "The marble board?" — White Haven board, push-in -->
+    <div id="m-shot-board" class="clip m-shot" data-start="0" data-duration="0.8" data-track-index="0">
+      <img class="m-board" src="assets/products/board-white-haven.jpg" alt="White Haven marble board" />
     </div>
+    <!-- "The table?" — the side table in Nero black -->
+    <div id="m-shot-table" class="clip m-shot" data-start="0.8" data-duration="0.95" data-track-index="0">
+      <img class="m-t17" src="assets/products/table-17.jpg" alt="Side table, Nero black stone top" />
+    </div>
+    <!-- "Which colour?" — same table, the stone changes on every cut, faster and faster -->
+      <div id="m-swap-1" class="clip m-shot m-swap" data-start="1.75" data-duration="0.26" data-track-index="0">
+        <img class="m-t18" src="assets/products/table-18.jpg" alt="Side table, gold travertine stone top" />
+      </div>
+      <div id="m-swap-2" class="clip m-shot m-swap" data-start="2.01" data-duration="0.22" data-track-index="0">
+        <img class="m-t20" src="assets/products/table-20.jpg" alt="Side table, blue stone top" />
+      </div>
+      <div id="m-swap-3" class="clip m-shot m-swap" data-start="2.23" data-duration="0.19" data-track-index="0">
+        <img class="m-t23" src="assets/products/table-23.jpg" alt="Side table, burgundy stone top" />
+      </div>
+      <div id="m-swap-4" class="clip m-shot m-swap" data-start="2.42" data-duration="0.17" data-track-index="0">
+        <img class="m-t22" src="assets/products/table-22.jpg" alt="Side table, pink stone top" />
+      </div>
+      <div id="m-swap-5" class="clip m-shot m-swap" data-start="2.59" data-duration="0.15" data-track-index="0">
+        <img class="m-t25" src="assets/products/table-25.jpg" alt="Side table, sage onyx stone top" />
+      </div>
+      <div id="m-swap-6" class="clip m-shot m-swap" data-start="2.74" data-duration="0.13" data-track-index="0">
+        <img class="m-t28" src="assets/products/table-28.jpg" alt="Side table, teal stone top" />
+      </div>
+      <div id="m-swap-7" class="clip m-shot m-swap" data-start="2.87" data-duration="0.12" data-track-index="0">
+        <img class="m-t19" src="assets/products/table-19.jpg" alt="Side table, white stone top" />
+      </div>
+      <div id="m-swap-8" class="clip m-shot m-swap" data-start="2.99" data-duration="0.11" data-track-index="0">
+        <img class="m-t17" src="assets/products/table-17.jpg" alt="Side table, Nero black stone top" />
+      </div>
   </div>
   <script>
-    // Motion follows each shot's data-start / data-duration, so retiming a cut in the HTML retimes its move.
+    // Motion follows each shot's data-start / data-duration, so retiming a cut retimes its move.
     const tl = gsap.timeline({ paused: true });
-    document.querySelectorAll(".m-shot").forEach((shot) => {
+    tl.fromTo("#m-shot-board img", { scale: 1.0 }, { scale: 1.08, duration: 0.8, ease: "sine.inOut" }, 0);
+    // The table and every swap share one continuous push-in, so the stone changes while the camera keeps moving.
+    const Z0 = 1.0, Z1 = 1.1, A = 0.8, B = 3.1;
+    const z = (t) => Z0 + (Z1 - Z0) * (t - A) / (B - A);
+    document.querySelectorAll("#m-shot-table, .m-swap").forEach((shot) => {
       const start = parseFloat(shot.dataset.start);
       const dur = parseFloat(shot.dataset.duration);
-      const img = shot.querySelector("img");
-      if (shot.dataset.push === "in") {
-        tl.fromTo(img, { scale: 1 }, { scale: 1.07, duration: dur, ease: "sine.inOut" }, start);
-      } else if (shot.dataset.push === "out") {
-        tl.fromTo(img, { scale: 1.05 }, { scale: 1, duration: dur, ease: "power2.out" }, start);
-      } else {
-        tl.fromTo(img, { scale: 1.02 }, { scale: 1.02, duration: dur }, start);
-      }
+      tl.fromTo(shot.querySelector("img"), { scale: z(start) }, { scale: z(start + dur), duration: dur, ease: "none" }, start);
     });
     window.__timelines["montage"] = tl;
   </script>
