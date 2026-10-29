@@ -1,0 +1,24 @@
+/* Shared brand styles for the social designs: the real font files, the palette, and how a voucher is shown. */
+@font-face{font-family:"Cormorant Garamond";font-weight:300;src:url("../../02-Fonts/CormorantGaramond-Light.ttf")}
+@font-face{font-family:"Cormorant Garamond";font-weight:300;font-style:italic;src:url("../../02-Fonts/CormorantGaramond-LightItalic.ttf")}
+@font-face{font-family:"Inter Tight";font-weight:400;src:url("../../02-Fonts/InterTight-Regular.ttf")}
+@font-face{font-family:"Inter Tight";font-weight:500;src:url("../../02-Fonts/InterTight-Medium.ttf")}
+@font-face{font-family:"Inter Tight";font-weight:600;src:url("../../02-Fonts/InterTight-SemiBold.ttf")}
+@font-face{font-family:"Dancing Script";font-weight:500;src:url("../../02-Fonts/DancingScript-Medium.ttf")}
+:root{--ivory:#F5F1EA;--charcoal:#2C2A26;--sage-deep:#5D8588;--sage:#7BA5A8;--sage-soft:#A8C3C5;--stone:#8A8275;--cream-soft:#EBE5DA;--ink-soft:#554F45;--line:#CFC6B6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{position:relative;overflow:hidden;font-family:"Inter Tight",sans-serif;color:var(--charcoal)}
+.abs{position:absolute}
+.eyebrow{font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--sage-deep)}
+.h{font-family:"Cormorant Garamond",serif;font-weight:300;line-height:1.02;letter-spacing:-.015em}
+.h em{font-style:italic;color:var(--sage-deep)}
+.script{font-family:"Dancing Script",cursive;font-weight:500;color:var(--sage-deep)}
+/* Voucher artwork: shown as supplied (5:3), never cropped or recoloured. Light cards get a fine border. */
+.v{position:absolute;box-shadow:0 34px 60px -26px rgba(44,42,38,.42),0 8px 18px rgba(44,42,38,.10)}
+.v img{display:block;width:100%;height:100%}
+.v.light{outline:1.5px solid var(--line)}
+.v.ondark{outline:2px solid var(--stone)}
+.v.framed{border:6px solid var(--ivory);box-sizing:content-box}
+.pill{display:inline-block;border-radius:999px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.logo{position:absolute}

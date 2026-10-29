@@ -10,7 +10,12 @@ const puppeteer = require(process.env.PUPPETEER_CORE);
     const abs = path.resolve(f);
     await page.goto('file://' + abs, { waitUntil: 'load' });
     await page.evaluate(() => document.fonts.ready);
-    const { w, h } = await page.evaluate(() => ({ w: document.documentElement.scrollWidth, h: document.documentElement.scrollHeight }));
+    // Size from the design's own .page box (the document's scroll size would keep the last viewport).
+    const { w, h } = await page.evaluate(() => {
+      const el = document.querySelector('.page') || document.documentElement;
+      const r = el.getBoundingClientRect();
+      return { w: Math.round(r.width), h: Math.round(r.height) };
+    });
     await page.setViewport({ width: w, height: h, deviceScaleFactor: 1 });
     await page.evaluate(() => document.fonts.ready);
     const out = path.join(__dirname, 'out', path.basename(f, '.html') + '.png');
