@@ -17,6 +17,7 @@ Every design is HTML in `src/` using the brand's own font files, rendered to `ou
 | `02-no-cut-off-story.png` | IG Story | Last-minute phase (16–24 Dec) |
 | `08-forgot-someone-story.png` | IG Story | Last-minute phase (16–24 Dec) |
 | `09-counter-flyer-a4.pdf` | A4 print | The showroom counter (`.png` is a preview) |
+| `12-corporate-one-pager-a4.pdf` | A4 PDF | Attach to corporate outreach emails (9–13 Nov) |
 
 Stories: add a link sticker to primepiece.co.nz/gift-vouchers.html over the bottom third.
 
