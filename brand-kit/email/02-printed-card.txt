@@ -1,0 +1,16 @@
+Something to unwrap.
+
+Our gift vouchers now come as a printed card too. Choose a voucher, add a printed card at checkout, and we'll write the code on a card printed with the voucher's stone, add your message by hand and seal it in an envelope.
+
+$25 posted anywhere in New Zealand, or free to collect from the Wairau Valley showroom. The voucher is still emailed to you straight away.
+
+Order by Tuesday 15 December for Christmas delivery.
+
+Add a printed card
+
+https://www.primepiece.co.nz/gift-vouchers.html
+
+James
+Prime Piece, Auckland
+209B Archers Road, Wairau Valley, Auckland. 021 146 6990
+{% unsubscribe 'Unsubscribe' %}
