@@ -1,0 +1,27 @@
+PRIME PIECE BRAND KIT
+Taken from primepiece.co.nz (site CSS) and the official logo files.
+
+01-Logos   Official logo (unchanged artwork) in teal, cream and charcoal, transparent PNG,
+           plus 1080x1080 profile images on ivory and charcoal.
+02-Fonts   Cormorant Garamond, Inter Tight, Dancing Script. All SIL Open Font License,
+           free for commercial use and embedding (licences included).
+03-Colours Palette card, hex list, type specimen.
+
+SET IT UP IN CANVA (about 5 minutes; needs a team owner, admin or brand-designer role)
+1. Canva home > Brand Hub > Brand Kit > create a new kit called "Prime Piece".
+2. Logos: upload the three prime-piece-logo-*.png files.
+3. Colours: add a palette called "Prime Piece" with the hex codes in 03-Colours/palette.txt.
+4. Fonts: Brand fonts > Upload a font > select all 11 .ttf files in 02-Fonts.
+5. Set the text defaults:
+     Heading     Cormorant Garamond Light
+     Subheading  Inter Tight Medium   (use UPPERCASE with wide letter spacing for eyebrows)
+     Body        Inter Tight Regular
+6. Restyle an existing design: open it > click the background > Styles > pick the
+   Prime Piece text-style tile. Every font in the design switches at once.
+
+HOW THE SITE USES THEM
+  Headlines     Cormorant Garamond Light, slightly tight letter spacing
+  Accent        Dancing Script Medium in deep sage, for "one of one" moments only
+  Body          Inter Tight Light/Regular
+  Buttons       Inter Tight Medium/SemiBold, UPPERCASE, wide letter spacing
+  Logo teal #54ABBB is for the logo; use deep sage #5D8588 for text accents and buttons.

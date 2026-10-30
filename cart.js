@@ -93,6 +93,12 @@
         font-size: 13px; color: #8A8275; line-height: 1.7;
         font-family: 'Inter Tight', sans-serif; max-width: 220px;
       }
+      .cart-voucher-nudge {
+        display: block; margin-top: 18px; padding: 14px 16px; background: #EBE5DA;
+        font-family: 'Inter Tight', sans-serif; font-size: 12.5px; line-height: 1.5; color: #554F45; text-decoration: none;
+      }
+      .cart-voucher-nudge span { display: block; color: #5D8588; font-weight: 500; }
+      .cart-voucher-nudge:hover span { text-decoration: underline; }
 
       .cart-item {
         display: flex; gap: 14px; padding: 18px 0;
@@ -271,6 +277,7 @@
           <div class="cart-empty-glyph">◯</div>
           <h3>Nothing here yet.</h3>
           <p>Browse the collection and add a piece to get started.</p>
+          <a class="cart-voucher-nudge" href="gift-vouchers.html">Shopping for someone else? <span>Let them choose with a gift voucher →</span></a>
         </div>`;
       return;
     }
@@ -285,7 +292,8 @@
         </div>
         <button class="cart-item-remove" onclick="Cart.remove('${item.id}')" aria-label="Remove ${item.name}">✕</button>
       </div>
-    `).join('');
+    `).join('') + (items.some(i => i.id.startsWith('voucher-')) ? '' : `
+      <a class="cart-voucher-nudge" href="gift-vouchers.html">Buying for someone else? <span>Let them choose with a gift voucher →</span></a>`);
   }
 
   function updateBadge() {

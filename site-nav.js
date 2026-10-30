@@ -3,6 +3,28 @@
   var nav = document.querySelector('nav.site-nav');
   if (!nav) return;
 
+  // Christmas gift voucher banner: every page with this header, until 24 December 2026, unless the
+  // visitor closes it (remembered in this browser). Not shown on the gift vouchers page itself.
+  (function promo() {
+    var END = new Date('2026-12-25T00:00:00+13:00');
+    var KEY = 'pp_promo_xmas26_closed';
+    if (new Date() >= END || /gift-vouchers/.test(location.pathname)) return;
+    try { if (localStorage.getItem(KEY)) return; } catch (_) {}
+    var bar = document.createElement('div');
+    bar.className = 'pp-promo';
+    bar.innerHTML = '<a href="gift-vouchers.html">Gift vouchers, emailed instantly<span>Shop now \u2192</span></a>' +
+      '<button type="button" aria-label="Close">\u00d7</button>';
+    var inflow = nav.classList.contains('site-nav--inflow');
+    if (inflow) { bar.classList.add('inflow'); document.body.classList.add('promo-inflow'); }
+    document.body.insertBefore(bar, document.body.firstChild);
+    document.body.classList.add('has-promo');
+    bar.querySelector('button').addEventListener('click', function () {
+      bar.remove();
+      document.body.classList.remove('has-promo', 'promo-inflow');
+      try { localStorage.setItem(KEY, '1'); } catch (_) {}
+    });
+  })();
+
   // Overlay header: transparent over the hero, solid once scrolled.
   if (nav.classList.contains('site-nav--overlay')) {
     var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 80); };

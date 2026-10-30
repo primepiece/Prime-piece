@@ -1,9 +1,9 @@
 # Prime Piece — Gift Voucher Reel (HyperFrames project)
 
-Vertical 1080 × 1920, 30 fps, 13.95 s. **Status: work-in-progress, v2.** It uses the Runway version's
-script, with the Runway export standing in for the on-camera shots. The music bed has not been added yet.
+Vertical 1080 × 1920, 30 fps, 10.2 s. **Status: v4, ready to post.** The opening and the "I'll let her
+choose" line are the Runway presenter. Music is added in the Instagram app at upload (see Music).
 
-- Latest preview: `renders/prime-piece-gift-vouchers_WIP-preview_v3.mp4` (v2 = before the "Our pick" tag; v1 = the original 18 s script)
+- Latest: `renders/prime-piece-gift-vouchers_v4.mp4` (v1–v3 are earlier work-in-progress cuts)
 - Open in Studio: `npx hyperframes preview` (from this folder)
 - Check: `npm run check` · Render: `npx hyperframes render -q high -o renders/<name>.mp4`
 
@@ -11,17 +11,45 @@ script, with the Runway export standing in for the on-camera shots. The music be
 
 | Film time | What | Where |
 | --- | --- | --- |
-| 0.0 – 1.5 | **VIDEO SLOT A**: "She's impossible to buy for." | `#slot-a` in `index.html` |
-| 1.5 – 4.6 | Montage, voice only: "The marble board?" → White Haven board, "The table?" → Jade Rain coffee table, "Which colour?" → accelerating matched cuts | `compositions/montage.html` + `#vo-montage` |
-| 4.6 – 5.85 | **VIDEO SLOT B**: "I'll let her choose." | `#slot-b` |
-| 5.85 – 6.15 | Breath, the musical pause | `compositions/vouchers.html` |
-| 6.15 / 6.75 / 7.35 | $100, $200 and $500 vouchers land, one per beat | `vouchers.html` → `T.card100/200/500` |
-| 7.95 | Cards spread into the fan; "Our pick" tag lands on the $200 (matches gift-vouchers.html) | `T.fan`, `#v-pick` |
-| 8.55 | "Their taste. Their choice.", the product line, the values, "Delivered instantly by email" | `T.head` … `T.delivery` |
-| 11.15 – 13.95 | Close: "Give something one of one.", Shop gift vouchers, `primepiece.co.nz/gifts.html`, delivery line | `T.close` … `T.delivery2` |
+| 0.0 – 1.5 | **Presenter**: "She's impossible to buy for." Slow punch-in | `#slot-a` in `index.html` |
+| 1.5 – 2.3 | "The marble board?" White Haven board, full screen | `compositions/montage.html` |
+| 2.3 – 3.25 | "The table?" Side table in Nero black | `#m-shot-table` |
+| 3.25 – 4.6 | "Which colour?" The same table changes stone on every cut, faster and faster: gold, blue, burgundy, pink, sage, teal, white, black. Each photo is placed so the tabletops line up | `.m-swap` shots |
+| 4.6 – 5.85 | **Presenter**: "I'll let her choose." Tighter framing | `#slot-b` |
+| 5.85 – 6.29 | $100, $200, $500 vouchers slam in full width, one per hit | `compositions/vouchers.html` → `T.card*` |
+| 6.65 – 7.3 | Cards fan out; "Our pick" lands on the $200; "Their taste. Their choice." | `T.fan`, `T.pick`, `T.head` |
+| 7.6 – 10.2 | $100 · $200 · $500 NZD, Emailed instantly, Shop gift vouchers, Link in bio | `T.prices` … `T.url` |
 
-Captions are in `compositions/captions.html`. The beat grid is 100 BPM (0.6 s per beat), with the
-downbeat on 6.15 s.
+Captions are in `compositions/captions.html`. Everything sits in Instagram's safe band (168–1330 px).
+
+## Music
+
+Add it in Instagram when you post: pick a track from the sound library, keep the original audio (the voice and
+sound effects) at about 100%, and set the music to about 25–35%. Choose a track whose drop or strong beat you
+can line up with 5.85 s, where the vouchers slam in. On a business account, use the sounds Instagram offers
+for business accounts (they're cleared for commercial use).
+
+## Stone-swap version (A/B test)
+
+`swap.html` is a second cut, 7.65 s, with no presenter and no voice. It opens on the side table changing stone
+(0–3.3 s) under two hook lines, "Which one would you pick?" then "Now pick for someone else.", and cuts
+straight into the same voucher ending (`compositions/vouchers.html`).
+
+- Scene: `compositions/swap-open.html` (the hook lines are variables `hook1` and `hook2`)
+- Render: `npx hyperframes render -c swap.html -q high -o renders/<name>.mp4`
+- Latest: `renders/prime-piece-gift-vouchers_v4b-stone-swap.mp4`
+
+`npx hyperframes check` and `snapshot` read `index.html` only. To check this cut, run them on a copy of the
+project with `swap.html` as its `index.html`.
+
+## December version and feed crops
+
+- `swap-december.html`: the stone-swap cut for 16–24 December, with "Last-minute gift?" / "It’s emailed in seconds."
+  and "Emailed in seconds · No courier, no cut-off" (set with `data-variable-values` on the scene hosts).
+  Render: `npx hyperframes render -c swap-december.html -q high -o renders/<name>.mp4`.
+  Latest: `renders/prime-piece-gift-vouchers_v4c-december.mp4`.
+- `renders/*_4x5.mp4`: 1080×1350 versions of v4, v4b and v4c for Facebook and Instagram feed placements, cropped
+  from the vertical renders (`ffmpeg -i in.mp4 -vf crop=1080:1350:0:170 …`).
 
 ## The stand-in footage
 
@@ -40,14 +68,7 @@ lines (or one continuous take).
 2. If the line timings change, move the montage cuts (each push-in follows its own `data-start` and
    `data-duration`), the caption groups, the `#vouchers` host and the SFX after it.
 3. In `captions.html`, remove `data-hidden` from `c-hook`, `c-1` and `c-5`.
-4. Add the music (below), then delete the `#wip-label` host in `index.html` before the final export.
-
-## Music
-
-The music slot is commented in `index.html`. Use a licensed, restrained instrumental at about 100 BPM.
-It plays up to 5.55 s, stays silent until 6.15 s (the pause), then re-enters on a strong downbeat at
-6.15 s, under the reveal hit. With a different tempo, run `npx hyperframes beats` and move the
-`T.card*` / `T.fan` times onto its beats.
+4. Re-render. The WIP label is already removed; music is added in Instagram.
 
 ## Assets
 

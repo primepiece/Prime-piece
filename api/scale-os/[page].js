@@ -13,6 +13,7 @@ import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../.
 import { SUPPLIERS_STYLE, SUPPLIERS_BODY, SUPPLIERS_SCRIPT } from '../../scale-os/lib/suppliers.js';
 import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, recordRawQuoteReply, isStoreConfigured, getFastTrackAnalyses, createFastTrackRequest } from '../../scale-os/lib/store.js';
 import { FAST_TRACK_STYLE, FAST_TRACK_BODY, FAST_TRACK_SCRIPT } from '../../scale-os/lib/fast-track.js';
+import { VOUCHER_DESK_STYLE, VOUCHER_DESK_BODY, VOUCHER_DESK_SCRIPT, handleVoucherCheck, handleVoucherRedeem, handleVoucherIssue } from '../../scale-os/lib/voucher-desk.js';
 
 function renderDashboard() {
   return renderShell({
@@ -61,6 +62,16 @@ function renderFastTrack() {
     bodyHtml: FAST_TRACK_BODY,
     extraStyle: FAST_TRACK_STYLE,
     extraScript: FAST_TRACK_SCRIPT,
+  });
+}
+
+function renderVoucherDesk() {
+  return renderShell({
+    title: 'Vouchers',
+    activeKey: 'vouchers',
+    bodyHtml: VOUCHER_DESK_BODY,
+    extraStyle: VOUCHER_DESK_STYLE,
+    extraScript: VOUCHER_DESK_SCRIPT,
   });
 }
 
@@ -284,6 +295,13 @@ export default async function handler(req, res) {
     return handleFastTrackSubmit(req, res);
   }
 
+  // Gift voucher counter tools (scale-os/lib/voucher-desk.js).
+  const voucherApi = { 'voucher-check': handleVoucherCheck, 'voucher-redeem': handleVoucherRedeem, 'voucher-issue': handleVoucherIssue }[page];
+  if (voucherApi) {
+    if (!isAuthenticated(req)) return res.status(401).json({ error: 'Not authenticated' });
+    return voucherApi(req, res);
+  }
+
   if (!requireAuth(req, res)) return;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
@@ -292,6 +310,7 @@ export default async function handler(req, res) {
   if (page === 'radar') return res.status(200).send(renderMarketRadar());
   if (page === 'fast-track') return res.status(200).send(renderFastTrack());
   if (page === 'suppliers') return res.status(200).send(renderSuppliers());
+  if (page === 'vouchers') return res.status(200).send(renderVoucherDesk());
   if (page && COMING_SOON[page]) {
     return res.status(200).send(renderComingSoon({ activeKey: page, ...COMING_SOON[page] }));
   }

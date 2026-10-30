@@ -204,6 +204,16 @@
         document.querySelectorAll('.success-details-val')[0].textContent = 'Voucher emailed to you now';
         document.querySelectorAll('.success-details-val')[1].textContent = 'By email — nothing to ship';
       }
+      // Printed gift card add-on: posted, or held at the showroom.
+      const card = new URLSearchParams(location.search).get('card');
+      if (card === 'post' || card === 'pickup') {
+        document.querySelector('.success-p').textContent += card === 'post'
+          ? ' Your printed card will be posted within 2 working days.'
+          : ' Your printed card will be ready to collect from the showroom within 2 working days. We\'ll email you when it\'s ready.';
+        if (new URLSearchParams(location.search).get('vouchers') === '1') {
+          document.querySelectorAll('.success-details-val')[1].textContent = card === 'post' ? 'Voucher by email, card by post' : 'Voucher by email, card at the showroom';
+        }
+      }
     </script>
     <p class="success-note">A receipt has been sent to your email. Questions? Call <a href="tel:0211466990">021 146 6990</a> or email <a href="mailto:james@primepiece.co.nz">james@primepiece.co.nz</a></p>
 

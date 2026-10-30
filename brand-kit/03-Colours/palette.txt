@@ -1,0 +1,9 @@
+Ivory       #F5F1EA   Backgrounds
+Charcoal    #2C2A26   Text, dark backgrounds
+Logo teal   #54ABBB   Logo only
+Deep sage   #5D8588   Accents, buttons, links
+Sage        #7BA5A8   Secondary accent
+Soft sage   #A8C3C5   Accent on charcoal
+Stone       #8A8275   Fine borders, captions
+Cream soft  #EBE5DA   Panels
+Ink soft    #554F45   Secondary text
