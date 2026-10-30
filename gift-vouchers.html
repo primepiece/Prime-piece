@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gift Vouchers NZ | Prime Piece Stone Furniture Auckland</title>
-<meta name="description" content="Prime Piece gift vouchers for $100, $200 or $500, emailed instantly. Spend on any handcrafted stone piece: marble tables, plinths, vessel basins and serving boards. Valid 3 years.">
+<title>Gift Vouchers Auckland &amp; NZ | Prime Piece Stone Furniture</title>
+<meta name="description" content="Prime Piece gift vouchers for $100, $200 or $500, emailed instantly, so they work as a last-minute Christmas gift. Spend on any handcrafted stone piece online or in our Auckland showroom. Valid 3 years.">
 <link rel="canonical" href="https://www.primepiece.co.nz/gift-vouchers.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.primepiece.co.nz/gift-vouchers.html">
@@ -25,6 +25,17 @@
     {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.primepiece.co.nz"},
     {"@type": "ListItem", "position": 2, "name": "Gift Vouchers", "item": "https://www.primepiece.co.nz/gift-vouchers.html"}
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Prime Piece Gift Voucher",
+  "description": "A digital gift voucher for $100, $200 or $500 NZD, emailed instantly. Spend it on any handcrafted stone piece online or in the Wairau Valley showroom, Auckland. Valid for 3 years.",
+  "image": ["https://www.primepiece.co.nz/voucher-card-100.jpg", "https://www.primepiece.co.nz/voucher-card-200.jpg", "https://www.primepiece.co.nz/voucher-card-500.jpg"],
+  "brand": {"@type": "Brand", "name": "Prime Piece"},
+  "offers": {"@type": "AggregateOffer", "priceCurrency": "NZD", "lowPrice": "100", "highPrice": "500", "offerCount": "3", "availability": "https://schema.org/InStock", "url": "https://www.primepiece.co.nz/gift-vouchers.html"}
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -207,7 +218,14 @@
     .vc-steps, .vc-buys, .vc-card { grid-template-columns: 1fr; }
     .vc-card { gap: 16px; padding: 24px; }
   }
+  /* Printed gift card copy shows only while GIFT_CARD_LIVE is on (set in the script below). */
+  html:not(.gc-live) [data-gc], html.gc-live [data-gc-off] { display: none !important; }
 </style>
+<script>
+  // Printed gift card: keep in sync with GIFT_CARD_LIVE in lib/vouchers.js and checkout.html.
+  var GIFT_CARD_LIVE = false;
+  if (GIFT_CARD_LIVE) document.documentElement.classList.add('gc-live');
+</script>
 </head>
 <body>
 
@@ -269,7 +287,7 @@
 </section>
 
 <div class="perks">
-  <div class="perk"><strong>Emailed instantly</strong><span>Ready to forward. Or add a printed card: $25 posted, free to collect.</span></div>
+  <div class="perk"><strong>Emailed instantly</strong><span data-gc>Ready to forward. Or add a printed card: $25 posted, free to collect.</span><span data-gc-off>Ready to forward, or print for a card. No shipping, no cut-off.</span></div>
   <div class="perk"><strong>Spend on anything</strong><span>Online or at the Wairau Valley showroom. Change comes back as a new voucher.</span></div>
   <div class="perk"><strong>Valid for 3 years</strong><span>Plenty of time to find the right piece.</span></div>
 </div>
@@ -324,7 +342,7 @@
 </section>
 
 <!-- Printed gift card add-on. Price and order-by date: keep in sync with GIFT_CARD_* in lib/vouchers.js -->
-<section class="gift-section" id="printed-card">
+<section class="gift-section" id="printed-card" data-gc>
   <div class="gift-section-head"><h2>Something to <em>unwrap</em></h2></div>
   <div class="vc-card">
     <div>
@@ -345,7 +363,7 @@
   <div class="gift-section-head"><h2>How it <em>works</em></h2></div>
   <div class="vc-steps">
     <div class="vc-step"><div class="vc-step-no">1</div><h3>Choose and pay</h3><p>Pick $100, $200 or $500 and pay securely online.</p></div>
-    <div class="vc-step"><div class="vc-step-no">2</div><h3>It lands in your inbox</h3><p>Your voucher and its code arrive by email within a minute. Forward it, or add a printed card and we'll post it.</p></div>
+    <div class="vc-step"><div class="vc-step-no">2</div><h3>It lands in your inbox</h3><p data-gc>Your voucher and its code arrive by email within a minute. Forward it, or add a printed card and we'll post it.</p><p data-gc-off>Your voucher and its code arrive by email within a minute. Forward it, or print it and pop it in a card.</p></div>
     <div class="vc-step"><div class="vc-step-no">3</div><h3>They choose their piece</h3><p>They enter the code at checkout or bring it to the showroom. If they spend less, the change comes back as a new voucher.</p></div>
   </div>
 </section>
@@ -366,9 +384,9 @@
   <h3>What if they spend less than the voucher?</h3>
   <p>The change is emailed to them straight away as a new voucher code, so nothing is lost.</p>
   <h3>Is there a Christmas cut-off?</h3>
-  <p>Not for the emailed voucher: buy one right up to Christmas Eve and it arrives in a minute.<span data-gc-xmas> For a printed card in the post, order by Tuesday 15 December.</span></p>
-  <h3>Can I give a physical card?</h3>
-  <p>Yes. Add a printed card at checkout. We write the voucher code on a card printed with the same stone and add your message by hand. We'll post it to you or to them for $25, or you can collect it from the showroom for free.</p>
+  <p data-gc>Not for the emailed voucher: buy one right up to Christmas Eve and it arrives in a minute.<span data-gc-xmas> For a printed card in the post, order by Tuesday 15 December.</span></p><p data-gc-off>No. Vouchers are emailed, so you can buy one right up to Christmas Eve and it arrives in a minute.</p>
+  <h3 data-gc>Can I give a physical card?</h3>
+  <p data-gc>Yes. Add a printed card at checkout. We write the voucher code on a card printed with the same stone and add your message by hand. We'll post it to you or to them for $25, or you can collect it from the showroom for free.</p>
   <h3>How long is it valid?</h3>
   <p>3 years from the day you buy it. The expiry date is printed on the voucher.</p>
   <h3>Can I buy one in the showroom?</h3>

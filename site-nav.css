@@ -133,3 +133,19 @@ div.site-mobile-menu > a.mm-phone { font-family: 'Inter Tight', -apple-system, s
   nav.site-nav .nav-hamburger { display: flex; }
   nav.site-nav .logo { font-size: 18px; }
 }
+
+/* Christmas gift voucher banner (added by site-nav.js until 24 December; dismissible).
+   Fixed headers move down by its height; the in-flow header simply follows it. */
+.pp-promo {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 101; height: 36px;
+  display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 44px;
+  background: #2C2A26; color: #F5F1EA; font: 500 12px/1 'Inter Tight', -apple-system, sans-serif; letter-spacing: 0.04em;
+}
+.pp-promo a { color: #F5F1EA; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pp-promo a span { color: #A8C3C5; margin-left: 6px; }
+.pp-promo a:hover span { text-decoration: underline; }
+.pp-promo button { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: #B8B0A3; font-size: 16px; line-height: 1; padding: 6px 8px; cursor: pointer; }
+body.has-promo { padding-top: 36px; }
+body.has-promo nav.site-nav:not(.site-nav--inflow) { top: 36px; }
+body.has-promo .pp-promo.inflow { position: relative; }
+body.has-promo.promo-inflow { padding-top: 0; }
