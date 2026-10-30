@@ -42,6 +42,15 @@ straight into the same voucher ending (`compositions/vouchers.html`).
 `npx hyperframes check` and `snapshot` read `index.html` only. To check this cut, run them on a copy of the
 project with `swap.html` as its `index.html`.
 
+## December version and feed crops
+
+- `swap-december.html`: the stone-swap cut for 16–24 December, with "Last-minute gift?" / "It’s emailed in seconds."
+  and "Emailed in seconds · No courier, no cut-off" (set with `data-variable-values` on the scene hosts).
+  Render: `npx hyperframes render -c swap-december.html -q high -o renders/<name>.mp4`.
+  Latest: `renders/prime-piece-gift-vouchers_v4c-december.mp4`.
+- `renders/*_4x5.mp4`: 1080×1350 versions of v4, v4b and v4c for Facebook and Instagram feed placements, cropped
+  from the vertical renders (`ffmpeg -i in.mp4 -vf crop=1080:1350:0:170 …`).
+
 ## The stand-in footage
 
 `assets/footage/runway-standin.mp4` is the Runway export (720p). Both slots and the montage voice are cut
