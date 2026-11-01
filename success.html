@@ -34,9 +34,23 @@
       gaItems = [{ item_name: 'Prime Piece Order', quantity: items, price: total }];
     }
 
-    if (total > 0) {
+    // Count each order once: a reload or a revisit from history must not report a second
+    // purchase to GA or Meta, and a failed 3D Secure redirect is not a purchase at all.
+    const orderId = p.get('payment_intent') || ('pp-' + Date.now());
+    const status = p.get('redirect_status');
+    let fresh = total > 0 && (!status || status === 'succeeded');
+    try {
+      if (fresh && p.get('payment_intent')) {
+        const seen = 'pp_tracked_' + orderId;
+        if (localStorage.getItem(seen)) fresh = false;
+        else localStorage.setItem(seen, '1');
+      }
+    } catch(_) {}
+    window.__ppOrder = { id: orderId, total, items: gaItems, fresh };
+
+    if (fresh) {
       gtag('event','purchase',{
-        transaction_id: 'pp-' + Date.now(),
+        transaction_id: orderId,
         value: total,
         currency: 'NZD',
         items: gaItems,
@@ -55,7 +69,7 @@
 </script>
 <title>Order Confirmed — Prime Piece</title>
 <!-- Meta Pixel -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');fbq('track','Purchase',{currency:'NZD',value:(function(){var p=new URLSearchParams(window.location.search);return parseFloat(p.get('total'))||0;})()});</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');(function(){var o=window.__ppOrder;if(!o||!o.fresh)return;fbq('track','Purchase',{currency:'NZD',value:o.total,content_type:'product',content_ids:o.items.map(function(i){return i.item_id;}),num_items:o.items.length},{eventID:o.id});})();</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=722124784327437&ev=PageView&noscript=1"/></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
