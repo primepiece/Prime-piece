@@ -819,6 +819,8 @@
             cart_value: cartValue,
             currency: 'NZD',
             item_count: cart.length,
+            // Lets the Abandoned Checkout email swap its "one of one" stone copy for voucher copy.
+            voucher_only: cart.length > 0 && cart.every(i => String(i.id).startsWith('voucher-')),
             items: cartItems,
             checkout_url: 'https://primepiece.co.nz/checkout.html?cart=' + encodeURIComponent(JSON.stringify(cart)),
             url: window.location.href,
@@ -879,7 +881,9 @@
       document.getElementById('pay-btn').disabled = false;
       document.getElementById('pay-btn-text').textContent = 'Pay ' + fmt(discountedTotal) + ' NZD →';
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      window.location.href = returnUrl;
+      // Stripe adds payment_intent itself on the redirect path; add it here too so success.html
+      // can count each order once.
+      window.location.href = returnUrl + '&payment_intent=' + encodeURIComponent(paymentIntent.id);
     } else {
       // requires_action (e.g. 3D Secure) or another non-final state — Stripe
       // has already taken over the page for the required verification step.

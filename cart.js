@@ -352,9 +352,9 @@
       try {
         const knownEmail = localStorage.getItem('pp_customer_email');
         if (knownEmail) {
-          const allItems = getItems();
-          const cartValue = allItems.reduce((s, i) => s + i.price, 0) + item.price;
-          const fullCart = allItems.concat([item]);
+          // The new item is already in the stored cart (pushed above).
+          const fullCart = getItems();
+          const cartValue = fullCart.reduce((s, i) => s + i.price, 0);
           fetch('/api/track', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
