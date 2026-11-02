@@ -37,7 +37,15 @@
         height: 1920px;
         object-fit: cover;
         z-index: 1;
+      }
+      /* Opening shot pushes in on her face (head stays clear of the hook line); its caption pill drifts down
+         54px with the push-in (captions.html, c-1) to stay over the band where Runway's caption was removed. */
+      #slot-a {
         transform-origin: 50% 15%;
+      }
+      /* Second shot scales about the caption band itself (y 1188), so its pill stays put above Instagram's UI. */
+      #slot-b {
+        transform-origin: 50% 61.875%;
       }
       #montage {
         z-index: 2;
@@ -68,11 +76,13 @@
       data-width="1080"
       data-height="1920"
     >
-      <!-- TALENT: stand-in is the Runway export (720p, captions burned in). Replace with the clean clips; see README.md -->
+      <!-- TALENT: runway-clean.mp4 is the Runway export (720p) with its burned-in text removed: the hook line is
+           replaced by a clean plate of the window, and the two caption bands are smoothed and covered by our own
+           caption pills (captions.html). The untouched export is runway-standin.mp4. See README.md -->
       <video
         id="slot-a"
         class="clip talent"
-        src="assets/footage/runway-standin.mp4"
+        src="assets/footage/runway-clean.mp4"
         data-start="0"
         data-duration="1.5"
         data-media-start="0"
@@ -82,7 +92,7 @@
       ></video>
       <audio
         id="vo-montage"
-        src="assets/footage/runway-standin.mp4"
+        src="assets/footage/runway-clean.mp4"
         data-start="1.5"
         data-duration="2.5"
         data-media-start="1.5"
@@ -92,7 +102,7 @@
       <video
         id="slot-b"
         class="clip talent"
-        src="assets/footage/runway-standin.mp4"
+        src="assets/footage/runway-clean.mp4"
         data-start="4.6"
         data-duration="1.25"
         data-media-start="4.0"
@@ -154,8 +164,8 @@
       <audio id="sfx-tick-7" src="assets/sfx/click.mp3" data-start="4.358" data-volume="0.28" data-duration="0.3" data-track-index="8"></audio>
       <audio id="sfx-tick-8" src="assets/sfx/click.mp3" data-start="4.478" data-volume="0.3" data-duration="0.3" data-track-index="9"></audio>
       <audio id="sfx-reveal-hit" src="assets/sfx/impact-bass-1.mp3" data-start="5.838" data-volume="0.55" data-duration="2.116" data-track-index="11"></audio>
-      <audio id="sfx-card-200" src="assets/sfx/pop.mp3" data-start="5.993" data-volume="0.45" data-duration="0.72" data-track-index="12"></audio>
-      <audio id="sfx-card-500" src="assets/sfx/pop.mp3" data-start="6.213" data-volume="0.55" data-duration="0.72" data-track-index="13"></audio>
+      <audio id="sfx-card-500" src="assets/sfx/pop.mp3" data-start="5.993" data-volume="0.45" data-duration="0.72" data-track-index="13"></audio>
+      <audio id="sfx-card-200" src="assets/sfx/pop.mp3" data-start="6.213" data-volume="0.55" data-duration="0.72" data-track-index="12"></audio>
       <audio id="sfx-fan" src="assets/sfx/whoosh.mp3" data-start="6.618" data-volume="0.25" data-duration="0.575" data-track-index="7"></audio>
       <audio id="sfx-cta" src="assets/sfx/click.mp3" data-start="7.988" data-volume="0.25" data-duration="0.3" data-track-index="8"></audio>
     </div>

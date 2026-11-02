@@ -65,15 +65,21 @@
       width: 100%;
       height: 100%;
     }
+    /* The $200 (our pick) lands last and stays on top. */
     #v-card-100 { z-index: 1; }
-    #v-card-200 { z-index: 2; }
-    #v-card-500 { z-index: 3; }
-    /* "Our pick" tag rides on the $200 card; sized ×2 because the card is scaled to 0.5 in the fan. */
+    #v-card-500 { z-index: 2; }
+    #v-card-200 {
+      z-index: 3;
+      box-shadow:
+        0 60px 90px -36px rgba(44, 42, 38, 0.55),
+        0 14px 30px rgba(44, 42, 38, 0.16);
+    }
+    /* "Our pick" tag rides on the $200 card; sized up because the card is scaled to 0.56 in the fan. */
     .v-pick-row {
       position: absolute;
       left: 0;
       right: 0;
-      top: -124px;
+      top: -112px;
       display: flex;
       justify-content: center;
     }
@@ -111,7 +117,7 @@
       display: block;
     }
     .v-head {
-      top: 690px;
+      top: 716px;
       font-family: "Cormorant Garamond", serif;
       font-weight: 300;
       font-size: 128px;
@@ -124,14 +130,14 @@
       color: var(--sage-deep);
     }
     .v-prices {
-      top: 972px;
+      top: 998px;
       font-family: "Inter Tight", sans-serif;
       font-weight: 500;
       font-size: 46px;
       letter-spacing: 0.02em;
     }
     .v-delivery {
-      top: 1036px;
+      top: 1062px;
       font-family: "Inter Tight", sans-serif;
       font-weight: 500;
       font-size: 32px;
@@ -139,7 +145,7 @@
       color: var(--sage-deep);
     }
     .v-cta-row {
-      top: 1112px;
+      top: 1138px;
       display: flex;
       justify-content: center;
     }
@@ -156,7 +162,7 @@
       text-transform: uppercase;
     }
     .v-url {
-      top: 1236px;
+      top: 1262px;
       font-family: "Inter Tight", sans-serif;
       font-weight: 500;
       font-size: 34px;
@@ -204,8 +210,8 @@
     // Scene clock starts at 5.85 s in the film, straight after "I'll let her choose." The cards slam in on the cut.
     const T = {
       card100: 0.0,
-      card200: 0.22,
-      card500: 0.44,
+      card500: 0.22,
+      card200: 0.44,
       fan: 0.8,
       pick: 1.2,
       head: 1.25,
@@ -215,13 +221,13 @@
       url: 2.2,
       end: 4.35,
     };
-    // Fan: $500 left (on top), $200 centre, $100 right. Each overlap covers only the marble strip of the
-    // card to its right, so every value and logo stays readable.
-    const FAN_SCALE = 0.5; // 450 px wide
+    // Fan: the $200 (our pick) sits in front, centred and larger. The $100 (left) and $500 (right) sit
+    // behind and higher, so the $200 covers only their lower edge and inner marble strip: every value,
+    // logo and stone stays readable. Base slot is centred on (540, 600); x/y offset that centre.
     const FAN = {
-      "#v-card-500": { x: -268, y: -170, rotation: -6 },
-      "#v-card-200": { x: 0, y: -196, rotation: 0 },
-      "#v-card-100": { x: 268, y: -170, rotation: 6 },
+      "#v-card-100": { x: -285, y: -254, rotation: -6, scale: 0.42 }, // 378 px wide
+      "#v-card-500": { x: 285, y: -254, rotation: 6, scale: 0.42 },
+      "#v-card-200": { x: 0, y: -77, rotation: 0, scale: 0.56 }, // 504 px wide
     };
     const tl = gsap.timeline({ paused: true });
 
@@ -234,17 +240,18 @@
         t,
       );
     };
+    // $100, then $500, then the $200 last, so the reveal lands on our pick.
     land("#v-card-100", T.card100, -2);
-    land("#v-card-200", T.card200, 2);
-    land("#v-card-500", T.card500, 0);
+    land("#v-card-500", T.card500, 2);
+    land("#v-card-200", T.card200, 0);
     // The cards underneath give a little as each one lands.
-    tl.to("#v-card-100", { scale: 0.975, duration: 0.14, ease: "power2.out" }, T.card200 + 0.03);
-    tl.to("#v-card-100", { scale: 0.955, duration: 0.14, ease: "power2.out" }, T.card500 + 0.03);
-    tl.to("#v-card-200", { scale: 0.975, duration: 0.14, ease: "power2.out" }, T.card500 + 0.03);
+    tl.to("#v-card-100", { scale: 0.975, duration: 0.14, ease: "power2.out" }, T.card500 + 0.03);
+    tl.to("#v-card-100", { scale: 0.955, duration: 0.14, ease: "power2.out" }, T.card200 + 0.03);
+    tl.to("#v-card-500", { scale: 0.975, duration: 0.14, ease: "power2.out" }, T.card200 + 0.03);
 
     // Spread into the fan.
     Object.entries(FAN).forEach(([sel, p]) => {
-      tl.to(sel, { x: p.x, y: p.y, rotation: p.rotation, scale: FAN_SCALE, duration: 0.5, ease: "power3.inOut" }, T.fan);
+      tl.to(sel, { x: p.x, y: p.y, rotation: p.rotation, scale: p.scale, duration: 0.5, ease: "power3.inOut" }, T.fan);
     });
     // Flag the $200 as the pick (matches the badge on gift-vouchers.html).
     tl.fromTo("#v-pick", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, T.pick);
