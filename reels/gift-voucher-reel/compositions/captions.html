@@ -13,6 +13,12 @@
     }
     @font-face {
       font-family: "Cormorant Garamond";
+      font-weight: 500;
+      font-style: normal;
+      src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Cormorant Garamond";
       font-weight: 400;
       font-style: italic;
       src: url("assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");
@@ -35,37 +41,44 @@
       justify-content: center;
       overflow: visible;
     }
+    /* Every caption: white Cormorant Garamond over a soft shade sized to the words (no hard pill), so the
+       lines read as one family with the end card. The shade also softens the bands where Runway's burned-in
+       captions were removed. */
     .c-pill {
       display: inline-block;
-      padding: 20px 38px 22px;
-      border-radius: 999px;
-      background: rgba(28, 26, 23, 0.84);
-      color: #f5f1ea;
-      font-family: "Inter Tight", sans-serif;
+      padding: 30px 70px 36px;
+      background: radial-gradient(closest-side, rgba(20, 18, 15, 0.5), rgba(20, 18, 15, 0.38) 62%, rgba(20, 18, 15, 0) 100%);
+      color: #fff;
+      font-family: "Cormorant Garamond", serif;
       font-weight: 500;
-      font-size: 54px;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
+      font-size: 72px;
+      line-height: 1.05;
+      letter-spacing: 0;
       white-space: nowrap;
+      text-shadow:
+        0 2px 14px rgba(0, 0, 0, 0.45),
+        0 0 2px rgba(0, 0, 0, 0.35);
     }
-    /* Hook line over the opening shot, just under Instagram's top bar, set in ink over the bright window
-       (where Runway's own hook line was removed). A soft cream halo keeps it clean where it meets her hair. */
+    /* Hook line over the opening shot, just under Instagram's top bar, in the same white type over the
+       window (where Runway's own hook line was removed). */
     .c-hook {
       top: 168px;
       height: 160px;
+      overflow: visible;
     }
     .c-hook-text {
       display: inline-block;
-      color: #2c2a26;
+      padding: 44px 120px 52px;
+      background: radial-gradient(closest-side, rgba(20, 18, 15, 0.34), rgba(20, 18, 15, 0.22) 55%, rgba(20, 18, 15, 0) 100%);
+      color: #fff;
       font-family: "Cormorant Garamond", serif;
-      font-weight: 400;
+      font-weight: 500;
       font-size: 76px;
       line-height: 1.02;
-      letter-spacing: -0.005em;
       text-align: center;
       text-shadow:
-        0 0 22px rgba(245, 241, 234, 0.85),
-        0 0 6px rgba(245, 241, 234, 0.6);
+        0 2px 14px rgba(0, 0, 0, 0.45),
+        0 0 2px rgba(0, 0, 0, 0.35);
     }
     .c-hook-text em {
       font-style: italic;

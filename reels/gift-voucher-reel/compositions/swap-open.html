@@ -1,9 +1,10 @@
 <template>
   <style>
     @font-face {
-      font-family: "Inter Tight";
-      font-weight: 600;
-      src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2");
+      font-family: "Cormorant Garamond";
+      font-weight: 500;
+      font-style: normal;
+      src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2");
     }
     #root {
       position: absolute;
@@ -34,24 +35,27 @@
     .s-hook {
       position: absolute;
       left: 0;
-      top: 236px;
+      top: 206px;
       width: 1080px;
       display: flex;
       justify-content: center;
       z-index: 5;
     }
+    /* Same caption style as the presenter cut (captions.html): white Cormorant Garamond over a soft shade
+       sized to the words. */
     .s-pill {
       display: inline-block;
-      padding: 20px 40px 22px;
-      border-radius: 999px;
-      background: rgba(28, 26, 23, 0.8);
-      color: #f5f1ea;
-      font-family: "Inter Tight", sans-serif;
-      font-weight: 600;
-      font-size: 62px;
-      line-height: 1.1;
-      letter-spacing: -0.015em;
+      padding: 40px 100px 48px;
+      background: radial-gradient(closest-side, rgba(20, 18, 15, 0.46), rgba(20, 18, 15, 0.3) 58%, rgba(20, 18, 15, 0) 100%);
+      color: #fff;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      font-size: 78px;
+      line-height: 1.05;
       white-space: nowrap;
+      text-shadow:
+        0 2px 14px rgba(0, 0, 0, 0.45),
+        0 0 2px rgba(0, 0, 0, 0.35);
     }
   </style>
   <div

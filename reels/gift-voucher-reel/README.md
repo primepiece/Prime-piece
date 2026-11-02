@@ -1,9 +1,11 @@
 # Prime Piece — Gift Voucher Reel (HyperFrames project)
 
-Vertical 1080 × 1920, 30 fps, 10.2 s. **Status: v5, ready to post.** The opening and the "I'll let her
+Vertical 1080 × 1920, 30 fps, 10.2 s. **Status: v6, ready to post.** The opening and the "I'll let her
 choose" line are the Runway presenter. Music is added in the Instagram app at upload (see Music).
 
-- Latest: `renders/prime-piece-gift-vouchers_v5.mp4` (v1–v4 are earlier cuts)
+- Latest: `renders/prime-piece-gift-vouchers_v6.mp4` (v1–v5 are earlier cuts)
+- v6 changes: every caption (both cuts) is white Cormorant Garamond over a soft shade sized to the words,
+  matching the hook and end card; no more dark pills.
 - v5 changes: Runway's burned-in text is removed from the presenter shots and replaced with on-brand type
   (the hook in Cormorant Garamond, the two lines in the same caption pills as the montage); the end card
   lands on the $200 last and shows it in front, centred and larger, with "Our pick" centred on it.
@@ -40,7 +42,7 @@ straight into the same voucher ending (`compositions/vouchers.html`).
 
 - Scene: `compositions/swap-open.html` (the hook lines are variables `hook1` and `hook2`)
 - Render: `npx hyperframes render -c swap.html -q high -o renders/<name>.mp4`
-- Latest: `renders/prime-piece-gift-vouchers_v4b-stone-swap.mp4`
+- Latest: `renders/prime-piece-gift-vouchers_v6b-stone-swap.mp4`
 
 `npx hyperframes check` and `snapshot` read `index.html` only. To check this cut, run them on a copy of the
 project with `swap.html` as its `index.html`.
@@ -50,8 +52,8 @@ project with `swap.html` as its `index.html`.
 - `swap-december.html`: the stone-swap cut for 16–24 December, with "Last-minute gift?" / "It’s emailed in seconds."
   and "Emailed in seconds · No courier, no cut-off" (set with `data-variable-values` on the scene hosts).
   Render: `npx hyperframes render -c swap-december.html -q high -o renders/<name>.mp4`.
-  Latest: `renders/prime-piece-gift-vouchers_v4c-december.mp4`.
-- `renders/*_4x5.mp4`: 1080×1350 versions of v5, v5b and v5c for Facebook and Instagram feed placements, cropped
+  Latest: `renders/prime-piece-gift-vouchers_v6c-december.mp4`.
+- `renders/*_4x5.mp4`: 1080×1350 versions of each cut (latest: v6, v6b and v6c) for Facebook and Instagram feed placements, cropped
   from the vertical renders (`ffmpeg -i in.mp4 -vf crop=1080:1350:0:100 -c:v libx264 -crf 16 -c:a copy out.mp4`).
   The crop starts at 100 px (not 170) so the opening hook line has room above it.
 
@@ -63,7 +65,8 @@ burned in. The reel uses `assets/footage/runway-clean.mp4`, made from it:
 - The hook line ("For the one with VERY specific taste.", source rows 106–232) is replaced with a clean plate
   of the window behind it: the median of the 4.0–5.5 s frames, where the locked-off shot has no text
   (`tools/hook-plate.py`).
-- The two caption bands (source rows 764–820) are smoothed with ffmpeg `delogo`; our caption pills cover them.
+- The two caption bands (source rows 764–820) are smoothed with ffmpeg `delogo`; our white captions and
+  their soft shade sit over them.
 
 ```
 python3 tools/hook-plate.py <work dir>   # needs <work dir>/pl (frames 4.0–5.5 s) and /a0 (0–1.5 s), rows 60–320
@@ -73,8 +76,8 @@ delogo=x=206:y=764:w=304:h=56:enable='between(t,3.9,5.6)',format=yuv420p[v]" \
   -map "[v]" -map 0:a -c:v libx264 -crf 14 -preset slow -c:a copy assets/footage/runway-clean.mp4
 ```
 
-Because the pills cover the smoothed bands, `c-1` and `c-5` cut in and out with their shot (`data-cut`), the
-opening shot's pill drifts down with its punch-in (`data-drift="54"`), and `#slot-b` scales about the caption
+Because the captions sit over the smoothed bands, `c-1` and `c-5` cut in and out with their shot (`data-cut`), the
+opening shot's caption drifts down with its punch-in (`data-drift="54"`), and `#slot-b` scales about the caption
 band (`transform-origin: 50% 61.875%`). Some of Runway's own sound effects from 1.5–4.0 s also come through
 with the voice.
 
