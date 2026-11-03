@@ -314,17 +314,17 @@
 // ── Christmas Release ─────────────────────────────────────────────────────────
 // The boards show here before launch (with a first-look button) and once live (Add to Cart).
 // Prices must match CATALOG in api/checkout.js. Goes on sale when RELEASE_LIVE is switched on in
-// lib/release.js. Prices stay hidden until then because they're still placeholders.
+// lib/release.js.
 var RELEASE = {
   boards: [
-    { id: 'release-red',   no: 1, name: 'Burgundy Red', stone: '', price: 269, image: 'release-red.jpg',
+    { id: 'release-red',   no: 1, name: 'Burgundy Red', stone: '', price: 399, image: 'release-red.jpg',
       blurb: 'Deep burgundy stone, split by bright white veins and a seam of burnt orange. The boldest of the three, and the one that looks most like Christmas.' },
-    { id: 'release-green', no: 2, name: 'Deep Green',   stone: '', price: 269, image: 'release-green.jpg',
+    { id: 'release-green', no: 2, name: 'Deep Green',   stone: '', price: 399, image: 'release-green.jpg',
       blurb: 'Forest green with a fine web of pale green and white veining. Dark enough to make cheese, fruit and herbs stand out.' },
-    { id: 'release-white', no: 3, name: 'White & Grey', stone: '', price: 269, image: 'release-white.jpg',
+    { id: 'release-white', no: 3, name: 'White & Grey', stone: '', price: 399, image: 'release-white.jpg',
       blurb: 'Bright white stone with grey veining that breaks into soft, cloud-like shapes. Clean and classic, and it suits any table.' }
   ],
-  set: { id: 'release-set', name: 'Set of All Three', price: 699, image: 'release-set.jpg',
+  set: { id: 'release-set', name: 'Set of All Three', price: 999, image: 'release-set.jpg',
     blurb: 'Red, green and white together: all three numbered boards, for one table or three people on your list. Buying the set takes the whole release.' },
   specs: ['600 × 250mm', 'Rounded corners, polished edges', 'Signed and numbered on the back', 'Cut and finished by hand in Wairau Valley, Auckland']
 };
@@ -336,13 +336,14 @@ var RELEASE = {
     var sold = !!state.sold[item.id];
     var cartItem = { id: item.id, name: 'Christmas Release — ' + item.name, type: 'Christmas Release', image: item.image, price: item.price };
     var specs = isSet ? ['Boards No. 1, 2 and 3', '600 × 250mm each', 'Signed and numbered on the back'] : RELEASE.specs;
+    var price = '<span class="board-price">$' + item.price.toLocaleString('en-NZ') + '<small>NZD</small></span>';
     var buy;
     if (!state.live) {
-      buy = '<a class="btn" href="#first-look">Get First Look →</a>';
+      buy = price + '<a class="btn" href="#first-look">Get First Look →</a>';
     } else if (sold) {
       buy = '<span class="board-price">Sold</span><button class="btn" disabled>Sold</button>';
     } else {
-      buy = '<span class="board-price">$' + item.price.toLocaleString('en-NZ') + '<small>NZD</small></span>' +
+      buy = price +
         '<button class="btn pp-add-btn" data-id="' + item.id + '" onclick=\'Cart.add(' + esc(JSON.stringify(cartItem)) + ')\'>Add to Cart →</button>';
     }
     return '<article class="board' + (sold ? ' is-sold' : '') + '" id="' + item.id + '">' +
