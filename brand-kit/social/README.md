@@ -8,6 +8,7 @@ Every design is HTML in `src/` using the brand's own font files, rendered to `ou
 | `01-their-taste.png` | IG post 1080×1440 | Launch week, any time |
 | `carousel-1.png` … `carousel-4.png` | IG carousel, 4 slides | Launch week (Sat 7 Nov): "What will they choose?" |
 | `vc-1.png` … `vc-5.png` | IG carousel, 5 slides, 4:5 (1080×1350) | "Can't pick their stone? Let them.": one big voucher per slide, coloured by its stone, with one real piece it covers. Kept minimal on purpose |
+| `teaser-story.png` | IG Story 1080×1920 | Wed 4 Nov, the day before launch: three voucher stones, no prices. Put Instagram's countdown sticker (Thu 5 Nov) in the gap under the stones |
 | `gw-warm.png` | IG post, 4:5 | **Use this one.** Christmas giveaway, 10–22 Nov: warm window light, the real $200 voucher artwork, a raw Teal Tide rock cut from the real board photo; logo recoloured to the stone green on this post only. Terms in the caption |
 | `gw-1.png` (teal version) | IG post, 4:5 (`gw-2.png` is an optional how-to-enter slide) | Christmas giveaway, 10–22 Nov: "Win a $200 gift voucher. Yours to keep, or to give for Christmas." Terms go in the caption |
 | `11-poll-story.png` | IG Story | Launch week (Fri 6 Nov): add Instagram's poll sticker in the gap ("Blue" / "Burgundy") |
