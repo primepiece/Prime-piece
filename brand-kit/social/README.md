@@ -19,6 +19,14 @@ Every design is HTML in `src/` using the brand's own font files, rendered to `ou
 | `09-counter-flyer-a4.pdf` | A4 print | The showroom counter (`.png` is a preview) |
 | `12-corporate-one-pager-a4.pdf` | A4 PDF | Attach to corporate outreach emails (9–13 Nov) |
 
+## Christmas Release carousel (boards drop 15 November)
+
+`out/christmas-1.png` … `christmas-6.png`, IG carousel 1080×1440, six slides: cover, one slide per board ($399),
+the set ($999), and the drop dates. Post it after the launch reel. The caption is in `christmas-release-caption.txt`.
+Sources are `src/christmas-*.html` with shared styles in `src/christmas.css`; photos come from the site root
+(`release-*.jpg`). Rebuild with `NODE_PATH=/opt/node22/lib/node_modules node render-playwright.cjs src/christmas-*.html`
+(Playwright, no puppeteer-core needed).
+
 Stories: add a link sticker to primepiece.co.nz/gift-vouchers.html over the bottom third.
 
 ## Rebuilding
