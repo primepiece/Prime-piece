@@ -1,0 +1,58 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Cormorant Garamond";
+      font-weight: 300;
+      font-style: normal;
+      src: url("assets/fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2");
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #16120f;
+    }
+    /* The three photos share one camera position, so they sit in exactly the same place:
+       full width, native 4:3 (1448 x 1086 -> 1080 x 810), never cropped or stretched. */
+    .rv-photo {
+      position: absolute;
+      left: 0;
+      top: 500px;
+      width: 1080px;
+      height: 810px;
+      object-fit: contain;
+    }
+    #rv-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 372px;
+      text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: #f2ece1;
+    }
+  </style>
+  <div id="root" data-composition-id="reveal" data-width="1080" data-height="1920">
+    <!-- One second each, cut on the beat (0.0, 1.0, 2.0). Locked frame: no movement. -->
+    <img id="rv-red" class="clip rv-photo" src="assets/boards/board-red.png" alt="Red marble grazing board"
+      data-start="0" data-duration="1" data-track-index="0" />
+    <img id="rv-green" class="clip rv-photo" src="assets/boards/board-green.png" alt="Green marble grazing board"
+      data-start="1" data-duration="1" data-track-index="0" />
+    <img id="rv-white" class="clip rv-photo" src="assets/boards/board-white.png" alt="White marble grazing board"
+      data-start="2" data-duration="1" data-track-index="0" />
+
+    <div id="rv-title-clip" class="clip" data-start="0" data-duration="3" data-track-index="1">
+      <div id="rv-title" data-var-text="revealTitle">Three Christmas colours.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // On screen from frame 0 so the hook reads muted and in the thumbnail; fades out before the next line.
+    tl.set("#rv-title", { opacity: 1 }, 0);
+    tl.to("#rv-title", { opacity: 0, duration: 0.3, ease: "power1.in" }, 2.66);
+    window.__timelines["reveal"] = tl;
+  </script>
+</template>
