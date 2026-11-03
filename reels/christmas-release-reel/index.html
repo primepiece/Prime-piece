@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Prime Piece — Christmas Release launch reel</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 300; src: url("assets/fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 300; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-300-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 500; src: url("assets/fonts/inter-tight-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 600; src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2"); }
+      :root { --cream: #f5f1ea; --ink: #2c2a26; --sage: #7ba5a8; --sage-soft: #a8c3c5; --stone: #8a8275; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; background: var(--ink); overflow: hidden; color: var(--cream); font-family: "Inter Tight", sans-serif; }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .serif { font-family: "Cormorant Garamond", serif; font-weight: 300; letter-spacing: -0.015em; }
+      .serif em { font-style: italic; color: var(--sage-soft); }
+      .eyebrow { font-weight: 500; font-size: 28px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage-soft); }
+      .ribbon { position: absolute; display: flex; height: 6px; width: 240px; }
+      .ribbon span { flex: 1; }
+      .ribbon span:nth-child(1) { background: #8e2c26; }
+      .ribbon span:nth-child(2) { background: #2f5c49; }
+      .ribbon span:nth-child(3) { background: #ede9e2; }
+      /* Gift tag */
+      .tag { position: absolute; padding: 18px 36px 18px 60px; background: var(--cream); color: var(--ink); font-weight: 600; font-size: 30px; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
+        clip-path: polygon(28px 0, 100% 0, 100% 100%, 28px 100%, 0 50%); box-shadow: 0 10px 24px rgba(0,0,0,0.25); }
+      .tag::before { content: ""; position: absolute; left: 24px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: var(--sage); }
+
+      /* Snow, over everything */
+      #snow { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+      .flake { position: absolute; left: 0; top: 0; border-radius: 50%; background: var(--cream); }
+
+      /* 1 · Hook */
+      .h-eyebrow { position: absolute; left: 0; width: 1080px; top: 200px; text-align: center; }
+      .h-line { position: absolute; left: 0; width: 1080px; top: 260px; text-align: center; font-size: 112px; line-height: 1.02; }
+      .h-band { position: absolute; left: 0; top: 640px; width: 1080px; height: 700px; overflow: hidden; }
+      .h-band img { position: absolute; width: 2447px; height: 1835px; left: -1183px; top: -537px; }
+      #h-ribbon { left: 420px; top: 1380px; }
+
+      /* 2 · Reveals */
+      .r-eyebrow { position: absolute; left: 0; width: 1080px; top: 250px; text-align: center; font-weight: 500; font-size: 28px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage-soft); }
+      .r-name { position: absolute; left: 0; width: 1080px; top: 300px; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: 132px; letter-spacing: -0.015em; }
+      .r-photo { position: absolute; left: 0; top: 560px; width: 1080px; height: 810px; overflow: hidden; }
+      .r-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; }
+      .r-tag { left: 40px; top: 600px; }
+      .r-spec { position: absolute; left: 0; width: 1080px; top: 1420px; text-align: center; font-weight: 500; font-size: 30px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-soft); }
+      .wipe { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 8; }
+
+      /* 3 · Trio */
+      .t-head { position: absolute; left: 0; width: 1080px; top: 220px; text-align: center; font-size: 112px; line-height: 1.02; }
+      .t-price { position: absolute; left: 0; width: 1080px; top: 470px; text-align: center; font-weight: 500; font-size: 32px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage-soft); }
+      .t-band { position: absolute; left: 40px; width: 1000px; height: 300px; overflow: hidden; box-shadow: 0 24px 50px -20px rgba(0,0,0,0.6); }
+      .t-band img { position: absolute; left: 0; top: -211px; width: 1000px; height: 750px; }
+
+      /* 4 · End card */
+      #e-sprig { position: absolute; right: -90px; top: 260px; width: 460px; height: 460px; fill: none; stroke: var(--sage-soft); stroke-width: 1.4; stroke-linecap: round; opacity: 0.5; }
+      .e-eyebrow { position: absolute; left: 90px; top: 470px; }
+      .e-head { position: absolute; left: 84px; top: 530px; font-size: 124px; line-height: 1.02; }
+      #e-ribbon { left: 90px; top: 820px; }
+      .e-rows { position: absolute; left: 90px; top: 880px; width: 900px; }
+      .e-row { display: flex; justify-content: space-between; align-items: baseline; padding: 30px 0; border-top: 2px solid rgba(245,241,234,0.18); }
+      .e-row:last-child { border-bottom: 2px solid rgba(245,241,234,0.18); }
+      .e-row b { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: 62px; }
+      .e-row span { font-weight: 500; font-size: 28px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-soft); }
+      .e-btn { position: absolute; left: 90px; top: 1200px; padding: 30px 50px; background: var(--sage); color: var(--ink); font-weight: 600; font-size: 32px; letter-spacing: 0.2em; text-transform: uppercase; }
+      .e-gone { position: absolute; left: 90px; top: 1340px; font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 300; font-size: 52px; color: var(--sage-soft); }
+      .e-logo { position: absolute; left: 90px; top: 1440px; width: 300px; opacity: 0.9; }
+    </style>
+  </head>
+  <body>
+    <!--
+      CHRISTMAS RELEASE LAUNCH REEL · 1080×1920 · 16.3 s. Render: npx hyperframes render -q high -o renders/<name>.mp4
+        0.0 – 3.5    HOOK: "We made three Christmas boards." → (1.5) "You can only buy one of each." over stone
+                     close-ups (red 0–1.15, green 1.15–2.3, white 2.3–3.5)              (#scene-hook)
+        3.5 – 9.5    REVEALS: a wipe in each stone's colour, then the board, name and a $399 gift tag
+                     (red 3.5, green 5.5, white 7.5)                                   (#r-red, #r-green, #r-white)
+        9.5 – 12.3   TRIO: "One of each. Never repeated." · the three boards slide in · $399 each · $999 the set
+        12.3 – 16.3  END CARD: Drops Sunday 15 November, 7pm · first-look Sat 14 Nov · Link in bio · logo
+      Snow falls over everything. No voice; add music in Instagram (see README.md).
+    -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="16.3" data-width="1080" data-height="1920">
+
+      <!-- 1 · HOOK (the first frame is the thumbnail, so the headline is on screen at 0) -->
+      <div id="scene-hook" class="clip scene" data-start="0" data-duration="3.5" data-track-index="1">
+        <div class="eyebrow h-eyebrow">Prime Piece · Christmas Release</div>
+        <div id="h-line-1" class="serif h-line">We made three<br>Christmas boards.</div>
+        <div id="h-line-2" class="serif h-line">You can only buy<br><em>one of each.</em></div>
+        <div id="h-band-red" class="h-band"><img src="assets/photos/release-red.jpg" alt="Burgundy red stone close-up" /></div>
+        <div id="h-band-green" class="h-band"><img src="assets/photos/release-green.jpg" alt="Deep green stone close-up" /></div>
+        <div id="h-band-white" class="h-band"><img src="assets/photos/release-white.jpg" alt="White and grey stone close-up" /></div>
+        <div id="h-ribbon" class="ribbon"><span></span><span></span><span></span></div>
+      </div>
+
+      <!-- No. 1: colour wipe, then the board with a slow push-in -->
+      <div id="r-red" class="clip scene" data-start="3.5" data-duration="2.0" data-track-index="2">
+        <div class="r-eyebrow">No. 1 of 3</div>
+        <div class="r-name">Burgundy Red</div>
+        <div class="r-photo"><img src="assets/photos/release-red.jpg" alt="Burgundy Red grazing board" /></div>
+        <div class="tag r-tag">$399 · One only</div>
+        <div class="r-spec">600 × 250mm · signed &amp; numbered</div>
+      </div>
+      <div id="w-red" class="clip wipe" data-start="3.25" data-duration="0.6" data-track-index="5" style="background:#7E2420"></div>
+      <!-- No. 2: colour wipe, then the board with a slow push-in -->
+      <div id="r-green" class="clip scene" data-start="5.5" data-duration="2.0" data-track-index="2">
+        <div class="r-eyebrow">No. 2 of 3</div>
+        <div class="r-name">Deep Green</div>
+        <div class="r-photo"><img src="assets/photos/release-green.jpg" alt="Deep Green grazing board" /></div>
+        <div class="tag r-tag">$399 · One only</div>
+        <div class="r-spec">600 × 250mm · signed &amp; numbered</div>
+      </div>
+      <div id="w-green" class="clip wipe" data-start="5.25" data-duration="0.6" data-track-index="5" style="background:#24493A"></div>
+      <!-- No. 3: colour wipe, then the board with a slow push-in -->
+      <div id="r-white" class="clip scene" data-start="7.5" data-duration="2.0" data-track-index="2">
+        <div class="r-eyebrow">No. 3 of 3</div>
+        <div class="r-name">White &amp; Grey</div>
+        <div class="r-photo"><img src="assets/photos/release-white.jpg" alt="White &amp; Grey grazing board" /></div>
+        <div class="tag r-tag">$399 · One only</div>
+        <div class="r-spec">600 × 250mm · signed &amp; numbered</div>
+      </div>
+      <div id="w-white" class="clip wipe" data-start="7.25" data-duration="0.6" data-track-index="5" style="background:#EDE9E2"></div>
+
+      <!-- 3 · TRIO -->
+      <div id="scene-trio" class="clip scene" data-layout-allow-overflow data-start="9.5" data-duration="2.8" data-track-index="1">
+        <div id="t-head" class="serif t-head">One of each.<br><em>Never repeated.</em></div>
+        <div id="t-price" class="t-price">$399 each · $999 the set</div>
+        <div id="t-red" class="t-band" style="top:560px"><img src="assets/photos/release-red.jpg" alt="Burgundy red board" /></div>
+        <div id="t-green" class="t-band" style="top:880px"><img src="assets/photos/release-green.jpg" alt="Deep green board" /></div>
+        <div id="t-white" class="t-band" style="top:1200px"><img src="assets/photos/release-white.jpg" alt="White and grey board" /></div>
+      </div>
+
+      <!-- 4 · END CARD -->
+      <div id="scene-end" class="clip scene" data-start="12.3" data-duration="4.0" data-track-index="1">
+        <svg id="e-sprig" data-layout-allow-overflow viewBox="0 0 240 240" aria-hidden="true"><path d="M10 230 Q84 108 230 10"/><path d="M21.8 211.4l20.5 -4.9M21.8 211.4l-3.5 -20.8M28.0 202.2l20.1 -4.4M28.0 202.2l-3.0 -20.4M34.5 193.0l19.7 -3.9M34.5 193.0l-2.5 -20.0M41.1 184.0l19.4 -3.5M41.1 184.0l-2.1 -19.6M48.0 175.0l19.0 -3.1M48.0 175.0l-1.7 -19.1M55.1 166.0l18.6 -2.6M55.1 166.0l-1.3 -18.7M62.4 157.2l18.1 -2.2M62.4 157.2l-0.9 -18.3M69.9 148.4l17.7 -1.9M69.9 148.4l-0.6 -17.8M77.6 139.7l17.3 -1.5M77.6 139.7l-0.3 -17.3M85.5 131.1l16.8 -1.2M85.5 131.1l0.0 -16.9M93.6 122.5l16.4 -0.9M93.6 122.5l0.3 -16.4M102.0 114.0l15.9 -0.6M102.0 114.0l0.6 -15.9M110.6 105.6l15.5 -0.3M110.6 105.6l0.8 -15.5M119.3 97.2l15.0 -0.0M119.3 97.2l1.0 -15.0M128.3 88.9l14.6 0.2M128.3 88.9l1.2 -14.5M137.6 80.7l14.1 0.4M137.6 80.7l1.4 -14.0M147.0 72.6l13.6 0.6M147.0 72.6l1.6 -13.5M156.6 64.5l13.1 0.8M156.6 64.5l1.7 -13.0M166.4 56.5l12.7 1.0M166.4 56.5l1.8 -12.6M176.5 48.6l12.2 1.1M176.5 48.6l2.0 -12.1M186.8 40.7l11.7 1.2M186.8 40.7l2.0 -11.6M197.3 32.9l11.2 1.3M197.3 32.9l2.1 -11.1M208.0 25.2l10.7 1.4M208.0 25.2l2.2 -10.6M218.9 17.6l10.3 1.5M218.9 17.6l2.2 -10.1M230.0 10.0l9.8 1.6M230.0 10.0l2.3 -9.6"/></svg>
+        <div id="e-eyebrow" class="eyebrow e-eyebrow">Christmas Release 2026</div>
+        <div class="serif e-head"><div id="e-head-1">Drops Sunday</div><div id="e-head-2"><em>15 November, 7pm</em></div></div>
+        <div id="e-ribbon" class="ribbon"><span></span><span></span><span></span></div>
+        <div class="e-rows">
+          <div id="e-row-1" class="e-row"><b>Sat 14 Nov, 7pm</b><span>First-look list</span></div>
+          <div id="e-row-2" class="e-row"><b>Sun 15 Nov, 7pm</b><span>Everyone else</span></div>
+        </div>
+        <div id="e-btn" class="e-btn">Get first look · link in bio</div>
+        <div id="e-gone" class="e-gone">When they're gone, they're gone.</div>
+        <img id="e-logo" class="e-logo" src="assets/brand/prime-piece-logo-cream.png" alt="Prime Piece" />
+      </div>
+
+      <!-- Snow over every scene -->
+      <div id="snow" class="clip" data-start="0" data-duration="16.3" data-track-index="9">
+        <i class="flake" data-x="7" data-y="90" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="60" data-y="401" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="113" data-y="712" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="166" data-y="1023" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="219" data-y="1334" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="272" data-y="1645" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="325" data-y="1956" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="378" data-y="307" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="431" data-y="618" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="484" data-y="929" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="537" data-y="1240" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="590" data-y="1551" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="643" data-y="1862" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="696" data-y="213" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="749" data-y="524" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="802" data-y="835" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="855" data-y="1146" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="908" data-y="1457" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="961" data-y="1768" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="1014" data-y="119" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="1067" data-y="430" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="40" data-y="741" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="93" data-y="1052" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="146" data-y="1363" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="199" data-y="1674" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="252" data-y="25" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="305" data-y="336" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="358" data-y="647" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="411" data-y="958" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="464" data-y="1269" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="517" data-y="1580" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="570" data-y="1891" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="623" data-y="242" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="676" data-y="553" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="729" data-y="864" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+        <i class="flake" data-x="782" data-y="1175" data-speed="70" data-drift="30" style="width:6px;height:6px;opacity:0.55"></i>
+        <i class="flake" data-x="835" data-y="1486" data-speed="95" data-drift="-24" style="width:9px;height:9px;opacity:0.4"></i>
+        <i class="flake" data-x="888" data-y="1797" data-speed="120" data-drift="18" style="width:5px;height:5px;opacity:0.7"></i>
+        <i class="flake" data-x="941" data-y="148" data-speed="60" data-drift="-36" style="width:11px;height:11px;opacity:0.3"></i>
+        <i class="flake" data-x="994" data-y="459" data-speed="85" data-drift="26" style="width:7px;height:7px;opacity:0.5"></i>
+      </div>
+
+      <!-- SFX -->
+      <audio id="sfx-cut-1" src="assets/sfx/click.mp3" data-start="1.15" data-volume="0.25" data-duration="0.3" data-track-index="10"></audio>
+      <audio id="sfx-cut-2" src="assets/sfx/click.mp3" data-start="2.3" data-volume="0.28" data-duration="0.3" data-track-index="10"></audio>
+      <audio id="sfx-wipe-red" src="assets/sfx/whoosh.mp3" data-start="3.22" data-volume="0.35" data-duration="0.575" data-track-index="11"></audio>
+      <audio id="sfx-tag-red" src="assets/sfx/pop.mp3" data-start="4.05" data-volume="0.45" data-duration="0.72" data-track-index="12"></audio>
+      <audio id="sfx-wipe-green" src="assets/sfx/whoosh.mp3" data-start="5.22" data-volume="0.35" data-duration="0.575" data-track-index="11"></audio>
+      <audio id="sfx-tag-green" src="assets/sfx/pop.mp3" data-start="6.05" data-volume="0.45" data-duration="0.72" data-track-index="12"></audio>
+      <audio id="sfx-wipe-white" src="assets/sfx/whoosh.mp3" data-start="7.22" data-volume="0.35" data-duration="0.575" data-track-index="11"></audio>
+      <audio id="sfx-tag-white" src="assets/sfx/pop.mp3" data-start="8.05" data-volume="0.45" data-duration="0.72" data-track-index="12"></audio>
+      <audio id="sfx-trio-1" src="assets/sfx/whoosh.mp3" data-start="9.62" data-volume="0.22" data-duration="0.575" data-track-index="11"></audio>
+      <audio id="sfx-trio-2" src="assets/sfx/whoosh.mp3" data-start="9.82" data-volume="0.22" data-duration="0.575" data-track-index="13"></audio>
+      <audio id="sfx-trio-3" src="assets/sfx/whoosh.mp3" data-start="10.02" data-volume="0.22" data-duration="0.575" data-track-index="14"></audio>
+      <audio id="sfx-end" src="assets/sfx/impact-bass-1.mp3" data-start="12.28" data-volume="0.55" data-duration="2.116" data-track-index="15"></audio>
+      <audio id="sfx-btn" src="assets/sfx/click.mp3" data-start="13.5" data-volume="0.28" data-duration="0.3" data-track-index="10"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const T = 16.3;
+
+      // Snow: each flake falls at its own speed for the whole film and wraps back to the top.
+      const wrapY = gsap.utils.wrap(-40, 1960);
+      document.querySelectorAll(".flake").forEach((f) => {
+        const x = +f.dataset.x, y = +f.dataset.y, sp = +f.dataset.speed, dr = +f.dataset.drift;
+        tl.fromTo(f, { x: x, y: y }, { x: x + dr * T / 4, y: y + sp * T, duration: T, ease: "none",
+          modifiers: { y: (v) => wrapY(parseFloat(v)) + "px" } }, 0);
+      });
+
+      // 1 · Hook: line 1 is up from frame 0, line 2 takes over at 1.35. Stone close-ups cut on 0.9 and 1.8.
+      tl.set("#h-line-2", { opacity: 0 }, 0);
+      tl.to("#h-line-1", { opacity: 0, y: -20, duration: 0.2 }, 1.35);
+      tl.fromTo("#h-line-2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 1.5);
+      [["#h-band-red", 0, 1.15], ["#h-band-green", 1.15, 1.15], ["#h-band-white", 2.3, 1.2]].forEach(([sel, s, d]) => {
+        // Red is first, so it is visible from frame 0 (the thumbnail); the others switch on at their cut.
+        if (s > 0) { tl.set(sel, { opacity: 0 }, 0); tl.set(sel, { opacity: 1 }, s); }
+        tl.fromTo(sel + " img", { x: 0, scale: 1.0 }, { x: -70, scale: 1.05, duration: d, ease: "none" }, s);
+        if (s + d < 3.5) tl.set(sel, { opacity: 0 }, s + d);
+      });
+      tl.fromTo("#h-ribbon", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out", transformOrigin: "50% 50%" }, 0.2);
+
+      // 2 · Reveals: the colour wipe covers the cut, then the board pushes in and the gift tag drops.
+      [["red", 3.5], ["green", 5.5], ["white", 7.5]].forEach(([c, s]) => {
+        tl.fromTo("#w-" + c, { yPercent: 100 }, { yPercent: 0, duration: 0.25, ease: "power3.in" }, s - 0.25);
+        tl.to("#w-" + c, { yPercent: -100, duration: 0.32, ease: "power3.out" }, s + 0.02);
+        tl.fromTo("#r-" + c + " .r-photo img", { scale: 1.0 }, { scale: 1.08, duration: 2.0, ease: "none" }, s);
+        tl.fromTo("#r-" + c + " .r-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3 }, s + 0.15);
+        tl.fromTo("#r-" + c + " .r-name", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, s + 0.2);
+        tl.fromTo("#r-" + c + " .r-spec", { opacity: 0 }, { opacity: 1, duration: 0.3 }, s + 0.4);
+        tl.fromTo("#r-" + c + " .r-tag", { opacity: 0, x: -40, rotation: -6 }, { opacity: 1, x: 0, rotation: -3, duration: 0.35, ease: "back.out(2.2)" }, s + 0.55);
+      });
+
+      // 3 · Trio: the boards slide in from alternating sides.
+      tl.fromTo("#t-head", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 9.55);
+      tl.fromTo("#t-red", { x: -1100 }, { x: 0, duration: 0.45, ease: "power3.out" }, 9.65);
+      tl.fromTo("#t-green", { x: 1100 }, { x: 0, duration: 0.45, ease: "power3.out" }, 9.85);
+      tl.fromTo("#t-white", { x: -1100 }, { x: 0, duration: 0.45, ease: "power3.out" }, 10.05);
+      tl.fromTo("#t-price", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 10.1);
+      tl.fromTo(".t-band img", { scale: 1.0 }, { scale: 1.05, duration: 2.8, ease: "none" }, 9.5);
+
+      // 4 · End card
+      tl.fromTo("#e-sprig", { opacity: 0, rotation: -8 }, { opacity: 0.5, rotation: 0, duration: 1.2, ease: "power2.out" }, 12.3);
+      tl.fromTo("#e-eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35 }, 12.35);
+      tl.fromTo("#e-head-1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 12.45);
+      tl.fromTo("#e-head-2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 12.65);
+      tl.fromTo("#e-ribbon", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out", transformOrigin: "0% 50%" }, 12.95);
+      tl.fromTo("#e-row-1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35 }, 13.1);
+      tl.fromTo("#e-row-2", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35 }, 13.25);
+      tl.fromTo("#e-btn", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)", transformOrigin: "0% 50%" }, 13.5);
+      tl.fromTo("#e-gone", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 13.8);
+      tl.fromTo("#e-logo", { opacity: 0 }, { opacity: 0.9, duration: 0.5 }, 14.1);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
