@@ -1,7 +1,7 @@
 <!doctype html>
 <!-- Christmas giveaway post, warm "window light" version · IG 4:5 1080×1350.
      The light, shadows and plaster are drawn in CSS; the voucher is the supplied artwork and the
-     stone is a crop of the real Teal Tide platter photo. Entry steps and terms go in the caption. -->
+     rock is cut from the real Teal Tide board photo. On this post only, the voucher's logo is recoloured to the stone's green (assets/voucher-200-stone-logo.webp). Entry steps and terms go in the caption. -->
 <html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
 <style>
 html,body,.page{width:1080px;height:1350px}
@@ -17,14 +17,13 @@ html,body,.page{width:1080px;height:1350px}
 .grain{position:absolute;inset:0;opacity:.22;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .3  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .eye{position:absolute;left:84px;top:96px;font-size:22px;color:var(--ink-soft)}
 .h1{position:absolute;left:84px;top:150px;font-size:118px;color:var(--charcoal)}
+.h1 em{color:#3B675D}
 .sub{position:absolute;left:88px;top:420px;font-family:"Cormorant Garamond",serif;font-weight:300;font-style:italic;font-size:48px;color:var(--ink-soft)}
 /* The voucher lying on the surface: a tight contact shadow plus a long soft shadow away from the light. */
 .card{position:absolute;left:96px;top:548px;width:880px;height:528px;transform:rotate(-3deg)}
 .card img{display:block;width:100%;height:100%;outline:1px solid rgba(44,42,38,.12)}
 .card{box-shadow:2px 3px 4px rgba(60,40,20,.25),26px 38px 50px -6px rgba(70,48,26,.38),60px 80px 90px -20px rgba(70,48,26,.22)}
-.stonewrap{position:absolute;right:-120px;bottom:-130px;width:640px;height:420px;transform:rotate(-9deg)}
-.stone{width:100%;height:100%;border-radius:46px 0 0 0;background:url("../assets/photos/stone-teal-tide-texture.jpg") center/cover;
-  box-shadow:inset 3px 3px 0 rgba(255,255,255,.45),inset -2px -2px 0 rgba(0,0,0,.06),-6px -3px 0 #8FB3AE,-22px -14px 34px rgba(70,48,26,.32),-4px -2px 6px rgba(70,48,26,.22)}
+.rockwrap{position:absolute;left:330px;top:1078px;width:820px;height:340px;filter:drop-shadow(-22px -12px 30px rgba(70,48,26,.30)) drop-shadow(-3px -2px 4px rgba(70,48,26,.22))}
 .foot{position:absolute;left:84px;bottom:84px;font-size:25px;line-height:1.7;color:var(--ink-soft)}
 .foot b{font-weight:500;color:var(--charcoal)}
 </style></head><body><div class="page">
@@ -34,7 +33,18 @@ html,body,.page{width:1080px;height:1350px}
 <div class="eyebrow eye">Christmas giveaway</div>
 <div class="h h1">Win a <em>$200</em><br>gift voucher.</div>
 <div class="sub">Yours to keep, or to give for Christmas.</div>
-<div class="stonewrap"><div class="stone"></div></div>
-<div class="card"><img src="../assets/voucher-200.webp" alt="$200 Prime Piece gift voucher"></div>
+<div class="rockwrap"><svg viewBox="0 0 820 340" width="820" height="340">
+<defs>
+<clipPath id="rk"><path d="M0,340.0 L10,340.0 L20,335.4 L30,316.5 L40,304.1 L50,290.1 L60,279.4 L70,276.7 L80,267.2 L90,261.5 L100,248.8 L110,240.0 L120,236.7 L130,237.0 L140,229.9 L150,224.8 L160,216.5 L170,203.5 L180,185.4 L190,171.9 L200,167.9 L210,155.7 L220,155.5 L230,143.9 L240,135.2 L250,130.0 L260,131.2 L270,138.6 L280,138.6 L290,142.5 L300,139.1 L310,130.0 L320,124.1 L330,116.8 L340,116.1 L350,117.5 L360,119.6 L370,114.3 L380,109.5 L390,110.0 L400,112.0 L410,116.8 L420,125.4 L430,125.4 L440,117.2 L450,110.8 L460,101.6 L470,97.7 L480,92.7 L490,85.5 L500,84.1 L510,69.6 L520,63.7 L530,61.9 L540,58.9 L550,66.1 L560,67.6 L570,73.0 L580,70.3 L590,63.4 L600,61.2 L610,56.0 L620,59.5 L630,59.3 L640,57.3 L650,52.5 L660,52.3 L670,54.5 L680,57.8 L690,68.8 L700,73.1 L710,81.7 L720,80.7 L730,80.1 L740,76.5 L750,72.2 L760,72.8 L770,72.5 L780,61.9 L790,56.4 L800,46.8 L810,43.2 L820,44.7 L820,340 Z"/></clipPath>
+<linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF8EC" stop-opacity=".30"/><stop offset=".22" stop-color="#FFF8EC" stop-opacity="0"/><stop offset="1" stop-color="#14201C" stop-opacity=".50"/></linearGradient>
+<linearGradient id="facet" x1="0" y1="0" x2="1" y2=".4"><stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset=".35" stop-color="#000" stop-opacity=".05"/><stop offset=".6" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient><filter id="soft"><feGaussianBlur stdDeviation="0.9"/></filter>
+</defs>
+<g clip-path="url(#rk)">
+<image href="../assets/photos/stone-teal-tide-rock.jpg" x="0" y="-60" width="820" height="700" preserveAspectRatio="xMidYMid slice"/>
+<rect width="820" height="340" fill="url(#facet)"/><rect width="820" height="340" fill="url(#shade)"/>
+</g>
+<path d="M0,340.0 L10,340.0 L20,335.4 L30,316.5 L40,304.1 L50,290.1 L60,279.4 L70,276.7 L80,267.2 L90,261.5 L100,248.8 L110,240.0 L120,236.7 L130,237.0 L140,229.9 L150,224.8 L160,216.5 L170,203.5 L180,185.4 L190,171.9 L200,167.9 L210,155.7 L220,155.5 L230,143.9 L240,135.2 L250,130.0 L260,131.2 L270,138.6 L280,138.6 L290,142.5 L300,139.1 L310,130.0 L320,124.1 L330,116.8 L340,116.1 L350,117.5 L360,119.6 L370,114.3 L380,109.5 L390,110.0 L400,112.0 L410,116.8 L420,125.4 L430,125.4 L440,117.2 L450,110.8 L460,101.6 L470,97.7 L480,92.7 L490,85.5 L500,84.1 L510,69.6 L520,63.7 L530,61.9 L540,58.9 L550,66.1 L560,67.6 L570,73.0 L580,70.3 L590,63.4 L600,61.2 L610,56.0 L620,59.5 L630,59.3 L640,57.3 L650,52.5 L660,52.3 L670,54.5 L680,57.8 L690,68.8 L700,73.1 L710,81.7 L720,80.7 L730,80.1 L740,76.5 L750,72.2 L760,72.8 L770,72.5 L780,61.9 L790,56.4 L800,46.8 L810,43.2 L820,44.7" fill="none" stroke="#FFF6E8" stroke-opacity=".32" stroke-width="2" filter="url(#soft)"/>
+</svg></div>
+<div class="card"><img src="../assets/voucher-200-stone-logo.webp" alt="$200 Prime Piece gift voucher"></div>
 <div class="foot"><b>How to enter: see caption ↓</b><br>Closes Sunday 22 November</div>
 </div></body></html>
