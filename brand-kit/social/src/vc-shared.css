@@ -1,15 +1,11 @@
-/* "Meet the vouchers" carousel · IG 4:5, 1080×1350. One slide per voucher, coloured by its stone. */
+/* "Meet the vouchers" carousel · IG 4:5, 1080×1350. One slide per voucher, coloured by its stone.
+   Kept deliberately sparse: the voucher is the hero, one line and one real piece underneath. */
 html,body,.page{width:1080px;height:1350px}
-.top{position:absolute;left:84px;right:84px;top:84px;display:flex;justify-content:space-between;align-items:baseline;font-size:22px}
-.top .eyebrow{font-size:22px}
-.top .num{color:var(--stone);letter-spacing:.12em}
-.hero{position:absolute;left:110px;top:176px;width:860px;height:516px;transform:rotate(-2.5deg)}
-.hero.v.framed{border-width:10px}
-.amt{position:absolute;left:84px;top:772px;font-family:"Cormorant Garamond",serif;font-weight:300;font-size:176px;line-height:.9;letter-spacing:-.02em}
-.stone{position:absolute;left:90px;top:960px;font-size:22px;font-weight:500;letter-spacing:.24em;text-transform:uppercase}
-.what{position:absolute;left:88px;top:1004px;width:560px;font-family:"Cormorant Garamond",serif;font-weight:300;font-size:52px;line-height:1.08}
-.thumb{position:absolute;right:84px;top:790px;width:300px;height:300px;overflow:hidden;box-shadow:0 24px 44px -24px rgba(0,0,0,.45)}
-.thumb img{display:block;width:100%;height:100%;object-fit:cover}
-.cap{position:absolute;right:84px;top:1108px;width:300px;font-size:21px;line-height:1.35;text-align:right}
-.foot{position:absolute;left:84px;right:84px;bottom:72px;display:flex;justify-content:space-between;font-size:23px}
-.tag{position:absolute;left:470px;top:806px;padding:12px 22px 13px;border-radius:4px;font-size:20px;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+.hero{position:absolute;left:70px;top:300px;width:940px;height:564px;transform:rotate(-2deg)}
+.hero.v.framed{border-width:12px}
+.piece{position:absolute;left:84px;top:1010px;display:flex;align-items:center;gap:36px}
+.piece .thumb{width:200px;height:200px;overflow:hidden;flex:none;box-shadow:0 20px 40px -22px rgba(0,0,0,.45)}
+.piece .thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.piece .line{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:50px;line-height:1.1}
+.piece .line small{display:block;margin-top:10px;font-family:"Inter Tight",sans-serif;font-size:22px;font-weight:500;letter-spacing:.2em;text-transform:uppercase}
+.tag{position:absolute;left:84px;top:196px;padding:12px 22px 13px;border-radius:4px;font-size:20px;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
