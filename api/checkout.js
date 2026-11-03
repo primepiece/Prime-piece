@@ -77,12 +77,12 @@ const CATALOG = {
   'table-white-haven-lounge':{ name: 'White Haven Carrara Lounge Table', price: 1950 },
   // Bundles
   'rosso-bundle': { name: 'Rosso Africano Bundle — Table + Plinth', price: 7750 },
-  // Christmas Release 2026 — one of each (lib/release.js). Names and prices to confirm before
-  // RELEASE_LIVE goes on; keep in sync with the RELEASE block in gifts.html.
-  'release-red':   { name: 'Christmas Release — Burgundy Red Grazing Board', price: 269 },
-  'release-green': { name: 'Christmas Release — Deep Green Grazing Board',   price: 269 },
-  'release-white': { name: 'Christmas Release — White & Grey Grazing Board', price: 269 },
-  'release-set':   { name: 'Christmas Release — Set of All Three',           price: 699 },
+  // Christmas Release 2026 — one of each (lib/release.js). Keep names and prices in sync with the
+  // RELEASE block in christmas.html.
+  'release-red':   { name: 'Christmas Release — Burgundy Red Grazing Board', price: 399 },
+  'release-green': { name: 'Christmas Release — Deep Green Grazing Board',   price: 399 },
+  'release-white': { name: 'Christmas Release — White & Grey Grazing Board', price: 399 },
+  'release-set':   { name: 'Christmas Release — Set of All Three',           price: 999 },
   // Gift vouchers — emailed as a code after payment (lib/vouchers.js)
   ...Object.fromEntries(Object.entries(VOUCHER_VALUES).map(([id, v]) => [id, { name: `Prime Piece Gift Voucher — $${v}`, price: v }])),
 };

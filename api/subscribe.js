@@ -134,7 +134,8 @@ ${emailHeader}
 <tr><td style="padding:40px 0 24px;">
   <p style="margin:0 0 12px;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:#7BA5A8;font-weight:500;">Christmas Release 2026</p>
   <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:#2C2A26;line-height:1.2;">You're on the list, ${firstName}.</h1>
-  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Three natural stone grazing boards — burgundy red, deep green, and white with grey veining. One of each, never repeated. You'll get the photos and the link before they go anywhere else.</p>
+  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">Three natural stone grazing boards — burgundy red, deep green, and white with grey veining. One of each, never repeated.</p>
+  <p style="margin:16px 0 0;font-size:14px;line-height:1.8;color:#554F45;">They go on sale <strong>Sunday 15 November at 7pm</strong>. You'll get the link on <strong>Saturday 14 November at 7pm</strong>, 24 hours before anyone else.</p>
 </td></tr>
 <tr><td style="padding-bottom:40px;border-bottom:1px solid rgba(44,42,38,0.12);">
   <p style="margin:0;font-size:13px;line-height:1.9;color:#554F45;">Each board is cut and finished by hand in our Wairau Valley workshop. Questions? Reply to this email or call James on <a href="tel:0211466990" style="color:#7BA5A8;text-decoration:none;">021 146 6990</a>.</p>
