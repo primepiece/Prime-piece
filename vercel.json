@@ -13,6 +13,7 @@
     { "source": "/shop", "destination": "/gallery.html", "permanent": true },
     { "source": "/giveaway", "destination": "/", "permanent": true },
     { "source": "/500", "destination": "/", "permanent": true },
+    { "source": "/scale-os/lib/:path*", "destination": "/scale-os", "permanent": false },
     { "source": "/gallery", "destination": "/gallery.html", "permanent": true },
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true },

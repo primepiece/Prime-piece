@@ -408,8 +408,8 @@
 <!-- HERO -->
 <section class="page-hero">
 <div class="hero-copy">
-  <div class="hero-eyebrow">New Arrival · Natural Stone Basins</div>
-  <h1>Ten rare stone vessel basins,<br>coming to <em>Auckland</em>.</h1>
+  <div class="hero-eyebrow">The Collection · Natural Stone Basins</div>
+  <h1>Ten rare stone vessel basins,<br>available <em>now</em>.</h1>
   <p class="hero-desc">The only natural stone vessel basin specialist in New Zealand. Each piece is carved from a single slab — sourced directly from the quarry, delivered to your door.</p>
 
   <div class="hero-actions">
@@ -702,6 +702,80 @@
   </div>
 </section>
 
+<!-- PEDESTAL BASINS -->
+<section class="products-section" id="pedestals" style="border-top:1px solid var(--line);">
+  <div class="products-header">
+    <div>
+      <div class="section-eyebrow">Freestanding</div>
+      <h2>Pedestal<br><em>basins</em>.</h2>
+    </div>
+    <div class="products-header-right">
+      <p>A basin and its stand carved from solid stone, standing on its own in the room. No vanity needed. Made to order in the stone and size you choose.</p>
+      <p style="margin-top:12px;">Made to order · 6–8 weeks</p>
+      <p style="margin-top:8px;"><a href="pedestal-basins.html" style="color:var(--sage-deep);text-decoration:underline;">See all forms, stones &amp; specs →</a></p>
+    </div>
+  </div>
+
+  <div class="basins-grid">
+
+    <div class="basin-card" onclick="openBasinModal('aurora-pedestal')">
+      <div class="basin-img-wrap">
+        <span class="basin-badge coming">Made to Order</span>
+        <img src="pedestal-aurora-carrara.jpg" alt="Aurora Carrara marble pedestal basin NZ" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block;">
+        <div class="view-btn">View Details →</div>
+      </div>
+      <div class="basin-info">
+        <div class="basin-name">Aurora</div>
+        <div class="basin-stone">Carrara Marble · Pedestal Basin</div>
+        <div class="basin-desc">A clean column of white Carrara with soft grey veining and a carved collar at the basin rim. Quiet, sculptural and timeless.</div>
+        <div class="basin-dims">Approx. Ø 430mm × H 850mm · custom sizes available</div>
+        <div class="basin-foot">
+          <div class="basin-price"><small>Made to order</small>Enquire for price</div>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); openEnquiry('Aurora Carrara Pedestal Basin')">Enquire →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="basin-card" onclick="openBasinModal('verde-alpi-pedestal')">
+      <div class="basin-img-wrap">
+        <span class="basin-badge coming">Made to Order</span>
+        <img src="pedestal-verde-alpi.jpg" alt="Verde Alpi green marble pedestal basin NZ" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block;">
+        <div class="view-btn">View Details →</div>
+      </div>
+      <div class="basin-info">
+        <div class="basin-name">Verde Alpi</div>
+        <div class="basin-stone">Verde Alpi Marble · Pedestal Basin</div>
+        <div class="basin-desc">Deep forest green shot through with white veining, carved into a single standing column. A statement for a powder room or main bathroom.</div>
+        <div class="basin-dims">Approx. Ø 430mm × H 850mm · custom sizes available</div>
+        <div class="basin-foot">
+          <div class="basin-price"><small>Made to order</small>Enquire for price</div>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); openEnquiry('Verde Alpi Pedestal Basin')">Enquire →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="basin-card" onclick="openEnquiry('Pedestal Basin — custom stone')">
+      <div class="basin-img-wrap" style="display:flex;align-items:center;justify-content:center;background:var(--ink);">
+        <div style="padding:32px;text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--cream);line-height:1.15;">Your stone.<br><em style="color:var(--sage);">Your shape.</em></div>
+          <div style="margin-top:18px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,241,234,0.6);line-height:2;">Nero Marquina · Calacatta Viola<br>Arabescato · Green Onyx<br>Rosa Norwegian · Travertine<br>and more</div>
+        </div>
+      </div>
+      <div class="basin-info">
+        <div class="basin-name">Any stone</div>
+        <div class="basin-stone">Custom · Pedestal Basin</div>
+        <div class="basin-desc">Cylinder, fluted, tapered or square, in almost any marble, onyx or travertine. Tell James what you have in mind and he'll come back with options and a price.</div>
+        <div class="basin-dims">Made to your size</div>
+        <div class="basin-foot">
+          <div class="basin-price"><small>Made to order</small>Enquire for price</div>
+          <button class="basin-add-btn preorder" onclick="event.stopPropagation(); openEnquiry('Pedestal Basin — custom stone')">Start an Enquiry →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
 <!-- FAQ SECTION -->
 <section style="background:var(--cream-soft);border-top:1px solid var(--line);padding:72px 56px;">
@@ -853,11 +927,11 @@
     <div class="modal-info-col">
       <div class="modal-eyebrow">PRIME PIECE <em>—</em> NATURAL STONE BASIN</div>
       <div class="modal-name" id="modal-name"></div>
-      <div class="modal-subtitle">Vessel Basin</div>
+      <div class="modal-subtitle" id="modal-subtitle">Vessel Basin</div>
       <div class="modal-divider"></div>
       <div class="modal-desc-text" id="modal-desc"></div>
 
-      <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Dimensions</span><span class="detail-val">Ø 430mm × H 135mm</span></div>
+      <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Dimensions</span><span class="detail-val" id="modal-dims">Ø 430mm × H 135mm</span></div>
       <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 3v18M4 7.5l8 4.5 8-4.5"/></svg>Material</span><span class="detail-val" id="modal-material"></span></div>
       <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.8 5.6L19 10l-5.2 1.4L12 17l-1.8-5.6L5 10l5.2-1.4L12 3z"/></svg>Finish</span><span class="detail-val">High-polish</span></div>
       <div class="detail-row"><span class="detail-label"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>Drain</span><span class="detail-val">Not included<br>40mm waste fitting required</span></div>
@@ -962,6 +1036,8 @@
     'pink-purple-onyx': { name:'Pink Onyx', stone:'Pink Onyx · Vessel Basin', material:'Pink Onyx', desc:'Pink Onyx forms at the intersection of rare and remarkable — soft blush and rose tones with swirling white crystal formations. No two slabs, and no two basins, are ever alike.', img:'basin-pink-purple-onyx-1.jpg', badge:'Arriving Soon', badgeClass:'coming', price:2300 },
     'rosso-levanto': { name:'Rosso Levanto', stone:'Rosso Levanto Marble · Vessel Basin', material:'Rosso Levanto Marble', desc:'Quarried in the mountains of Liguria, Rosso Levanto is among the world\'s most dramatic marbles. Deep burgundy-red, cut through with white veining like lightning, polished to a mirror finish.', img:'rosso-levanto-basin.jpg', badge:'Arriving Soon', badgeClass:'coming', price:1500 },
     'yellow-onyx': { name:'Yellow Onyx', stone:'Yellow Onyx · Vessel Basin', material:'Yellow Onyx', desc:'Soft honey-gold tones blend with delicate ivory veining, creating a warm, luminous finish. Naturally translucent and rich in character, each Yellow Onyx basin reveals unique patterns formed over time — a timeless statement of understated luxury.', img:'basin-yellow-onyx-white.jpg', badge:'Arriving Soon', badgeClass:'coming', price:1450 },
+    'aurora-pedestal': { name:'Aurora', type:'Pedestal Basin', stone:'Carrara Marble · Pedestal Basin', material:'Carrara Marble', dims:'Approx. Ø 430mm × H 850mm (custom sizes available)', desc:'A basin and its stand carved as one standing column of white Carrara, finished with a carved collar at the rim. Soft grey veining runs the full height, so every piece is different. Made to order in 6–8 weeks, in this size or one made for your space.', img:'pedestal-aurora-carrara.jpg', badge:'Made to Order', badgeClass:'coming', price:0 },
+    'verde-alpi-pedestal': { name:'Verde Alpi', type:'Pedestal Basin', stone:'Verde Alpi Marble · Pedestal Basin', material:'Verde Alpi Marble', dims:'Approx. Ø 430mm × H 850mm (custom sizes available)', desc:'Verde Alpi is a deep forest-green marble from the Italian Alps, cut through with fine white veining. Carved into a single freestanding column, it turns a basin into the focal point of the room. Made to order in 6–8 weeks, in this size or one made for your space.', img:'pedestal-verde-alpi.jpg', badge:'Made to Order', badgeClass:'coming', price:0 },
   };
   let currentBasin = '';
   let currentBasinId = '';
@@ -976,14 +1052,16 @@
   function openBasinModal(id) {
     const b = basins[id]; if (!b) return;
     currentBasinId = id;
-    currentBasin = b.name + ' Vessel Basin';
+    currentBasin = b.name + ' ' + (b.type || 'Vessel Basin');
     const imgs = b.images && b.images.length ? b.images : [b.img];
 
     document.getElementById('modal-name').textContent = b.name;
     document.getElementById('modal-material').textContent = b.material;
+    document.getElementById('modal-subtitle').textContent = b.type || 'Vessel Basin';
+    document.getElementById('modal-dims').textContent = b.dims || 'Ø 430mm × H 135mm';
     document.getElementById('modal-desc').textContent = b.desc;
     document.getElementById('modal-img').src = imgs[0];
-    document.getElementById('modal-img').alt = b.name + ' — stone vessel basin Auckland NZ';
+    document.getElementById('modal-img').alt = b.name + ' — stone ' + (b.type || 'vessel basin').toLowerCase() + ' NZ';
 
     const badgeEl = document.getElementById('modal-badge');
     badgeEl.textContent = b.badge;
