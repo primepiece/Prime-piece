@@ -17,6 +17,8 @@
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true },
     { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": true },
+    { "source": "/pedestal-basins", "destination": "/pedestal-basins.html", "permanent": true },
+    { "source": "/pedestals", "destination": "/pedestal-basins.html", "permanent": true },
     { "source": "/drop", "destination": "/basins.html", "permanent": true },
     { "source": "/drop.html", "destination": "/basins.html", "permanent": true },
     { "source": "/gifts", "destination": "/gifts.html", "permanent": false },
