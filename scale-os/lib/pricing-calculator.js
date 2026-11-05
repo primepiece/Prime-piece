@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+// Pricing calculator, behind the Pulse login (served by api/scale-os/[page].js).
+// A full standalone page rather than a renderShell page, so it keeps the Prime Piece look and
+// prints cleanly. Everything it saves stays in the browser (localStorage); nothing is sent anywhere.
+// Kept as a String.raw template: the HTML must not contain backticks or ${.
+export const PRICING_CALCULATOR_HTML = String.raw`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -135,7 +139,7 @@
 
 <div class="top">
   <span class="brand">Prime Piece · Pricing</span>
-  <a href="trade-quote.html">Open trade quote →</a>
+  <span style="display:flex;gap:18px;"><a href="/scale-os">← Pulse</a><a href="/scale-os/trade-quote">Open trade quote →</a></span>
 </div>
 
 <div class="wrap">
@@ -443,3 +447,4 @@
 </script>
 </body>
 </html>
+`;

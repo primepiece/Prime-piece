@@ -12,6 +12,8 @@ const NAV_ITEMS = [
   { href: '/scale-os/vouchers', label: 'Vouchers', key: 'vouchers' },
   { href: '/scale-os/experiments', label: 'Experiments', key: 'experiments' },
   { href: '/scale-os/trade-crm', label: 'Trade CRM', key: 'trade-crm' },
+  { href: '/scale-os/trade-quote', label: 'Trade Quote', key: 'trade-quote' },
+  { href: '/scale-os/pricing', label: 'Pricing', key: 'pricing' },
   { href: '/scale-os/weekly', label: 'Weekly', key: 'weekly' },
   { href: '/scale-os/ai-brief', label: 'AI Brief', key: 'ai-brief' },
 ];

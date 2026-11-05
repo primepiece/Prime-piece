@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+// Trade quote builder, behind the Pulse login (served by api/scale-os/[page].js).
+// A full standalone page rather than a renderShell page, so it keeps the Prime Piece look and
+// prints cleanly. Everything it saves stays in the browser (localStorage); nothing is sent anywhere.
+// Kept as a String.raw template: the HTML must not contain backticks or ${.
+export const TRADE_QUOTE_HTML = String.raw`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -32,7 +36,7 @@
   .toolbar input[type=number] { width: 58px; }
   .toolbar input, .toolbar select { font-family: var(--body); font-size: 13px; background: #3a3732; color: var(--cream); border: 1px solid #554F45; padding: 6px 8px; border-radius: 2px; }
   .toolbar select { max-width: 260px; }
-  .btn { font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; padding: 9px 14px; border: 1px solid #554F45; background: transparent; color: var(--cream); cursor: pointer; border-radius: 2px; }
+  .btn { text-decoration: none; display: inline-block; font-family: var(--body); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; padding: 9px 14px; border: 1px solid #554F45; background: transparent; color: var(--cream); cursor: pointer; border-radius: 2px; }
   .btn:hover { border-color: var(--sage); }
   .btn.primary { background: var(--sage-deep); border-color: var(--sage-deep); }
   .btn.primary:hover { background: var(--sage); }
@@ -161,6 +165,7 @@
 <body>
 
 <div class="toolbar">
+  <a class="btn" href="/scale-os" title="Back to Prime Piece Pulse">← Pulse</a>
   <span class="brand">Trade Quote</span>
   <select id="quoteList" title="Saved quotes"></select>
   <button class="btn" id="newBtn" title="Start a blank quote">New</button>
@@ -171,6 +176,7 @@
   <label>Valid <input type="number" id="validDays" min="1" max="365" step="1"> days</label>
   <label><input type="checkbox" id="gstOn"> GST</label>
   <button class="btn primary" id="printBtn">Print / Save PDF</button>
+  <a class="btn" href="/scale-os/pricing">Pricing calculator</a>
 </div>
 <p class="hint">Fill in anything with a dashed line. Each basin's trade price is worked out from its retail price (incl GST) minus your trade discount, shown excl GST. Type over a trade price to set it yourself, or clear it to go back to the automatic price. Quotes save in this browser as you type. Use <strong>Print / Save PDF</strong> to send one.</p>
 
@@ -178,7 +184,7 @@
 
   <div class="head">
     <div>
-      <img src="logo-teal.png" alt="Prime Piece">
+      <img src="/logo-teal.png" alt="Prime Piece">
       <div class="tag">Natural stone · one of one · Auckland</div>
     </div>
     <div class="head-right">
@@ -645,3 +651,4 @@
 </script>
 </body>
 </html>
+`;
