@@ -12,6 +12,8 @@ import { PRODUCT_LAB_STYLE, PRODUCT_LAB_BODY, PRODUCT_LAB_SCRIPT } from '../../s
 import { MARKET_RADAR_STYLE, MARKET_RADAR_BODY, MARKET_RADAR_SCRIPT } from '../../scale-os/lib/market-radar.js';
 import { SUPPLIERS_STYLE, SUPPLIERS_BODY, SUPPLIERS_SCRIPT } from '../../scale-os/lib/suppliers.js';
 import { getProducts, saveProducts, getRadarOpportunities, promoteRadarItem, getPulseBrief, getSuppliers, getApprovals, decideApproval, recordRawQuoteReply, isStoreConfigured, getFastTrackAnalyses, createFastTrackRequest } from '../../scale-os/lib/store.js';
+import { TRADE_QUOTE_HTML } from '../../scale-os/lib/trade-quote.js';
+import { PRICING_CALCULATOR_HTML } from '../../scale-os/lib/pricing-calculator.js';
 import { FAST_TRACK_STYLE, FAST_TRACK_BODY, FAST_TRACK_SCRIPT } from '../../scale-os/lib/fast-track.js';
 import { VOUCHER_DESK_STYLE, VOUCHER_DESK_BODY, VOUCHER_DESK_SCRIPT, handleVoucherCheck, handleVoucherRedeem, handleVoucherIssue } from '../../scale-os/lib/voucher-desk.js';
 
@@ -311,6 +313,8 @@ export default async function handler(req, res) {
   if (page === 'fast-track') return res.status(200).send(renderFastTrack());
   if (page === 'suppliers') return res.status(200).send(renderSuppliers());
   if (page === 'vouchers') return res.status(200).send(renderVoucherDesk());
+  if (page === 'trade-quote') return res.status(200).send(TRADE_QUOTE_HTML);
+  if (page === 'pricing') return res.status(200).send(PRICING_CALCULATOR_HTML);
   if (page && COMING_SOON[page]) {
     return res.status(200).send(renderComingSoon({ activeKey: page, ...COMING_SOON[page] }));
   }
