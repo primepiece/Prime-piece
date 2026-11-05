@@ -322,6 +322,14 @@
   ].map(function (b) {
     return { name: b[0] + ' Vessel Basin', spec: b[1] + ' · Ø430 × 135 mm · basin only', rrp: b[2] };
   });
+  // Pedestal basins: made to order, priced per quote (no retail price yet).
+  BASINS = BASINS.concat([
+    ['Aurora Pedestal Basin', 'Carrara Marble'],
+    ['Verde Alpi Pedestal Basin', 'Verde Alpi Marble'],
+    ['Custom Pedestal Basin', 'Stone and shape to suit']
+  ].map(function (b) {
+    return { name: b[0], spec: b[1] + ' · approx. Ø430 × 850 mm · basin and pedestal', rrp: '' };
+  }));
 
   var DEFAULT_TERMS = [
     '1. Prices are in NZD and exclude GST unless stated. This quote is valid until the date above.',
@@ -430,7 +438,7 @@
       var tr = document.createElement('tr');
       var isAuto = (it.trade === null || it.trade === undefined || it.trade === '') && it.rrp !== '';
       tr.innerHTML =
-        '<td><input class="name" list="products" placeholder="Item (start typing a stone)"><input class="spec" placeholder="Stone · size · notes"></td>' +
+        '<td><input class="name" list="products" placeholder="Item (start typing a stone or pedestal)"><input class="spec" placeholder="Stone · size · notes"></td>' +
         '<td class="num" data-l="Qty"><input class="qty" type="number" min="0" step="1"></td>' +
         '<td class="num rrp-col" data-l="RRP incl GST"><input class="money rrp" type="number" min="0" step="1" placeholder="—"></td>' +
         '<td class="num" data-l="Trade"><input class="money trade" type="number" min="0" step="1" placeholder="0"></td>' +
