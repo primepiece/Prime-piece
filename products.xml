@@ -6,12 +6,12 @@
     <description>Handcrafted one-of-one stone furniture made in Auckland, New Zealand. Marble tables, plinths, serving boards and stone basins.</description>
 
     <!-- ═══════════════════════════════════════════
-         COFFEE TABLES — FINAL 5 (One of One Collection)
+         COFFEE TABLES — FINAL 4 (One of One Collection)
     ═══════════════════════════════════════════ -->
 
     <item>
       <g:id>table-jade-rain</g:id>
-      <title>Jade Rain — Green Calacatta Marble Side &amp; Coffee Table | Prime Piece NZ</title>
+      <title>Round Marble Coffee Table — Jade Rain, Green Calacatta, 450mm | Prime Piece NZ</title>
       <description>White Calacatta marble with dramatic streaks of deep green and black running through — like rain falling through a jade forest. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $520.</description>
       <link>https://www.primepiece.co.nz/tables.html?p=table-jade-rain#cat-coffee</link>
       <g:image_link>https://www.primepiece.co.nz/table-green-calacatta%20%283%29.jpg</g:image_link>
@@ -27,7 +27,7 @@
 
     <item>
       <g:id>table-jade-jewel</g:id>
-      <title>Jade Jewel — Green Marble Onyx Side &amp; Coffee Table | Prime Piece NZ</title>
+      <title>Round Green Onyx Coffee Table — Jade Jewel, 450mm | Prime Piece NZ</title>
       <description>Translucent jade green with glowing crystal formations — the rarest piece in the collection. Green onyx catches light like no other stone. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $520.</description>
       <link>https://www.primepiece.co.nz/tables.html?p=table-jade-jewel#cat-coffee</link>
       <g:image_link>https://www.primepiece.co.nz/table-3.jpg</g:image_link>
@@ -43,7 +43,7 @@
 
     <item>
       <g:id>table-serpentine-storm</g:id>
-      <title>Serpentine Storm — Verde Imperiale Marble Side &amp; Coffee Table | Prime Piece NZ</title>
+      <title>Round Green Marble Coffee Table — Serpentine Storm, Verde Imperiale, 450mm | Prime Piece NZ</title>
       <description>Deep forest green with explosive white veining bursting through the surface like waves crashing over dark rock — Verde Imperiale Marble at its most dramatic. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Black steel frame. NZD $490.</description>
       <link>https://www.primepiece.co.nz/tables.html?p=table-serpentine-storm#cat-coffee</link>
       <g:image_link>https://www.primepiece.co.nz/serpentine-storm-table.jpg</g:image_link>
@@ -59,7 +59,7 @@
 
     <item>
       <g:id>table-dark-current</g:id>
-      <title>Dark Current — Laurent Black Marble Side &amp; Coffee Table | Prime Piece NZ</title>
+      <title>Round Black Marble Coffee Table — Dark Current, Laurent Black, 450mm | Prime Piece NZ</title>
       <description>Jet black with a dramatic sweep of white and gold veining tearing across the surface — Laurent Black Marble at its most striking. One-of-one, handcrafted in Auckland. H 500mm × Ø 450mm. Matte black steel frame. NZD $510.</description>
       <link>https://www.primepiece.co.nz/tables.html?p=table-dark-current#cat-coffee</link>
       <g:image_link>https://www.primepiece.co.nz/dark-current-table.jpg</g:image_link>
@@ -719,6 +719,59 @@
       <g:product_type>Vessel Basins &gt; Stone Vessel Basins</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:shipping><g:country>NZ</g:country><g:service>Standard</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+
+    <!-- ═══════════════════════════════════════════
+         GIFT VOUCHERS — emailed, no delivery charge
+    ═══════════════════════════════════════════ -->
+
+    <item>
+      <g:id>voucher-100</g:id>
+      <title>Prime Piece Gift Voucher $100 — Emailed Instantly | Stone Furniture Gift NZ</title>
+      <description>A $100 Prime Piece gift voucher, emailed instantly so it works as a last-minute gift. Spend it on any handcrafted marble coffee table, plinth, serving board or stone basin, online or at our Wairau Valley showroom in Auckland. Valid for 3 years.</description>
+      <link>https://www.primepiece.co.nz/gift-vouchers.html</link>
+      <g:image_link>https://www.primepiece.co.nz/gift-voucher-100.jpg</g:image_link>
+      <g:price>100.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Party &amp; Celebration &gt; Gift Giving &gt; Gift Cards &amp; Certificates</g:google_product_category>
+      <g:product_type>Gifts &gt; Gift Vouchers</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Email</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>voucher-200</g:id>
+      <title>Prime Piece Gift Voucher $200 — Emailed Instantly | Stone Furniture Gift NZ</title>
+      <description>A $200 Prime Piece gift voucher, emailed instantly so it works as a last-minute gift. Spend it on any handcrafted marble coffee table, plinth, serving board or stone basin, online or at our Wairau Valley showroom in Auckland. Valid for 3 years.</description>
+      <link>https://www.primepiece.co.nz/gift-vouchers.html</link>
+      <g:image_link>https://www.primepiece.co.nz/gift-voucher-200.jpg</g:image_link>
+      <g:price>200.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Party &amp; Celebration &gt; Gift Giving &gt; Gift Cards &amp; Certificates</g:google_product_category>
+      <g:product_type>Gifts &gt; Gift Vouchers</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Email</g:service><g:price>0.00 NZD</g:price></g:shipping>
+    </item>
+
+    <item>
+      <g:id>voucher-500</g:id>
+      <title>Prime Piece Gift Voucher $500 — Emailed Instantly | Stone Furniture Gift NZ</title>
+      <description>A $500 Prime Piece gift voucher, emailed instantly so it works as a last-minute gift. Spend it on any handcrafted marble coffee table, plinth, serving board or stone basin, online or at our Wairau Valley showroom in Auckland. Valid for 3 years.</description>
+      <link>https://www.primepiece.co.nz/gift-vouchers.html</link>
+      <g:image_link>https://www.primepiece.co.nz/gift-voucher-500.jpg</g:image_link>
+      <g:price>500.00 NZD</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Prime Piece</g:brand>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Party &amp; Celebration &gt; Gift Giving &gt; Gift Cards &amp; Certificates</g:google_product_category>
+      <g:product_type>Gifts &gt; Gift Vouchers</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping><g:country>NZ</g:country><g:service>Email</g:service><g:price>0.00 NZD</g:price></g:shipping>
     </item>
 
   </channel>
