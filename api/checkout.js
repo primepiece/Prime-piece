@@ -1,9 +1,11 @@
 import { RELEASE_LIVE, isRelease, RELEASE_ITEMS, soldItems, markSold } from '../lib/release.js';
+import { buildProductFeed } from '../lib/product-feed.js';
 import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail, GIFT_CARD_LIVE, GIFT_CARD_PRICE } from '../lib/vouchers.js';
 
 // Authoritative server-side price catalogue.
 // Client sends only product IDs — prices and names always come from here.
-const CATALOG = {
+// Also checked by the product feed (lib/product-feed.js).
+export const CATALOG = {
   // Basins
   'basin-carrara':    { name: 'White Carrara Vessel Basin', price: 1350 },
   'basin-beige':      { name: 'Warm Beige Vessel Basin', price: 1100 },
@@ -99,7 +101,7 @@ const PROMO_CODES = { SAMPLEWORKSHOP: 0.10, PRIME10: 0.10, SIMONE10: 0.10 };
 // but NOT sold through online checkout — none has a live Add to Cart anywhere on the site, so a
 // request for one can only come from an old cart or a hand-crafted API call. Remove an ID from
 // this list to make it purchasable online again.
-const NOT_SOLD_ONLINE = new Set([
+export const NOT_SOLD_ONLINE = new Set([
   // Made-to-order / arriving-soon basins: sold by enquiry (quote + deposit), not checkout.
   'basin-nero', 'basin-green', 'basin-white-onyx', 'basin-statuario', 'basin-pietra',
   'basin-pink-purple', 'basin-tiger', 'basin-pink-shell', 'basin-yellow',
@@ -128,14 +130,37 @@ const isWelcomeEligible = id => !!CATALOG[id] && !NOT_SOLD_ONLINE.has(id) && !WE
 
 // NZ-wide delivery: flat rate, free over the threshold. Showroom pickup is
 // always free and isn't affected by this.
-const DELIVERY_FLAT_FEE = 49;
-const FREE_DELIVERY_THRESHOLD = 500;
+export const DELIVERY_FLAT_FEE = 49;
+export const FREE_DELIVERY_THRESHOLD = 500;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  // GET /products.xml (rewritten to /api/checkout?feed=products) — the Google Merchant Center /
+  // Pinterest product feed, built from the live product pages. (Lives here rather than its own
+  // file: Hobby function limit.) See lib/product-feed.js for what goes in it.
+  if (req.method === 'GET' && req.query && req.query.feed === 'products') {
+    try {
+      const { xml } = await buildProductFeed({
+        root: process.cwd(),
+        catalog: CATALOG,
+        notSoldOnline: NOT_SOLD_ONLINE,
+        delivery: { fee: DELIVERY_FLAT_FEE, threshold: FREE_DELIVERY_THRESHOLD },
+        releaseLive: RELEASE_LIVE,
+        soldItems,
+      });
+      res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+      res.setHeader('Cache-Control', 'public, s-maxage=900, stale-while-revalidate=3600');
+      return res.status(200).send(xml);
+    } catch (err) {
+      console.error('Product feed error:', err);
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(500).send('Product feed unavailable');
+    }
+  }
 
   // GET /api/checkout?release — whether the Christmas Release is live and which boards have
   // sold, for the gifts page. (Lives here rather than its own file: Hobby function limit.)
