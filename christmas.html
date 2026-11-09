@@ -247,9 +247,9 @@
     <p class="hero-sub">Burgundy red, deep green, and white with grey veining: Christmas colours, in natural stone. Three boards, cut and finished by hand in our Wairau Valley workshop, each signed and numbered. When they're gone, they're gone.</p>
     <a class="hero-status" id="hero-status" href="#first-look">Drops Sunday 15 November, 7pm · Get first look</a>
     <div class="hero-trio">
-      <a href="#release-red"><img src="release-red.jpg" alt="Burgundy red natural stone grazing board" width="1448" height="1086"><span>No. 1 · Burgundy Red</span></a>
-      <a href="#release-green"><img src="release-green.jpg" alt="Deep green natural stone grazing board" width="1448" height="1086"><span>No. 2 · Deep Green</span></a>
-      <a href="#release-white"><img src="release-white.jpg" alt="White and grey natural stone grazing board" width="1448" height="1086"><span>No. 3 · White &amp; Grey</span></a>
+      <a href="#release-red"><img src="release-red.webp" alt="Burgundy red natural stone grazing board" width="1448" height="1086"><span>No. 1 · Burgundy Red</span></a>
+      <a href="#release-green"><img src="release-green.webp" alt="Deep green natural stone grazing board" width="1448" height="1086"><span>No. 2 · Deep Green</span></a>
+      <a href="#release-white"><img src="release-white.webp" alt="White and grey natural stone grazing board" width="1448" height="1086"><span>No. 3 · White &amp; Grey</span></a>
     </div>
   </div>
   <div class="facts">
@@ -378,7 +378,7 @@ var RELEASE = {
     }
     return '<article class="board' + (sold ? ' is-sold' : '') + '" id="' + item.id + '">' +
       '<div class="board-media"><span class="badge">' + (sold ? 'Sold' : esc(label)) + '</span>' +
-      '<img src="' + esc(item.image) + '" alt="' + esc(item.name) + ', Prime Piece Christmas Release 2026 natural stone grazing board" loading="lazy" width="1448" height="1086"></div>' +
+      '<img src="' + esc(item.image.replace(/\.jpg$/, '.webp')) + '" alt="' + esc(item.name) + ', Prime Piece Christmas Release 2026 natural stone grazing board" loading="lazy" width="1448" height="1086"></div>' +
       '<div class="board-text"><div class="board-no">' + esc(label) + '</div>' +
       '<h3>' + esc(item.name) + '</h3>' +
       (item.stone ? '<div class="board-stone">' + esc(item.stone) + '</div>' : '') +
