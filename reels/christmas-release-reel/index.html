@@ -1,0 +1,270 @@
+<!doctype html>
+<html
+  lang="en"
+  data-resolution="portrait"
+  data-composition-variables='[
+    {"id":"endHead","type":"string","label":"End card headline","default":"Sunday 15 November"},
+    {"id":"endTime","type":"string","label":"End card time","default":"7pm"},
+    {"id":"endCta","type":"string","label":"End card call to action","default":"First look Saturday · Link in bio"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Prime Piece — Christmas Release 2026 Reel</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 300; font-style: normal; src: url("assets/fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; font-style: normal; src: url("assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; font-style: italic; src: url("assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 500; src: url("assets/fonts/inter-tight-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter Tight"; font-weight: 600; src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2"); }
+      :root {
+        --ink: #2c2a26;
+        --cream: #f5f1ea;
+        --sage: #7ba5a8;
+        --sage-soft: #a8c3c5;
+        --display: "Cormorant Garamond", Georgia, serif;
+        --body: "Inter Tight", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; background: var(--ink); overflow: hidden; }
+
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+
+      /* A board photo sits in a full-width band, 1080 × 810, below the label. Each shot opens
+         scaled up around the stone (a full-screen close-up of the marble) and pulls back. */
+      .band {
+        position: absolute;
+        left: 0;
+        top: 560px;
+        width: 1080px;
+        height: 810px;
+        object-fit: cover;
+        display: block;
+        transform-origin: 756px 445px;
+      }
+
+      /* Labels sit above the photo, inside Instagram's safe band (168–1330 px). */
+      .label {
+        position: absolute;
+        left: 0;
+        top: 300px;
+        width: 1080px;
+        text-align: center;
+        color: var(--cream);
+      }
+      .eyebrow {
+        font-family: var(--body);
+        font-weight: 600;
+        font-size: 30px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--sage-soft);
+      }
+      .name {
+        margin-top: 18px;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 112px;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+
+      /* Opening hook over the close-up: on screen from frame 0, so it's also the thumbnail. */
+      #hook {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 260px;
+        background: linear-gradient(180deg, rgba(28, 26, 23, 0.15) 0%, rgba(28, 26, 23, 0.6) 45%, rgba(28, 26, 23, 0.15) 100%);
+        color: var(--cream);
+        text-align: center;
+        z-index: 5;
+      }
+      #hook .eyebrow { color: var(--cream); }
+      #hook h1 {
+        margin-top: 28px;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 150px;
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+      }
+      #hook h1 em { font-style: italic; }
+
+      /* The set: three boards together. */
+      #set-lines .name { font-size: 96px; }
+      #set-lines .name em { font-style: italic; color: var(--sage-soft); }
+
+      /* End card */
+      #end {
+        background: var(--ink);
+        color: var(--cream);
+        text-align: center;
+      }
+      #end .inner {
+        position: absolute;
+        left: 0;
+        top: 360px;
+        width: 1080px;
+      }
+      #end .head {
+        margin-top: 34px;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: 128px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      #end .time {
+        margin-top: 10px;
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 128px;
+        line-height: 1;
+        color: var(--sage-soft);
+      }
+      #end .rule { width: 120px; height: 2px; background: var(--sage); margin: 64px auto 56px; }
+      #end .prices {
+        font-family: var(--body);
+        font-weight: 500;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+      }
+      #end .cta {
+        display: inline-block;
+        margin-top: 64px;
+        padding: 26px 48px 28px;
+        border: 2px solid var(--sage);
+        border-radius: 999px;
+        font-family: var(--body);
+        font-weight: 600;
+        font-size: 38px;
+        letter-spacing: 0.04em;
+        color: var(--cream);
+      }
+      #end .brand {
+        margin-top: 120px;
+        font-family: var(--display);
+        font-size: 46px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--cream);
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      CHRISTMAS RELEASE 2026 — vertical 1080 × 1920, 30 fps, 12.6 s. No voice; add music in the
+      Instagram/TikTok app (drop on 9.5 s, the end card).
+        0.0 – 3.9   Burgundy Red: close-up of the stone under "Three boards. One of each.", pulls back
+                    at 2.0 to the whole board, "No. 1 of 3 · Burgundy Red"
+        3.9 – 5.8   Deep Green, "No. 2 of 3"
+        5.8 – 7.7   White & Grey, "No. 3 of 3"
+        7.7 – 9.5   The three together, "Signed & numbered. Never repeated."
+        9.5 – 12.6  End card: endHead / endTime, prices, endCta, PRIME PIECE
+      Teaser (default):  npx hyperframes render -q high -o renders/christmas-release_teaser.mp4
+      Live now (Sunday): npx hyperframes render -q high -o renders/christmas-release_live.mp4 \
+                           --variables '{"endHead":"On sale now","endTime":"One of each","endCta":"Shop now · Link in bio"}'
+    -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="12.6" data-width="1080" data-height="1920">
+
+      <div id="s-red" class="clip" data-start="0" data-duration="3.9" data-track-index="1">
+        <img class="band" data-layout-allow-overflow src="assets/boards/release-red.jpg" alt="Burgundy red natural stone grazing board" />
+        <div class="label">
+          <div class="eyebrow">No. 1 of 3</div>
+          <div class="name">Burgundy Red</div>
+        </div>
+        <div id="hook">
+          <div class="eyebrow">Christmas Release 2026</div>
+          <h1>Three boards.<br /><em>One of each.</em></h1>
+        </div>
+      </div>
+
+      <div id="s-green" class="clip" data-start="3.9" data-duration="1.9" data-track-index="1">
+        <img class="band" data-layout-allow-overflow src="assets/boards/release-green.jpg" alt="Deep green natural stone grazing board" />
+        <div class="label">
+          <div class="eyebrow">No. 2 of 3</div>
+          <div class="name">Deep Green</div>
+        </div>
+      </div>
+
+      <div id="s-white" class="clip" data-start="5.8" data-duration="1.9" data-track-index="1">
+        <img class="band" data-layout-allow-overflow src="assets/boards/release-white.jpg" alt="White and grey natural stone grazing board" />
+        <div class="label">
+          <div class="eyebrow">No. 3 of 3</div>
+          <div class="name">White &amp; Grey</div>
+        </div>
+      </div>
+
+      <div id="s-set" class="clip" data-start="7.7" data-duration="1.8" data-track-index="1">
+        <img class="band" data-layout-allow-overflow src="assets/boards/release-set.jpg" alt="The three Christmas Release boards together" />
+        <div class="label" id="set-lines">
+          <div class="eyebrow">600 × 250mm · Natural stone</div>
+          <div class="name">Signed &amp; numbered.<br /><em>Never repeated.</em></div>
+        </div>
+      </div>
+
+      <div id="end" class="clip" data-start="9.5" data-duration="3.1" data-track-index="1">
+        <div class="inner">
+          <div class="eyebrow">Christmas Release 2026</div>
+          <div class="head" data-var-text="endHead">Sunday 15 November</div>
+          <div class="time" data-var-text="endTime">7pm</div>
+          <div class="rule"></div>
+          <div class="prices">$399 each · $999 the set</div>
+          <div class="cta" data-var-text="endCta">First look Saturday · Link in bio</div>
+          <div class="brand">Prime Piece</div>
+        </div>
+      </div>
+
+      <!-- SFX: a soft whoosh on each pull-back, a low hit on the end card. -->
+      <audio id="sfx-pull-1" src="assets/sfx/whoosh.mp3" data-start="1.95" data-volume="0.3" data-duration="0.575" data-track-index="6"></audio>
+      <audio id="sfx-pull-2" src="assets/sfx/whoosh.mp3" data-start="3.9" data-volume="0.28" data-duration="0.575" data-track-index="7"></audio>
+      <audio id="sfx-pull-3" src="assets/sfx/whoosh.mp3" data-start="5.8" data-volume="0.28" data-duration="0.575" data-track-index="6"></audio>
+      <audio id="sfx-set" src="assets/sfx/click.mp3" data-start="7.7" data-volume="0.25" data-duration="0.3" data-track-index="7"></audio>
+      <audio id="sfx-end" src="assets/sfx/impact-bass-1.mp3" data-start="9.49" data-volume="0.5" data-duration="2.116" data-track-index="8"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+
+      const CLOSE = 2.6; // close-up scale: the band fills the frame around the stone
+
+      // 1. Burgundy Red: held close-up with a slow push under the hook, then the pull-back.
+      tl.fromTo("#s-red .band", { scale: CLOSE }, { scale: CLOSE * 1.06, duration: 2.0, ease: "none" }, 0);
+      tl.fromTo("#hook", { opacity: 1 }, { opacity: 1, duration: 1.85 }, 0);
+      tl.to("#hook", { opacity: 0, duration: 0.2, ease: "power1.in" }, 1.85);
+      tl.to("#s-red .band", { scale: 1, duration: 0.8, ease: "power3.inOut" }, 2.0);
+      tl.fromTo("#s-red .label", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.4);
+
+      // 2–3. Each board cuts in on the close-up and pulls back; its label follows.
+      [["#s-green", 3.9], ["#s-white", 5.8]].forEach(([id, t]) => {
+        tl.fromTo(id + " .band", { scale: CLOSE }, { scale: 1, duration: 0.7, ease: "power3.inOut" }, t);
+        tl.fromTo(id + " .label", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, t + 0.3);
+        tl.fromTo(id + " .band", { scale: 1 }, { scale: 1.04, duration: 1.2, ease: "none" }, t + 0.7);
+      });
+
+      // 4. The set: slow push, lines in.
+      tl.fromTo("#s-set .band", { scale: 1.08 }, { scale: 1, duration: 1.8, ease: "power2.out" }, 7.7);
+      tl.fromTo("#set-lines", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 7.8);
+
+      // 5. End card: staggered rise.
+      const endParts = ["#end .eyebrow", "#end .head", "#end .time", "#end .rule", "#end .prices", "#end .cta", "#end .brand"];
+      endParts.forEach((sel, i) => {
+        tl.fromTo(sel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 9.5 + i * 0.1);
+      });
+    </script>
+  </body>
+</html>

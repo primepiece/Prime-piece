@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<!-- Source for the launch-week stills. Each .g block is screenshotted to stills/<id>.jpg by
+     stills/render.js (Playwright). Fonts and photos come from ../assets. -->
+<style>
+@font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("../assets/fonts/cormorant-garamond-latin-400-normal.woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 400; font-style: italic; src: url("../assets/fonts/cormorant-garamond-latin-400-italic.woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 500; src: url("../assets/fonts/inter-tight-latin-500-normal.woff2"); }
+@font-face { font-family: "Inter Tight"; font-weight: 600; src: url("../assets/fonts/inter-tight-latin-600-normal.woff2"); }
+:root { --ink:#2c2a26; --cream:#f5f1ea; --sage:#7ba5a8; --sage-soft:#a8c3c5; --d:"Cormorant Garamond",Georgia,serif; --b:"Inter Tight",sans-serif; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#555; }
+.g { position:relative; overflow:hidden; background:var(--ink); color:var(--cream); text-align:center; margin:40px; }
+.eyebrow { font-family:var(--b); font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:var(--sage-soft); }
+.serif { font-family:var(--d); font-weight:400; letter-spacing:-.015em; line-height:1; }
+.serif em { font-style:italic; color:var(--sage-soft); }
+.photo { display:block; width:100%; object-fit:cover; }
+.pill { display:inline-block; border:2px solid var(--sage); border-radius:999px; font-family:var(--b); font-weight:600; letter-spacing:.03em; }
+.small { font-family:var(--b); font-weight:500; }
+
+/* Friday carousel slides, 1080 x 1350 */
+.slide { width:1080px; height:1350px; }
+.slide .top { position:absolute; left:0; right:0; top:150px; }
+.slide .top .eyebrow { font-size:28px; }
+.slide .top .serif { margin-top:18px; font-size:110px; }
+.slide .photo { position:absolute; left:0; top:420px; height:810px; }
+.slide .foot { position:absolute; left:0; right:0; bottom:44px; font-size:26px; color:rgba(245,241,234,.7); }
+
+/* Stories, 1080 x 1920. Keep text between 260 and 1580 (Instagram's top bar and reply box). */
+.story { width:1080px; height:1920px; }
+.story .photo { position:absolute; left:0; top:900px; height:810px; }
+.story .txt { position:absolute; left:0; right:0; top:300px; }
+.story .txt .eyebrow { font-size:30px; }
+.story .txt .serif { margin-top:30px; font-size:136px; }
+.story .txt .sub { margin-top:34px; font-size:40px; line-height:1.35; color:rgba(245,241,234,.86); }
+.story .sticker-note { position:absolute; left:0; right:0; top:1740px; font-family:var(--b); font-size:24px; color:rgba(245,241,234,.35); letter-spacing:.06em; }
+
+/* Pinterest pin, 1000 x 1500 */
+.pin { width:1000px; height:1500px; }
+.pin .photo { position:absolute; left:0; top:0; height:750px; }
+.pin .txt { position:absolute; left:60px; right:60px; top:820px; }
+.pin .txt .eyebrow { font-size:26px; }
+.pin .txt .serif { margin-top:24px; font-size:92px; }
+.pin .txt .sub { margin-top:30px; font-size:34px; line-height:1.4; color:rgba(245,241,234,.86); }
+.pin .txt .pill { margin-top:44px; padding:20px 40px; font-size:30px; }
+.pin .url { position:absolute; left:0; right:0; bottom:46px; font-family:var(--d); font-size:36px; letter-spacing:.3em; text-transform:uppercase; }
+</style></head><body>
+
+<div class="g slide" id="fri-1-burgundy-red">
+  <div class="top"><div class="eyebrow">No. 1 of 3</div><div class="serif">Burgundy Red</div></div>
+  <img class="photo" src="../assets/boards/release-red.jpg" alt="">
+  <div class="foot small">Christmas Release 2026 · Sunday 15 November, 7pm</div>
+</div>
+<div class="g slide" id="fri-2-deep-green">
+  <div class="top"><div class="eyebrow">No. 2 of 3</div><div class="serif">Deep Green</div></div>
+  <img class="photo" src="../assets/boards/release-green.jpg" alt="">
+  <div class="foot small">Christmas Release 2026 · Sunday 15 November, 7pm</div>
+</div>
+<div class="g slide" id="fri-3-white-grey">
+  <div class="top"><div class="eyebrow">No. 3 of 3</div><div class="serif">White &amp; Grey</div></div>
+  <img class="photo" src="../assets/boards/release-white.jpg" alt="">
+  <div class="foot small">Christmas Release 2026 · Sunday 15 November, 7pm</div>
+</div>
+
+<div class="g story" id="sat-story-first-look">
+  <div class="txt">
+    <div class="eyebrow">Christmas Release 2026</div>
+    <div class="serif">First look<br><em>is open.</em></div>
+    <div class="sub small">On the list? The link is in your inbox.<br>Everyone else: tomorrow, 7pm.</div>
+  </div>
+  <img class="photo" src="../assets/boards/release-set.jpg" alt="">
+</div>
+
+<div class="g story" id="sun-story-live">
+  <div class="txt">
+    <div class="eyebrow">Christmas Release 2026</div>
+    <div class="serif">On sale<br><em>now.</em></div>
+    <div class="sub small">Three boards. One of each.<br>$399 each · $999 the set</div>
+  </div>
+  <img class="photo" src="../assets/boards/release-set.jpg" alt="">
+</div>
+
+<div class="g pin" id="pin-christmas-release">
+  <img class="photo" src="../assets/boards/release-set.jpg" alt="">
+  <div class="txt">
+    <div class="eyebrow">Christmas Release 2026</div>
+    <div class="serif">Three stone grazing boards. <em>One of each.</em></div>
+    <div class="sub small">Burgundy red, deep green, and white with grey veining.<br>600 × 250mm, signed and numbered, made in Auckland.</div>
+    <div class="pill">$399 each · $999 the set</div>
+  </div>
+  <div class="url">primepiece.co.nz</div>
+</div>
+</body></html>
