@@ -38,6 +38,7 @@ export const CATALOG = {
   'platter-teal-tide-2': { name: 'Teal Tide II — Entertaining Platter', price: 189 },
   'platter-dune':        { name: 'Dune — Entertaining Platter', price: 189 },
   'platter-silver-mist': { name: 'Silver Mist — Entertaining Platter', price: 189 },
+  'platter-sienna-rose': { name: 'Sienna Rose — Entertaining Platter', price: 189 },
   // Plinths
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Coffee Table Plinth', price: 1950 },
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
