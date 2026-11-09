@@ -32,6 +32,7 @@
     { "source": "/voucher-500", "destination": "/checkout.html?cart=%5B%7B%22id%22%3A%22voucher-500%22%2C%22name%22%3A%22Prime%20Piece%20Gift%20Voucher%20%E2%80%94%20%24500%22%2C%22type%22%3A%22Gift%20Voucher%22%2C%22image%22%3A%22gift-voucher-500.jpg%22%2C%22price%22%3A500%7D%5D", "permanent": false }
   ],
   "rewrites": [
+    { "source": "/products.xml", "destination": "/api/checkout?feed=products" },
     { "source": "/scale-os", "destination": "/api/scale-os/dashboard" },
     { "source": "/scale-os/:page", "destination": "/api/scale-os/:page" }
   ],
@@ -41,7 +42,8 @@
     "api/enquire.js": { "maxDuration": 10 },
     "api/enquiry.js": { "maxDuration": 10 },
     "api/track.js": { "maxDuration": 10 },
-    "api/webhook.js": { "maxDuration": 30 }
+    "api/webhook.js": { "maxDuration": 30 },
+    "api/checkout.js": { "includeFiles": "{tables,plinths,boards,basins,gift-vouchers,christmas}.html" }
   },
   "cleanUrls": false,
   "trailingSlash": false
