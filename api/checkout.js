@@ -1,4 +1,4 @@
-import { RELEASE_LIVE, isRelease, RELEASE_ITEMS, soldItems, markSold } from '../lib/release.js';
+import { releaseOpenTo, isReleasePublic, isRelease, RELEASE_ITEMS, soldItems, markSold } from '../lib/release.js';
 import { buildProductFeed } from '../lib/product-feed.js';
 import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail, GIFT_CARD_LIVE, GIFT_CARD_PRICE } from '../lib/vouchers.js';
 
@@ -150,7 +150,7 @@ export default async function handler(req, res) {
         catalog: CATALOG,
         notSoldOnline: NOT_SOLD_ONLINE,
         delivery: { fee: DELIVERY_FLAT_FEE, threshold: FREE_DELIVERY_THRESHOLD },
-        releaseLive: RELEASE_LIVE,
+        releaseLive: isReleasePublic(),
         soldItems,
       });
       res.setHeader('Content-Type', 'application/xml; charset=utf-8');
@@ -163,16 +163,19 @@ export default async function handler(req, res) {
     }
   }
 
-  // GET /api/checkout?release — whether the Christmas Release is live and which boards have
-  // sold, for the gifts page. (Lives here rather than its own file: Hobby function limit.)
+  // GET /api/checkout?release[&early=<first-look key>] — whether the Christmas Release is on
+  // sale to this visitor and which boards have sold, for christmas.html. (Lives here rather
+  // than its own file: Hobby function limit.)
   if (req.method === 'GET') {
     res.setHeader('Cache-Control', 'no-store');
-    if (!RELEASE_LIVE) return res.status(200).json({ live: false, sold: {} });
+    const openTo = releaseOpenTo(req.query && req.query.early);
+    if (!openTo) return res.status(200).json({ live: false, sold: {} });
+    const firstLook = openTo === 'first-look';
     try {
-      return res.status(200).json({ live: true, sold: await soldItems() });
+      return res.status(200).json({ live: true, firstLook, sold: await soldItems() });
     } catch (err) {
       console.error('Release sold check error:', err);
-      return res.status(200).json({ live: true, sold: {}, error: 'unavailable' });
+      return res.status(200).json({ live: true, firstLook, sold: {}, error: 'unavailable' });
     }
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -205,7 +208,9 @@ export default async function handler(req, res) {
   // Christmas Release: one of each, so check nothing has sold (or overlaps in the cart).
   const releaseIds = items.map(item => item.id).filter(isRelease);
   if (releaseIds.length) {
-    if (!RELEASE_LIVE) return res.status(400).json({ error: 'The Christmas Release isn\'t on sale yet.' });
+    // The first-look list can buy a day early with the key from their email link (sent by
+    // christmas.html via checkout.html); everyone else from Sunday 7pm.
+    if (!releaseOpenTo(req.body.early)) return res.status(400).json({ error: 'The Christmas Release isn\'t on sale yet. It opens Sunday 15 November at 7pm.' });
     const boards = releaseIds.flatMap(id => RELEASE_ITEMS[id]);
     if (new Set(boards).size !== boards.length) {
       return res.status(400).json({ error: 'The set already includes all three boards — remove the single board from your cart.' });

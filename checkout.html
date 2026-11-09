@@ -703,6 +703,7 @@
           promoCode: appliedPromo,
           voucherCode,
           giftCard: giftCardPayload(),
+          early: releaseEarlyKey(),
           customer: {
             name: firstName + ' ' + lastName,
             email,
@@ -890,6 +891,11 @@
     }
   });
 
+  // Christmas Release first-look key, saved by christmas.html from the first-look email link.
+  function releaseEarlyKey() {
+    try { return localStorage.getItem('pp_release_early') || ''; } catch (_) { return ''; }
+  }
+
   async function placeVoucherOrder(firstName, lastName, email) {
     try {
       const res = await fetch('/api/checkout', {
@@ -900,6 +906,7 @@
           promoCode: discountRate > 0 ? document.getElementById('promo-code').value.trim().toUpperCase() : '',
           voucherCode,
           placeVoucherOrder: true,
+          early: releaseEarlyKey(),
           customer: {
             name: firstName + ' ' + lastName,
             email,

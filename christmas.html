@@ -343,8 +343,9 @@
 <script>
 // ── Christmas Release ─────────────────────────────────────────────────────────
 // The boards show here before launch (with a first-look button) and once live (Add to Cart).
-// Prices must match CATALOG in api/checkout.js. Goes on sale when RELEASE_LIVE is switched on in
-// lib/release.js.
+// Prices must match CATALOG in api/checkout.js. Goes on sale on the timer in lib/release.js:
+// Saturday 7pm for visitors who arrived through the first-look link (?early=…, kept in
+// localStorage so it survives navigating to checkout), Sunday 7pm for everyone.
 var RELEASE = {
   boards: [
     { id: 'release-red',   no: 1, name: 'Burgundy Red', stone: '', price: 399, image: 'release-red.jpg',
@@ -393,7 +394,8 @@ var RELEASE = {
     var status = document.getElementById('hero-status');
     if (state.live) {
       var left = RELEASE.boards.filter(function (b) { return !state.sold[b.id]; }).length;
-      status.textContent = left ? 'On sale now · ' + left + ' of 3 left' : 'Sold out · Get first look at the next one';
+      status.textContent = !left ? 'Sold out · Get first look at the next one'
+        : (state.firstLook ? 'First look: on sale to you now · ' : 'On sale now · ') + left + ' of 3 left';
       status.href = left ? '#boards' : '#first-look';
     }
     try {
@@ -405,9 +407,16 @@ var RELEASE = {
   }
 
   render();
-  fetch('/api/checkout?release=1', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+  // First-look link: keep the key from ?early= so checkout can send it back.
+  var early = '';
+  try {
+    var fromUrl = new URLSearchParams(location.search).get('early');
+    if (fromUrl) localStorage.setItem('pp_release_early', fromUrl);
+    early = fromUrl || localStorage.getItem('pp_release_early') || '';
+  } catch (_) {}
+  fetch('/api/checkout?release=1' + (early ? '&early=' + encodeURIComponent(early) : ''), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
     if (!d || !d.live) return;
-    state.live = true; state.sold = d.sold || {};
+    state.live = true; state.firstLook = !!d.firstLook; state.sold = d.sold || {};
     render();
   }).catch(function () {});
 
