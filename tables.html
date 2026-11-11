@@ -191,6 +191,12 @@
   .category-section { display: none; }
   .category-section.active { display: block; }
 
+  .custom-cta-banner { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 20px 56px 0; padding: 14px 18px; background: var(--cream-soft, #EBE5DA); border: 1px solid var(--line); border-radius: 1px; }
+  .custom-cta-tag { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; color: white; background: var(--sage); padding: 4px 10px; border-radius: 99px; }
+  .custom-cta-text { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+  .custom-cta-text a { color: var(--ink); font-weight: 600; }
+  @media (max-width: 768px) { .custom-cta-banner { margin: 16px 16px 0; } }
+
   .section-header { padding: 56px 56px 40px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3vw, 44px); font-weight: 300; color: var(--ink); line-height: 1; }
   .section-title em { font-style: italic; color: var(--sage); }
@@ -600,6 +606,11 @@
   <button class="cat-tab" onclick="showCategory('side', this)">Side Tables</button>
   <button class="cat-tab" onclick="showCategory('lounge', this)">Lounge Tables</button>
   <button class="cat-tab" onclick="showCategory('dining', this)">Dining Tables</button>
+</div>
+
+<div class="custom-cta-banner" role="note">
+  <span class="custom-cta-tag">Custom Commissions</span>
+  <span class="custom-cta-text">Don't see the one? We take custom commissions in any stone — your size, your space. <a href="commissions.html">See past work →</a></span>
 </div>
 
 <!-- ===================== COFFEE TABLES ===================== -->
