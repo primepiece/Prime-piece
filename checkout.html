@@ -329,7 +329,7 @@
           </div>
           <div>
             <div class="delivery-opt-title">NZ-Wide Delivery</div>
-            <div class="delivery-opt-desc">Auckland, Wellington, Christchurch &amp; beyond. $49 flat rate, free on orders $500+. We'll confirm timing with you personally after purchase.</div>
+            <div class="delivery-opt-desc">Auckland, Wellington, Christchurch &amp; beyond. $49 flat rate, or $15 for boards and platters. Free on orders $500+. We'll confirm timing with you personally after purchase.</div>
           </div>
         </div>
       </label>
@@ -548,10 +548,13 @@
     };
   }
 
-  // Keep in sync with DELIVERY_FLAT_FEE / FREE_DELIVERY_THRESHOLD in api/checkout.js —
-  // this is display-only, the server computes the real charge.
+  // Keep in sync with DELIVERY_FLAT_FEE / SMALL_ITEM_DELIVERY_FEE / FREE_DELIVERY_THRESHOLD and
+  // isSmallItem in api/checkout.js — this is display-only, the server computes the real charge.
   const DELIVERY_FLAT_FEE = 49;
+  const SMALL_ITEM_DELIVERY_FEE = 15;
   const FREE_DELIVERY_THRESHOLD = 500;
+  const isSmallItem = item => /^(board|platter|release)-/.test(item.id);
+  const smallItemsOnly = cart.every(item => isVoucherItem(item) || isSmallItem(item));
 
   // ── Render order summary ────────────────────────────────
   const summaryItems = document.getElementById('summary-items');
@@ -589,7 +592,8 @@
   let discountRate = 0;
 
   function deliveryFee() {
-    return (deliveryMode === 'delivery' && physicalTotal > 0 && physicalTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+    if (!(deliveryMode === 'delivery' && physicalTotal > 0 && physicalTotal < FREE_DELIVERY_THRESHOLD)) return 0;
+    return smallItemsOnly ? SMALL_ITEM_DELIVERY_FEE : DELIVERY_FLAT_FEE;
   }
   // Voucher value is only known once the server has checked the code; until then it's 0.
   let voucherCode = '';

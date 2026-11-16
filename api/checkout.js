@@ -1,5 +1,6 @@
 import { RELEASE_LIVE, isRelease, RELEASE_ITEMS, soldItems, markSold } from '../lib/release.js';
 import { buildProductFeed } from '../lib/product-feed.js';
+import { metaCookies } from '../lib/meta-capi.js';
 import { VOUCHER_VALUES, isVoucher, findVoucher, spendVoucher, issueVoucher, voucherEmailHtml, sendEmail, GIFT_CARD_LIVE, GIFT_CARD_PRICE } from '../lib/vouchers.js';
 
 // Authoritative server-side price catalogue.
@@ -130,9 +131,14 @@ const WELCOME_EXCLUDED_IDS = new Set([
 const isWelcomeEligible = id => !!CATALOG[id] && !NOT_SOLD_ONLINE.has(id) && !WELCOME_EXCLUDED_IDS.has(id);
 
 // NZ-wide delivery: flat rate, free over the threshold. Showroom pickup is
-// always free and isn't affected by this.
+// always free and isn't affected by this. An order whose only physical items are small pieces
+// (serving boards, entertaining platters, Christmas Release grazing boards) pays the lower
+// SMALL_ITEM_DELIVERY_FEE instead, so a $99 board doesn't carry $49 of delivery. Set it to 0 for
+// free delivery on small items. Keep in sync with checkout.html and the feed (lib/product-feed.js).
 export const DELIVERY_FLAT_FEE = 49;
+export const SMALL_ITEM_DELIVERY_FEE = 15;
 export const FREE_DELIVERY_THRESHOLD = 500;
+export const isSmallItem = id => /^(board|platter|release)-/.test(id);
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -149,7 +155,7 @@ export default async function handler(req, res) {
         root: process.cwd(),
         catalog: CATALOG,
         notSoldOnline: NOT_SOLD_ONLINE,
-        delivery: { fee: DELIVERY_FLAT_FEE, threshold: FREE_DELIVERY_THRESHOLD },
+        delivery: { fee: DELIVERY_FLAT_FEE, smallFee: SMALL_ITEM_DELIVERY_FEE, threshold: FREE_DELIVERY_THRESHOLD },
         releaseLive: RELEASE_LIVE,
         soldItems,
       });
@@ -258,7 +264,9 @@ export default async function handler(req, res) {
 
   // Delivery fee computed server-side, same as pricing — never trust the client.
   const deliveryMode = physicalTotal > 0 ? (customer.delivery || 'pickup') : 'email';
-  const deliveryFee = (deliveryMode === 'delivery' && physicalTotal < FREE_DELIVERY_THRESHOLD) ? DELIVERY_FLAT_FEE : 0;
+  const smallItemsOnly = items.every(item => isVoucher(item.id) || isSmallItem(item.id));
+  const deliveryFee = (deliveryMode === 'delivery' && physicalTotal < FREE_DELIVERY_THRESHOLD)
+    ? (smallItemsOnly ? SMALL_ITEM_DELIVERY_FEE : DELIVERY_FLAT_FEE) : 0;
 
   // Promo applied server-side — client value is display-only. The discount is rounded to whole
   // dollars, matching what the checkout page shows.
@@ -319,6 +327,11 @@ export default async function handler(req, res) {
     return placeVoucherOrder({ res, voucher, voucherApplied, customer, deliveryMode, itemsLabel, code, discount, releaseIds });
   }
 
+  // For the Meta Conversions API purchase event sent by the webhook (lib/meta-capi.js):
+  // the visitor's Meta cookies, IP and browser, so Meta can match the sale to the ad click.
+  const { fbp, fbc } = metaCookies(req);
+  const clientIp = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+
   const body = new URLSearchParams({
     amount: totalCents.toString(),
     currency: 'nzd',
@@ -347,6 +360,12 @@ export default async function handler(req, res) {
     'metadata[gift_card_to]': giftCard ? giftCard.to : '',
     'metadata[gift_card_address]': giftCard ? giftCard.address : '',
     'metadata[gift_card_message]': giftCard ? giftCard.message : '',
+    'metadata[item_ids]': items.map(item => item.id).join(',').slice(0, 500),
+    'metadata[fbp]': fbp.slice(0, 200),
+    'metadata[fbc]': fbc.slice(0, 500),
+    'metadata[client_ip]': clientIp.slice(0, 100),
+    'metadata[client_ua]': String(req.headers['user-agent'] || '').slice(0, 500),
+    'metadata[page_url]': String(req.headers.referer || '').slice(0, 500),
   });
 
   try {

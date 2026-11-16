@@ -1,5 +1,6 @@
 import { createHmac } from 'node:crypto';
 import { markSold } from '../lib/release.js';
+import { sendPurchase } from '../lib/meta-capi.js';
 import { issueVoucher, spendVoucher, voucherEmailHtml, sendEmail, formatExpiry, escapeHtml, GIFT_CARD_POST_BY } from '../lib/vouchers.js';
 
 // Stripe webhook handler — receives payment_intent.succeeded events.
@@ -59,6 +60,9 @@ export default async function handler(req, res) {
     console.error('Webhook: no email in PaymentIntent metadata', pi.id);
     return res.status(200).json({ received: true });
   }
+
+  // Server-side Purchase for Meta ads (no-op until META_CAPI_TOKEN is set). Never throws.
+  await sendPurchase(pi);
 
   const klaviyoKey = process.env.KLAVIYO_API_KEY;
   const resendKey = process.env.RESEND_API_KEY;
