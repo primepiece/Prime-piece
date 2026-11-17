@@ -72,6 +72,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signals (latest news is the Jun 2026 Tripadvisor #1 NZ hotel award, outside the 60-day window; no refurb or expansion news found)"
         }
       ]
     },
@@ -145,6 +150,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signals in Auckland (the Wellington Allen St showroom move, slated for Aug 2026, is outside the 60-day window and the opening is unconfirmed)"
         }
       ]
     },
@@ -220,6 +230,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signal logged. Unverified lead: a search summary says Orchard House (Queenstown) took a national NZIA award on 5 Nov 2026, but the category conflicts with the shortlist (Commercial vs Housing) and nzia.co.nz is blocked. Verify before using"
         }
       ]
     },
@@ -295,6 +310,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signals (Parnell flagship at 130 St Georges Bay Rd dates from 2024; nothing dated in the last 60 days)"
         }
       ]
     },
@@ -316,10 +336,18 @@
         }
       ],
       "fit": null,
-      "signals": [],
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-11-05",
+          "evidence": "https://www.nzia.co.nz/",
+          "detail": "Toi Manawa (Ōtāhuhu) won the 2026 Ted McCoy Award for Education at the NZ Architecture Awards (national, 5 Nov); also on the 2026 national shortlist with Tahi House",
+          "found_by": "gtm-monitor"
+        }
+      ],
       "score": {
         "fit": null,
-        "intent": 0,
+        "intent": 12,
         "total": null,
         "tier": null,
         "override": null,
@@ -368,6 +396,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: 1 new signal (B04 national NZIA award for Toi Manawa, 5 Nov 2026). Source is the NZIA homepage via search; the page itself could not be fetched (network blocked)"
         }
       ]
     },
@@ -711,6 +744,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signals (no Takapuna Central / Eight Lake Pupuke / Wynyard news dated in the last 60 days)"
         }
       ]
     },
@@ -784,6 +822,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signal logged in the window. Richard Naish was named 2026 NZIA Gold Medallist on 9 Sep 2026 (nzia.co.nz/news/2026/richard-naish-awarded-2026-gold-medal), which is 70 days ago, outside the 60-day window, but still usable as a re-approach hook"
         }
       ]
     },
@@ -2787,7 +2830,7 @@
       ],
       "score": {
         "fit": null,
-        "intent": 44,
+        "intent": 50,
         "total": null,
         "tier": "A",
         "override": "first-party",
@@ -3044,6 +3087,11 @@
           "date": "2026-11-17",
           "agent": "gtm-inbox",
           "event": "Gmail draft created: Welcome back + studio visit with exotic samples (tiger onyx) Thu/Fri"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-monitor",
+          "event": "Monitor check: no new signals (no dated public project or press found; warm thread and pending draft unchanged)"
         }
       ]
     },
@@ -5168,7 +5216,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 8,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Boutique Takapuna agency salesperson focused on the Milford-Takapuna Golden Mile and waterfront homes. His profile cites an average sale price over $6.2M and record sales in Milford, Takapuna, Campbells Bay and Stanley Point.",
@@ -5294,7 +5349,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 20,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "One of the North Shore's leading top-end and waterfront agents, working with husband Stephen Bidwell. Profile cites an average sale price over $4M, $1B+ in sales and #1 in the Bayleys Takapuna office 2004-2026.",
@@ -5414,7 +5476,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys' Takapuna residential office (2-8 Northcroft Street) with around 30 listed agents, led by branch manager Kathryn Robertson. An office-level buyer for staff gifts and bulk client gifts across the team.",
@@ -5530,7 +5599,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 24,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys Takapuna residential and waterfront agent and a rising performer. A client testimonial on his profile shows he already gives a settlement gift (flowers and champagne).",
@@ -5646,7 +5722,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 24,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys Takapuna agent with $150M+ sold, ranked #4 of Bayleys North Shore salespeople in 2024/25. A client testimonial thanks her for gifts of champagne and glasses at settlement.",
@@ -5755,7 +5838,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 8,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys Takapuna waterfront associate working the upper end of the market from Takapuna to the bays for 17 years. He positions himself on personalised boutique service and repeat clients.",
@@ -5864,7 +5954,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys Takapuna residential agent with multiple sales across the Shore and a Top 10% / Super Achiever ranking. Testimonials cite results well above CV.",
@@ -5973,7 +6070,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys Takapuna agent focused on the Devonport Peninsula, Milford and Takapuna, with 17 years in real estate. He is deeply involved in the community (sponsor and life member of Ngataringa Tennis Club).",
@@ -6082,7 +6186,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 8,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys residential and waterfront agent listed at both Takapuna and Devonport offices, operating across Auckland's premium market. Known for his auction work, now in his 17th year.",
@@ -6191,7 +6302,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys' Devonport office at 33 King Edward Parade, about 20 agents selling Devonport peninsula and waterfront property. Sue Stanaway is the Residential Sales Manager and the natural buyer for an office order.",
@@ -6307,7 +6425,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 20,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys Devonport residential and waterfront agent known for record prices. Testimonials describe personal touches such as styling homes with her own decor pieces and bringing flowers from her garden.",
@@ -6416,7 +6541,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 8,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Devonport specialist who began in real estate in 1972 and has sold hundreds of Devonport homes at record prices. He has a background in antique auctions and appreciates unique, characterful pieces.",
@@ -6525,7 +6657,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Devonport, Belmont and Bayswater specialist at Harcourts Cooper & Co. He works with his father Gary Potter as a two-generation team, with $184M+ sold and 111 sales in five years.",
@@ -6644,7 +6783,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "A Devonport sales partnership with 35 years' combined experience, built on repeat customers and referrals they call \"Clients for Life\". They were the #1 sales partnership at Barfoot & Thompson Devonport from 2020 to 2023.",
@@ -6755,7 +6901,14 @@
       ],
       "fit": null,
       "signals": [],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "A Devonport partnership at Harcourts Cooper & Co; Marissa was born and raised in Devonport and has 30+ years in sales. Their combined profiles show about 29 sales in the last 12 months at a ~$1.52M median.",
@@ -6864,7 +7017,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 8,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "NZ Sotheby's North Shore salesperson (159 Hurstmere Road, Takapuna) with 20+ years in luxury, coastal and waterfront property. She has built and led two award-winning sales teams and is a trained auctioneer.",
@@ -6973,7 +7133,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Bayleys' Remuera office at 303 Remuera Road is the base for about 50 residential agents plus support staff, after absorbing UP Remuera in 2024. General Manager Scott Kirk is the buyer for staff and office-wide client gifts.",
@@ -7082,7 +7249,14 @@
           "found_by": "gtm-signal"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "North Shore builder (Milford) doing new builds, renovations and extensions, led by director Tim Cain. Its site positions it as a high-end housebuilder for Milford and the East Coast Bays.",
@@ -7183,7 +7357,14 @@
       ],
       "fit": null,
       "signals": [],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Devonport-based builder (1/67a Lake Road) doing high-quality renovations, architectural homes, kitchens and bathrooms since 1989. Director Alex Carey leads a tight-knit team, and an architect testimonial praises its finish work.",
@@ -7288,7 +7469,14 @@
       ],
       "fit": null,
       "signals": [],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
       "research": {
         "updated": "2026-11-17",
         "summary": "Boutique North Shore law firm that has moved to Takapuna, covering residential and commercial property, trusts, relationship property and estate planning. It has served North Shore clients for over 35 years.",
@@ -7401,7 +7589,14 @@
           "found_by": "gtm-inbox"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 20,
+        "total": null,
+        "tier": "A",
+        "override": "first-party",
+        "scored_at": "2026-11-17"
+      },
       "research": null,
       "stage": "replied",
       "legacy_outreach": false,
@@ -7416,6 +7611,11 @@
           "date": "2026-11-18",
           "agent": "gtm-inbox (morning run)",
           "event": "Added from website basin enquiry"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "pipeline.mjs",
+          "event": "Tier — → A (fit ?, intent 20, total ?)"
         }
       ]
     }
