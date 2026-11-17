@@ -30,18 +30,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 10,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@hotelbritomart.com",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 10)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -73,18 +103,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 10,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "info@eccfurniture.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 10)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -116,18 +176,50 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 10,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
-      "notes": [],
+      "sequence": {
+        "offer": null,
+        "contact": "studio@fearonhay.com",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
+      "notes": [
+        "Also emailed enquiry@fearonhay.com 20 Apr 2026 (with attachment)"
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 10)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -159,18 +251,50 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 10,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
-      "notes": [],
+      "sequence": {
+        "offer": null,
+        "contact": "info@matisse.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
+      "notes": [
+        "Also emailed design@matisse.co.nz 4 Mar 2026"
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 10)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -202,18 +326,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 9,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "studio@pattersonassociates.com",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -245,18 +399,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 9,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "reservations@clooney.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -288,18 +472,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 9,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@ctrlspace.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -331,18 +545,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 9,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "info@ahirestaurant.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -360,7 +604,8 @@
           "email_type": "generic",
           "verified": false,
           "linkedin": null,
-          "source": "outreach-emails.html"
+          "source": "outreach-emails.html",
+          "bounced": true
         }
       ],
       "fit": null,
@@ -378,14 +623,21 @@
       "legacy_outreach": true,
       "legacy_priority": 9,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Email bounced - find a working contact (Enrichment)",
       "next_action_date": null,
-      "notes": [],
+      "notes": [
+        "Emailed 26 Jun (no reply) + 16 Aug (bounced)"
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: outreach bounced"
         }
       ]
     },
@@ -417,18 +669,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 9,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "info@willisbond.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -460,18 +742,48 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 9,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "info@rtastudio.co.nz",
+        "started": "2026-06-26",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-06-26",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
+      "next_action_date": "2026-11-24",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 9)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 26 Jun + 16 Aug 2026, no reply"
         }
       ]
     },
@@ -489,7 +801,8 @@
           "email_type": "generic",
           "verified": false,
           "linkedin": null,
-          "source": "outreach-emails.html"
+          "source": "outreach-emails.html",
+          "bounced": true
         }
       ],
       "fit": null,
@@ -507,14 +820,21 @@
       "legacy_outreach": true,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Email bounced - find a working contact (Enrichment)",
       "next_action_date": null,
-      "notes": [],
+      "notes": [
+        "Emailed 26 Jun - bounced"
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: outreach bounced"
         }
       ]
     },
@@ -547,10 +867,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -558,6 +878,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -590,10 +915,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -601,6 +926,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -633,10 +963,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -644,6 +974,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -662,6 +997,16 @@
           "verified": false,
           "linkedin": null,
           "source": "outreach-emails.html"
+        },
+        {
+          "name": null,
+          "role": "Takapuna store",
+          "email": "takapuna@cittadesign.com",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "James emailed it 9 Apr 2026",
+          "linkedin": null,
+          "source": "gmail"
         }
       ],
       "fit": null,
@@ -675,18 +1020,25 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
-      "notes": [],
+      "next_action": "Re-approach with new angle",
+      "next_action_date": "2026-12-01",
+      "notes": [
+        "Emailed takapuna@cittadesign.com 9 Apr 2026, no reply"
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 9 Apr, no reply"
         }
       ]
     },
@@ -701,7 +1053,7 @@
           "name": null,
           "role": "Melanie Roger",
           "email": "info@melanieroge.com",
-          "email_type": "generic",
+          "email_type": "guessed",
           "verified": false,
           "linkedin": null,
           "source": "outreach-emails.html"
@@ -719,17 +1071,24 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
-      "notes": [],
+      "notes": [
+        "Domain in old list is \"melanieroge.com\" - looks like a typo (melanieroger.com?). Verify before emailing."
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -762,10 +1121,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -773,6 +1132,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -805,10 +1169,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -816,6 +1180,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -848,10 +1217,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 8,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -859,6 +1228,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 8)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -891,10 +1265,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -902,6 +1276,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -934,10 +1313,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -945,6 +1324,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -977,10 +1361,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -988,6 +1372,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1020,10 +1409,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1031,6 +1420,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1063,10 +1457,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1074,6 +1468,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1106,10 +1505,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1117,6 +1516,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1149,10 +1553,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1160,6 +1564,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1192,10 +1601,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1203,6 +1612,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1235,10 +1649,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1246,6 +1660,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1278,10 +1697,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1289,6 +1708,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1321,10 +1745,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1332,6 +1756,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1364,10 +1793,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 7,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1375,6 +1804,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 7)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1407,10 +1841,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1418,6 +1852,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1450,10 +1889,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1461,6 +1900,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1493,10 +1937,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1504,6 +1948,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1536,10 +1985,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1547,6 +1996,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1579,10 +2033,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1590,6 +2044,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1622,10 +2081,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1633,6 +2092,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1665,10 +2129,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1676,6 +2140,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1708,10 +2177,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1719,6 +2188,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1751,10 +2225,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 6,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1762,6 +2236,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 6)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1794,10 +2273,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 5,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1805,6 +2284,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1826,28 +2310,43 @@
         }
       ],
       "fit": null,
-      "signals": [],
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-10",
+          "evidence": "gmail thread 1a12349ab8a3185c",
+          "detail": "Replied - declined for now, positive about the work",
+          "found_by": "gtm-inbox"
+        }
+      ],
       "score": {
         "fit": null,
-        "intent": 0,
+        "intent": 12,
         "total": null,
         "tier": null,
         "override": null,
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "lost",
       "legacy_outreach": true,
       "legacy_priority": 5,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
-      "notes": [],
+      "next_action": "Re-approach in 6 months (they were complimentary)",
+      "next_action_date": "2027-04-10",
+      "notes": [
+        "Emailed art@ 6 Apr; submissions@ replied 10 Oct - kind words but declined. James replied 12 Oct."
+      ],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: declined 10 Oct"
         }
       ]
     },
@@ -1880,10 +2379,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 5,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1891,6 +2390,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1923,10 +2427,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 5,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -1934,6 +2438,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -1965,18 +2474,57 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 5,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@simonjames.co.nz",
+        "started": "2026-01-29",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-01-29",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-03-04",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 3,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-04-13",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "3 emails Jan-Apr unanswered - park until a new signal",
+      "next_action_date": "2027-02-01",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 29 Jan, 4 Mar, 13 Apr - no reply"
         }
       ]
     },
@@ -2009,10 +2557,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 5,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -2020,6 +2568,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -2052,10 +2605,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 5,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -2063,6 +2616,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 5)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -2095,10 +2653,10 @@
       },
       "research": null,
       "stage": "new",
-      "legacy_outreach": true,
+      "legacy_outreach": false,
       "legacy_priority": 4,
       "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action": "Never contacted (checked Gmail 17 Nov) - enrich + score",
       "next_action_date": null,
       "notes": [],
       "history": [
@@ -2106,6 +2664,11 @@
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 4)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail check: no prior outreach found"
         }
       ]
     },
@@ -2137,18 +2700,2366 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "new",
+      "stage": "nurture",
       "legacy_outreach": true,
       "legacy_priority": 4,
-      "sequence": null,
-      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
-      "next_action_date": null,
+      "sequence": {
+        "offer": null,
+        "contact": "info@smithandcaugheys.co.nz",
+        "started": "2026-08-16",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-08-16",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "1 email 16 Aug unanswered - re-approach via buyer with a new angle",
+      "next_action_date": "2026-12-01",
       "notes": [],
       "history": [
         {
           "date": "2026-11-17",
           "agent": "setup",
           "event": "Imported from outreach-emails.html (legacy priority 4)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Gmail: emailed 16 Aug, no reply"
+        }
+      ]
+    },
+    {
+      "id": "trove",
+      "name": "Trove",
+      "segment": "interior-design",
+      "city": "Auckland (Ponsonby)",
+      "website": "https://trovedesign.co.nz",
+      "contacts": [
+        {
+          "name": "Daniella Norling",
+          "role": "Design Director",
+          "email": "interiors@trovedesign.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-05",
+          "evidence": "gmail thread 1a10dd6d1bb09bf3",
+          "detail": "\"Would love to meet... the basins are beautiful\"",
+          "found_by": "gtm-inbox"
+        },
+        {
+          "id": "D03",
+          "date": "2026-10-16",
+          "evidence": "gmail thread 1a10dd6d1bb09bf3",
+          "detail": "Met at Trove studio, 42 Jervois Rd",
+          "found_by": "gtm-inbox"
+        },
+        {
+          "id": "D04",
+          "date": "2026-10-19",
+          "evidence": "gmail thread 1a10dd6d1bb09bf3",
+          "detail": "Wants long central stone board for her table + two bedside tops",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 44,
+        "total": null,
+        "tier": "A",
+        "override": "first-party",
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "meeting",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": "trade-account",
+        "contact": "interiors@trovedesign.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": "1a10dd6d1bb09bf3",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "CALL Daniella - wants a long central stone board for her table + 2 bedside tops. 3 emails since 28 Oct unanswered; phone number is in her 5 Oct email",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Met 16 Oct; gave her a charcuterie board. She cancelled 22 Oct visit, said \"next week\" on 27 Oct. James chased 11 Nov (no reply)."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "pipeline.mjs",
+          "event": "Tier — → A (fit ?, intent 44, total ?)"
+        }
+      ]
+    },
+    {
+      "id": "zarby-designs",
+      "name": "Zarby Designs",
+      "segment": "other",
+      "city": "Auckland (lives ~5 min from workshop)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Finn Richwood",
+          "role": "Founder / furniture maker",
+          "email": "finn@zarbydesigns.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-12",
+          "evidence": "gmail thread 1a131b1918fc4dc9",
+          "detail": "Wants a stone panel inset into a cabinet door - no experience with stone",
+          "found_by": "gtm-inbox"
+        },
+        {
+          "id": "D02",
+          "date": "2026-11-01",
+          "evidence": "gmail thread 1a131b1918fc4dc9",
+          "detail": "Offered Thu/Fri morning",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 32,
+        "total": null,
+        "tier": "A",
+        "override": "first-party",
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "replied",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": "samples",
+        "contact": "finn@zarbydesigns.co.nz",
+        "started": "2026-10-12",
+        "gmail_thread": "1a131b1918fc4dc9",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "REPLY TO FINN - his 1 Nov email (\"Thursday or Friday this coming week works\") was never answered. Offer a 9am slot (he can only do mornings)",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Two meetings missed (James rescheduled 21 Oct, missed Finn's 23 Oct reply). Collaboration: stone panels for his sculptural timber furniture."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "pipeline.mjs",
+          "event": "Tier — → A (fit ?, intent 32, total ?)"
+        }
+      ]
+    },
+    {
+      "id": "rarebirds-interiors",
+      "name": "Rarebirds Interiors",
+      "segment": "interior-design",
+      "city": "Auckland (Grey Lynn)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Kelly Gammie",
+          "role": "Principal designer",
+          "email": "kelly@rarebirdsinteriors.com",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-12",
+          "evidence": "gmail thread 1a10dd688ed07e18",
+          "detail": "Wants samples - prefers exotic colours e.g. tiger onyx",
+          "found_by": "gtm-inbox"
+        },
+        {
+          "id": "D04",
+          "date": "2026-10-22",
+          "evidence": "gmail thread 1a10dd688ed07e18",
+          "detail": "James left a stone piece at studio; she \"genuinely would like to catch up\" on return",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 32,
+        "total": null,
+        "tier": "A",
+        "override": "first-party",
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "replied",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": "samples",
+        "contact": "kelly@rarebirdsinteriors.com",
+        "started": "2026-10-12",
+        "gmail_thread": "1a10dd688ed07e18",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Kelly is back from Bali (Cosentino conference) - book the studio visit with exotic samples (tiger onyx). Last contact 22 Oct",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "22 Oct visit: Kelly missed it, James left a stone sample."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "pipeline.mjs",
+          "event": "Tier — → A (fit ?, intent 32, total ?)"
+        }
+      ]
+    },
+    {
+      "id": "spatial-studio",
+      "name": "Spatial Studio",
+      "segment": "interior-design",
+      "city": "Auckland (Morningside)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Kristen Basra",
+          "role": "Principal",
+          "email": "kristen@spatialstudio.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-11",
+          "evidence": "gmail thread 1a10dd697066d724",
+          "detail": "\"All look great thank you. Be in touch\"",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "replied",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": "render",
+        "contact": "kristen@spatialstudio.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": "1a10dd697066d724",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Follow up Kristen (\"all look great, be in touch\" 11 Oct) - offer a free render for a current project",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "sojo-design",
+      "name": "Sojo Design",
+      "segment": "staging",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Julie Rees",
+          "role": "Director",
+          "email": "julie@sojodesign.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-07",
+          "evidence": "gmail thread 1a10dd715a91d2e2",
+          "detail": "Stone too heavy for regular staging, but \"Showhome we could yes\"",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "nurture",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": "placement",
+        "contact": "julie@sojodesign.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": "1a10dd715a91d2e2",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Ask Julie about upcoming show homes - she said yes to stone for a showhome",
+      "next_action_date": "2026-11-24",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "nicola-manning-design",
+      "name": "Nicola Manning Design",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Nicola Manning",
+          "role": "Principal",
+          "email": "nicola@nicolamanningdesign.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-06",
+          "evidence": "gmail thread 1a10dd73e2104a23",
+          "detail": "Positive - would work together on the right project",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "nurture",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "nicola@nicolamanningdesign.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": "1a10dd73e2104a23",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Positive reply 6 Oct, open to future projects - check in with a project-relevant piece",
+      "next_action_date": "2026-12-01",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "good-form",
+      "name": "Good Form",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Emma Eagle",
+          "role": "Owner",
+          "email": "hello@goodform.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-09-28",
+          "evidence": "gmail thread 1a0d587a776e42fb",
+          "detail": "Not now, open to the future",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "nurture",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": "consignment",
+        "contact": "hello@goodform.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": "1a0d587a776e42fb",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "\"Not right now, would love to see what you do for the future\" - send lookbook in Feb",
+      "next_action_date": "2027-02-01",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "cocolea",
+      "name": "Cocolea",
+      "segment": "interior-design",
+      "city": "Melbourne, Australia",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Team",
+          "email": "info@cocolea.com.au",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D02",
+          "date": "2026-10-13",
+          "evidence": "gmail thread 1a131ab05c8cc320",
+          "detail": "Declined politely",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "lost",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "info@cocolea.com.au",
+        "started": "2026-09-24",
+        "gmail_thread": "1a131ab05c8cc320",
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Declined 13 Oct",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "sonya-cotter-design",
+      "name": "Sonya Cotter Design",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Sonya",
+          "role": null,
+          "email": "sonya@sonyacotterdesign.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "sonya@sonyacotterdesign.co.nz",
+        "started": "2026-10-22",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-22",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-22, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "kara-e-design",
+      "name": "Kara E Design",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Kara",
+          "role": null,
+          "email": "kara@karae.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "kara@karae.co.nz",
+        "started": "2026-10-12",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "gracious-living",
+      "name": "Gracious Living",
+      "segment": "furniture-retail",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "showroom@graciousliving.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "showroom@graciousliving.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #3 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "delux-interiors",
+      "name": "Delux Interiors",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "decor@deluxinteriors.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "decor@deluxinteriors.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #3 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "finewood-furniture",
+      "name": "Finewood Furniture",
+      "segment": "other",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "John",
+          "role": null,
+          "email": "johnr@finewood.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "johnr@finewood.co.nz",
+        "started": "2026-10-12",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "project-project",
+      "name": "Project Project",
+      "segment": "interior-design",
+      "city": "Australia",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "hello@projectproject.com.au",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@projectproject.com.au",
+        "started": "2026-10-12",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "green-line-interiors",
+      "name": "Green Line Interiors",
+      "segment": "hospitality",
+      "city": "Australia",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "sales@greenlineinteriors.com.au",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "sales@greenlineinteriors.com.au",
+        "started": "2026-10-12",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "dbj-furniture",
+      "name": "DBJ Furniture",
+      "segment": "other",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "design@dbj.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "design@dbj.co.nz",
+        "started": "2026-10-12",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-12",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-12, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "design-council-interiors",
+      "name": "Design Council Interiors",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Alicia",
+          "role": null,
+          "email": "alicia@dci.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "alicia@dci.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "collab-interiors",
+      "name": "Collab Interiors",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Hayley",
+          "role": null,
+          "email": "hayley@collabinteriors.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "hayley@collabinteriors.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "shelley-ferguson-studio",
+      "name": "Shelley Ferguson Studio",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Shelley",
+          "role": null,
+          "email": "shelley@sfstudio.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "shelley@sfstudio.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "outline-design",
+      "name": "Outline Design",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Victoria Wilkes",
+          "role": null,
+          "email": "vwilkes@outlinedesign.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "vwilkes@outlinedesign.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "overlay",
+      "name": "OVERLAY",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Sacha and Julie",
+          "role": null,
+          "email": "hello@overlay.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@overlay.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "island-interiors",
+      "name": "Island Interiors",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Susannah",
+          "role": null,
+          "email": "susannah@islandinteriors.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "susannah@islandinteriors.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "abri-architects",
+      "name": "Abri Architects",
+      "segment": "architecture",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "John Durkin",
+          "role": null,
+          "email": "john@abriarchitects.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "john@abriarchitects.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "John was out of office until 12 Oct when intro landed - worth a fresh email"
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "space-studio",
+      "name": "Space Studio",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Tess",
+          "role": null,
+          "email": "tess@spacestudio.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "tess@spacestudio.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "donna-white-interior-design",
+      "name": "Donna White Interior Design",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Donna White",
+          "role": null,
+          "email": "donna@donnawhite.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "donna@donnawhite.co.nz",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "hulena-architects",
+      "name": "Hulena Architects",
+      "segment": "architecture",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Brent",
+          "role": null,
+          "email": "office@hulena.com",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "office@hulena.com",
+        "started": "2026-10-05",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-10-05",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-10-05, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "moonlight-escape",
+      "name": "Moonlight Escape",
+      "segment": "hotel",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "stay@moonlightescape.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "stay@moonlightescape.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "acacia-cliffs-lodge",
+      "name": "Acacia Cliffs Lodge",
+      "segment": "hotel",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "info@acaciacliffslodge.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "info@acaciacliffslodge.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "numi-collective",
+      "name": "NUMI Collective",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "designer@numicollective.com",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "designer@numicollective.com",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "tim-webber-design",
+      "name": "Tim Webber Design",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "info@timwebberdesign.com",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "info@timwebberdesign.com",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "dalman-architects",
+      "name": "Dalman Architects",
+      "segment": "architecture",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "design@dalman.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "design@dalman.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "architex",
+      "name": "Architex",
+      "segment": "architecture",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "admin@architex.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "admin@architex.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "mccoy-heine",
+      "name": "McCoy + Heine",
+      "segment": "architecture",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "office@mccoyheine.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "office@mccoyheine.co.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "sayes-jackson",
+      "name": "Sayes Jackson",
+      "segment": "architecture",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Nick Sayes & Luke Jackson",
+          "role": null,
+          "email": "hello@sayesjackson.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@sayesjackson.nz",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Nick on bereavement leave when intro landed (24 Sep) - address Luke Jackson"
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "driver-ward-studio",
+      "name": "Driver Ward Studio",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Jess",
+          "role": null,
+          "email": "jess@driverward.studio",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "jess@driverward.studio",
+        "started": "2026-09-24",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-24",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-24, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "sau-studio",
+      "name": "Sa'u Studio",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": null,
+          "email": "hello@saustudio.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "hello@saustudio.co.nz",
+        "started": "2026-09-22",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-22",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-22, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
+        }
+      ]
+    },
+    {
+      "id": "lobelie-interiors",
+      "name": "Lobélie Interiors",
+      "segment": "interior-design",
+      "city": "NZ (check city)",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Olivia",
+          "role": null,
+          "email": "olivia@lobelieinteriors.com",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Active Gmail correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "in_sequence",
+      "legacy_outreach": false,
+      "sequence": {
+        "offer": null,
+        "contact": "olivia@lobelieinteriors.com",
+        "started": "2026-09-21",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": null,
+            "channel": "email",
+            "status": "sent",
+            "sent_at": "2026-09-21",
+            "subject": null,
+            "body": null
+          }
+        ]
+      },
+      "next_action": "Intro sent 2026-09-21, no reply - write follow-up #2 with a NEW angle (render offer / a specific stone)",
+      "next_action_date": "2026-11-17",
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-crm (gmail import)",
+          "event": "Imported from James's Gmail outreach"
         }
       ]
     }
