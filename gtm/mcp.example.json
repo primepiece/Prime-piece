@@ -1,0 +1,15 @@
+{
+  "_readme": "OPTIONAL. Copy servers you want into a .mcp.json at the repo root (or `claude mcp add`). Keys go in your shell env / environment secrets, never in this file. Gmail, Klaviyo, HubSpot etc. are easier as claude.ai connectors (Settings \u2192 Connectors) and need no entry here.",
+  "mcpServers": {
+    "tavily": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "${TAVILY_API_KEY}"
+      }
+    }
+  }
+}

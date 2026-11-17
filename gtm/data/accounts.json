@@ -1,0 +1,2156 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-17",
+  "accounts": [
+    {
+      "id": "hotel-britomart",
+      "name": "Hotel Britomart",
+      "segment": "hotel",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Reservations / GM",
+          "email": "hello@hotelbritomart.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 10,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 10)"
+        }
+      ]
+    },
+    {
+      "id": "ecc-furniture",
+      "name": "ECC Furniture",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Showroom Manager / Buyer",
+          "email": "info@eccfurniture.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 10,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 10)"
+        }
+      ]
+    },
+    {
+      "id": "fearon-hay-architects",
+      "name": "Fearon Hay Architects",
+      "segment": "architecture",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Tim Hay / Jeff Fearon",
+          "email": "studio@fearonhay.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 10,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 10)"
+        }
+      ]
+    },
+    {
+      "id": "matisse",
+      "name": "Matisse",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Showroom Director / Buyer",
+          "email": "info@matisse.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 10,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 10)"
+        }
+      ]
+    },
+    {
+      "id": "patterson-associates",
+      "name": "Patterson Associates",
+      "segment": "architecture",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Andrew Patterson",
+          "email": "studio@pattersonassociates.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "clooney-restaurant",
+      "name": "Clooney Restaurant",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "GM / Owner",
+          "email": "reservations@clooney.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "ctrl-space",
+      "name": "Ctrl Space",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Studio Director",
+          "email": "hello@ctrlspace.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "ahi-restaurant",
+      "name": "Ahi Restaurant",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Ben Bayly",
+          "email": "info@ahirestaurant.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "whitespace-gallery",
+      "name": "Whitespace Gallery",
+      "segment": "gallery",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Tim Melville",
+          "email": "info@whitespace.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "willis-bond",
+      "name": "Willis Bond",
+      "segment": "developer",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Mark McGuinness",
+          "email": "info@willisbond.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "rta-studio",
+      "name": "RTA Studio",
+      "segment": "architecture",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Richard Naish",
+          "email": "info@rtastudio.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 9,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 9)"
+        }
+      ]
+    },
+    {
+      "id": "koush-interior-design",
+      "name": "Koush Interior Design",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Kylie McMahon",
+          "email": "hello@koush.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "naumi-hotel-auckland",
+      "name": "Naumi Hotel Auckland",
+      "segment": "hotel",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "General Manager",
+          "email": "auckland@naumihotels.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "the-staging-company-nz",
+      "name": "The Staging Company NZ",
+      "segment": "staging",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "hello@thestagingcompany.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "jasmax",
+      "name": "Jasmax",
+      "segment": "architecture",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Studio Principal",
+          "email": "enquiries@jasmax.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "citta-design",
+      "name": "Citta Design",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Buyer",
+          "email": "hello@cittadesign.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "melanie-roger-gallery",
+      "name": "Melanie Roger Gallery",
+      "segment": "gallery",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Melanie Roger",
+          "email": "info@melanieroge.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "baduzzi-restaurant",
+      "name": "Baduzzi Restaurant",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Owner / GM",
+          "email": "info@baduzzi.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "michael-lett-gallery",
+      "name": "Michael Lett Gallery",
+      "segment": "gallery",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Michael Lett",
+          "email": "info@michaellett.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "juliette-domine-design",
+      "name": "Juliette Domine Design",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Juliette Domine",
+          "email": "studio@juliettedomine.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 8,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 8)"
+        }
+      ]
+    },
+    {
+      "id": "architectus",
+      "name": "Architectus",
+      "segment": "architecture",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Studio Director NZ",
+          "email": "auckland@architectus.com.au",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "so-auckland",
+      "name": "SO/ Auckland",
+      "segment": "hotel",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Design / F&B Contact",
+          "email": "soauckland@so-hotels.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "haven-home",
+      "name": "Haven Home",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Buyer",
+          "email": "hello@havenhome.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "orphans-kitchen",
+      "name": "Orphans Kitchen",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Tom Hishon",
+          "email": "hello@orphanskitchen.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "precinct-properties",
+      "name": "Precinct Properties",
+      "segment": "developer",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Development Director",
+          "email": "info@ppnz.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "stow-interior-design",
+      "name": "Stow Interior Design",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Studio Lead",
+          "email": "hello@stow.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "two-rooms-gallery",
+      "name": "Two Rooms Gallery",
+      "segment": "gallery",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "info@tworooms.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "cosh-living",
+      "name": "Cosh Living",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Buyer",
+          "email": "info@coshliving.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "giapo",
+      "name": "Giapo",
+      "segment": "other",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Giapo Grazioli",
+          "email": "info@giapo.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "nood",
+      "name": "Nood",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Buyer",
+          "email": "hello@nood.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "mansons-tclm",
+      "name": "Mansons TCLM",
+      "segment": "developer",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Development Team",
+          "email": "info@mansons.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "azabu-restaurant",
+      "name": "Azabu Restaurant",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Owner / GM",
+          "email": "info@azabu.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 7,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 7)"
+        }
+      ]
+    },
+    {
+      "id": "milse",
+      "name": "Milse",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Brian Campbell",
+          "email": "info@milse.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "auckland-staging-co",
+      "name": "Auckland Staging Co.",
+      "segment": "staging",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "hello@aucklandstaging.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "stevens-lawson-architects",
+      "name": "Stevens Lawson Architects",
+      "segment": "architecture",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Nick Stevens / Gary Lawson",
+          "email": "studio@stevenslawson.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "workshop-jewellery",
+      "name": "Workshop Jewellery",
+      "segment": "other",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "hello@workshopjewellery.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "the-marlborough-hotel",
+      "name": "The Marlborough Hotel",
+      "segment": "hotel",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "GM / Design Contact",
+          "email": "info@themarlborough.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "jardan-nz",
+      "name": "Jardan NZ",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Showroom Manager Auckland",
+          "email": "auckland@jardan.com.au",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "orexart",
+      "name": "Orexart",
+      "segment": "gallery",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Andrew Clifford",
+          "email": "info@orexart.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "penny-lane-interior-design",
+      "name": "Penny Lane Interior Design",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "hello@pennylanehome.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "chhada-siembieda-and-associates",
+      "name": "Chhada Siembieda & Associates",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Studio Lead",
+          "email": "info@cs-interiors.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 6,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 6)"
+        }
+      ]
+    },
+    {
+      "id": "ivy-and-stone-events",
+      "name": "Ivy & Stone Events",
+      "segment": "other",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "hello@ivyandstone.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "parnell-gallery",
+      "name": "Parnell Gallery",
+      "segment": "gallery",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "info@parnellgallery.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "kate-sylvester",
+      "name": "Kate Sylvester",
+      "segment": "other",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Creative Director",
+          "email": "info@katesylvester.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "ponsonby-central",
+      "name": "Ponsonby Central",
+      "segment": "other",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Manager",
+          "email": "info@ponsonbycentral.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "simon-james-design",
+      "name": "Simon James Design",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Simon James",
+          "email": "info@simonjames.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "nz-sotheby-s-staging",
+      "name": "NZ Sotheby's Staging",
+      "segment": "staging",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Staging Director",
+          "email": "auckland@nzsothebysrealty.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "bunny-street-collective",
+      "name": "Bunny Street Collective",
+      "segment": "interior-design",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Director",
+          "email": "hello@bunnystreetcollective.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 5,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 5)"
+        }
+      ]
+    },
+    {
+      "id": "hawthorne-coffee",
+      "name": "Hawthorne Coffee",
+      "segment": "hospitality",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Owner",
+          "email": "hello@hawthornecoffee.com",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 4,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 4)"
+        }
+      ]
+    },
+    {
+      "id": "smith-and-caughey-s",
+      "name": "Smith & Caughey's",
+      "segment": "furniture-retail",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": null,
+          "role": "Home Department Buyer",
+          "email": "info@smithandcaugheys.co.nz",
+          "email_type": "generic",
+          "verified": false,
+          "linkedin": null,
+          "source": "outreach-emails.html"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": {
+        "fit": null,
+        "intent": 0,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-17"
+      },
+      "research": null,
+      "stage": "new",
+      "legacy_outreach": true,
+      "legacy_priority": 4,
+      "sequence": null,
+      "next_action": "Confirm in Gmail whether the outreach-emails.html first email was already sent",
+      "next_action_date": null,
+      "notes": [],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "setup",
+          "event": "Imported from outreach-emails.html (legacy priority 4)"
+        }
+      ]
+    }
+  ]
+}
