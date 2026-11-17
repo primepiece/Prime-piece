@@ -2803,10 +2803,21 @@
             "sent_at": "2026-10-05",
             "subject": null,
             "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "Re: thread",
+            "body": "Offer to come to her to template + ballpark for bedside tops + Christmas lead-time for long board",
+            "gmail_draft_id": "r-3400089488405364048",
+            "due": "2026-11-17",
+            "sent_at": null
           }
         ]
       },
-      "next_action": "CALL Daniella - wants a long central stone board for her table + 2 bedside tops. 3 emails since 28 Oct unanswered; phone number is in her 5 Oct email",
+      "next_action": "Review + send Gmail draft: Offer to come to her to template + ballpark for bedside tops + Christmas lead-time for long board",
       "next_action_date": "2026-11-17",
       "notes": [
         "Met 16 Oct; gave her a charcuterie board. She cancelled 22 Oct visit, said \"next week\" on 27 Oct. James chased 11 Nov (no reply)."
@@ -2821,6 +2832,11 @@
           "date": "2026-11-17",
           "agent": "pipeline.mjs",
           "event": "Tier — → A (fit ?, intent 44, total ?)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-inbox",
+          "event": "Gmail draft created: Offer to come to her to template + ballpark for bedside tops + Christmas lead-time for long board"
         }
       ]
     },
@@ -2884,10 +2900,21 @@
             "sent_at": "2026-10-12",
             "subject": null,
             "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "Re: thread",
+            "body": "Apology + 9am Thu 19 / Fri 20 Nov at workshop",
+            "gmail_draft_id": "r9077938881233686523",
+            "due": "2026-11-17",
+            "sent_at": null
           }
         ]
       },
-      "next_action": "REPLY TO FINN - his 1 Nov email (\"Thursday or Friday this coming week works\") was never answered. Offer a 9am slot (he can only do mornings)",
+      "next_action": "Review + send Gmail draft: Apology + 9am Thu 19 / Fri 20 Nov at workshop",
       "next_action_date": "2026-11-17",
       "notes": [
         "Two meetings missed (James rescheduled 21 Oct, missed Finn's 23 Oct reply). Collaboration: stone panels for his sculptural timber furniture."
@@ -2902,6 +2929,11 @@
           "date": "2026-11-17",
           "agent": "pipeline.mjs",
           "event": "Tier — → A (fit ?, intent 32, total ?)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-inbox",
+          "event": "Gmail draft created: Apology + 9am Thu 19 / Fri 20 Nov at workshop"
         }
       ]
     },
@@ -2965,10 +2997,21 @@
             "sent_at": "2026-10-12",
             "subject": null,
             "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "Re: thread",
+            "body": "Welcome back + studio visit with exotic samples (tiger onyx) Thu/Fri",
+            "gmail_draft_id": "r-3752764260740170560",
+            "due": "2026-11-17",
+            "sent_at": null
           }
         ]
       },
-      "next_action": "Kelly is back from Bali (Cosentino conference) - book the studio visit with exotic samples (tiger onyx). Last contact 22 Oct",
+      "next_action": "Review + send Gmail draft: Welcome back + studio visit with exotic samples (tiger onyx) Thu/Fri",
       "next_action_date": "2026-11-17",
       "notes": [
         "22 Oct visit: Kelly missed it, James left a stone sample."
@@ -2983,6 +3026,11 @@
           "date": "2026-11-17",
           "agent": "pipeline.mjs",
           "event": "Tier — → A (fit ?, intent 32, total ?)"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-inbox",
+          "event": "Gmail draft created: Welcome back + studio visit with exotic samples (tiger onyx) Thu/Fri"
         }
       ]
     },
@@ -3039,10 +3087,21 @@
             "sent_at": "2026-10-05",
             "subject": null,
             "body": null
+          },
+          {
+            "n": 2,
+            "day": null,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "Re: thread",
+            "body": "Free render offer for a current project",
+            "gmail_draft_id": "r1263816840076259334",
+            "due": "2026-11-17",
+            "sent_at": null
           }
         ]
       },
-      "next_action": "Follow up Kristen (\"all look great, be in touch\" 11 Oct) - offer a free render for a current project",
+      "next_action": "Review + send Gmail draft: Free render offer for a current project",
       "next_action_date": "2026-11-17",
       "notes": [],
       "history": [
@@ -3050,6 +3109,11 @@
           "date": "2026-11-17",
           "agent": "gtm-crm (gmail import)",
           "event": "Imported from James's Gmail outreach"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-inbox",
+          "event": "Gmail draft created: Free render offer for a current project"
         }
       ]
     },
