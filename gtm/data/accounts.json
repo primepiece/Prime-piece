@@ -5126,6 +5126,2239 @@
           "event": "Imported from James's Gmail outreach"
         }
       ]
+    },
+    {
+      "id": "precision-andrew-dorreen",
+      "name": "Andrew Dorreen (Precision Real Estate)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.precision.net.nz/",
+      "contacts": [
+        {
+          "name": "Andrew Dorreen",
+          "role": "Salesperson, Precision Real Estate",
+          "email": "andrew@precision.net.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published as the agent's own email on realestate.co.nz agent profile https://www.realestate.co.nz/agent/1191/andrew-dorreen (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/1191/andrew-dorreen"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.realestate.co.nz/agent/1191/andrew-dorreen",
+          "detail": "Golden Mile (Milford-Takapuna) and waterfront specialist; profile says avg sale price $6,204,993 and $100M+ sold each of last six years; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Boutique Takapuna agency salesperson focused on the Milford-Takapuna Golden Mile and waterfront homes. His profile cites an average sale price over $6.2M and record sales in Milford, Takapuna, Campbells Bay and Stanley Point.",
+        "insights": [
+          {
+            "fact": "Average sale price $6,204,993; over $100M sold in each of the last six calendar years",
+            "source": "https://www.realestate.co.nz/agent/1191/andrew-dorreen"
+          },
+          {
+            "fact": "Holds highest recorded sales in Milford and Takapuna, Campbells Bay Beach/Clifftop and Stanley Point (non-waterfront)",
+            "source": "https://www.realestate.co.nz/agent/1191/andrew-dorreen"
+          }
+        ],
+        "hooks": [
+          "With an average sale price over $6.2M on the Golden Mile, a settlement gift needs to feel as considered as the homes you sell.",
+          "We are in Wairau Valley, ten minutes from your Takapuna office, and can deliver stone platters or vouchers before Christmas."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Andrew Dorreen (Salesperson)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "andrew@precision.net.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r4054154999662693597",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate (boutique agency, top-end). Highest-value client base in this batch."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-victoria-bidwell",
+      "name": "Victoria Bidwell (Bayleys Takapuna)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/Victoria-Bidwell",
+      "contacts": [
+        {
+          "name": "Victoria Bidwell",
+          "role": "Residential and Waterfront Sales",
+          "email": "victoria.bidwell@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/Victoria-Bidwell (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/Victoria-Bidwell"
+        },
+        {
+          "name": "Stephen Bidwell",
+          "role": "Residential Sales (works with Victoria)",
+          "email": "stephen.bidwell@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/stephen-bidwell (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/stephen-bidwell"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/Victoria-Bidwell",
+          "detail": "Top-end/waterfront specialist Milford-Takapuna-Devonport; profile says avg sale price over $4M and $1B+ sold",
+          "found_by": "gtm-signal"
+        },
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/Victoria-Bidwell",
+          "detail": "Profile achievements: #1 Salesperson Bayleys Takapuna 2004-2026; Top 5% of Bayleys salespeople 2025/26; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "One of the North Shore's leading top-end and waterfront agents, working with husband Stephen Bidwell. Profile cites an average sale price over $4M, $1B+ in sales and #1 in the Bayleys Takapuna office 2004-2026.",
+        "insights": [
+          {
+            "fact": "Average sale price over four million; over one billion dollars of sales",
+            "source": "https://www.bayleys.co.nz/Victoria-Bidwell"
+          },
+          {
+            "fact": "#1 Salesperson in office, Bayleys Takapuna, 2004-2026; holds record sales in Cheltenham and Stanley Point",
+            "source": "https://www.bayleys.co.nz/Victoria-Bidwell"
+          },
+          {
+            "fact": "Was the inaugural real estate judge on The Block NZ",
+            "source": "https://www.bayleys.co.nz/Victoria-Bidwell"
+          }
+        ],
+        "hooks": [
+          "Congratulations on another year as #1 at Bayleys Takapuna, a run going back to 2004.",
+          "For clients settling on $4M+ homes in Cheltenham and Stanley Point, a one-of-one marble platter is a gift that stays in the house."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Victoria Bidwell (Residential and Waterfront Sales)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "victoria.bidwell@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-571795152204978652",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate (top individual agent). Stephen Bidwell added as second contact; both emails published on their own Bayleys profiles."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-takapuna",
+      "name": "Bayleys Takapuna",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/takapuna",
+      "contacts": [
+        {
+          "name": "Kathryn Robertson",
+          "role": "Branch Manager, Bayleys Takapuna",
+          "email": "kathryn.robertson@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/kathryn-robertson (seen 2026-11-17); also listed as Branch Manager on https://www.bayleys.co.nz/takapuna",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/kathryn-robertson"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/kathryn-robertson",
+          "detail": "Branch manager; profile says she was named Bayleys Real Estate Auckland Manager of the Year in her first financial year as manager; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        },
+        {
+          "id": "B04",
+          "date": "2024-12-31",
+          "evidence": "https://www.bayleys.co.nz/takapuna",
+          "detail": "Office page lists National award for growth (large franchise) 2024",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys' Takapuna residential office (2-8 Northcroft Street) with around 30 listed agents, led by branch manager Kathryn Robertson. An office-level buyer for staff gifts and bulk client gifts across the team.",
+        "insights": [
+          {
+            "fact": "Kathryn Robertson is Branch Manager and was recognised as Bayleys Real Estate Auckland Manager of the Year in her first year",
+            "source": "https://www.bayleys.co.nz/kathryn-robertson"
+          },
+          {
+            "fact": "Office lists National award for growth (large franchise) 2024",
+            "source": "https://www.bayleys.co.nz/takapuna"
+          }
+        ],
+        "hooks": [
+          "Congratulations on Auckland Manager of the Year at Bayleys; a team that size usually has a lot of thank-yous to send in December.",
+          "One quote and one office drop-off could cover staff gifts and agents' settlement gifts for the whole Takapuna team."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Kathryn Robertson (Branch Manager)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "kathryn.robertson@bayleys.co.nz",
+        "started": "2026-11-19",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r6867394477961138867",
+            "due": "2026-11-19",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Send Gmail draft on Thu 19 Nov (after the office agents)",
+      "next_action_date": "2026-11-19",
+      "notes": [
+        "Type: real estate office. Pitch a bulk office order (10+ boards/platters or vouchers) for staff and for agents to use as settlement gifts. Overlaps with the individual Bayleys Takapuna agent accounts; coordinate so they aren't emailed the same day."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-blair-monk",
+      "name": "Blair Monk (Bayleys Takapuna)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/blair-monk",
+      "contacts": [
+        {
+          "name": "Blair Monk",
+          "role": "Residential and Waterfront Sales",
+          "email": "blair.monk@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/blair-monk (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/blair-monk"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "E01",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/blair-monk",
+          "detail": "Client testimonial on profile: \"The final gift of a beautiful bunch of flower and champagne when the house sold...\" shows he gives settlement gifts; testimonial undated, date = date page viewed",
+          "found_by": "gtm-signal"
+        },
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/blair-monk",
+          "detail": "Profile achievements: BRE Residential Salesperson of the Year (under 5 years) 2024/25; Bayleys Auction Club 2025/26; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys Takapuna residential and waterfront agent and a rising performer. A client testimonial on his profile shows he already gives a settlement gift (flowers and champagne).",
+        "insights": [
+          {
+            "fact": "Testimonial: \"The final gift of a beautiful bunch of flower and champagne when the house sold topped it off\"",
+            "source": "https://www.bayleys.co.nz/blair-monk"
+          },
+          {
+            "fact": "BRE Residential Salesperson of the Year (under 5 years) 2024/2025",
+            "source": "https://www.bayleys.co.nz/blair-monk"
+          }
+        ],
+        "hooks": [
+          "One of your clients wrote that your flowers-and-champagne gift on settlement topped off the sale; a stone serving board lasts a bit longer than the flowers.",
+          "Congratulations on Salesperson of the Year (under 5 years)."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Blair Monk (Residential and Waterfront Sales)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "blair.monk@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r8944067550062950219",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. Real evidence of settlement gifting (E01)."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-libby-greenwood",
+      "name": "Libby Greenwood (Bayleys Takapuna)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/libby-greenwood",
+      "contacts": [
+        {
+          "name": "Libby Greenwood",
+          "role": "Residential Sales",
+          "email": "libby.greenwood@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/libby-greenwood (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/libby-greenwood"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "E01",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/libby-greenwood",
+          "detail": "Client testimonial on profile: \"We thank you for your gifts of the lovely champagne and glasses\"; testimonial undated, date = date page viewed",
+          "found_by": "gtm-signal"
+        },
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/libby-greenwood",
+          "detail": "Profile achievements 2024/25: #4 of Bayleys North Shore salespeople, Super Achiever, Auction Club; $150M+ sold; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys Takapuna agent with $150M+ sold, ranked #4 of Bayleys North Shore salespeople in 2024/25. A client testimonial thanks her for gifts of champagne and glasses at settlement.",
+        "insights": [
+          {
+            "fact": "Testimonial: \"We thank you for your gifts of the lovely champagne and glasses\"",
+            "source": "https://www.bayleys.co.nz/libby-greenwood"
+          },
+          {
+            "fact": "Sold over $150m; #4 of Bayleys North Shore Salespeople 2024/25",
+            "source": "https://www.bayleys.co.nz/libby-greenwood"
+          }
+        ],
+        "hooks": [
+          "A client on your profile thanks you for the champagne and glasses you gave them; a marble platter could sit alongside that gift for your Christmas list.",
+          "Congratulations on ranking #4 across Bayleys North Shore."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Libby Greenwood (Residential Sales)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "libby.greenwood@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-72804553041952440",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. Real evidence of client gifting (E01)."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-corey-knapp",
+      "name": "Corey Knapp (Bayleys Takapuna)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/corey-knapp",
+      "contacts": [
+        {
+          "name": "Corey Knapp",
+          "role": "Residential and Waterfront Sales Associate",
+          "email": "corey.knapp@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/corey-knapp (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/corey-knapp"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/corey-knapp",
+          "detail": "Profile: upper end of the market Takapuna to the bays for 17 years; testimonial cites highest recorded sale in Cliff Rd; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys Takapuna waterfront associate working the upper end of the market from Takapuna to the bays for 17 years. He positions himself on personalised boutique service and repeat clients.",
+        "insights": [
+          {
+            "fact": "\"The highly contested upper end of the property market from Takapuna to the bays has been Corey Knapp's real estate hunting ground for the past 17 years\"",
+            "source": "https://www.bayleys.co.nz/corey-knapp"
+          },
+          {
+            "fact": "Testimonial: home achieved the highest recorded sale in Cliff Rd",
+            "source": "https://www.bayleys.co.nz/corey-knapp"
+          }
+        ],
+        "hooks": [
+          "Your profile talks about a highly personalised boutique service; a one-off stone gift fits that approach for repeat clients.",
+          "After a record sale on Cliff Road, a handcrafted marble board makes a fitting settlement gift."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Corey Knapp (Residential and Waterfront Sales Associate)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "corey.knapp@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r5403757037197436076",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate (upper-end North Shore). No public gifting evidence found."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-joan-barton",
+      "name": "Joan Barton (Bayleys Takapuna)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/joan-barton",
+      "contacts": [
+        {
+          "name": "Joan Barton",
+          "role": "Residential Sales",
+          "email": "joan.barton@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/joan-barton (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/joan-barton"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/joan-barton",
+          "detail": "Profile achievements 2022/23: Top 10% of Bayleys salespeople; Super Achiever, Bayleys Auckland Residential; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys Takapuna residential agent with multiple sales across the Shore and a Top 10% / Super Achiever ranking. Testimonials cite results well above CV.",
+        "insights": [
+          {
+            "fact": "Top 10% of Bayleys Salespeople and Super Achiever 2022/2023",
+            "source": "https://www.bayleys.co.nz/joan-barton"
+          },
+          {
+            "fact": "Testimonial: result nearly $600,000 above the top CV for the property",
+            "source": "https://www.bayleys.co.nz/joan-barton"
+          }
+        ],
+        "hooks": [
+          "A client on your profile mentions a result nearly $600,000 above CV; that is the kind of client who deserves a proper thank-you at settlement.",
+          "We can deliver gift-boxed stone boards to Northcroft Street before Christmas."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Joan Barton (Residential Sales)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "joan.barton@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r2663693756718307425",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. Awards are from 2022/23 (older)."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-peter-restall",
+      "name": "Peter Restall (Bayleys Takapuna)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/peter-restall",
+      "contacts": [
+        {
+          "name": "Peter Restall",
+          "role": "Residential and Waterfront Sales and Marketing",
+          "email": "peter.restall@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/peter-restall (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/peter-restall"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/peter-restall",
+          "detail": "Profile: top 10 status from over 350 salespeople as a solo agent; 17 years in industry; focus Devonport Peninsula, Milford, Takapuna; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys Takapuna agent focused on the Devonport Peninsula, Milford and Takapuna, with 17 years in real estate. He is deeply involved in the community (sponsor and life member of Ngataringa Tennis Club).",
+        "insights": [
+          {
+            "fact": "Achieved top 10 status from over 350 salespeople as a solo agent",
+            "source": "https://www.bayleys.co.nz/peter-restall"
+          },
+          {
+            "fact": "Sponsors the Ngataringa Tennis Club; awarded Life Member in 2022",
+            "source": "https://www.bayleys.co.nz/peter-restall"
+          }
+        ],
+        "hooks": [
+          "Your profile says you send clients monthly market statistics; a Christmas thank-you is a natural extension of that kind of follow-up.",
+          "You've lived in Devonport and Milford for decades; we make every piece in Wairau Valley, just up the road."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Peter Restall (Residential and Waterfront Sales and Marketing)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "peter.restall@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r5994614944110452816",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. No public gifting evidence found."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-chris-batchelor",
+      "name": "Chris Batchelor (Bayleys Takapuna & Devonport)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.bayleys.co.nz/chris-batchelor",
+      "contacts": [
+        {
+          "name": "Chris Batchelor",
+          "role": "Residential and Waterfront Sales",
+          "email": "chris.batchelor@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/chris-batchelor (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/chris-batchelor"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/chris-batchelor",
+          "detail": "Profile: operates across Auckland's premium market; 17th year; consistently among top agents nationwide; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys residential and waterfront agent listed at both Takapuna and Devonport offices, operating across Auckland's premium market. Known for his auction work, now in his 17th year.",
+        "insights": [
+          {
+            "fact": "\"Operates across Auckland's premium market, representing homeowners, investors, and developers\"",
+            "source": "https://www.bayleys.co.nz/chris-batchelor"
+          },
+          {
+            "fact": "Listed at Bayleys Takapuna - Residential and Devonport offices",
+            "source": "https://www.bayleys.co.nz/chris-batchelor"
+          }
+        ],
+        "hooks": [
+          "For vendors and developers in the premium market, a natural-stone platter is a thank-you that fits the homes you sell.",
+          "We can quote 10+ gifts and drop them to Takapuna or Devonport before Christmas."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Chris Batchelor (Residential and Waterfront Sales)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "chris.batchelor@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r7771198471609596161",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. No public gifting evidence found."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-devonport",
+      "name": "Bayleys Devonport",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.bayleys.co.nz/devonport",
+      "contacts": [
+        {
+          "name": "Sue Stanaway",
+          "role": "Residential Sales Manager, Bayleys Devonport",
+          "email": "sue.stanaway@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys Devonport office page https://www.bayleys.co.nz/devonport (\"Meet the team\" - Manager), seen 2026-11-17",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/devonport"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2024-12-31",
+          "evidence": "https://www.bayleys.co.nz/devonport",
+          "detail": "Office page lists National award for growth (large franchise) 2024",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys' Devonport office at 33 King Edward Parade, about 20 agents selling Devonport peninsula and waterfront property. Sue Stanaway is the Residential Sales Manager and the natural buyer for an office order.",
+        "insights": [
+          {
+            "fact": "Sue Stanaway listed as Manager / Residential Sales Manager, Devonport",
+            "source": "https://www.bayleys.co.nz/devonport"
+          },
+          {
+            "fact": "Office at 33 King Edward Parade, Devonport",
+            "source": "https://www.bayleys.co.nz/devonport"
+          }
+        ],
+        "hooks": [
+          "One order could cover staff gifts and settlement gifts for the whole King Edward Parade team.",
+          "We're a local studio in Wairau Valley, and our printed stone voucher cards suit clients who are still furnishing a new home."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Sue Stanaway (Residential Sales Manager)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "sue.stanaway@bayleys.co.nz",
+        "started": "2026-11-19",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-4462406448197023832",
+            "due": "2026-11-19",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Send Gmail draft on Thu 19 Nov (after the office agents)",
+      "next_action_date": "2026-11-19",
+      "notes": [
+        "Type: real estate office (bulk/office order). Her own Bayleys profile URL returned 404; email taken from the office page team data."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-lynda-betts",
+      "name": "Lynda Betts (Bayleys Devonport)",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.bayleys.co.nz/lynda-betts",
+      "contacts": [
+        {
+          "name": "Lynda Betts",
+          "role": "Residential and Waterfront Sales and Marketing",
+          "email": "lynda.betts@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/lynda-betts (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/lynda-betts"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/lynda-betts",
+          "detail": "Devonport waterfront sales; profile says she achieves record prices; testimonial on a Devonport waterfront sale; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        },
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/lynda-betts",
+          "detail": "Profile: Bayleys Auction Club 2025/26; Super Achiever 2023/24 and 2022/23; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys Devonport residential and waterfront agent known for record prices. Testimonials describe personal touches such as styling homes with her own decor pieces and bringing flowers from her garden.",
+        "insights": [
+          {
+            "fact": "Testimonial: she added her own decorative pieces and plants to present the property",
+            "source": "https://www.bayleys.co.nz/lynda-betts"
+          },
+          {
+            "fact": "Bayleys Auction Club 2025/2026; Super Achiever 2023/24",
+            "source": "https://www.bayleys.co.nz/lynda-betts"
+          }
+        ],
+        "hooks": [
+          "Clients mention you style homes with your own pieces before photos; our stone boards make a natural thank-you for the same clients.",
+          "Congratulations on making Bayleys Auction Club again this year."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Lynda Betts (Residential and Waterfront Sales and Marketing)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "lynda.betts@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-7813411653573833548",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. Testimonials show a personal-touch style (flowers from her garden), but not a formal settlement gift, so no E01."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-grant-speedy",
+      "name": "Grant Speedy (Bayleys Devonport)",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.bayleys.co.nz/grant-speedy",
+      "contacts": [
+        {
+          "name": "Grant Speedy",
+          "role": "Residential and Waterfront Sales",
+          "email": "grant.speedy@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/grant-speedy (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/grant-speedy"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.bayleys.co.nz/grant-speedy",
+          "detail": "Profile: has sold hundreds of Devonport homes, consistently achieving record prices; in real estate since 1972; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Devonport specialist who began in real estate in 1972 and has sold hundreds of Devonport homes at record prices. He has a background in antique auctions and appreciates unique, characterful pieces.",
+        "insights": [
+          {
+            "fact": "Started his career in 1972; has sold hundreds of Devonport homes, consistently achieving record prices",
+            "source": "https://www.bayleys.co.nz/grant-speedy"
+          },
+          {
+            "fact": "Background includes an antique auctions business, which gave him an appreciation for unique items",
+            "source": "https://www.bayleys.co.nz/grant-speedy"
+          }
+        ],
+        "hooks": [
+          "With your background in antique auctions, you'll appreciate that no two of our marble boards are the same.",
+          "Over five decades of Devonport sales means a long client list; we quote on 10+ gifts with delivery to King Edward Parade."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Grant Speedy (Residential and Waterfront Sales)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "grant.speedy@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-1989985266164590396",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. No public gifting evidence found."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "harcourts-ben-potter",
+      "name": "Ben Potter (Harcourts Cooper & Co Devonport)",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.cooperandco.co.nz/harcourts-devonport-real-estate/",
+      "contacts": [
+        {
+          "name": "Ben Potter",
+          "role": "Salesperson, Harcourts Cooper & Co Devonport",
+          "email": "ben.potter@harcourts.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published as the agent's own email on realestate.co.nz agent profile https://www.realestate.co.nz/agent/728343/ben-potter (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/728343/ben-potter"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.realestate.co.nz/agent/728343/ben-potter",
+          "detail": "Profile: Top 3% of North Shore salespeople; $184M+ sold, 111 sales in 5 years, 108+ five-star reviews; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Devonport, Belmont and Bayswater specialist at Harcourts Cooper & Co. He works with his father Gary Potter as a two-generation team, with $184M+ sold and 111 sales in five years.",
+        "insights": [
+          {
+            "fact": "$184M+ in transactions, 111 properties sold in five years, Top 3% of North Shore salespeople",
+            "source": "https://www.realestate.co.nz/agent/728343/ben-potter"
+          },
+          {
+            "fact": "Works alongside his father, Gary Potter, as a two-generational team",
+            "source": "https://www.realestate.co.nz/agent/728343/ben-potter"
+          }
+        ],
+        "hooks": [
+          "111 sales in five years is a lot of settlement days; a stone board is a thank-you that lasts.",
+          "We can quote a set for you and Gary's Christmas client list, delivered to Clarence Street."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Ben Potter (Salesperson)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "ben.potter@harcourts.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r6315116330029095395",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate. Cooper & Co site blocks automated fetches; email verified via the realestate.co.nz profile. Medians are around $1.5M, so mid-to-upper market."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "barfoot-fitzgerald-lawrence",
+      "name": "Trish Fitzgerald & Tracey Lawrence (Barfoot & Thompson Devonport)",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.barfoot.co.nz/devonport",
+      "contacts": [
+        {
+          "name": "Trish Fitzgerald",
+          "role": "Sales partner, Barfoot & Thompson Devonport",
+          "email": "t.fitzgerald@barfoot.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published as the agent's own email on realestate.co.nz agent profile https://www.realestate.co.nz/agent/14659/trish-fitzgerald (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/14659/trish-fitzgerald"
+        },
+        {
+          "name": "Tracey Lawrence",
+          "role": "Sales partner, Barfoot & Thompson Devonport",
+          "email": "t.lawrence@barfoot.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Listed with name in realestate.co.nz page data on Trish Fitzgerald's profile (co-listing agent), seen 2026-11-17",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/14659/trish-fitzgerald"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-11-17",
+          "evidence": "https://www.realestate.co.nz/agent/14659/trish-fitzgerald",
+          "detail": "Profile: #1 Sales Partnership at Barfoot & Thompson Devonport 2020-2023; #9 partnership on the Shore currently; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "A Devonport sales partnership with 35 years' combined experience, built on repeat customers and referrals they call \"Clients for Life\". They were the #1 sales partnership at Barfoot & Thompson Devonport from 2020 to 2023.",
+        "insights": [
+          {
+            "fact": "\"Our business largely comes from repeat customers and referrals... our marketing strategies produce 'Clients for Life'\"",
+            "source": "https://www.realestate.co.nz/agent/14659/trish-fitzgerald"
+          },
+          {
+            "fact": "#1 Sales Partnership at Barfoot & Thompson Devonport 2020-2023",
+            "source": "https://www.realestate.co.nz/agent/14659/trish-fitzgerald"
+          }
+        ],
+        "hooks": [
+          "A business built on \"Clients for Life\" is exactly where a Christmas thank-you pays off; our stone boards stay on the kitchen bench for years.",
+          "We can quote 10+ gifts for both of you and deliver to Victoria Road."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Trish Fitzgerald (Sales partner)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "t.fitzgerald@barfoot.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-4587956995748665585",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate team. Repeat and referral business model makes client gifting a good fit."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "harcourts-muirhead-stevens",
+      "name": "Marissa Muirhead & Maria Stevens (Harcourts Cooper & Co Devonport)",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.cooperandco.co.nz/harcourts-devonport-real-estate/",
+      "contacts": [
+        {
+          "name": "Marissa Muirhead",
+          "role": "Salesperson, Harcourts Cooper & Co Devonport",
+          "email": "marissa.muirhead@harcourts.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published as the agent's own email on realestate.co.nz agent profile https://www.realestate.co.nz/agent/730412/marissa-muirhead (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/730412/marissa-muirhead"
+        },
+        {
+          "name": "Maria Stevens",
+          "role": "Salesperson (business partner), Harcourts Cooper & Co Devonport",
+          "email": "maria.stevens@harcourts.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published as the agent's own email on realestate.co.nz agent profile https://www.realestate.co.nz/agent/8774/maria-stevens (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/8774/maria-stevens"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "A Devonport partnership at Harcourts Cooper & Co; Marissa was born and raised in Devonport and has 30+ years in sales. Their combined profiles show about 29 sales in the last 12 months at a ~$1.52M median.",
+        "insights": [
+          {
+            "fact": "Marissa has more than 30 years of sales experience, including 5+ years in real estate alongside business partner Maria Stevens",
+            "source": "https://www.realestate.co.nz/agent/730412/marissa-muirhead"
+          },
+          {
+            "fact": "Last 12 months: Marissa 14 sold, Maria 15 sold, median $1.52M each (realestate.co.nz performance snapshot)",
+            "source": "https://www.realestate.co.nz/agent/8774/maria-stevens"
+          }
+        ],
+        "hooks": [
+          "Your profile talks about a seamless, tailored experience for clients; a handcrafted marble board is a fitting way to close one out.",
+          "We can quote a set of gifts for both of you, delivered to Clarence Street before Christmas."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Marissa Muirhead (Salesperson)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "marissa.muirhead@harcourts.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r87872211502340779",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate team. No signal logged: no public gifting evidence or award found, and median ~$1.5M is below the $2M+ luxury bar. Fit rests on Devonport client base and partnership model."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "nzsir-jackie-parker",
+      "name": "Jackie Parker (NZ Sotheby's International Realty, North Shore)",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.nzsothebysrealty.com/",
+      "contacts": [
+        {
+          "name": "Jackie Parker",
+          "role": "Salesperson, NZ Sotheby's International Realty - Auckland North Shore",
+          "email": "jackie.parker@northnzsir.com",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published as the agent's own email on realestate.co.nz agent profile https://www.realestate.co.nz/agent/1863171/jackie-parker (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.realestate.co.nz/agent/1863171/jackie-parker"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2026-11-17",
+          "evidence": "https://www.realestate.co.nz/agent/1863171/jackie-parker",
+          "detail": "Profile: luxury, coastal and waterfront specialist; 22 active listings; built and led two award-winning sales teams; award/testimonial undated on page; date = date page viewed",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "NZ Sotheby's North Shore salesperson (159 Hurstmere Road, Takapuna) with 20+ years in luxury, coastal and waterfront property. She has built and led two award-winning sales teams and is a trained auctioneer.",
+        "insights": [
+          {
+            "fact": "More than 20 years' experience in New Zealand's luxury residential market; trained auctioneer",
+            "source": "https://www.realestate.co.nz/agent/1863171/jackie-parker"
+          },
+          {
+            "fact": "Has built and led two award-winning sales teams; 22 active listings at time of viewing",
+            "source": "https://www.realestate.co.nz/agent/1863171/jackie-parker"
+          }
+        ],
+        "hooks": [
+          "For Sotheby's clients buying luxury and waterfront homes, a one-of-one marble or travertine platter fits the brand.",
+          "With 22 active listings heading into summer, we can have settlement gifts ready to drop to Hurstmere Road."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Jackie Parker (Salesperson)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "jackie.parker@northnzsir.com",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-6392031181686574699",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate (luxury brand). The nzsothebysrealty.com site blocks automated fetches, so the email was verified via realestate.co.nz. Note the email domain is northnzsir.com."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "bayleys-remuera",
+      "name": "Bayleys Remuera & Central Auckland",
+      "segment": "corporate",
+      "city": "Remuera",
+      "website": "https://www.bayleys.co.nz/remuera",
+      "contacts": [
+        {
+          "name": "Scott Kirk",
+          "role": "General Manager, Bayleys Remuera and Central Auckland",
+          "email": "scott.kirk@bayleys.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published on Bayleys profile page https://www.bayleys.co.nz/scott-kirk (seen 2026-11-17); also listed as General Manager on https://www.bayleys.co.nz/remuera",
+          "linkedin": null,
+          "source": "https://www.bayleys.co.nz/scott-kirk"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2024-12-31",
+          "evidence": "https://www.bayleys.co.nz/remuera",
+          "detail": "Office page lists National award for growth (large franchise) 2024",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Bayleys' Remuera office at 303 Remuera Road is the base for about 50 residential agents plus support staff, after absorbing UP Remuera in 2024. General Manager Scott Kirk is the buyer for staff and office-wide client gifts.",
+        "insights": [
+          {
+            "fact": "\"As the engine room for 50 residential agents, plus support staff\" at 303 Remuera Road; incorporates Unlimited Potential (UP) Remuera after a 2024 acquisition",
+            "source": "https://www.bayleys.co.nz/remuera"
+          },
+          {
+            "fact": "Scott Kirk is General Manager for the Bayleys Remuera and Central Auckland offices",
+            "source": "https://www.bayleys.co.nz/scott-kirk"
+          }
+        ],
+        "hooks": [
+          "With about 50 agents at 303 Remuera Road, one quote could cover staff gifts and agents' client gifts in one delivery.",
+          "Your office hosts weekly auctions and runs its own café; a stone platter suits that kind of hospitality."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Scott Kirk (General Manager)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "scott.kirk@bayleys.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-6148661991211570884",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: real estate office, central Auckland (second-priority area). Pitch a bulk order."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "cain-built",
+      "name": "Cain Built",
+      "segment": "corporate",
+      "city": "Milford",
+      "website": "https://www.cainbuilt.co.nz/",
+      "contacts": [
+        {
+          "name": "Tim Cain",
+          "role": "Director, Cain Built Ltd",
+          "email": "enquiries@cainbuilt.co.nz",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Generic address published on cainbuilt.co.nz contact page; Tim Cain signs the Director's statement on the same page (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.cainbuilt.co.nz/contact-us/"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "C08",
+          "date": "2025-04-23",
+          "evidence": "https://www.cainbuilt.co.nz/category/high-end-homes/",
+          "detail": "Website has a \"High-end homes\" section (e.g. \"Milford High-End Housebuilder\", Mairangi Bay luxury homes); latest post 23 Apr 2025",
+          "found_by": "gtm-signal"
+        }
+      ],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "North Shore builder (Milford) doing new builds, renovations and extensions, led by director Tim Cain. Its site positions it as a high-end housebuilder for Milford and the East Coast Bays.",
+        "insights": [
+          {
+            "fact": "Tim Cain signs the contact page as Director of Cain Built Ltd",
+            "source": "https://www.cainbuilt.co.nz/contact-us/"
+          },
+          {
+            "fact": "Site has a High-end homes category with posts such as \"Milford High-End Housebuilder\"",
+            "source": "https://www.cainbuilt.co.nz/category/high-end-homes/"
+          }
+        ],
+        "hooks": [
+          "A handover gift for clients moving into a new Milford home: a marble serving board is often the first thing on the new benchtop.",
+          "We're in Wairau Valley, just up the road, and can quote 10+ gifts for this year's handovers and for your subbies."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Tim Cain (Director)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "enquiries@cainbuilt.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-5029214326885146412",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: residential builder (handover gifts). Only a generic email is published; address it to Tim. City (Milford) per ArchiPro listing in search results (ArchiPro blocked direct fetch); site says North Shore & Rodney."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "eye-for-detail",
+      "name": "Eye for Detail",
+      "segment": "corporate",
+      "city": "Devonport",
+      "website": "https://www.efd.kiwi/",
+      "contacts": [
+        {
+          "name": "Alex Carey",
+          "role": "Director, Project Manager, LBP",
+          "email": "admin@efd.kiwi",
+          "email_type": "generic",
+          "verified": true,
+          "verified_how": "Generic address published on efd.kiwi homepage and contact page; Alex Carey listed as Director on /about (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.efd.kiwi/about"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Devonport-based builder (1/67a Lake Road) doing high-quality renovations, architectural homes, kitchens and bathrooms since 1989. Director Alex Carey leads a tight-knit team, and an architect testimonial praises its finish work.",
+        "insights": [
+          {
+            "fact": "\"Specialise in high-quality renovations and architectural homes\"; building since 1989",
+            "source": "https://www.efd.kiwi/"
+          },
+          {
+            "fact": "Alex Carey is Director, Project Manager and LBP",
+            "source": "https://www.efd.kiwi/about"
+          },
+          {
+            "fact": "Recent projects include a Devonport fire rebuild and a Seacliffe Ave renovation",
+            "source": "https://www.efd.kiwi/"
+          }
+        ],
+        "hooks": [
+          "After a kitchen or bathroom renovation in Devonport, a stone serving board is a fitting handover gift for the new bench.",
+          "Your July post on company culture caught my eye; our boards also make good end-of-year staff gifts."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Alex Carey (Director)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "admin@efd.kiwi",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-1649145511647986804",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: residential builder/renovator (handover gifts). No signal logged: the luxury tier is not explicit, and there is no gifting evidence. Only a generic email is published."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "sweetman-law",
+      "name": "Sweetman Law",
+      "segment": "corporate",
+      "city": "Takapuna",
+      "website": "https://www.sweetmanlaw.co.nz/",
+      "contacts": [
+        {
+          "name": "Tony Sweetman",
+          "role": "Director",
+          "email": "tony@sweetmanlaw.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Published under \"Our Leadership\" on sweetmanlaw.co.nz/about-us (seen 2026-11-17)",
+          "linkedin": null,
+          "source": "https://www.sweetmanlaw.co.nz/about-us"
+        }
+      ],
+      "fit": null,
+      "signals": [],
+      "score": null,
+      "research": {
+        "updated": "2026-11-17",
+        "summary": "Boutique North Shore law firm that has moved to Takapuna, covering residential and commercial property, trusts, relationship property and estate planning. It has served North Shore clients for over 35 years.",
+        "insights": [
+          {
+            "fact": "\"Located on the North Shore, Auckland... serving them for over 35 years\"; Tony Sweetman is Director, alongside Director Casey Smith",
+            "source": "https://www.sweetmanlaw.co.nz/about-us"
+          },
+          {
+            "fact": "Practice includes residential property (buying, selling, leasing) and company/business law",
+            "source": "https://www.sweetmanlaw.co.nz/about-us"
+          },
+          {
+            "fact": "Site banner: \"Sweetman Law has moved to Takapuna\"",
+            "source": "https://www.sweetmanlaw.co.nz/about-us"
+          }
+        ],
+        "hooks": [
+          "Congratulations on the move to Takapuna; a stone platter makes a good thank-you for the clients who followed you.",
+          "For conveyancing clients settling on a new home, our printed stone voucher cards are an easy gift to send with the keys."
+        ],
+        "recommended_offer": "corporate-gifting",
+        "recommended_contact": "Tony Sweetman (Director)"
+      },
+      "stage": "ready",
+      "legacy_outreach": false,
+      "campaign": "xmas-gifting-2026",
+      "sequence": {
+        "offer": "corporate-gifting",
+        "contact": "tony@sweetmanlaw.co.nz",
+        "started": "2026-11-17",
+        "gmail_thread": null,
+        "steps": [
+          {
+            "n": 1,
+            "day": 0,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "xmas gifting first touch",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r-8412761310086381647",
+            "due": "2026-11-17",
+            "sent_at": null
+          },
+          {
+            "n": 2,
+            "day": 4,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Offer to drop a board + platter to the office to see in person",
+            "due": null,
+            "sent_at": null
+          },
+          {
+            "n": 3,
+            "day": 14,
+            "channel": "email",
+            "status": "planned",
+            "subject": null,
+            "body": "Last call: vouchers any time, printed cards by 11 Dec",
+            "due": "2026-12-01",
+            "sent_at": null
+          }
+        ]
+      },
+      "next_action": "Review + send Gmail draft",
+      "next_action_date": "2026-11-17",
+      "notes": [
+        "Type: boutique law firm (property/conveyancing). No signal logged: no public gifting evidence or award. Other published lawyer emails exist (e.g. casey@) if a second contact is wanted."
+      ],
+      "history": [
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-signal",
+          "event": "Added for Christmas corporate gifting campaign"
+        },
+        {
+          "date": "2026-11-17",
+          "agent": "gtm-copywriter",
+          "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
     }
   ]
 }
