@@ -380,12 +380,25 @@
             "sent_at": "2026-08-16",
             "subject": null,
             "body": null
+          },
+          {
+            "n": 3,
+            "day": null,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "Congrats on Toi Manawa: Auckland Architecture Award winner + national shortlist (no hard ask)",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r7632379348147684037",
+            "due": "2026-11-18",
+            "sent_at": null
           }
         ]
       },
-      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
-      "next_action_date": "2026-11-24",
-      "notes": [],
+      "next_action": "Review + send congrats draft. Still only a generic inbox, so find a direct email for next touch",
+      "next_action_date": "2026-11-18",
+      "notes": [
+        "18 Nov: national Ted McCoy win NOT confirmed; confirmed = 2026 Auckland Architecture Award (Toi Manawa) + national shortlist."
+      ],
       "history": [
         {
           "date": "2026-11-17",
@@ -401,6 +414,11 @@
           "date": "2026-11-18",
           "agent": "gtm-monitor",
           "event": "Monitor check: 1 new signal (B04 national NZIA award for Toi Manawa, 5 Nov 2026). Source is the NZIA homepage via search; the page itself could not be fetched (network blocked)"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-copywriter",
+          "event": "Congrats email drafted: Congrats on Toi Manawa: Auckland Architecture Award winner + national shortlist (no hard ask)"
         }
       ]
     },
@@ -770,10 +788,18 @@
         }
       ],
       "fit": null,
-      "signals": [],
+      "signals": [
+        {
+          "id": "B04",
+          "date": "2026-09-09",
+          "evidence": "https://www.nzia.co.nz/news/2026/richard-naish-awarded-2026-gold-medal/",
+          "detail": "Richard Naish awarded 2026 NZIA Gold Medal (confirmed via search 18 Nov)",
+          "found_by": "gtm-copywriter"
+        }
+      ],
       "score": {
         "fit": null,
-        "intent": 0,
+        "intent": 7,
         "total": null,
         "tier": null,
         "override": null,
@@ -806,11 +832,22 @@
             "sent_at": "2026-08-16",
             "subject": null,
             "body": null
+          },
+          {
+            "n": 3,
+            "day": null,
+            "channel": "email",
+            "status": "drafted",
+            "subject": "Congrats on Richard Naish NZIA Gold Medal (no hard ask)",
+            "body": "see Gmail draft",
+            "gmail_draft_id": "r7544614339909546834",
+            "due": "2026-11-18",
+            "sent_at": null
           }
         ]
       },
-      "next_action": "2 generic-inbox emails (26 Jun, 16 Aug) unanswered. Re-approach via a NAMED contact with a new angle (render/placement) - enrich first",
-      "next_action_date": "2026-11-24",
+      "next_action": "Review + send congrats draft. Still only a generic inbox, so find a direct email for next touch",
+      "next_action_date": "2026-11-18",
       "notes": [],
       "history": [
         {
@@ -827,6 +864,11 @@
           "date": "2026-11-18",
           "agent": "gtm-monitor",
           "event": "Monitor check: no new signal logged in the window. Richard Naish was named 2026 NZIA Gold Medallist on 9 Sep 2026 (nzia.co.nz/news/2026/richard-naish-awarded-2026-gold-medal), which is 70 days ago, outside the 60-day window, but still usable as a re-approach hook"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-copywriter",
+          "event": "Congrats email drafted: Congrats on Richard Naish NZIA Gold Medal (no hard ask)"
         }
       ]
     },
