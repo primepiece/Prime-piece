@@ -2776,6 +2776,13 @@
           "evidence": "gmail thread 1a10dd6d1bb09bf3",
           "detail": "Wants long central stone board for her table + two bedside tops",
           "found_by": "gtm-inbox"
+        },
+        {
+          "id": "D02",
+          "date": "2026-11-17",
+          "evidence": "gmail thread 1a10dd6d1bb09bf3",
+          "detail": "On hold - mother's serious health issues + year-end workload; will come back mid-late January",
+          "found_by": "gtm-inbox"
         }
       ],
       "score": {
@@ -2787,7 +2794,7 @@
         "scored_at": "2026-11-17"
       },
       "research": null,
-      "stage": "meeting",
+      "stage": "nurture",
       "legacy_outreach": false,
       "sequence": {
         "offer": "trade-account",
@@ -2808,19 +2815,20 @@
             "n": 2,
             "day": null,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "Re: thread",
-            "body": "Offer to come to her to template + ballpark for bedside tops + Christmas lead-time for long board",
+            "body": "James rewrote it: still keen on long board? photos of stone options; choose soon for Christmas",
             "gmail_draft_id": "r-3400089488405364048",
             "due": "2026-11-17",
-            "sent_at": null
+            "sent_at": "2026-11-17"
           }
         ]
       },
-      "next_action": "Review + send Gmail draft: Offer to come to her to template + ballpark for bedside tops + Christmas lead-time for long board",
-      "next_action_date": "2026-11-17",
+      "next_action": "Send kind holding reply (Gmail draft). Then re-contact ~20 Jan re long board + 2 bedside tops (55x41cm, radius corners)",
+      "next_action_date": "2027-01-20",
       "notes": [
-        "Met 16 Oct; gave her a charcuterie board. She cancelled 22 Oct visit, said \"next week\" on 27 Oct. James chased 11 Nov (no reply)."
+        "Met 16 Oct; gave her a charcuterie board. She cancelled 22 Oct visit, said \"next week\" on 27 Oct. James chased 11 Nov (no reply).",
+        "17 Nov: Daniella paused until mid-late Jan due to her mother's health. Be gentle on re-contact."
       ],
       "history": [
         {
@@ -2837,6 +2845,11 @@
           "date": "2026-11-17",
           "agent": "gtm-inbox",
           "event": "Gmail draft created: Offer to come to her to template + ballpark for bedside tops + Christmas lead-time for long board"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-inbox (morning run)",
+          "event": "Reply: on hold until mid-late Jan; holding reply drafted"
         }
       ]
     },
@@ -7357,6 +7370,52 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        }
+      ]
+    },
+    {
+      "id": "halliburton-gibbons",
+      "name": "Victoria Gibbons (Halliburton Gibbons)",
+      "segment": "other",
+      "city": "Christchurch",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Victoria Gibbons",
+          "role": null,
+          "email": "victoria@halliburtongibbons.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Website enquiry form 16 Nov 2026",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D01",
+          "date": "2026-11-16",
+          "evidence": "gmail thread 1a1e2fdf759befd8",
+          "detail": "Basin enquiry: Ocean Blue Vessel Basin",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": null,
+      "research": null,
+      "stage": "replied",
+      "legacy_outreach": false,
+      "sequence": null,
+      "next_action": "James called + emailed 16 Nov (Ocean Blue via stone specialist, photos of 2 options). Follow up ~20 Nov if no reply",
+      "next_action_date": "2026-11-20",
+      "notes": [
+        "Inbound basin enquiry, Christchurch. Check whether Halliburton Gibbons is a design/build business (possible trade account)."
+      ],
+      "history": [
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-inbox (morning run)",
+          "event": "Added from website basin enquiry"
         }
       ]
     }
