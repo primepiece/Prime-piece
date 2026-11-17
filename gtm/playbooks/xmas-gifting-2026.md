@@ -30,9 +30,9 @@ Why stone works as a client gift: every board is a different stone so no two cli
 >
 > I'm James. I make natural stone serving boards and platters in our Wairau Valley workshop. They make a good [settlement / handover / Christmas] gift because they actually get used, every cheese board and barbecue, and each one is cut from a different stone, so no two clients get the same.
 >
-> Boards start at $99 and platters at $189, with better pricing for 10 or more, delivered to your office. Vouchers work too if you'd rather clients choose.
+> The simplest option is a stone gift voucher ($100–$500) on a printed card or emailed, so each client picks their own piece. For your top clients I can also do boards ($99) and platters ($189), but I only have a limited number finished before Christmas, so those are first in, first served.
 >
-> For Christmas drop-offs, orders need to be in by the end of November. Want me to send a few photos and a quote?
+> Better pricing for 10 or more, delivered to your office. Want me to send a few photos and a quote?
 >
 > Kind regards,
 > James
@@ -49,6 +49,13 @@ Why stone works as a client gift: every board is a different stone so no two cli
 > Hi [Name], last note from me. If you still need client gifts, emailed vouchers can go out any time up to Christmas, and printed cards need ordering by 11 December. Otherwise, happy to chat for settlement gifts in the new year.
 >
 > James
+
+## Capacity (James, 17 Nov): ~20–40 boards/platters polished by ~12 Dec
+Polishing is the bottleneck. That's enough for only 2–4 corporate orders of 10.
+- **Lead with vouchers** (printed stone cards or emailed): unlimited, no polishing.
+- **Boards/platters: first in, first served.** Treat each confirmed order as using up capacity, and track it in `notes` on the account.
+- Orders over ~10 boards → a mix (a few boards for VIP clients + vouchers for the rest), or delivery in January as settlement/handover gifts.
+- Once ~30 are committed, the drafts switch to vouchers-only plus "boards from January".
 
 ## Rules
 - Published business emails only. Every email has the opt-out line. "No thanks" means `do_not_contact`.
