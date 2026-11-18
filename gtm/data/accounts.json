@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "accounts": [
     {
       "id": "hotel-britomart",
@@ -27,7 +27,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -105,7 +105,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -183,7 +183,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -263,7 +263,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -351,7 +351,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -447,7 +447,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -520,7 +520,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -593,7 +593,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -667,7 +667,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -717,7 +717,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -803,7 +803,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -898,7 +898,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -948,7 +948,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -996,7 +996,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1044,7 +1044,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1102,7 +1102,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -1152,7 +1152,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1202,7 +1202,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1250,7 +1250,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1298,7 +1298,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1346,7 +1346,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1394,7 +1394,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1442,7 +1442,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1490,7 +1490,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1538,7 +1538,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1586,7 +1586,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1634,7 +1634,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1682,7 +1682,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1730,7 +1730,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1778,7 +1778,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1826,7 +1826,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1874,7 +1874,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1922,7 +1922,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -1970,7 +1970,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2018,7 +2018,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2066,7 +2066,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2114,7 +2114,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2162,7 +2162,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2210,7 +2210,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2258,7 +2258,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2306,7 +2306,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2354,7 +2354,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2410,7 +2410,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "lost",
@@ -2460,7 +2460,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2508,7 +2508,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2556,7 +2556,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -2638,7 +2638,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2686,7 +2686,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2734,7 +2734,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "new",
@@ -2782,7 +2782,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -2876,7 +2876,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -2979,7 +2979,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "replied",
@@ -3076,7 +3076,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "replied",
@@ -3171,7 +3171,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "replied",
@@ -3254,7 +3254,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -3321,7 +3321,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -3388,7 +3388,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "nurture",
@@ -3455,7 +3455,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "lost",
@@ -3523,7 +3523,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3582,7 +3582,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3641,7 +3641,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3709,7 +3709,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3777,7 +3777,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3836,7 +3836,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3895,7 +3895,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3954,7 +3954,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4013,7 +4013,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4072,7 +4072,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4131,7 +4131,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4190,7 +4190,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4249,7 +4249,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4308,7 +4308,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4367,7 +4367,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4428,7 +4428,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4487,7 +4487,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4546,7 +4546,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4605,7 +4605,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4664,7 +4664,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4723,7 +4723,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4782,7 +4782,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4841,7 +4841,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4900,7 +4900,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4959,7 +4959,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5018,7 +5018,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5079,7 +5079,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5138,7 +5138,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5197,7 +5197,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5264,7 +5264,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5397,7 +5397,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5516,15 +5516,22 @@
           "evidence": "https://www.bayleys.co.nz/takapuna",
           "detail": "Office page lists National award for growth (large franchise) 2024",
           "found_by": "gtm-signal"
+        },
+        {
+          "id": "D02",
+          "date": "2026-11-18",
+          "evidence": "gmail thread 1a1e73c5a824bf8a",
+          "detail": "Kathryn: drop pictures/brochures at reception, they go up to the agents' lunchroom (agents are visual)",
+          "found_by": "gtm-inbox"
         }
       ],
       "score": {
         "fit": null,
-        "intent": 12,
+        "intent": 32,
         "total": null,
-        "tier": null,
-        "override": null,
-        "scored_at": "2026-11-17"
+        "tier": "A",
+        "override": "first-party",
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5546,7 +5553,7 @@
         "recommended_offer": "corporate-gifting",
         "recommended_contact": "Kathryn Robertson (Branch Manager)"
       },
-      "stage": "ready",
+      "stage": "replied",
       "legacy_outreach": false,
       "campaign": "xmas-gifting-2026",
       "sequence": {
@@ -5559,18 +5566,18 @@
             "n": 1,
             "day": 0,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "xmas gifting first touch",
             "body": "see Gmail draft",
             "gmail_draft_id": "r6867394477961138867",
             "due": "2026-11-19",
-            "sent_at": null
+            "sent_at": "2026-11-17"
           },
           {
             "n": 2,
             "day": 4,
             "channel": "email",
-            "status": "planned",
+            "status": "skipped",
             "subject": null,
             "body": "Offer to drop a board + platter to the office to see in person",
             "due": null,
@@ -5580,7 +5587,7 @@
             "n": 3,
             "day": 14,
             "channel": "email",
-            "status": "planned",
+            "status": "skipped",
             "subject": null,
             "body": "Last call: vouchers any time, printed cards by 11 Dec",
             "due": "2026-12-01",
@@ -5588,10 +5595,11 @@
           }
         ]
       },
-      "next_action": "Send Gmail draft on Thu 19 Nov (after the office agents)",
+      "next_action": "Drop A4 agent flyers (brand-kit/social/out/13-agent-gifting-flyer-a4.pdf) + a display board at 2-8 Northcroft St reception Thu/Fri; send reply draft",
       "next_action_date": "2026-11-19",
       "notes": [
-        "Type: real estate office. Pitch a bulk office order (10+ boards/platters or vouchers) for staff and for agents to use as settlement gifts. Overlaps with the individual Bayleys Takapuna agent accounts; coordinate so they aren't emailed the same day."
+        "Type: real estate office. Pitch a bulk office order (10+ boards/platters or vouchers) for staff and for agents to use as settlement gifts. Overlaps with the individual Bayleys Takapuna agent accounts; coordinate so they aren't emailed the same day.",
+        "18 Nov: lunchroom channel to ~30 Takapuna agents. Individual Bayleys Takapuna agent emails: mention the flyer/board in the lunchroom as a follow-up hook."
       ],
       "history": [
         {
@@ -5603,6 +5611,16 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "gtm-inbox",
+          "event": "Replied: invited flyers to reception -> lunchroom. Agent flyer made + reply drafted"
+        },
+        {
+          "date": "2026-11-18",
+          "agent": "pipeline.mjs",
+          "event": "Tier — → A (fit ?, intent 32, total ?)"
         }
       ]
     },
@@ -5647,7 +5665,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5770,7 +5788,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5886,7 +5904,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6002,7 +6020,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6118,7 +6136,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6234,7 +6252,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6350,7 +6368,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6473,7 +6491,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6589,7 +6607,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6705,7 +6723,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6831,7 +6849,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6949,7 +6967,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7065,7 +7083,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7181,7 +7199,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7297,7 +7315,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7405,7 +7423,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7517,7 +7535,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7637,7 +7655,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-17"
+        "scored_at": "2026-11-18"
       },
       "research": null,
       "stage": "replied",

@@ -1,0 +1,70 @@
+<!doctype html>
+<!-- 13 · Settlement + Christmas gifting flyer for real estate offices, A4 (210 × 297 mm). Photo-led: agents are visual.
+     Left in office reception / lunchrooms (first use: Bayleys Takapuna, Nov 2026). Render: node render-pdf.cjs src/13-agent-gifting-flyer-a4.html -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+@page{size:210mm 297mm;margin:0}
+html,body,.page{width:210mm;height:297mm}
+.page{background:var(--ivory)}
+.logo{left:18mm;top:14mm;width:38mm}
+.contact{right:18mm;top:15mm;text-align:right;font-size:8.5pt;line-height:1.6;color:var(--ink-soft)}
+.eyebrow{left:18mm;top:37mm;font-size:8.5pt}
+.rule{left:18mm;top:43mm;width:11mm;height:.45mm;background:var(--sage)}
+.h{left:17mm;top:46mm;width:180mm;font-size:38pt;line-height:1.02}
+.lead{left:18mm;top:66mm;width:150mm;font-size:11pt;line-height:1.55;color:var(--ink-soft)}
+.tile{position:absolute;top:86mm;width:56mm}
+.tile .ph{width:56mm;height:66mm;overflow:hidden;background:#1d1c1a}
+.tile .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block}
+.tile .cap{margin-top:3mm;display:flex;justify-content:space-between;align-items:baseline;border-top:.25mm solid var(--line);padding-top:2.4mm}
+.tile .n{font-size:9.5pt;font-weight:500}
+.tile .p{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:20pt;line-height:1;color:var(--sage-deep)}
+.tile .s{font-size:8.5pt;color:var(--stone);margin-top:1mm}
+.t1{left:18mm}.t2{left:77mm}.t3{left:136mm}
+.vstrip{position:absolute;left:18mm;top:178mm;width:174mm;height:34mm;background:var(--cream-soft)}
+.vstrip .v{width:45mm;height:27mm;left:6mm;top:3.5mm}
+.vstrip .vt{position:absolute;left:60mm;top:6mm;width:108mm}
+.vstrip .vt .k{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:19pt;line-height:1.1}
+.vstrip .vt .d{font-size:9.5pt;line-height:1.5;color:var(--ink-soft);margin-top:1.6mm}
+.why{position:absolute;top:219mm;width:54mm;font-size:9.5pt;line-height:1.45;color:var(--ink-soft)}
+.why b{display:block;font-weight:500;color:var(--charcoal);margin-bottom:.8mm}
+.w1{left:18mm}.w2{left:78mm}.w3{left:138mm}
+.cta{position:absolute;left:0;top:247mm;width:210mm;height:50mm;background:var(--charcoal);color:var(--ivory)}
+.cta .t{position:absolute;left:18mm;top:9mm;width:130mm;font-family:"Cormorant Garamond",serif;font-weight:300;font-size:24pt;line-height:1.1}
+.cta .d{position:absolute;left:18mm;top:20mm;width:125mm;font-size:9.5pt;line-height:1.55;color:#DDD6CA}
+.cta .k{position:absolute;left:18mm;top:38mm;font-size:9.5pt;letter-spacing:.02em}
+.cta .k b{font-weight:500;color:var(--sage-soft)}
+.cta .qr{position:absolute;right:18mm;top:9mm;width:30mm;height:30mm;background:var(--ivory);padding:1.2mm}
+.cta .qr img{width:100%;height:100%;display:block}
+.cta .ql{position:absolute;right:18mm;top:41mm;width:31mm;text-align:center;font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-soft)}
+</style></head><body><div class="page">
+<img class="logo" src="../assets/prime-piece-logo-teal.png" alt="Prime Piece, one of one">
+<div class="abs contact">James · 021 146 6990<br>james@primepiece.co.nz<br>209B Archers Road, Wairau Valley</div>
+<div class="abs eyebrow">For agents · Settlement &amp; Christmas gifts</div><div class="abs rule"></div>
+<div class="abs h">The client gift they'll <em>actually use.</em></div>
+<div class="abs lead">Natural stone serving boards and platters, cut and finished by hand in our Wairau Valley workshop. Every one is a different stone, so no two clients get the same gift.</div>
+
+<div class="tile t1"><div class="ph"><img src="../assets/photos/board-pink-storm-web.jpg" alt="Pink marble serving board"></div>
+<div class="cap"><span class="n">Serving board</span><span class="p">$99</span></div><div class="s">300 × 200mm · carved handle · food safe</div></div>
+<div class="tile t2"><div class="ph"><img src="../assets/photos/platter-sienna-rose.jpg" alt="Onyx entertaining platter"></div>
+<div class="cap"><span class="n">Entertaining platter</span><span class="p">$189</span></div><div class="s">350 × 250mm · cheese, antipasti, sharing</div></div>
+<div class="tile t3"><div class="ph"><img src="../assets/photos/board-emerald-vein-web.jpg" alt="Green marble serving board"></div>
+<div class="cap"><span class="n">Any two boards</span><span class="p">$179</span></div><div class="s">Mix stones to suit different clients</div></div>
+
+<div class="vstrip">
+<div class="v light"><img src="../assets/voucher-200.webp" alt="$200 gift voucher"></div>
+<div class="vt"><div class="k">Or let them choose: gift vouchers</div>
+<div class="d">$100, $200 or $500, on a printed stone card or emailed. Valid for 3 years and spendable on any piece, from a board to a one-of-one marble table.</div></div>
+</div>
+
+<div class="why w1"><b>It gets used</b>Out for every cheese board and barbecue, not drunk once and forgotten.</div>
+<div class="why w2"><b>No two the same</b>Each board is cut from its own piece of stone, so every client's is unique.</div>
+<div class="why w3"><b>Made locally</b>Cut and finished just up the road in Wairau Valley, Auckland.</div>
+
+<div class="cta">
+<div class="t">Ordering 10 or more?</div>
+<div class="d"><b style="font-weight:500;color:var(--ivory)">Better pricing, delivered to your office.</b> Boards are limited before Christmas, so order early. Vouchers can go out any time; printed cards by Friday 11 December.</div>
+<div class="k"><b>James</b> · 021 146 6990 · james@primepiece.co.nz</div>
+<div class="qr"><img src="../assets/qr-gifts-corporate.png" alt="QR code to primepiece.co.nz/gifts"></div>
+<div class="ql">Scan for a quote</div>
+</div>
+</div></body></html>
