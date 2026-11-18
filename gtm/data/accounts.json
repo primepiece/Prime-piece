@@ -332,7 +332,8 @@
           "email_type": "generic",
           "verified": false,
           "linkedin": null,
-          "source": "outreach-emails.html"
+          "source": "outreach-emails.html",
+          "bounced": true
         }
       ],
       "fit": null,
@@ -354,7 +355,7 @@
         "scored_at": "2026-11-18"
       },
       "research": null,
-      "stage": "nurture",
+      "stage": "new",
       "legacy_outreach": true,
       "legacy_priority": 9,
       "sequence": {
@@ -385,7 +386,7 @@
             "n": 3,
             "day": null,
             "channel": "email",
-            "status": "drafted",
+            "status": "bounced",
             "subject": "Congrats on Toi Manawa: Auckland Architecture Award winner + national shortlist (no hard ask)",
             "body": "see Gmail draft",
             "gmail_draft_id": "r7632379348147684037",
@@ -394,10 +395,11 @@
           }
         ]
       },
-      "next_action": "Review + send congrats draft. Still only a generic inbox, so find a direct email for next touch",
-      "next_action_date": "2026-11-18",
+      "next_action": "Find a working, published email for a named principal (Enrichment), then resend the congrats note",
+      "next_action_date": "2026-11-19",
       "notes": [
-        "18 Nov: national Ted McCoy win NOT confirmed; confirmed = 2026 Auckland Architecture Award (Toi Manawa) + national shortlist."
+        "18 Nov: national Ted McCoy win NOT confirmed; confirmed = 2026 Auckland Architecture Award (Toi Manawa) + national shortlist.",
+        "18 Nov: studio@pattersonassociates.com hard-bounced (550 recipient rejected). The Jun/Aug emails to this address may never have arrived either."
       ],
       "history": [
         {
@@ -419,6 +421,11 @@
           "date": "2026-11-18",
           "agent": "gtm-copywriter",
           "event": "Congrats email drafted: Congrats on Toi Manawa: Auckland Architecture Award winner + national shortlist (no hard ask)"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-inbox (morning run)",
+          "event": "Congrats email bounced; address dead"
         }
       ]
     },
@@ -784,7 +791,8 @@
           "email_type": "generic",
           "verified": false,
           "linkedin": null,
-          "source": "outreach-emails.html"
+          "source": "outreach-emails.html",
+          "bounced": true
         }
       ],
       "fit": null,
@@ -806,7 +814,7 @@
         "scored_at": "2026-11-18"
       },
       "research": null,
-      "stage": "nurture",
+      "stage": "new",
       "legacy_outreach": true,
       "legacy_priority": 9,
       "sequence": {
@@ -837,7 +845,7 @@
             "n": 3,
             "day": null,
             "channel": "email",
-            "status": "drafted",
+            "status": "bounced",
             "subject": "Congrats on Richard Naish NZIA Gold Medal (no hard ask)",
             "body": "see Gmail draft",
             "gmail_draft_id": "r7544614339909546834",
@@ -846,9 +854,11 @@
           }
         ]
       },
-      "next_action": "Review + send congrats draft. Still only a generic inbox, so find a direct email for next touch",
-      "next_action_date": "2026-11-18",
-      "notes": [],
+      "next_action": "Find a working, published email for a named principal (Enrichment), then resend the congrats note",
+      "next_action_date": "2026-11-19",
+      "notes": [
+        "18 Nov: info@rtastudio.co.nz hard-bounced (550 recipient rejected). The Jun/Aug emails to this address may never have arrived either."
+      ],
       "history": [
         {
           "date": "2026-11-17",
@@ -869,6 +879,11 @@
           "date": "2026-11-18",
           "agent": "gtm-copywriter",
           "event": "Congrats email drafted: Congrats on Richard Naish NZIA Gold Medal (no hard ask)"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-inbox (morning run)",
+          "event": "Congrats email bounced; address dead"
         }
       ]
     },
@@ -2935,6 +2950,11 @@
           "date": "2026-11-18",
           "agent": "gtm-inbox (morning run)",
           "event": "Reply: on hold until mid-late Jan; holding reply drafted"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-inbox (morning run)",
+          "event": "James sent his own holding reply 18 Nov"
         }
       ]
     },
@@ -5559,7 +5579,7 @@
       "sequence": {
         "offer": "corporate-gifting",
         "contact": "kathryn.robertson@bayleys.co.nz",
-        "started": "2026-11-19",
+        "started": "2026-11-18",
         "gmail_thread": null,
         "steps": [
           {
@@ -5571,7 +5591,7 @@
             "body": "see Gmail draft",
             "gmail_draft_id": "r6867394477961138867",
             "due": "2026-11-19",
-            "sent_at": "2026-11-17"
+            "sent_at": "2026-11-18"
           },
           {
             "n": 2,
@@ -5621,6 +5641,11 @@
           "date": "2026-11-18",
           "agent": "pipeline.mjs",
           "event": "Tier — → A (fit ?, intent 32, total ?)"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-sequence (morning run)",
+          "event": "First touch confirmed sent 2026-11-18"
         }
       ]
     },
@@ -6390,25 +6415,25 @@
         "recommended_offer": "corporate-gifting",
         "recommended_contact": "Sue Stanaway (Residential Sales Manager)"
       },
-      "stage": "ready",
+      "stage": "in_sequence",
       "legacy_outreach": false,
       "campaign": "xmas-gifting-2026",
       "sequence": {
         "offer": "corporate-gifting",
         "contact": "sue.stanaway@bayleys.co.nz",
-        "started": "2026-11-19",
+        "started": "2026-11-18",
         "gmail_thread": null,
         "steps": [
           {
             "n": 1,
             "day": 0,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "xmas gifting first touch",
             "body": "see Gmail draft",
             "gmail_draft_id": "r-4462406448197023832",
             "due": "2026-11-19",
-            "sent_at": null
+            "sent_at": "2026-11-18"
           },
           {
             "n": 2,
@@ -6417,7 +6442,7 @@
             "status": "planned",
             "subject": null,
             "body": "Offer to drop a board + platter to the office to see in person",
-            "due": null,
+            "due": "2026-11-23",
             "sent_at": null
           },
           {
@@ -6432,8 +6457,8 @@
           }
         ]
       },
-      "next_action": "Send Gmail draft on Thu 19 Nov (after the office agents)",
-      "next_action_date": "2026-11-19",
+      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action_date": "2026-11-23",
       "notes": [
         "Type: real estate office (bulk/office order). Her own Bayleys profile URL returned 404; email taken from the office page team data."
       ],
@@ -6447,6 +6472,11 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-sequence (morning run)",
+          "event": "First touch confirmed sent 2026-11-18"
         }
       ]
     },
@@ -7221,25 +7251,25 @@
         "recommended_offer": "corporate-gifting",
         "recommended_contact": "Scott Kirk (General Manager)"
       },
-      "stage": "ready",
+      "stage": "in_sequence",
       "legacy_outreach": false,
       "campaign": "xmas-gifting-2026",
       "sequence": {
         "offer": "corporate-gifting",
         "contact": "scott.kirk@bayleys.co.nz",
-        "started": "2026-11-17",
+        "started": "2026-11-18",
         "gmail_thread": null,
         "steps": [
           {
             "n": 1,
             "day": 0,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "xmas gifting first touch",
             "body": "see Gmail draft",
             "gmail_draft_id": "r-6148661991211570884",
             "due": "2026-11-17",
-            "sent_at": null
+            "sent_at": "2026-11-18"
           },
           {
             "n": 2,
@@ -7248,7 +7278,7 @@
             "status": "planned",
             "subject": null,
             "body": "Offer to drop a board + platter to the office to see in person",
-            "due": null,
+            "due": "2026-11-23",
             "sent_at": null
           },
           {
@@ -7263,8 +7293,8 @@
           }
         ]
       },
-      "next_action": "Review + send Gmail draft",
-      "next_action_date": "2026-11-17",
+      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action_date": "2026-11-23",
       "notes": [
         "Type: real estate office, central Auckland (second-priority area). Pitch a bulk order."
       ],
@@ -7278,6 +7308,11 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-sequence (morning run)",
+          "event": "First touch confirmed sent 2026-11-18"
         }
       ]
     },
@@ -7337,25 +7372,25 @@
         "recommended_offer": "corporate-gifting",
         "recommended_contact": "Tim Cain (Director)"
       },
-      "stage": "ready",
+      "stage": "in_sequence",
       "legacy_outreach": false,
       "campaign": "xmas-gifting-2026",
       "sequence": {
         "offer": "corporate-gifting",
         "contact": "enquiries@cainbuilt.co.nz",
-        "started": "2026-11-17",
+        "started": "2026-11-18",
         "gmail_thread": null,
         "steps": [
           {
             "n": 1,
             "day": 0,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "xmas gifting first touch",
             "body": "see Gmail draft",
             "gmail_draft_id": "r-5029214326885146412",
             "due": "2026-11-17",
-            "sent_at": null
+            "sent_at": "2026-11-18"
           },
           {
             "n": 2,
@@ -7364,7 +7399,7 @@
             "status": "planned",
             "subject": null,
             "body": "Offer to drop a board + platter to the office to see in person",
-            "due": null,
+            "due": "2026-11-23",
             "sent_at": null
           },
           {
@@ -7379,8 +7414,8 @@
           }
         ]
       },
-      "next_action": "Review + send Gmail draft",
-      "next_action_date": "2026-11-17",
+      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action_date": "2026-11-23",
       "notes": [
         "Type: residential builder (handover gifts). Only a generic email is published; address it to Tim. City (Milford) per ArchiPro listing in search results (ArchiPro blocked direct fetch); site says North Shore & Rodney."
       ],
@@ -7394,6 +7429,11 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-sequence (morning run)",
+          "event": "First touch confirmed sent 2026-11-18"
         }
       ]
     },
@@ -7449,25 +7489,25 @@
         "recommended_offer": "corporate-gifting",
         "recommended_contact": "Alex Carey (Director)"
       },
-      "stage": "ready",
+      "stage": "in_sequence",
       "legacy_outreach": false,
       "campaign": "xmas-gifting-2026",
       "sequence": {
         "offer": "corporate-gifting",
         "contact": "admin@efd.kiwi",
-        "started": "2026-11-17",
+        "started": "2026-11-18",
         "gmail_thread": null,
         "steps": [
           {
             "n": 1,
             "day": 0,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "xmas gifting first touch",
             "body": "see Gmail draft",
             "gmail_draft_id": "r-1649145511647986804",
             "due": "2026-11-17",
-            "sent_at": null
+            "sent_at": "2026-11-18"
           },
           {
             "n": 2,
@@ -7476,7 +7516,7 @@
             "status": "planned",
             "subject": null,
             "body": "Offer to drop a board + platter to the office to see in person",
-            "due": null,
+            "due": "2026-11-23",
             "sent_at": null
           },
           {
@@ -7491,8 +7531,8 @@
           }
         ]
       },
-      "next_action": "Review + send Gmail draft",
-      "next_action_date": "2026-11-17",
+      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action_date": "2026-11-23",
       "notes": [
         "Type: residential builder/renovator (handover gifts). No signal logged: the luxury tier is not explicit, and there is no gifting evidence. Only a generic email is published."
       ],
@@ -7506,6 +7546,11 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-sequence (morning run)",
+          "event": "First touch confirmed sent 2026-11-18"
         }
       ]
     },
@@ -7561,25 +7606,25 @@
         "recommended_offer": "corporate-gifting",
         "recommended_contact": "Tony Sweetman (Director)"
       },
-      "stage": "ready",
+      "stage": "in_sequence",
       "legacy_outreach": false,
       "campaign": "xmas-gifting-2026",
       "sequence": {
         "offer": "corporate-gifting",
         "contact": "tony@sweetmanlaw.co.nz",
-        "started": "2026-11-17",
+        "started": "2026-11-18",
         "gmail_thread": null,
         "steps": [
           {
             "n": 1,
             "day": 0,
             "channel": "email",
-            "status": "drafted",
+            "status": "sent",
             "subject": "xmas gifting first touch",
             "body": "see Gmail draft",
             "gmail_draft_id": "r-8412761310086381647",
             "due": "2026-11-17",
-            "sent_at": null
+            "sent_at": "2026-11-18"
           },
           {
             "n": 2,
@@ -7588,7 +7633,7 @@
             "status": "planned",
             "subject": null,
             "body": "Offer to drop a board + platter to the office to see in person",
-            "due": null,
+            "due": "2026-11-23",
             "sent_at": null
           },
           {
@@ -7603,8 +7648,8 @@
           }
         ]
       },
-      "next_action": "Review + send Gmail draft",
-      "next_action_date": "2026-11-17",
+      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action_date": "2026-11-23",
       "notes": [
         "Type: boutique law firm (property/conveyancing). No signal logged: no public gifting evidence or award. Other published lawyer emails exist (e.g. casey@) if a second contact is wanted."
       ],
@@ -7618,6 +7663,11 @@
           "date": "2026-11-17",
           "agent": "gtm-copywriter",
           "event": "Christmas gifting first-touch drafted in Gmail"
+        },
+        {
+          "date": "2026-11-19",
+          "agent": "gtm-sequence (morning run)",
+          "event": "First touch confirmed sent 2026-11-18"
         }
       ]
     },
