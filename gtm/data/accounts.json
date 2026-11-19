@@ -7728,6 +7728,52 @@
           "event": "Tier — → A (fit ?, intent 20, total ?)"
         }
       ]
+    },
+    {
+      "id": "olga-king-clinic",
+      "name": "Olga King (clinic)",
+      "segment": "other",
+      "city": "Auckland",
+      "website": null,
+      "contacts": [
+        {
+          "name": "Olga King",
+          "role": "Clinic owner",
+          "email": "olgashoua@gmail.com",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Customer correspondence",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D09",
+          "date": "2026-11-18",
+          "evidence": "gmail thread 1a0f903637e85104",
+          "detail": "Custom marble table delivered to her clinic; accepted an Instagram collab",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": null,
+      "research": null,
+      "stage": "won",
+      "legacy_outreach": false,
+      "sequence": null,
+      "next_action": "Ask for photos of the table in the clinic for content, plus a referral; review already requested 19 Nov",
+      "next_action_date": "2026-12-01",
+      "notes": [
+        "Commercial install (clinic): proof point for hospitality/commercial outreach. Don't name her publicly without permission."
+      ],
+      "history": [
+        {
+          "date": "2026-11-20",
+          "agent": "gtm-inbox (morning run)",
+          "event": "Logged as won from Gmail: custom table delivered + collab accepted"
+        }
+      ]
     }
   ]
 }
