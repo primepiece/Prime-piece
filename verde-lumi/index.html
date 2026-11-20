@@ -108,15 +108,6 @@
   }
   .light-switch:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
   .light-switch:disabled { cursor: default; opacity: 0.7; }
-  .mode-link {
-    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
-    border: 1px solid rgba(245,241,234,0.3); border-radius: 999px;
-    background: rgba(44,42,38,0.62); color: var(--cream); text-decoration: none;
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; white-space: nowrap;
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  }
-  .mode-link:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
-  .mode-link:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
   .light-switch:disabled:hover { border-color: rgba(245,241,234,0.3); background: rgba(44,42,38,0.62); }
   .switch-track {
     position: relative; width: 40px; height: 22px; border-radius: 999px; flex-shrink: 0;
@@ -200,7 +191,7 @@
     .stage { flex: none; aspect-ratio: 9 / 10; max-height: 60vh; width: 100%; }
     /* On a phone the controls sit under the picture so they never cover the plinth. */
     .viewer-controls { position: static; justify-content: center; padding: 10px 16px 0; gap: 4px 12px; }
-    .light-switch, .mode-link { background: var(--ink); border-color: var(--ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .light-switch { background: var(--ink); border-color: var(--ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
     .light-switch:hover { background: #3d3a35; border-color: #3d3a35; }
     .light-switch:disabled:hover { background: var(--ink); border-color: var(--ink); }
     .p-cta { padding-top: 10px; padding-bottom: 4px; }
@@ -283,7 +274,6 @@
           <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
           <span id="light-label">Switch on the light</span>
         </button>
-        <a class="mode-link" href="/verde-lumi/3d.html">View in 3D</a>
       </div>
     </div>
   </section>
