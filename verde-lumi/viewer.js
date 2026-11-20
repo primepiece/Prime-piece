@@ -24,7 +24,7 @@ const rotRight = document.getElementById('rot-right');
 const photo = stage.querySelector('.room-photo');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const MODEL_URL = '/demo/green-onyx-plinth/assets/green-onyx-plinth.glb';
+const MODEL_URL = '/verde-lumi/assets/green-onyx-plinth.glb';
 const DEG = Math.PI / 180;
 
 // ---- Photo geometry (photo pixels / metres) ----

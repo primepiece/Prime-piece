@@ -1,4 +1,4 @@
-// PREVIEW PAGE. Photo view of the green onyx lighting plinth.
+// Verde Lumi: photo view of the illuminated green onyx plinth.
 //
 // The picture is the actual plinth (from workshop footage) placed into a styled night room.
 // This script only frames the photo for the screen and runs the light switch. The switch fades

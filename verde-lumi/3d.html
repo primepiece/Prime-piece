@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- PREVIEW PAGE. Not linked from the site or sitemap, not indexed, enquiry submission is stubbed. -->
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, follow">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S14SLX5T16"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S14SLX5T16');</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','722124784327437');fbq('track','PageView');</script>
 <link rel="icon" type="image/png" href="/logo.png">
-<title>Green Onyx Lighting Plinth | Prime Piece (preview)</title>
-<meta name="description" content="The Prime Piece green onyx lighting plinth, shown in a living room at dusk.">
+<title>Verde Lumi in 3D | Illuminated Green Onyx Plinth — Prime Piece</title>
+<meta name="description" content="Turn Verde Lumi, an illuminated green onyx plinth, in 3D and switch on its light.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter+Tight:wght@300;400;500&family=Dancing+Script:wght@400;500&display=swap">
@@ -32,14 +34,6 @@
     overflow-x: hidden;
   }
 
-  /* Preview marker: makes it obvious this page is not part of the public site yet. */
-  .demo-flag {
-    position: absolute; right: 16px; top: 16px; z-index: 5;
-    background: var(--ink); color: var(--cream);
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
-    padding: 9px 14px; border-radius: 1px; box-shadow: 0 8px 24px rgba(44,42,38,0.25);
-    pointer-events: none;
-  }
 
   /* --nav-h / --promo-h are measured by the small script at the end of <body>.
      Desktop: room viewer on the left (sticky), copy on the right.
@@ -74,21 +68,38 @@
     position: relative; flex: 1; min-height: 0; overflow: hidden; isolation: isolate;
     background: #1d1915;
   }
-  /* The photo is framed for the screen by photo-view.js (positioned in photo pixels). */
+  /* Room layers are positioned in photo pixels by viewer.js so the 3D camera lines up exactly. */
   .room-layer {
     position: absolute; left: 0; top: 0; transform-origin: 0 0;
     max-width: none; user-select: none; -webkit-user-drag: none; pointer-events: none;
   }
-  .room-shot { z-index: 0; }
-  /* The lit photo, once there is one, fades in over the unlit one. */
-  .room-shot--lit { z-index: 1; opacity: 0; transition: opacity 0.6s ease; }
-  .stage.is-lit .room-shot--lit { opacity: 1; }
+  .room-photo { z-index: 0; }
+  /* Light the plinth spills onto the floor is drawn on its own canvas and screened onto the photo. */
+  .stage canvas.glow-layer { z-index: 1; mix-blend-mode: screen; pointer-events: none; cursor: default; }
+  .stage canvas {
+    position: absolute; inset: 0; z-index: 2;
+    width: 100% !important; height: 100% !important; display: block;
+    cursor: grab; touch-action: pan-y; outline: none;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .stage.is-ready canvas { opacity: 1; }
+  .stage canvas.is-dragging { cursor: grabbing; }
+  .stage canvas:focus-visible { box-shadow: inset 0 0 0 2px var(--sage); }
 
   .viewer-controls {
     position: absolute; left: 24px; bottom: 24px; z-index: 4;
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
   }
   .viewer-row { display: flex; align-items: center; gap: 8px; }
+  .rot-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid rgba(245,241,234,0.3); background: rgba(44,42,38,0.62);
+    color: var(--cream); cursor: pointer; font-size: 18px; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .rot-btn:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
 
   /* Warm-white light switch. The label states the action. */
   .light-switch {
@@ -102,17 +113,6 @@
     transition: border-color 0.3s, background 0.3s;
   }
   .light-switch:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
-  .light-switch:disabled { cursor: default; opacity: 0.7; }
-  .mode-link {
-    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
-    border: 1px solid rgba(245,241,234,0.3); border-radius: 999px;
-    background: rgba(44,42,38,0.62); color: var(--cream); text-decoration: none;
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; white-space: nowrap;
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  }
-  .mode-link:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
-  .mode-link:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
-  .light-switch:disabled:hover { border-color: rgba(245,241,234,0.3); background: rgba(44,42,38,0.62); }
   .switch-track {
     position: relative; width: 40px; height: 22px; border-radius: 999px; flex-shrink: 0;
     background: rgba(245,241,234,0.16); border: 1px solid rgba(245,241,234,0.35);
@@ -125,8 +125,21 @@
   .light-switch.is-on { border-color: rgba(255,241,217,0.7); }
   .light-switch.is-on .switch-track { background: rgba(255,241,217,0.35); border-color: var(--warm-light); box-shadow: 0 0 12px rgba(255,236,200,0.55); }
   .light-switch.is-on .switch-thumb { transform: translateX(18px); background: #fff8ec; box-shadow: 0 0 8px rgba(255,240,210,0.9); }
-  .light-switch:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+  .light-switch:focus-visible, .rot-btn:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
 
+  .mode-link {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+    border: 1px solid rgba(245,241,234,0.3); border-radius: 999px;
+    background: rgba(44,42,38,0.62); color: var(--cream); text-decoration: none;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; white-space: nowrap;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  .mode-link:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
+  .mode-link:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+  .viewer-hint {
+    font-size: 11px; letter-spacing: 0.08em; color: var(--cream);
+    background: rgba(44,42,38,0.45); padding: 4px 10px; border-radius: 999px;
+  }
 
   /* ---- Copy ---- */
   .eyebrow {
@@ -195,9 +208,9 @@
     .stage { flex: none; aspect-ratio: 9 / 10; max-height: 60vh; width: 100%; }
     /* On a phone the controls sit under the picture so they never cover the plinth. */
     .viewer-controls { position: static; justify-content: center; padding: 10px 16px 0; gap: 4px 12px; }
-    .light-switch, .mode-link { background: var(--ink); border-color: var(--ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
-    .light-switch:hover { background: #3d3a35; border-color: #3d3a35; }
-    .light-switch:disabled:hover { background: var(--ink); border-color: var(--ink); }
+    .viewer-hint { background: none; color: var(--stone); padding: 0; width: 100%; text-align: center; }
+    .rot-btn, .light-switch, .mode-link { background: var(--ink); border-color: var(--ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .rot-btn:hover, .light-switch:hover { background: #3d3a35; border-color: #3d3a35; }
     .p-cta { padding-top: 10px; padding-bottom: 4px; }
     .p-body { padding-top: 26px; }
     .p-note { padding-bottom: 40px; }
@@ -205,13 +218,12 @@
     footer { padding: 40px 20px 24px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-bottom { flex-direction: column; gap: 6px; }
-    .demo-flag { right: 10px; top: 10px; font-size: 8px; padding: 6px 10px; }
   }
   @media (max-width: 380px) {
     .light-switch { letter-spacing: 0.14em; padding-right: 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .room-shot--lit, .switch-thumb, .switch-track { transition: none; }
+    .stage canvas, .switch-thumb, .switch-track { transition: none; }
   }
 </style>
 <link rel="stylesheet" href="/site-nav.css">
@@ -258,39 +270,40 @@
   <a href="/#story">About</a>
   <a href="/trade.html">Trade</a>
   <a href="/#contact">Contact</a>
-  <a href="#" class="mobile-shop-btn" onclick="event.preventDefault(); openEnquireModal('Green Onyx Lighting Plinth')">Enquire Now</a>
+  <a href="#" class="mobile-shop-btn" onclick="event.preventDefault(); openEnquireModal('Verde Lumi — Illuminated Green Onyx Plinth')">Enquire Now</a>
   <a href="tel:0211466990" class="mm-phone">021 146 6990</a>
 </div>
 
 <main class="product">
   <header class="p-head">
-    <div class="eyebrow">Lighting Plinth</div>
-    <h1>Green Onyx <br><em>Lighting Plinth</em></h1>
+    <div class="eyebrow">Illuminated Green Onyx Plinth</div>
+    <h1>Verde <em>Lumi</em></h1>
   </header>
 
   <section class="viewer" aria-label="Green onyx lighting plinth shown in a living room">
-    <!-- data-lit-src: the lit photo (same framing) the light switch fades to. -->
-    <div class="stage" id="stage" data-lit-src="/demo/green-onyx-plinth/assets/plinth-room-on.webp">
-      <div class="demo-flag" aria-hidden="true">Preview · not linked</div>
-      <img class="room-layer room-shot" src="/demo/green-onyx-plinth/assets/plinth-room-off.webp" width="1254" height="1254" alt="The green onyx lighting plinth, switched off, beside a linen sofa in a living room at dusk" fetchpriority="high" decoding="async">
+    <div class="stage" id="stage">
+      <img class="room-layer room-photo" src="/verde-lumi/assets/room-night.webp" width="1254" height="1254" alt="A living room at dusk with a linen sofa and a lit floor lamp" fetchpriority="high" decoding="async">
     </div>
     <div class="viewer-controls">
       <div class="viewer-row">
+        <button type="button" class="rot-btn" id="rot-left" aria-label="Rotate plinth left">&#8249;</button>
         <button type="button" class="light-switch" id="light-switch">
           <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
           <span id="light-label">Switch on the light</span>
         </button>
-        <a class="mode-link" href="/demo/green-onyx-plinth/3d.html">View in 3D</a>
+        <button type="button" class="rot-btn" id="rot-right" aria-label="Rotate plinth right">&#8250;</button>
       </div>
+      <p class="viewer-hint" id="viewer-hint">Loading 3D view…</p>
+      <a class="mode-link" href="/verde-lumi">&#8592; Back to photo</a>
     </div>
   </section>
 
   <div class="p-cta actions">
-    <button type="button" class="btn-primary" onclick="openEnquireModal('Green Onyx Lighting Plinth')">Enquire About This Piece →</button>
+    <button type="button" class="btn-primary" onclick="openEnquireModal('Verde Lumi — Illuminated Green Onyx Plinth')">Enquire About This Piece →</button>
   </div>
 
   <div class="p-body">
-    <p class="lede">A column of translucent green onyx, milky ivory banded with soft sage and fine veining, with a warm-white light inside. Off, it reads as pale stone; lit, the stone glows from within.</p>
+    <p class="lede">Verde Lumi is a column of translucent green onyx, milky ivory banded with soft sage and fine veining, with a warm-white light inside. Drag it to turn it, and switch on the light to see the stone glow.</p>
 
     <div class="price">Price on enquiry</div>
     <span class="price-label">Made in Auckland</span>
@@ -298,14 +311,14 @@
     <div class="details">
       <div class="detail-row"><span class="detail-label">Stone</span><span class="detail-val">Green onyx</span></div>
       <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-val">H: 800mm × W: 300mm × D: 300mm</span></div>
-      <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val">Lighting plinth</span></div>
+      <div class="detail-row"><span class="detail-label">Type</span><span class="detail-val">Illuminated plinth</span></div>
       <div class="detail-row"><span class="detail-label">Origin</span><span class="detail-val">Handcrafted Auckland, NZ</span></div>
     </div>
   </div>
 
   <div class="p-note">
     <a class="btn-ghost" href="/plinths.html">View All Plinths →</a>
-    <p class="disclosure">The plinth shown is the actual piece, taken from workshop footage and placed into a styled room. The lit view is an illustration made from the same photo until the plinth is photographed lit. Colours vary between screens.</p>
+    <p class="disclosure">This 3D view is approximate. Its sides all use one real face of Verde Lumi, and the lit glow is an illustration. The room is a styled image. Colours vary between screens.</p>
   </div>
 </main>
 
@@ -342,7 +355,7 @@
   </div>
 </footer>
 
-<!-- Enquire modal: same markup and styling as the collection pages. Submission is stubbed in this demo. -->
+<!-- Enquire modal: same markup, styling and endpoint as the collection pages. -->
 <div id="enq-overlay" style="display:none;position:fixed;inset:0;background:rgba(44,42,38,0.6);z-index:9998;align-items:center;justify-content:center;padding:1.5rem;" onclick="if(event.target===this)closeEnquireModal()">
   <div role="dialog" aria-modal="true" aria-labelledby="enq-title" style="background:var(--cream);max-width:460px;width:100%;position:relative;border:1px solid var(--line);box-shadow:0 32px 80px rgba(44,42,38,0.22);">
     <div style="padding:28px 32px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
@@ -375,10 +388,14 @@
       <button onclick="submitEnquire()" style="width:100%;padding:14px;background:var(--sage);color:#fff;border:none;font-family:'Inter Tight',sans-serif;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;font-weight:500;cursor:pointer;border-radius:1px;transition:background 0.2s;">Send Message →</button>
       <p style="font-size:11px;color:var(--stone);text-align:center;margin-top:12px;">Or text James directly — <a href="tel:0211466990" style="color:var(--sage);text-decoration:none;">021 146 6990</a></p>
     </div>
+    <div id="enq-sending" style="display:none;padding:56px 32px;text-align:center;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:8px;">Sending…</div>
+      <p style="font-size:13px;color:var(--stone);">Just a moment</p>
+    </div>
     <div id="enq-success" style="display:none;padding:56px 32px;text-align:center;">
       <div style="font-size:28px;margin-bottom:16px;">✓</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--ink);margin-bottom:10px;">Preview page</div>
-      <p style="font-size:13px;color:var(--stone);line-height:1.7;">This page is a preview, so your message wasn't sent.<br>Please text James on <a href="tel:0211466990" style="color:var(--sage);text-decoration:none;">021 146 6990</a>.</p>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--ink);margin-bottom:10px;">Message sent!</div>
+      <p style="font-size:13px;color:var(--stone);line-height:1.7;">James will be in touch personally within 24 hours.<br>Or text him now — <a href="tel:0211466990" style="color:var(--sage);">021 146 6990</a></p>
     </div>
   </div>
 </div>
@@ -388,22 +405,44 @@ function openEnquireModal(subject) {
   document.getElementById('enq-title').textContent = subject || 'Get in touch';
   document.getElementById('enq-form-wrap').style.display = 'block';
   document.getElementById('enq-success').style.display = 'none';
+  document.getElementById('enq-sending').style.display = 'none';
   document.getElementById('enq-error').style.display = 'none';
   document.getElementById('enq-overlay').style.display = 'flex';
   document.getElementById('enq-name').focus();
 }
 function closeEnquireModal() { document.getElementById('enq-overlay').style.display = 'none'; }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEnquireModal(); });
-// PREVIEW: validates like the live form but never calls /api/enquire.
-function submitEnquire() {
+// Same request as the collection pages' enquiry form (no photo upload on this page).
+async function submitEnquire() {
   const name = document.getElementById('enq-name').value.trim();
   const email = document.getElementById('enq-email').value.trim();
+  const phone = document.getElementById('enq-phone').value.trim();
+  const message = document.getElementById('enq-message').value.trim();
   const errEl = document.getElementById('enq-error');
   errEl.style.display = 'none';
   if (!name) { errEl.textContent = 'Please enter your name.'; errEl.style.display = 'block'; return; }
   if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email.'; errEl.style.display = 'block'; return; }
   document.getElementById('enq-form-wrap').style.display = 'none';
-  document.getElementById('enq-success').style.display = 'block';
+  document.getElementById('enq-sending').style.display = 'block';
+  try {
+    const subject = document.getElementById('enq-title').textContent;
+    const res = await fetch('/api/enquire', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, phone, notes: message, piece: subject }) });
+    const data = await res.json().catch(() => ({}));
+    document.getElementById('enq-sending').style.display = 'none';
+    if (!res.ok || data.success === false) {
+      document.getElementById('enq-form-wrap').style.display = 'block';
+      errEl.textContent = 'Something went wrong — please try again or text James on 021 146 6990.';
+      errEl.style.display = 'block';
+      return;
+    }
+    document.getElementById('enq-success').style.display = 'block';
+    if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+  } catch (e) {
+    document.getElementById('enq-sending').style.display = 'none';
+    document.getElementById('enq-form-wrap').style.display = 'block';
+    errEl.textContent = 'Network error — please try again or text James on 021 146 6990.';
+    errEl.style.display = 'block';
+  }
 }
 </script>
 
@@ -420,7 +459,10 @@ function submitEnquire() {
   new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['class'] });
 })();
 </script>
-<script src="/demo/green-onyx-plinth/photo-view.js"></script>
+<script type="importmap">
+{ "imports": { "three": "/verde-lumi/vendor/three.module.min.js" } }
+</script>
+<script type="module" src="/verde-lumi/viewer.js"></script>
 <script src="/site-nav.js" defer></script>
 </body>
 </html>
