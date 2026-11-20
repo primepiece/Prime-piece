@@ -15,6 +15,8 @@
     { "source": "/500", "destination": "/", "permanent": true },
     { "source": "/scale-os/lib/:path*", "destination": "/scale-os", "permanent": false },
     { "source": "/gallery", "destination": "/gallery.html", "permanent": true },
+    { "source": "/demo/green-onyx-plinth", "destination": "/verde-lumi", "permanent": true },
+    { "source": "/demo/green-onyx-plinth/3d.html", "destination": "/verde-lumi/3d.html", "permanent": true },
     { "source": "/reviews", "destination": "/", "permanent": true },
     { "source": "/blog/:slug*", "destination": "/", "permanent": true },
     { "source": "/made-to-order", "destination": "/made-to-order.html", "permanent": true },
