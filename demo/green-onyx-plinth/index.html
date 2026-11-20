@@ -103,6 +103,15 @@
   }
   .light-switch:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
   .light-switch:disabled { cursor: default; opacity: 0.7; }
+  .mode-link {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+    border: 1px solid rgba(245,241,234,0.3); border-radius: 999px;
+    background: rgba(44,42,38,0.62); color: var(--cream); text-decoration: none;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; white-space: nowrap;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  .mode-link:hover { border-color: var(--cream); background: rgba(44,42,38,0.82); }
+  .mode-link:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
   .light-switch:disabled:hover { border-color: rgba(245,241,234,0.3); background: rgba(44,42,38,0.62); }
   .switch-track {
     position: relative; width: 40px; height: 22px; border-radius: 999px; flex-shrink: 0;
@@ -186,7 +195,7 @@
     .stage { flex: none; aspect-ratio: 9 / 10; max-height: 60vh; width: 100%; }
     /* On a phone the controls sit under the picture so they never cover the plinth. */
     .viewer-controls { position: static; justify-content: center; padding: 10px 16px 0; gap: 4px 12px; }
-    .light-switch { background: var(--ink); border-color: var(--ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .light-switch, .mode-link { background: var(--ink); border-color: var(--ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
     .light-switch:hover { background: #3d3a35; border-color: #3d3a35; }
     .light-switch:disabled:hover { background: var(--ink); border-color: var(--ink); }
     .p-cta { padding-top: 10px; padding-bottom: 4px; }
@@ -260,8 +269,8 @@
   </header>
 
   <section class="viewer" aria-label="Green onyx lighting plinth shown in a living room">
-    <!-- To enable the light switch, add data-lit-src="/demo/green-onyx-plinth/assets/plinth-room-on.webp" (same framing) to #stage. -->
-    <div class="stage" id="stage">
+    <!-- data-lit-src: the lit photo (same framing) the light switch fades to. -->
+    <div class="stage" id="stage" data-lit-src="/demo/green-onyx-plinth/assets/plinth-room-on.webp">
       <div class="demo-flag" aria-hidden="true">Preview · not linked</div>
       <img class="room-layer room-shot" src="/demo/green-onyx-plinth/assets/plinth-room-off.webp" width="1254" height="1254" alt="The green onyx lighting plinth, switched off, beside a linen sofa in a living room at dusk" fetchpriority="high" decoding="async">
     </div>
@@ -271,6 +280,7 @@
           <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
           <span id="light-label">Switch on the light</span>
         </button>
+        <a class="mode-link" href="/demo/green-onyx-plinth/3d.html">View in 3D</a>
       </div>
     </div>
   </section>
@@ -295,7 +305,7 @@
 
   <div class="p-note">
     <a class="btn-ghost" href="/plinths.html">View All Plinths →</a>
-    <p class="disclosure">The plinth shown is the actual piece, taken from workshop footage and placed into a styled room. A photo of it lit is still to come. Colours vary between screens.</p>
+    <p class="disclosure">The plinth shown is the actual piece, taken from workshop footage and placed into a styled room. The lit view is an illustration made from the same photo until the plinth is photographed lit. Colours vary between screens.</p>
   </div>
 </main>
 
