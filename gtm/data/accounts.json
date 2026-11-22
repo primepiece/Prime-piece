@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-18",
+  "updated": "2026-11-22",
   "accounts": [
     {
       "id": "hotel-britomart",
@@ -27,7 +27,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -105,7 +105,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -183,7 +183,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -263,7 +263,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -352,7 +352,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -454,7 +454,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -527,7 +527,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -600,7 +600,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -674,7 +674,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -724,7 +724,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -811,7 +811,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -913,7 +913,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -963,7 +963,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1011,7 +1011,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1059,7 +1059,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1117,7 +1117,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -1167,7 +1167,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1217,7 +1217,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1265,7 +1265,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1313,7 +1313,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1361,7 +1361,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1409,7 +1409,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1457,7 +1457,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1505,7 +1505,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1553,7 +1553,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1601,7 +1601,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1649,7 +1649,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1697,7 +1697,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1745,7 +1745,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1793,7 +1793,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1841,7 +1841,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1889,7 +1889,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1937,7 +1937,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -1985,7 +1985,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2033,7 +2033,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2081,7 +2081,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2129,7 +2129,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2177,7 +2177,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2225,7 +2225,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2273,7 +2273,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2321,7 +2321,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2369,7 +2369,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2425,7 +2425,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "lost",
@@ -2475,7 +2475,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2523,7 +2523,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2571,7 +2571,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -2653,7 +2653,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2701,7 +2701,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2749,7 +2749,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "new",
@@ -2797,7 +2797,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -2891,7 +2891,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -2999,7 +2999,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "replied",
@@ -3092,11 +3092,11 @@
       ],
       "score": {
         "fit": null,
-        "intent": 32,
+        "intent": 24,
         "total": null,
-        "tier": "A",
-        "override": "first-party",
-        "scored_at": "2026-11-18"
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "replied",
@@ -3154,6 +3154,11 @@
           "date": "2026-11-18",
           "agent": "gtm-monitor",
           "event": "Monitor check: no new signals (no dated public project or press found; warm thread and pending draft unchanged)"
+        },
+        {
+          "date": "2026-11-22",
+          "agent": "pipeline.mjs",
+          "event": "Tier A → — (fit ?, intent 24, total ?)"
         }
       ]
     },
@@ -3191,7 +3196,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "replied",
@@ -3274,7 +3279,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -3341,7 +3346,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -3408,7 +3413,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "nurture",
@@ -3475,7 +3480,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "lost",
@@ -3543,7 +3548,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3602,7 +3607,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3661,7 +3666,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3729,7 +3734,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3797,7 +3802,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3856,7 +3861,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3915,7 +3920,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -3974,7 +3979,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4033,7 +4038,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4092,7 +4097,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4151,7 +4156,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4210,7 +4215,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4269,7 +4274,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4328,7 +4333,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4387,7 +4392,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4448,7 +4453,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4507,7 +4512,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4566,7 +4571,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4625,7 +4630,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4684,7 +4689,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4743,7 +4748,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4802,7 +4807,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4861,7 +4866,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4920,7 +4925,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -4979,7 +4984,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5038,7 +5043,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5099,7 +5104,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5158,7 +5163,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5217,7 +5222,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "in_sequence",
@@ -5284,7 +5289,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5417,7 +5422,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5551,7 +5556,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5690,7 +5695,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5813,7 +5818,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -5929,7 +5934,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6045,7 +6050,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6161,7 +6166,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6277,7 +6282,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6393,7 +6398,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6439,11 +6444,12 @@
             "n": 2,
             "day": 4,
             "channel": "email",
-            "status": "planned",
+            "status": "drafted",
             "subject": null,
-            "body": "Offer to drop a board + platter to the office to see in person",
+            "body": "Offer to drop board + platter this week (Wed/Thu)",
             "due": "2026-11-23",
-            "sent_at": null
+            "sent_at": null,
+            "gmail_draft_id": "r-5219386127874466995"
           },
           {
             "n": 3,
@@ -6457,7 +6463,7 @@
           }
         ]
       },
-      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action": "Send follow-up #2 draft today; last call ~1 Dec",
       "next_action_date": "2026-11-23",
       "notes": [
         "Type: real estate office (bulk/office order). Her own Bayleys profile URL returned 404; email taken from the office page team data."
@@ -6477,6 +6483,11 @@
           "date": "2026-11-19",
           "agent": "gtm-sequence (morning run)",
           "event": "First touch confirmed sent 2026-11-18"
+        },
+        {
+          "date": "2026-11-23",
+          "agent": "gtm-sequence (morning run)",
+          "event": "Follow-up #2 drafted (no reply to 18 Nov email)"
         }
       ]
     },
@@ -6521,7 +6532,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6637,7 +6648,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6753,7 +6764,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6879,7 +6890,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -6997,7 +7008,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7113,7 +7124,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7229,7 +7240,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7275,11 +7286,12 @@
             "n": 2,
             "day": 4,
             "channel": "email",
-            "status": "planned",
+            "status": "drafted",
             "subject": null,
-            "body": "Offer to drop a board + platter to the office to see in person",
+            "body": "Offer to drop board + platter this week (Wed/Thu)",
             "due": "2026-11-23",
-            "sent_at": null
+            "sent_at": null,
+            "gmail_draft_id": "r-6448175052964425527"
           },
           {
             "n": 3,
@@ -7293,7 +7305,7 @@
           }
         ]
       },
-      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action": "Send follow-up #2 draft today; last call ~1 Dec",
       "next_action_date": "2026-11-23",
       "notes": [
         "Type: real estate office, central Auckland (second-priority area). Pitch a bulk order."
@@ -7313,6 +7325,11 @@
           "date": "2026-11-19",
           "agent": "gtm-sequence (morning run)",
           "event": "First touch confirmed sent 2026-11-18"
+        },
+        {
+          "date": "2026-11-23",
+          "agent": "gtm-sequence (morning run)",
+          "event": "Follow-up #2 drafted (no reply to 18 Nov email)"
         }
       ]
     },
@@ -7350,7 +7367,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7396,11 +7413,12 @@
             "n": 2,
             "day": 4,
             "channel": "email",
-            "status": "planned",
+            "status": "drafted",
             "subject": null,
-            "body": "Offer to drop a board + platter to the office to see in person",
+            "body": "Offer to drop board + platter this week (Wed/Thu)",
             "due": "2026-11-23",
-            "sent_at": null
+            "sent_at": null,
+            "gmail_draft_id": "r3399386772118373998"
           },
           {
             "n": 3,
@@ -7414,7 +7432,7 @@
           }
         ]
       },
-      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action": "Send follow-up #2 draft today; last call ~1 Dec",
       "next_action_date": "2026-11-23",
       "notes": [
         "Type: residential builder (handover gifts). Only a generic email is published; address it to Tim. City (Milford) per ArchiPro listing in search results (ArchiPro blocked direct fetch); site says North Shore & Rodney."
@@ -7434,6 +7452,11 @@
           "date": "2026-11-19",
           "agent": "gtm-sequence (morning run)",
           "event": "First touch confirmed sent 2026-11-18"
+        },
+        {
+          "date": "2026-11-23",
+          "agent": "gtm-sequence (morning run)",
+          "event": "Follow-up #2 drafted (no reply to 18 Nov email)"
         }
       ]
     },
@@ -7463,7 +7486,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7513,11 +7536,12 @@
             "n": 2,
             "day": 4,
             "channel": "email",
-            "status": "planned",
+            "status": "drafted",
             "subject": null,
-            "body": "Offer to drop a board + platter to the office to see in person",
+            "body": "Offer to drop board + platter this week (Wed/Thu)",
             "due": "2026-11-23",
-            "sent_at": null
+            "sent_at": null,
+            "gmail_draft_id": "r-8162327017137355974"
           },
           {
             "n": 3,
@@ -7531,7 +7555,7 @@
           }
         ]
       },
-      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action": "Send follow-up #2 draft today; last call ~1 Dec",
       "next_action_date": "2026-11-23",
       "notes": [
         "Type: residential builder/renovator (handover gifts). No signal logged: the luxury tier is not explicit, and there is no gifting evidence. Only a generic email is published."
@@ -7551,6 +7575,11 @@
           "date": "2026-11-19",
           "agent": "gtm-sequence (morning run)",
           "event": "First touch confirmed sent 2026-11-18"
+        },
+        {
+          "date": "2026-11-23",
+          "agent": "gtm-sequence (morning run)",
+          "event": "Follow-up #2 drafted (no reply to 18 Nov email)"
         }
       ]
     },
@@ -7580,7 +7609,7 @@
         "total": null,
         "tier": null,
         "override": null,
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": {
         "updated": "2026-11-17",
@@ -7630,11 +7659,12 @@
             "n": 2,
             "day": 4,
             "channel": "email",
-            "status": "planned",
+            "status": "drafted",
             "subject": null,
-            "body": "Offer to drop a board + platter to the office to see in person",
+            "body": "Offer to drop board + platter this week (Wed/Thu)",
             "due": "2026-11-23",
-            "sent_at": null
+            "sent_at": null,
+            "gmail_draft_id": "r7143188751648001601"
           },
           {
             "n": 3,
@@ -7648,7 +7678,7 @@
           }
         ]
       },
-      "next_action": "No reply yet. Follow-up #2 (offer to drop board + platter) due Mon 23 Nov",
+      "next_action": "Send follow-up #2 draft today; last call ~1 Dec",
       "next_action_date": "2026-11-23",
       "notes": [
         "Type: boutique law firm (property/conveyancing). No signal logged: no public gifting evidence or award. Other published lawyer emails exist (e.g. casey@) if a second contact is wanted."
@@ -7668,6 +7698,11 @@
           "date": "2026-11-19",
           "agent": "gtm-sequence (morning run)",
           "event": "First touch confirmed sent 2026-11-18"
+        },
+        {
+          "date": "2026-11-23",
+          "agent": "gtm-sequence (morning run)",
+          "event": "Follow-up #2 drafted (no reply to 18 Nov email)"
         }
       ]
     },
@@ -7705,7 +7740,7 @@
         "total": null,
         "tier": "A",
         "override": "first-party",
-        "scored_at": "2026-11-18"
+        "scored_at": "2026-11-22"
       },
       "research": null,
       "stage": "replied",
@@ -7757,7 +7792,14 @@
           "found_by": "gtm-inbox"
         }
       ],
-      "score": null,
+      "score": {
+        "fit": null,
+        "intent": 12,
+        "total": null,
+        "tier": null,
+        "override": null,
+        "scored_at": "2026-11-22"
+      },
       "research": null,
       "stage": "won",
       "legacy_outreach": false,
@@ -7772,6 +7814,64 @@
           "date": "2026-11-20",
           "agent": "gtm-inbox (morning run)",
           "event": "Logged as won from Gmail: custom table delivered + collab accepted"
+        }
+      ]
+    },
+    {
+      "id": "logan-granite-repurpose",
+      "name": "Logan (benchtop repurpose)",
+      "segment": "other",
+      "city": null,
+      "website": null,
+      "contacts": [
+        {
+          "name": "Logan",
+          "role": "Homeowner",
+          "email": "la-poching@hotmail.co.nz",
+          "email_type": "personal",
+          "verified": true,
+          "verified_how": "Website quote form 22 Nov 2026",
+          "linkedin": null,
+          "source": "gmail"
+        }
+      ],
+      "fit": null,
+      "signals": [
+        {
+          "id": "D01",
+          "date": "2026-11-22",
+          "evidence": "gmail thread 1a2011690055959d",
+          "detail": "Quote request: repurpose 1900x900x20mm granite benchtop into coffee table + 1-2 side tables (photo attached)",
+          "found_by": "gtm-inbox"
+        }
+      ],
+      "score": {
+        "fit": null,
+        "intent": 20,
+        "total": null,
+        "tier": "A",
+        "override": "first-party",
+        "scored_at": "2026-11-22"
+      },
+      "research": null,
+      "stage": "replied",
+      "legacy_outreach": false,
+      "sequence": null,
+      "next_action": "Send reply draft (sizes, base, damage, location) and add a rough price",
+      "next_action_date": "2026-11-23",
+      "notes": [
+        "Retail custom job, not trade. 20mm granite is thin for a table top; may need an edge build-up or a sturdy base."
+      ],
+      "history": [
+        {
+          "date": "2026-11-23",
+          "agent": "gtm-inbox (morning run)",
+          "event": "Website quote request; reply drafted"
+        },
+        {
+          "date": "2026-11-22",
+          "agent": "pipeline.mjs",
+          "event": "Tier — → A (fit ?, intent 20, total ?)"
         }
       ]
     }
