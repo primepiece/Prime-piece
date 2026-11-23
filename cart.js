@@ -258,8 +258,8 @@
           <div class="cart-delivery-nudge" id="cart-delivery-nudge"></div>
           <div class="cart-email-capture" id="cart-email-capture">
             <form class="cart-email-form" id="cart-email-form">
-              <input type="email" id="cart-email-input" placeholder="Email for 10% off" autocomplete="email" required>
-              <button type="submit">Get code</button>
+              <input type="email" id="cart-email-input" placeholder="Save your cart — email" autocomplete="email" required>
+              <button type="submit">Save</button>
             </form>
             <button type="button" class="cart-email-capture-dismiss" id="cart-email-dismiss">No thanks</button>
           </div>
@@ -320,7 +320,7 @@
         if (res.ok && data.success) {
           try { localStorage.setItem('pp_customer_email', email); } catch (_) {}
           const container = document.getElementById('cart-email-capture');
-          if (container) container.innerHTML = '<p class="cart-email-capture-note">✓ Check your email for your 10% off code.</p>';
+          if (container) container.innerHTML = '<p class="cart-email-capture-note">✓ Cart saved to your email.</p>';
         } else {
           btn.textContent = originalText;
           btn.disabled = false;

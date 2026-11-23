@@ -14,6 +14,7 @@ export default async function handler(req, res) {
   const firstName = (name || '').split(' ')[0] || 'there';
   const isBasinWaitlist = source === 'basin-collection-teaser';
   const isReleaseWaitlist = source === 'christmas-release';
+  const isCartDrawer = source === 'Cart Drawer';
 
   // Klaviyo is best-effort — a Klaviyo outage or misconfiguration must never
   // cause a lead to be lost. James's notification email below is the
@@ -188,15 +189,19 @@ ${emailFooter}
 
     // Awaited, not fire-and-forget: on Vercel the function can be frozen as
     // soon as the response is sent, which silently dropped this email.
-    try {
-      const confirmRes = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
-        body: JSON.stringify(emailPayload),
-      });
-      if (!confirmRes.ok) console.error('Confirmation email error:', JSON.stringify(await confirmRes.json().catch(() => ({}))));
-    } catch (err) {
-      console.error('Confirmation email error:', err);
+    // Cart Drawer signups skip this entirely — no discount code promised there,
+    // so none is sent. James's notification above already captured the lead.
+    if (!isCartDrawer) {
+      try {
+        const confirmRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
+          body: JSON.stringify(emailPayload),
+        });
+        if (!confirmRes.ok) console.error('Confirmation email error:', JSON.stringify(await confirmRes.json().catch(() => ({}))));
+      } catch (err) {
+        console.error('Confirmation email error:', err);
+      }
     }
   } else {
     console.error('Resend env var missing — no notification or confirmation email sent');
