@@ -179,8 +179,6 @@
         font-family: 'Inter Tight', sans-serif; font-size: 12px; color: #554F45; line-height: 1.5;
       }
       .cart-email-capture.visible { display: block; }
-      .cart-email-capture-text { margin: 0 0 10px; }
-      .cart-email-capture-text strong { color: #5D8588; }
       .cart-email-form { display: flex; gap: 8px; }
       .cart-email-form input {
         flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid rgba(44,42,38,0.15);
@@ -255,13 +253,12 @@
         <div id="cart-items"></div>
         <div class="cart-footer">
           <div class="cart-pair-nudge" id="cart-pair-nudge">
-            Add another serving board and get the pair for $179. <a href="boards.html">Browse boards →</a>
+            1 more board = pair price $179 <a href="boards.html">→</a>
           </div>
           <div class="cart-delivery-nudge" id="cart-delivery-nudge"></div>
           <div class="cart-email-capture" id="cart-email-capture">
-            <p class="cart-email-capture-text"><strong>Get 10% off</strong> this order — pop in your email to save your cart.</p>
             <form class="cart-email-form" id="cart-email-form">
-              <input type="email" id="cart-email-input" placeholder="you@email.com" autocomplete="email" required>
+              <input type="email" id="cart-email-input" placeholder="Email for 10% off" autocomplete="email" required>
               <button type="submit">Get code</button>
             </form>
             <button type="button" class="cart-email-capture-dismiss" id="cart-email-dismiss">No thanks</button>
@@ -353,30 +350,29 @@
     document.getElementById('cart-pair-row')?.classList.toggle('visible', saving > 0);
     const savingEl = document.getElementById('cart-pair-saving');
     if (savingEl) savingEl.textContent = '−$' + saving;
-    document.getElementById('cart-pair-nudge')?.classList.toggle('visible', boardCount(items) % 2 === 1);
+
+    // Only one footer banner shows at a time — email capture, then delivery, then pair.
+    let knownEmail = null, dismissed = false;
+    try { knownEmail = localStorage.getItem('pp_customer_email'); } catch (_) {}
+    try { dismissed = localStorage.getItem('pp_cart_capture_dismissed') === '1'; } catch (_) {}
+    const showEmailCapture = items.length > 0 && !knownEmail && !dismissed;
+
+    const physical = physicalTotal(items);
+    const remaining = FREE_DELIVERY_THRESHOLD - physical;
+    const showDelivery = !showEmailCapture && physical > 0;
+    const showPair = !showEmailCapture && !showDelivery && boardCount(items) % 2 === 1;
+
+    document.getElementById('cart-email-capture')?.classList.toggle('visible', showEmailCapture);
+    document.getElementById('cart-pair-nudge')?.classList.toggle('visible', showPair);
 
     const deliveryNudge = document.getElementById('cart-delivery-nudge');
     if (deliveryNudge) {
-      const physical = physicalTotal(items);
-      const remaining = FREE_DELIVERY_THRESHOLD - physical;
-      if (physical > 0 && remaining > 0) {
-        deliveryNudge.innerHTML = 'Add <strong>$' + remaining.toLocaleString('en-NZ') + '</strong> more for free delivery.';
-        deliveryNudge.classList.add('visible');
-      } else if (physical >= FREE_DELIVERY_THRESHOLD) {
-        deliveryNudge.innerHTML = '<strong>You\'ve got free delivery 🎉</strong>';
-        deliveryNudge.classList.add('visible');
-      } else {
-        deliveryNudge.classList.remove('visible');
+      if (showDelivery && remaining > 0) {
+        deliveryNudge.innerHTML = '$<strong>' + remaining.toLocaleString('en-NZ') + '</strong> to free delivery';
+      } else if (showDelivery) {
+        deliveryNudge.innerHTML = '<strong>Free delivery 🎉</strong>';
       }
-    }
-
-    const emailCapture = document.getElementById('cart-email-capture');
-    if (emailCapture) {
-      let knownEmail = null;
-      let dismissed = false;
-      try { knownEmail = localStorage.getItem('pp_customer_email'); } catch (_) {}
-      try { dismissed = localStorage.getItem('pp_cart_capture_dismissed') === '1'; } catch (_) {}
-      emailCapture.classList.toggle('visible', items.length > 0 && !knownEmail && !dismissed);
+      deliveryNudge.classList.toggle('visible', showDelivery);
     }
 
     if (items.length === 0) {
@@ -385,7 +381,7 @@
           <div class="cart-empty-glyph">◯</div>
           <h3>Nothing here yet.</h3>
           <p>Browse the collection and add a piece to get started.</p>
-          <a class="cart-voucher-nudge" href="gift-vouchers.html">Shopping for someone else? <span>Let them choose with a gift voucher →</span></a>
+          <a class="cart-voucher-nudge" href="gift-vouchers.html">Buying a gift? <span>Try a gift voucher →</span></a>
         </div>`;
       return;
     }
@@ -401,7 +397,7 @@
         <button class="cart-item-remove" onclick="Cart.remove('${item.id}')" aria-label="Remove ${item.name}">✕</button>
       </div>
     `).join('') + (items.some(i => i.id.startsWith('voucher-')) ? '' : `
-      <a class="cart-voucher-nudge" href="gift-vouchers.html">Buying for someone else? <span>Let them choose with a gift voucher →</span></a>`);
+      <a class="cart-voucher-nudge" href="gift-vouchers.html">Buying a gift? <span>Try a gift voucher →</span></a>`);
   }
 
   function updateBadge() {
