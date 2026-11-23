@@ -197,6 +197,8 @@
   .basin-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 16px; }
   .basin-dims { font-size: 11px; color: var(--stone); margin-bottom: 20px; }
   .stock-warn { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; color: #c97a3a; margin-bottom: 14px; }
+  .instock-note { font-size: 11px; color: var(--stone); line-height: 1.6; margin: -6px 0 8px; }
+  .instock-view-link { display: inline-block; font-size: 11px; letter-spacing: 0.06em; color: var(--sage-deep); text-decoration: underline; margin-bottom: 16px; }
   .basin-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
   .basin-price { font-size: 15px; color: var(--sage-deep); font-weight: 400; }
   .basin-price small { font-size: 10px; color: var(--stone); display: block; margin-bottom: 2px; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -410,7 +412,7 @@
 <section class="page-hero">
 <div class="hero-copy">
   <div class="hero-eyebrow">The Collection · Natural Stone Basins</div>
-  <h1>Ten rare stone vessel basins,<br>available <em>now</em>.</h1>
+  <h1>Natural stone vessel basins.<br>Two <em>in stock</em> in Auckland.</h1>
   <p class="hero-desc">The only natural stone vessel basin specialist in New Zealand. Each piece is carved from a single slab — sourced directly from the quarry, delivered to your door.</p>
 
   <div class="hero-actions">
@@ -424,7 +426,7 @@
     </div>
     <div class="hero-trust-item">
       <div class="hero-trust-icon">🚚</div>
-      <div class="hero-trust-text"><strong>NZ-wide delivery</strong>Fully insured, door to door</div>
+      <div class="hero-trust-text"><strong>Free NZ-wide delivery</strong>Insured, door to door, or collect free in Wairau Valley</div>
     </div>
     <div class="hero-trust-item">
       <div class="hero-trust-icon">✦</div>
@@ -443,7 +445,7 @@
     <div class="swatch-content">
       <div class="swatch-name" style="color:#1a1a1a;">White Carrara</div>
       <div class="swatch-type" style="color:rgba(0,0,0,0.45);">Carrara Marble</div>
-      <div class="swatch-price" style="color:rgba(0,0,0,0.35);">From NZD $1,350</div>
+      <div class="swatch-price" style="color:rgba(0,0,0,0.35);">NZD $1,350 · In stock</div>
     </div>
   </div>
   <div class="swatch swatch-pietra" onclick="document.getElementById('basins').scrollIntoView({behavior:'smooth'})">
@@ -498,17 +500,6 @@
     </div>
   </div>
 
-  <!-- BESPOKE CTA — made to order -->
-  <div class="bespoke-cta" role="region" aria-labelledby="bespoke-heading">
-    <div class="bespoke-inner">
-      <span class="bespoke-eyebrow">Bespoke by Prime Piece</span>
-      <h2 id="bespoke-heading">Your vision. <em>Our stone.</em></h2>
-      <p>Looking for something truly your own? Discover our made-to-order process, from selecting your stone to creating a piece designed for your space.</p>
-      <a href="made-to-order.html" class="bespoke-btn">Explore Made to Order →</a>
-      <p style="margin-top:12px;"><a href="commissions.html" style="color:inherit;text-decoration:underline;">See past custom commissions →</a></p>
-    </div>
-  </div>
-
   <div class="basins-grid" id="basins-grid">
 
     <!-- White Carrara — classic Italian white, delicate grey veins -->
@@ -524,8 +515,10 @@
         <div class="basin-desc">Classic Italian Carrara white with delicate grey veining. The benchmark of natural stone — timeless in any bathroom.</div>
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="stock-warn">⚡ Only 1 available</div>
+        <div class="instock-note">Free NZ-wide delivery · or see it and collect at 209B Archers Rd, Wairau Valley</div>
+        <a href="#" class="instock-view-link" onclick="event.stopPropagation(); openEnquiry('White Carrara Vessel Basin — book a viewing or video walkthrough'); return false;">Book a viewing or video walkthrough →</a>
         <div class="basin-foot">
-          <div class="basin-price"><small>From</small>NZD $1,350</div>
+          <div class="basin-price">NZD $1,350</div>
           <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-carrara','White Carrara Basin','white-carrara-vessel.jpg',1350)">Add to Cart →</button>
         </div>
       </div>
@@ -544,8 +537,10 @@
         <div class="basin-desc">Warm sandy tones with natural texture and movement. Pairs beautifully with timber vanities and warm interiors.</div>
         <div class="basin-dims">Ø 430mm × H 135mm</div>
         <div class="stock-warn">⚡ Only 1 available</div>
+        <div class="instock-note">Free NZ-wide delivery · or see it and collect at 209B Archers Rd, Wairau Valley</div>
+        <a href="#" class="instock-view-link" onclick="event.stopPropagation(); openEnquiry('Beige Travertine Vessel Basin — book a viewing or video walkthrough'); return false;">Book a viewing or video walkthrough →</a>
         <div class="basin-foot">
-          <div class="basin-price"><small>From</small>NZD $1,100</div>
+          <div class="basin-price">NZD $1,100</div>
           <button class="basin-add-btn" onclick="event.stopPropagation(); basinAdd(this,'basin-beige','Beige Travertine Basin','warm-beige-vessel.jpg',1100)">Add to Cart →</button>
         </div>
       </div>
@@ -703,6 +698,17 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- BESPOKE CTA — made to order -->
+  <div class="bespoke-cta" role="region" aria-labelledby="bespoke-heading">
+    <div class="bespoke-inner">
+      <span class="bespoke-eyebrow">Bespoke by Prime Piece</span>
+      <h2 id="bespoke-heading">Your vision. <em>Our stone.</em></h2>
+      <p>Looking for something truly your own? Discover our made-to-order process, from selecting your stone to creating a piece designed for your space.</p>
+      <a href="made-to-order.html" class="bespoke-btn">Explore Made to Order →</a>
+      <p style="margin-top:12px;"><a href="commissions.html" style="color:inherit;text-decoration:underline;">See past custom commissions →</a></p>
+    </div>
   </div>
 </section>
 
@@ -943,7 +949,7 @@
       <div class="modal-arriving-box" id="modal-arriving-box">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6d5119" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
         <div>
-          <strong id="modal-avail-title">Arriving September 2026</strong>
+          <strong id="modal-avail-title">Arriving Soon</strong>
           <span id="modal-avail-text">Enquire now to secure your piece. We'll confirm pricing and coordinate delivery personally.</span>
         </div>
       </div>
@@ -960,7 +966,7 @@
         </div>
         <div class="modal-trust-item">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="7" width="14" height="10"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17.5" cy="19" r="1.6"/></svg>
-          <div><strong>NZ-Wide Delivery</strong>Fully Insured</div>
+          <div><strong>Free NZ Delivery</strong>Fully Insured</div>
         </div>
         <div class="modal-trust-item">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l3 6-9 12L3 9l3-6z"/><path d="M3 9h18M9 3l3 6 3-6M12 9v12"/></svg>
@@ -1025,9 +1031,9 @@
 <script>
 
   const AVAILABILITY = {
-    'In Stock': { title: 'In Stock — Ready to Ship', text: 'Enquire now — NZ-wide delivery, fully insured door to door.' },
+    'In Stock': { title: 'In Stock in Auckland', text: 'Free NZ-wide delivery, fully insured door to door. Or see it and collect free at 209B Archers Rd, Wairau Valley (Mon–Fri, 8am–5pm).' },
     'Made to Order': { title: 'Made to Order', text: 'Each piece is cut and finished to order. Enquire now and we\'ll confirm lead time and pricing personally.' },
-    'Arriving Soon': { title: 'Arriving September 2026', text: 'Enquire now to secure your piece. We\'ll confirm pricing and coordinate delivery personally.' },
+    'Arriving Soon': { title: 'Arriving Soon', text: 'Enquire now to secure your piece. We\'ll confirm timing, pricing and delivery personally.' },
   };
   const basins = {
     'carrara-vessel': { name:'White Carrara', stone:'Carrara Marble · Vessel Basin', material:'Carrara Marble', desc:'Carrara marble has defined luxury stone for centuries. Pale white, veined with soft grey that moves like ink through water — refined, timeless, unmistakably classic.', img:'white-carrara-vessel.jpg', badge:'In Stock', badgeClass:'stock', price:1350, cartId:'basin-carrara', cartName:'White Carrara Basin' },
@@ -1097,8 +1103,8 @@
       ctaBtn.classList.remove('added');
       ctaBtn.onclick = () => basinAddFromModal(ctaBtn, b);
       secondaryLink.style.display = 'block';
-      secondaryLink.textContent = 'Enquire About This Piece';
-      secondaryLink.onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
+      secondaryLink.textContent = 'Book a Viewing or Video Walkthrough';
+      secondaryLink.onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin + ' — book a viewing or video walkthrough'); };
     } else {
       ctaBtn.textContent = 'Enquire Now →';
       ctaBtn.onclick = () => { closeBasinModalBtn(); openEnquiry(currentBasin); };
