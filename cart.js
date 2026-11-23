@@ -173,6 +173,34 @@
       }
       .cart-delivery-nudge.visible { display: block; }
       .cart-delivery-nudge strong { color: #5D8588; }
+      .cart-email-capture {
+        display: none; margin-bottom: 14px; padding: 14px 16px;
+        background: #EBE5DA; border-radius: 1px;
+        font-family: 'Inter Tight', sans-serif; font-size: 12px; color: #554F45; line-height: 1.5;
+      }
+      .cart-email-capture.visible { display: block; }
+      .cart-email-capture-text { margin: 0 0 10px; }
+      .cart-email-capture-text strong { color: #5D8588; }
+      .cart-email-form { display: flex; gap: 8px; }
+      .cart-email-form input {
+        flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid rgba(44,42,38,0.15);
+        background: #fff; font-family: 'Inter Tight', sans-serif; font-size: 12px; color: #2C2A26;
+        border-radius: 1px;
+      }
+      .cart-email-form input:focus { outline: none; border-color: #7BA5A8; }
+      .cart-email-form button {
+        flex-shrink: 0; padding: 9px 14px; background: #2C2A26; color: #F5F1EA; border: none;
+        font-family: 'Inter Tight', sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+        cursor: pointer; border-radius: 1px; white-space: nowrap;
+      }
+      .cart-email-form button:hover { background: #5D8588; }
+      .cart-email-form button:disabled { opacity: 0.6; cursor: default; }
+      .cart-email-capture-dismiss {
+        display: block; margin: 8px 0 0; background: none; border: none; cursor: pointer;
+        font-size: 10.5px; color: #8A8275; text-decoration: underline; padding: 0;
+        font-family: 'Inter Tight', sans-serif;
+      }
+      .cart-email-capture-note { margin: 0; font-size: 12px; color: #5D8588; }
       .cart-checkout-btn {
         display: flex; align-items: center; justify-content: center; gap: 10px;
         width: 100%; padding: 16px; text-decoration: none;
@@ -230,6 +258,14 @@
             Add another serving board and get the pair for $179. <a href="boards.html">Browse boards →</a>
           </div>
           <div class="cart-delivery-nudge" id="cart-delivery-nudge"></div>
+          <div class="cart-email-capture" id="cart-email-capture">
+            <p class="cart-email-capture-text"><strong>Get 10% off</strong> this order — pop in your email to save your cart.</p>
+            <form class="cart-email-form" id="cart-email-form">
+              <input type="email" id="cart-email-input" placeholder="you@email.com" autocomplete="email" required>
+              <button type="submit">Get code</button>
+            </form>
+            <button type="button" class="cart-email-capture-dismiss" id="cart-email-dismiss">No thanks</button>
+          </div>
           <div class="cart-pair-row" id="cart-pair-row">
             <span>Board pair saving</span>
             <span id="cart-pair-saving">−$0</span>
@@ -267,6 +303,41 @@
       `;
       navLinks.appendChild(li);
     }
+
+    document.getElementById('cart-email-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('cart-email-input');
+      const email = (input?.value || '').trim();
+      if (!email) return;
+      const btn = e.target.querySelector('button');
+      const originalText = btn.textContent;
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'Cart Drawer' }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          try { localStorage.setItem('pp_customer_email', email); } catch (_) {}
+          const container = document.getElementById('cart-email-capture');
+          if (container) container.innerHTML = '<p class="cart-email-capture-note">✓ Check your email for your 10% off code.</p>';
+        } else {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }
+      } catch (_) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById('cart-email-dismiss')?.addEventListener('click', () => {
+      try { localStorage.setItem('pp_cart_capture_dismissed', '1'); } catch (_) {}
+      document.getElementById('cart-email-capture')?.classList.remove('visible');
+    });
   }
 
   function render() {
@@ -297,6 +368,15 @@
       } else {
         deliveryNudge.classList.remove('visible');
       }
+    }
+
+    const emailCapture = document.getElementById('cart-email-capture');
+    if (emailCapture) {
+      let knownEmail = null;
+      let dismissed = false;
+      try { knownEmail = localStorage.getItem('pp_customer_email'); } catch (_) {}
+      try { dismissed = localStorage.getItem('pp_cart_capture_dismissed') === '1'; } catch (_) {}
+      emailCapture.classList.toggle('visible', items.length > 0 && !knownEmail && !dismissed);
     }
 
     if (items.length === 0) {
