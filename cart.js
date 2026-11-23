@@ -5,6 +5,11 @@
   // Board pair offer: any two serving boards for $179. Display-only — keep in sync with
   // BOARD_PAIR_SAVING in api/checkout.js, which computes the real charge.
   const BOARD_PAIR_SAVING = 19;
+
+  // Free-delivery threshold: display-only, keep in sync with FREE_DELIVERY_THRESHOLD in
+  // api/checkout.js. Vouchers are emailed, not delivered, so they don't count toward it.
+  const FREE_DELIVERY_THRESHOLD = 500;
+  function physicalTotal(items) { return items.reduce((s, i) => s + (i.type === 'Gift Voucher' ? 0 : i.price), 0); }
   function boardCount(items) { return items.filter(i => i.id.startsWith('board-')).length; }
   function pairSaving(items) { return Math.floor(boardCount(items) / 2) * BOARD_PAIR_SAVING; }
   function cartTotal(items) { return items.reduce((s, i) => s + i.price, 0) - pairSaving(items); }
@@ -161,6 +166,13 @@
       }
       .cart-pair-nudge.visible { display: block; }
       .cart-pair-nudge a { color: #5D8588; }
+      .cart-delivery-nudge {
+        display: none; margin-bottom: 14px; padding: 10px 12px;
+        background: #EBE5DA; border-radius: 1px; text-align: center;
+        font-family: 'Inter Tight', sans-serif; font-size: 12px; color: #554F45; line-height: 1.5;
+      }
+      .cart-delivery-nudge.visible { display: block; }
+      .cart-delivery-nudge strong { color: #5D8588; }
       .cart-checkout-btn {
         display: flex; align-items: center; justify-content: center; gap: 10px;
         width: 100%; padding: 16px; text-decoration: none;
@@ -217,6 +229,7 @@
           <div class="cart-pair-nudge" id="cart-pair-nudge">
             Add another serving board and get the pair for $179. <a href="boards.html">Browse boards →</a>
           </div>
+          <div class="cart-delivery-nudge" id="cart-delivery-nudge"></div>
           <div class="cart-pair-row" id="cart-pair-row">
             <span>Board pair saving</span>
             <span id="cart-pair-saving">−$0</span>
@@ -270,6 +283,21 @@
     const savingEl = document.getElementById('cart-pair-saving');
     if (savingEl) savingEl.textContent = '−$' + saving;
     document.getElementById('cart-pair-nudge')?.classList.toggle('visible', boardCount(items) % 2 === 1);
+
+    const deliveryNudge = document.getElementById('cart-delivery-nudge');
+    if (deliveryNudge) {
+      const physical = physicalTotal(items);
+      const remaining = FREE_DELIVERY_THRESHOLD - physical;
+      if (physical > 0 && remaining > 0) {
+        deliveryNudge.innerHTML = 'Add <strong>$' + remaining.toLocaleString('en-NZ') + '</strong> more for free delivery.';
+        deliveryNudge.classList.add('visible');
+      } else if (physical >= FREE_DELIVERY_THRESHOLD) {
+        deliveryNudge.innerHTML = '<strong>You\'ve got free delivery 🎉</strong>';
+        deliveryNudge.classList.add('visible');
+      } else {
+        deliveryNudge.classList.remove('visible');
+      }
+    }
 
     if (items.length === 0) {
       el.innerHTML = `

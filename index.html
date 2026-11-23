@@ -1292,6 +1292,7 @@ async function footerSubscribe(event, form, source) {
       var res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'Homepage Welcome' }) });
       var data = await res.json().catch(function () { return {}; });
       if (!res.ok || !data.success) throw new Error('subscribe failed');
+      try { localStorage.setItem('pp_customer_email', email); } catch (_) {}
       write({ state: 'subscribed' });
       document.getElementById('welcome-step-form').hidden = true;
       document.getElementById('welcome-step-done').hidden = false;
