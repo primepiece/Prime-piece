@@ -5,8 +5,13 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { email, name, source = 'Website Popup' } = req.body;
+  const { email, name, source = 'Website Popup', ref } = req.body;
   if (!email) return res.status(400).json({ error: 'Email required' });
+
+  // Campaign attribution (e.g. ?ref=simone) — purely informational, never
+  // changes which branch below runs, so it can't reopen the discount-email
+  // or waitlist paths by accident.
+  const campaignRef = typeof ref === 'string' ? ref.slice(0, 60) : undefined;
 
   const klaviyoKey = process.env.KLAVIYO_API_KEY;
   const listId = process.env.KLAVIYO_LIST_ID;
@@ -32,7 +37,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           data: {
             type: 'profile',
-            attributes: { email, first_name: name || '', properties: { source } },
+            attributes: { email, first_name: name || '', properties: campaignRef ? { source, ref: campaignRef } : { source } },
           },
         }),
       });

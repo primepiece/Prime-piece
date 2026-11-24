@@ -1,4 +1,16 @@
 /* Prime Piece — global navigation behaviour (see site-nav.css). */
+
+// Campaign attribution: ?ref=<name> on the landing link is remembered so a
+// newsletter/cart signup can be tagged with where it actually came from,
+// instead of always showing as a generic "Homepage Welcome" / "Cart Drawer".
+// Runs on every page, independent of whether a nav header is present.
+(function captureRef() {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (ref) localStorage.setItem('pp_ref_source', ref);
+  } catch (_) {}
+})();
+
 (function () {
   var nav = document.querySelector('nav.site-nav');
   if (!nav) return;

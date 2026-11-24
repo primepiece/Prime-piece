@@ -311,10 +311,12 @@
       btn.textContent = 'Sending…';
       btn.disabled = true;
       try {
+        let refSource = null;
+        try { refSource = localStorage.getItem('pp_ref_source'); } catch (_) {}
         const res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, source: 'Cart Drawer' }),
+          body: JSON.stringify({ email, source: 'Cart Drawer', ref: refSource || undefined }),
         });
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.success) {
