@@ -1,0 +1,58 @@
+{
+  "_readme": "Non-secret settings for the Meta Ads crew. The access token is NEVER stored here — see meta-ads-crew/README.md (Setup). Money values are NZD.",
+
+  "meta": {
+    "api_version": "v24.0",
+    "ad_account_id": "act_REPLACE_ME",
+    "page_id": "REPLACE_ME",
+    "instagram_user_id": "",
+    "pixel_id": "722124784327437",
+    "currency": "NZD",
+    "countries": ["NZ"]
+  },
+
+  "site": {
+    "base_url": "https://www.primepiece.co.nz",
+    "utm": "utm_source=meta&utm_medium=paid_social&utm_campaign={campaign_slug}&utm_content={ad_key}"
+  },
+
+  "targets": {
+    "_note": "MER = total store revenue / total Meta spend over the same window. Breakeven ROAS is set by gross margin. Update these with your real numbers.",
+    "target_mer": 4.0,
+    "breakeven_roas": 2.0,
+    "target_cpa_nzd": { "boards": 45, "vouchers": 30, "tables": 140, "basins": 220, "plinths": 450 }
+  },
+
+  "guardrails": {
+    "_note": "Hard limits enforced by tools/meta.mjs, not just by the prompts. Raise them deliberately, in a commit.",
+    "max_daily_budget_per_adset_nzd": 60,
+    "max_total_daily_budget_nzd": 150,
+    "max_scale_step_pct": 20,
+    "min_hours_between_budget_changes": 48,
+    "launch_status": "PAUSED",
+    "require_approval_for": ["activate", "budget_increase", "new_campaign"],
+    "auto_allowed": ["pause_ad"]
+  },
+
+  "optimize": {
+    "_note": "Ollie's kill/keep rules. High-AOV stone pieces need more spend before a verdict than a $30 DTC product — thresholds are a multiple of each category's target CPA.",
+    "first_read_after_hours": 24,
+    "min_spend_before_verdict_nzd": 50,
+    "kill_if_no_atc_after_spend_x_cpa": 1.0,
+    "kill_if_no_purchase_after_spend_x_cpa": 2.5,
+    "kill_if_ctr_link_below_pct": 0.6,
+    "kill_if_cpm_above_nzd": 45
+  },
+
+  "scale": {
+    "_note": "Scott's rules. A winner must beat target on BOTH ad-level ROAS and blended MER before budget goes up.",
+    "winner_min_purchases": 3,
+    "winner_min_roas_x_breakeven": 1.5,
+    "winner_lookback_days": 7
+  },
+
+  "slack": {
+    "_note": "Optional. Leave channel blank to skip Slack; the Claude app's own notification still tells you a run is ready.",
+    "channel": ""
+  }
+}
