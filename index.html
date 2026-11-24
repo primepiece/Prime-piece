@@ -1329,7 +1329,8 @@ async function footerSubscribe(event, form, source) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; err.hidden = false; return; }
     btn.disabled = true; btn.textContent = 'Sending…';
     try {
-      var res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'Homepage Welcome' }) });
+      var refSource = null; try { refSource = localStorage.getItem('pp_ref_source'); } catch (_) {}
+      var res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, source: 'Homepage Welcome', ref: refSource || undefined }) });
       var data = await res.json().catch(function () { return {}; });
       if (!res.ok || !data.success) throw new Error('subscribe failed');
       try { localStorage.setItem('pp_customer_email', email); } catch (_) {}
