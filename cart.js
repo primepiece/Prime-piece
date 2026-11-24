@@ -359,7 +359,10 @@
 
     const physical = physicalTotal(items);
     const remaining = FREE_DELIVERY_THRESHOLD - physical;
-    const showDelivery = !showEmailCapture && physical > 0;
+    // Only nudge when free delivery is actually within reach — telling someone
+    // on a $99 cart they're $401 away discourages rather than upsells.
+    const NEAR_FREE_DELIVERY = 150;
+    const showDelivery = !showEmailCapture && physical > 0 && (remaining <= NEAR_FREE_DELIVERY || remaining <= 0);
     const showPair = !showEmailCapture && !showDelivery && boardCount(items) % 2 === 1;
 
     document.getElementById('cart-email-capture')?.classList.toggle('visible', showEmailCapture);
