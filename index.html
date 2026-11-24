@@ -354,6 +354,7 @@
   .collection-header { padding: 88px 56px 52px; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); }
   .collection-desc { font-size: 14px; color: var(--ink-soft); max-width: 360px; line-height: 1.75; }
   .collection-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .gift-grid-3 { grid-template-columns: repeat(3, 1fr); }
   .collection-card { position: relative; display: block; overflow: hidden; text-decoration: none; border-right: 1px solid var(--line); }
   .collection-card:last-child { border-right: none; }
   .collection-card-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -510,6 +511,7 @@
     .founder-detail { gap: 28px; }
     .collection-header { padding: 64px 24px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
     .collection-grid { grid-template-columns: repeat(2, 1fr); }
+    .gift-grid-3 { grid-template-columns: 1fr; }
     .collection-card { border-right: none; border-bottom: 1px solid var(--line); }
     .collection-card:nth-child(odd) { border-right: 1px solid var(--line); }
     .featured-section { padding: 64px 24px 72px; }
@@ -635,6 +637,7 @@
         <li><a href="plinths.html">Plinths</a></li>
         <li><a href="boards.html">Boards</a></li>
         <li><a href="basins.html">Basins</a></li>
+        <li><a href="gifts.html">Gifts Under $200</a></li>
         <li><a href="gift-vouchers.html">Gift Vouchers</a></li>
         <li><a href="christmas.html">Christmas Release</a></li>
       </ul>
@@ -654,7 +657,7 @@
   <a href="gallery.html">Shop</a>
   <div class="mm-group">
     <span class="mm-label">Collections</span>
-    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a><a href="gift-vouchers.html">Gift Vouchers</a><a href="christmas.html">Christmas Release</a></div>
+    <div class="mm-sub"><a href="tables.html">Tables</a><a href="plinths.html">Plinths</a><a href="boards.html">Boards</a><a href="basins.html">Basins</a><a href="gifts.html">Gifts Under $200</a><a href="gift-vouchers.html">Gift Vouchers</a><a href="christmas.html">Christmas Release</a></div>
   </div>
   <a href="custom.html">Custom</a>
   <a href="#story">About</a>
@@ -665,16 +668,56 @@
 </div>
 
 
+<!-- Temporary for tonight's Simone Anderson IG giveaway collab — revert hero buttons to
+     "Shop Coffee Tables" -> tables.html#cat-coffee / "Christmas Release" -> christmas.html after. -->
 <section class="hero">
   <div class="hero-content">
     <div class="eyebrow">Handcrafted in Auckland</div>
     <h1>One of one.<br>Made in stone.</h1>
     <p class="hero-sub">Marble coffee tables and natural stone objects, handcrafted in Auckland.</p>
     <div class="btn-group hero-btn-group">
-      <a href="tables.html#cat-coffee" class="btn btn-primary hero-primary">Shop Coffee Tables <span class="btn-arrow">→</span></a>
-      <a href="christmas.html" class="hero-textlink">Christmas Release <span class="btn-arrow">→</span></a>
+      <a href="#christmas-gifting" class="btn btn-primary hero-primary">Shop Christmas Gifts <span class="btn-arrow">→</span></a>
+      <a href="gallery.html" class="hero-textlink">Explore Furniture <span class="btn-arrow">→</span></a>
     </div>
   </div>
+</section>
+
+<section class="collection-section" id="christmas-gifting" style="background:var(--cream);">
+  <div class="collection-header reveal">
+    <div>
+      <span class="section-label">Christmas Gifting</span>
+      <h2>Gifts,<br><em>one of one.</em></h2>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:8px;">
+        <span style="color:var(--sage);font-size:13px;letter-spacing:2px;">★★★★★</span>
+        <a href="#reviews" style="font-size:11px;color:var(--stone);text-decoration:none;border-bottom:1px solid var(--line);">5.0 — 22 Google Reviews</a>
+      </div>
+    </div>
+    <p class="collection-desc">Boards, platters and gift vouchers from $99 — order by 15 December for Christmas delivery, vouchers sent instantly with no cut-off. <a href="gifts.html" style="color:var(--sage-deep);">Shop Gifts Under $200 →</a></p>
+  </div>
+  <div class="collection-grid gift-grid-3">
+    <a href="boards.html" class="collection-card">
+      <img loading="lazy" class="collection-card-img" src="platter-dune.webp" alt="Dune — travertine marble entertaining platter">
+      <div class="collection-card-label">
+        <div><span class="collection-card-name">Dune</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">Travertine Platter — $189</div></div>
+        <span class="collection-card-arrow">↗</span>
+      </div>
+    </a>
+    <a href="boards.html" class="collection-card">
+      <img loading="lazy" class="collection-card-img" src="board-white-haven-web.webp" alt="White Haven — white marble serving board">
+      <div class="collection-card-label">
+        <div><span class="collection-card-name">Boards</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">From $99 · any two for $179</div></div>
+        <span class="collection-card-arrow">↗</span>
+      </div>
+    </a>
+    <a href="gift-vouchers.html" class="collection-card">
+      <img loading="lazy" class="collection-card-img" src="voucher-card-200.webp" alt="Prime Piece $200 gift voucher" style="object-fit:contain;background:var(--cream);">
+      <div class="collection-card-label">
+        <div><span class="collection-card-name">Vouchers</span><div style="font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.08em;margin-top:4px;">$100, $200 or $500</div></div>
+        <span class="collection-card-arrow">↗</span>
+      </div>
+    </a>
+  </div>
+  <p style="text-align:center;padding:28px 24px 0;font-size:12.5px;color:var(--stone);">Looking for something truly one of a kind? <a href="custom.html" style="color:var(--sage-deep);text-decoration:underline;">Enquire about a bespoke natural-stone serving board →</a></p>
 </section>
 
 <section class="collection-section" id="collection">
@@ -839,7 +882,7 @@
   </div>
 </section>
 
-<section class="reviews-section">
+<section class="reviews-section" id="reviews">
   <div class="reviews-header reveal">
     <div><span class="section-label">Google Reviews</span><h2>22 five-star<br><em>reviews</em>.</h2></div>
     <div class="reviews-header-right"><div style="text-align:right;"><div class="reviews-stars-all">★★★★★</div><div class="reviews-score">5.0</div><div class="reviews-score-sub">Google Rating</div><div class="reviews-source" style="margin-top:6px;">22 reviews · Google Maps</div><a href="https://www.google.com/search?q=Prime+Piece+Luxury+Stone+Furniture+Wairau+Valley+reviews" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--sage);text-decoration:none;font-family:var(--body);font-weight:500;border-bottom:1px solid var(--sage);padding-bottom:1px;">Read on Google →</a></div></div>
@@ -1243,7 +1286,7 @@ async function footerSubscribe(event, form, source) {
 (function () {
   // Dismissed → hidden for 14 days (and for the rest of this browsing session).
   // Subscribed (here or via any footer form) → never shown again on this device.
-  var KEY = 'pp_welcome', DISMISS_DAYS = 14, DELAY_MS = 3000;
+  var KEY = 'pp_welcome', DISMISS_DAYS = 14, DELAY_MS = 20000;
   var el = document.getElementById('welcome');
   if (!el) return;
   function read() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (_) { return {}; } }
@@ -1317,5 +1360,18 @@ async function footerSubscribe(event, form, source) {
 
 <script src="site-nav.js" defer></script>
 <script src="photo-upload.js" defer></script>
+<script>
+// Homepage-only: swap the shared Christmas voucher banner for a broader
+// gifting message tonight, pointing at the new gifting section below.
+// Same element, same dismiss (localStorage key), no change for other pages.
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.querySelector('.pp-promo');
+  if (!bar) return;
+  var a = bar.querySelector('a');
+  if (!a) return;
+  a.href = '#christmas-gifting';
+  a.innerHTML = 'Christmas Gifting<span>Shop Under $200 →</span>';
+});
+</script>
 </body>
 </html>
