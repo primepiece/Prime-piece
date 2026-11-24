@@ -668,14 +668,16 @@
 </div>
 
 
+<!-- Temporary for tonight's Simone Anderson IG giveaway collab — revert hero buttons to
+     "Shop Coffee Tables" -> tables.html#cat-coffee / "Christmas Release" -> christmas.html after. -->
 <section class="hero">
   <div class="hero-content">
     <div class="eyebrow">Handcrafted in Auckland</div>
     <h1>One of one.<br>Made in stone.</h1>
     <p class="hero-sub">Marble coffee tables and natural stone objects, handcrafted in Auckland.</p>
     <div class="btn-group hero-btn-group">
-      <a href="tables.html#cat-coffee" class="btn btn-primary hero-primary">Shop Coffee Tables <span class="btn-arrow">→</span></a>
-      <a href="christmas.html" class="hero-textlink">Christmas Release <span class="btn-arrow">→</span></a>
+      <a href="#christmas-gifting" class="btn btn-primary hero-primary">Shop Christmas Gifts <span class="btn-arrow">→</span></a>
+      <a href="gallery.html" class="hero-textlink">Explore Furniture <span class="btn-arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -1284,7 +1286,7 @@ async function footerSubscribe(event, form, source) {
 (function () {
   // Dismissed → hidden for 14 days (and for the rest of this browsing session).
   // Subscribed (here or via any footer form) → never shown again on this device.
-  var KEY = 'pp_welcome', DISMISS_DAYS = 14, DELAY_MS = 8000;
+  var KEY = 'pp_welcome', DISMISS_DAYS = 14, DELAY_MS = 20000;
   var el = document.getElementById('welcome');
   if (!el) return;
   function read() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (_) { return {}; } }
