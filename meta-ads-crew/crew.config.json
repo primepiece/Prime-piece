@@ -1,0 +1,52 @@
+{
+  "_readme": "Every number in 'guardrails' is enforced in code by scripts/meta-ads/meta.mjs. The agents cannot override them; only an edit to this file can. Values in NZD.",
+
+  "meta": {
+    "api_version": "v24.0",
+    "ad_account_id": "act_REPLACE_ME",
+    "page_id": "REPLACE_ME",
+    "instagram_user_id": "",
+    "pixel_id": "722124784327437",
+    "currency": "NZD"
+  },
+
+  "naming": {
+    "prefix": "CREW",
+    "_note": "Every campaign the crew creates is named 'CREW | ...'. The script refuses to pause, activate or scale anything without this prefix, so your hand-built campaigns are never touched."
+  },
+
+  "allowed_link_domains": ["primepiece.co.nz", "www.primepiece.co.nz"],
+
+  "targets": {
+    "_note": "EDIT THESE. Scott (scale) will not scale anything until target_cpa_nzd and breakeven_roas are set to real numbers.",
+    "target_cpa_nzd": null,
+    "breakeven_roas": null,
+    "target_roas": null,
+    "target_mer": 3.0,
+    "primary_event": "PURCHASE"
+  },
+
+  "guardrails": {
+    "max_daily_budget_per_campaign_nzd": 40,
+    "max_total_crew_daily_budget_nzd": 120,
+    "max_ads_per_launch": 6,
+    "min_hours_before_judging": 24,
+    "min_spend_before_judging_nzd": 50,
+    "kill_if_spend_over_cpa_multiple_with_zero_purchases": 2.0,
+    "scale_step_pct": 20,
+    "min_hours_between_scale_steps": 72,
+    "max_daily_budget_after_scaling_nzd": 150,
+    "require_pixel_fired_within_hours": 48,
+    "auto_pause_allowed": true,
+    "auto_scale_allowed": false
+  },
+
+  "defaults": {
+    "country": "NZ",
+    "age_min": 25,
+    "age_max": 65,
+    "advantage_audience": true,
+    "call_to_action": "SHOP_NOW",
+    "utm": "utm_source=meta&utm_medium=paid_social&utm_campaign={{campaign}}&utm_content={{ad}}"
+  }
+}
