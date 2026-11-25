@@ -31,6 +31,7 @@ export const CATALOG = {
   'board-silver-drift-2':{ name: 'Silver Drift II', price: 99 },
   'board-teal-tide-2':   { name: 'Teal Tide II', price: 99 },
   'board-teal-tide-4':   { name: 'Teal Tide IV', price: 99 },
+  'board-titanium-granite': { name: 'Midnight Gold', price: 99 },
   'board-volcanic-ash':  { name: 'Volcanic Ash', price: 99 },
   'board-white-haven':   { name: 'White Haven', price: 99 },
   // Entertaining platters
