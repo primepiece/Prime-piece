@@ -24,7 +24,7 @@ export const CATALOG = {
   'board-green-onyx':    { name: 'Jade Cloud', price: 99 },
   'board-green-onyx-2':  { name: 'Jade Cloud II', price: 99 },
   'board-green-onyx-3':  { name: 'Jade Cloud III', price: 99 },
-  'board-jade-blossom':  { name: 'Jade Blossom', price: 99 },
+  'board-green-onyx-4':  { name: 'Jade Cloud IV', price: 99 },
   'board-india-green':   { name: 'Forest Stone', price: 99 },
   'board-pink-storm':    { name: 'Pink Storm', price: 99 },
   'board-pink-storm-2':  { name: 'Pink Storm II', price: 99 },
