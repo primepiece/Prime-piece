@@ -27,6 +27,7 @@ export const CATALOG = {
   'board-pink-storm':    { name: 'Pink Storm', price: 99 },
   'board-pink-storm-2':  { name: 'Pink Storm II', price: 99 },
   'board-pink-storm-3':  { name: 'Pink Storm III', price: 99 },
+  'board-pink-storm-4':  { name: 'Pink Storm IV', price: 99 },
   'board-silver-drift':  { name: 'Silver Drift', price: 99 },
   'board-silver-drift-2':{ name: 'Silver Drift II', price: 99 },
   'board-teal-tide-2':   { name: 'Teal Tide II', price: 99 },
