@@ -20,6 +20,7 @@ export const CATALOG = {
   'basin-yellow':     { name: 'Yellow Onyx Vessel Basin',          price: 1450 },
   // Serving boards
   'board-emerald-vein':  { name: 'Emerald Vein', price: 99 },
+  'board-emerald-vein-2':{ name: 'Emerald Vein II', price: 99 },
   'board-burgundy-red':  { name: 'Garnet Bloom', price: 99 },
   'board-green-onyx':    { name: 'Jade Cloud', price: 99 },
   'board-green-onyx-2':  { name: 'Jade Cloud II', price: 99 },
