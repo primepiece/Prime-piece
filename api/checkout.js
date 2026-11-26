@@ -22,6 +22,7 @@ export const CATALOG = {
   'board-emerald-vein':  { name: 'Emerald Vein', price: 99 },
   'board-emerald-vein-2':{ name: 'Emerald Vein II', price: 99 },
   'board-emerald-vein-3':{ name: 'Emerald Vein III', price: 99 },
+  'board-emerald-vein-4':{ name: 'Emerald Vein IV', price: 99 },
   'board-burgundy-red':  { name: 'Garnet Bloom', price: 99 },
   'board-green-onyx':    { name: 'Jade Cloud', price: 99 },
   'board-green-onyx-2':  { name: 'Jade Cloud II', price: 99 },
