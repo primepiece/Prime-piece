@@ -963,7 +963,7 @@
 
   <div class="board-card reveal" data-type="platter" data-tags="light" data-product-id="platter-rosa-cloud" onclick="openModal('Rosa Cloud — Entertaining Platter','Pink Onyx Marble','platter-rosa-cloud.jpg','L: 350mm × W: 250mm × D: 20mm','Soft pink onyx marble with flowing rose-gold veining, cut as a generous entertaining platter — one of one, never repeated')">
     <div class="board-img-wrap">
-      <span class="board-badge">Available</span>
+      <span class="board-badge" style="background:#555">Sold</span>
       <img class="board-img" src="platter-rosa-cloud.webp" alt="Rosa Cloud — pink onyx marble entertaining platter handcrafted Auckland New Zealand" loading="lazy">
       <div class="view-btn">View Piece →</div>
     </div>
@@ -971,10 +971,10 @@
       <div class="board-name">Rosa Cloud — Entertaining Platter</div>
       <div class="board-stone">Pink Onyx Marble</div>
       <div class="board-dims">L: 350mm × W: 250mm × D: 20mm<br>With carved handle</div>
-      <div class="board-price">NZD $189</div>
+      <div class="board-price" style="color:var(--stone)">NZD $189 — Sold</div>
       <div class="board-foot">
         <span class="board-type">Entertaining Platter</span>
-        <button class="enquire-btn pp-add-btn" data-id="platter-rosa-cloud" onclick="event.stopPropagation(); Cart.add({id:'platter-rosa-cloud',name:'Rosa Cloud — Entertaining Platter',type:'Entertaining Platter',image:'platter-rosa-cloud.jpg',price:189})">Add to Cart →</button>
+        <button class="enquire-btn" disabled style="opacity:0.45;cursor:default">Sold Out</button>
       </div>
     </div>
   </div>
@@ -1357,7 +1357,7 @@
     'board-india-green.jpg':      { price: 99, id: 'board-india-green' },
     'board-silver-drift.jpg':     { price: 99, id: 'board-silver-drift', sold: true },
     'board-silver-drift-2.jpg':   { price: 99, id: 'board-silver-drift-2' },
-    'platter-rosa-cloud.jpg':     { price: 189, id: 'platter-rosa-cloud' },
+    'platter-rosa-cloud.jpg':     { price: 189, id: 'platter-rosa-cloud', sold: true },
     'platter-teal-tide.jpg':      { price: 189, id: 'platter-teal-tide' },
     'platter-teal-tide-2.jpg':    { price: 189, id: 'platter-teal-tide-2', sold: true },
     'platter-dune.jpg':            { price: 189, id: 'platter-dune' },
