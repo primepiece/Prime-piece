@@ -51,6 +51,7 @@ export const CATALOG = {
   'platter-dune':        { name: 'Dune — Entertaining Platter', price: 189 },
   'platter-silver-mist': { name: 'Silver Mist — Entertaining Platter', price: 189 },
   'platter-sienna-rose': { name: 'Sienna Rose — Entertaining Platter', price: 189 },
+  'platter-maroon-magic':{ name: 'Maroon Magic — Entertaining Platter', price: 189 },
   // Plinths
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Coffee Table Plinth', price: 1950 },
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
