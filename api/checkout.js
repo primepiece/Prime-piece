@@ -53,6 +53,7 @@ export const CATALOG = {
   'platter-sienna-rose': { name: 'Sienna Rose — Entertaining Platter', price: 189 },
   'platter-maroon-magic':{ name: 'Maroon Magic — Entertaining Platter', price: 189 },
   'platter-jade-cloud':  { name: 'Jade Cloud — Entertaining Platter', price: 189 },
+  'platter-emerald-vein':{ name: 'Emerald Vein — Entertaining Platter', price: 189 },
   // Plinths
   'plinth-dekton-sirius-side':       { name: 'Dekton Sirius Coffee Table Plinth', price: 1950 },
   'plinth-florim':                   { name: 'Florim Plinth',                     price: 3200 },
